@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 62/80 written; 0/80 runtime validated.  
+**Progress:** 63/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -106,7 +106,7 @@
 | 60 | [Kubernetes Operator Compatibility and Deployment](60-kubernetes-operator-compatibility-and-deployment.md) | Review controller compatibility, deploy a scoped TLS/SCRAM replica set and verify workload ownership, retained storage and application acceptance | Written; runtime validation pending |
 | 61 | [Kubernetes Storage Scheduling and Maintenance](61-kubernetes-storage-scheduling-and-maintenance.md) | Verify a controlled secondary pod replacement with retained storage, placement and application evidence | Written; runtime validation pending |
 | 62 | [Rolling Upgrades FCV and Rollback Constraints](62-rolling-upgrades-fcv-and-rollback-constraints.md) | Verify recovered binary stages, separately gate FCV activation and document supported recovery constraints | Written; runtime validation pending |
-| 63 | Drivers Connection Pools Timeouts and Retries | Demonstrate drivers connection pools timeouts and retries with evidence and cleanup | Planned |
+| 63 | [Drivers Connection Pools Timeouts and Retries](63-drivers-connection-pools-timeouts-and-retries.md) | Observe bounded client pools and deadlines, record retry outcomes and reconcile stable operation identities | Written; runtime validation pending |
 | 64 | Change Streams Resume Tokens and CDC | Demonstrate change streams resume tokens and cdc with evidence and cleanup | Planned |
 
 ## Part 9 — Specialized Data and Observability
