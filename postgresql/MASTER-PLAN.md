@@ -15,6 +15,10 @@
 - Pin the PostgreSQL major version and all tool versions when each lab is authored. Annotate version-dependent views, settings, privileges and feature availability. Use official documentation for the selected versions.
 - Run failure injection and destructive SQL only in disposable environments. Administrative examples use restricted roles where possible and explain when elevated access is required.
 
+## Documentation and version policy
+
+Use the [latest stable official PostgreSQL documentation](https://www.postgresql.org/docs/current/) as the primary source. The reference major for this curriculum is PostgreSQL 18, checked on 2026-10-11. Pin the exact minor version used for each lab and retain version-specific /docs/18/ links for reproducibility. Review release notes before updating the baseline. Document differences for older production versions and provider-supported versions; beta and development releases are optional preview topics.
+
 ## Chapter standard
 
 Every chapter follows the same operational format:

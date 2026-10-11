@@ -89,7 +89,7 @@ Do not restart solely because latency increased. A restart can interrupt work, e
 
 ## 6. Safe diagnostic entry point
 
-The linked lab uses PostgreSQL 17 as the reference major version. Record the exact server and client versions used. Examples deliberately use a small set of established functions and views; use documentation matching your deployed major version.
+The linked lab uses PostgreSQL 18 as the reference major version. Record the exact server and client versions used. Examples deliberately use a small set of established functions and views; use documentation matching your deployed major version.
 
 Use an existing authorized lab login. A dedicated observer with CONNECT to the lab database and approved monitoring privileges is preferred. pg_monitor provides broad monitoring visibility and inherits other monitoring roles; it is not a grant to read all application tables. It can expose sensitive activity and settings, so assign it deliberately.
 
@@ -207,8 +207,8 @@ You pass when another engineer can identify the target, interpret the snapshot, 
 
 ## 13. Official references
 
-- [PostgreSQL 17 monitoring and statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 predefined roles](https://www.postgresql.org/docs/17/predefined-roles.html)
-- [PostgreSQL 17 psql](https://www.postgresql.org/docs/17/app-psql.html)
-- [PostgreSQL 17 pg_isready](https://www.postgresql.org/docs/17/app-pg-isready.html)
-- [PostgreSQL 17 pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
+- [PostgreSQL 18 monitoring and statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 predefined roles](https://www.postgresql.org/docs/18/predefined-roles.html)
+- [PostgreSQL 18 psql](https://www.postgresql.org/docs/18/app-psql.html)
+- [PostgreSQL 18 pg_isready](https://www.postgresql.org/docs/18/app-pg-isready.html)
+- [PostgreSQL 18 pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)

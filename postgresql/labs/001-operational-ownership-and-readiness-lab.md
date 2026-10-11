@@ -6,7 +6,7 @@
 
 Build a small operational evidence pack and demonstrate why endpoint readiness is different from authenticated SQL and successful workload execution.
 
-**Reference environment:** PostgreSQL 17, psql and pg_isready; Bash on Linux, macOS or WSL. Record the exact versions.  
+**Reference environment:** PostgreSQL 18, psql and pg_isready; Bash on Linux, macOS or WSL. Record the exact versions.  
 **Duration:** 45–60 minutes.  
 **Required access:** an existing disposable PostgreSQL instance and an authorized login with CONNECT. An approved observer with monitoring visibility is preferred. No superuser is required for the exercises.  
 **Production impact:** the two-session pg_sleep exercise belongs in a disposable lab only. It consumes one extra connection for 30 seconds. No restart, promotion, DDL or persistent configuration changes are performed.

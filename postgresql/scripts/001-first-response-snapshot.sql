@@ -1,5 +1,5 @@
 -- Chapter 001: read-only first-response snapshot.
--- Reference major: PostgreSQL 17. Run in psql, outside a long explicit transaction.
+-- Reference major: PostgreSQL 18. Run in psql, outside a long explicit transaction.
 -- Uses current connection credentials. No query text or application data is exported.
 \set ON_ERROR_STOP on
 \pset pager off
