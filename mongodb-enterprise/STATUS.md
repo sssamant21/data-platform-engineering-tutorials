@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 63/80  
+**Written:** 64/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 64 — Change Streams Resume Tokens and CDC
+**Next:** Chapter 65 — Time Series Collections and Retention
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -73,7 +73,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 61 | Kubernetes Storage Scheduling and Maintenance | Written | Reviewed | Pending |
 | 62 | Rolling Upgrades FCV and Rollback Constraints | Written | Reviewed | Pending |
 | 63 | Drivers Connection Pools Timeouts and Retries | Written | Reviewed | Pending |
-| 64 | Change Streams Resume Tokens and CDC | Planned | Pending | Pending |
+| 64 | Change Streams Resume Tokens and CDC | Written | Reviewed; mocked-consumer/SQLite checks passed | Pending |
 | 65 | Time Series Collections and Retention | Planned | Pending | Pending |
 | 66 | GridFS Capped Collections and Workload Boundaries | Planned | Pending | Pending |
 | 67 | MongoDB to Snowflake Direct Integration | Planned | Pending | Pending |
