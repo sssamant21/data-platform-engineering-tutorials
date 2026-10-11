@@ -656,4 +656,4 @@ Removal is authorized only for these inspected owned resources. Source container
 - [Logical backup/restore consistency](https://www.mongodb.com/docs/v8.0/tutorial/backup-and-restore-tools/)
 - [Previous: Chapter 53 — Accidental Delete and Drop Recovery](53-accidental-delete-and-drop-recovery.md)
 
-Next: **Chapter 55 — Sharded Cluster Backup and Disaster Recovery** (planned).
+Next: **[Chapter 55 — Sharded Cluster Backup and Disaster Recovery](55-sharded-cluster-backup-and-disaster-recovery.md)**.
