@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 61/80  
+**Written:** 62/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 62 — Rolling Upgrades FCV and Rollback Constraints
+**Next:** Chapter 63 — Drivers Connection Pools Timeouts and Retries
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -71,7 +71,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 59 | Linux Installation Configuration and Service Operations | Written | Reviewed | Pending |
 | 60 | Kubernetes Operator Compatibility and Deployment | Written | Reviewed | Pending |
 | 61 | Kubernetes Storage Scheduling and Maintenance | Written | Reviewed | Pending |
-| 62 | Rolling Upgrades FCV and Rollback Constraints | Planned | Pending | Pending |
+| 62 | Rolling Upgrades FCV and Rollback Constraints | Written | Reviewed | Pending |
 | 63 | Drivers Connection Pools Timeouts and Retries | Planned | Pending | Pending |
 | 64 | Change Streams Resume Tokens and CDC | Planned | Pending | Pending |
 | 65 | Time Series Collections and Retention | Planned | Pending | Pending |
