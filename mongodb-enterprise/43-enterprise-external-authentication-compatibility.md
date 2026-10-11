@@ -561,4 +561,4 @@ If setup/cleanup was interrupted, inspect recorded `userId`, UUIDs and remaining
 - [Chapter 41 — Users Roles and Least Privilege](41-users-roles-and-least-privilege.md)
 - [Chapter 42 — TLS Certificates and x509 Authentication](42-tls-certificates-and-x509-authentication.md)
 
-Next: **Chapter 44 — Enterprise Audit Configuration and Analysis** (planned).
+Next: [**Chapter 44 — Enterprise Audit Configuration and Analysis**](44-enterprise-audit-configuration-and-analysis.md).
