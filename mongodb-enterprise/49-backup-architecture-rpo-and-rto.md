@@ -327,4 +327,4 @@ Archive the chapter's planning files in the protected evidence location. This ch
 
 Use the documentation matching the installed release, FCV, tool version and backup platform. Managed-service capabilities and retention policies must be verified on the actual deployment.
 
-Next: **Chapter 50 — mongodump mongorestore and Logical Recovery** (planned).
+Next: [**Chapter 50 — mongodump mongorestore and Logical Recovery**](50-mongodump-mongorestore-and-logical-recovery.md).
