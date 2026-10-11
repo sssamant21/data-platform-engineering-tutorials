@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 44/80  
+**Written:** 45/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 45 — Encryption at Rest and Key Management
+**Next:** Chapter 46 — Client Side and Queryable Encryption
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -54,7 +54,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 42 | TLS Certificates and x509 Authentication | Written | Reviewed | Pending |
 | 43 | Enterprise External Authentication Compatibility | Written | Reviewed | Pending |
 | 44 | Enterprise Audit Configuration and Analysis | Written | Reviewed | Pending |
-| 45 | Encryption at Rest and Key Management | Planned | Pending | Pending |
+| 45 | Encryption at Rest and Key Management | Written | Reviewed | Pending |
 | 46 | Client Side and Queryable Encryption | Planned | Pending | Pending |
 | 47 | Secrets Rotation and Access Review | Planned | Pending | Pending |
 | 48 | Security Hardening Acceptance Lab | Planned | Pending | Pending |
