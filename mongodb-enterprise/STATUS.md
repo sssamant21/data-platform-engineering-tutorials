@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 48/80  
+**Written:** 49/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 49 — Backup Architecture RPO and RTO
+**Next:** Chapter 50 — mongodump mongorestore and Logical Recovery
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -58,7 +58,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 46 | Client Side and Queryable Encryption | Written | Reviewed | Pending |
 | 47 | Secrets Rotation and Access Review | Written | Reviewed | Pending |
 | 48 | Security Hardening Acceptance Lab | Written | Reviewed | Pending |
-| 49 | Backup Architecture RPO and RTO | Planned | Pending | Pending |
+| 49 | Backup Architecture RPO and RTO | Written | Reviewed | Pending |
 | 50 | mongodump mongorestore and Logical Recovery | Planned | Pending | Pending |
 | 51 | Consistent Snapshots and Restore Validation | Planned | Pending | Pending |
 | 52 | Ops Manager Backup and Point in Time Recovery | Planned | Pending | Pending |
