@@ -16,6 +16,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [010](chapters/010-configuration-drift-and-baseline-acceptance.md) | Authored | Bash/Python syntax, comparison-helper synthetic cases, links and bounded SQL reviewed | Pending; drift and baseline acceptance lab not executed | Published with this tracker |
 | [011](chapters/011-roles-ownership-membership-and-least-privilege.md) | Authored | Links, fences, PG18 membership semantics and bounded SQL manually reviewed; no shell/SQL parser available | Pending; role and privilege lab not executed; execution environment unavailable | Published with this tracker |
 | [012](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored | Bash/Python syntax, links, fences and bounded SQL reviewed; 12 helper filesystem fixture cases (top-level lab guard mocked) plus root-refusal check passed | Pending; authentication/HBA reload and reconnect lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 013–100 | Planned | Pending | Pending | Plan only |
+| [013](chapters/013-tls-certificates-verification-and-rotation.md) | Authored | Bash/Python syntax, links and bounded SQL reviewed; OpenSSL certificate fixtures and 5 peer-probe cases against a simulated SSLRequest endpoint passed; fixture generation bypassed the OS guard | Pending; PostgreSQL TLS authentication/reload/rotation lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 014–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 013 — TLS Certificates, Verification and Rotation.
+**Next:** Chapter 014 — Secrets Rotation and Service Account Lifecycle.
