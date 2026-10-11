@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 51/80  
+**Written:** 52/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 52 — Ops Manager Backup and Point in Time Recovery
+**Next:** Chapter 53 — Accidental Delete and Drop Recovery
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -61,7 +61,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 49 | Backup Architecture RPO and RTO | Written | Reviewed | Pending |
 | 50 | mongodump mongorestore and Logical Recovery | Written | Reviewed | Pending |
 | 51 | Consistent Snapshots and Restore Validation | Written | Reviewed | Pending |
-| 52 | Ops Manager Backup and Point in Time Recovery | Planned | Pending | Pending |
+| 52 | Ops Manager Backup and Point in Time Recovery | Written | Reviewed | Pending |
 | 53 | Accidental Delete and Drop Recovery | Planned | Pending | Pending |
 | 54 | Replica Set Disaster Recovery | Planned | Pending | Pending |
 | 55 | Sharded Cluster Backup and Disaster Recovery | Planned | Pending | Pending |
