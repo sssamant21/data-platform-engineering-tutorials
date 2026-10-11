@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 56/80 written; 0/80 runtime validated.  
+**Progress:** 57/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -100,7 +100,7 @@
 
 | # | Chapter | Lab outcome | Status |
 |---|---|---|---|
-| 57 | Ops Manager Architecture and Prerequisites | Demonstrate ops manager architecture and prerequisites with evidence and cleanup | Planned |
+| 57 | [Ops Manager Architecture and Prerequisites](57-ops-manager-architecture-and-prerequisites.md) | Map management and backup dependencies, review release compatibility and assess host and TLS connectivity prerequisites | Written; runtime validation pending |
 | 58 | Ops Manager Automation Monitoring and Agents | Demonstrate ops manager automation monitoring and agents with evidence and cleanup | Planned |
 | 59 | Linux Installation Configuration and Service Operations | Demonstrate linux installation configuration and service operations with evidence and cleanup | Planned |
 | 60 | Kubernetes Operator Compatibility and Deployment | Demonstrate kubernetes operator compatibility and deployment with evidence and cleanup | Planned |
