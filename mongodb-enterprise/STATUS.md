@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 54/80  
+**Written:** 55/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 55 — Sharded Cluster Backup and Disaster Recovery
+**Next:** Chapter 56 — Restore Drill and Recovery Acceptance Project
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -64,7 +64,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 52 | Ops Manager Backup and Point in Time Recovery | Written | Reviewed | Pending |
 | 53 | Accidental Delete and Drop Recovery | Written | Reviewed | Pending |
 | 54 | Replica Set Disaster Recovery | Written | Reviewed | Pending |
-| 55 | Sharded Cluster Backup and Disaster Recovery | Planned | Pending | Pending |
+| 55 | Sharded Cluster Backup and Disaster Recovery | Written | Reviewed | Pending |
 | 56 | Restore Drill and Recovery Acceptance Project | Planned | Pending | Pending |
 | 57 | Ops Manager Architecture and Prerequisites | Planned | Pending | Pending |
 | 58 | Ops Manager Automation Monitoring and Agents | Planned | Pending | Pending |
