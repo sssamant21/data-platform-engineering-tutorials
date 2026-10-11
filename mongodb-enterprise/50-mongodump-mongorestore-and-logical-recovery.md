@@ -517,4 +517,4 @@ Retain the local archive/state/evidence under the lab's retention decision. Arch
 - [MongoDB 8.0 logical backup and restore](https://www.mongodb.com/docs/v8.0/tutorial/backup-and-restore-tools/)
 - [Previous: Chapter 49 — Backup Architecture RPO and RTO](49-backup-architecture-rpo-and-rto.md)
 
-Next: **Chapter 51 — Consistent Snapshots and Restore Validation** (planned).
+Next: [**Chapter 51 — Consistent Snapshots and Restore Validation**](51-consistent-snapshots-and-restore-validation.md).
