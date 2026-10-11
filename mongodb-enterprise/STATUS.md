@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 58/80  
+**Written:** 59/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 59 — Linux Installation Configuration and Service Operations
+**Next:** Chapter 60 — Kubernetes Operator Compatibility and Deployment
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -68,7 +68,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 56 | Restore Drill and Recovery Acceptance Project | Written | Reviewed | Pending |
 | 57 | Ops Manager Architecture and Prerequisites | Written | Reviewed | Pending |
 | 58 | Ops Manager Automation Monitoring and Agents | Written | Reviewed | Pending |
-| 59 | Linux Installation Configuration and Service Operations | Planned | Pending | Pending |
+| 59 | Linux Installation Configuration and Service Operations | Written | Reviewed | Pending |
 | 60 | Kubernetes Operator Compatibility and Deployment | Planned | Pending | Pending |
 | 61 | Kubernetes Storage Scheduling and Maintenance | Planned | Pending | Pending |
 | 62 | Rolling Upgrades FCV and Rollback Constraints | Planned | Pending | Pending |
