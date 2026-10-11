@@ -67,7 +67,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 
 | Chapter | Tutorial | Status |
 |---|---|---|
-| 011 | Roles, Ownership, Membership and Least Privilege | Planned |
+| 011 | [Roles, Ownership, Membership and Least Privilege](chapters/011-roles-ownership-membership-and-least-privilege.md) | Authored; lab execution pending |
 | 012 | pg_hba.conf, Authentication and Connection Diagnosis | Planned |
 | 013 | TLS Certificates, Verification and Rotation | Planned |
 | 014 | Secrets Rotation and Service Account Lifecycle | Planned |
