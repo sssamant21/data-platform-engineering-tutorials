@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 40/80 written; 0/80 runtime validated.  
+**Progress:** 41/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -74,7 +74,7 @@
 
 | # | Chapter | Lab outcome | Status |
 |---|---|---|---|
-| 41 | Users Roles and Least Privilege | Demonstrate users roles and least privilege with evidence and cleanup | Planned |
+| 41 | [Users Roles and Least Privilege](41-users-roles-and-least-privilege.md) | Bootstrap access control, verify scoped roles and denials, rotate credentials, and clean up owned identities/data | Written; runtime validation pending |
 | 42 | TLS Certificates and x509 Authentication | Demonstrate tls certificates and x509 authentication with evidence and cleanup | Planned |
 | 43 | Enterprise External Authentication Compatibility | Demonstrate enterprise external authentication compatibility with evidence and cleanup | Planned |
 | 44 | Enterprise Audit Configuration and Analysis | Demonstrate enterprise audit configuration and analysis with evidence and cleanup | Planned |
