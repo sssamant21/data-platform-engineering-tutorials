@@ -59,7 +59,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | 007 | [Initialization, Checksums, Locale and Encoding](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored; lab execution pending |
 | 008 | [Configuration Precedence, Reloads and Restarts](chapters/008-configuration-precedence-reloads-and-restarts.md) | Authored; lab execution pending |
 | 009 | [systemd, Startup, Shutdown and Crash Recovery](chapters/009-systemd-startup-shutdown-and-crash-recovery.md) | Authored; lab execution pending |
-| 010 | Configuration Drift and Baseline Acceptance | Planned |
+| 010 | [Configuration Drift and Baseline Acceptance](chapters/010-configuration-drift-and-baseline-acceptance.md) | Authored; lab execution pending |
 
 **Module acceptance lab:** Recover a failed start and demonstrate reload versus restart using controlled configuration changes.
 

@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–009 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–010 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -12,7 +12,7 @@ Chapters 001–009 are authored and reviewed statically. Actual lab execution re
 - [006 — Installation, Packages and Directory Layout](chapters/006-installation-packages-and-directory-layout.md)
 - [007 — Initialization, Checksums, Locale and Encoding](chapters/007-initialization-checksums-locale-and-encoding.md)
 - [008 — Configuration Precedence, Reloads and Restarts](chapters/008-configuration-precedence-reloads-and-restarts.md)
-
 - [009 — systemd, Startup, Shutdown and Crash Recovery](chapters/009-systemd-startup-shutdown-and-crash-recovery.md)
+- [010 — Configuration Drift and Baseline Acceptance](chapters/010-configuration-drift-and-baseline-acceptance.md)
 
-Next: Chapter 010 — Configuration Drift and Baseline Acceptance.
+Next: Chapter 011 — Roles, Ownership, Membership and Least Privilege.
