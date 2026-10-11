@@ -469,4 +469,4 @@ Select documentation for the exact Ops Manager release; `current` can move to an
 - [MongoDB 8.0 database profiler configuration](https://www.mongodb.com/docs/v8.0/tutorial/manage-the-database-profiler/)
 - [Chapter 57 — Ops Manager Architecture and Prerequisites](57-ops-manager-architecture-and-prerequisites.md)
 
-Next: **Chapter 59 — Linux Installation Configuration and Service Operations** (planned).
+Next: **[Chapter 59 — Linux Installation Configuration and Service Operations](59-linux-installation-configuration-and-service-operations.md)**.
