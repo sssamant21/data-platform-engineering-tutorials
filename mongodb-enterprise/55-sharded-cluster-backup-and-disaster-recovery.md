@@ -601,4 +601,4 @@ No `--volumes` is supplied: evidence/data retention is a separate decision. Do n
 - [Chapter 35 — Build a Sharded Lab Cluster](35-build-a-sharded-lab-cluster.md)
 - [Previous: Chapter 54 — Replica Set Disaster Recovery](54-replica-set-disaster-recovery.md)
 
-Next: **Chapter 56 — Restore Drill and Recovery Acceptance Project** (planned).
+Next: **[Chapter 56 — Restore Drill and Recovery Acceptance Project](56-restore-drill-and-recovery-acceptance-project.md)**.
