@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 48/80 written; 0/80 runtime validated.  
+**Progress:** 49/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -87,7 +87,7 @@
 
 | # | Chapter | Lab outcome | Status |
 |---|---|---|---|
-| 49 | Backup Architecture RPO and RTO | Demonstrate backup architecture rpo and rto with evidence and cleanup | Planned |
+| 49 | [Backup Architecture RPO and RTO](49-backup-architecture-rpo-and-rto.md) | Define recovery objectives, architecture and dependencies; evaluate declared recovery timelines | Written; runtime validation pending |
 | 50 | mongodump mongorestore and Logical Recovery | Demonstrate mongodump mongorestore and logical recovery with evidence and cleanup | Planned |
 | 51 | Consistent Snapshots and Restore Validation | Demonstrate consistent snapshots and restore validation with evidence and cleanup | Planned |
 | 52 | Ops Manager Backup and Point in Time Recovery | Demonstrate ops manager backup and point in time recovery with evidence and cleanup | Planned |
