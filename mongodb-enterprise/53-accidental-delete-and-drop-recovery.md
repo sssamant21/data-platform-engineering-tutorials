@@ -564,4 +564,4 @@ Partial lab failures require inspected, explicit owned-object cleanup rather tha
 - [mongorestore options and limitations](https://www.mongodb.com/docs/database-tools/mongorestore/)
 - [Previous: Chapter 52 — Ops Manager Backup and Point in Time Recovery](52-ops-manager-backup-and-point-in-time-recovery.md)
 
-Next: **Chapter 54 — Replica Set Disaster Recovery** (planned).
+Next: [**Chapter 54 — Replica Set Disaster Recovery**](54-replica-set-disaster-recovery.md).
