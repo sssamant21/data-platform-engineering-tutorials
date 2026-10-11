@@ -21,6 +21,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [015](chapters/015-audit-logging-network-isolation-and-security-acceptance.md) | Authored | Bash/Python syntax, links, fences and read-only SQL reviewed; audit setup order, event-window scope and explicit cleanup checked | Pending; PostgreSQL/pgAudit, production network paths and central audit delivery not executed | Published with this tracker |
 | [016](chapters/016-mvcc-snapshots-and-tuple-visibility.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; read-only/nonallocating observer, bounded waits and scoped cleanup checked | Pending; multi-session MVCC/snapshot/VACUUM lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [017](chapters/017-isolation-levels-and-application-failure-patterns.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; 15 retry-orchestration/configuration fixture cases with simulated connections passed | Pending; lost-update/RR/write-skew/Serializable lab and real driver integration not executed; no PostgreSQL runtime | Published with this tracker |
-| 018–100 | Planned | Pending | Pending | Plan only |
+| [018](chapters/018-locks-blocking-chains-and-deadlocks.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; metadata-only observer, deduplicated bounded graph/cycle/external/prepared guards and scoped cleanup checked | Pending; row-chain/strong-lock/NOWAIT/deadlock lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 019–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 018 — Locks, Blocking Chains and Deadlocks.
+**Next:** Chapter 019 — Long Transactions, Idle Sessions and Transaction Timeouts.
