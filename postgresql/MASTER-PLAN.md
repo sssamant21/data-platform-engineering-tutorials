@@ -47,7 +47,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | 002 | [Architecture: Processes, Memory, Storage and WAL](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored; lab execution pending |
 | 003 | [Linux, Networking and Storage Prerequisites](chapters/003-linux-networking-and-storage-prerequisites.md) | Authored; lab execution pending |
 | 004 | [Build a Reproducible PostgreSQL Operations Lab](chapters/004-build-a-reproducible-postgresql-operations-lab.md) | Authored; lab execution pending |
-| 005 | psql, System Catalogs and Safe Administrative SQL | Planned |
+| 005 | [psql, System Catalogs and Safe Administrative SQL](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored; lab execution pending |
 
 **Module acceptance lab:** Build a disposable primary and two standbys; record topology and baseline evidence.
 
