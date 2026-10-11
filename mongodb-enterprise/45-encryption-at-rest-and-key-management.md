@@ -651,4 +651,4 @@ Consult the exact deployed release and key-manager documentation:
 - [Self-managed configuration options](https://www.mongodb.com/docs/v8.0/reference/configuration-options/)
 - [Localhost exception](https://www.mongodb.com/docs/v8.0/core/localhost-exception/)
 
-Next: **Chapter 46 — Client Side and Queryable Encryption** (planned).
+Next: [**Chapter 46 — Client Side and Queryable Encryption**](46-client-side-and-queryable-encryption.md).
