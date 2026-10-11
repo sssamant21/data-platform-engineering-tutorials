@@ -71,7 +71,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | 012 | [pg_hba.conf, Authentication and Connection Diagnosis](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored; lab execution pending |
 | 013 | [TLS Certificates, Verification and Rotation](chapters/013-tls-certificates-verification-and-rotation.md) | Authored; lab execution pending |
 | 014 | [Secrets Rotation and Service Account Lifecycle](chapters/014-secrets-rotation-and-service-account-lifecycle.md) | Authored; lab execution pending |
-| 015 | Audit Logging, Network Isolation and Security Acceptance | Planned |
+| 015 | [Audit Logging, Network Isolation and Security Acceptance](chapters/015-audit-logging-network-isolation-and-security-acceptance.md) | Authored; lab execution pending |
 
 **Module acceptance lab:** Provision restricted service access; diagnose authentication failures and rotate credentials.
 

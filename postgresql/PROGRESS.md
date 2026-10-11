@@ -18,6 +18,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [012](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored | Bash/Python syntax, links, fences and bounded SQL reviewed; 12 helper filesystem fixture cases (top-level lab guard mocked) plus root-refusal check passed | Pending; authentication/HBA reload and reconnect lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [013](chapters/013-tls-certificates-verification-and-rotation.md) | Authored | Bash/Python syntax, links and bounded SQL reviewed; OpenSSL certificate fixtures and 5 peer-probe cases against a simulated SSLRequest endpoint passed; fixture generation bypassed the OS guard | Pending; PostgreSQL TLS authentication/reload/rotation lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [014](chapters/014-secrets-rotation-and-service-account-lifecycle.md) | Authored | Bash syntax, links, fences and SQL structure manually reviewed; read-only inventory, rollback probes and scoped session filters checked; no SQL parser | Pending; password/expiry/NOLOGIN/session-retirement lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 015–100 | Planned | Pending | Pending | Plan only |
+| [015](chapters/015-audit-logging-network-isolation-and-security-acceptance.md) | Authored | Bash/Python syntax, links, fences and read-only SQL reviewed; audit setup order, event-window scope and explicit cleanup checked | Pending; PostgreSQL/pgAudit, production network paths and central audit delivery not executed | Published with this tracker |
+| 016–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 015 — Audit Logging, Network Isolation and Security Acceptance.
+**Next:** Chapter 016 — MVCC, Snapshots and Tuple Visibility.
