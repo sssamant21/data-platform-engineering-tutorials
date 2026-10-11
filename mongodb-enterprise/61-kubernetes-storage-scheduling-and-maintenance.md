@@ -441,4 +441,4 @@ Select Kubernetes/controller documentation for the versions retained in Chapter 
 - [Kubernetes disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
 - [Chapter 60 — Kubernetes Operator Compatibility and Deployment](60-kubernetes-operator-compatibility-and-deployment.md)
 
-Next: **Chapter 62 — Rolling Upgrades FCV and Rollback Constraints** (planned).
+Next: **[Chapter 62 — Rolling Upgrades FCV and Rollback Constraints](62-rolling-upgrades-fcv-and-rollback-constraints.md)**.
