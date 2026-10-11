@@ -481,4 +481,4 @@ If keeping the source/recovery deployments for Chapter 53, leave their authentic
 
 Use documentation for the installed Ops Manager release rather than assuming that the moving `current` documentation matches it.
 
-Next: **Chapter 53 — Accidental Delete and Drop Recovery** (planned).
+Next: [**Chapter 53 — Accidental Delete and Drop Recovery**](53-accidental-delete-and-drop-recovery.md).
