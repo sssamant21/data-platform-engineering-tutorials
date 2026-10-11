@@ -626,4 +626,4 @@ Review questions:
 - [Targeted session termination and limitations](https://www.mongodb.com/docs/v8.0/reference/command/killallsessions/)
 - [Privilege actions](https://www.mongodb.com/docs/v8.0/reference/privilege-actions/)
 
-Next: **Chapter 48 — Security Hardening Acceptance Lab** (planned).
+Next: [**Chapter 48 — Security Hardening Acceptance Lab**](48-security-hardening-acceptance-lab.md).
