@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-10  
-**Written:** 42/80  
+**Written:** 43/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 43 — Enterprise External Authentication Compatibility
+**Next:** Chapter 44 — Enterprise Audit Configuration and Analysis
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -52,7 +52,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 40 | Scaling and Sharding Acceptance Lab | Written | Reviewed | Pending |
 | 41 | Users Roles and Least Privilege | Written | Reviewed | Pending |
 | 42 | TLS Certificates and x509 Authentication | Written | Reviewed | Pending |
-| 43 | Enterprise External Authentication Compatibility | Planned | Pending | Pending |
+| 43 | Enterprise External Authentication Compatibility | Written | Reviewed | Pending |
 | 44 | Enterprise Audit Configuration and Analysis | Planned | Pending | Pending |
 | 45 | Encryption at Rest and Key Management | Planned | Pending | Pending |
 | 46 | Client Side and Queryable Encryption | Planned | Pending | Pending |
