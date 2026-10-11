@@ -6,6 +6,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 |---|---|---|---|---|
 | [001](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md) | Authored | Static links, fences and bounded SQL reviewed | Pending; no PostgreSQL runtime available in authoring environment | Published with this tracker |
 | [002](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored | Static review | Pending; no PostgreSQL runtime in authoring environment | Published with this tracker |
-| 003–100 | Planned | Pending | Pending | Plan only |
+| [003](chapters/003-linux-networking-and-storage-prerequisites.md) | Authored | Bash syntax, fences and cross-links reviewed | Pending; target-host and PostgreSQL lab not executed | Published with this tracker |
+| 004–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 003 — Linux, Networking and Storage Prerequisites.
+**Next:** Chapter 004 — Build a Reproducible PostgreSQL Operations Lab.

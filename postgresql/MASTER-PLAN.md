@@ -45,7 +45,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 |---|---|---|
 | 001 | [PostgreSQL Responsibilities for DBRE and SRE](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md) | Authored; lab execution pending |
 | 002 | [Architecture: Processes, Memory, Storage and WAL](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored; lab execution pending |
-| 003 | Linux, Networking and Storage Prerequisites | Planned |
+| 003 | [Linux, Networking and Storage Prerequisites](chapters/003-linux-networking-and-storage-prerequisites.md) | Authored; lab execution pending |
 | 004 | Build a Reproducible PostgreSQL Operations Lab | Planned |
 | 005 | psql, System Catalogs and Safe Administrative SQL | Planned |
 
