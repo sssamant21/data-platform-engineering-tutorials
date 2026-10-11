@@ -628,4 +628,4 @@ Review questions:
 - [Node.js 6.x release notes](https://www.mongodb.com/docs/drivers/node/v6.x/reference/release-notes/)
 - [Driver 6.20 ClientEncryption API reference](https://mongodb.github.io/node-mongodb-native/6.20/classes/ClientEncryption.html)
 
-Next: **Chapter 47 — Secrets Rotation and Access Review** (planned).
+Next: [**Chapter 47 — Secrets Rotation and Access Review**](47-secrets-rotation-and-access-review.md).
