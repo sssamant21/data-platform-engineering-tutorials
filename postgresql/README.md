@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–013 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–014 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -17,5 +17,6 @@ Chapters 001–013 are authored and reviewed statically. Actual lab execution re
 - [011 — Roles, Ownership, Membership and Least Privilege](chapters/011-roles-ownership-membership-and-least-privilege.md)
 - [012 — pg_hba.conf, Authentication and Connection Diagnosis](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md)
 - [013 — TLS Certificates, Verification and Rotation](chapters/013-tls-certificates-verification-and-rotation.md)
+- [014 — Secrets Rotation and Service Account Lifecycle](chapters/014-secrets-rotation-and-service-account-lifecycle.md)
 
-Next: Chapter 014 — Secrets Rotation and Service Account Lifecycle.
+Next: Chapter 015 — Audit Logging, Network Isolation and Security Acceptance.
