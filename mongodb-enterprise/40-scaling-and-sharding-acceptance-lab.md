@@ -621,4 +621,4 @@ Preserve evidence and the Chapter 35 cluster. No volume deletion, Docker pruning
 - [Chapter 38 — Resharding and Shard Key Refinement](38-resharding-and-shard-key-refinement.md)
 - [Chapter 39 — Sharded Cluster Administration and Recovery](39-sharded-cluster-administration-and-recovery.md)
 
-Next: **Chapter 41 — Users Roles and Least Privilege** (planned).
+Next: **[Chapter 41 — Users Roles and Least Privilege](41-users-roles-and-least-privilege.md)**.
