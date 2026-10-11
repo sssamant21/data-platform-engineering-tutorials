@@ -10,6 +10,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [004](chapters/004-build-a-reproducible-postgresql-operations-lab.md) | Authored | Bash/Python syntax, help command and cross-links reviewed | Pending; no PostgreSQL runtime available | Published with this tracker |
 | [005](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored | Bash syntax, fences, links and metadata SQL reviewed | Pending; no PostgreSQL runtime available | Published with this tracker |
 | [006](chapters/006-installation-packages-and-directory-layout.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; package installation/runtime not performed | Published with this tracker |
-| 007–100 | Planned | Pending | Pending | Plan only |
+| [007](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored | Bash/Python syntax, links and metadata SQL reviewed | Pending; PostgreSQL runtime not available | Published with this tracker |
+| 008–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 007 — Initialization, Checksums, Locale and Encoding.
+**Next:** Chapter 008 — Configuration Precedence, Reloads and Restarts.
