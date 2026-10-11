@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–015 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–016 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -19,5 +19,6 @@ Chapters 001–015 are authored and reviewed statically. Actual lab execution re
 - [013 — TLS Certificates, Verification and Rotation](chapters/013-tls-certificates-verification-and-rotation.md)
 - [014 — Secrets Rotation and Service Account Lifecycle](chapters/014-secrets-rotation-and-service-account-lifecycle.md)
 - [015 — Audit Logging, Network Isolation and Security Acceptance](chapters/015-audit-logging-network-isolation-and-security-acceptance.md)
+- [016 — MVCC, Snapshots and Tuple Visibility](chapters/016-mvcc-snapshots-and-tuple-visibility.md)
 
-Next: Chapter 016 — MVCC, Snapshots and Tuple Visibility.
+Next: Chapter 017 — Isolation Levels and Application Failure Patterns.

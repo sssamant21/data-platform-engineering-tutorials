@@ -79,7 +79,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 
 | Chapter | Tutorial | Status |
 |---|---|---|
-| 016 | MVCC, Snapshots and Tuple Visibility | Planned |
+| 016 | [MVCC, Snapshots and Tuple Visibility](chapters/016-mvcc-snapshots-and-tuple-visibility.md) | Authored; lab execution pending |
 | 017 | Isolation Levels and Application Failure Patterns | Planned |
 | 018 | Locks, Blocking Chains and Deadlocks | Planned |
 | 019 | Long Transactions, Idle Sessions and Transaction Timeouts | Planned |
