@@ -527,4 +527,4 @@ Use the documentation matching your exact server release:
 - [Audit and server log rotation](https://www.mongodb.com/docs/v8.0/reference/command/logrotate/)
 - [Configuration options](https://www.mongodb.com/docs/v8.0/reference/configuration-options/)
 
-Next: **Chapter 45 — Encryption at Rest and Key Management** (planned).
+Next: [**Chapter 45 — Encryption at Rest and Key Management**](45-encryption-at-rest-and-key-management.md).
