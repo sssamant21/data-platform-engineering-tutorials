@@ -9,6 +9,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [003](chapters/003-linux-networking-and-storage-prerequisites.md) | Authored | Bash syntax, fences and cross-links reviewed | Pending; target-host and PostgreSQL lab not executed | Published with this tracker |
 | [004](chapters/004-build-a-reproducible-postgresql-operations-lab.md) | Authored | Bash/Python syntax, help command and cross-links reviewed | Pending; no PostgreSQL runtime available | Published with this tracker |
 | [005](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored | Bash syntax, fences, links and metadata SQL reviewed | Pending; no PostgreSQL runtime available | Published with this tracker |
-| 006–100 | Planned | Pending | Pending | Plan only |
+| [006](chapters/006-installation-packages-and-directory-layout.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; package installation/runtime not performed | Published with this tracker |
+| 007–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 006 — Installation, Packages and Directory Layout.
+**Next:** Chapter 007 — Initialization, Checksums, Locale and Encoding.
