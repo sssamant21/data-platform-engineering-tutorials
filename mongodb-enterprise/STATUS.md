@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 60/80  
+**Written:** 61/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 61 — Kubernetes Storage Scheduling and Maintenance
+**Next:** Chapter 62 — Rolling Upgrades FCV and Rollback Constraints
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -70,7 +70,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 58 | Ops Manager Automation Monitoring and Agents | Written | Reviewed | Pending |
 | 59 | Linux Installation Configuration and Service Operations | Written | Reviewed | Pending |
 | 60 | Kubernetes Operator Compatibility and Deployment | Written | Reviewed | Pending |
-| 61 | Kubernetes Storage Scheduling and Maintenance | Planned | Pending | Pending |
+| 61 | Kubernetes Storage Scheduling and Maintenance | Written | Reviewed | Pending |
 | 62 | Rolling Upgrades FCV and Rollback Constraints | Planned | Pending | Pending |
 | 63 | Drivers Connection Pools Timeouts and Retries | Planned | Pending | Pending |
 | 64 | Change Streams Resume Tokens and CDC | Planned | Pending | Pending |
