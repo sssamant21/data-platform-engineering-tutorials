@@ -503,4 +503,4 @@ Use the selected release's versioned documentation and tagged artifacts; `curren
 - [Manage SCRAM database users](https://www.mongodb.com/docs/kubernetes/current/tutorial/manage-database-users-scram/)
 - [Chapter 59 — Linux Installation Configuration and Service Operations](59-linux-installation-configuration-and-service-operations.md)
 
-Next: **Chapter 61 — Kubernetes Storage Scheduling and Maintenance** (planned).
+Next: **[Chapter 61 — Kubernetes Storage Scheduling and Maintenance](61-kubernetes-storage-scheduling-and-maintenance.md)**.
