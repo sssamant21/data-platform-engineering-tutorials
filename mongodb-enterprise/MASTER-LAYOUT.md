@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 42/80 written; 0/80 runtime validated.  
+**Progress:** 43/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -76,7 +76,7 @@
 |---|---|---|---|
 | 41 | [Users Roles and Least Privilege](41-users-roles-and-least-privilege.md) | Bootstrap access control, verify scoped roles and denials, rotate credentials, and clean up owned identities/data | Written; runtime validation pending |
 | 42 | [TLS Certificates and x509 Authentication](42-tls-certificates-and-x509-authentication.md) | Validate TLS trust and names, authenticate scoped certificate users, test failures/renewal, and retain a TLS recovery path | Written; runtime validation pending |
-| 43 | Enterprise External Authentication Compatibility | Demonstrate enterprise external authentication compatibility with evidence and cleanup | Planned |
+| 43 | [Enterprise External Authentication Compatibility](43-enterprise-external-authentication-compatibility.md) | Inventory edition/platform/client gates, evaluate nonsecret plans, verify scoped control access, and define provider acceptance/recovery | Written; runtime validation pending |
 | 44 | Enterprise Audit Configuration and Analysis | Demonstrate enterprise audit configuration and analysis with evidence and cleanup | Planned |
 | 45 | Encryption at Rest and Key Management | Demonstrate encryption at rest and key management with evidence and cleanup | Planned |
 | 46 | Client Side and Queryable Encryption | Demonstrate client side and queryable encryption with evidence and cleanup | Planned |
