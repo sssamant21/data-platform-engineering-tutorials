@@ -385,4 +385,4 @@ Use the version selector on these official pages for the selected Ops Manager re
 - [Ops Manager Kubernetes resource architecture](https://www.mongodb.com/docs/kubernetes/current/tutorial/arch-om-resources/)
 - [Chapter 56 — Restore Drill and Recovery Acceptance Project](56-restore-drill-and-recovery-acceptance-project.md)
 
-Next: **Chapter 58 — Ops Manager Automation Monitoring and Agents** (planned).
+Next: **[Chapter 58 — Ops Manager Automation Monitoring and Agents](58-ops-manager-automation-monitoring-and-agents.md)**.
