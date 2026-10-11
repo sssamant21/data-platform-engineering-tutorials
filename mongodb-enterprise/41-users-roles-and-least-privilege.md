@@ -647,4 +647,4 @@ Keep this lab for Chapter 42. Do not use `down -v`, global pruning or changes to
 - [MongoDB 8.0: updateUser](https://www.mongodb.com/docs/v8.0/reference/command/updateUser/)
 - [Chapter 40 — Scaling and Sharding Acceptance Lab](40-scaling-and-sharding-acceptance-lab.md)
 
-Next: **Chapter 42 — TLS Certificates and x509 Authentication** (planned).
+Next: **[Chapter 42 — TLS Certificates and x509 Authentication](42-tls-certificates-and-x509-authentication.md)**.
