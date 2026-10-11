@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 53/80 written; 0/80 runtime validated.  
+**Progress:** 54/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -92,7 +92,7 @@
 | 51 | [Consistent Snapshots and Restore Validation](51-consistent-snapshots-and-restore-validation.md) | Capture a clean stopped data tree, restore an isolated clone and validate identity, data and constraints | Written; runtime validation pending |
 | 52 | [Ops Manager Backup and Point in Time Recovery](52-ops-manager-backup-and-point-in-time-recovery.md) | Configure continuous backup, select an exact clean barrier and validate managed PITR on a separate target | Written; runtime validation pending |
 | 53 | [Accidental Delete and Drop Recovery](53-accidental-delete-and-drop-recovery.md) | Reconcile confirmed missing rows while preserving later writes; recover dropped metadata through verified staging | Written; runtime validation pending |
-| 54 | Replica Set Disaster Recovery | Demonstrate replica set disaster recovery with evidence and cleanup | Planned |
+| 54 | [Replica Set Disaster Recovery](54-replica-set-disaster-recovery.md) | Fence source, restore an isolated seed, rebuild three-member redundancy and verify declared data loss and majority application writes | Written; runtime validation pending |
 | 55 | Sharded Cluster Backup and Disaster Recovery | Demonstrate sharded cluster backup and disaster recovery with evidence and cleanup | Planned |
 | 56 | Restore Drill and Recovery Acceptance Project | Demonstrate restore drill and recovery acceptance project with evidence and cleanup | Planned |
 
