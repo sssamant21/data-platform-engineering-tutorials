@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 58/80 written; 0/80 runtime validated.  
+**Progress:** 59/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -102,7 +102,7 @@
 |---|---|---|---|
 | 57 | [Ops Manager Architecture and Prerequisites](57-ops-manager-architecture-and-prerequisites.md) | Map management and backup dependencies, review release compatibility and assess host and TLS connectivity prerequisites | Written; runtime validation pending |
 | 58 | [Ops Manager Automation Monitoring and Agents](58-ops-manager-automation-monitoring-and-agents.md) | Enroll lab agents, verify fresh monitoring, audit a scoped configuration change and reconcile accepted automation goals with runtime checks | Written; runtime validation pending |
-| 59 | Linux Installation Configuration and Service Operations | Demonstrate linux installation configuration and service operations with evidence and cleanup | Planned |
+| 59 | [Linux Installation Configuration and Service Operations](59-linux-installation-configuration-and-service-operations.md) | Provision an isolated authenticated TLS service, reject configuration drift and validate graceful shutdown and persistence across controlled restarts | Written; runtime validation pending |
 | 60 | Kubernetes Operator Compatibility and Deployment | Demonstrate kubernetes operator compatibility and deployment with evidence and cleanup | Planned |
 | 61 | Kubernetes Storage Scheduling and Maintenance | Demonstrate kubernetes storage scheduling and maintenance with evidence and cleanup | Planned |
 | 62 | Rolling Upgrades FCV and Rollback Constraints | Demonstrate rolling upgrades fcv and rollback constraints with evidence and cleanup | Planned |
