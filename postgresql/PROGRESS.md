@@ -12,6 +12,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [006](chapters/006-installation-packages-and-directory-layout.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; package installation/runtime not performed | Published with this tracker |
 | [007](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored | Bash/Python syntax, links and metadata SQL reviewed | Pending; PostgreSQL runtime not available | Published with this tracker |
 | [008](chapters/008-configuration-precedence-reloads-and-restarts.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; activation/restart lab not executed | Published with this tracker |
-| 009–100 | Planned | Pending | Pending | Plan only |
+| [009](chapters/009-systemd-startup-shutdown-and-crash-recovery.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed | Pending; service lifecycle/crash-recovery lab not executed | Published with this tracker |
+| 010–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 009 — systemd, Startup, Shutdown and Crash Recovery.
+**Next:** Chapter 010 — Configuration Drift and Baseline Acceptance.
