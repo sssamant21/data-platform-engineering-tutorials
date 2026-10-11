@@ -510,4 +510,4 @@ Never delete retained encryption keys or actual production snapshots as tutorial
 - [fsyncLock behavior and lock counts](https://www.mongodb.com/docs/v8.0/reference/method/db.fsynclock/)
 - [Previous: Chapter 50 — mongodump mongorestore and Logical Recovery](50-mongodump-mongorestore-and-logical-recovery.md)
 
-Next: **Chapter 52 — Ops Manager Backup and Point in Time Recovery** (planned).
+Next: [**Chapter 52 — Ops Manager Backup and Point in Time Recovery**](52-ops-manager-backup-and-point-in-time-recovery.md).
