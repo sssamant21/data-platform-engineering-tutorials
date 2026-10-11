@@ -689,4 +689,4 @@ Review questions:
 - [Encryption at rest](https://www.mongodb.com/docs/v8.0/core/security-encryption-at-rest/)
 - [Queryable Encryption compatibility](https://www.mongodb.com/docs/v8.0/core/queryable-encryption/reference/compatibility/)
 
-Next: **Chapter 49 — Backup Architecture RPO and RTO** (planned).
+Next: [**Chapter 49 — Backup Architecture RPO and RTO**](49-backup-architecture-rpo-and-rto.md).
