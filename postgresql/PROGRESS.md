@@ -5,6 +5,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | Chapter | Content | Review | Lab execution | Publication |
 |---|---|---|---|---|
 | [001](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md) | Authored | Static links, fences and bounded SQL reviewed | Pending; no PostgreSQL runtime available in authoring environment | Published with this tracker |
-| 002–100 | Planned | Pending | Pending | Plan only |
+| [002](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored | Static review | Pending; no PostgreSQL runtime in authoring environment | Published with this tracker |
+| 003–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 002 — Architecture: Processes, Memory, Storage and WAL.
+**Next:** Chapter 003 — Linux, Networking and Storage Prerequisites.

@@ -1,15 +1,10 @@
 # PostgreSQL — DBRE and SRE Tutorials
 
-This curriculum is exclusively for DBRE and SRE teams operating PostgreSQL in production.
+[Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-- [100-chapter master plan](MASTER-PLAN.md)
-- [Progress tracker](PROGRESS.md)
-- [Chapter 001 — PostgreSQL Responsibilities for DBRE and SRE](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
-- [Lab 001 — Operational Ownership and Readiness](labs/001-operational-ownership-and-readiness-lab.md)
-- [First-response snapshot SQL](scripts/001-first-response-snapshot.sql)
+Chapter 001 and Chapter 002 are authored and reviewed statically. Lab execution remains pending.
 
-**Status:** Chapter 001 authored and statically reviewed; lab execution pending. Chapters 002–100 planned.
+- [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
+- [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
 
-**Next:** Chapter 002 — Architecture: Processes, Memory, Storage and WAL.
-
-Previous tutorial content remains recoverable from Git history.
+Next: Chapter 003 — Linux, Networking and Storage Prerequisites.
