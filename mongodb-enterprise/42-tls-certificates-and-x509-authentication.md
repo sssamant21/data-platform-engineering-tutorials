@@ -562,4 +562,4 @@ If setup/cleanup was interrupted, inspect recorded `userId`, UUIDs, role and rem
 - [OpenSSL: verify command](https://docs.openssl.org/3.0/man1/openssl-verify/)
 - [Chapter 41 — Users Roles and Least Privilege](41-users-roles-and-least-privilege.md)
 
-Next: **Chapter 43 — Enterprise External Authentication Compatibility** (planned).
+Next: **[Chapter 43 — Enterprise External Authentication Compatibility](43-enterprise-external-authentication-compatibility.md)**.
