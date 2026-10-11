@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–011 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–012 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -15,5 +15,6 @@ Chapters 001–011 are authored and reviewed statically. Actual lab execution re
 - [009 — systemd, Startup, Shutdown and Crash Recovery](chapters/009-systemd-startup-shutdown-and-crash-recovery.md)
 - [010 — Configuration Drift and Baseline Acceptance](chapters/010-configuration-drift-and-baseline-acceptance.md)
 - [011 — Roles, Ownership, Membership and Least Privilege](chapters/011-roles-ownership-membership-and-least-privilege.md)
+- [012 — pg_hba.conf, Authentication and Connection Diagnosis](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md)
 
-Next: Chapter 012 — pg_hba.conf, Authentication and Connection Diagnosis.
+Next: Chapter 013 — TLS Certificates, Verification and Rotation.

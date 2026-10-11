@@ -15,6 +15,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [009](chapters/009-systemd-startup-shutdown-and-crash-recovery.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed | Pending; service lifecycle/crash-recovery lab not executed | Published with this tracker |
 | [010](chapters/010-configuration-drift-and-baseline-acceptance.md) | Authored | Bash/Python syntax, comparison-helper synthetic cases, links and bounded SQL reviewed | Pending; drift and baseline acceptance lab not executed | Published with this tracker |
 | [011](chapters/011-roles-ownership-membership-and-least-privilege.md) | Authored | Links, fences, PG18 membership semantics and bounded SQL manually reviewed; no shell/SQL parser available | Pending; role and privilege lab not executed; execution environment unavailable | Published with this tracker |
-| 012–100 | Planned | Pending | Pending | Plan only |
+| [012](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored | Bash/Python syntax, links, fences and bounded SQL reviewed; 12 helper filesystem fixture cases (top-level lab guard mocked) plus root-refusal check passed | Pending; authentication/HBA reload and reconnect lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 013–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 012 — pg_hba.conf, Authentication and Connection Diagnosis.
+**Next:** Chapter 013 — TLS Certificates, Verification and Rotation.

@@ -68,7 +68,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | Chapter | Tutorial | Status |
 |---|---|---|
 | 011 | [Roles, Ownership, Membership and Least Privilege](chapters/011-roles-ownership-membership-and-least-privilege.md) | Authored; lab execution pending |
-| 012 | pg_hba.conf, Authentication and Connection Diagnosis | Planned |
+| 012 | [pg_hba.conf, Authentication and Connection Diagnosis](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored; lab execution pending |
 | 013 | TLS Certificates, Verification and Rotation | Planned |
 | 014 | Secrets Rotation and Service Account Lifecycle | Planned |
 | 015 | Audit Logging, Network Isolation and Security Acceptance | Planned |
