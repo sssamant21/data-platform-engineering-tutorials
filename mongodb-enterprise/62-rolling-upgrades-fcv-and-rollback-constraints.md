@@ -400,4 +400,4 @@ Use documentation selected for the exact deployed server and management versions
 - [Chapter 56 — Restore Drill and Recovery Acceptance Project](56-restore-drill-and-recovery-acceptance-project.md)
 - [Chapter 61 — Kubernetes Storage Scheduling and Maintenance](61-kubernetes-storage-scheduling-and-maintenance.md)
 
-Next: **Chapter 63 — Drivers Connection Pools Timeouts and Retries** (planned).
+Next: **[Chapter 63 — Drivers Connection Pools Timeouts and Retries](63-drivers-connection-pools-timeouts-and-retries.md)**.
