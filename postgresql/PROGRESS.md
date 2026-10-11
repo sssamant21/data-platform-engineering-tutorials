@@ -11,6 +11,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [005](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored | Bash syntax, fences, links and metadata SQL reviewed | Pending; no PostgreSQL runtime available | Published with this tracker |
 | [006](chapters/006-installation-packages-and-directory-layout.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; package installation/runtime not performed | Published with this tracker |
 | [007](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored | Bash/Python syntax, links and metadata SQL reviewed | Pending; PostgreSQL runtime not available | Published with this tracker |
-| 008–100 | Planned | Pending | Pending | Plan only |
+| [008](chapters/008-configuration-precedence-reloads-and-restarts.md) | Authored | Bash syntax, links and metadata SQL reviewed | Pending; activation/restart lab not executed | Published with this tracker |
+| 009–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 008 — Configuration Precedence, Reloads and Restarts.
+**Next:** Chapter 009 — systemd, Startup, Shutdown and Crash Recovery.

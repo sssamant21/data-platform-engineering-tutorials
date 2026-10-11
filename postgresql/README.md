@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–007 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–008 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -11,5 +11,6 @@ Chapters 001–007 are authored and reviewed statically. Actual lab execution re
 - [005 — psql, Catalogs and Safe SQL](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md)
 - [006 — Installation, Packages and Directory Layout](chapters/006-installation-packages-and-directory-layout.md)
 - [007 — Initialization, Checksums, Locale and Encoding](chapters/007-initialization-checksums-locale-and-encoding.md)
+- [008 — Configuration Precedence, Reloads and Restarts](chapters/008-configuration-precedence-reloads-and-restarts.md)
 
-Next: Chapter 008 — Configuration Precedence, Reloads and Restarts.
+Next: Chapter 009 — systemd, Startup, Shutdown and Crash Recovery.

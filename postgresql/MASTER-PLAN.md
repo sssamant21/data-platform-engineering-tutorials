@@ -57,7 +57,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 |---|---|---|
 | 006 | [Installation, Packages and Directory Layout](chapters/006-installation-packages-and-directory-layout.md) | Authored; lab execution pending |
 | 007 | [Initialization, Checksums, Locale and Encoding](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored; lab execution pending |
-| 008 | Configuration Precedence, Reloads and Restarts | Planned |
+| 008 | [Configuration Precedence, Reloads and Restarts](chapters/008-configuration-precedence-reloads-and-restarts.md) | Authored; lab execution pending |
 | 009 | systemd, Startup, Shutdown and Crash Recovery | Planned |
 | 010 | Configuration Drift and Baseline Acceptance | Planned |
 
