@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 69/80 written; 0/80 runtime validated.  
+**Progress:** 70/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -118,7 +118,7 @@
 | 67 | [MongoDB to Snowflake Direct Integration](67-mongodb-to-snowflake-direct-integration.md) | Reconcile direct batch ingestion, versioned MERGE, replay, deletion tombstones and conflicting-event rollback | Written; runtime validation pending |
 | 68 | [Import Export Migration and Data Reconciliation](68-import-export-migration-and-data-reconciliation.md) | Transfer canonical JSON and BSON archives, reconcile types/data/metadata, detect equal-count corruption and repair owned targets | Written; runtime validation pending |
 | 69 | [Metrics Logs FTDC and Dashboard Design](69-metrics-logs-ftdc-and-dashboard-design.md) | Sample member metrics, verify reset-safe rates, summarize logs, inventory FTDC and define dashboards with freshness checks | Written; runtime validation pending |
-| 70 | Alert Thresholds SLOs and Capacity Forecasting | Demonstrate alert thresholds slos and capacity forecasting with evidence and cleanup | Planned |
+| 70 | [Alert Thresholds SLOs and Capacity Forecasting](70-alert-thresholds-slos-and-capacity-forecasting.md) | Evaluate SLO budgets and paired burn alerts; forecast storage reserve and recovery headroom with missing/stale-data guards | Written; runtime validation pending |
 | 71 | Daily Administration and Maintenance Runbook | Demonstrate daily administration and maintenance runbook with evidence and cleanup | Planned |
 | 72 | Cost Optimization and Enterprise License Planning | Demonstrate cost optimization and enterprise license planning with evidence and cleanup | Planned |
 
