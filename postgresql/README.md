@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–018 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–019 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -23,4 +23,6 @@ Chapters 001–018 are authored and reviewed statically. Actual lab execution re
 - [017 — Isolation Levels and Application Failure Patterns](chapters/017-isolation-levels-and-application-failure-patterns.md)
 - [018 — Locks, Blocking Chains and Deadlocks](chapters/018-locks-blocking-chains-and-deadlocks.md)
 
-Next: Chapter 019 — Long Transactions, Idle Sessions and Transaction Timeouts.
+- [019 — Long Transactions, Idle Sessions and Transaction Timeouts](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md)
+
+Next: Chapter 020 — Safe Cancellation, Termination and Concurrency Incident Lab.

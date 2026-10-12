@@ -22,6 +22,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [016](chapters/016-mvcc-snapshots-and-tuple-visibility.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; read-only/nonallocating observer, bounded waits and scoped cleanup checked | Pending; multi-session MVCC/snapshot/VACUUM lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [017](chapters/017-isolation-levels-and-application-failure-patterns.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; 15 retry-orchestration/configuration fixture cases with simulated connections passed | Pending; lost-update/RR/write-skew/Serializable lab and real driver integration not executed; no PostgreSQL runtime | Published with this tracker |
 | [018](chapters/018-locks-blocking-chains-and-deadlocks.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; metadata-only observer, deduplicated bounded graph/cycle/external/prepared guards and scoped cleanup checked | Pending; row-chain/strong-lock/NOWAIT/deadlock lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 019–100 | Planned | Pending | Pending | Plan only |
+| [019](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed; timeout scopes, SQLSTATE recovery and session-only cleanup checked | Pending; timeout and multi-session lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 020–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 019 — Long Transactions, Idle Sessions and Transaction Timeouts.
+**Next:** Chapter 020 — Safe Cancellation, Termination and Concurrency Incident Lab.
