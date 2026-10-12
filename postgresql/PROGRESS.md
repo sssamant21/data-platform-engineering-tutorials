@@ -32,6 +32,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [026](chapters/026-performance-triage-and-evidence-collection.md) | Authored | Bash/embedded Python syntax, links, fences and SQL structure reviewed; help/root-refusal/label checks and 4 orchestration fixtures passed with OS root check/psql mocked; bounded collection/cleanup reviewed | Pending; PostgreSQL contention/sleep/strong-lock evidence lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [027](chapters/027-explain-and-explain-analyze-safely.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; 21 offline row/loop/zero/buffer/allowlist/structure/CLI cases passed; fixed plan modes and rollback/sequence boundaries reviewed | Pending; PostgreSQL plan/locking/sequence/read-only lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [028](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; scoped targets, isolated statistics kinds, fixed read-only plans and cleanup reviewed | Pending; PostgreSQL estimate/ANALYZE/extended-statistics lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 029–100 | Planned | Pending | Pending | Plan only |
+| [029](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md) | Authored | Bash/embedded Python syntax, links, fences and SQL structure reviewed; collector help/label/root checks and 4 orchestration fixtures passed with OS identity/psql/sleep/host tools mocked; bounded workload/observation and cleanup reviewed | Pending; PostgreSQL CPU/sleep/lock/spill and live host correlation lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 030–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 029 — CPU, Memory, I/O and Wait Event Diagnosis.
+**Next:** Chapter 030 — Production Slowness Investigation Project.
