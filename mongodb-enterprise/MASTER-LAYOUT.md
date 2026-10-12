@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 72/80 written; 0/80 runtime validated.  
+**Progress:** 73/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -126,7 +126,7 @@
 
 | # | Chapter | Lab outcome | Status |
 |---|---|---|---|
-| 73 | Query Slowness Investigation Runbook | Demonstrate query slowness investigation runbook with evidence and cleanup | Planned |
+| 73 | [Query Slowness Investigation Runbook](73-query-slowness-investigation-runbook.md) | Locate latency boundaries, compare scan/index work with result equivalence and repair type/index regressions | Written; runtime validation pending |
 | 74 | Connection Authentication and TLS Troubleshooting | Demonstrate connection authentication and tls troubleshooting with evidence and cleanup | Planned |
 | 75 | Disk Pressure Cache Pressure and Resource Incidents | Demonstrate disk pressure cache pressure and resource incidents with evidence and cleanup | Planned |
 | 76 | Replication Elections and Sharding Troubleshooting | Demonstrate replication elections and sharding troubleshooting with evidence and cleanup | Planned |
