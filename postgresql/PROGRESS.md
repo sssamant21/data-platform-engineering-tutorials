@@ -24,6 +24,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [018](chapters/018-locks-blocking-chains-and-deadlocks.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; metadata-only observer, deduplicated bounded graph/cycle/external/prepared guards and scoped cleanup checked | Pending; row-chain/strong-lock/NOWAIT/deadlock lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [019](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed; timeout scopes, SQLSTATE recovery and session-only cleanup checked | Pending; timeout and multi-session lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [020](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; single-target identity/state guards, bounded signaling and scoped cleanup checked | Pending; cancellation/termination and three-session incident lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 021–100 | Planned | Pending | Pending | Plan only |
+| [021](chapters/021-database-slis-slos-and-error-budgets.md) | Authored | Bash/Python syntax, links and fences reviewed; 23 offline arithmetic/window/quality/input/CLI/root-refusal checks passed; guarded bounded probe and scoped cleanup checked | Pending; PostgreSQL slow/blocked/recovered probe lab and production telemetry coverage not executed; no PostgreSQL runtime | Published with this tracker |
+| 022–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 021 — Database SLIs, SLOs and Error Budgets.
+**Next:** Chapter 022 — Statistics Views, Resets and Measurement Windows.

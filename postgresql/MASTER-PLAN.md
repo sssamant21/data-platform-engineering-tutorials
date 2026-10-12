@@ -91,7 +91,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 
 | Chapter | Tutorial | Status |
 |---|---|---|
-| 021 | Database SLIs, SLOs and Error Budgets | Planned |
+| [021](chapters/021-database-slis-slos-and-error-budgets.md) | Database SLIs, SLOs and Error Budgets | Authored; lab execution pending |
 | 022 | Statistics Views, Resets and Measurement Windows | Planned |
 | 023 | Query Statistics with pg_stat_statements | Planned |
 | 024 | Logs, Slow Statements and Correlation with Application Traces | Planned |

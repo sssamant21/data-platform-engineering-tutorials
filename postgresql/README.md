@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–020 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–021 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -27,4 +27,6 @@ Chapters 001–020 are authored and reviewed statically. Actual lab execution re
 
 - [020 — Safe Cancellation, Termination and Concurrency Incident Lab](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md)
 
-Next: Chapter 021 — Database SLIs, SLOs and Error Budgets.
+- [021 — Database SLIs, SLOs and Error Budgets](chapters/021-database-slis-slos-and-error-budgets.md)
+
+Next: Chapter 022 — Statistics Views, Resets and Measurement Windows.
