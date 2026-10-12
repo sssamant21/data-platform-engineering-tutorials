@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 79/80 written; 0/80 runtime validated.  
+**Progress:** 80/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -133,7 +133,7 @@
 | 77 | [Production Data Modeling and Query Tuning Project](77-production-data-modeling-and-query-tuning-project.md) | Build a validated tenant queue, tune equivalent queries, verify seek pages and enforce guarded state transitions | Written; runtime validation pending |
 | 78 | [HA Failover and Application Resilience Project](78-ha-failover-and-application-resilience-project.md) | Run bounded acknowledged writes through gated handoff, preserve ambiguous outcomes and verify stable replay/member convergence | Written; runtime validation pending |
 | 79 | [Backup Restore and Disaster Recovery Project](79-backup-restore-and-disaster-recovery-project.md) | Seal a frozen backup, restore isolated data/metadata, quantify excluded acknowledgements and evaluate recovery objectives | Written; runtime validation pending |
-| 80 | Production Readiness and Final Acceptance Project | Demonstrate production readiness and final acceptance project with evidence and cleanup | Planned |
+| 80 | [Production Readiness and Final Acceptance Project](80-production-readiness-and-final-acceptance-project.md) | Bind final evidence to deployment/configuration, verify owned smoke correctness and block incomplete readiness packets | Written; runtime validation pending |
 
 ## Coverage boundaries
 

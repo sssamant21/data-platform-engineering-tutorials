@@ -4,6 +4,6 @@ Rebuilt from the beginning using the Snowflake track's numbered chapters, master
 
 Start with [Chapter 01](01-mongodb-enterprise-fundamentals.md). Browse [MASTER-LAYOUT](MASTER-LAYOUT.md), [STATUS](STATUS.md) and the [chapter standard](CHAPTER-STANDARD.md).
 
-**80 chapters planned; Chapters 01–79 written and statically reviewed. Runtime lab validation remains pending.** Later chapters are planned entries, not placeholder tutorials.
+**All 80 chapters written and statically reviewed. Runtime lab validation remains pending.** The written curriculum is complete; runtime acceptance and canonical promotion require recorded lab evidence.
 
-Finish and review one chapter, update the tracker, then commit it before starting the next chapter.
+Next phase: execute the applicable labs on recorded authorized environments, retain expected/actual results and cleanup evidence, remediate failures, then update the tracker and complete canonical review.
