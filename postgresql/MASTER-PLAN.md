@@ -105,7 +105,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 |---|---|---|
 | [026](chapters/026-performance-triage-and-evidence-collection.md) | Performance Triage and Evidence Collection | Authored; lab execution pending |
 | [027](chapters/027-explain-and-explain-analyze-safely.md) | EXPLAIN and EXPLAIN ANALYZE Safely | Authored; lab execution pending |
-| 028 | Planner Estimates, Statistics and Extended Statistics | Planned |
+| [028](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Planner Estimates, Statistics and Extended Statistics | Authored; lab execution pending |
 | 029 | CPU, Memory, I/O and Wait Event Diagnosis | Planned |
 | 030 | Production Slowness Investigation Project | Planned |
 

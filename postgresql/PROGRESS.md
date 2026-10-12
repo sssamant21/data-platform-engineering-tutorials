@@ -31,6 +31,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [025](chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md) | Authored | Bash/Python syntax, YAML/JSON structure, links and asset references reviewed; 7 rule fixtures/45 expectations checked structurally; 8 offline receiver checks passed | Pending; promtool/monitoring stack/PostgreSQL/Grafana and live notification acceptance not executed; runtimes unavailable | Published with this tracker |
 | [026](chapters/026-performance-triage-and-evidence-collection.md) | Authored | Bash/embedded Python syntax, links, fences and SQL structure reviewed; help/root-refusal/label checks and 4 orchestration fixtures passed with OS root check/psql mocked; bounded collection/cleanup reviewed | Pending; PostgreSQL contention/sleep/strong-lock evidence lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [027](chapters/027-explain-and-explain-analyze-safely.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; 21 offline row/loop/zero/buffer/allowlist/structure/CLI cases passed; fixed plan modes and rollback/sequence boundaries reviewed | Pending; PostgreSQL plan/locking/sequence/read-only lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 028–100 | Planned | Pending | Pending | Plan only |
+| [028](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; scoped targets, isolated statistics kinds, fixed read-only plans and cleanup reviewed | Pending; PostgreSQL estimate/ANALYZE/extended-statistics lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 029–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 028 — Planner Estimates, Statistics and Extended Statistics.
+**Next:** Chapter 029 — CPU, Memory, I/O and Wait Event Diagnosis.
