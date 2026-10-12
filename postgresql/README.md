@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–023 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–024 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -33,4 +33,6 @@ Chapters 001–023 are authored and reviewed statically. Actual lab execution re
 
 - [023 — Query Statistics with pg_stat_statements](chapters/023-query-statistics-with-pg-stat-statements.md)
 
-Next: Chapter 024 — Logs, Slow Statements and Correlation with Application Traces.
+- [024 — Logs, Slow Statements and Correlation with Application Traces](chapters/024-logs-slow-statements-and-correlation-with-application-traces.md)
+
+Next: Chapter 025 — Prometheus, Grafana and Actionable Alert Acceptance.

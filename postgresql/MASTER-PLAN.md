@@ -94,7 +94,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | [021](chapters/021-database-slis-slos-and-error-budgets.md) | Database SLIs, SLOs and Error Budgets | Authored; lab execution pending |
 | [022](chapters/022-statistics-views-resets-and-measurement-windows.md) | Statistics Views, Resets and Measurement Windows | Authored; lab execution pending |
 | [023](chapters/023-query-statistics-with-pg-stat-statements.md) | Query Statistics with pg_stat_statements | Authored; lab execution pending |
-| 024 | Logs, Slow Statements and Correlation with Application Traces | Planned |
+| [024](chapters/024-logs-slow-statements-and-correlation-with-application-traces.md) | Logs, Slow Statements and Correlation with Application Traces | Authored; lab execution pending |
 | 025 | Prometheus, Grafana and Actionable Alert Acceptance | Planned |
 
 **Module acceptance lab:** Build an operational dashboard and alerts; distinguish user latency from aggregate database metrics.
