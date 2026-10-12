@@ -1,0 +1,59 @@
+groups:
+  - name: postgres-lab-acceptance
+    interval: 15s
+    rules:
+      - alert: PgExporterScrapeFailed
+        expr: up{job="postgres-lab"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          owner: dbre
+          environment: lab
+          cluster: chapter004
+        annotations:
+          summary: "Exporter HTTP scrape failed; inspect the collection path."
+          runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - alert: PgDatabaseProbeFailed
+        expr: (pg_up{job="postgres-lab"} == 0) and on(job, instance) (up{job="postgres-lab"} == 1)
+        for: 1m
+        labels:
+          severity: warning
+          owner: dbre
+          environment: lab
+          cluster: chapter004
+        annotations:
+          summary: "Exporter is reachable but its database connection failed."
+          runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - alert: PgCollectionError
+        expr: (pg_exporter_last_scrape_error{job="postgres-lab"} == 1) and on(job, instance) (pg_up{job="postgres-lab"} == 1) and on(job, instance) (up{job="postgres-lab"} == 1)
+        for: 1m
+        labels:
+          severity: warning
+          owner: dbre
+          environment: lab
+          cluster: chapter004
+        annotations:
+          summary: "Database connection succeeded but metric collection reported an error."
+          runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - alert: PgMetricMissing
+        expr: (up{job="postgres-lab"} == 1) unless on(job, instance) pg_up{job="postgres-lab"}
+        for: 1m
+        labels:
+          severity: warning
+          owner: dbre
+          environment: lab
+          cluster: chapter004
+        annotations:
+          summary: "Successful HTTP scrape lacks the required database connection metric."
+          runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - alert: PgTargetMissing
+        expr: absent_over_time(up{job="postgres-lab",instance="127.0.0.1:9187"}[2m])
+        for: 1m
+        labels:
+          severity: warning
+          owner: dbre
+          environment: lab
+          cluster: chapter004
+        annotations:
+          summary: "The expected static lab target has no scrape samples."
+          runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"

@@ -1,0 +1,12 @@
+route:
+  receiver: local-lab-capture
+  group_by: [alertname, cluster, instance]
+  group_wait: 5s
+  group_interval: 15s
+  repeat_interval: 1h
+receivers:
+  - name: local-lab-capture
+    webhook_configs:
+      - url: http://127.0.0.1:19093/events
+        send_resolved: true
+        max_alerts: 20

@@ -1,0 +1,251 @@
+rule_files:
+  - rules.yml
+evaluation_interval: 15s
+tests:
+  - name: healthy
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x12'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: exporter-down-pending-firing-recovery
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x4 1x8'
+      - series: 'pg_up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x4 1x8'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x4 0x8'
+    alert_rule_test:
+      - eval_time: 45s
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 45s
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 45s
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 45s
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 45s
+        alertname: PgTargetMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts:
+          - exp_labels:
+              job: "postgres-lab"
+              instance: "127.0.0.1:9187"
+              severity: "warning"
+              owner: "dbre"
+              environment: "lab"
+              cluster: "chapter004"
+            exp_annotations:
+              summary: "Exporter HTTP scrape failed; inspect the collection path."
+              runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 2m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: transient-scrape-failure
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1 0 1x10'
+      - series: 'pg_up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x12'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: database-authentication-failure
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x12'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts:
+          - exp_labels:
+              job: "postgres-lab"
+              instance: "127.0.0.1:9187"
+              severity: "warning"
+              owner: "dbre"
+              environment: "lab"
+              cluster: "chapter004"
+            exp_annotations:
+              summary: "Exporter is reachable but its database connection failed."
+              runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: partial-collection-error
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts:
+          - exp_labels:
+              job: "postgres-lab"
+              instance: "127.0.0.1:9187"
+              severity: "warning"
+              owner: "dbre"
+              environment: "lab"
+              cluster: "chapter004"
+            exp_annotations:
+              summary: "Database connection succeeded but metric collection reported an error."
+              runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: required-metric-missing
+    interval: 15s
+    input_series:
+      - series: 'up{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '1x12'
+      - series: 'pg_exporter_last_scrape_error{job="postgres-lab",instance="127.0.0.1:9187",environment="lab",cluster="chapter004"}'
+        values: '0x12'
+    alert_rule_test:
+      - eval_time: 1m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 1m
+        alertname: PgMetricMissing
+        exp_alerts:
+          - exp_labels:
+              job: "postgres-lab"
+              instance: "127.0.0.1:9187"
+              severity: "warning"
+              owner: "dbre"
+              environment: "lab"
+              cluster: "chapter004"
+            exp_annotations:
+              summary: "Successful HTTP scrape lacks the required database connection metric."
+              runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
+      - eval_time: 1m
+        alertname: PgTargetMissing
+        exp_alerts: []
+  - name: target-never-discovered
+    interval: 15s
+    input_series: []
+    alert_rule_test:
+      - eval_time: 3m
+        alertname: PgExporterScrapeFailed
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: PgDatabaseProbeFailed
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: PgCollectionError
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: PgMetricMissing
+        exp_alerts: []
+      - eval_time: 3m
+        alertname: PgTargetMissing
+        exp_alerts:
+          - exp_labels:
+              job: "postgres-lab"
+              instance: "127.0.0.1:9187"
+              severity: "warning"
+              owner: "dbre"
+              environment: "lab"
+              cluster: "chapter004"
+            exp_annotations:
+              summary: "The expected static lab target has no scrape samples."
+              runbook_url: "https://github.com/sssamant21/datastores-tutorials/blob/main/postgresql/chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md#triage"
