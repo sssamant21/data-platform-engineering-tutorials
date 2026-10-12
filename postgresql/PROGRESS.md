@@ -25,6 +25,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [019](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed; timeout scopes, SQLSTATE recovery and session-only cleanup checked | Pending; timeout and multi-session lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [020](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; single-target identity/state guards, bounded signaling and scoped cleanup checked | Pending; cancellation/termination and three-session incident lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [021](chapters/021-database-slis-slos-and-error-budgets.md) | Authored | Bash/Python syntax, links and fences reviewed; 23 offline arithmetic/window/quality/input/CLI/root-refusal checks passed; guarded bounded probe and scoped cleanup checked | Pending; PostgreSQL slow/blocked/recovered probe lab and production telemetry coverage not executed; no PostgreSQL runtime | Published with this tracker |
-| 022–100 | Planned | Pending | Pending | Plan only |
+| [022](chapters/022-statistics-views-resets-and-measurement-windows.md) | Authored | Bash/Python syntax, links and fences reviewed; 31 offline delta/rate/ratio/gauge/epoch/time/schema/CLI cases passed; read-only collector and isolated database reset/cleanup checked | Pending; PostgreSQL cache/publication/reset lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 023–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 022 — Statistics Views, Resets and Measurement Windows.
+**Next:** Chapter 023 — Query Statistics with pg_stat_statements.
