@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 76/80 written; 0/80 runtime validated.  
+**Progress:** 77/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -130,7 +130,7 @@
 | 74 | [Connection Authentication and TLS Troubleshooting](74-connection-authentication-and-tls-troubleshooting.md) | Diagnose access layers, verify fresh TLS/SCRAM sessions and rehearse owned credential/authSource/authorization/CA failures | Written; runtime validation pending |
 | 75 | [Disk Pressure Cache Pressure and Resource Incidents](75-disk-pressure-cache-pressure-and-resource-incidents.md) | Correlate disk/cache/memory/I/O evidence, verify bounded logical deletion and apply resource incident/recovery gates | Written; runtime validation pending |
 | 76 | [Replication Elections and Sharding Troubleshooting](76-replication-elections-and-sharding-troubleshooting.md) | Reconcile acknowledged data and member recovery, rehearse gated handoff and inspect accepted sharded routing dependencies | Written; runtime validation pending |
-| 77 | Production Data Modeling and Query Tuning Project | Demonstrate production data modeling and query tuning project with evidence and cleanup | Planned |
+| 77 | [Production Data Modeling and Query Tuning Project](77-production-data-modeling-and-query-tuning-project.md) | Build a validated tenant queue, tune equivalent queries, verify seek pages and enforce guarded state transitions | Written; runtime validation pending |
 | 78 | HA Failover and Application Resilience Project | Demonstrate ha failover and application resilience project with evidence and cleanup | Planned |
 | 79 | Backup Restore and Disaster Recovery Project | Demonstrate backup restore and disaster recovery project with evidence and cleanup | Planned |
 | 80 | Production Readiness and Final Acceptance Project | Demonstrate production readiness and final acceptance project with evidence and cleanup | Planned |
