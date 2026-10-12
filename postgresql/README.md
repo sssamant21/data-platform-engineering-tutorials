@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–029 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–030 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -45,4 +45,6 @@ Chapters 001–029 are authored and reviewed statically. Actual lab execution re
 
 - [029 — CPU, Memory, I/O and Wait Event Diagnosis](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md)
 
-Next: Chapter 030 — Production Slowness Investigation Project.
+- [030 — Production Slowness Investigation Project](chapters/030-production-slowness-investigation-project.md)
+
+Next: Chapter 031 — B-tree and Other Index Types: Operational Tradeoffs.

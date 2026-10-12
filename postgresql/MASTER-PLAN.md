@@ -107,7 +107,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | [027](chapters/027-explain-and-explain-analyze-safely.md) | EXPLAIN and EXPLAIN ANALYZE Safely | Authored; lab execution pending |
 | [028](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Planner Estimates, Statistics and Extended Statistics | Authored; lab execution pending |
 | [029](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md) | CPU, Memory, I/O and Wait Event Diagnosis | Authored; lab execution pending |
-| 030 | Production Slowness Investigation Project | Planned |
+| [030](chapters/030-production-slowness-investigation-project.md) | Production Slowness Investigation Project | Authored; lab execution pending |
 
 **Module acceptance lab:** Diagnose a slow workload with plans, waits and OS evidence; validate improvement against a baseline.
 
