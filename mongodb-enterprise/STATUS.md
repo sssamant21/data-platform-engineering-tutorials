@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 68/80  
+**Written:** 69/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 69 — Metrics Logs FTDC and Dashboard Design
+**Next:** Chapter 70 — Alert Thresholds SLOs and Capacity Forecasting
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -78,7 +78,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 66 | GridFS Capped Collections and Workload Boundaries | Written | Reviewed; Python/JavaScript syntax and synthetic fixture checks passed | Pending |
 | 67 | MongoDB to Snowflake Direct Integration | Written | Reviewed; Python/JavaScript syntax and local protocol-model checks passed | Pending |
 | 68 | Import Export Migration and Data Reconciliation | Written | Reviewed; Python/JavaScript/shell syntax and local canonical-wrapper digest checks passed | Pending |
-| 69 | Metrics Logs FTDC and Dashboard Design | Planned | Pending | Pending |
+| 69 | Metrics Logs FTDC and Dashboard Design | Written | Reviewed; Python/JavaScript syntax and actual rate-helper/log-parser offline checks passed | Pending |
 | 70 | Alert Thresholds SLOs and Capacity Forecasting | Planned | Pending | Pending |
 | 71 | Daily Administration and Maintenance Runbook | Planned | Pending | Pending |
 | 72 | Cost Optimization and Enterprise License Planning | Planned | Pending | Pending |
