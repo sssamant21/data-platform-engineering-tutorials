@@ -115,7 +115,7 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 
 | Chapter | Tutorial | Status |
 |---|---|---|
-| 031 | B-tree and Other Index Types: Operational Tradeoffs | Planned |
+| [031](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md) | B-tree and Other Index Types: Operational Tradeoffs | Authored; lab execution pending |
 | 032 | Composite, Partial, Expression and Covering Indexes | Planned |
 | 033 | Unused, Duplicate and Bloated Index Diagnosis | Planned |
 | 034 | Concurrent Index Builds, Failed Builds and Reindexing | Planned |
