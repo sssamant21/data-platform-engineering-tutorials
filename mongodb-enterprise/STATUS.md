@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-12  
-**Written:** 73/80  
+**Written:** 74/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 74 — Connection Authentication and TLS Troubleshooting
+**Next:** Chapter 75 — Disk Pressure Cache Pressure and Resource Incidents
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -83,7 +83,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 71 | Daily Administration and Maintenance Runbook | Written | Reviewed; Python/JavaScript syntax, fixture bounds and actual offline readiness-gate cases passed | Pending |
 | 72 | Cost Optimization and Enterprise License Planning | Written | Reviewed; Python/JavaScript syntax and actual offline Decimal cost/gate/invalid-input checks passed | Pending |
 | 73 | Query Slowness Investigation Runbook | Written | Reviewed; JavaScript/Python syntax and actual offline fixture/scope checks passed | Pending |
-| 74 | Connection Authentication and TLS Troubleshooting | Planned | Pending | Pending |
+| 74 | Connection Authentication and TLS Troubleshooting | Written | Reviewed; Python/JavaScript/shell syntax and actual offline classifier checks passed | Pending |
 | 75 | Disk Pressure Cache Pressure and Resource Incidents | Planned | Pending | Pending |
 | 76 | Replication Elections and Sharding Troubleshooting | Planned | Pending | Pending |
 | 77 | Production Data Modeling and Query Tuning Project | Planned | Pending | Pending |
