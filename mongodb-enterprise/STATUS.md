@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 64/80  
+**Written:** 65/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 65 — Time Series Collections and Retention
+**Next:** Chapter 66 — GridFS Capped Collections and Workload Boundaries
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -74,7 +74,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 62 | Rolling Upgrades FCV and Rollback Constraints | Written | Reviewed | Pending |
 | 63 | Drivers Connection Pools Timeouts and Retries | Written | Reviewed | Pending |
 | 64 | Change Streams Resume Tokens and CDC | Written | Reviewed; mocked-consumer/SQLite checks passed | Pending |
-| 65 | Time Series Collections and Retention | Planned | Pending | Pending |
+| 65 | Time Series Collections and Retention | Written | Reviewed; JavaScript syntax and fixture arithmetic checked | Pending |
 | 66 | GridFS Capped Collections and Workload Boundaries | Planned | Pending | Pending |
 | 67 | MongoDB to Snowflake Direct Integration | Planned | Pending | Pending |
 | 68 | Import Export Migration and Data Reconciliation | Planned | Pending | Pending |
