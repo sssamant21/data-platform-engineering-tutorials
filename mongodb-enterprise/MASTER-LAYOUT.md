@@ -2,7 +2,7 @@
 
 **Audience:** Developers, Data Engineers, DBREs, SREs and Platform Engineers  
 **Workflow:** Planned → Draft → Technical review → Lab validated → Canonical  
-**Progress:** 65/80 written; 0/80 runtime validated.  
+**Progress:** 66/80 written; 0/80 runtime validated.  
 **Lab baseline:** MongoDB 8.0 syntax; record exact server, mongosh, driver, tool and operator versions in every lab. Existing 7.0 deployments require their own compatibility review. Enterprise-only exercises require authorized Enterprise binaries and entitlements; Community labs must not claim Enterprise feature validation.
 
 ## Part 1 — Foundations and Architecture
@@ -114,7 +114,7 @@
 | # | Chapter | Lab outcome | Status |
 |---|---|---|---|
 | 65 | [Time Series Collections and Retention](65-time-series-collections-and-retention.md) | Reconcile measurements, inspect bounded queries, reject invalid dates and verify global/partial TTL with policy recovery | Written; runtime validation pending |
-| 66 | GridFS Capped Collections and Workload Boundaries | Demonstrate gridfs capped collections and workload boundaries with evidence and cleanup | Planned |
+| 66 | [GridFS Capped Collections and Workload Boundaries](66-gridfs-capped-collections-and-workload-boundaries.md) | Verify file digests, version publication and abort cleanup; demonstrate capped rollover and consumer gaps | Written; runtime validation pending |
 | 67 | MongoDB to Snowflake Direct Integration | Demonstrate mongodb to snowflake direct integration with evidence and cleanup | Planned |
 | 68 | Import Export Migration and Data Reconciliation | Demonstrate import export migration and data reconciliation with evidence and cleanup | Planned |
 | 69 | Metrics Logs FTDC and Dashboard Design | Demonstrate metrics logs ftdc and dashboard design with evidence and cleanup | Planned |
