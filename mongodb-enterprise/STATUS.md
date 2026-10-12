@@ -1,10 +1,10 @@
 # MongoDB Enterprise — Rebuild Status
 
 **Updated:** 2026-10-11  
-**Written:** 66/80  
+**Written:** 67/80  
 **Runtime validated:** 0/80  
 **Canonical:** 0/80  
-**Next:** Chapter 67 — MongoDB to Snowflake Direct Integration
+**Next:** Chapter 68 — Import Export Migration and Data Reconciliation
 
 The previous 28-chapter track was removed from the active folder in this rebuild. Its contents remain recoverable through the parent Git commit. No old completion status carries forward.
 
@@ -76,7 +76,7 @@ The previous 28-chapter track was removed from the active folder in this rebuild
 | 64 | Change Streams Resume Tokens and CDC | Written | Reviewed; mocked-consumer/SQLite checks passed | Pending |
 | 65 | Time Series Collections and Retention | Written | Reviewed; JavaScript syntax and fixture arithmetic checked | Pending |
 | 66 | GridFS Capped Collections and Workload Boundaries | Written | Reviewed; Python/JavaScript syntax and synthetic fixture checks passed | Pending |
-| 67 | MongoDB to Snowflake Direct Integration | Planned | Pending | Pending |
+| 67 | MongoDB to Snowflake Direct Integration | Written | Reviewed; Python/JavaScript syntax and local protocol-model checks passed | Pending |
 | 68 | Import Export Migration and Data Reconciliation | Planned | Pending | Pending |
 | 69 | Metrics Logs FTDC and Dashboard Design | Planned | Pending | Pending |
 | 70 | Alert Thresholds SLOs and Capacity Forecasting | Planned | Pending | Pending |
