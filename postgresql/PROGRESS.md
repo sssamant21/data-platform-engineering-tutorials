@@ -23,6 +23,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [017](chapters/017-isolation-levels-and-application-failure-patterns.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; 15 retry-orchestration/configuration fixture cases with simulated connections passed | Pending; lost-update/RR/write-skew/Serializable lab and real driver integration not executed; no PostgreSQL runtime | Published with this tracker |
 | [018](chapters/018-locks-blocking-chains-and-deadlocks.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; metadata-only observer, deduplicated bounded graph/cycle/external/prepared guards and scoped cleanup checked | Pending; row-chain/strong-lock/NOWAIT/deadlock lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [019](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Authored | Bash syntax, links, fences and metadata SQL reviewed; timeout scopes, SQLSTATE recovery and session-only cleanup checked | Pending; timeout and multi-session lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 020–100 | Planned | Pending | Pending | Plan only |
+| [020](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; single-target identity/state guards, bounded signaling and scoped cleanup checked | Pending; cancellation/termination and three-session incident lab not executed; no PostgreSQL runtime | Published with this tracker |
+| 021–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 020 — Safe Cancellation, Termination and Concurrency Incident Lab.
+**Next:** Chapter 021 — Database SLIs, SLOs and Error Budgets.
