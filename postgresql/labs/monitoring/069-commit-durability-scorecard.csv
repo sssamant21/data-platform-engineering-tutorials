@@ -1,0 +1,9 @@
+test_id,mode,standby_policy,available_standbys,sample_count,p50_commit_ms,p95_commit_ms,p99_commit_ms,sync_state,observed_wait_event,client_outcome,verified_db_outcome,pass_fail,notes
+BASELINE,local,none,2,,,,,,,,,PENDING,
+REMOTE_WRITE,remote_write,FIRST 1,2,,,,,,,,,PENDING,
+SYNC_ON,on,FIRST 1,2,,,,,,,,,PENDING,
+REMOTE_APPLY,remote_apply,FIRST 1,2,,,,,,,,,PENDING,
+FAILOVER,on,FIRST 1,1,,,,,,,,,PENDING,
+OUTAGE,on,FIRST 1,0,,,,,,,,,PENDING,
+QUORUM,on,ANY 2,1,,,,,,,,,PENDING,
+ROLLBACK,local,restored,2,,,,,,,,,PENDING,
