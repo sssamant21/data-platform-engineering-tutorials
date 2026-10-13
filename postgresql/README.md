@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–042 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–043 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -71,4 +71,6 @@ Chapters 001–042 are authored and reviewed statically. Actual lab execution re
 
 - [042 — Logical Backups with pg_dump, pg_restore and pg_dumpall](chapters/042-logical-backups-with-pg_dump-pg_restore-and-pg_dumpall.md)
 
-Next: Chapter 043 — Physical Backups with pg_basebackup and Backup Manifests.
+- [043 — Physical Backups with pg_basebackup and Backup Manifests](chapters/043-physical-backups-with-pg_basebackup-and-backup-manifests.md)
+
+Next: Chapter 044 — WAL Archiving, Restore Commands and PITR Foundations.
