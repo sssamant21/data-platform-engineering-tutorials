@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+CFG01,Desired state,yes,Approved versioned baseline exists,,PENDING,,
+CFG02,Runtime inventory,yes,pg_settings source and units captured,,PENDING,,
+CFG03,File inventory,yes,pg_file_settings reviewed for errors,,PENDING,,
+CFG04,Role overrides,yes,Database and role overrides inspected,,PENDING,,
+CFG05,Drift injection,yes,Lab-only approved setting differs from baseline,,PENDING,,
+CFG06,Drift detection,yes,Mismatch and source correctly identified,,PENDING,,
+CFG07,Remediation,yes,Original effective value restored,,PENDING,,
+CFG08,Reload verification,yes,Effective setting and logs checked,,PENDING,,
+CFG09,Restart policy,yes,Pending restart and HA procedure documented,,PENDING,,
+CFG10,IaC reconciliation,yes,Authoritative controller path verified,,NOT VERIFIED,,
+CFG11,Multi-node consistency,yes,All required nodes compared,,NOT VERIFIED,,
+CFG12,Application health,yes,Connections and workloads remain healthy,,PENDING,,
