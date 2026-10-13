@@ -27,9 +27,15 @@ try {
   $preflight = & psql -X -w -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -Atc $sql
   if ($LASTEXITCODE -ne 0) { throw "Preflight failed with psql exit code $LASTEXITCODE" }
   if (($preflight | Select-Object -Last 1).Trim() -ne "f") { throw "Refusing write maintenance on standby." }
-  # VACUUM cannot run in a transaction block; separate psql call.
-  & psql -X -w -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -c "SET lock_timeout='3s'; SET statement_timeout='120s'; VACUUM (ANALYZE) public.ch084_events;"
-  if ($LASTEXITCODE -ne 0) { throw "Maintenance failed with psql exit code $LASTEXITCODE" }
+  # Apply session timeouts through PGOPTIONS; VACUUM must be the sole -c command.
+  $previousPgOptions = $env:PGOPTIONS
+  $env:PGOPTIONS = "-c lock_timeout=3s -c statement_timeout=120s"
+  try {
+    & psql -X -w -h $HostName -p $Port -U $User -d $Database -v ON_ERROR_STOP=1 -c "VACUUM (ANALYZE) public.ch084_events;"
+    $vacuumExitCode = $LASTEXITCODE
+  }
+  finally { $env:PGOPTIONS = $previousPgOptions }
+  if ($vacuumExitCode -ne 0) { throw "Maintenance failed with psql exit code $vacuumExitCode" }
   Write-Output "RESULT=SUCCESS"
 }
 catch {
