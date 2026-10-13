@@ -1,0 +1,13 @@
+exercise_id,phase,scenario,environment,approval_required,expected_evidence,observed_result,status,owner,reviewer
+FINAL01,Architecture,Primary standby backup monitoring,Disposable,yes,Topology and ownership,,NOT VERIFIED,,
+FINAL02,Performance,Peak workload and SLO,Disposable,yes,p95 p99 errors throughput,,NOT VERIFIED,,
+FINAL03,Capacity,Compute disk IOPS WAL headroom,Disposable,yes,Capacity metrics and forecast,,NOT VERIFIED,,
+FINAL04,Backup,Isolated PITR restore,Disposable,yes,Recovered durable marker,,NOT VERIFIED,,
+FINAL05,Availability,Primary failure and fencing,Disposable,yes,Single writer proof,,NOT VERIFIED,,
+FINAL06,DR,Regional failure tabletop or approved drill,Approved DR environment,yes,Measured RPO RTO when executed,,NOT VERIFIED,,
+FINAL07,Application,Recovery and data reconciliation,Disposable,yes,Read write correctness and SLO,,NOT VERIFIED,,
+FINAL08,Security,Access and TLS review,Approved environment,yes,Least privilege evidence,,NOT VERIFIED,,
+FINAL09,Incident,Incident command and RCA,Disposable,yes,UTC timeline and COAs,,NOT VERIFIED,,
+FINAL10,Automation,Collector and negative tests,Disposable,yes,Timestamped evidence and failure exits,,NOT VERIFIED,,
+FINAL11,Protection,Backup replication and alerts restored,Disposable,yes,Protected steady state,,NOT VERIFIED,,
+FINAL12,Governance,Independent operational signoff,Review board,yes,Final signed decision,,NOT VERIFIED,,
