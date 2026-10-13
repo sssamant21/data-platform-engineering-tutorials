@@ -68,6 +68,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [062](chapters/062-postgresql-logical-backups-with-pg-dump-pg-restore-and-pg-dumpall.md) | Authored | Structural review; logical backup lab not runtime-tested | Pending; PostgreSQL 18 dump/restore lab not executed | Published |
 | [063](chapters/063-postgresql-physical-backups-with-pg-basebackup-and-backup-verification.md) | Authored | Structural review; physical backup verification lab not runtime-tested | Pending; PostgreSQL 18 pg_basebackup/pg_verifybackup lab not executed | Published |
 | [064](chapters/064-postgresql-wal-archiving-and-point-in-time-recovery.md) | Authored | Structural review; WAL archiving/PITR lab not runtime-tested | Pending; PostgreSQL 18 PITR drill not executed | Published |
-| 065–100 | Planned | Pending | Pending | Plan only |
+| [065](chapters/065-postgresql-backup-retention-automation-and-restore-testing.md) | Authored | Structural review; retention/restore lab not runtime-tested | Pending; PostgreSQL 18 backup automation lab not executed | Published |
+| 066–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 065 — PostgreSQL Backup Retention, Automation and Restore Testing.
+**Next:** Chapter 066 — PostgreSQL Backup and Disaster Recovery Acceptance Lab.
