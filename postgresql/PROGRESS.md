@@ -38,3 +38,6 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | 032–100 | Planned | Pending | Pending | Plan only |
 
 **Next:** Chapter 032 — Composite, Partial, Expression and Covering Indexes.
+
+
+Chapter 032 — Composite, Partial, Expression and Covering Indexes: authored and published; runtime verification pending.
