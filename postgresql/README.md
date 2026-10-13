@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–073 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–074 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -133,4 +133,6 @@ Chapters 001–073 are authored and reviewed statically. Actual lab execution re
 
 - [073 — PostgreSQL Multi-Zone High Availability and Disaster Recovery Design](chapters/073-postgresql-multi-zone-high-availability-and-disaster-recovery-design.md)
 
-Next: Chapter 074 — PostgreSQL Cross-Region Replication, DR Cutover and Failback.
+- [074 — PostgreSQL Cross-Region Replication, DR Cutover and Failback](chapters/074-postgresql-cross-region-replication-dr-cutover-and-failback.md)
+
+Next: Chapter 075 — PostgreSQL High Availability and Disaster Recovery Acceptance Project.
