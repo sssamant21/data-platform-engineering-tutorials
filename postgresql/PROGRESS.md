@@ -45,6 +45,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [039](chapters/039-partition-pruning-indexes-and-query-performance.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
 | [040](chapters/040-partition-lifecycle-retention-and-recovery-project.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab and archive restore not executed | Published |
 | [041](chapters/041-postgresql-backup-architecture-and-recovery-objectives.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 backup/restore lab not executed | Published |
-| 042–100 | Planned | Pending | Pending | Plan only |
+| [042](chapters/042-logical-backups-with-pg_dump-pg_restore-and-pg_dumpall.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 logical restore lab not executed | Published |
+| 043–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 042 — Logical Backups with pg_dump, pg_restore and pg_dumpall.
+**Next:** Chapter 043 — Physical Backups with pg_basebackup and Backup Manifests.
