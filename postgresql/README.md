@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–071 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–072 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -129,4 +129,6 @@ Chapters 001–071 are authored and reviewed statically. Actual lab execution re
 
 - [071 — PostgreSQL HA Automation, Leader Election and Failover Orchestration](chapters/071-postgresql-ha-automation-leader-election-and-failover-orchestration.md)
 
-Next: Chapter 072 — PostgreSQL High Availability Observability and Failure Recovery.
+- [072 — PostgreSQL High Availability Observability and Failure Recovery](chapters/072-postgresql-high-availability-observability-and-failure-recovery.md)
+
+Next: Chapter 073 — PostgreSQL Multi-Zone High Availability and Disaster Recovery Design.
