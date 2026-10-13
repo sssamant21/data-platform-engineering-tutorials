@@ -88,6 +88,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [082](chapters/082-postgresql-version-upgrades-compatibility-testing-and-rollback-planning.md) | Authored | Structural review; version upgrade lab not runtime-tested | Pending; PostgreSQL 18 upgrade and rollback tests not executed | Published |
 | [083](chapters/083-postgresql-configuration-management-infrastructure-as-code-and-drift-detection.md) | Authored | Structural review; configuration drift lab not runtime-tested | Pending; PostgreSQL 18 drift and IaC reconciliation tests not executed | Published |
 | [084](chapters/084-postgresql-maintenance-automation-scheduling-and-operational-runbooks.md) | Authored | Structural review; maintenance automation lab not runtime-tested | Pending; PostgreSQL 18 scheduling, concurrency and failure tests not executed | Published |
-| 085–100 | Planned | Pending | Pending | Plan only |
+| [085](chapters/085-postgresql-production-operations-change-management-and-reliability-acceptance-project.md) | Authored | Structural review; production operations capstone not runtime-tested | Pending; PostgreSQL 18 change and reliability acceptance tests not executed | Published |
+| 086–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 085 — PostgreSQL Production Operations, Change Management and Reliability Acceptance Project.
+**Next:** Chapter 086 — PostgreSQL Capacity Forecasting, Cost Optimization and FinOps.
