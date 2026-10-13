@@ -1,0 +1,3 @@
+setting,expected_setting,scope,environment,owner,change_ticket,apply_requirement,notes
+log_min_duration_statement,1000,cluster,disposable-lab,DBRE,LAB-083,reload,Example milliseconds only; adjust to approved lab baseline
+statement_timeout,0,cluster,disposable-lab,DBRE,LAB-083,context-dependent,Example only
