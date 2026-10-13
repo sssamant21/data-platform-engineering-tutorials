@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner
+RCA01,Incident command,yes,IC and severity assigned,,PENDING,
+RCA02,Reproducible fault,yes,Bounded isolated lock contention observed,,NOT VERIFIED,
+RCA03,Application impact,yes,p95 p99 errors and transactions captured,,NOT VERIFIED,
+RCA04,Blocking evidence,yes,Blocker and waiter identified,,NOT VERIFIED,
+RCA05,Timeline,yes,UTC observations and actions preserved,,PENDING,
+RCA06,Mitigation approval,yes,Scoped reversible action approved,,PENDING,
+RCA07,Service recovery,yes,Application writes and SLO restored,,NOT VERIFIED,
+RCA08,Data integrity,yes,No missing or duplicate critical transactions,,NOT VERIFIED,
+RCA09,RCA quality,yes,Trigger mechanism contributors and unknowns distinguished,,PENDING,
+RCA10,COA ownership,yes,Preventive and detective actions have owners,,PENDING,
+RCA11,COA verification,yes,Repeat fault confirms improvement,,NOT VERIFIED,
+RCA12,Independent signoff,yes,DBRE SRE app owners approve,,PENDING,
