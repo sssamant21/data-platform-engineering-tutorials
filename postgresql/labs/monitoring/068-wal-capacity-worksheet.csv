@@ -1,0 +1,2 @@
+cluster,slot_name,consumer_owner,slot_type,active,wal_status,restart_lsn,retained_wal_bytes,safe_wal_size_bytes,wal_bytes_per_second,estimated_seconds_to_risk,free_disk_bytes,archive_healthy,reseed_plan,decision,reviewer,notes
+LAB,ch068_lab_slot,lab-operator,physical,false,unknown,,0,,0,,0,unknown,lab-only,REVIEW,,Replace example values with measured lab data
