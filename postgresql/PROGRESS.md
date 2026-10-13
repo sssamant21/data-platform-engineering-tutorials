@@ -58,6 +58,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [052](chapters/052-postgresql-authentication-pg-hba-conf-and-tls-security.md) | Authored | Structural review; HBA/TLS lab not runtime-tested | Pending; PostgreSQL 18 authentication lab not executed | Published |
 | [053](chapters/053-postgresql-row-level-security-and-secure-application-access.md) | Authored | Structural review; RLS lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation lab not executed | Published |
 | [054](chapters/054-postgresql-auditing-logging-and-security-monitoring.md) | Authored | Structural review; audit lab not runtime-tested | Pending; PostgreSQL 18 auditing lab not executed | Published |
-| 055–100 | Planned | Pending | Pending | Plan only |
+| [055](chapters/055-postgresql-security-hardening-and-access-control-acceptance-lab.md) | Authored | Structural review; security acceptance not runtime-tested | Pending; PostgreSQL 18 security capstone not executed | Published |
+| 056–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 055 — PostgreSQL Security Hardening and Access Control Acceptance Lab.
+**Next:** Chapter 056 — PostgreSQL Connection Management and PgBouncer Fundamentals.
