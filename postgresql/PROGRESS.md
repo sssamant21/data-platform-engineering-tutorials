@@ -72,6 +72,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [066](chapters/066-postgresql-backup-and-disaster-recovery-acceptance-lab.md) | Authored | Structural review; DR acceptance lab not runtime-tested | Pending; PostgreSQL 18 end-to-end recovery drill not executed | Published |
 | [067](chapters/067-postgresql-streaming-replication-and-high-availability-architecture.md) | Authored | Structural review; streaming replication lab not runtime-tested | Pending; PostgreSQL 18 primary/standby lab not executed | Published |
 | [068](chapters/068-postgresql-replication-slots-wal-retention-and-lag-management.md) | Authored | Structural review; slot and WAL lag lab not runtime-tested | Pending; PostgreSQL 18 replication slot lab not executed | Published |
-| 069–100 | Planned | Pending | Pending | Plan only |
+| [069](chapters/069-postgresql-synchronous-replication-and-commit-durability.md) | Authored | Structural review; synchronous commit lab not runtime-tested | Pending; PostgreSQL 18 synchronous replication lab not executed | Published |
+| 070–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 069 — PostgreSQL Synchronous Replication and Commit Durability.
+**Next:** Chapter 070 — PostgreSQL Planned Switchover, Failover and Split-Brain Prevention.
