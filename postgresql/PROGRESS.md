@@ -55,6 +55,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [049](chapters/049-replication-failover-rejoin-and-timeline-recovery.md) | Authored | Structural review; failover/rewind not runtime-tested | Pending; PostgreSQL 18 failover and rejoin not executed | Published |
 | [050](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md) | Authored | Structural review; HA/DR acceptance not runtime-tested | Pending; PostgreSQL 18 HA/DR capstone not executed | Published |
 | [051](chapters/051-postgresql-security-architecture-roles-and-privilege-boundaries.md) | Authored | Structural review; role lab not runtime-tested | Pending; PostgreSQL 18 security lab not executed | Published |
-| 052–100 | Planned | Pending | Pending | Plan only |
+| [052](chapters/052-postgresql-authentication-pg-hba-conf-and-tls-security.md) | Authored | Structural review; HBA/TLS lab not runtime-tested | Pending; PostgreSQL 18 authentication lab not executed | Published |
+| 053–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 052 — PostgreSQL Authentication, pg_hba.conf and TLS Security.
+**Next:** Chapter 053 — PostgreSQL Row-Level Security and Secure Application Access.
