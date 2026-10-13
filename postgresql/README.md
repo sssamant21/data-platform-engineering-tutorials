@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–061 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–062 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -109,4 +109,6 @@ Chapters 001–061 are authored and reviewed statically. Actual lab execution re
 
 - [061 — PostgreSQL Backup Strategy, RPO and RTO Fundamentals](chapters/061-postgresql-backup-strategy-rpo-and-rto-fundamentals.md)
 
-Next: Chapter 062 — PostgreSQL Logical Backups with pg_dump, pg_restore and pg_dumpall.
+- [062 — PostgreSQL Logical Backups with pg_dump, pg_restore and pg_dumpall](chapters/062-postgresql-logical-backups-with-pg-dump-pg-restore-and-pg-dumpall.md)
+
+Next: Chapter 063 — PostgreSQL Physical Backups with pg_basebackup and Backup Verification.
