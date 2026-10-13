@@ -96,6 +96,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [090](chapters/090-postgresql-multi-region-architecture-geo-replication-and-disaster-recovery-design.md) | Authored | Structural review; multi-region DR lab not runtime-tested | Pending; PostgreSQL 18 replication, fencing and recovery tests not executed | Published |
 | [091](chapters/091-postgresql-cross-region-failover-fencing-and-split-brain-prevention.md) | Authored | Structural review; fencing lab not runtime-tested | Pending; PostgreSQL 18 single-writer failover tests not executed | Published |
 | [092](chapters/092-postgresql-cross-region-backup-restore-and-disaster-recovery-automation.md) | Authored | Structural review; cross-region restore lab not runtime-tested | Pending; PostgreSQL 18 backup, PITR and DR automation tests not executed | Published |
-| 093–100 | Planned | Pending | Pending | Plan only |
+| [093](chapters/093-postgresql-multi-region-observability-dr-drills-and-reliability-testing.md) | Authored | Structural review; multi-region DR drill lab not runtime-tested | Pending; PostgreSQL 18 recovery exercises and RPO/RTO validation not executed | Published |
+| 094–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 093 — PostgreSQL Multi-Region Observability, DR Drills and Reliability Testing.
+**Next:** Chapter 094 — PostgreSQL Multi-Region Disaster Recovery Simulation and Acceptance Project.
