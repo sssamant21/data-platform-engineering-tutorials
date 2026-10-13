@@ -66,6 +66,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [060](chapters/060-postgresql-connection-pooling-and-availability-acceptance-project.md) | Authored | Structural review; availability acceptance not runtime-tested | Pending; PostgreSQL 18/PgBouncer capstone not executed | Published |
 | [061](chapters/061-postgresql-backup-strategy-rpo-and-rto-fundamentals.md) | Authored | Structural review; backup strategy lab not runtime-tested | Pending; PostgreSQL 18 backup/restore lab not executed | Published |
 | [062](chapters/062-postgresql-logical-backups-with-pg-dump-pg-restore-and-pg-dumpall.md) | Authored | Structural review; logical backup lab not runtime-tested | Pending; PostgreSQL 18 dump/restore lab not executed | Published |
-| 063–100 | Planned | Pending | Pending | Plan only |
+| [063](chapters/063-postgresql-physical-backups-with-pg-basebackup-and-backup-verification.md) | Authored | Structural review; physical backup verification lab not runtime-tested | Pending; PostgreSQL 18 pg_basebackup/pg_verifybackup lab not executed | Published |
+| 064–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 063 — PostgreSQL Physical Backups with pg_basebackup and Backup Verification.
+**Next:** Chapter 064 — PostgreSQL WAL Archiving and Point-in-Time Recovery.
