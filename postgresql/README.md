@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–086 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–087 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -159,4 +159,6 @@ Chapters 001–086 are authored and reviewed statically. Actual lab execution re
 
 - [086 — PostgreSQL Capacity Forecasting, Cost Optimization and FinOps](chapters/086-postgresql-capacity-forecasting-cost-optimization-and-finops.md)
 
-Next: Chapter 087 — PostgreSQL Workload Forecasting, Performance Baselines and Capacity Stress Testing.
+- [087 — PostgreSQL Workload Forecasting, Performance Baselines and Capacity Stress Testing](chapters/087-postgresql-workload-forecasting-performance-baselines-and-capacity-stress-testing.md)
+
+Next: Chapter 088 — PostgreSQL Storage Growth, Retention and Lifecycle Optimization.
