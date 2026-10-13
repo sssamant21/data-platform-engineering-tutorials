@@ -1,0 +1,65 @@
+# Chapter 045 — PITR and Disaster Recovery Hands-on Lab
+
+**PostgreSQL 18 · Dedicated disposable cluster only · Runtime validation pending.**
+
+## Safety requirements
+
+This drill deliberately changes test rows. Never run the fixture or incident SQL on production, a shared database, or a system containing valuable data. Use a separately provisioned recovery instance and an empty restore data directory. Do not overwrite a live PGDATA.
+
+## Phase 1 — Preflight
+
+```bash
+psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-preflight.sql
+```
+
+Confirm physical backup permissions, working WAL archive, restore storage, compatible PostgreSQL 18 binaries, and an independent recovery host.
+
+## Phase 2 — Fixture and verified base backup
+
+```bash
+psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-fixture.sql
+pg_basebackup -h 127.0.0.1 -p 5432 -U backup_user -D /secure/lab/ch045-base -Fp -Xs -P
+pg_verifybackup /secure/lab/ch045-base
+```
+
+The backup destination must be new and empty. Preserve command exit codes, timestamps and the manifest.
+
+## Phase 3 — Good marker and incident
+
+```bash
+psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-good-marker.sql
+psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-incident.sql
+```
+
+Run these **only** after the base backup and archive prerequisites pass. The good marker is committed before the simulated bad update. Record UTC times and available WAL evidence; a sampled timestamp is not a guaranteed exact commit boundary.
+
+## Phase 4 — Isolated PITR
+
+Restore the verified physical backup into an isolated PostgreSQL 18 instance. Configure a tested `restore_command`, create `recovery.signal` and choose a verified target after the good marker and before the incident. Monitor replay and pause at the target. Do not promote or accept writes until validation passes.
+
+```bash
+psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-verify.sql
+```
+
+Run verification against the **recovered instance**, not the source. If any test fails, reject the recovery target and repeat from a clean restored backup.
+
+## Evidence worksheet
+
+| Gate | Evidence | Result |
+|---|---|---|
+| Base backup complete | pg_basebackup exit code | |
+| Manifest valid | pg_verifybackup output | |
+| WAL chain continuous | Archive inventory and recovery logs | |
+| Good marker present | Verification SQL | |
+| Corrupt rows absent | Verification SQL | |
+| Recovered row count | Expected versus actual | |
+| Recovery target correct | Timestamp/LSN/timeline | |
+| Achieved RPO | Last committed good data recovered | |
+| Achieved RTO | Detection to validated service readiness | |
+| Cutover readiness | Fencing, approvals, rollback | |
+
+## Failure injection discussion
+
+Review archive gaps, restore command failures, timezone mistakes, target before base backup, wrong timeline, missing tablespaces and insufficient recovery disk. No destructive filesystem commands are provided.
+
+**Acceptance:** demonstrated independent PITR and documented data integrity, RPO/RTO and rollback. **Runtime status:** pending.
