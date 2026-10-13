@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–092 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–093 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -171,4 +171,6 @@ Chapters 001–092 are authored and reviewed statically. Actual lab execution re
 
 - [092 — PostgreSQL Cross-Region Backup, Restore and Disaster Recovery Automation](chapters/092-postgresql-cross-region-backup-restore-and-disaster-recovery-automation.md)
 
-Next: Chapter 093 — PostgreSQL Multi-Region Observability, DR Drills and Reliability Testing.
+- [093 — PostgreSQL Multi-Region Observability, DR Drills and Reliability Testing](chapters/093-postgresql-multi-region-observability-dr-drills-and-reliability-testing.md)
+
+Next: Chapter 094 — PostgreSQL Multi-Region Disaster Recovery Simulation and Acceptance Project.
