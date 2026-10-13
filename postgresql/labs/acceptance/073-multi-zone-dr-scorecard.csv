@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+AZ01,Failure domain inventory,yes,Zone and shared dependencies documented,,PENDING,,
+AZ02,DCS placement,yes,Quorum across three independent zones,,PENDING,,
+AZ03,Standby zone loss,yes,Primary remains healthy and redundancy alert fires,,PENDING,,
+AZ04,Primary zone loss,yes,Old leader fenced and eligible standby promoted,,PENDING,,
+AZ05,Single writer,yes,No two writable primaries,,PENDING,,
+AZ06,Quorum loss,yes,No unsafe leader election,,PENDING,,
+AZ07,Replication recovery,yes,Standbys rejoin and catch up,,PENDING,,
+AZ08,Writer endpoint,yes,Application routes to authoritative leader,,PENDING,,
+AZ09,Regional backup,yes,Independent restore copy and keys available,,PENDING,,
+AZ10,Regional DR drill,yes,Measured DR RPO and RTO,,NOT VERIFIED,,
+AZ11,Application reconciliation,yes,Ambiguous commits resolved,,PENDING,,
+AZ12,Failback and rollback,yes,Controlled rejoin and routing validated,,PENDING,,
