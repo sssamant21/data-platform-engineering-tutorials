@@ -43,6 +43,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [037](chapters/037-table-and-index-maintenance-strategy.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published; operator-reviewed cleanup |
 | [038](chapters/038-table-partitioning-fundamentals-and-operational-tradeoffs.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
 | [039](chapters/039-partition-pruning-indexes-and-query-performance.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
-| 040–100 | Planned | Pending | Pending | Plan only |
+| [040](chapters/040-partition-lifecycle-retention-and-recovery-project.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab and archive restore not executed | Published |
+| 041–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 040 — Partition Lifecycle, Retention and Recovery Project.
+**Next:** Chapter 041 — PostgreSQL Backup Architecture and Recovery Objectives.
