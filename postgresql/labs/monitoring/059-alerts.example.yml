@@ -1,0 +1,21 @@
+# Example only: validate metric names against your PgBouncer exporter.
+# Replace cluster/pool labels and routing configuration before deployment.
+groups:
+  - name: postgres-pool-example
+    rules:
+      - alert: PgBouncerPersistentWaitersExample
+        expr: sum by (instance) (pgbouncer_pools_cl_waiting) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PgBouncer clients waiting for server connections"
+          description: "Inspect SHOW POOLS, PostgreSQL long transactions, pool limits and application latency."
+      - alert: PgBouncerExporterUnavailableExample
+        expr: up{job="pgbouncer"} == 0
+        for: 3m
+        labels:
+          severity: warning
+        annotations:
+          summary: "PgBouncer exporter unavailable"
+          description: "Check scrape target, exporter credentials and PgBouncer reachability."
