@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–070 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–071 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -127,4 +127,6 @@ Chapters 001–070 are authored and reviewed statically. Actual lab execution re
 
 - [070 — PostgreSQL Planned Switchover, Failover and Split-Brain Prevention](chapters/070-postgresql-planned-switchover-failover-and-split-brain-prevention.md)
 
-Next: Chapter 071 — PostgreSQL HA Automation, Leader Election and Failover Orchestration.
+- [071 — PostgreSQL HA Automation, Leader Election and Failover Orchestration](chapters/071-postgresql-ha-automation-leader-election-and-failover-orchestration.md)
+
+Next: Chapter 072 — PostgreSQL High Availability Observability and Failure Recovery.
