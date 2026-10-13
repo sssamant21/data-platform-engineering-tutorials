@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+SEC01,Role separation,yes,Owner and runtime roles separate,,PENDING,,
+SEC02,Application CRUD,yes,App login can read and write approved tables,,PENDING,,
+SEC03,Application DDL denied,yes,App login cannot create or alter objects,,PENDING,,
+SEC04,Analyst SELECT,yes,Analyst can read approved tables,,PENDING,,
+SEC05,Analyst write denied,yes,Analyst cannot insert update or delete,,PENDING,,
+SEC06,Monitoring access,yes,Monitoring role limited to approved visibility,,PENDING,,
+SEC07,Membership options,yes,INHERIT SET and ADMIN verified,,PENDING,,
+SEC08,Schema and PUBLIC,yes,No unwanted schema CREATE grants,,PENDING,,
+SEC09,Default privileges,yes,Future owner-created tables have intended grants,,PENDING,,
+SEC10,Sequence grants,yes,Runtime identity has needed identity sequence access,,PENDING,,
+SEC11,Negative tests,yes,Unauthorized privilege escalation denied,,PENDING,,
+SEC12,Lab cleanup,yes,Disposable objects and roles safely removed,,PENDING,,
