@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–094 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–095 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -175,4 +175,6 @@ Chapters 001–094 are authored and reviewed statically. Actual lab execution re
 
 - [094 — PostgreSQL Multi-Region Disaster Recovery Simulation and Acceptance Project](chapters/094-postgresql-multi-region-disaster-recovery-simulation-and-acceptance-project.md)
 
-Next: Chapter 095 — PostgreSQL Enterprise Reliability and Operational Readiness Review.
+- [095 — PostgreSQL Enterprise Reliability and Operational Readiness Review](chapters/095-postgresql-enterprise-reliability-and-operational-readiness-review.md)
+
+Next: Chapter 096 — PostgreSQL Enterprise Incident Response, Escalation and Operational Command.
