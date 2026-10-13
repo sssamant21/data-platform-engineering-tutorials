@@ -69,6 +69,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [063](chapters/063-postgresql-physical-backups-with-pg-basebackup-and-backup-verification.md) | Authored | Structural review; physical backup verification lab not runtime-tested | Pending; PostgreSQL 18 pg_basebackup/pg_verifybackup lab not executed | Published |
 | [064](chapters/064-postgresql-wal-archiving-and-point-in-time-recovery.md) | Authored | Structural review; WAL archiving/PITR lab not runtime-tested | Pending; PostgreSQL 18 PITR drill not executed | Published |
 | [065](chapters/065-postgresql-backup-retention-automation-and-restore-testing.md) | Authored | Structural review; retention/restore lab not runtime-tested | Pending; PostgreSQL 18 backup automation lab not executed | Published |
-| 066–100 | Planned | Pending | Pending | Plan only |
+| [066](chapters/066-postgresql-backup-and-disaster-recovery-acceptance-lab.md) | Authored | Structural review; DR acceptance lab not runtime-tested | Pending; PostgreSQL 18 end-to-end recovery drill not executed | Published |
+| 067–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 066 — PostgreSQL Backup and Disaster Recovery Acceptance Lab.
+**Next:** Chapter 067 — PostgreSQL Streaming Replication and High Availability Architecture.
