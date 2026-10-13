@@ -1,0 +1,9 @@
+scenario_id,failure_scenario,environment,required_fencing,expected_decision,rpo_target_seconds,rto_target_seconds,observed_rpo_seconds,observed_rto_seconds,writer_uniqueness_verified,application_accepted,restore_verified,status,notes
+CAP01,Primary clean stop,Disposable,yes,Fence then recover,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP02,Inter-region partition,Disposable,yes,STOP until fenced,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP03,Standby lag,Disposable,yes,Assess RPO before recovery,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP04,WAL archive gap,Disposable,yes,Reject incomplete PITR chain,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP05,DR KMS outage,Disposable,yes,Fail closed and escalate,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP06,Stale application routing,Disposable,yes,Block old-writer paths,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP07,Former primary return,Disposable,yes,Quarantine and rejoin as standby,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
+CAP08,Regional capacity shortage,Disposable,yes,Fail SLO acceptance,,,,,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PENDING,
