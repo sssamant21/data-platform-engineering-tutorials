@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–055 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–056 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -97,4 +97,6 @@ Chapters 001–055 are authored and reviewed statically. Actual lab execution re
 
 - [055 — PostgreSQL Security Hardening and Access Control Acceptance Lab](chapters/055-postgresql-security-hardening-and-access-control-acceptance-lab.md)
 
-Next: Chapter 056 — PostgreSQL Connection Management and PgBouncer Fundamentals.
+- [056 — PostgreSQL Connection Management and PgBouncer Fundamentals](chapters/056-postgresql-connection-management-and-pgbouncer-fundamentals.md)
+
+Next: Chapter 057 — PgBouncer Pooling Modes, Sizing and Transaction Compatibility.
