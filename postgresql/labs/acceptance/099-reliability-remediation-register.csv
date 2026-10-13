@@ -1,0 +1,2 @@
+finding_id,gate_id,severity,observed_gap,customer_impact,evidence,owner,corrective_action,compensating_control,due_date,retest_evidence,status,reviewer
+F001,REL07,High,Isolated restore not yet demonstrated,Recoverability unproven,,,Schedule approved restore drill,,, ,OPEN,
