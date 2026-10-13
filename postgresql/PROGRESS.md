@@ -59,6 +59,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [053](chapters/053-postgresql-row-level-security-and-secure-application-access.md) | Authored | Structural review; RLS lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation lab not executed | Published |
 | [054](chapters/054-postgresql-auditing-logging-and-security-monitoring.md) | Authored | Structural review; audit lab not runtime-tested | Pending; PostgreSQL 18 auditing lab not executed | Published |
 | [055](chapters/055-postgresql-security-hardening-and-access-control-acceptance-lab.md) | Authored | Structural review; security acceptance not runtime-tested | Pending; PostgreSQL 18 security capstone not executed | Published |
-| 056–100 | Planned | Pending | Pending | Plan only |
+| [056](chapters/056-postgresql-connection-management-and-pgbouncer-fundamentals.md) | Authored | Structural review; PgBouncer lab not runtime-tested | Pending; PostgreSQL 18 connection lab not executed | Published |
+| 057–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 056 — PostgreSQL Connection Management and PgBouncer Fundamentals.
+**Next:** Chapter 057 — PgBouncer Pooling Modes, Sizing and Transaction Compatibility.
