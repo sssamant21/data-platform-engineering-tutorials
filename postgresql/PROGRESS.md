@@ -35,9 +35,8 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [029](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md) | Authored | Bash/embedded Python syntax, links, fences and SQL structure reviewed; collector help/label/root checks and 4 orchestration fixtures passed with OS identity/psql/sleep/host tools mocked; bounded workload/observation and cleanup reviewed | Pending; PostgreSQL CPU/sleep/lock/spill and live host correlation lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [030](chapters/030-production-slowness-investigation-project.md) | Authored | Bash/Python syntax, links, fences and SQL structure reviewed; probe help/label/root checks and 6 success/error/timeout/target fixtures passed with ownership identity/subprocess/sleep mocked; scoped fault, recovery-before-tuning and rollback reviewed | Pending; PostgreSQL blocking/request/plan/recovery project not executed; no PostgreSQL runtime | Published with this tracker |
 | [031](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; synthetic fixture arithmetic checked offline; fixed read-only plans, isolated B-tree/Hash candidates, BRIN diagnostic boundaries and scoped cleanup reviewed | Pending; PostgreSQL six-method index/plan/physical-correlation lab not executed; no PostgreSQL runtime | Published with this tracker |
-| 032–100 | Planned | Pending | Pending | Plan only |
+| [032](chapters/032-composite-partial-expression-and-covering-indexes.md) | Authored | Structural review | Pending; PostgreSQL 18 lab not executed | Published |
+| [033](chapters/033-index-build-reindex-and-concurrent-maintenance.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
+| 034–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 032 — Composite, Partial, Expression and Covering Indexes.
-
-
-Chapter 032 — Composite, Partial, Expression and Covering Indexes: authored and published; runtime verification pending.
+**Next:** Chapter 034 — Index Bloat, Usage and Lifecycle Decisions.
