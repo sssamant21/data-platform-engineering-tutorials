@@ -87,6 +87,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [081](chapters/081-postgresql-extensions-compatibility-and-operational-lifecycle.md) | Authored | Structural review; extension lifecycle lab not runtime-tested | Pending; PostgreSQL 18 extension compatibility and upgrade tests not executed | Published |
 | [082](chapters/082-postgresql-version-upgrades-compatibility-testing-and-rollback-planning.md) | Authored | Structural review; version upgrade lab not runtime-tested | Pending; PostgreSQL 18 upgrade and rollback tests not executed | Published |
 | [083](chapters/083-postgresql-configuration-management-infrastructure-as-code-and-drift-detection.md) | Authored | Structural review; configuration drift lab not runtime-tested | Pending; PostgreSQL 18 drift and IaC reconciliation tests not executed | Published |
-| 084–100 | Planned | Pending | Pending | Plan only |
+| [084](chapters/084-postgresql-maintenance-automation-scheduling-and-operational-runbooks.md) | Authored | Structural review; maintenance automation lab not runtime-tested | Pending; PostgreSQL 18 scheduling, concurrency and failure tests not executed | Published |
+| 085–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 084 — PostgreSQL Maintenance Automation, Scheduling and Operational Runbooks.
+**Next:** Chapter 085 — PostgreSQL Production Operations, Change Management and Reliability Acceptance Project.
