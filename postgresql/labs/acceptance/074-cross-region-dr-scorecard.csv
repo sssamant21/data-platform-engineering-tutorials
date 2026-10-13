@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+DR01,Regional inventory,yes,Independent regions and dependencies documented,,PENDING,,
+DR02,Replication,yes,DR standby receives and replays WAL,,PENDING,,
+DR03,Archive continuity,yes,Independent WAL archive and backup restore validated,,PENDING,,
+DR04,Region A fencing,yes,Old primary cannot accept writes before promotion,,PENDING,,
+DR05,Single writer,yes,Exactly one writable region,,PENDING,,
+DR06,DR promotion,yes,Eligible DR node promoted under approved policy,,PENDING,,
+DR07,Writer routing,yes,Application endpoint follows DR leader,,PENDING,,
+DR08,Transaction reconciliation,yes,Ambiguous outcomes reconciled by ID,,PENDING,,
+DR09,RPO and RTO,yes,Actual regional objectives measured,,PENDING,,
+DR10,Region A rejoin,yes,Former primary rewound or rebuilt as standby,,PENDING,,
+DR11,Controlled failback,yes,Write drain and safe switchover verified,,PENDING,,
+DR12,Regional isolation,yes,Physical failure-domain separation verified,,NOT VERIFIED,,
