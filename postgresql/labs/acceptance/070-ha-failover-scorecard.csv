@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+HA01,Preflight,yes,Healthy replication and quorum,,PENDING,,
+HA02,Planned switchover,yes,Controlled demotion then promotion,,PENDING,,
+HA03,Fencing,yes,Old primary cannot accept writes,,PENDING,,
+HA04,Single writer,yes,Exactly one writable primary,,PENDING,,
+HA05,Endpoint routing,yes,Writer endpoint targets elected leader,,PENDING,,
+HA06,Unplanned failover,yes,Eligible standby promoted by HA manager,,PENDING,,
+HA07,Split-brain partition,yes,No dual writers under partition,,PENDING,,
+HA08,Transaction reconciliation,yes,No unexplained duplicate or missing commits,,PENDING,,
+HA09,RPO and RTO,yes,Measured objectives satisfied,,PENDING,,
+HA10,Old primary rejoin,yes,Rewind or rebuild safely completed,,PENDING,,
+HA11,Backup continuity,yes,WAL archive and backups healthy after cutover,,PENDING,,
+HA12,Rollback,yes,Lab application service restored safely,,PENDING,,
