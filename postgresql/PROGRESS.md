@@ -84,6 +84,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [078](chapters/078-postgresql-row-level-security-data-protection-and-audit-controls.md) | Authored | Structural review; RLS and audit lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation and audit tests not executed | Published |
 | [079](chapters/079-postgresql-encryption-secrets-management-and-security-hardening.md) | Authored | Structural review; encryption and secrets lab not runtime-tested | Pending; PostgreSQL 18 hardening and rotation tests not executed | Published |
 | [080](chapters/080-postgresql-security-operations-incident-response-and-compliance-acceptance-project.md) | Authored | Structural review; security incident response capstone not runtime-tested | Pending; PostgreSQL 18 security acceptance and signoff not executed | Published |
-| 081–100 | Planned | Pending | Pending | Plan only |
+| [081](chapters/081-postgresql-extensions-compatibility-and-operational-lifecycle.md) | Authored | Structural review; extension lifecycle lab not runtime-tested | Pending; PostgreSQL 18 extension compatibility and upgrade tests not executed | Published |
+| 082–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 081 — PostgreSQL Extensions, Compatibility and Operational Lifecycle.
+**Next:** Chapter 082 — PostgreSQL Version Upgrades, Compatibility Testing and Rollback Planning.
