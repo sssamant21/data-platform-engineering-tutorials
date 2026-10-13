@@ -1,0 +1,7 @@
+scenario,old_primary_fenced,standby_eligible,rpo_approved,expected_decision,writer_uniqueness_verified,observed_result,status,notes
+clean_primary_stop,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,PROMOTE ONLY AFTER FENCING,NOT VERIFIED,,PENDING,Disposable test only
+network_partition,NO,UNKNOWN,UNKNOWN,STOP,NOT VERIFIED,,PENDING,Unreachable does not mean fenced
+standby_lag,NOT VERIFIED,NO,NO,STOP,NOT VERIFIED,,PENDING,Review backlog and loss
+fencing_api_failure,NO,UNKNOWN,UNKNOWN,STOP,NOT VERIFIED,,PENDING,Escalate
+stale_pooler_route,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,STOP UNTIL ROUTING VERIFIED,NOT VERIFIED,,PENDING,Check direct access
+former_primary_returns,YES,NOT APPLICABLE,NOT APPLICABLE,QUARANTINE AND REBUILD,NOT VERIFIED,,PENDING,Never resume writes
