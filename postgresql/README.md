@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–044 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–045 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -75,4 +75,6 @@ Chapters 001–044 are authored and reviewed statically. Actual lab execution re
 
 - [044 — WAL Archiving, Restore Commands and PITR Foundations](chapters/044-wal-archiving-restore-commands-and-pitr-foundations.md)
 
-Next: Chapter 045 — Point-in-Time Recovery and Disaster Recovery Lab.
+- [045 — Point-in-Time Recovery and Disaster Recovery Lab](chapters/045-point-in-time-recovery-and-disaster-recovery-lab.md)
+
+Next: Chapter 046 — Backup Monitoring, Restore Validation and Recovery Automation.
