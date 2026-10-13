@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–031 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–032 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -49,4 +49,6 @@ Chapters 001–031 are authored and reviewed statically. Actual lab execution re
 
 - [031 — B-tree and Other Index Types: Operational Tradeoffs](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md)
 
-Next: Chapter 032 — Composite, Partial, Expression and Covering Indexes.
+- [032 — Composite, Partial, Expression and Covering Indexes](chapters/032-composite-partial-expression-and-covering-indexes.md)
+
+Next: Chapter 033 — Index Build, Reindex and Concurrent Maintenance.
