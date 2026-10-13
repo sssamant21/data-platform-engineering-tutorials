@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–079 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–080 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -145,4 +145,6 @@ Chapters 001–079 are authored and reviewed statically. Actual lab execution re
 
 - [079 — PostgreSQL Encryption, Secrets Management and Security Hardening](chapters/079-postgresql-encryption-secrets-management-and-security-hardening.md)
 
-Next: Chapter 080 — PostgreSQL Security Operations, Incident Response and Compliance Acceptance Project.
+- [080 — PostgreSQL Security Operations, Incident Response and Compliance Acceptance Project](chapters/080-postgresql-security-operations-incident-response-and-compliance-acceptance-project.md)
+
+Next: Chapter 081 — PostgreSQL Extensions, Compatibility and Operational Lifecycle.
