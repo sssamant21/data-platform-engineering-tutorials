@@ -37,6 +37,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [031](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md) | Authored | Bash syntax, links, fences and SQL structure reviewed; synthetic fixture arithmetic checked offline; fixed read-only plans, isolated B-tree/Hash candidates, BRIN diagnostic boundaries and scoped cleanup reviewed | Pending; PostgreSQL six-method index/plan/physical-correlation lab not executed; no PostgreSQL runtime | Published with this tracker |
 | [032](chapters/032-composite-partial-expression-and-covering-indexes.md) | Authored | Structural review | Pending; PostgreSQL 18 lab not executed | Published |
 | [033](chapters/033-index-build-reindex-and-concurrent-maintenance.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
-| 034–100 | Planned | Pending | Pending | Plan only |
+| [034](chapters/034-index-bloat-usage-and-lifecycle-decisions.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
+| 035–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 034 — Index Bloat, Usage and Lifecycle Decisions.
+**Next:** Chapter 035 — VACUUM, Autovacuum and Index Cleanup.
