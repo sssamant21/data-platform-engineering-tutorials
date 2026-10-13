@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–096 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–097 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -179,4 +179,6 @@ Chapters 001–096 are authored and reviewed statically. Actual lab execution re
 
 - [096 — PostgreSQL Enterprise Incident Response, Escalation and Operational Command](chapters/096-postgresql-enterprise-incident-response-escalation-and-operational-command.md)
 
-Next: Chapter 097 — PostgreSQL Production Incident Simulation, Root Cause Analysis and Corrective Actions.
+- [097 — PostgreSQL Production Incident Simulation, Root Cause Analysis and Corrective Actions](chapters/097-postgresql-production-incident-simulation-root-cause-analysis-and-corrective-actions.md)
+
+Next: Chapter 098 — PostgreSQL Reliability Automation, Continuous Validation and Operational Excellence.
