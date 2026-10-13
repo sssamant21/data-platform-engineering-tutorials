@@ -53,6 +53,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [047](chapters/047-postgresql-replication-slots-wal-retention-and-failure-modes.md) | Authored | Structural review; slot scripts not runtime-tested | Pending; PostgreSQL 18 replication slot lab not executed | Published |
 | [048](chapters/048-replication-lag-standby-conflicts-and-recovery-operations.md) | Authored | Structural review; replication diagnostics not runtime-tested | Pending; PostgreSQL 18 primary/standby lab not executed | Published |
 | [049](chapters/049-replication-failover-rejoin-and-timeline-recovery.md) | Authored | Structural review; failover/rewind not runtime-tested | Pending; PostgreSQL 18 failover and rejoin not executed | Published |
-| 050–100 | Planned | Pending | Pending | Plan only |
+| [050](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md) | Authored | Structural review; HA/DR acceptance not runtime-tested | Pending; PostgreSQL 18 HA/DR capstone not executed | Published |
+| 051–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 050 — High Availability and Disaster Recovery Acceptance Project.
+**Next:** Chapter 051 — PostgreSQL Security Architecture, Roles and Privilege Boundaries.
