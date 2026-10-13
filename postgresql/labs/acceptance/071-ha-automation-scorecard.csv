@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+HA01,Leader identity,yes,DCS and PostgreSQL agree on single leader,,PENDING,,
+HA02,DCS quorum,yes,Majority required for election,,PENDING,,
+HA03,Fencing,yes,Old primary cannot accept writes before promotion,,PENDING,,
+HA04,Leader crash,yes,Eligible standby automatically promoted,,PENDING,,
+HA05,DCS voter failure,yes,Quorum remains with one voter lost,,PENDING,,
+HA06,DCS quorum loss,yes,No competing writable leader,,PENDING,,
+HA07,Network partition,yes,No split-brain and fencing verified,,PENDING,,
+HA08,Proxy routing,yes,Only elected primary receives writes,,PENDING,,
+HA09,Commit reconciliation,yes,Ambiguous outcomes reconciled by ID,,PENDING,,
+HA10,RPO and RTO,yes,Measured against signed objectives,,PENDING,,
+HA11,Old leader rejoin,yes,Former primary safely rejoins as standby,,PENDING,,
+HA12,Backup and archive,yes,Historical recoverability preserved,,PENDING,,
