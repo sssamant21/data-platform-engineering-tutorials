@@ -1,0 +1,9 @@
+control_id,domain,check,frequency,owner,alert_route,evidence_location,retention_days,last_verified_utc,status,notes
+AUTO01,Database,Read-only SQL preflight,daily,,,,,,PENDING,Collector is evidence only
+AUTO02,Replication,Sender receiver and WAL backlog,5 minutes,,,,,,PENDING,Use telemetry for trends
+AUTO03,Backup,Backup chain and cross-region copy,daily,,,,,,PENDING,Backup success is not restore proof
+AUTO04,Restore,Isolated PITR verification,monthly,,,,,,PENDING,Independent approved environment
+AUTO05,DR,Fencing and application failover drill,quarterly,,,,,,PENDING,Explicit approval required
+AUTO06,Capacity,Storage WAL IOPS and connections,weekly,,,,,,PENDING,Include forecasts
+AUTO07,Security,TLS access and credential review,monthly,,,,,,PENDING,No secrets in evidence
+AUTO08,Governance,RCA COA regression tests,monthly,,,,,,PENDING,Independent closure
