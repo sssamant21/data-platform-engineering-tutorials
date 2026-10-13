@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+EXT01,Inventory,yes,Extensions inventoried in every database,,PENDING,,
+EXT02,Compatibility,yes,Supported PostgreSQL and OS matrix documented,,PENDING,,
+EXT03,Installation,yes,Approved extension installed in lab,,PENDING,,
+EXT04,Privilege boundary,yes,Unauthorized extension creation denied,,PENDING,,
+EXT05,Dependencies,yes,Extension member dependencies inspected,,PENDING,,
+EXT06,Upgrade path,yes,Available migration paths verified,,PENDING,,
+EXT07,Upgrade rehearsal,yes,Supported version update tested when available,,NOT VERIFIED,,
+EXT08,Preload requirements,yes,Restart requirements documented,,PENDING,,
+EXT09,Backup restore,yes,Extension objects restored in isolated target,,PENDING,,
+EXT10,Major upgrade,yes,Target binary and pg_upgrade compatibility checked,,NOT VERIFIED,,
+EXT11,Rollback,yes,Restore or supported rollback path tested,,PENDING,,
+EXT12,Application checks,yes,Representative SQL and app smoke tests pass,,PENDING,,
