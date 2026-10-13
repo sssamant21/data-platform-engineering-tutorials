@@ -60,6 +60,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [054](chapters/054-postgresql-auditing-logging-and-security-monitoring.md) | Authored | Structural review; audit lab not runtime-tested | Pending; PostgreSQL 18 auditing lab not executed | Published |
 | [055](chapters/055-postgresql-security-hardening-and-access-control-acceptance-lab.md) | Authored | Structural review; security acceptance not runtime-tested | Pending; PostgreSQL 18 security capstone not executed | Published |
 | [056](chapters/056-postgresql-connection-management-and-pgbouncer-fundamentals.md) | Authored | Structural review; PgBouncer lab not runtime-tested | Pending; PostgreSQL 18 connection lab not executed | Published |
-| 057–100 | Planned | Pending | Pending | Plan only |
+| [057](chapters/057-pgbouncer-pooling-modes-sizing-and-transaction-compatibility.md) | Authored | Structural review; pooling compatibility lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer lab not executed | Published |
+| 058–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 057 — PgBouncer Pooling Modes, Sizing and Transaction Compatibility.
+**Next:** Chapter 058 — PostgreSQL Connection Pool Saturation, Timeouts and Recovery.
