@@ -91,6 +91,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [085](chapters/085-postgresql-production-operations-change-management-and-reliability-acceptance-project.md) | Authored | Structural review; production operations capstone not runtime-tested | Pending; PostgreSQL 18 change and reliability acceptance tests not executed | Published |
 | [086](chapters/086-postgresql-capacity-forecasting-cost-optimization-and-finops.md) | Authored | Structural review; capacity and FinOps lab not runtime-tested | Pending; PostgreSQL 18 forecasts and cost scenarios not validated | Published |
 | [087](chapters/087-postgresql-workload-forecasting-performance-baselines-and-capacity-stress-testing.md) | Authored | Structural review; workload stress lab not runtime-tested | Pending; PostgreSQL 18 load, saturation and recovery tests not executed | Published |
-| 088–100 | Planned | Pending | Pending | Plan only |
+| [088](chapters/088-postgresql-storage-growth-retention-and-lifecycle-optimization.md) | Authored | Structural review; storage lifecycle lab not runtime-tested | Pending; PostgreSQL 18 retention and reclamation acceptance not executed | Published |
+| 089–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 088 — PostgreSQL Storage Growth, Retention and Lifecycle Optimization.
+**Next:** Chapter 089 — PostgreSQL Cloud Cost Governance, Rightsizing and FinOps Acceptance Project.
