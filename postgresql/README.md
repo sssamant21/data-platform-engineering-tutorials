@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–082 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–083 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -151,4 +151,6 @@ Chapters 001–082 are authored and reviewed statically. Actual lab execution re
 
 - [082 — PostgreSQL Version Upgrades, Compatibility Testing and Rollback Planning](chapters/082-postgresql-version-upgrades-compatibility-testing-and-rollback-planning.md)
 
-Next: Chapter 083 — PostgreSQL Configuration Management, Infrastructure as Code and Drift Detection.
+- [083 — PostgreSQL Configuration Management, Infrastructure as Code and Drift Detection](chapters/083-postgresql-configuration-management-infrastructure-as-code-and-drift-detection.md)
+
+Next: Chapter 084 — PostgreSQL Maintenance Automation, Scheduling and Operational Runbooks.
