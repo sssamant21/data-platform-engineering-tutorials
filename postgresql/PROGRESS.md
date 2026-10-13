@@ -99,6 +99,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [093](chapters/093-postgresql-multi-region-observability-dr-drills-and-reliability-testing.md) | Authored | Structural review; multi-region DR drill lab not runtime-tested | Pending; PostgreSQL 18 recovery exercises and RPO/RTO validation not executed | Published |
 | [094](chapters/094-postgresql-multi-region-disaster-recovery-simulation-and-acceptance-project.md) | Authored | Structural review; lab not executed | Pending runtime validation | Published |
 | [095](chapters/095-postgresql-enterprise-reliability-and-operational-readiness-review.md) | Authored | Structural review; ORR lab not runtime-tested | Pending; PostgreSQL 18 enterprise readiness gates not independently validated | Published |
-| 096–100 | Planned | Pending | Pending | Plan only |
+| [096](chapters/096-postgresql-enterprise-incident-response-escalation-and-operational-command.md) | Authored | Structural review; incident response lab not runtime-tested | Pending; PostgreSQL 18 incident command exercises not executed | Published |
+| 097–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 096 — PostgreSQL Enterprise Incident Response, Escalation and Operational Command.
+**Next:** Chapter 097 — PostgreSQL Production Incident Simulation, Root Cause Analysis and Corrective Actions.
