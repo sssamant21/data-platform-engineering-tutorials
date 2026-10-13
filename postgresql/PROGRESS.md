@@ -56,6 +56,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [050](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md) | Authored | Structural review; HA/DR acceptance not runtime-tested | Pending; PostgreSQL 18 HA/DR capstone not executed | Published |
 | [051](chapters/051-postgresql-security-architecture-roles-and-privilege-boundaries.md) | Authored | Structural review; role lab not runtime-tested | Pending; PostgreSQL 18 security lab not executed | Published |
 | [052](chapters/052-postgresql-authentication-pg-hba-conf-and-tls-security.md) | Authored | Structural review; HBA/TLS lab not runtime-tested | Pending; PostgreSQL 18 authentication lab not executed | Published |
-| 053–100 | Planned | Pending | Pending | Plan only |
+| [053](chapters/053-postgresql-row-level-security-and-secure-application-access.md) | Authored | Structural review; RLS lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation lab not executed | Published |
+| 054–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 053 — PostgreSQL Row-Level Security and Secure Application Access.
+**Next:** Chapter 054 — PostgreSQL Auditing, Logging and Security Monitoring.
