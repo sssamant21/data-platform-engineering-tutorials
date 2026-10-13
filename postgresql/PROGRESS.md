@@ -94,6 +94,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [088](chapters/088-postgresql-storage-growth-retention-and-lifecycle-optimization.md) | Authored | Structural review; storage lifecycle lab not runtime-tested | Pending; PostgreSQL 18 retention and reclamation acceptance not executed | Published |
 | [089](chapters/089-postgresql-cloud-cost-governance-rightsizing-and-finops-acceptance-project.md) | Authored | Structural review; FinOps capstone not runtime-tested | Pending; PostgreSQL 18 rightsizing, HA/DR and actual billing acceptance not executed | Published |
 | [090](chapters/090-postgresql-multi-region-architecture-geo-replication-and-disaster-recovery-design.md) | Authored | Structural review; multi-region DR lab not runtime-tested | Pending; PostgreSQL 18 replication, fencing and recovery tests not executed | Published |
-| 091–100 | Planned | Pending | Pending | Plan only |
+| [091](chapters/091-postgresql-cross-region-failover-fencing-and-split-brain-prevention.md) | Authored | Structural review; fencing lab not runtime-tested | Pending; PostgreSQL 18 single-writer failover tests not executed | Published |
+| 092–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 091 — PostgreSQL Cross-Region Failover, Fencing and Split-Brain Prevention.
+**Next:** Chapter 092 — PostgreSQL Cross-Region Backup, Restore and Disaster Recovery Automation.
