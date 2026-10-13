@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–089 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–090 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -165,4 +165,6 @@ Chapters 001–089 are authored and reviewed statically. Actual lab execution re
 
 - [089 — PostgreSQL Cloud Cost Governance, Rightsizing and FinOps Acceptance Project](chapters/089-postgresql-cloud-cost-governance-rightsizing-and-finops-acceptance-project.md)
 
-Next: Chapter 090 — PostgreSQL Multi-Region Architecture, Geo-Replication and Disaster Recovery Design.
+- [090 — PostgreSQL Multi-Region Architecture, Geo-Replication and Disaster Recovery Design](chapters/090-postgresql-multi-region-architecture-geo-replication-and-disaster-recovery-design.md)
+
+Next: Chapter 091 — PostgreSQL Cross-Region Failover, Fencing and Split-Brain Prevention.
