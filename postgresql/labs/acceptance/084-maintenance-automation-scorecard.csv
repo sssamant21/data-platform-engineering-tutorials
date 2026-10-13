@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+MAINT01,Job scope,yes,Approved disposable target only,,PENDING,,
+MAINT02,Read-only preflight,yes,Cluster and maintenance health inspected,,PENDING,,
+MAINT03,Dry run,yes,No maintenance SQL executed,,PENDING,,
+MAINT04,Concurrency,yes,Overlapping same-host run rejected,,PENDING,,
+MAINT05,Distributed coordination,yes,Multi-host concurrency design validated,,NOT VERIFIED,,
+MAINT06,Timeouts,yes,Lock and statement timeouts bounded,,PENDING,,
+MAINT07,Targeted maintenance,yes,Approved table vacuum analyze completed,,PENDING,,
+MAINT08,Failure propagation,yes,Failed psql produces nonzero job status,,PENDING,,
+MAINT09,Postchecks,yes,Table statistics and application health inspected,,PENDING,,
+MAINT10,Scheduler policy,yes,Missed runs and retries documented,,PENDING,,
+MAINT11,Alerts,yes,Job failure and verification alerts tested,,NOT VERIFIED,,
+MAINT12,Recovery,yes,Safe stop and escalation runbook reviewed,,PENDING,,
