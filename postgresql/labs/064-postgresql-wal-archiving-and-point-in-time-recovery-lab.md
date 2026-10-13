@@ -18,7 +18,18 @@ Record wal_level, archive_mode, archive_command/archive_library, last archived W
 
 In the disposable PostgreSQL server, create a secure archive directory accessible by the PostgreSQL service account. Set wal_level=replica, archive_mode=on, and an idempotent, durable archive_command appropriate to the lab filesystem. Restart only the lab server if required. Verify archive_command exits nonzero on failure and never overwrites differing existing WAL.
 
-## 4. Establish base backup
+## 4. Create the fixture before the base backup
+
+Create the disposable database and schema first:
+
+```bash
+createdb -U postgres ch064_lab
+psql -X -v ON_ERROR_STOP=1 -U postgres -d ch064_lab -f postgresql/labs/sql/064-fixture.sql
+```
+
+Do not insert the before-target or after-target events until after the base backup is complete. This ensures both events can be replayed from archived WAL and the recovered schema exists.
+
+## 5. Establish base backup
 
 ```bash
 mkdir -p /backups/ch064
@@ -28,15 +39,9 @@ pg_verifybackup /backups/ch064/base001
 
 Destination base001 must not exist before execution. Preserve manifest and tool output.
 
-## 5. Produce the before/after transactions
+## 6. Produce the before/after transactions
 
-Create disposable `ch064_lab`, then run fixture:
-
-```bash
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch064_lab -f postgresql/labs/sql/064-fixture.sql
-```
-
-**Important:** create the database and fixture **before taking the base backup** if you expect the restored cluster to contain them. Recommended sequence: create fixture, take base backup, then run the two controlled transactions.
+The database and fixture were created before the base backup. Now execute two separate autocommit transactions.
 
 In the source database:
 
@@ -55,13 +60,13 @@ SELECT pg_switch_wal();
 
 The INSERTs run as separate autocommit statements. Verify the target timestamp is after the first commit and before the second; record exact server timestamps. Wait for archiver success and verify all required WAL files are available.
 
-## 6. Recover in isolation
+## 7. Recover in isolation
 
 Copy the verified base backup to a new isolated PGDATA; adjust permissions, tablespaces and copied configuration. Configure restore_command for the lab archive, recovery_target_time with the actual UTC target, recovery_target_action='pause', recovery_target_inclusive=false, and a unique port. Create recovery.signal and start only the isolated server. Observe recovery logs. If WAL is missing or the target is not reached, stop and mark FAIL; do not claim success.
 
 While paused, use read-only queries to confirm `before-target` exists and `after-target` does not. Preserve the logs and recovery timeline. Promote/resume only according to the isolated lab plan.
 
-## 7. Acceptance worksheet
+## 8. Acceptance worksheet
 
 | Gate | Evidence | Status |
 |---|---|---|
@@ -75,7 +80,7 @@ While paused, use read-only queries to confirm `before-target` exists and `after
 | No production connection or routing | | Pending |
 | RPO/RTO measured | | Pending |
 
-## 8. Cleanup
+## 9. Cleanup
 
 Stop restored lab server and retain recovery evidence. Only remove directories and database objects positively identified as lab-owned. Never delete production WAL or an archive needed by retained backups.
 
