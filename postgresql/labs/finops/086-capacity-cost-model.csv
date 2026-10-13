@@ -1,0 +1,5 @@
+scenario,compute_monthly_usd,storage_monthly_usd,iops_throughput_monthly_usd,backup_wal_monthly_usd,network_monthly_usd,monitoring_support_monthly_usd,one_time_migration_usd,monthly_total_usd,monthly_savings_vs_baseline_usd,peak_headroom_verified,rpo_rto_verified,source_date,notes
+baseline,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,Enter actual billed values; no price assumptions
+compute_rightsize,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,Measure peak memory CPU and SLO first
+storage_tier_change,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,Verify latency IOPS throughput limits
+retention_optimization,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,Verify legal hold and recovery
