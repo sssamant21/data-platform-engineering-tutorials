@@ -97,6 +97,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [091](chapters/091-postgresql-cross-region-failover-fencing-and-split-brain-prevention.md) | Authored | Structural review; fencing lab not runtime-tested | Pending; PostgreSQL 18 single-writer failover tests not executed | Published |
 | [092](chapters/092-postgresql-cross-region-backup-restore-and-disaster-recovery-automation.md) | Authored | Structural review; cross-region restore lab not runtime-tested | Pending; PostgreSQL 18 backup, PITR and DR automation tests not executed | Published |
 | [093](chapters/093-postgresql-multi-region-observability-dr-drills-and-reliability-testing.md) | Authored | Structural review; multi-region DR drill lab not runtime-tested | Pending; PostgreSQL 18 recovery exercises and RPO/RTO validation not executed | Published |
-| 094–100 | Planned | Pending | Pending | Plan only |
+| [094](chapters/094-postgresql-multi-region-disaster-recovery-simulation-and-acceptance-project.md) | Authored | Structural review; lab not executed | Pending runtime validation | Published |
+| 095–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 094 — PostgreSQL Multi-Region Disaster Recovery Simulation and Acceptance Project.
+**Next:** Chapter 095 — PostgreSQL Enterprise Reliability and Operational Readiness Review.
