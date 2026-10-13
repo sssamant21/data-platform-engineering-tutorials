@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+RLS01,Tenant A SELECT,yes,Only A rows visible,,PENDING,,
+RLS02,Tenant B SELECT,yes,Only B rows visible,,PENDING,,
+RLS03,Cross-tenant INSERT,yes,WITH CHECK rejects wrong tenant,,PENDING,,
+RLS04,Cross-tenant UPDATE,yes,Cannot reassign row to another tenant,,PENDING,,
+RLS05,Cross-tenant DELETE,yes,Other tenant rows not deletable,,PENDING,,
+RLS06,Owner separation,yes,Application roles are not table owner,,PENDING,,
+RLS07,BYPASSRLS,yes,Tenant roles have no bypass privilege,,PENDING,,
+RLS08,Sensitive column,yes,Tenant roles cannot read secret_note,,PENDING,,
+RLS09,Audit configuration,yes,Connection and error audit controls reviewed,,PENDING,,
+RLS10,Audit evidence,yes,Redacted events captured and retained,,PENDING,,
+RLS11,Pool identity,yes,Untrusted session variable not sole identity boundary,,PENDING,,
+RLS12,Lab cleanup,yes,Disposable resources safely removed,,PENDING,,
