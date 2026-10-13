@@ -86,6 +86,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [080](chapters/080-postgresql-security-operations-incident-response-and-compliance-acceptance-project.md) | Authored | Structural review; security incident response capstone not runtime-tested | Pending; PostgreSQL 18 security acceptance and signoff not executed | Published |
 | [081](chapters/081-postgresql-extensions-compatibility-and-operational-lifecycle.md) | Authored | Structural review; extension lifecycle lab not runtime-tested | Pending; PostgreSQL 18 extension compatibility and upgrade tests not executed | Published |
 | [082](chapters/082-postgresql-version-upgrades-compatibility-testing-and-rollback-planning.md) | Authored | Structural review; version upgrade lab not runtime-tested | Pending; PostgreSQL 18 upgrade and rollback tests not executed | Published |
-| 083–100 | Planned | Pending | Pending | Plan only |
+| [083](chapters/083-postgresql-configuration-management-infrastructure-as-code-and-drift-detection.md) | Authored | Structural review; configuration drift lab not runtime-tested | Pending; PostgreSQL 18 drift and IaC reconciliation tests not executed | Published |
+| 084–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 083 — PostgreSQL Configuration Management, Infrastructure as Code and Drift Detection.
+**Next:** Chapter 084 — PostgreSQL Maintenance Automation, Scheduling and Operational Runbooks.
