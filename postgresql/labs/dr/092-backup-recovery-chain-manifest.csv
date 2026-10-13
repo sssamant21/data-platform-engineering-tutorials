@@ -1,0 +1,2 @@
+backup_id,source_region,copy_region,backup_start_utc,backup_end_utc,postgres_version,timeline,base_backup_location,manifest_verified,wal_start,wal_end,wal_archive_continuity,encryption_key_access,restore_test_utc,recovered_target_utc,observed_rpo_seconds,observed_rto_seconds,status,notes
+example,,,,,,,,NOT VERIFIED,,,NOT VERIFIED,NOT VERIFIED,,,,,PENDING,Example only; do not include secrets
