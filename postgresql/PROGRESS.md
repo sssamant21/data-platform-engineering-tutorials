@@ -77,6 +77,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [071](chapters/071-postgresql-ha-automation-leader-election-and-failover-orchestration.md) | Authored | Structural review; automated HA lab not runtime-tested | Pending; PostgreSQL 18 Patroni/DCS/fencing lab not executed | Published |
 | [072](chapters/072-postgresql-high-availability-observability-and-failure-recovery.md) | Authored | Structural review; HA observability lab not runtime-tested | Pending; PostgreSQL 18 HA degradation and recovery lab not executed | Published |
 | [073](chapters/073-postgresql-multi-zone-high-availability-and-disaster-recovery-design.md) | Authored | Structural review; multi-zone HA lab not runtime-tested | Pending; PostgreSQL 18 AZ simulation and regional DR not executed | Published |
-| 074–100 | Planned | Pending | Pending | Plan only |
+| [074](chapters/074-postgresql-cross-region-replication-dr-cutover-and-failback.md) | Authored | Structural review; cross-region DR lab not runtime-tested | Pending; PostgreSQL 18 DR cutover and failback not executed | Published |
+| 075–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 074 — PostgreSQL Cross-Region Replication, DR Cutover and Failback.
+**Next:** Chapter 075 — PostgreSQL High Availability and Disaster Recovery Acceptance Project.
