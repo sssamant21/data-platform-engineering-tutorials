@@ -71,6 +71,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [065](chapters/065-postgresql-backup-retention-automation-and-restore-testing.md) | Authored | Structural review; retention/restore lab not runtime-tested | Pending; PostgreSQL 18 backup automation lab not executed | Published |
 | [066](chapters/066-postgresql-backup-and-disaster-recovery-acceptance-lab.md) | Authored | Structural review; DR acceptance lab not runtime-tested | Pending; PostgreSQL 18 end-to-end recovery drill not executed | Published |
 | [067](chapters/067-postgresql-streaming-replication-and-high-availability-architecture.md) | Authored | Structural review; streaming replication lab not runtime-tested | Pending; PostgreSQL 18 primary/standby lab not executed | Published |
-| 068–100 | Planned | Pending | Pending | Plan only |
+| [068](chapters/068-postgresql-replication-slots-wal-retention-and-lag-management.md) | Authored | Structural review; slot and WAL lag lab not runtime-tested | Pending; PostgreSQL 18 replication slot lab not executed | Published |
+| 069–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 068 — PostgreSQL Replication Slots, WAL Retention and Lag Management.
+**Next:** Chapter 069 — PostgreSQL Synchronous Replication and Commit Durability.
