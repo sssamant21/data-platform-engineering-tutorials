@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–050 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–051 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -87,4 +87,6 @@ Chapters 001–050 are authored and reviewed statically. Actual lab execution re
 
 - [050 — High Availability and Disaster Recovery Acceptance Project](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md)
 
-Next: Chapter 051 — PostgreSQL Security Architecture, Roles and Privilege Boundaries.
+- [051 — PostgreSQL Security Architecture, Roles and Privilege Boundaries](chapters/051-postgresql-security-architecture-roles-and-privilege-boundaries.md)
+
+Next: Chapter 052 — PostgreSQL Authentication, pg_hba.conf and TLS Security.
