@@ -7,6 +7,8 @@ FROM pg_auth_members m JOIN pg_roles r ON r.oid=m.member
 JOIN pg_roles g ON g.oid=m.roleid WHERE r.rolname LIKE 'ch051_%';
 SELECT
  has_table_privilege('ch051_reader','ch051.events','SELECT') AS reader_select_pass,
+ has_table_privilege('ch051_reader','ch051.after_default_grants','SELECT') AS future_reader_select_pass,
+ has_table_privilege('ch051_writer','ch051.after_default_grants','INSERT') AS future_writer_insert_pass,
  NOT has_table_privilege('ch051_reader','ch051.events','INSERT') AS reader_no_insert_pass,
  has_table_privilege('ch051_writer','ch051.events','INSERT') AS writer_insert_pass,
  NOT has_schema_privilege('ch051_writer','ch051','CREATE') AS writer_no_create_pass,
