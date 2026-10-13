@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–049 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–050 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -85,4 +85,6 @@ Chapters 001–049 are authored and reviewed statically. Actual lab execution re
 
 - [049 — Replication Failover, Rejoin and Timeline Recovery](chapters/049-replication-failover-rejoin-and-timeline-recovery.md)
 
-Next: Chapter 050 — High Availability and Disaster Recovery Acceptance Project.
+- [050 — High Availability and Disaster Recovery Acceptance Project](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md)
+
+Next: Chapter 051 — PostgreSQL Security Architecture, Roles and Privilege Boundaries.
