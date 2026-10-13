@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–067 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–068 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -121,4 +121,6 @@ Chapters 001–067 are authored and reviewed statically. Actual lab execution re
 
 - [067 — PostgreSQL Streaming Replication and High Availability Architecture](chapters/067-postgresql-streaming-replication-and-high-availability-architecture.md)
 
-Next: Chapter 068 — PostgreSQL Replication Slots, WAL Retention and Lag Management.
+- [068 — PostgreSQL Replication Slots, WAL Retention and Lag Management](chapters/068-postgresql-replication-slots-wal-retention-and-lag-management.md)
+
+Next: Chapter 069 — PostgreSQL Synchronous Replication and Commit Durability.
