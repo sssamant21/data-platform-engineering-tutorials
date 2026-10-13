@@ -52,6 +52,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [046](chapters/046-backup-monitoring-restore-validation-and-recovery-automation.md) | Authored | Structural review; monitoring script not runtime-tested | Pending; PostgreSQL 18 restore validation not executed | Published |
 | [047](chapters/047-postgresql-replication-slots-wal-retention-and-failure-modes.md) | Authored | Structural review; slot scripts not runtime-tested | Pending; PostgreSQL 18 replication slot lab not executed | Published |
 | [048](chapters/048-replication-lag-standby-conflicts-and-recovery-operations.md) | Authored | Structural review; replication diagnostics not runtime-tested | Pending; PostgreSQL 18 primary/standby lab not executed | Published |
-| 049–100 | Planned | Pending | Pending | Plan only |
+| [049](chapters/049-replication-failover-rejoin-and-timeline-recovery.md) | Authored | Structural review; failover/rewind not runtime-tested | Pending; PostgreSQL 18 failover and rejoin not executed | Published |
+| 050–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 049 — Replication Failover, Rejoin and Timeline Recovery.
+**Next:** Chapter 050 — High Availability and Disaster Recovery Acceptance Project.
