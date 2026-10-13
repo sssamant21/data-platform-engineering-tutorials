@@ -1,0 +1,10 @@
+drill_id,scenario,scope,risk_level,approval_required,expected_decision,rpo_target_seconds,rto_target_seconds,observed_rpo_seconds,observed_rto_seconds,single_writer_verified,application_verified,status,notes
+D01,DR tabletop,Tabletop,low,yes,Validate roles and dependencies,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D02,Isolated PITR restore,Disposable,medium,yes,Restore and verify chain,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D03,Replication lag,Disposable,medium,yes,Quantify backlog and capacity,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D04,Inter-region partition,Disposable,high,yes,STOP without fencing,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D05,WAL archive outage,Disposable,medium,yes,Alert and restore continuity,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D06,DR IAM KMS outage,Disposable,medium,yes,Fail closed and escalate,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D07,Stale app routing,Disposable,high,yes,Block old writer routes,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D08,Controlled failover,Disposable,high,yes,Fence then promote,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
+D09,Former primary rejoin,Disposable,high,yes,Rebuild as standby,,,,,NOT VERIFIED,NOT VERIFIED,PENDING,
