@@ -103,6 +103,6 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [097](chapters/097-postgresql-production-incident-simulation-root-cause-analysis-and-corrective-actions.md) | Authored | Structural review; incident simulation lab not runtime-tested | Pending; PostgreSQL 18 incident and corrective-action tests not executed | Published |
 | [098](chapters/098-postgresql-reliability-automation-continuous-validation-and-operational-excellence.md) | Authored | Structural review; reliability automation lab not runtime-tested | Pending; PostgreSQL 18 PowerShell collector and acceptance not executed | Published |
 | [099](chapters/099-postgresql-enterprise-reliability-engineering-and-operational-acceptance-project.md) | Authored | Structural review; enterprise reliability capstone not runtime-tested | Pending; PostgreSQL 18 reliability acceptance gates not executed | Published |
-| 100 | Planned | Pending | Pending | Plan only |
+| [100](chapters/100-postgresql-end-to-end-production-reliability-and-recovery-final-capstone.md) | Authored | Structural review; final capstone not runtime-tested | Pending; PostgreSQL 18 end-to-end recovery and acceptance not executed | Published |
 
-**Next:** Chapter 100 — PostgreSQL End-to-End Production Reliability and Recovery Final Capstone.
+**Publication complete:** Chapters 001–100 published. Runtime lab execution and independent technical certification remain pending.
