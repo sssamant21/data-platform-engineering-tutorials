@@ -7,7 +7,6 @@
 ```bash
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/037-setup.sql
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/037-investigate.sql
-psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/037-cleanup.sql
 ```
 
 ## Exercises
@@ -18,7 +17,7 @@ psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/037-cleanup.sql
 4. Compare ANALYZE with VACUUM (ANALYZE) outcomes.
 5. Check freeze age, active transactions and replica-slot status.
 6. Choose whether to wait, vacuum, analyze, reindex or request a rewrite. Record locks, WAL, disk and rollback requirements.
-7. Verify the lab environment is clean.
+7. Review the lab schema and remove it only after confirming its ownership and isolation; record cleanup evidence.
 
 | Choice | Evidence | Lock risk | Capacity | Recovery plan |
 |---|---|---|---|---|
