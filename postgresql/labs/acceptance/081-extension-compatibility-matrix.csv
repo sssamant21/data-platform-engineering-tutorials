@@ -1,0 +1,3 @@
+extension,installed_version,target_version,postgresql_source_version,postgresql_target_version,os_package_version,requires_preload,requires_restart,requires_reindex,vendor_supported,upgrade_path_verified,restore_tested,owner,notes
+pg_trgm,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,
+pg_stat_statements,,,,,,,,,,NOT VERIFIED,NOT VERIFIED,,
