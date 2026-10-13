@@ -1,0 +1,7 @@
+phase,clients,threads,duration_seconds,workload,dataset_scale,expected_slo_p95_ms,expected_slo_p99_ms,max_error_rate_percent,abort_condition,measured_tps,measured_p95_ms,measured_p99_ms,measured_error_rate_percent,result,notes
+warmup,2,2,60,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Illustrative only
+baseline,4,2,120,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Illustrative only
+moderate,8,2,120,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Illustrative only
+high,16,4,120,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Illustrative only
+stress,32,4,120,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Run only if safe
+recovery,4,2,120,pgbench_default,10,,,,,,, , ,NOT VERIFIED,Verify recovery
