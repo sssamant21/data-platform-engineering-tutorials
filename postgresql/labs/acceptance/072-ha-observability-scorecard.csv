@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+OBS01,Single writer,yes,Exactly one authoritative writable leader,,PENDING,,
+OBS02,DCS quorum,yes,Leader lease and quorum observed,,PENDING,,
+OBS03,Fencing,yes,Old primary cannot accept writes,,PENDING,,
+OBS04,Replica lag,yes,Sender/receiver and LSN progression observed,,PENDING,,
+OBS05,Alert delivery,yes,Critical HA alerts routed to on-call,,PENDING,,
+OBS06,SyncRep detection,yes,Blocked synchronous commits detected,,PENDING,,
+OBS07,Routing fault,yes,Wrong writer backend detected and corrected,,PENDING,,
+OBS08,Application recovery,yes,Write/read probe restored,,PENDING,,
+OBS09,Commit reconciliation,yes,Ambiguous transactions reconciled,,PENDING,,
+OBS10,RPO and RTO,yes,Measured against approved objectives,,PENDING,,
+OBS11,Redundancy restored,yes,Former primary safely rejoined as standby,,PENDING,,
+OBS12,Backup continuity,yes,WAL archive and backups verified after failover,,PENDING,,
