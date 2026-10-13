@@ -63,6 +63,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [057](chapters/057-pgbouncer-pooling-modes-sizing-and-transaction-compatibility.md) | Authored | Structural review; pooling compatibility lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer lab not executed | Published |
 | [058](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md) | Authored | Structural review; saturation recovery lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer incident lab not executed | Published |
 | [059](chapters/059-postgresql-connection-pool-monitoring-capacity-and-alerting.md) | Authored | Structural review; monitoring and alert lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer monitoring lab not executed | Published |
-| 060–100 | Planned | Pending | Pending | Plan only |
+| [060](chapters/060-postgresql-connection-pooling-and-availability-acceptance-project.md) | Authored | Structural review; availability acceptance not runtime-tested | Pending; PostgreSQL 18/PgBouncer capstone not executed | Published |
+| 061–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 060 — PostgreSQL Connection Pooling and Availability Acceptance Project.
+**Next:** Chapter 061 — PostgreSQL Backup Strategy, RPO and RTO Fundamentals.
