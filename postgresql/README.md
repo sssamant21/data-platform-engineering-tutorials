@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–057 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–058 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -101,4 +101,6 @@ Chapters 001–057 are authored and reviewed statically. Actual lab execution re
 
 - [057 — PgBouncer Pooling Modes, Sizing and Transaction Compatibility](chapters/057-pgbouncer-pooling-modes-sizing-and-transaction-compatibility.md)
 
-Next: Chapter 058 — PostgreSQL Connection Pool Saturation, Timeouts and Recovery.
+- [058 — PostgreSQL Connection Pool Saturation, Timeouts and Recovery](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md)
+
+Next: Chapter 059 — PostgreSQL Connection Pool Monitoring, Capacity and Alerting.
