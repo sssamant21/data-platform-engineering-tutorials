@@ -39,6 +39,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [033](chapters/033-index-build-reindex-and-concurrent-maintenance.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
 | [034](chapters/034-index-bloat-usage-and-lifecycle-decisions.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
 | [035](chapters/035-vacuum-autovacuum-and-index-cleanup.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
-| 036–100 | Planned | Pending | Pending | Plan only |
+| [036](chapters/036-autovacuum-tuning-freeze-and-wraparound-incident-response.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 lab not executed | Published |
+| 037–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 036 — Autovacuum Tuning, Freeze and Wraparound Incident Response.
+**Next:** Chapter 037 — Table and Index Maintenance Strategy.
