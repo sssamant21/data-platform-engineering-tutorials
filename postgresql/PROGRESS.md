@@ -82,6 +82,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [076](chapters/076-postgresql-security-architecture-roles-and-privileges.md) | Authored | Structural review; role and privilege lab not runtime-tested | Pending; PostgreSQL 18 security permission tests not executed | Published |
 | [077](chapters/077-postgresql-authentication-pg-hba-conf-tls-and-connection-security.md) | Authored | Structural review; authentication/TLS lab not runtime-tested | Pending; PostgreSQL 18 TLS, SCRAM and HBA tests not executed | Published |
 | [078](chapters/078-postgresql-row-level-security-data-protection-and-audit-controls.md) | Authored | Structural review; RLS and audit lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation and audit tests not executed | Published |
-| 079–100 | Planned | Pending | Pending | Plan only |
+| [079](chapters/079-postgresql-encryption-secrets-management-and-security-hardening.md) | Authored | Structural review; encryption and secrets lab not runtime-tested | Pending; PostgreSQL 18 hardening and rotation tests not executed | Published |
+| 080–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 079 — PostgreSQL Encryption, Secrets Management and Security Hardening.
+**Next:** Chapter 080 — PostgreSQL Security Operations, Incident Response and Compliance Acceptance Project.
