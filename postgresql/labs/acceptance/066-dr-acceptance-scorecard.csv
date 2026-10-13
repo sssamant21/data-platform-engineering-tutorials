@@ -1,0 +1,13 @@
+gate_id,category,mandatory,target,observed,evidence_link,result,owner,notes
+DR01,Physical backup verification,yes,Manifest and WAL verified,,,PENDING,,
+DR02,WAL continuity,yes,Unbroken required WAL chain,,,PENDING,,
+DR03,Historical PITR correctness,yes,Pre-target present post-target absent,,,PENDING,,
+DR04,Isolated recovery,yes,Unique PGDATA and no production connection,,,PENDING,,
+DR05,Logical restore,yes,Validated isolated object restore,,,PENDING,,
+DR06,Retention dry run,yes,No required dependency deleted,,,PENDING,,
+DR07,Missing WAL detection,yes,Cloned archive failure detected,,,PENDING,,
+DR08,Corruption detection,yes,Modified copy rejected,,,PENDING,,
+DR09,Offsite and key recovery,yes,Independent access verified,,,PENDING,,
+DR10,Alert delivery,yes,Monitoring and paging verified,,,PENDING,,
+DR11,RPO and RTO,yes,Signed objectives met,,,PENDING,,
+DR12,Rollback,yes,Lab service restored safely,,,PENDING,,
