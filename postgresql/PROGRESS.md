@@ -62,6 +62,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [056](chapters/056-postgresql-connection-management-and-pgbouncer-fundamentals.md) | Authored | Structural review; PgBouncer lab not runtime-tested | Pending; PostgreSQL 18 connection lab not executed | Published |
 | [057](chapters/057-pgbouncer-pooling-modes-sizing-and-transaction-compatibility.md) | Authored | Structural review; pooling compatibility lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer lab not executed | Published |
 | [058](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md) | Authored | Structural review; saturation recovery lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer incident lab not executed | Published |
-| 059–100 | Planned | Pending | Pending | Plan only |
+| [059](chapters/059-postgresql-connection-pool-monitoring-capacity-and-alerting.md) | Authored | Structural review; monitoring and alert lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer monitoring lab not executed | Published |
+| 060–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 059 — PostgreSQL Connection Pool Monitoring, Capacity and Alerting.
+**Next:** Chapter 060 — PostgreSQL Connection Pooling and Availability Acceptance Project.
