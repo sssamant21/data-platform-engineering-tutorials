@@ -64,6 +64,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [058](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md) | Authored | Structural review; saturation recovery lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer incident lab not executed | Published |
 | [059](chapters/059-postgresql-connection-pool-monitoring-capacity-and-alerting.md) | Authored | Structural review; monitoring and alert lab not runtime-tested | Pending; PostgreSQL 18/PgBouncer monitoring lab not executed | Published |
 | [060](chapters/060-postgresql-connection-pooling-and-availability-acceptance-project.md) | Authored | Structural review; availability acceptance not runtime-tested | Pending; PostgreSQL 18/PgBouncer capstone not executed | Published |
-| 061–100 | Planned | Pending | Pending | Plan only |
+| [061](chapters/061-postgresql-backup-strategy-rpo-and-rto-fundamentals.md) | Authored | Structural review; backup strategy lab not runtime-tested | Pending; PostgreSQL 18 backup/restore lab not executed | Published |
+| 062–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 061 — PostgreSQL Backup Strategy, RPO and RTO Fundamentals.
+**Next:** Chapter 062 — PostgreSQL Logical Backups with pg_dump, pg_restore and pg_dumpall.
