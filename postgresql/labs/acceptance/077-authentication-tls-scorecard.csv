@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner,notes
+AUTH01,Approved TLS login,yes,verify-full plus SCRAM succeeds,,PENDING,,
+AUTH02,Plaintext rejection,yes,Non-TLS TCP rejected,,PENDING,,
+AUTH03,Untrusted CA,yes,verify-full rejects unknown CA,,PENDING,,
+AUTH04,Wrong hostname,yes,verify-full rejects hostname mismatch,,PENDING,,
+AUTH05,Wrong password,yes,Invalid secret rejected,,PENDING,,
+AUTH06,HBA first match,yes,Rejected matching rule cannot fall through,,PENDING,,
+AUTH07,Source allowlist,yes,Unapproved client source denied,,PENDING,,
+AUTH08,TLS session inspection,yes,pg_stat_ssl shows negotiated TLS,,PENDING,,
+AUTH09,Least privilege,yes,Login lacks unnecessary grants,,PENDING,,
+AUTH10,Secret rotation,yes,Old secret invalid after rotation,,PENDING,,
+AUTH11,Certificate rotation,yes,New certificate verified with trusted CA,,PENDING,,
+AUTH12,Rollback,yes,Original config restored and tested,,PENDING,,
