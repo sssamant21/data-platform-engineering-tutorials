@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–032 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–033 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -51,4 +51,6 @@ Chapters 001–032 are authored and reviewed statically. Actual lab execution re
 
 - [032 — Composite, Partial, Expression and Covering Indexes](chapters/032-composite-partial-expression-and-covering-indexes.md)
 
-Next: Chapter 033 — Index Build, Reindex and Concurrent Maintenance.
+- [033 — Index Build, Reindex and Concurrent Maintenance](chapters/033-index-build-reindex-and-concurrent-maintenance.md)
+
+Next: Chapter 034 — Index Bloat, Usage and Lifecycle Decisions.
