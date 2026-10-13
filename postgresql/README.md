@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–040 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–041 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -67,4 +67,6 @@ Chapters 001–040 are authored and reviewed statically. Actual lab execution re
 
 - [040 — Partition Lifecycle, Retention and Recovery Project](chapters/040-partition-lifecycle-retention-and-recovery-project.md)
 
-Next: Chapter 041 — PostgreSQL Backup Architecture and Recovery Objectives.
+- [041 — PostgreSQL Backup Architecture and Recovery Objectives](chapters/041-postgresql-backup-architecture-and-recovery-objectives.md)
+
+Next: Chapter 042 — Logical Backups with pg_dump, pg_restore and pg_dumpall.
