@@ -48,6 +48,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [042](chapters/042-logical-backups-with-pg_dump-pg_restore-and-pg_dumpall.md) | Authored | Structural review; scripts not runtime-tested | Pending; PostgreSQL 18 logical restore lab not executed | Published |
 | [043](chapters/043-physical-backups-with-pg_basebackup-and-backup-manifests.md) | Authored | Structural review; physical backup not runtime-tested | Pending; PostgreSQL 18 backup, manifest and restore not executed | Published |
 | [044](chapters/044-wal-archiving-restore-commands-and-pitr-foundations.md) | Authored | Structural review; WAL/PITR not runtime-tested | Pending; PostgreSQL 18 archive and PITR drill not executed | Published |
-| 045–100 | Planned | Pending | Pending | Plan only |
+| [045](chapters/045-point-in-time-recovery-and-disaster-recovery-lab.md) | Authored | Structural review; PITR not runtime-tested | Pending; PostgreSQL 18 disaster recovery drill not executed | Published |
+| 046–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 045 — Point-in-Time Recovery and Disaster Recovery Lab.
+**Next:** Chapter 046 — Backup Monitoring, Restore Validation and Recovery Automation.
