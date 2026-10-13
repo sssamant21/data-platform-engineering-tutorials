@@ -1,0 +1,11 @@
+test_id,domain,test,environment,approval_required,expected_evidence,observed_result,status,owner,reviewer
+T001,Performance,Representative peak and burst workload,Disposable,yes,Application p95 p99 errors throughput,,NOT VERIFIED,,
+T002,Capacity,Failure mode headroom,Disposable,yes,CPU memory disk IOPS WAL pool metrics,,NOT VERIFIED,,
+T003,Availability,Fencing and controlled failover,Disposable,yes,Single writer and application recovery,,NOT VERIFIED,,
+T004,Backup,Isolated PITR restore,Disposable,yes,Recovered durable marker and restore logs,,NOT VERIFIED,,
+T005,DR,Regional failure exercise,Approved DR environment,yes,Measured RPO RTO and routing,,NOT VERIFIED,,
+T006,Security,TLS and privilege review,Approved environment,yes,Least privilege and encryption evidence,,NOT VERIFIED,,
+T007,Observability,Alert paging drill,Disposable,yes,Alert reaches correct on-call,,NOT VERIFIED,,
+T008,Incident response,Incident command and RCA,Disposable,yes,UTC timeline COA and recovery,,NOT VERIFIED,,
+T009,Automation,Read-only collector failure handling,Disposable,yes,Nonzero exit on failed checks,,NOT VERIFIED,,
+T010,Data integrity,Business transaction reconciliation,Disposable,yes,No missing duplicate critical transactions,,NOT VERIFIED,,
