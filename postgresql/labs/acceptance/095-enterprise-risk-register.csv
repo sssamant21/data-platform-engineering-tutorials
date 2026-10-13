@@ -1,0 +1,2 @@
+risk_id,domain,severity,impact,observed_gap,evidence,owner,remediation,compensating_control,due_date,retest_evidence,status
+RISK-001,Backup,High,Potential recovery failure,Isolated restore not yet verified,,,Schedule restore drill,, , ,OPEN
