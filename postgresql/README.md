@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–077 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–078 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -141,4 +141,6 @@ Chapters 001–077 are authored and reviewed statically. Actual lab execution re
 
 - [077 — PostgreSQL Authentication, pg_hba.conf, TLS and Connection Security](chapters/077-postgresql-authentication-pg-hba-conf-tls-and-connection-security.md)
 
-Next: Chapter 078 — PostgreSQL Row-Level Security, Data Protection and Audit Controls.
+- [078 — PostgreSQL Row-Level Security, Data Protection and Audit Controls](chapters/078-postgresql-row-level-security-data-protection-and-audit-controls.md)
+
+Next: Chapter 079 — PostgreSQL Encryption, Secrets Management and Security Hardening.
