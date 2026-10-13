@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–038 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–039 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -63,4 +63,6 @@ Chapters 001–038 are authored and reviewed statically. Actual lab execution re
 
 - [038 — Table Partitioning Fundamentals and Operational Tradeoffs](chapters/038-table-partitioning-fundamentals-and-operational-tradeoffs.md)
 
-Next: Chapter 039 — Partition Pruning, Indexes and Query Performance.
+- [039 — Partition Pruning, Indexes and Query Performance](chapters/039-partition-pruning-indexes-and-query-performance.md)
+
+Next: Chapter 040 — Partition Lifecycle, Retention and Recovery Project.
