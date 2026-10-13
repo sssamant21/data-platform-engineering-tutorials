@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–088 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–089 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -163,4 +163,6 @@ Chapters 001–088 are authored and reviewed statically. Actual lab execution re
 
 - [088 — PostgreSQL Storage Growth, Retention and Lifecycle Optimization](chapters/088-postgresql-storage-growth-retention-and-lifecycle-optimization.md)
 
-Next: Chapter 089 — PostgreSQL Cloud Cost Governance, Rightsizing and FinOps Acceptance Project.
+- [089 — PostgreSQL Cloud Cost Governance, Rightsizing and FinOps Acceptance Project](chapters/089-postgresql-cloud-cost-governance-rightsizing-and-finops-acceptance-project.md)
+
+Next: Chapter 090 — PostgreSQL Multi-Region Architecture, Geo-Replication and Disaster Recovery Design.
