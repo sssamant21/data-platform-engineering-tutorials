@@ -79,6 +79,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [073](chapters/073-postgresql-multi-zone-high-availability-and-disaster-recovery-design.md) | Authored | Structural review; multi-zone HA lab not runtime-tested | Pending; PostgreSQL 18 AZ simulation and regional DR not executed | Published |
 | [074](chapters/074-postgresql-cross-region-replication-dr-cutover-and-failback.md) | Authored | Structural review; cross-region DR lab not runtime-tested | Pending; PostgreSQL 18 DR cutover and failback not executed | Published |
 | [075](chapters/075-postgresql-high-availability-and-disaster-recovery-acceptance-project.md) | Authored | Structural review; HA/DR acceptance capstone not runtime-tested | Pending; PostgreSQL 18 HA/DR acceptance execution and signoff not completed | Published |
-| 076–100 | Planned | Pending | Pending | Plan only |
+| [076](chapters/076-postgresql-security-architecture-roles-and-privileges.md) | Authored | Structural review; role and privilege lab not runtime-tested | Pending; PostgreSQL 18 security permission tests not executed | Published |
+| 077–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 076 — PostgreSQL Security Architecture, Roles and Privileges.
+**Next:** Chapter 077 — PostgreSQL Authentication, pg_hba.conf, TLS and Connection Security.
