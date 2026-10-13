@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–046 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–047 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -79,4 +79,6 @@ Chapters 001–046 are authored and reviewed statically. Actual lab execution re
 
 - [046 — Backup Monitoring, Restore Validation and Recovery Automation](chapters/046-backup-monitoring-restore-validation-and-recovery-automation.md)
 
-Next: Chapter 047 — PostgreSQL Replication Slots, WAL Retention and Failure Modes.
+- [047 — PostgreSQL Replication Slots, WAL Retention and Failure Modes](chapters/047-postgresql-replication-slots-wal-retention-and-failure-modes.md)
+
+Next: Chapter 048 — Replication Lag, Standby Conflicts and Recovery Operations.
