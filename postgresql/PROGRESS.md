@@ -57,6 +57,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [051](chapters/051-postgresql-security-architecture-roles-and-privilege-boundaries.md) | Authored | Structural review; role lab not runtime-tested | Pending; PostgreSQL 18 security lab not executed | Published |
 | [052](chapters/052-postgresql-authentication-pg-hba-conf-and-tls-security.md) | Authored | Structural review; HBA/TLS lab not runtime-tested | Pending; PostgreSQL 18 authentication lab not executed | Published |
 | [053](chapters/053-postgresql-row-level-security-and-secure-application-access.md) | Authored | Structural review; RLS lab not runtime-tested | Pending; PostgreSQL 18 tenant isolation lab not executed | Published |
-| 054–100 | Planned | Pending | Pending | Plan only |
+| [054](chapters/054-postgresql-auditing-logging-and-security-monitoring.md) | Authored | Structural review; audit lab not runtime-tested | Pending; PostgreSQL 18 auditing lab not executed | Published |
+| 055–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 054 — PostgreSQL Auditing, Logging and Security Monitoring.
+**Next:** Chapter 055 — PostgreSQL Security Hardening and Access Control Acceptance Lab.
