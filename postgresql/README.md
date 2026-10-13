@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–063 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–064 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -113,4 +113,6 @@ Chapters 001–063 are authored and reviewed statically. Actual lab execution re
 
 - [063 — PostgreSQL Physical Backups with pg_basebackup and Backup Verification](chapters/063-postgresql-physical-backups-with-pg-basebackup-and-backup-verification.md)
 
-Next: Chapter 064 — PostgreSQL WAL Archiving and Point-in-Time Recovery.
+- [064 — PostgreSQL WAL Archiving and Point-in-Time Recovery](chapters/064-postgresql-wal-archiving-and-point-in-time-recovery.md)
+
+Next: Chapter 065 — PostgreSQL Backup Retention, Automation and Restore Testing.
