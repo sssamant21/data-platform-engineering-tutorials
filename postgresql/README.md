@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–034 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–035 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -55,4 +55,6 @@ Chapters 001–034 are authored and reviewed statically. Actual lab execution re
 
 - [034 — Index Bloat, Usage and Lifecycle Decisions](chapters/034-index-bloat-usage-and-lifecycle-decisions.md)
 
-Next: Chapter 035 — VACUUM, Autovacuum and Index Cleanup.
+- [035 — VACUUM, Autovacuum and Index Cleanup](chapters/035-vacuum-autovacuum-and-index-cleanup.md)
+
+Next: Chapter 036 — Autovacuum Tuning, Freeze and Wraparound Incident Response.
