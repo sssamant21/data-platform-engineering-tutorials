@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–058 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–059 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -103,4 +103,6 @@ Chapters 001–058 are authored and reviewed statically. Actual lab execution re
 
 - [058 — PostgreSQL Connection Pool Saturation, Timeouts and Recovery](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md)
 
-Next: Chapter 059 — PostgreSQL Connection Pool Monitoring, Capacity and Alerting.
+- [059 — PostgreSQL Connection Pool Monitoring, Capacity and Alerting](chapters/059-postgresql-connection-pool-monitoring-capacity-and-alerting.md)
+
+Next: Chapter 060 — PostgreSQL Connection Pooling and Availability Acceptance Project.
