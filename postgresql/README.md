@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–091 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–092 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -169,4 +169,6 @@ Chapters 001–091 are authored and reviewed statically. Actual lab execution re
 
 - [091 — PostgreSQL Cross-Region Failover, Fencing and Split-Brain Prevention](chapters/091-postgresql-cross-region-failover-fencing-and-split-brain-prevention.md)
 
-Next: Chapter 092 — PostgreSQL Cross-Region Backup, Restore and Disaster Recovery Automation.
+- [092 — PostgreSQL Cross-Region Backup, Restore and Disaster Recovery Automation](chapters/092-postgresql-cross-region-backup-restore-and-disaster-recovery-automation.md)
+
+Next: Chapter 093 — PostgreSQL Multi-Region Observability, DR Drills and Reliability Testing.
