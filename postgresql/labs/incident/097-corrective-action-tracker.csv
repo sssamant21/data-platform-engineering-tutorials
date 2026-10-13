@@ -1,0 +1,5 @@
+action_id,category,contributing_condition,proposed_action,priority,owner,due_date,acceptance_test,evidence_link,rollback_plan,status,independent_reviewer
+COA-001,Prevention,Long transaction duration,Review transaction scope,High,,,Bounded transaction duration under representative load,,,OPEN,
+COA-002,Detection,Blocked writes not alerted,Add blocker plus app p99 alert,High,,,Alert pages correct owner within policy,,,OPEN,
+COA-003,Protection,Retry amplification,Bound client retries and pool concurrency,High,,,No retry storm under injected lock fault,,,OPEN,
+COA-004,Response,Slow blocker diagnosis,Exercise blocking-chain runbook,Medium,,,On-call identifies blocker within target time,,,OPEN,
