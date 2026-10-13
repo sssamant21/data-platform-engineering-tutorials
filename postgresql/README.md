@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–099 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–100 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -185,4 +185,6 @@ Chapters 001–099 are authored and reviewed statically. Actual lab execution re
 
 - [099 — PostgreSQL Enterprise Reliability Engineering and Operational Acceptance Project](chapters/099-postgresql-enterprise-reliability-engineering-and-operational-acceptance-project.md)
 
-Next: Chapter 100 — PostgreSQL End-to-End Production Reliability and Recovery Final Capstone.
+- [100 — PostgreSQL End-to-End Production Reliability and Recovery Final Capstone](chapters/100-postgresql-end-to-end-production-reliability-and-recovery-final-capstone.md)
+
+**Series publication complete: Chapters 001–100.** Runtime lab execution and technical certification remain pending.
