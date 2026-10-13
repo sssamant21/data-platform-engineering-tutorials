@@ -73,6 +73,7 @@ Status definitions: **Planned** = curriculum entry only; **Authored** = chapter 
 | [067](chapters/067-postgresql-streaming-replication-and-high-availability-architecture.md) | Authored | Structural review; streaming replication lab not runtime-tested | Pending; PostgreSQL 18 primary/standby lab not executed | Published |
 | [068](chapters/068-postgresql-replication-slots-wal-retention-and-lag-management.md) | Authored | Structural review; slot and WAL lag lab not runtime-tested | Pending; PostgreSQL 18 replication slot lab not executed | Published |
 | [069](chapters/069-postgresql-synchronous-replication-and-commit-durability.md) | Authored | Structural review; synchronous commit lab not runtime-tested | Pending; PostgreSQL 18 synchronous replication lab not executed | Published |
-| 070–100 | Planned | Pending | Pending | Plan only |
+| [070](chapters/070-postgresql-planned-switchover-failover-and-split-brain-prevention.md) | Authored | Structural review; switchover/failover lab not runtime-tested | Pending; PostgreSQL 18 HA and fencing lab not executed | Published |
+| 071–100 | Planned | Pending | Pending | Plan only |
 
-**Next:** Chapter 070 — PostgreSQL Planned Switchover, Failover and Split-Brain Prevention.
+**Next:** Chapter 071 — PostgreSQL HA Automation, Leader Election and Failover Orchestration.
