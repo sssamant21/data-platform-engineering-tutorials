@@ -1,0 +1,11 @@
+utc_timestamp,event,incident_severity,application_impact,db_evidence,hypothesis,decision,action_owner,approver,observed_result,next_update_utc
+,BASELINE,,,,,,,,,
+,FAULT_INJECTION,,,,,,,,,
+,ALERT,,,,,,,,,
+,INCIDENT_DECLARATION,,,,,,,,,
+,DIAGNOSIS,,,,,,,,,
+,MITIGATION_APPROVAL,,,,,,,,,
+,MITIGATION_EXECUTION,,,,,,,,,
+,APPLICATION_RECOVERY,,,,,,,,,
+,RCA_REVIEW,,,,,,,,,
+,COA_RETEST,,,,,,,,,
