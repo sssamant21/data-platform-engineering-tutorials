@@ -1,0 +1,7 @@
+utc_timestamp,event_type,incident_severity,affected_service,impact_summary,observed_metric_or_evidence,hypothesis,decision,action_owner,approver,expected_result,actual_result,rollback_status,next_update_utc
+,DETECTION,,,,,,,,,,,,
+,DECLARATION,,,,,,,,,,,,
+,TRIAGE,,,,,,,,,,,,
+,MITIGATION,,,,,,,,,,,,
+,RECOVERY_VALIDATION,,,,,,,,,,,,
+,CLOSURE,,,,,,,,,,,,
