@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–084 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–085 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -155,4 +155,6 @@ Chapters 001–084 are authored and reviewed statically. Actual lab execution re
 
 - [084 — PostgreSQL Maintenance Automation, Scheduling and Operational Runbooks](chapters/084-postgresql-maintenance-automation-scheduling-and-operational-runbooks.md)
 
-Next: Chapter 085 — PostgreSQL Production Operations, Change Management and Reliability Acceptance Project.
+- [085 — PostgreSQL Production Operations, Change Management and Reliability Acceptance Project](chapters/085-postgresql-production-operations-change-management-and-reliability-acceptance-project.md)
+
+Next: Chapter 086 — PostgreSQL Capacity Forecasting, Cost Optimization and FinOps.
