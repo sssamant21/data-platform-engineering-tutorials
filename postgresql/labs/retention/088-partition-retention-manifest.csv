@@ -1,0 +1,2 @@
+schema,partition_name,partition_bounds,oldest_event_date,newest_event_date,estimated_rows,retention_policy,legal_hold,archive_verified,restore_verified,downstream_approved,change_ticket,action,owner,status,notes
+public,example_partition,,,,,NOT SET,UNKNOWN,NOT VERIFIED,NOT VERIFIED,NOT VERIFIED,,NONE,,NOT APPROVED,Example only; do not execute
