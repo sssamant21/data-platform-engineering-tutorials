@@ -1,0 +1,13 @@
+gate_id,control,mandatory,expected,evidence,result,owner,notes
+HARD01,TLS server,yes,PostgreSQL TLS enabled and policy verified,,PENDING,,
+HARD02,Client identity verification,yes,verify-full success and invalid CA or hostname rejected,,PENDING,,
+HARD03,Storage encryption,yes,Data WAL and snapshot encryption externally verified,,NOT VERIFIED,,
+HARD04,Backup encryption,yes,Encrypted backup restored with independent key,,NOT VERIFIED,,
+HARD05,Secrets manager,yes,Workload secrets access controlled and not in source,,PENDING,,
+HARD06,Credential rotation,yes,New login works and old secret revoked,,PENDING,,
+HARD07,Certificate rotation,yes,Renewed certificate and client trust validated,,PENDING,,
+HARD08,Key recovery,yes,Key access available after region loss,,NOT VERIFIED,,
+HARD09,Privileged roles,yes,Superuser and bypass roles reviewed,,PENDING,,
+HARD10,Extensions and search path,yes,Privileged code and schema trust reviewed,,PENDING,,
+HARD11,Host and network,yes,OS identity patching firewall and key permissions verified,,NOT VERIFIED,,
+HARD12,Audit and rollback,yes,Redacted audit evidence and tested rollback,,PENDING,,
