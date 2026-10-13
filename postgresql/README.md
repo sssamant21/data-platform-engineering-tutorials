@@ -2,7 +2,7 @@
 
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
-Chapters 001–053 are authored and reviewed statically. Actual lab execution remains pending.
+Chapters 001–054 are authored and reviewed statically. Actual lab execution remains pending.
 
 - [001 — Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md)
 - [002 — Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md)
@@ -93,4 +93,6 @@ Chapters 001–053 are authored and reviewed statically. Actual lab execution re
 
 - [053 — PostgreSQL Row-Level Security and Secure Application Access](chapters/053-postgresql-row-level-security-and-secure-application-access.md)
 
-Next: Chapter 054 — PostgreSQL Auditing, Logging and Security Monitoring.
+- [054 — PostgreSQL Auditing, Logging and Security Monitoring](chapters/054-postgresql-auditing-logging-and-security-monitoring.md)
+
+Next: Chapter 055 — PostgreSQL Security Hardening and Access Control Acceptance Lab.
