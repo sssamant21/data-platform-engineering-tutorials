@@ -1,0 +1,5 @@
+option,rpo_expectation,rto_expectation,write_latency_impact,failover_complexity,split_brain_controls,backup_dependency,monthly_cost_source,provider_support,decision,notes
+physical_async,Potential nonzero loss,Promotion and routing time,Usually low,Medium,Fencing required,Independent backups required,,VERIFY,PENDING,Default DR candidate
+physical_sync,Depends on commit configuration,Promotion and routing time,Remote RTT may affect commits,High,Fencing required,Independent backups required,,VERIFY,PENDING,Availability tradeoff
+logical_replication,Depends on replication and schema coverage,Application-specific,Varies,High,Application writer coordination,Independent backups required,,VERIFY,PENDING,Not complete cluster DR
+backup_pitr,Depends on archive continuity,Restore and replay time,None for steady commits,Medium,Restore as sole writer,Primary mechanism,,VERIFY,PENDING,Usually higher RTO
