@@ -1,0 +1,13 @@
+gate_id,scenario,mandatory,expected,evidence,result,owner
+AUTO01,Least privilege,yes,Monitoring role only reads approved evidence,,PENDING,
+AUTO02,Execution,yes,PowerShell runner produces timestamped output,,NOT VERIFIED,
+AUTO03,Failure handling,yes,Invalid connection or SQL fails nonzero,,NOT VERIFIED,
+AUTO04,Timeouts,yes,Bounded query and connection execution,,NOT VERIFIED,
+AUTO05,Data protection,yes,No credentials or PII in evidence,,PENDING,
+AUTO06,Replication,yes,Role and WAL metrics collected,,NOT VERIFIED,
+AUTO07,Backup,yes,Archive and backup evidence available,,NOT VERIFIED,
+AUTO08,Restore,yes,Isolated PITR recovery separately tested,,NOT VERIFIED,
+AUTO09,Alerting,yes,Failed controls route to owners,,NOT VERIFIED,
+AUTO10,Drift,yes,Configuration deviations reviewed,,PENDING,
+AUTO11,COA regression,yes,Corrective actions retested,,NOT VERIFIED,
+AUTO12,Independent acceptance,yes,DBRE SRE and app owner sign off,,PENDING,
