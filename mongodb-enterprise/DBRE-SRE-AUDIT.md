@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 73 updated at commit `0e79a50`: production query incident severity, evidence ledger, safe remediation and manifest gate. **Live query and incident acceptance remain pending.**
+
 - 2026-10-19 — Chapter 72 updated at commit `e2fbe7a`: reliability-aware rightsizing, Kubernetes and storage guardrails, recovery/entitlement checks, staged rollout and final FinOps evidence gate. **No live cost, contract or workload validation performed.**
 
 - 2026-10-19 — Chapter 71 updated at commit `54be986`: index-owner review, safe hide/observe/reverse workflow, audit change packet and offline fail-closed approval gate. **No live maintenance or approval verification performed.**
