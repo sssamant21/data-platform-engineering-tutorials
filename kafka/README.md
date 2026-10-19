@@ -51,6 +51,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [012 — Kafka Topic Administration, Partition Design and Kubernetes Operator Management](03-brokers-topics-partitions-replication/012-kafka-topic-administration-partition-design-and-kubernetes-operator-management.md)
 
+- [013 — Kafka Partition Reassignment, Replica Balancing and Kubernetes Broker Scaling](03-brokers-topics-partitions-replication/013-kafka-partition-reassignment-replica-balancing-and-kubernetes-broker-scaling.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
