@@ -627,3 +627,5 @@ Review questions:
 - [Privilege actions](https://www.mongodb.com/docs/v8.0/reference/privilege-actions/)
 
 Next: [**Chapter 48 — Security Hardening Acceptance Lab**](48-security-hardening-acceptance-lab.md).
+
+Previous: [Chapter 46 — Client Side and Queryable Encryption](46-client-side-and-queryable-encryption.md).
