@@ -57,6 +57,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [015 — Kafka Brokers, Topics, Replication and Kubernetes Reliability Acceptance Capstone](03-brokers-topics-partitions-replication/015-kafka-brokers-topics-replication-kubernetes-reliability-acceptance-capstone.md)
 
+- [016 — Kafka Producer Architecture, Acknowledgments, Retries and Idempotence on Kubernetes](04-producers-consumers-consumer-groups/016-kafka-producer-architecture-acknowledgments-retries-and-idempotence-on-kubernetes.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
