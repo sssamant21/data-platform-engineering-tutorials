@@ -34,6 +34,7 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 - [003 — Kafka Producers, Consumers and Message Delivery Semantics](01-fundamentals-architecture/003-kafka-producers-consumers-and-message-delivery-semantics.md)
 - [004 — Kafka Replication, Leaders, ISR and Fault Tolerance](01-fundamentals-architecture/004-kafka-replication-leaders-isr-and-fault-tolerance.md)
 - [005 — Kafka Architecture and Failure Recovery Capstone Lab](01-fundamentals-architecture/005-kafka-architecture-and-failure-recovery-capstone-lab.md)
+- [006 — Kafka Installation, Configuration and KRaft Cluster Bootstrap](02-installation-kraft-cluster-administration/006-kafka-installation-configuration-and-kraft-cluster-bootstrap.md)
 
 ## Chapter quality standard
 
