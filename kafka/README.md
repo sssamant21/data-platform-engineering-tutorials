@@ -2,6 +2,12 @@
 
 A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DBREs and platform engineers. Labs target modern KRaft-based Kafka; commands must be tested in isolated environments before production use.
 
+## Kubernetes-first curriculum standard
+
+**Required for every chapter (001–100):** Kubernetes is the primary execution environment. Deploy and administer Apache Kafka in KRaft mode with the Strimzi Operator and Kubernetes custom resources. Use `kubectl`, Kubernetes manifests, Pods, Services, PVCs, StorageClasses, NetworkPolicies, Secrets, and operator-managed rolling operations for the main labs. Local clusters may use kind/minikube; cloud examples should prioritize Amazon EKS and explain AKS/GKE differences where relevant. Prefer supported Strimzi/Kafka version combinations and check the release-specific CRD schema. Production labs require RBAC, TLS/authentication, capacity planning, monitoring, backup and safe rollback. Docker Compose is optional legacy/reference material only, **not** the primary lab platform.
+
+**Migration status:** Chapters 001–009 were published before this standard and their existing Docker-based labs **need Kubernetes/Strimzi rewrites**; do not mark them Kubernetes-compliant until each chapter has been revised and validated. Chapter 010 onward must be Kubernetes-native from initial publication. Publication, live lab execution, security review and Kubernetes compliance are separate statuses.
+
 ## Curriculum
 
 | Part | Chapters | Theme |
