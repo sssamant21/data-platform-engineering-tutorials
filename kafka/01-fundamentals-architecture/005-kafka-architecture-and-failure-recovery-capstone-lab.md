@@ -1,4 +1,18 @@
 # Chapter 005 — Kafka Architecture and Failure Recovery Capstone Lab
+## Kubernetes-first primary labs — Kubernetes reliability capstone
+
+**Platform:** Kubernetes, Strimzi Operator, KRaft and KafkaNodePool. **Source of truth:** [Shared Kubernetes Lab Foundation](../kubernetes/README.md). **Execution:** Pending. **Security review:** Pending.
+
+**Prerequisite:** Follow the [Kubernetes-first Kafka Lab Platform](../kubernetes/README.md) for operator/CRD version checks, Kafka cluster manifests, namespace, CLI Pod, KafkaTopic and evidence collection. Use `kubectl` rather than Docker Compose for all new exercises. Commands and CRD schemas require validation against the installed Strimzi release.
+
+**Capstone:** Validate Kafka Ready, three controllers, three brokers, PVC persistence, KafkaTopic RF=3/minISR=2, keyed production, consumer group replay, one broker-Pod failure, ISR restoration and business reconciliation. **Evidence:** before/during/after KafkaTopic metadata, `kubectl get pods,pvc`, metadata quorum status, producer acks, group offsets, Strimzi logs. **Acceptance:** no data loss claim without business event-ID comparison; do not delete PVCs; stop on under-min-ISR or quorum degradation. **Assessment (100):** architecture 10, CRDs 10, storage 10, topic 10, keyed ordering 10, delivery semantics 10, fault safety 10, ISR recovery 10, automation 10, incident report 10. Pass ≥85 with zero unsafe operations.
+
+**Automated acceptance baseline:** `kubectl -n kafka-lab wait kafka/sre-kafka --for=condition=Ready --timeout=900s`; `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc`; `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml` (if created); and a bounded produce/consume smoke test from the Kafka CLI Pod. Save exit codes and sanitized outputs. A successful manifest apply alone is not a pass.
+
+**Legacy note:** The original Docker Compose examples preserved later in this chapter are **superseded historical reference**, not the supported primary lab. Do not execute their destructive commands as part of the Kubernetes workflow. Their Docker-specific assessment steps must be interpreted using the Kubernetes replacement above.
+
+---
+
 
 **Curriculum:** Apache Kafka Administration, SRE & Platform Engineering  
 **Part:** 01 — Kafka Fundamentals and Architecture (final capstone)  
