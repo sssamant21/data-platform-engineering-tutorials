@@ -326,7 +326,116 @@ Review questions:
 7. Why do compact/member resync need their own maintenance acceptance?
 8. What proves incident recovery beyond a single improved resource gauge?
 
-## 15. Official references and validation status
+## 15. DBRE/SRE extension — Kubernetes resource emergency and recovery gates
+
+This extension defines operational controls for real incidents. It does **not** authorize filling a disk, evicting MongoDB pods, deleting diagnostic files, compacting collections or forcing replica-set elections.
+
+### 15.1 Incident command and risk priorities
+
+| Priority | Evidence | Action boundary |
+|---|---|---|
+| Protect customer correctness and write availability | Application errors/timeouts, acknowledged write outcomes, primary state, quorum | Coordinate incident commander and DBRE; avoid unreviewed restarts or write concern changes |
+| Preserve recoverability | Oplog time span, secondary catch-up, backup freshness, restore-test status | Stop overlapping maintenance; do not remove recovery artifacts |
+| Preserve remaining storage headroom | Exact PVC/device free bytes, inodes, growth, maintenance reserve, expansion lead time | Limit avoidable ingestion through an approved service mechanism; escalate capacity expansion |
+| Isolate performance bottleneck | IO latency/queues, throttling, WiredTiger eviction, CPU and memory pressure | Treat occupancy as context, not automatic remediation |
+| Restore telemetry and evidence | Collector freshness, logs, FTDC, pod restart history | Capture bounded artifacts; do not delete FTDC to make space |
+
+Record incident ID, severity, affected tenant/service, member/shard/volume mapping, UTC window, on-call owner, incident commander, changes in flight and communication cadence.
+
+### 15.2 Kubernetes-specific read-only triage
+
+Use the existing authorized namespace and RBAC. The following commands are **examples only**; set `NS` and `POD` to verified values, and confirm your context before use.
+
+```bash
+kubectl config current-context
+kubectl -n "$NS" get pod "$POD" -o wide
+kubectl -n "$NS" describe pod "$POD"
+kubectl -n "$NS" get pvc -o wide
+kubectl -n "$NS" get events --sort-by=.lastTimestamp
+kubectl -n "$NS" top pod "$POD" --containers
+```
+
+The metrics-server-backed `kubectl top` may be unavailable or insufficient for IO and filesystem evidence. Correlate container memory working set and limits, OOMKilled/restart reason, CPU throttling from an approved metrics backend, node pressure, storage-class capabilities, PVC/PV identity, CSI controller events and underlying cloud volume metrics. Do not infer database free bytes from PVC requested capacity alone.
+
+For StatefulSets/operators, inspect the **authoritative custom resource/GitOps source** and storage expansion support. Verify whether the storage class allows expansion, whether filesystem growth needs a pod restart, and whether that restart is safe for current quorum/replication. Never delete a PVC or recreate a StatefulSet as a generic expansion fix.
+
+### 15.3 Safe storage expansion runbook
+
+1. Verify the constrained filesystem and member identity, cloud volume ID, physical used/free bytes and predicted reserve breach.
+2. Confirm storage class/driver expansion support, quota and device performance limits, commercial approval, change owner and backup/recovery readiness.
+3. Review one-member-at-a-time constraints, pod disruption budgets, topology and current election/lag state.
+4. Change the **authoritative** resource specification under an approved change; record requested and observed capacity.
+5. Watch PVC/controller/filesystem resize status and any required controlled filesystem action. Do not assume a successful API patch means usable bytes increased.
+6. Verify filesystem free bytes **inside the MongoDB container**, actual IO latency, application latency/error SLO, replica health and history headroom.
+7. Roll back only through a supported path. Many volume systems do **not** support shrinking; plan forward recovery/migration instead of promising an inverse resize.
+
+If the expansion cannot finish before reserve exhaustion, escalate to the incident commander for workload-specific containment with an explicit data-integrity review.
+
+### 15.4 Memory/cache/CPU incident decision tree
+
+- **High WiredTiger cache occupancy without eviction/read IO or SLO impact:** observe trend; do not restart or reduce cache automatically.
+- **Eviction pressure with read IO latency and rising query P99:** inspect working set, query plans, disk limits and workload changes; choose scoped query/load remediation.
+- **Container OOM or memory-limit breach:** correlate WiredTiger cache, other mongod allocations, sidecars, container limit and node eviction; propose sizing change with headroom and one-member-at-a-time safety.
+- **CPU throttling with high application latency:** confirm quota throttling and expensive operations before changing CPU limits/requests.
+- **Disk latency/IOPS saturation despite free bytes:** diagnose storage tier/limits and noisy workload; adding capacity alone may not resolve throughput.
+
+Each branch requires a before/after measurement, owner, stop condition and documented service/recovery verification.
+
+### 15.5 Incident evidence manifest and offline gate
+
+Save as `ch75-incident.json`:
+
+```json
+{
+  "chapter": 75,
+  "incident_id": "NOT_ASSIGNED",
+  "incident_commander": "NOT_ASSIGNED",
+  "dbre_owner": "NOT_ASSIGNED",
+  "platform_owner": "NOT_ASSIGNED",
+  "member_volume_identity_verified": false,
+  "monitoring_fresh": false,
+  "application_slo_recorded": false,
+  "replica_and_recovery_health_recorded": false,
+  "physical_capacity_and_inodes_recorded": false,
+  "io_cache_memory_cpu_correlated": false,
+  "capacity_reserve_and_lead_time_recorded": false,
+  "change_and_rollback_approved": false,
+  "post_recovery_service_verified": false,
+  "post_recovery_storage_verified": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch75_incident_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch75-incident.json").read_text(encoding="utf-8"))
+checks = (
+    "member_volume_identity_verified", "monitoring_fresh",
+    "application_slo_recorded", "replica_and_recovery_health_recorded",
+    "physical_capacity_and_inodes_recorded", "io_cache_memory_cpu_correlated",
+    "capacity_reserve_and_lead_time_recorded", "change_and_rollback_approved",
+    "post_recovery_service_verified", "post_recovery_storage_verified",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("incident_id", "incident_commander", "dbre_owner", "platform_owner"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: incident evidence declarations complete; independently verify artifacts")
+```
+
+Run `python ch75_incident_gate.py`. The untouched template must fail. The gate checks declarations only; it cannot prove real storage expansion, safe failover or recovery. Record **NOT RUN** for any unexecuted lab, and obtain independent review before closing the production incident.
+
+---
+
+## 16. Official references and validation status
 
 1. [MongoDB 8.0 — WiredTiger Storage Engine](https://www.mongodb.com/docs/v8.0/core/wiredtiger/).
 2. [MongoDB 8.0 — compact](https://www.mongodb.com/docs/v8.0/reference/command/compact/).
