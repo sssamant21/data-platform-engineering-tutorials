@@ -365,7 +365,115 @@ Review questions:
 7. Why is a timed-out write not automatically safe to repeat?
 8. What proves full application recovery beyond ping?
 
-## 15. Official references and validation status
+## 15. DBRE/SRE extension — access outage, certificate rotation and Kubernetes recovery
+
+This section adds an incident command and change-acceptance layer to the existing scoped client failure labs. It does **not** authorize production certificate rotation, broad access changes, disabled TLS validation or Kubernetes network-policy edits.
+
+### 15.1 First-response classification and escalation
+
+| Observed symptom | Evidence to collect from affected runtime | Escalation and stop condition |
+|---|---|---|
+| DNS/SRV or member discovery failure | Pod/host resolver results, seed/SRV/TXT records, advertised replica-set addresses and driver topology view | Platform/network owner; do not edit replica-set membership based on a single resolver failure |
+| TCP timeout or refusal | Destination, route, security group/NetworkPolicy, service/endpoints, connection budget and UTC window | Kubernetes/network on-call; do not widen cluster-wide ingress as a diagnostic shortcut |
+| TLS trust/hostname/expiry failure | Verified chain, SAN, validity, clock, client trust-store path, SNI and exact endpoint | PKI/security owner + DBRE; never use `tlsAllowInvalidCertificates` or disable hostname validation as an incident workaround |
+| Authentication failure | Auth mechanism, authSource, identity scope, secret version and fresh-session result | Identity/secret owner; preserve break-glass path and do not dump credentials |
+| Authorization failure | Required command/namespace, effective role grants and policy change history | Application owner + security/DBRE; do not grant `root` to restore one query |
+| Pool exhaustion / server selection | Pool checkout latency, open connections, retry rate, member health and client timeout budgets | Service on-call + DBRE; stop retry storms and avoid raising timeouts without capacity evidence |
+| Ambiguous write after disconnect | Request ID/idempotency key, write concern, outcome lookup and application consistency evidence | Service owner; reconcile before replay to avoid duplicate mutation |
+
+Record incident ID, severity under the existing policy, incident commander, affected tenants/services, UTC start, last known good version, change owner and current SLO impact.
+
+### 15.2 Kubernetes-specific diagnostic sequence
+
+From an **approved diagnostic pod or the affected application pod** (not an unrestricted cluster-wide shell), record namespace, service account, pod/container image digest, mounted secret/config version, DNS policy, NetworkPolicy, service/endpoint readiness and node/AZ. Check name resolution and TCP/TLS reachability to the **actual advertised replica-set member hostnames**, not only the initial Service address.
+
+A pod marked Running does not prove its MongoDB client can validate certificates, discover the primary or authenticate. Confirm that TLS certificates cover the names used by the driver, and that pod restarts/redeployments load the intended secret versions. Use least-privilege Kubernetes RBAC; do not print secret contents into incident logs.
+
+If a network or certificate change is suspected, compare the authoritative GitOps/operator/IaC desired state and reconciliation events. Revert only the approved scoped change; avoid manual drift that a controller will immediately overwrite.
+
+### 15.3 Certificate and credential rotation safety runbook
+
+1. Inventory clients, members, CA trust chains, certificate SANs/expiry, auth mechanisms, secret versions and ownership; identify whether existing connections mask a fresh-session failure.
+2. Confirm a tested independent recovery administrator and approved change/rollback path before touching authentication or TLS.
+3. Rehearse **overlapping trust** in an isolated environment, with both old and new client populations; ensure all expected member hostnames and routes remain valid.
+4. Roll out CA/certificate/secret changes using the supported MongoDB version and authoritative operator/service procedure. Record each affected client and server identity.
+5. Validate new connections from every affected runtime: DNS → TCP → verified TLS → topology selection → authentication → authorized read/write probe. Check replica set health, error ratios and pool behavior.
+6. Revoke retired trust/credentials only after all required consumers are verified on the new configuration and the security owner authorizes the cutover.
+7. On failure, stop further rollout, restore the approved prior trust/configuration where safe, reconcile ambiguous writes and verify fresh-session recovery. An expired/revoked credential cannot necessarily be made usable by simply restarting a pod.
+
+**Never** use plaintext fallback, a permissive certificate flag, anonymous access or broad privilege grants as a production recovery shortcut.
+
+### 15.4 Failure-injection acceptance matrix
+
+Perform only against the chapter-owned identities and an isolated TLS replica set.
+
+| Drill | Expected detection | Recovery proof |
+|---|---|---|
+| Wrong CA / hostname | TLS verification fails, no insecure fallback | Correct CA/hostname permits verified fresh connection |
+| Wrong password/authSource | Authentication failure distinguished from DNS/TLS | Scoped identity authenticates with correct configuration |
+| Denied reader write | Authorization failure, no data mutation | Reader still reads; writer alone performs approved mutation |
+| Unreachable advertised member | Topology/server-selection evidence identifies endpoint | Restored route and successful primary selection |
+| Rotated client secret | Existing session vs fresh session distinguished | New secret works for all expected clients; old secret retired only after approval |
+| Kubernetes pod secret mount drift | Version mismatch and fresh-connection failure visible | Reconciled pod mounts and authorized application probe |
+| Ambiguous write | Outcome treated as unknown, not automatically retried | Idempotent reconciliation or explicit verified result |
+
+Record **NOT RUN** for any unexecuted drill; the offline classifier cannot certify live TLS, identity or routing behavior.
+
+### 15.5 Fail-closed incident acceptance packet
+
+Save as `ch74-incident.json`:
+
+```json
+{
+  "chapter": 74,
+  "incident_id": "NOT_ASSIGNED",
+  "incident_commander": "NOT_ASSIGNED",
+  "service_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "runtime_and_topology_recorded": false,
+  "dns_tcp_tls_auth_layers_classified": false,
+  "fresh_session_verified": false,
+  "least_privilege_verified": false,
+  "application_read_write_verified": false,
+  "replica_set_health_verified": false,
+  "monitoring_and_slo_recovered": false,
+  "secret_and_certificate_state_reconciled": false,
+  "rollback_or_no_change_documented": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch74_incident_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch74-incident.json").read_text(encoding="utf-8"))
+checks = (
+    "runtime_and_topology_recorded", "dns_tcp_tls_auth_layers_classified",
+    "fresh_session_verified", "least_privilege_verified",
+    "application_read_write_verified", "replica_set_health_verified",
+    "monitoring_and_slo_recovered",
+    "secret_and_certificate_state_reconciled",
+    "rollback_or_no_change_documented",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("incident_id", "incident_commander", "service_owner", "dbre_reviewer"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: incident closure declarations complete; verify underlying evidence independently")
+```
+
+Run `python ch74_incident_gate.py`. The untouched template must fail. A PASS checks only recorded declarations, not actual recovery or security correctness; reviewers must verify the artifacts and approval chain.
+
+---
+
+## 16. Official references and validation status
 
 1. [MongoDB 8.0 — Connection String Options](https://www.mongodb.com/docs/v8.0/reference/connection-string-options/).
 2. [PyMongo — Configure TLS](https://www.mongodb.com/docs/languages/python/pymongo-driver/current/security/tls/): verify behavior against the pinned release.
