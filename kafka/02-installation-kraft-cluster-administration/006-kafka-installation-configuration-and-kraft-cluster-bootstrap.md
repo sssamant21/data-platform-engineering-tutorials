@@ -1,4 +1,18 @@
 # Chapter 006 — Kafka Installation, Configuration and KRaft Cluster Bootstrap
+## Kubernetes-first primary labs — Strimzi operator installation and cluster bootstrap
+
+**Platform:** Kubernetes, Strimzi Operator, KRaft and KafkaNodePool. **Source of truth:** [Shared Kubernetes Lab Foundation](../kubernetes/README.md). **Execution:** Pending. **Security review:** Pending.
+
+**Prerequisite:** Follow the [Kubernetes-first Kafka Lab Platform](../kubernetes/README.md) for operator/CRD version checks, Kafka cluster manifests, namespace, CLI Pod, KafkaTopic and evidence collection. Use `kubectl` rather than Docker Compose for all new exercises. Commands and CRD schemas require validation against the installed Strimzi release.
+
+**Lab A:** Install a release-compatible Strimzi operator in an isolated Kubernetes cluster and confirm Kafka/KafkaNodePool CRDs. **Lab B:** Apply the shared KRaft Kafka/KafkaNodePool template after substituting a supported Kafka version and validating the installed CRD with server-side dry run. **Lab C:** Inspect Stateful workload Pods, PVCs, bootstrap Service and controller quorum. **Lab D:** Produce/consume from a version-matched CLI Pod and verify persistence across a **supported operator-managed restart**; never delete PVCs. **Validation:** Kafka Ready=True, metadata quorum status readable, all expected Pods and volumes present. **Runbook:** check Strimzi operator logs, PVC provisioning, StorageClass and node scheduling before attempting recovery.
+
+**Automated acceptance baseline:** `kubectl -n kafka-lab wait kafka/sre-kafka --for=condition=Ready --timeout=900s`; `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc`; `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml` (if created); and a bounded produce/consume smoke test from the Kafka CLI Pod. Save exit codes and sanitized outputs. A successful manifest apply alone is not a pass.
+
+**Legacy note:** The original Docker Compose examples preserved later in this chapter are **superseded historical reference**, not the supported primary lab. Do not execute their destructive commands as part of the Kubernetes workflow. Their Docker-specific assessment steps must be interpreted using the Kubernetes replacement above.
+
+---
+
 
 **Track:** Apache Kafka Administration, SRE & Platform Engineering  
 **Part:** 02 — Installation, KRaft and Cluster Administration  
