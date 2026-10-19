@@ -201,5 +201,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 007 | Controller quorum and metadata status from tools Pod |
 | 008 | Kafka config via Strimzi Kafka/KafkaTopic resources; GitOps drift |
 | 009 | Operator-managed rolling maintenance and safe Pod fault simulation |
+| 010 | Kubernetes-native KRaft installation and reliability acceptance capstone |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
