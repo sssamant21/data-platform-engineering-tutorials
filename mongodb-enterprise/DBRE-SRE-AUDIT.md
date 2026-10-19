@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 80 updated at commit `63ad829`: independent enterprise readiness board, GO/NO-GO, change invalidation, accountable review and fail-closed board manifest. **Live runtime validation and production approval remain pending.**
+
 - 2026-10-19 — Chapter 79 updated at commit `40e0e0a`: independent restore and integrity controls, measured RPO/RTO, negative tests, regional cutover/failback and DR evidence gate. **Live restore and regional DR acceptance remain pending.**
 
 - 2026-10-19 — Chapter 78 updated at commit `e90ca2b`: approved failover game day, client/ledger recovery timeline, quorum/consistency gates, scoped chaos scenarios and HA evidence manifest. **Live handoff and application failover validation remain pending.**
