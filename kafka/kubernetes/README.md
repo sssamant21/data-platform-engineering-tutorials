@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–017
+# Kubernetes-first Kafka Lab Platform — Chapters 001–018
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -209,5 +209,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 015 | Brokers, topics, ISR, controlled fault and enterprise reliability acceptance capstone |
 | 016 | Producer acks, idempotence, retries, batching and Kubernetes Job execution |
 | 017 | Consumer poll loop, group offsets, Kubernetes Job and safe offset reset |
+| 018 | Consumer group rebalancing, assignment, Kubernetes Deployment scaling and HPA design |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
