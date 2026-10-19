@@ -311,7 +311,106 @@ Review questions:
 7. How can rollback change after the target receives writes?
 8. What work remains after all 80 chapters are written?
 
-## 15. Official references and final validation status
+## 15. DBRE/SRE extension — enterprise go/no-go board and canonical acceptance
+
+This extension is the final **independent production-readiness review** for the declared deployment, not an assertion that the 80 written chapters or their labs have been run. The existing packet validator remains the first gate; this section adds reviewer accountability, operational ownership and change invalidation.
+
+### 15.1 Independent readiness board
+
+| Decision domain | Minimum evidence | Accountable reviewer |
+|---|---|---|
+| Architecture and capacity | Member/shard placement, voting topology, peak and degraded-mode sizing, disk/memory/IO reserve | Platform/DBRE |
+| Security and identity | TLS verification, secret rotation, least privilege, audit logging and break-glass drill | Security owner |
+| Data integrity and query performance | Tenant/schema/unique constraints, query correctness, representative P95/P99 and concurrency | Application/data owner |
+| Observability and SLOs | Fresh metrics/logs/FTDC, paging route, alert fire/recovery drill, error-budget policy | SRE/on-call owner |
+| Operations and changes | Maintenance runbooks, index ownership, reversible change process, on-call escalation | DBRE operations owner |
+| High availability | Non-forced handoff, acknowledged/ambiguous write reconciliation, all-member recovery | DBRE + application owner |
+| Backup and disaster recovery | Independently restored backup, reconciled data, measured RPO/RTO, key access and failback plan | Recovery owner |
+| Kubernetes/platform scope (if applicable) | StatefulSet/operator authority, PVC/CSI expansion, pod/node disruption, network and secret reconciliation | Kubernetes platform owner |
+| Handoff and governance | Runbook ownership, escalation, evidence retention, approved change and known risk register | Service owner |
+
+Every domain must be **PASS with verified evidence**, **NOT APPLICABLE with documented scope justification**, or **BLOCKED**. Mandatory domains cannot be marked not applicable merely to pass the board. A board member must not self-certify a drill that requires independent observation.
+
+### 15.2 Go/no-go and operational acceptance
+
+**NO-GO** for any unresolved data-integrity concern, failed security boundary, missing recoverable backup, untested required recovery objective, degraded quorum, unavailable on-call escalation, stale observability, failed application correctness, or absent rollback authority.
+
+A **conditional go** requires explicit organizational policy permitting risk acceptance, a named accountable risk owner, compensating controls, expiry and scheduled remediation. It must never override a mandatory safety or regulatory gate. A packet marked complete is not permission to deploy.
+
+Before rollout, record the exact Git commit/image digest, MongoDB server/FCV, operator/client versions, Kubernetes manifest or IaC revision, TLS/secret references, topology and workload scope. During rollout, compare service SLOs, query correctness, replication, disk reserve and backup health against the accepted baseline. After rollout, transfer ownership to the actual on-call roster and confirm pager delivery.
+
+### 15.3 Change invalidation and periodic reacceptance
+
+Re-evaluate affected gates after a major version/FCV upgrade, topology or region move, authentication/CA rotation, index/schema migration, workload/tenant scale shift, Kubernetes storage or scheduling change, backup architecture change, or material incident. An old PASS must not be carried forward across an unreviewed scope change.
+
+Schedule periodic restore and HA game days according to the service's policy; maintain evidence expiry and owner reassignment. Distinguish **documentation complete**, **offline checks complete**, **live lab executed**, **independently reviewed**, and **production accepted** in all reports.
+
+### 15.4 Independent board manifest and fail-closed gate
+
+Save as `ch80-board.json`:
+
+```json
+{
+  "chapter": 80,
+  "deployment_id": "NOT_ASSIGNED",
+  "configuration_revision": "NOT_ASSIGNED",
+  "service_owner": "NOT_ASSIGNED",
+  "independent_reviewer": "NOT_ASSIGNED",
+  "application_correctness": "NOT_RUN",
+  "security": "NOT_RUN",
+  "observability": "NOT_RUN",
+  "capacity_and_degraded_mode": "NOT_RUN",
+  "change_and_operations": "NOT_RUN",
+  "high_availability": "NOT_RUN",
+  "backup_restore_dr": "NOT_RUN",
+  "handoff_and_oncall": "NOT_RUN",
+  "kubernetes_applicable": true,
+  "kubernetes_platform": "NOT_RUN",
+  "evidence_references": [],
+  "unresolved_mandatory_failures": true,
+  "approval_recorded": false
+}
+```
+
+Save as `ch80_board_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch80-board.json").read_text(encoding="utf-8"))
+required = (
+    "application_correctness", "security", "observability",
+    "capacity_and_degraded_mode", "change_and_operations",
+    "high_availability", "backup_restore_dr", "handoff_and_oncall",
+)
+missing = [key for key in required if p.get(key) != "PASS"]
+if p.get("kubernetes_applicable") is not False and p.get("kubernetes_platform") != "PASS":
+    missing.append("kubernetes_platform")
+for key in ("deployment_id", "configuration_revision", "service_owner",
+            "independent_reviewer"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if p.get("unresolved_mandatory_failures") is not False:
+    missing.append("unresolved_mandatory_failures")
+if p.get("approval_recorded") is not True:
+    missing.append("approval_recorded")
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NO-GO: " + ", ".join(missing))
+print("ELIGIBLE FOR INDEPENDENT REVIEW: declarations complete; evidence not verified by script")
+```
+
+Run `python ch80_board_gate.py`. The untouched manifest must fail. Even a modified manifest that passes **does not** grant production approval: an authorized independent reviewer must verify every linked artifact, scope and signature. Record real board decision, date, residual risk and next reassessment trigger outside this public tutorial.
+
+### 15.5 Final curriculum status
+
+All **80 chapters remain in the original structure**. Enhancement publication is a documentation milestone only. No new chapter, GitHub commit or acceptance-manifest script converts unexecuted production drills into passing evidence. Canonical production readiness requires authorized runtime tests, independent security/DBRE review and service-owner sign-off.
+
+---
+
+## 16. Official references and final validation status
 
 1. [MongoDB 8.0 — Operations Checklist](https://www.mongodb.com/docs/v8.0/administration/production-checklist-operations/): review exact-version applicability rather than applying every item without deployment context.
 2. [MongoDB 8.0 — Security Checklist](https://www.mongodb.com/docs/v8.0/administration/security-checklist/).
