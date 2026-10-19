@@ -652,3 +652,5 @@ Consult the exact deployed release and key-manager documentation:
 - [Localhost exception](https://www.mongodb.com/docs/v8.0/core/localhost-exception/)
 
 Next: [**Chapter 46 — Client Side and Queryable Encryption**](46-client-side-and-queryable-encryption.md).
+
+Previous: [Chapter 44 — Enterprise Audit Configuration and Analysis](44-enterprise-audit-configuration-and-analysis.md).
