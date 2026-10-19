@@ -1,4 +1,18 @@
 # Chapter 003 — Kafka Producers, Consumers and Message Delivery Semantics
+## Kubernetes-first primary labs — Producer and consumer Pods, groups and replay
+
+**Platform:** Kubernetes, Strimzi Operator, KRaft and KafkaNodePool. **Source of truth:** [Shared Kubernetes Lab Foundation](../kubernetes/README.md). **Execution:** Pending. **Security review:** Pending.
+
+**Prerequisite:** Follow the [Kubernetes-first Kafka Lab Platform](../kubernetes/README.md) for operator/CRD version checks, Kafka cluster manifests, namespace, CLI Pod, KafkaTopic and evidence collection. Use `kubectl` rather than Docker Compose for all new exercises. Commands and CRD schemas require validation against the installed Strimzi release.
+
+**Lab A:** Launch the version-matched Kafka tools Pod, create an RF=3 topic, produce keyed records with `acks=all` and `enable.idempotence=true`. **Lab B:** Consume using `--group sre-consumer-ch03 --from-beginning --max-messages 2`; inspect `kafka-consumer-groups.sh --describe --group sre-consumer-ch03`. **Lab C:** Replay with a distinct group, never reset a live group's offsets. **Validate:** business event IDs remain unique and downstream writes must be idempotent; producer idempotence alone does not guarantee exactly-once external side effects. **Incident:** a Pod crash between DB write and offset commit causes replay. **Runbook:** reconcile event IDs, consumer offsets and sink transactions.
+
+**Automated acceptance baseline:** `kubectl -n kafka-lab wait kafka/sre-kafka --for=condition=Ready --timeout=900s`; `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc`; `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml` (if created); and a bounded produce/consume smoke test from the Kafka CLI Pod. Save exit codes and sanitized outputs. A successful manifest apply alone is not a pass.
+
+**Legacy note:** The original Docker Compose examples preserved later in this chapter are **superseded historical reference**, not the supported primary lab. Do not execute their destructive commands as part of the Kubernetes workflow. Their Docker-specific assessment steps must be interpreted using the Kubernetes replacement above.
+
+---
+
 
 **Curriculum:** Apache Kafka Administration, SRE & Platform Engineering  
 **Part 01:** Kafka Fundamentals and Architecture  
