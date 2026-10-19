@@ -375,7 +375,140 @@ Review questions:
 7. Why is retained oplog time more useful than byte size alone for CDC recovery?
 8. Which evidence proves alert delivery and monitoring freshness?
 
-## 16. Official references and validation status
+## 16. DBRE/SRE production acceptance extension — alerts, budgets and capacity actions
+
+This section turns the offline evaluator into a **deployment acceptance plan**, not a claim that any monitoring backend or on-call system has been tested.
+
+### 16.1 Alert rule lifecycle and accountability
+
+For each proposed rule, record the service/SLO owner, DBRE escalation owner, severity, target/period, numerator and denominator queries, eligibility exclusions, exact metric source/version, expected series inventory, lookback and evaluation windows, minimum traffic policy, missing-data policy, grouping labels, routing target, maintenance suppression policy, rollback change ID and runbook. Record a review date and a link to a real incident or synthetic acceptance case.
+
+Production rollout gates:
+
+1. **Shadow:** replay representative good, bad, low-volume, no-traffic, stale, reset and deployment windows against actual instrumentation; compare results to independently counted request totals.
+2. **Test routing:** send only to an explicitly authorized test receiver. Verify notification delivery, grouping, acknowledgement and resolved notification.
+3. **Controlled rollout:** use a reviewed change and scoped rule-group deployment; preserve the previous configuration for rollback.
+4. **Observe:** verify no unexpected duplicate pages, no unowned alerts, no silently missing member/service coverage and no change to unrelated rules.
+5. **Rollback:** restore the previous rule group only; confirm collection remains healthy and the former alert behavior is recovered.
+
+A rule that evaluates correctly but cannot deliver a notification is **not operationally accepted**.
+
+### 16.2 Error-budget policy and change decisions
+
+An SLO is a shared service policy, not permission for a database operator to override application behavior. Define the rolling or calendar reporting period, objective owner and allowed exclusions *before* measuring.
+
+| State | Evidence | Decision and authority |
+|---|---|---|
+| Budget healthy | Complete SLI coverage and budget within approved limits | Normal change review; no guarantee of safety |
+| Accelerated burn | Both reviewed burn windows fire with sufficient traffic | Page assigned responder, assess user impact and begin incident runbook |
+| Low traffic | Eligible counts below reviewed threshold | Apply owned synthetic-probe/alternate policy; never silently mark healthy |
+| Missing coverage | Expected SLI/collector series stale or absent | Open monitoring reliability incident and use independent signals |
+| Budget exhausted | Measured consumption exceeds the policy's available budget | Escalate to service/change owners for risk-based release review; emergency security or reliability fixes remain possible |
+
+Do not automatically freeze all deployments or change the SLO after an incident. Document exceptions, approver and expiry. Recompute from immutable event definitions; keep corrections auditable.
+
+### 16.3 Capacity and recoverability incident runbook
+
+**Trigger:** projected reserve crossing occurs before the approved remediation lead time, actual reserve is breached, or retained oplog/CDC history is insufficient for outage plus catch-up plus safety margin.
+
+1. Confirm the affected member, shard, volume or CDC source; verify timestamp, units, data freshness and physical vs logical bytes.
+2. Recalculate typical and adverse growth, explicit reserve, maintenance headroom and full expansion lead time. Reject stale or structurally discontinuous trends.
+3. Correlate resource bottlenecks: storage latency/IOPS, application latency, replication lag, cache/eviction and concurrent maintenance.
+4. Assess recoverability: backup freshness and restore-test evidence, oplog time span, CDC checkpoint and backlog drain rate. Do not infer recovery safety from free disk alone.
+5. Choose a reviewed mitigation: bounded ingestion/concurrency, workload tuning, storage expansion or rebalancing. Record risk, dependencies, owner, maintenance window and rollback/stop gates.
+6. Verify the change against application SLI, replica/shard health, reserve forecast and recovery-history budget; update alerts and capacity baseline without hiding the incident.
+7. Capture an evidence packet and a prevention action with owner and due date.
+
+**Never** delete FTDC, force an election, resize oplogs, compact data or disable retention as an unreviewed first-line response. For a failing disk or critical data-loss risk, follow the approved incident commander/escalation procedure.
+
+### 16.4 Dependency-free offline acceptance suite
+
+Save this as `ch70_acceptance.py` in the same owned directory as `ch70_lab.py`. It imports the existing offline lab, then tests invalid inputs, denominator semantics, missing coverage, traffic boundaries and capacity risk. No database or monitoring service is contacted.
+
+```python
+import math
+from ch70_lab import Window, burn, budget, paired_alert, forecast
+
+def rejects(call):
+    try:
+        call()
+    except (ValueError, TypeError):
+        return
+    raise AssertionError("Expected invalid input to be rejected")
+
+rejects(lambda: burn(Window(True, 0)))
+rejects(lambda: burn(Window(10, 11)))
+rejects(lambda: burn(Window(10, 1), target=1))
+rejects(lambda: paired_alert(Window(100, 10), Window(101, 1), 12, 1, 1))
+rejects(lambda: paired_alert(Window(100, 10), Window(10, 5), -1, 1, 1))
+assert burn(Window(0, 0))[1] == "no_traffic"
+assert burn(Window(100, 1, False))[1] == "missing_coverage"
+assert paired_alert(Window(100, 1), Window(10, 1), 1, 1000, 100)["decision"] == "low_volume_review"
+assert budget(Window(1000, 1))["status"] == "valid"
+assert budget(Window(0, 0))["status"] == "unavailable"
+assert forecast(1000, 700, 150, 20, 30, 10, 1)["status"] == "lead_time_risk"
+assert forecast(1000, 700, 150, 10, 30, 10, 48)["status"] == "stale_input"
+assert forecast(1000, 900, 150, 0, 30, 10, 1)["status"] == "reserve_breached"
+assert math.isclose(forecast(1000, 700, 150, 10, 30, 10, 1)["days_to_reserve"], 15)
+print("PASS: offline DBRE alert/budget/capacity edge-case suite")
+```
+
+**Execution:** `python ch70_lab.py && python ch70_acceptance.py`. The offline suite validates only the teaching model and is not proof that production PromQL, alert routing or capacity telemetry are correct.
+
+### 16.5 Live acceptance evidence gate
+
+Use this manifest for an authorized isolated monitoring acceptance run; replace each `NOT_RUN` with **PASS** only after observing the actual result and linking its evidence.
+
+```json
+{
+  "chapter": 70,
+  "environment": "isolated-test",
+  "service_slo_owner": "NOT_ASSIGNED",
+  "dbre_escalation_owner": "NOT_ASSIGNED",
+  "monitoring_backend_version": "NOT_RECORDED",
+  "metric_mapping_and_coverage": "NOT_RUN",
+  "shadow_rule_replay": "NOT_RUN",
+  "test_route_delivery": "NOT_RUN",
+  "missing_data_notification": "NOT_RUN",
+  "resolved_notification": "NOT_RUN",
+  "capacity_forecast_real_samples": "NOT_RUN",
+  "recovery_headroom_verified": "NOT_RUN",
+  "rule_group_rollback": "NOT_RUN",
+  "independent_reviewer": "NOT_ASSIGNED",
+  "evidence_references": []
+}
+```
+
+Save it as `ch70-live-acceptance.json`. Run the following fail-closed manifest completeness gate, saved as `ch70_live_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+e = json.loads(Path("ch70-live-acceptance.json").read_text(encoding="utf-8"))
+tests = (
+    "metric_mapping_and_coverage", "shadow_rule_replay", "test_route_delivery",
+    "missing_data_notification", "resolved_notification",
+    "capacity_forecast_real_samples", "recovery_headroom_verified",
+    "rule_group_rollback",
+)
+failed = [name for name in tests if e.get(name) != "PASS"]
+for name in ("service_slo_owner", "dbre_escalation_owner",
+             "monitoring_backend_version", "independent_reviewer"):
+    if not e.get(name) or str(e[name]).startswith("NOT_"):
+        failed.append(name)
+if not e.get("evidence_references"):
+    failed.append("evidence_references")
+if failed:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(failed))
+print("PASS: declared live-acceptance fields complete; inspect referenced evidence")
+```
+
+This gate checks declarations, **not their truth**. Reviewers must verify actual timestamps, target inventory, alert events, receiver acknowledgement, model inputs and rollback evidence. A failed or unrun test remains open and must not be reported as production validated.
+
+---
+
+## 17. Official references and validation status
 
 1. [Google SRE Workbook — Alerting on SLOs](https://sre.google/workbook/alerting-on-slos/): burn-rate and multi-window concepts. Lab thresholds and fixtures are independently selected teaching choices.
 2. [MongoDB 8.0 — Analyzing Performance](https://www.mongodb.com/docs/v8.0/administration/analyzing-mongodb-performance/): workload, resources and connection context.
