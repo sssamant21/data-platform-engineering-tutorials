@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 74 updated at commit `e88091a`: layered access outage triage, Kubernetes discovery and secrets checks, rotation/recovery runbook, failure matrix and incident evidence gate. **No live TLS/credential or Kubernetes acceptance performed.**
+
 - 2026-10-19 — Chapter 73 updated at commit `0e79a50`: production query incident severity, evidence ledger, safe remediation and manifest gate. **Live query and incident acceptance remain pending.**
 
 - 2026-10-19 — Chapter 72 updated at commit `e2fbe7a`: reliability-aware rightsizing, Kubernetes and storage guardrails, recovery/entitlement checks, staged rollout and final FinOps evidence gate. **No live cost, contract or workload validation performed.**
