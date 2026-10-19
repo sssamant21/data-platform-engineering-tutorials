@@ -37,6 +37,7 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 - [006 — Kafka Installation, Configuration and KRaft Cluster Bootstrap](02-installation-kraft-cluster-administration/006-kafka-installation-configuration-and-kraft-cluster-bootstrap.md)
 - [007 — KRaft Controller Quorum Architecture, Metadata Log and Controller Operations](02-installation-kraft-cluster-administration/007-kraft-controller-quorum-architecture-metadata-log-and-controller-operations.md)
 - [008 — Kafka Broker Configuration, Dynamic Settings and Cluster Administration](02-installation-kraft-cluster-administration/008-kafka-broker-configuration-dynamic-settings-and-cluster-administration.md)
+- [009 — Kafka Broker Lifecycle, Rolling Restarts, Maintenance and Upgrade Operations](02-installation-kraft-cluster-administration/009-kafka-broker-lifecycle-rolling-restarts-maintenance-and-upgrade-operations.md)
 
 ## Chapter quality standard
 
