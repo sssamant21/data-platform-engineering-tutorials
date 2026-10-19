@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 76 updated at commit `fd0b592`: quorum/election safety, acknowledged-write reconciliation, sharded incident boundaries, read-only triage and recovery evidence gate. **Live handoff and sharded recovery tests remain pending.**
+
 - 2026-10-19 — Chapter 75 updated at commit `d09765a`: Kubernetes resource triage, storage expansion guardrails, cache/memory/CPU decision tree and incident evidence gate. **No live resource exhaustion, resize or recovery test performed.**
 
 - 2026-10-19 — Chapter 74 updated at commit `e88091a`: layered access outage triage, Kubernetes discovery and secrets checks, rotation/recovery runbook, failure matrix and incident evidence gate. **No live TLS/credential or Kubernetes acceptance performed.**
