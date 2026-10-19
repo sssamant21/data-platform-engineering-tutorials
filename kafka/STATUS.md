@@ -1,12 +1,12 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 18 / 100  
+**Published:** 19 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
-**Current part:** 04 — Producers, Consumers and Consumer Groups (3/5 published)  
-**Next:** 019 — Kafka Delivery Semantics, Transactions, Exactly-Once Processing and Kubernetes Recovery
+**Current part:** 04 — Producers, Consumers and Consumer Groups (4/5 published)  
+**Next:** 020 — Kafka Producer and Consumer Reliability, Kubernetes Scaling and Exactly-Once Acceptance Capstone
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -28,6 +28,7 @@
 | 016 — Kafka Producer Architecture, Acknowledgments, Retries and Idempotence on Kubernetes | Published | Pending | Pending |
 | 017 — Kafka Consumer Architecture, Poll Loop, Offset Management and Kubernetes Workload Reliability | Published | Pending | Pending |
 | 018 — Kafka Consumer Groups, Rebalancing Protocols and Kubernetes Horizontal Scaling | Published | Pending | Pending |
+| 019 — Kafka Delivery Semantics, Transactions, Exactly-Once Processing and Kubernetes Recovery | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
