@@ -370,7 +370,103 @@ Review questions:
 7. What additional evidence is needed for unplanned failure acceptance?
 8. How does a transaction/external side effect change the replay contract?
 
-## 14. Official references and validation status
+## 14. DBRE/SRE extension — failover game day and reliability acceptance
+
+This extension defines an **approved game-day contract** for the chapter's existing non-forced primary handoff. It does not authorize a production outage, forced stepdown, network partition, replica-set reconfiguration or multi-member disruption.
+
+### 14.1 Preconditions and explicit abort gates
+
+Obtain service-owner, DBRE and change-manager approval; name the game-day commander, observer, rollback authority and communication channel. Confirm all required voting/data-bearing members healthy, a writable primary, current backups and accepted restore drill, adequate oplog/history reserve, no competing maintenance, and fresh application/replica telemetry.
+
+Record baseline P50/P95/P99, error rate, request throughput, connection-pool/server-selection latency, majority write acknowledgements, client retry counts, election term, primary identity and replica lag. Set **service-specific** RTO/RPO and error-budget limits before starting.
+
+**Abort** for existing customer impact, unhealthy quorum, stale monitoring, insufficient recovery evidence, lag/history deficit, resource reserve breach, or a failed preflight application probe. A non-forced stepdown refusal is a stop, not permission to retry with `force`.
+
+### 14.2 Failure timeline and application correctness
+
+| Stage | Evidence | Acceptance condition |
+|---|---|---|
+| Before handoff | UTC timestamps, healthy members, write/read baseline and durable intent ledger | No missing baseline or pre-existing ambiguous outcomes |
+| Handoff request | Exact approved operator, command/result, old primary/term and election timeline | Non-forced action only, no concurrent disruptive change |
+| Election interval | Driver topology/selection, retries, timeouts, service SLI and write outcomes | Errors bounded by declared service objective; unknown writes retained for reconciliation |
+| New primary | New primary/term, majority write and application read/write success | Application contract works, not merely `hello` success |
+| Reconciliation | Every stable operation ID and immutable payload checked against majority-readable state | No lost acknowledged write; unknown outcomes resolved without duplicate effects |
+| Member convergence | All expected members healthy, lag/history reserve, resource recovery | Redundancy restored before closure |
+| Observation | SLO recovery over declared window, alert delivery and incident handoff | Reviewed evidence and explicit outstanding risks |
+
+A local fsynced ledger is **not** automatically durable across loss of its host or filesystem. Production exactly-once business outcomes may require a durable server-side idempotency store and separate handling of external side effects.
+
+### 14.3 Additional chaos scenarios (design-only until approved)
+
+- **Primary pod/process termination:** validate actual application recovery, not just a planned handoff. Requires isolated environment and separate failure-injection approval.
+- **One secondary unavailable:** confirm quorum and failure-mode capacity; never take a second member offline during the drill.
+- **DNS/TLS or secret rollout issue:** distinguish client topology discovery from server election and use Chapter 74's fresh-session recovery tests.
+- **Disk/CPU pressure during election:** correlate Chapter 75 resource signals and replication catch-up; do not intentionally exhaust a production node.
+- **Cross-zone impairment:** review election/voting topology, network partitions and placement without asserting split-brain immunity from a single drill.
+
+Do not report a planned handoff as proof of unplanned node, zone, region or disaster recovery readiness. Those are distinct acceptance scopes.
+
+### 14.4 Fail-closed HA evidence manifest
+
+Save as `ch78-ha-acceptance.json`:
+
+```json
+{
+  "chapter": 78,
+  "change_id": "NOT_ASSIGNED",
+  "game_day_commander": "NOT_ASSIGNED",
+  "service_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "quorum_and_recovery_preflight_passed": false,
+  "service_slo_and_rto_rpo_defined": false,
+  "intent_ledger_complete": false,
+  "nonforced_handoff_observed": false,
+  "client_recovery_timeline_recorded": false,
+  "acknowledged_writes_reconciled": false,
+  "ambiguous_writes_reconciled": false,
+  "idempotent_replay_verified": false,
+  "all_members_converged": false,
+  "post_failover_slo_accepted": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch78_ha_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch78-ha-acceptance.json").read_text(encoding="utf-8"))
+checks = (
+    "quorum_and_recovery_preflight_passed", "service_slo_and_rto_rpo_defined",
+    "intent_ledger_complete", "nonforced_handoff_observed",
+    "client_recovery_timeline_recorded", "acknowledged_writes_reconciled",
+    "ambiguous_writes_reconciled", "idempotent_replay_verified",
+    "all_members_converged", "post_failover_slo_accepted",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("change_id", "game_day_commander", "service_owner", "dbre_reviewer"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: declared HA evidence complete; independent verification required")
+```
+
+Run `python ch78_ha_gate.py`. The untouched template must fail. A passing manifest does not validate a real election, SLO or data integrity without independent review of actual logs, ledger and application metrics.
+
+### 14.5 Recovery decision and sign-off
+
+If the application cannot select the new primary, reconcile driver DNS/TLS/topology before changing database votes. If writes are ambiguous, inspect their stable IDs before replay. If any acknowledged write is missing, **do not declare success**; preserve evidence and invoke the data-integrity incident process. If a member remains lagged or needs initial sync, keep the game day open and apply an approved recovery plan.
+
+Close only with verified application service recovery, complete acknowledged/ambiguous write reconciliation, healthy required redundancy, recovery reserves and named owner sign-off. Mark unexecuted scenarios **NOT RUN**.
+
+---
+
+## 15. Official references and validation status
 
 1. [MongoDB 8.0 — Retryable Writes](https://www.mongodb.com/docs/v8.0/core/retryable-writes/).
 2. [PyMongo — Client-Side Operation Timeout](https://www.mongodb.com/docs/languages/python/pymongo-driver/current/connect/connection-options/csot/): verify exact pinned driver semantics.
