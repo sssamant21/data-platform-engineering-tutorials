@@ -336,7 +336,108 @@ Review questions:
 7. What production evidence is absent from this small bounded fixture?
 8. How would a schema/cursor change be rolled out and reconciled?
 
-## 14. Official references and validation status
+## 14. DBRE/SRE extension — workload-driven performance acceptance and safe rollout
+
+This extension turns the synthetic project into an auditable production-readiness exercise. It does not authorize applying schema migrations or index changes to a production namespace without application/data-owner approval.
+
+### 14.1 Representative workload and data contracts
+
+Define a **versioned workload profile** before benchmarking: tenant cardinality and skew, document size distribution, checklist size, event-history growth, status selectivity, arrival rate, concurrent writers/readers, batch peaks, pagination depth and expected failure-mode load. Preserve BSON types, sort/collation, read/write concerns and client retry policies.
+
+| Contract | Required proof | Failure mode |
+|---|---|---|
+| Tenant isolation | Cross-tenant access tests at API authorization boundary and tenant-filtered DB query | An index alone is not access control |
+| Unique business identity | Duplicate insertion rejected by exact unique index, including expected collation/partial scope | Duplicate task identifiers |
+| Schema evolution | Old and new clients accepted/rejected as intended under staged validator rollout | Existing documents or clients unexpectedly rejected |
+| Stable pagination | Deterministic sort with unique tie-breaker, typed seek cursor and bounded page size | Missing/duplicated rows under ties or mutable ordering |
+| Concurrent transitions | Stale revision rejected; exactly one accepted compare-and-set result | Lost update or duplicated side effect |
+| History consistency | Explicit transactional/outbox/capture contract and failure reconciliation | Task state and audit history diverge |
+| Query tuning | Equivalent result identities and order; examined work and tail latency measured | Fast incorrect result or regressions in rare query shapes |
+
+A seek cursor is not automatically a consistent snapshot when the queue changes between pages. Document that limitation or choose an explicitly accepted snapshot/reconciliation strategy.
+
+### 14.2 Benchmark and acceptance design
+
+1. Capture a **pre-change** baseline with application P50/P95/P99 latency, throughput, timeout/error rate, pool checkout, query shape, keys/docs examined, memory/cache, disk latency/IOPS and replication history.
+2. Use representative **sanitized/synthetic** data at realistic cardinality and skew; never copy sensitive production records into a public tutorial.
+3. Benchmark at steady state, peak, write-heavy bursts, and **one-member-down** recovery load, with the same driver settings and read/write concerns.
+4. Separate warm-cache and cold-cache observations, index build overhead and background ingestion. Repeat trials and record sample size and measurement window.
+5. Compare the baseline and candidate **result sets, ordering and business invariants** before interpreting latency changes.
+6. Set explicit service-specific acceptance thresholds, rollback triggers and resource budgets before running the candidate. Avoid universal performance numbers.
+7. Validate schema/index changes through a staged application rollout; preserve compatibility for mixed client versions and record the recovery path.
+8. Observe actual post-change service metrics over a representative cycle, not only a single `explain` result.
+
+### 14.3 Safe schema and index rollout
+
+Use a **prepare → dual-compatible → migrate → enforce → retire** lifecycle. First deploy clients that tolerate old/new fields and cursor versions, then backfill bounded batches with resumable checkpoints and reconciliation. Only tighten schema validation when existing documents and every supported writer satisfy the new contract.
+
+For index changes, inventory exact existing specifications and apply Chapter 71's owner approval. A hidden index remains maintained; hiding does not model storage/write-cost savings. Index removal is a separate, potentially expensive change. Verify memory, disk and replication headroom before builds and migrations.
+
+Never use an unbounded `updateMany`, `dropIndex` or validation-mode change as an automatic response to a slow-query alert. Reconcile interrupted writes and checkpoints before retries.
+
+### 14.4 Production acceptance manifest
+
+Save as `ch77-performance-acceptance.json`:
+
+```json
+{
+  "chapter": 77,
+  "change_id": "NOT_ASSIGNED",
+  "application_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "workload_profile": "NOT_RECORDED",
+  "tenant_isolation_verified": false,
+  "schema_and_uniqueness_verified": false,
+  "pagination_and_concurrency_verified": false,
+  "history_consistency_contract_verified": false,
+  "query_result_equivalence_verified": false,
+  "peak_and_failure_mode_benchmark_passed": false,
+  "slo_and_resource_budgets_passed": false,
+  "rollback_and_mixed_version_plan_reviewed": false,
+  "post_rollout_observation_passed": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch77_performance_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch77-performance-acceptance.json").read_text(encoding="utf-8"))
+checks = (
+    "tenant_isolation_verified", "schema_and_uniqueness_verified",
+    "pagination_and_concurrency_verified",
+    "history_consistency_contract_verified",
+    "query_result_equivalence_verified",
+    "peak_and_failure_mode_benchmark_passed",
+    "slo_and_resource_budgets_passed",
+    "rollback_and_mixed_version_plan_reviewed",
+    "post_rollout_observation_passed",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("change_id", "application_owner", "dbre_reviewer", "workload_profile"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: declared acceptance fields complete; independent evidence review required")
+```
+
+Run `python ch77_performance_gate.py`. The untouched template must fail. A PASS confirms **declarations only**; it does not establish real throughput, correctness, security or failover readiness without reviewed artifacts.
+
+### 14.5 Incident rollback and sign-off
+
+Stop the rollout on cross-tenant exposure, incorrect results, lost-update anomalies, unexpected schema rejection, query latency/error regression, storage pressure, replica lag or missing monitoring. Restore the last approved application/query version and compatible index/validator state where supported. **Backfilled or deleted data may require reconciliation/restore**, not a simple settings reversal.
+
+The acceptance packet must include service-owner and DBRE sign-off, exact tested versions, pre/post workload data, failure cases, rollback proof, known limitations, and follow-up ownership. Record unexecuted live tests as **NOT RUN**, not passed.
+
+---
+
+## 15. Official references and validation status
 
 1. [MongoDB 8.0 — Data Modeling](https://www.mongodb.com/docs/v8.0/data-modeling/).
 2. [MongoDB 8.0 — Schema Validation](https://www.mongodb.com/docs/v8.0/core/schema-validation/).
