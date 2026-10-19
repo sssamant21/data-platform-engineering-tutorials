@@ -1,4 +1,18 @@
 # Chapter 001 — Kafka Architecture and Distributed Streaming Fundamentals
+## Kubernetes-first primary labs — Architecture and Kubernetes CRDs
+
+**Platform:** Kubernetes, Strimzi Operator, KRaft and KafkaNodePool. **Source of truth:** [Shared Kubernetes Lab Foundation](../kubernetes/README.md). **Execution:** Pending. **Security review:** Pending.
+
+**Prerequisite:** Follow the [Kubernetes-first Kafka Lab Platform](../kubernetes/README.md) for operator/CRD version checks, Kafka cluster manifests, namespace, CLI Pod, KafkaTopic and evidence collection. Use `kubectl` rather than Docker Compose for all new exercises. Commands and CRD schemas require validation against the installed Strimzi release.
+
+**Lab A:** Deploy a version-compatible Strimzi operator and KRaft Kafka/KafkaNodePool manifests from the shared guide. Inspect `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc -o wide` and explain how the operator, controllers, brokers, Services and PVCs map to the architecture. **Lab B:** Create `sre-lab-events` via KafkaTopic and send two events from the CLI Pod. **Validation:** Kafka Ready=True, six role-specific Pods in the HA variant, topic metadata accessible, both events consumed. **Troubleshooting:** Kafka CR not Ready → inspect Strimzi operator logs, storage class, CRD schema and Pod events. **Runbook:** preserve Kafka CR, PVCs and logs before changes.
+
+**Automated acceptance baseline:** `kubectl -n kafka-lab wait kafka/sre-kafka --for=condition=Ready --timeout=900s`; `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc`; `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml` (if created); and a bounded produce/consume smoke test from the Kafka CLI Pod. Save exit codes and sanitized outputs. A successful manifest apply alone is not a pass.
+
+**Legacy note:** The original Docker Compose examples preserved later in this chapter are **superseded historical reference**, not the supported primary lab. Do not execute their destructive commands as part of the Kubernetes workflow. Their Docker-specific assessment steps must be interpreted using the Kubernetes replacement above.
+
+---
+
 
 **Part:** 01 — Kafka Fundamentals and Architecture  
 **Audience:** Kafka administrators, SREs, DBREs and platform engineers  
