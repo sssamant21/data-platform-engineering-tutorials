@@ -30,6 +30,7 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 ## Published chapters
 
 - [001 — Kafka Architecture and Distributed Streaming Fundamentals](01-fundamentals-architecture/001-kafka-architecture-and-distributed-streaming-fundamentals.md)
+- [002 — Kafka Topics, Partitions, Offsets and Ordering](01-fundamentals-architecture/002-kafka-topics-partitions-offsets-and-ordering.md)
 
 ## Chapter quality standard
 
