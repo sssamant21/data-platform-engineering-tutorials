@@ -1,4 +1,18 @@
 # Chapter 002 — Kafka Topics, Partitions, Offsets and Ordering
+## Kubernetes-first primary labs — KafkaTopic partitions, keys and offsets
+
+**Platform:** Kubernetes, Strimzi Operator, KRaft and KafkaNodePool. **Source of truth:** [Shared Kubernetes Lab Foundation](../kubernetes/README.md). **Execution:** Pending. **Security review:** Pending.
+
+**Prerequisite:** Follow the [Kubernetes-first Kafka Lab Platform](../kubernetes/README.md) for operator/CRD version checks, Kafka cluster manifests, namespace, CLI Pod, KafkaTopic and evidence collection. Use `kubectl` rather than Docker Compose for all new exercises. Commands and CRD schemas require validation against the installed Strimzi release.
+
+**Lab A:** Create a KafkaTopic with three partitions, RF=3, min ISR=2; inspect `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml`. **Lab B:** From the tools Pod, send `customer-1:created`, `customer-1:paid`, `customer-2:created` with `--property parse.key=true --property key.separator=:`; read back with `--property print.key=true --property print.partition=true --property print.offset=true`. **Validate:** same key routes consistently under unchanged partitioning, offsets rise within each partition, no total cross-partition order. **Failure:** changed partition count or key serializer may break ordering assumptions. **Runbook:** capture KafkaTopic YAML, partition assignments, consumer lag and event IDs before any reassignment.
+
+**Automated acceptance baseline:** `kubectl -n kafka-lab wait kafka/sre-kafka --for=condition=Ready --timeout=900s`; `kubectl -n kafka-lab get kafka,kafkanodepool,pods,pvc`; `kubectl -n kafka-lab get kafkatopic sre-lab-events -o yaml` (if created); and a bounded produce/consume smoke test from the Kafka CLI Pod. Save exit codes and sanitized outputs. A successful manifest apply alone is not a pass.
+
+**Legacy note:** The original Docker Compose examples preserved later in this chapter are **superseded historical reference**, not the supported primary lab. Do not execute their destructive commands as part of the Kubernetes workflow. Their Docker-specific assessment steps must be interpreted using the Kubernetes replacement above.
+
+---
+
 
 **Track:** Apache Kafka Administration, SRE & Platform Engineering  
 **Part:** 01 — Kafka Fundamentals and Architecture  
