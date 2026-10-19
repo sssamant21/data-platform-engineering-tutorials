@@ -1,11 +1,11 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 12 / 100  
+**Published:** 13 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
-**Current part:** 03 — Brokers, Topics, Partitions and Replication (2/5 published)  
-**Next:** 013 — Kafka Partition Reassignment, Replica Balancing and Kubernetes Broker Scaling
+**Current part:** 03 — Brokers, Topics, Partitions and Replication (3/5 published)  
+**Next:** 014 — Kafka Replication Internals, ISR Management and Kubernetes Failure Recovery
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -21,6 +21,7 @@
 | 010 — Enterprise Kafka on Kubernetes: KRaft Cluster Administration and Reliability Acceptance Capstone | Published | Pending | Pending |
 | 011 — Kafka Brokers, Kubernetes Scheduling, Storage and Partition Placement | Published | Pending | Pending |
 | 012 — Kafka Topic Administration, Partition Design and Kubernetes Operator Management | Published | Pending | Pending |
+| 013 — Kafka Partition Reassignment, Replica Balancing and Kubernetes Broker Scaling | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
