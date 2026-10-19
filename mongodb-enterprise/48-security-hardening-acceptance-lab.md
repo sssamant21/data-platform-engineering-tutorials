@@ -690,3 +690,5 @@ Review questions:
 - [Queryable Encryption compatibility](https://www.mongodb.com/docs/v8.0/core/queryable-encryption/reference/compatibility/)
 
 Next: [**Chapter 49 — Backup Architecture RPO and RTO**](49-backup-architecture-rpo-and-rto.md).
+
+Previous: [Chapter 47 — Secrets Rotation and Access Review](47-secrets-rotation-and-access-review.md).
