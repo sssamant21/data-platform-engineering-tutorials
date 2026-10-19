@@ -1,10 +1,10 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 6 / 100  
+**Published:** 7 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
-**Current part:** 02 — Installation, KRaft and Cluster Administration (1/5 published)  
-**Next:** 007 — KRaft Controller Quorum Architecture, Metadata Log and Controller Operations
+**Current part:** 02 — Installation, KRaft and Cluster Administration (2/5 published)  
+**Next:** 008 — Kafka Broker Configuration, Dynamic Settings and Cluster Administration
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -14,5 +14,6 @@
 | 004 — Kafka Replication, Leaders, ISR and Fault Tolerance | Published | Pending | Pending |
 | 005 — Kafka Architecture and Failure Recovery Capstone Lab | Published | Pending | Pending |
 | 006 — Kafka Installation, Configuration and KRaft Cluster Bootstrap | Published | Pending | Pending |
+| 007 — KRaft Controller Quorum Architecture, Metadata Log and Controller Operations | Published | Pending | Pending |
 
 Publication is not equivalent to execution or production approval. Update this table as chapters are independently verified.
