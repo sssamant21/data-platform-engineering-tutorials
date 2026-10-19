@@ -351,7 +351,102 @@ Review questions:
 7. What additional evidence is needed for sharded slowness?
 8. What closes the incident beyond an improved explain time?
 
-## 16. Official references and validation status
+## 16. DBRE/SRE extension — production query incident command and acceptance
+
+This section is a **bounded production runbook**. The chapter's synthetic query and index labs remain separate from production changes; no production profiling, index modifications or workload termination are authorized by this document alone.
+
+### 16.1 Incident severity and initial containment
+
+| Condition | First response | Escalation |
+|---|---|---|
+| Customer-facing latency/error SLO burning | Declare the service incident, preserve affected route/tenant and UTC window, identify incident commander | Service on-call + DBRE; page infrastructure owner for shared resource pressure |
+| One query shape degraded | Capture representative trace/query shape and a matched healthy baseline | Query/application owner with DBRE |
+| Cluster-wide slowdown | Verify collector freshness, election/replication state, CPU/IO/cache and client pool behavior | DBRE + platform/on-call; evaluate Chapter 75/76 runbooks |
+| Monitoring blind spot | Validate telemetry targets and independent client/host evidence | Monitoring owner; never infer healthy service from missing query metrics |
+
+Record incident ID, severity policy, commander, affected application, onset time, change history, error budget, rollback authority and communication owner. Use the organization's established severity definitions rather than inventing universal P99 thresholds.
+
+### 16.2 Query evidence and hypothesis ledger
+
+For each candidate query, preserve **sanitized** query shape, BSON field types, filter, sort, projection, collation, limit, skip/cursor behavior, read preference/concern, driver and pool settings, namespace, server version/FCV, topology/member and query time window. Do not store customer identifiers or raw query payloads in public evidence.
+
+| Hypothesis | Evidence that supports it | Disproof / alternative |
+|---|---|---|
+| Scan or sort amplification | Large examined/returned ratio, blocking sort, missing usable index | Efficient plan but high storage/network wait |
+| Parameter or type mismatch | Typed predicate differs from indexed field, changed selectivity | Matching BSON types and equivalent result set |
+| Plan instability | Regressed shape after data/index change; actual plan differs from expected | Stable plan and client-side queue/selection delay |
+| Resource contention | Correlated disk latency, cache eviction, CPU throttling or locks | Healthy resource plane while client waits elsewhere |
+| Shard targeting/skew | Unexpected scatter-gather, shard imbalance or hot range | Targeted shard plan and downstream transfer delay |
+| Client pool/timeout issue | Pool checkout/server-selection wait and retry amplification | Server execution dominates matched trace |
+
+`explain("executionStats")` is diagnostic, not a latency benchmark; compare examined keys/docs, returned counts, plan stages, resource evidence and actual application request distributions. A forced hint is a lab technique, not a production remediation recommendation.
+
+### 16.3 Change safety and reversal
+
+1. **Read-only first:** check telemetry freshness and incident boundary; obtain bounded query plans/logs with the least privileges necessary.
+2. **Protect correctness:** record representative result identifiers and ordering, tenant scope, collation, null/missing semantics, pagination and read/write consistency expectations.
+3. **Choose the least risky mitigation:** adjust application concurrency/retry behavior, correct a query, or propose an index change with owner review. Do not kill arbitrary operations or change global profiling without an approved incident procedure.
+4. **Preflight index work:** apply Chapter 71's owner-approved lifecycle; assess unique/TTL and other functional indexes, disk headroom, build load, replication and rollback limitations.
+5. **Canary and compare:** use representative production-like traffic and a bounded window. Measure application P95/P99, errors, examined/returned, CPU/IO/cache and replication/history impact.
+6. **Stop or reverse:** if correctness differs, latency/error SLO regresses, replication/history reserve shrinks below policy, or monitoring becomes stale, halt rollout and restore the approved prior state.
+7. **Close only after recovery:** record service SLI stabilization, correct query results, safe member state, follow-up owner and post-incident review.
+
+**Index removal is not equivalent to hiding.** Dropped indexes may need a resource-intensive rebuild; record the exact definition and a separate approved recovery plan.
+
+### 16.4 Offline incident evidence gate
+
+Save as `ch73-incident.json` and populate from a real or explicitly synthetic incident packet:
+
+```json
+{
+  "chapter": 73,
+  "incident_id": "NOT_ASSIGNED",
+  "incident_commander": "NOT_ASSIGNED",
+  "query_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "scope_and_utc_window": "NOT_RECORDED",
+  "client_latency_boundary_recorded": false,
+  "query_shape_and_types_recorded": false,
+  "baseline_and_regressed_plans_compared": false,
+  "result_correctness_verified": false,
+  "resource_and_replication_correlated": false,
+  "monitoring_coverage_verified": false,
+  "change_approval_and_rollback_recorded": false,
+  "post_mitigation_slo_verified": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch73_incident_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch73-incident.json").read_text(encoding="utf-8"))
+checks = (
+    "client_latency_boundary_recorded", "query_shape_and_types_recorded",
+    "baseline_and_regressed_plans_compared", "result_correctness_verified",
+    "resource_and_replication_correlated", "monitoring_coverage_verified",
+    "change_approval_and_rollback_recorded", "post_mitigation_slo_verified",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("incident_id", "incident_commander", "query_owner",
+            "dbre_reviewer", "scope_and_utc_window"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: declared incident evidence fields complete; reviewer must verify artifacts")
+```
+
+Run `python ch73_incident_gate.py`. The untouched template must fail. A passing gate verifies **manifest completeness only**, not the authenticity of query plans or a live service recovery. Record synthetic and actual evidence separately, and require independent incident review.
+
+---
+
+## 17. Official references and validation status
 
 1. [MongoDB 8.0 — currentOp aggregation stage](https://www.mongodb.com/docs/v8.0/reference/operator/aggregation/currentOp/).
 2. [MongoDB 8.0 — Explain Results](https://www.mongodb.com/docs/v8.0/reference/explain-results/).
