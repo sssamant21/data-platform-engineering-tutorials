@@ -390,7 +390,110 @@ Review questions:
 7. What evidence separates modeled from realized savings?
 8. How can reduced resource cost increase total operational cost?
 
-## 14. Official references and validation status
+## 14. DBRE/SRE extension — reliability-aware FinOps change acceptance
+
+This extension turns cost optimization into an operational change with **non-negotiable reliability guardrails**. It does not authorize changes to live resources or interpret commercial entitlements.
+
+### 14.1 Guardrails before approving savings
+
+Record the existing and proposed topology, availability-zone distribution, election quorum, data-bearing redundancy, workload peak and member-failure capacity, latency/error SLO, replication/oplog and CDC history, backup freshness, measured restore RPO/RTO, storage IOPS/throughput, memory/cache reserve, security controls and license coverage.
+
+| Proposal | Required DBRE proof | Reject or pause when |
+|---|---|---|
+| VM/node rightsizing | Peak **and one-member-down** workload tests; cache, CPU, IO and network headroom | SLO regression, replication backlog or loss of failure capacity |
+| Kubernetes requests/limits | Measured per-container working set, throttling, eviction, pod/PVC placement and disruption budget | OOM/eviction risk, PVC incompatibility, unsafe simultaneous disruption |
+| Storage-tier change | Measured tail IO latency, throughput, burst credits and restore throughput | Device throttling or RTO breach despite lower unit price |
+| Index retirement | Chapter 71 owner approval, exact index contract, representative query cycle and rollback feasibility | Unique/TTL/policy semantics, rare-query regression or missing owner |
+| Backup/retention adjustment | Recovery and compliance owner sign-off; successful isolated restore; explicit retained boundaries | Reduced recoverability or unapproved data loss |
+| Enterprise licensing | Signed agreement/order, feature usage, deployment/DR/nonproduction scope and procurement review | Unknown entitlements, missing overlap cost or assumed free features |
+
+**Cost savings are subordinate to the approved reliability and data-protection contract.** A proposal that changes that contract needs a separately approved architecture/risk decision; it cannot pass as equivalent rightsizing.
+
+### 14.2 Staged rollout and rollback runbook
+
+1. Inventory actual billed resources and allocation; reconcile the cost model to invoices/usage exports with currency and period.
+2. Capture a representative pre-change baseline, including normal peak, batch windows and **failure-mode** load.
+3. Obtain service, DBRE, platform, recovery and commercial approvals appropriate to the proposal; declare change ID, owner, scope and rollback window.
+4. Rehearse on an isolated environment with realistic resource ceilings and representative synthetic or approved sanitized workload.
+5. Apply only a scoped canary change using the authoritative IaC/operator workflow; do not manually edit an operator-managed pod as a lasting fix.
+6. Compare application correctness, P95/P99, errors, cache/evictions, IO tail latency, replication lag, history reserve and backup/restore readiness.
+7. Roll back on any breached gate. For storage migration or topology changes, rollback may require restore/rebuild rather than reversing a setting; prove that path before rollout.
+8. After a representative billing period, compare **realized** spend against normalized demand and baseline. Keep modeled savings separate from observed invoice reductions.
+
+Do not schedule destructive maintenance, change TTL retention, remove data-bearing replicas or delete backups solely to meet a cost target.
+
+### 14.3 Capacity, Kubernetes and license evidence packet
+
+Capture an evidence packet with:
+
+- Exact MongoDB/FCV, deployment topology, member roles, regions/AZs, and platform/Operator/Kubernetes versions if applicable.
+- Resource requests/limits, node placement, storage class/PVC identity, measured CPU throttling, OOM/restarts, disk latency/IOPS and capacity.
+- SLO/error-budget baseline and post-canary comparison, replication/CDC history, recovery objectives and restore-test results.
+- Baseline and candidate cost by compute, storage, network, backups, observability, licensing/support and operating labor, including temporary dual-run.
+- Verified procurement/contract decision, renewal date, DR/nonproduction entitlement scope and quote source.
+- Owner, change ticket, exception approvals, rollback verification, post-change monitoring and independent review.
+
+Never publish confidential quotes, contracts, invoice identifiers, credentials or private cluster configuration into a public GitHub evidence file. Store restricted artifacts in approved systems and link only sanitized references.
+
+### 14.4 Fail-closed candidate approval gate
+
+Save as `ch72-finops-acceptance.json`:
+
+```json
+{
+  "chapter": 72,
+  "change_id": "NOT_ASSIGNED",
+  "candidate": "NOT_SELECTED",
+  "service_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "finops_reviewer": "NOT_ASSIGNED",
+  "entitlement_reviewer": "NOT_ASSIGNED",
+  "cost_baseline_reconciled": false,
+  "peak_and_failure_load_accepted": false,
+  "application_slo_accepted": false,
+  "replication_and_history_accepted": false,
+  "backup_restore_accepted": false,
+  "kubernetes_placement_accepted_or_na": false,
+  "commercial_entitlement_verified": false,
+  "rollback_tested": false,
+  "realized_savings_verified": false,
+  "evidence_references": []
+}
+```
+
+The `kubernetes_placement_accepted_or_na` field is true only if either a relevant Kubernetes test passed **or** the reviewer explicitly documented why Kubernetes is out of scope. `realized_savings_verified` is a post-implementation requirement; the gate below is for **final acceptance**, not permission to start a canary.
+
+Save as `ch72_finops_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch72-finops-acceptance.json").read_text(encoding="utf-8"))
+required = (
+    "cost_baseline_reconciled", "peak_and_failure_load_accepted",
+    "application_slo_accepted", "replication_and_history_accepted",
+    "backup_restore_accepted", "kubernetes_placement_accepted_or_na",
+    "commercial_entitlement_verified", "rollback_tested",
+    "realized_savings_verified",
+)
+failed = [key for key in required if p.get(key) is not True]
+for key in ("change_id", "candidate", "service_owner", "dbre_reviewer",
+            "finops_reviewer", "entitlement_reviewer"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        failed.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    failed.append("evidence_references")
+if failed:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(failed))
+print("PASS: final FinOps acceptance declarations complete; independent evidence review required")
+```
+
+Run `python ch72_finops_gate.py`; the untouched template must fail. A PASS does not validate prices, entitlements, workload tests or the authenticity of evidence. An independent reviewer must confirm those artifacts and any approved N/A determinations.
+
+---
+
+## 15. Official references and validation status
 
 1. [MongoDB 8.0 — Analyzing Performance](https://www.mongodb.com/docs/v8.0/administration/analyzing-mongodb-performance/).
 2. [MongoDB 8.0 — Hidden Indexes](https://www.mongodb.com/docs/v8.0/core/index-hidden/).
