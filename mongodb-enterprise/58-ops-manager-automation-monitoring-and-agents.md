@@ -470,3 +470,5 @@ Select documentation for the exact Ops Manager release; `current` can move to an
 - [Chapter 57 — Ops Manager Architecture and Prerequisites](57-ops-manager-architecture-and-prerequisites.md)
 
 Next: **[Chapter 59 — Linux Installation Configuration and Service Operations](59-linux-installation-configuration-and-service-operations.md)**.
+
+Previous: [Chapter 57 — Ops Manager Architecture and Prerequisites](57-ops-manager-architecture-and-prerequisites.md).
