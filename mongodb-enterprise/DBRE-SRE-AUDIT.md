@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 2 inventory checkpoint: master layout lists 80 unique numbered chapter links (01–80), with no missing numbers or filename-prefix mismatches; individually fetched Chapters 01–16 and confirmed matching headings. Chapters 17–80 and full link integrity still require verification. **No runtime validation claimed.**
+
 - 2026-10-19 — Chapter 80 updated at commit `63ad829`: independent enterprise readiness board, GO/NO-GO, change invalidation, accountable review and fail-closed board manifest. **Live runtime validation and production approval remain pending.**
 
 - 2026-10-19 — Chapter 79 updated at commit `40e0e0a`: independent restore and integrity controls, measured RPO/RTO, negative tests, regional cutover/failback and DR evidence gate. **Live restore and regional DR acceptance remain pending.**
