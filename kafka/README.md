@@ -65,6 +65,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [019 — Kafka Delivery Semantics, Transactions, Exactly-Once Processing and Kubernetes Recovery](04-producers-consumers-consumer-groups/019-kafka-delivery-semantics-transactions-exactly-once-processing-and-kubernetes-recovery.md)
 
+- [020 — Kafka Producer and Consumer Reliability, Kubernetes Scaling and Exactly-Once Acceptance Capstone](04-producers-consumers-consumer-groups/020-kafka-producer-consumer-reliability-kubernetes-scaling-and-exactly-once-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
