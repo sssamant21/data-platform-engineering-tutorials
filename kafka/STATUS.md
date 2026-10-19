@@ -18,4 +18,6 @@
 | 008 — Kafka Broker Configuration, Dynamic Settings and Cluster Administration | Published | Pending | Pending |
 | 009 — Kafka Broker Lifecycle, Rolling Restarts, Maintenance and Upgrade Operations | Published | Pending | Pending |
 
+**Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 require Kubernetes-native lab migration; Chapter 010 onward must use Kubernetes as the primary platform. Kubernetes compliance for Chapters 001–009: **Pending rewrite**. Existing published chapters remain published but are not yet Kubernetes-compliant.
+
 Publication is not equivalent to execution or production approval. Update this table as chapters are independently verified.
