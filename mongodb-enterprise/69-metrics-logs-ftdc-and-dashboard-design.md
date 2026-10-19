@@ -473,7 +473,109 @@ Review questions:
 6. What should a dashboard show during a collector outage?
 7. Why can replica/router aggregation double-count business activity?
 
-## 15. Official references and validation status
+## 15. DBRE/SRE operational acceptance extension — monitoring that fails visibly
+
+This extension closes the gap between **collecting evidence** and **operating a trustworthy monitoring service**. It does not claim a live dashboard, paging integration or production validation.
+
+### 15.1 Service ownership, detection and escalation contract
+
+Before enabling paging, complete this deployment-specific table. A blank owner or untested signal is an acceptance failure, not an implicit default.
+
+| Failure mode | Primary signal | Independent corroboration | Stop / escalation gate |
+|---|---|---|---|
+| User-facing latency or error incident | Application request error ratio and latency histogram, scoped by route/service | Driver timeout/error counts, traces, MongoDB workload evidence | Page application and DBRE on-call according to the approved SLO policy; do not equate server mean with application P99 |
+| MongoDB collector unavailable | Collector scrape failure **and** last-success age per expected member | Member inventory and independent connectivity/collector logs | Escalate monitoring blind spot; never treat missing series as healthy zero |
+| Unexpected primary election | Member role transition and process identity history | Replica-set state, logs and application error rate | Confirm majority and write correctness before considering manual intervention |
+| Replication backlog | Per-secondary optime delay and retained oplog window | Storage latency, network evidence and write rate | Escalate when the accepted catch-up/recovery budget is at risk; do not assume a single universal lag threshold |
+| Storage pressure | Filesystem/PVC available capacity and growth rate | MongoDB cache/IO behavior and storage provider limits | Use Chapter 75's guarded triage; do not delete FTDC or force database compaction as first response |
+
+Required metadata for each alert: named owner, routing destination, severity, runbook link, metric source and labels, evaluation interval, lookback window, data freshness budget, silence/change policy, and last verified test. Choose numeric thresholds only from the service's approved SLO, capacity budget and observed baseline. Chapter 70 owns burn-rate and alert-threshold selection.
+
+### 15.2 Monitoring backend acceptance test
+
+Run these checks against an **isolated, authorized test monitoring environment** with the real deployed collector/exporter and dashboard definitions. The existing Python scripts do not perform these tests.
+
+1. **Inventory:** Record all expected MongoDB members and collector targets. Compare expected vs observed series, including labels and process identity. Save the exact collector/exporter version and metric-name mapping.
+2. **Healthy scrape:** Record successful collection and a last-success timestamp for every expected target. Verify a dashboard displays units, roles, source identity and age correctly.
+3. **Missing data:** Disable only the **test collector target** using its approved maintenance procedure, not the database. Wait beyond the configured freshness budget. Assert that the target becomes unavailable, the monitoring-health panel does not remain green, and the approved blind-spot notification reaches the test destination.
+4. **Recovery:** Re-enable the test collector; verify a fresh sample, correct identity, resolved monitoring-health alert and no fabricated zero-valued interval.
+5. **Counter continuity:** Use a synthetic reset series or an approved test-process restart; verify the rate expression suppresses invalid continuity and that an event annotation identifies the restart.
+6. **Coverage audit:** Compare alert/dashboard target labels with the original member inventory, including secondaries and any sharded components in scope. Unmapped targets or duplicated aggregation are failures.
+
+**Evidence required:** timestamped target inventory, redacted collector configuration and version, before/during/after dashboard query results, alert evaluation and notification record, test change ID, rollback outcome and named reviewer. If any test is unavailable, record **NOT RUN**, not PASS.
+
+### 15.3 Safe incident investigation sequence
+
+1. Establish the UTC incident window and affected application SLI; identify whether the user-facing impact is ongoing.
+2. Check the monitoring plane's own freshness, scrape success, clock alignment and expected-member coverage.
+3. Correlate client error/latency with MongoDB member state and role, replication lag, storage, network and Kubernetes scheduling where applicable.
+4. Capture bounded evidence and the process/member identity before considering remediation. Preserve restricted logs and FTDC according to policy.
+5. Select a topology-specific runbook. Do not restart a member, change elections, adjust cache or delete diagnostic files merely because a dashboard panel looks abnormal.
+6. Verify application recovery, member health, consistency and alert resolution; record what was **not** observable.
+7. Document incident owner, timeline, customer impact, contributing causes, monitoring blind spots and prevention follow-up.
+
+**Rollback boundary:** This chapter's live database lab changes only its explicitly owned fixture. Monitoring backend outage tests must be reversible and scoped to a test collector. Never disable production monitoring to prove an alert.
+
+### 15.4 Machine-readable evidence manifest and pass gate
+
+Save the following template as `ch69-acceptance.json` alongside the evidence packet, replacing every placeholder with observed data:
+
+```json
+{
+  "chapter": 69,
+  "environment": "isolated-test",
+  "mongodb_version": "NOT_RECORDED",
+  "collector_version": "NOT_RECORDED",
+  "deployment_id": "NOT_RECORDED",
+  "member_inventory": [],
+  "observer_permissions_reviewed": false,
+  "fixture_and_samples": "NOT_RUN",
+  "offline_counter_tests": "NOT_RUN",
+  "log_window_coverage": "NOT_RUN",
+  "ftdc_inventory": "NOT_RUN",
+  "real_metric_mapping": "NOT_RUN",
+  "missing_data_alert_delivery": "NOT_RUN",
+  "collector_recovery": "NOT_RUN",
+  "owned_cleanup": "NOT_RUN",
+  "reviewer": "NOT_ASSIGNED",
+  "evidence_references": []
+}
+```
+
+Run this dependency-free gate as `ch69_gate.py` after recording actual outcomes. It deliberately rejects the template and does not silently promote offline tests to live acceptance.
+
+```python
+import json
+import os
+from pathlib import Path
+
+root = Path(os.environ["CH69_EVIDENCE_DIR"])
+e = json.loads((root / "ch69-acceptance.json").read_text(encoding="utf-8"))
+required = (
+    "fixture_and_samples", "offline_counter_tests", "log_window_coverage",
+    "ftdc_inventory", "real_metric_mapping", "missing_data_alert_delivery",
+    "collector_recovery", "owned_cleanup",
+)
+failures = [key for key in required if e.get(key) != "PASS"]
+for key in ("mongodb_version", "collector_version", "deployment_id", "reviewer"):
+    if not e.get(key) or str(e[key]).startswith(("NOT_", "PLACEHOLDER")):
+        failures.append(key)
+if not e.get("member_inventory"):
+    failures.append("member_inventory")
+if not e.get("observer_permissions_reviewed"):
+    failures.append("observer_permissions_reviewed")
+if not e.get("evidence_references"):
+    failures.append("evidence_references")
+if failures:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(failures))
+print("PASS: recorded chapter-69 acceptance fields are complete; reviewer must verify evidence")
+```
+
+A passing gate means **the supplied manifest has complete declarations**, not that evidence is authentic. An independent reviewer must inspect the actual artifacts and authorize promotion. If a test cannot safely be run, retain the gap and its risk owner.
+
+---
+
+## 16. Official references and validation status
 
 1. [MongoDB 8.0 — serverStatus](https://www.mongodb.com/docs/v8.0/reference/command/serverStatus/).
 2. [MongoDB 8.0 — Log Messages](https://www.mongodb.com/docs/v8.0/reference/log-messages/).
