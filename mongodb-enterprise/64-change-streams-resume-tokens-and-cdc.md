@@ -601,3 +601,5 @@ Documentation reviewed on 2026-10-11. The checkpoint ordering, SQLite inbox, dri
 **Chapter completion:** Written; static syntax and mocked-consumer/SQLite checks complete. Runtime acceptance remains pending until the retained pinned-driver lab is executed and its evidence recorded.
 
 Previous: [Chapter 63 — Drivers Connection Pools Timeouts and Retries](63-drivers-connection-pools-timeouts-and-retries.md).
+
+Next: [Chapter 65 — Time Series Collections and Retention](65-time-series-collections-and-retention.md).
