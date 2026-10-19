@@ -404,7 +404,122 @@ Review questions:
 6. What closes a change beyond a successful database command?
 7. How should daily review record unavailable evidence and action ownership?
 
-## 16. Official references and validation status
+## 16. DBRE/SRE extension — owner-approved index maintenance and auditability
+
+This extension applies the daily runbook to real operational tickets. **The chapter's synthetic index-hide lab remains isolated**; the production workflow below requires an independent change approval and does not authorize dropping an index or deleting data.
+
+### 16.1 Index-owner review before DBRE action
+
+An index candidate may be unused, duplicated, redundant, empty or expensive to maintain. None of those labels alone proves it is safe to remove. A query that has not appeared in a bounded observation period may be seasonal, failover-only, reporting-only or owned by a dormant service.
+
+Record an owner response for every proposed index:
+
+| Question to owner | Required evidence or decision |
+|---|---|
+| Which application, job, tenant or team owns this collection and its query paths? | Named accountable owner and approved ticket |
+| Does any workload use the index for filtering, sorting, uniqueness or a query hint? | Query examples, plans and explicit correctness constraints |
+| Are there scheduled, monthly, incident-only, migration or DR workloads that need it? | Coverage period and exceptions |
+| Is the index unique, TTL, partial, sparse, collation-specific, multikey or otherwise policy-bearing? | Exact `getIndexes()` definition and dependent contracts |
+| Is the candidate truly redundant given field order, sort, collation and query predicates? | Comparison to surviving indexes and representative `explain` results |
+| Can the application owner remove or correct the dependency first? | Owner action, rollout evidence and completion date |
+| What is the expected write/storage/query benefit and potential regression? | Baseline, hypothesis and measurable acceptance limits |
+| Who approves, monitors and reverses the proposed change? | Owner, DBRE/Infra reviewer, change window, rollback authority |
+
+A collection with no documents can still carry critical uniqueness, TTL or future application contracts. **Empty does not mean disposable.** TTL indexes govern deletion; changing TTL retention can permanently delete data. Do not combine index housekeeping with data-deletion authorization.
+
+### 16.2 Safe index lifecycle — propose, hide, observe, decide
+
+1. **Inventory read-only:** capture namespace, exact index specification, index size if safely obtainable, deployment/FCV, query shapes, ownership and monitoring freshness. Scope collection scans and statistics to an approved target.
+2. **Classify:** distinguish a query-performance index from unique/TTL or other functional controls. Exclude special-purpose indexes from automatic retirement.
+3. **Approve:** obtain application/data-owner review, DBRE change approval, service SLO budget, current backup/recovery evidence and a named rollback operator.
+4. **Rehearse:** on a representative isolated workload, compare plans, examined/returned counts, P95/P99 application latency, error ratio and write cost. Hidden-index behavior and support must be checked against the exact server version.
+5. **Canary in production only if approved:** for an eligible index, record original hidden state, hide under a bounded change, and monitor a full representative workload cycle. Index hiding can affect query plans; it does not remove index maintenance overhead.
+6. **Restore on regression:** unhide using the recorded original state, verify plans and application outcomes, and reconcile ambiguous command acknowledgements before retrying.
+7. **Retire only by a separate approved change:** dropping an index is not a reversible configuration toggle. Rebuilding can take substantial time and resources; preserve the exact definition and evaluate operational risk.
+8. **Close:** retain evidence, owner sign-off, post-change observation and exceptions. Keep the audit ticket even when the correct decision is **no change**.
+
+**Stop immediately** for missing owner approval, unexpected query-hint errors, elevated application latency/errors, uncertain index identity, degraded replica set, exhausted error budget, missing backups or insufficient rollback capacity. Do not hide or drop the mandatory `_id` index.
+
+### 16.3 Change record schema and offline approval gate
+
+Save the following template as `ch71-change.json`. It represents an **approval record**, not an automated production change executor.
+
+```json
+{
+  "chapter": 71,
+  "change_id": "NOT_ASSIGNED",
+  "environment": "isolated-test",
+  "namespace": "mongodb_enterprise_ch71_maintenance.items",
+  "index_name": "tenant_seq",
+  "operation": "hide",
+  "index_owner": "NOT_ASSIGNED",
+  "dbre_approver": "NOT_ASSIGNED",
+  "maintenance_window_utc": "NOT_ASSIGNED",
+  "original_index_spec_recorded": false,
+  "service_slo_baseline_recorded": false,
+  "monitoring_fresh": false,
+  "replica_health_accepted": false,
+  "recovery_evidence_accepted": false,
+  "rollback_procedure_reviewed": false,
+  "owner_query_impact_reviewed": false,
+  "another_disruptive_change": false,
+  "expected_query_acceptance": "NOT_RECORDED",
+  "evidence_references": []
+}
+```
+
+Save this dependency-free offline check as `ch71_change_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch71-change.json").read_text(encoding="utf-8"))
+required_true = (
+    "original_index_spec_recorded", "service_slo_baseline_recorded",
+    "monitoring_fresh", "replica_health_accepted",
+    "recovery_evidence_accepted", "rollback_procedure_reviewed",
+    "owner_query_impact_reviewed",
+)
+required_identity = (
+    "change_id", "namespace", "index_name", "index_owner",
+    "dbre_approver", "maintenance_window_utc", "expected_query_acceptance",
+)
+failures = [k for k in required_true if p.get(k) is not True]
+failures += [k for k in required_identity
+             if not isinstance(p.get(k), str) or not p[k].strip()
+             or p[k].startswith("NOT_")]
+if p.get("another_disruptive_change") is not False:
+    failures.append("another_disruptive_change")
+if p.get("operation") != "hide":
+    failures.append("operation_not_authorized_by_this_gate")
+if p.get("index_name") == "_id_":
+    failures.append("mandatory_id_index")
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    failures.append("evidence_references")
+if failures:
+    raise SystemExit("STOP: " + ", ".join(failures))
+print("PASS: change record fields declared; independently verify evidence and approval")
+```
+
+Run `python ch71_change_gate.py`. The untouched template **must stop**. The gate is intentionally restricted to `hide`; it does **not** authorize an index drop, TTL change, or any production action. Passing means declarations are present, not that approvals are genuine.
+
+### 16.4 Post-change acceptance and escalation
+
+| Check | PASS evidence | STOP / rollback condition |
+|---|---|---|
+| Application impact | Representative good/eligible requests and P95/P99 remain inside the approved baseline/SLO | Increased errors, timeouts or material query regression |
+| Query correctness | Representative predicates, sort, hints and uniqueness/retention expectations verified | Wrong results, hint failures or changed functional behavior |
+| Replica health | All required members healthy, lag/history within recovery budget | Election, sustained lag, degraded quorum or insufficient history |
+| Monitoring | Expected member and application series fresh; change annotated | Missing metrics or stale green panels |
+| Index state | Exact target and hidden state match the approved phase | Ambiguous state, wrong namespace or unexpected metadata |
+| Handoff | Owner acknowledgement, before/after evidence, rollback result and observation interval | Unowned exception or incomplete evidence |
+
+The operator must verify state after any lost command acknowledgement. A successful `collMod` alone does not close a production maintenance ticket. Record whether the outcome is **approved/no change**, **reversed**, **accepted canary**, or **separately approved retirement**. Maintain an audit trail of who made the decision and why.
+
+---
+
+## 17. Official references and validation status
 
 1. [MongoDB 8.0 — replSetGetStatus](https://www.mongodb.com/docs/v8.0/reference/command/replSetGetStatus/).
 2. [MongoDB 8.0 — validate](https://www.mongodb.com/docs/v8.0/reference/command/validate/).
