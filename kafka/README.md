@@ -55,6 +55,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [014 — Kafka Replication Internals, ISR Management and Kubernetes Failure Recovery](03-brokers-topics-partitions-replication/014-kafka-replication-internals-isr-management-and-kubernetes-failure-recovery.md)
 
+- [015 — Kafka Brokers, Topics, Replication and Kubernetes Reliability Acceptance Capstone](03-brokers-topics-partitions-replication/015-kafka-brokers-topics-replication-kubernetes-reliability-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
