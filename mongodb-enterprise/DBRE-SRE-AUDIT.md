@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 77 updated at commit `52e9902`: representative workload benchmarks, tenant/schema/pagination/concurrency contracts, safe schema/index rollout and production acceptance gate. **Live workload and failover tests pending.**
+
 - 2026-10-19 — Chapter 76 updated at commit `fd0b592`: quorum/election safety, acknowledged-write reconciliation, sharded incident boundaries, read-only triage and recovery evidence gate. **Live handoff and sharded recovery tests remain pending.**
 
 - 2026-10-19 — Chapter 75 updated at commit `d09765a`: Kubernetes resource triage, storage expansion guardrails, cache/memory/CPU decision tree and incident evidence gate. **No live resource exhaustion, resize or recovery test performed.**
