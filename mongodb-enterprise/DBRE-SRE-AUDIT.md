@@ -38,7 +38,7 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 | 49 — Backup architecture and RPO/RTO | Recovery objectives, strict timeline evaluator, negative planning cases and isolated restore plan | Execute an actual restore drill and record measured RPO/RTO rather than only modeled results | Partial |
 | 60 — Kubernetes Operator | Compatibility matrix, CRDs, reconciliation, certificates, workload gate and cleanup | Verify supported operator combinations and actual Kubernetes disruption/reconciliation tests | Partial |
 | 69 — Metrics, logs and FTDC | Sampling, rate calculations, false-spike exercise, dashboard acceptance and evidence handling | **Improved on audit branch:** operational ownership, collector-outage acceptance, incident sequence and evidence gate added; live monitoring tests and independent review still pending | Improved — runtime pending |
-| 70 — Alert thresholds and SLOs | Executable SLO evaluator, burn-rate scenarios, missing-data drills and capacity model | Validate alert rules end-to-end in a monitoring backend, including paging/noise behavior | Partial |
+| 70 — Alert thresholds and SLOs | Executable SLO evaluator, burn-rate scenarios, missing-data drills and capacity model | **Improved on audit branch:** alert lifecycle, error-budget governance, capacity runbook, offline edge-case suite and live acceptance gate added; real backend/routing tests pending | Improved — runtime pending |
 | 75 — Disk/cache/resource incidents | Read-only triage, pressure cases, recovery branches and Kubernetes correlation | Run safe resource-pressure drills with alert evidence and explicit stop/rollback gates | Partial |
 | 78 — HA failover project | Controlled primary handoff, application reconciliation and failure drill | Record actual failover duration, client error rate, write consistency and recovery SLOs | Partial |
 | 80 — Final readiness | Evidence matrix, smoke checks, executable readiness gate and exceptions | Run complete end-to-end acceptance with signed evidence and independent review | Partial |
@@ -46,6 +46,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 **Important:** “Partial” means the inspected document contains relevant material but its full 10-control acceptance and runtime evidence have **not** been established. It is not a claim that the chapter is deficient in every listed follow-up area.
 
 ## Change log
+
+- 2026-10-19 — Chapter 70 updated at commit `8cf0b54`: DBRE alert lifecycle, error-budget governance, capacity incident runbook, offline acceptance tests and live evidence gate. **Documentation/code authored; no runtime execution claimed.**
 
 - 2026-10-19 — Chapter 69 updated on audit branch at commit `830dda2`: monitoring failure visibility, collector outage/recovery acceptance, DBRE investigation and machine-readable evidence gate. **Documentation change only; runtime acceptance remains pending.**
 
