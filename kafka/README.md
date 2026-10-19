@@ -45,6 +45,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 - [008 — Kafka Broker Configuration, Dynamic Settings and Cluster Administration](02-installation-kraft-cluster-administration/008-kafka-broker-configuration-dynamic-settings-and-cluster-administration.md)
 - [009 — Kafka Broker Lifecycle, Rolling Restarts, Maintenance and Upgrade Operations](02-installation-kraft-cluster-administration/009-kafka-broker-lifecycle-rolling-restarts-maintenance-and-upgrade-operations.md)
 
+- [010 — Enterprise Kafka on Kubernetes: KRaft Cluster Administration and Reliability Acceptance Capstone](02-installation-kraft-cluster-administration/010-enterprise-kafka-on-kubernetes-kraft-cluster-administration-reliability-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
