@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 79 updated at commit `40e0e0a`: independent restore and integrity controls, measured RPO/RTO, negative tests, regional cutover/failback and DR evidence gate. **Live restore and regional DR acceptance remain pending.**
+
 - 2026-10-19 — Chapter 78 updated at commit `e90ca2b`: approved failover game day, client/ledger recovery timeline, quorum/consistency gates, scoped chaos scenarios and HA evidence manifest. **Live handoff and application failover validation remain pending.**
 
 - 2026-10-19 — Chapter 77 updated at commit `52e9902`: representative workload benchmarks, tenant/schema/pagination/concurrency contracts, safe schema/index rollout and production acceptance gate. **Live workload and failover tests pending.**
