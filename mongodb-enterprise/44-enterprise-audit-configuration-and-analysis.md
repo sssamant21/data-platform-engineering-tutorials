@@ -528,3 +528,5 @@ Use the documentation matching your exact server release:
 - [Configuration options](https://www.mongodb.com/docs/v8.0/reference/configuration-options/)
 
 Next: [**Chapter 45 — Encryption at Rest and Key Management**](45-encryption-at-rest-and-key-management.md).
+
+Previous: [Chapter 43 — Enterprise External Authentication Compatibility](43-enterprise-external-authentication-compatibility.md).
