@@ -310,7 +310,124 @@ Review questions:
 7. How can balanced bytes coexist with a hot shard?
 8. What evidence closes recovery beyond a new primary?
 
-## 14. Official references and validation status
+## 14. DBRE/SRE extension — quorum safety, data reconciliation and sharded recovery
+
+This extension is an incident command checklist, not permission to force an election, reconfigure votes, remove members or alter shard metadata.
+
+### 14.1 Protect quorum and acknowledged writes
+
+Identify voting members, election eligibility, actual reachable majority, current term/primary, member optimes and network partitions **before** any topology action. A three-data-bearing-member lab is not a universal model for arbiters, hidden/delayed members or custom votes.
+
+- **No writable primary:** verify quorum, reachability, member logs, clock/host health and client topology discovery. Do not assume a forced reconfiguration will preserve acknowledged data.
+- **Repeated elections:** correlate term changes with network, CPU/IO stalls, storage and heartbeat failures. Avoid repeated manual stepdowns that worsen availability.
+- **Lagging secondary:** check oplog window, sync source, IO/CPU capacity and history needed for catch-up. If history is insufficient, use an explicitly approved initial-sync/restore plan, not an unreviewed deletion of data files.
+- **Ambiguous client write:** reconcile using the application's idempotency key, transaction/session metadata where available and majority-acknowledged state. Do not blindly retry non-idempotent writes.
+- **Divergent member state:** preserve forensic evidence and the last accepted backup/recovery point; escalate before any destructive resync.
+
+A majority-acknowledged write does not imply that every secondary has applied it at the same instant. The acceptance test must reflect the application's actual read concern, read preference, write concern and causality contract.
+
+### 14.2 Read-only incident triage
+
+Use the authorized TLS/SCRAM observer identity. The commands below are intended for the accepted replica-set lab and must be scoped to the verified deployment.
+
+```javascript
+var a = db.getSiblingDB("admin");
+var hello = a.runCommand({ hello: 1 });
+var rs = a.runCommand({ replSetGetStatus: 1 });
+if (hello.ok !== 1 || rs.ok !== 1) throw new Error("Topology observation failed");
+printjson({
+  observedAt: new Date(),
+  set: rs.set,
+  primaryHint: hello.primary,
+  writablePrimary: hello.isWritablePrimary,
+  members: rs.members.map(m => ({
+    name: m.name, health: m.health, state: m.stateStr,
+    optimeDate: m.optimeDate, lastHeartbeatMessage: m.lastHeartbeatMessage
+  }))
+});
+```
+
+This output reflects the responding member's view. Correlate with member-local logs and independent monitoring; do not treat a single `hello` as proof of cluster-wide consensus or absence of split-brain symptoms.
+
+### 14.3 Sharded outage boundaries
+
+| Symptom | Required evidence | Recovery guardrail |
+|---|---|---|
+| mongos reachable but writes fail | Router logs, target shard state, config-server health, routing metadata | Verify affected shard and metadata; do not assume router health equals data availability |
+| Hot shard / uneven load | Targeting, chunk placement, per-shard IO/CPU and query distribution | Distinguish workload skew from raw byte imbalance before migration |
+| Balancer/migration issues | Balancer state, migration errors, donor/recipient health and free space | Avoid ad hoc balancing changes during resource or replication incidents |
+| Stale routing symptoms | Client/router errors, config server availability and metadata propagation | Follow supported metadata recovery; never edit config collections directly |
+| Cross-shard consistency concern | Application transaction/read concern, operation history and per-shard health | Preserve acknowledged outcome and reconcile through supported application contracts |
+
+For a sharded incident, collect separate evidence for **mongos, config-server replica set and each affected shard replica set**. Do not run the replica-set fixture as a certification of sharded recovery.
+
+### 14.4 Controlled recovery and closure
+
+1. Declare incident commander, severity, affected service/tenants, UTC window, change freeze and escalation contacts.
+2. Preserve telemetry, election logs, term/optime timeline, backup/recovery evidence and sanitized client error samples.
+3. Stabilize the underlying network, host, storage or resource issue before considering topology intervention.
+4. If a planned handoff is required, use the chapter's **non-forced** maintenance procedure with explicit preflight and refusal-as-stop behavior.
+5. Verify one accepted primary, healthy required voting/data-bearing members, stable replication, adequate history reserve and no ongoing elections.
+6. Reconcile majority-acknowledged fixture/application writes under the declared consistency contract and verify correct client read/write behavior.
+7. For sharded deployments, separately verify router targeting, config-server availability, affected shard health and application correctness.
+8. Close only after SLO recovery, post-incident observation, recovery owner sign-off and unresolved risks are assigned.
+
+### 14.5 Fail-closed recovery manifest
+
+Save as `ch76-recovery.json`:
+
+```json
+{
+  "chapter": 76,
+  "incident_id": "NOT_ASSIGNED",
+  "incident_commander": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "service_owner": "NOT_ASSIGNED",
+  "quorum_and_votes_recorded": false,
+  "primary_and_term_stable": false,
+  "required_members_healthy": false,
+  "replication_and_oplog_reserve_accepted": false,
+  "acknowledged_writes_reconciled": false,
+  "application_read_write_accepted": false,
+  "backup_and_recovery_evidence_accepted": false,
+  "shard_router_config_health_accepted_or_na": false,
+  "monitoring_and_slo_recovered": false,
+  "evidence_references": []
+}
+```
+
+The sharded field may be true for a replica-set-only incident **only with documented reviewer approval of not-applicable scope**.
+
+Save as `ch76_recovery_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch76-recovery.json").read_text(encoding="utf-8"))
+checks = (
+    "quorum_and_votes_recorded", "primary_and_term_stable",
+    "required_members_healthy", "replication_and_oplog_reserve_accepted",
+    "acknowledged_writes_reconciled", "application_read_write_accepted",
+    "backup_and_recovery_evidence_accepted",
+    "shard_router_config_health_accepted_or_na", "monitoring_and_slo_recovered",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("incident_id", "incident_commander", "dbre_reviewer", "service_owner"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: recovery declarations complete; independently validate evidence")
+```
+
+Run `python ch76_recovery_gate.py`; the untouched template must fail. This offline gate checks declarations, not actual quorum, data safety or recovery. Live handoff and sharded recovery drills remain separately pending.
+
+---
+
+## 15. Official references and validation status
 
 1. [MongoDB 8.0 — replSetGetStatus](https://www.mongodb.com/docs/v8.0/reference/command/replSetGetStatus/).
 2. [MongoDB 8.0 — Replica Set Elections](https://www.mongodb.com/docs/v8.0/core/replica-set-elections/).
