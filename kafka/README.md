@@ -49,6 +49,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [011 — Kafka Brokers, Kubernetes Scheduling, Storage and Partition Placement](03-brokers-topics-partitions-replication/011-kafka-brokers-kubernetes-scheduling-storage-and-partition-placement.md)
 
+- [012 — Kafka Topic Administration, Partition Design and Kubernetes Operator Management](03-brokers-topics-partitions-replication/012-kafka-topic-administration-partition-design-and-kubernetes-operator-management.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
