@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–015
+# Kubernetes-first Kafka Lab Platform — Chapters 001–016
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -207,5 +207,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 013 | Strimzi broker scale-out, throttled reassignment and replica balancing |
 | 014 | Replication internals, ISR, single broker-Pod failure and recovery |
 | 015 | Brokers, topics, ISR, controlled fault and enterprise reliability acceptance capstone |
+| 016 | Producer acks, idempotence, retries, batching and Kubernetes Job execution |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
