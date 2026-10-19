@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 71 updated at commit `54be986`: index-owner review, safe hide/observe/reverse workflow, audit change packet and offline fail-closed approval gate. **No live maintenance or approval verification performed.**
+
 - 2026-10-19 — Chapter 70 updated at commit `8cf0b54`: DBRE alert lifecycle, error-budget governance, capacity incident runbook, offline acceptance tests and live evidence gate. **Documentation/code authored; no runtime execution claimed.**
 
 - 2026-10-19 — Chapter 69 updated on audit branch at commit `830dda2`: monitoring failure visibility, collector outage/recovery acceptance, DBRE investigation and machine-readable evidence gate. **Documentation change only; runtime acceptance remains pending.**
