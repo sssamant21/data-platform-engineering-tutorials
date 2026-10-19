@@ -47,6 +47,8 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Chapter 75 updated at commit `d09765a`: Kubernetes resource triage, storage expansion guardrails, cache/memory/CPU decision tree and incident evidence gate. **No live resource exhaustion, resize or recovery test performed.**
+
 - 2026-10-19 — Chapter 74 updated at commit `e88091a`: layered access outage triage, Kubernetes discovery and secrets checks, rotation/recovery runbook, failure matrix and incident evidence gate. **No live TLS/credential or Kubernetes acceptance performed.**
 
 - 2026-10-19 — Chapter 73 updated at commit `0e79a50`: production query incident severity, evidence ledger, safe remediation and manifest gate. **Live query and incident acceptance remain pending.**
