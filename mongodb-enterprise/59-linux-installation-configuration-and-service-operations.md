@@ -487,3 +487,5 @@ This tutorial's runtime status remains pending until the full service exercise i
 - [Chapter 58 — Ops Manager Automation Monitoring and Agents](58-ops-manager-automation-monitoring-and-agents.md)
 
 Next: **[Chapter 60 — Kubernetes Operator Compatibility and Deployment](60-kubernetes-operator-compatibility-and-deployment.md)**.
+
+Previous: [Chapter 58 — Ops Manager Automation Monitoring and Agents](58-ops-manager-automation-monitoring-and-agents.md).
