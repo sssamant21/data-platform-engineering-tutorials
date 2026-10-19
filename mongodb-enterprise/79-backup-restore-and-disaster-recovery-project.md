@@ -424,7 +424,111 @@ Review questions:
 7. How do target writes change the failback decision?
 8. Which evidence proves metadata and application constraints survived recovery?
 
-## 14. Official references and validation status
+## 14. DBRE/SRE extension — independent restore, RPO/RTO and disaster recovery acceptance
+
+This extension adds production recovery controls to the existing isolated logical-restore lab. A namespace restore on the source cluster is **not** a cross-cluster or regional DR certification.
+
+### 14.1 Recovery objectives and dependencies
+
+Define RPO as the maximum acceptable age of recoverable data and RTO as the maximum acceptable time to restore the **usable application service**. Record both against the actual business contract, not merely backup completion or mongod startup.
+
+| Dependency | Evidence required before declaring DR-ready |
+|---|---|
+| Backup coverage | Database/shard/config metadata, consistent recovery boundary, oplog/PITR window, retention and offsite/region separation |
+| Artifact integrity | Checksums, immutable/retained object identity, encryption, key escrow/access and restoration of the exact version |
+| Recovery infrastructure | Cluster/node capacity, Kubernetes operator/StatefulSet/PVC/CSI/storage classes, DNS, TLS and network policy |
+| Data correctness | BSON identity/type/value, indexes, schema validators, users/roles where in scope, constraints and application reconciliation |
+| Application service | Connection strings, credentials, routing, dependent services, traffic cutover, real read/write probe and service SLO |
+| Operational safety | Independent recovery identity, approvals, chain of custody, rollback/failback plan and evidence owner |
+
+A corrupted, missing or undecryptable backup must fail closed. **Do not** use `mongorestore --drop` against a live application namespace as an exploratory test.
+
+### 14.2 Isolated restore exercise and negative tests
+
+1. Select a recovery point within retained policy and freeze/record the consistent boundary with application write-fencing or the accepted backup mechanism.
+2. Record archive/object identifiers, tool/server versions, checksum, encryption key reference and custody. Do not publish secrets or backup data.
+3. Provision an **isolated recovery target** with no unintended application traffic; verify destination ownership and sufficient free space.
+4. Restore through the approved method, preserving expected namespace mapping and metadata. For sharded/PITR recovery, use the specialized supported orchestration; a standalone dump is not a consistent whole-cluster recovery guarantee.
+5. Reconcile the frozen source manifest against restored document IDs, typed values, counts, indexes, validation rules and critical business invariants.
+6. Run authorized application read/write probes, observe replication/redundancy, and measure the elapsed time through service readiness.
+7. Record intentional post-recovery-point loss and compare it with RPO; separately compare end-to-end service restoration time with RTO.
+8. Keep the damaged source and backup artifacts until incident approval, and clean up **only** the owned isolated target.
+
+Negative-test matrix:
+
+| Failure | Expected result | Evidence |
+|---|---|---|
+| Missing/corrupt artifact | Restore rejected, no success claim | Checksum/readability failure and alternate recovery-point decision |
+| Unavailable encryption key | Fail closed without plaintext bypass | Key-access escalation and secure recovery path |
+| Unsupported tool/version | Restore halted pending compatibility review | Version inventory and approved replacement |
+| Insufficient target capacity | Preflight abort or safe stop | Capacity estimate, volume status and remediation |
+| Inconsistent data/metadata | Application acceptance rejected | Manifest diff and forensic retention |
+| RPO/RTO breached | DR objective marked failed despite successful restore | Actual timestamps, loss window and business escalation |
+
+### 14.3 Regional recovery and failback decision
+
+For a genuine region-loss exercise, prove independent region infrastructure, network/DNS cutover, identity/key access, monitoring, backup availability, replica/shard topology and **application-level** acceptance. Define write fencing to prevent two independently writable application authorities; never assume DNS cutover itself prevents divergent writes.
+
+Before failback, identify writes accepted in the recovery region, the chosen system of record and an explicit reconciliation or migration plan. Reversing traffic without data reconciliation can lose valid post-failover writes. Obtain business and DBRE sign-off on known loss and recovery limitations.
+
+### 14.4 Fail-closed DR evidence gate
+
+Save as `ch79-dr-acceptance.json`:
+
+```json
+{
+  "chapter": 79,
+  "exercise_id": "NOT_ASSIGNED",
+  "recovery_owner": "NOT_ASSIGNED",
+  "service_owner": "NOT_ASSIGNED",
+  "dbre_reviewer": "NOT_ASSIGNED",
+  "recovery_scope": "NOT_RECORDED",
+  "backup_boundary_and_integrity_verified": false,
+  "independent_target_and_keys_verified": false,
+  "restored_data_and_metadata_reconciled": false,
+  "application_read_write_accepted": false,
+  "replication_and_routing_accepted": false,
+  "measured_rpo_within_objective": false,
+  "measured_rto_within_objective": false,
+  "failure_scenarios_reviewed": false,
+  "cutover_failback_and_write_fencing_reviewed": false,
+  "evidence_references": []
+}
+```
+
+Save as `ch79_dr_gate.py`:
+
+```python
+import json
+from pathlib import Path
+
+p = json.loads(Path("ch79-dr-acceptance.json").read_text(encoding="utf-8"))
+checks = (
+    "backup_boundary_and_integrity_verified",
+    "independent_target_and_keys_verified",
+    "restored_data_and_metadata_reconciled",
+    "application_read_write_accepted", "replication_and_routing_accepted",
+    "measured_rpo_within_objective", "measured_rto_within_objective",
+    "failure_scenarios_reviewed",
+    "cutover_failback_and_write_fencing_reviewed",
+)
+missing = [key for key in checks if p.get(key) is not True]
+for key in ("exercise_id", "recovery_owner", "service_owner",
+            "dbre_reviewer", "recovery_scope"):
+    if not isinstance(p.get(key), str) or not p[key].strip() or p[key].startswith("NOT_"):
+        missing.append(key)
+if not isinstance(p.get("evidence_references"), list) or not p["evidence_references"]:
+    missing.append("evidence_references")
+if missing:
+    raise SystemExit("NOT ACCEPTED: " + ", ".join(missing))
+print("PASS: DR declarations complete; independent artifact review required")
+```
+
+Run `python ch79_dr_gate.py`; the untouched template must fail. The gate validates declarations, **not** the authenticity of backup artifacts, restored data or measured RPO/RTO. Attach reviewed evidence and label the exact tested recovery scope; unexecuted regional tests remain **NOT RUN**.
+
+---
+
+## 15. Official references and validation status
 
 1. [MongoDB Database Tools — mongodump](https://www.mongodb.com/docs/database-tools/mongodump/).
 2. [MongoDB Database Tools — mongorestore](https://www.mongodb.com/docs/database-tools/mongorestore/).
