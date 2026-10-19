@@ -629,3 +629,5 @@ Review questions:
 - [Driver 6.20 ClientEncryption API reference](https://mongodb.github.io/node-mongodb-native/6.20/classes/ClientEncryption.html)
 
 Next: [**Chapter 47 — Secrets Rotation and Access Review**](47-secrets-rotation-and-access-review.md).
+
+Previous: [Chapter 45 — Encryption at Rest and Key Management](45-encryption-at-rest-and-key-management.md).
