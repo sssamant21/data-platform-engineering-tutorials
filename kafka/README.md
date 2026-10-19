@@ -63,6 +63,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [018 — Kafka Consumer Groups, Rebalancing Protocols and Kubernetes Horizontal Scaling](04-producers-consumers-consumer-groups/018-kafka-consumer-groups-rebalancing-protocols-and-kubernetes-horizontal-scaling.md)
 
+- [019 — Kafka Delivery Semantics, Transactions, Exactly-Once Processing and Kubernetes Recovery](04-producers-consumers-consumer-groups/019-kafka-delivery-semantics-transactions-exactly-once-processing-and-kubernetes-recovery.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
