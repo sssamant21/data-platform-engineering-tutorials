@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–061
+# Kubernetes-first Kafka Lab Platform — Chapters 001–062
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -253,5 +253,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 059 | Schema governance: Avro, Protobuf, JSON Schema, subject naming, compatibility matrix, registry TLS/ACL/HA, Connect converters, Debezium tombstones and registry DR |
 | 060 | Part 12 capstone: integrated PostgreSQL WAL/slots, Debezium CDC, Kafka Connect offsets, schema registry, source-to-sink event reconciliation, DBRE capacity, SLO and recovery acceptance |
 | 061 | Kafka Streams: Java DSL topology, KStream/KTable, stream tasks, RocksDB state stores, changelog/repartition topics, event-time, rebalance, state restore and SLO |
+| 062 | Kafka Streams: stateless transforms, KStream/KTable joins, repartition topics, aggregations, event-time tumbling/hopping/session windows, grace, late records and correctness SLO |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
