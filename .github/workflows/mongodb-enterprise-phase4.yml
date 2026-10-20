@@ -28,6 +28,12 @@ jobs:
         run: |
           set -o pipefail
           python -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v 2>&1 | tee phase4-offline-tests.log
+      - name: Run offline tests with Python optimization
+        if: success() || failure()
+        shell: bash
+        run: |
+          set -o pipefail
+          python -O -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v 2>&1 | tee phase4-offline-tests-optimized.log
       - name: Audit all 80 real chapters
         if: success() || failure()
         run: |
@@ -49,5 +55,6 @@ jobs:
             phase4-l0-results.json
             phase4-ch01-04-contract.json
             phase4-offline-tests.log
+            phase4-offline-tests-optimized.log
           if-no-files-found: warn
           retention-days: 30
