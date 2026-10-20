@@ -446,7 +446,11 @@ if (lookupIndex20 && lookupIndex20.hidden === true) {
 }
 check20(ttlOption20(events20, "created_age_ttl") === originalRetention20,
         "Age-retention metadata was not restored");
-lab20.dropDatabase();
+if (lab20.getName() !== "mongodb_enterprise_tutorial_ch20") {
+  throw new Error("Refusing cleanup outside the Chapter 20 training database");
+}
+const dropResult20 = lab20.dropDatabase();
+check20(dropResult20.ok === 1, "Database cleanup command failed");
 check20(lab20.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
