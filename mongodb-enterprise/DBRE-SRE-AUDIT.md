@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 execution automation: added [GitHub Actions offline L0 workflow](../.github/workflows/mongodb-enterprise-phase4.yml) (`3728e35`) scoped to audit-branch pushes/manual dispatch. It compiles the validation scripts, runs synthetic positive/negative unit tests, checks the actual 80-chapter Markdown tree and uploads a JSON result artifact (when present). **Workflow execution and result not yet verified; runtime certification remains 0/80.** Isolated MongoDB integration tests remain to be implemented and run only with explicitly authorized lab infrastructure.
+
+
 - 2026-10-20 — Phase 4 Batch 1 preparation (Chapters 01–04): reviewed chapter lab sections and prerequisites; corrected over-escaped regular expressions in the new L0 checker (`5737d69`) so numbered filenames, headings, fences and Markdown links can be recognized. Added synthetic positive/negative standard-library unit tests (`aa822da`) for 80-file success, missing chapter/link rejection and unbalanced fence rejection. **Not yet executed** against an actual repository checkout or MongoDB server. Chapters 01–04 remain **runtime not certified**; next gate is to run tests and capture exit status and real chapter L0 results, then build isolated integration fixtures.
 
 
