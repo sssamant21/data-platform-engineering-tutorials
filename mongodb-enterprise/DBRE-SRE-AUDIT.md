@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 33–36: inspected synthetic sharding architecture, shard-key analysis, owned sharded-cluster bootstrap and collection balancing/zone migration lifecycle. Chapters 33–36 had successful-drop assertions but lacked immediate exact-name guards; **remediated** with `mongodb_enterprise_tutorial_chNN` checks before database deletion (commits `37229ea`, `5ca9022`, `1d53eab`, `cb16227`). Chapter 35 confines `addShard` to its disposable lab; Chapter 36 records original balancer/zone policy and provides scoped restoration, with automatic balancing—not manual move—as acceptance evidence. **Follow-up:** verify real shard/mongos topology and capacity, manual migration boundaries, zone cleanup and original policy restoration through controlled live execution; project volume teardown remains destructive and requires ownership verification. Detailed command-safety review now 36/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 29–32: inspected bounded lag/oplog resize and restoration, one-at-a-time initial sync/member storage replacement, isolated-primary network partition and rollback classification, and quorum-loss/failover recovery. All four chapters had successful-drop assertions but lacked immediate exact-name guards before `dropDatabase`; **remediated Chapters 29–32** with `mongodb_enterprise_tutorial_chNN` checks (commits `38367d1`, `1770c68`, `4332431`, `d029fa0`). Chapter 31 does not claim rollback unless divergent write and rollback evidence exist; Chapter 32 reconciles acknowledged/uncertain operation IDs before cleanup. **Pending:** controlled live topology drills, independent member storage/Compose ownership checks, and verification of network healing, initial sync, oplog restoration and quorum recovery. Detailed command-safety review now 32/80.
 
 
