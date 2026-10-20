@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 50 / 100  
+**Published:** 51 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -12,8 +12,8 @@
 **Completed part:** 08 — Monitoring, Metrics and Observability (5/5 published)  
 **Completed part:** 09 — SRE, SLIs, SLOs and Reliability (5/5 published)  
 **Completed part:** 10 — Troubleshooting and Incident Response (5/5 published)  
-**Current part:** 11 — High Availability, Failover and Disaster Recovery (0/5 published)  
-**Next:** 051 — Kafka High Availability Architecture, Failure Domains and Kubernetes Resilience
+**Current part:** 11 — High Availability, Failover and Disaster Recovery (1/5 published)  
+**Next:** 052 — Kafka Broker Failover, Leader Elections, ISR Recovery and Safe Kubernetes Maintenance
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -67,6 +67,7 @@
 | 048 — Kafka Producer, Consumer, Consumer Group and End-to-End Data Delivery Troubleshooting | Published | Pending | Pending |
 | 049 — Kafka Networking, TLS, SASL, ACL and Kubernetes Connectivity Incident Troubleshooting | Published | Pending | Pending |
 | 050 — Kafka Production Incident Response, Recovery, RCA and Troubleshooting Acceptance Capstone | Published | Pending | Pending |
+| 051 — Kafka High Availability Architecture, Failure Domains and Kubernetes Resilience | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
