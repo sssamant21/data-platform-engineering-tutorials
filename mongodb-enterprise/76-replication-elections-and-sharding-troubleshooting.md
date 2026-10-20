@@ -287,6 +287,9 @@ After saving nonsecret evidence and confirming convergence, clean only the owned
 function check(condition, message) { if (!condition) throw new Error(message); }
 var labName = "mongodb_enterprise_ch76_topology";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch76_topology" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 76 database");
+}
 check(lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch76" }) !== null,
       "Ownership missing");
 check(lab.items.countDocuments({}) === 100, "Fixture needs reconciliation");
