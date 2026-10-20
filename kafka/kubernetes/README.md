@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–058
+# Kubernetes-first Kafka Lab Platform — Chapters 001–059
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -250,5 +250,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 056 | Kafka Connect: Strimzi KafkaConnect CR, distributed workers, connector/task lifecycle, internal config/offset/status topics, plugin security, REST isolation, DLQ and SLO |
 | 057 | Source/sink reliability: Connect offsets, synthetic data ledger, converters, SMTs, task scaling, retries, DLQ, idempotent sink, source/sink freshness and replay |
 | 058 | Debezium CDC/DBRE: PostgreSQL WAL/logical slots/publications, MySQL binlog, snapshots, source offsets, schema/tombstones, slot retention alerts, DB failover and sink reconciliation |
+| 059 | Schema governance: Avro, Protobuf, JSON Schema, subject naming, compatibility matrix, registry TLS/ACL/HA, Connect converters, Debezium tombstones and registry DR |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
