@@ -1,15 +1,15 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 30 / 100  
+**Published:** 31 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
 **Completed part:** 04 — Producers, Consumers and Consumer Groups (5/5 published)  
 **Completed part:** 05 — Storage, Retention, Compaction and Tiered Storage (5/5 published)  
 **Completed part:** 06 — Networking, Security, TLS, SASL and ACLs (5/5 published)  
-**Current part:** 07 — Performance Tuning and Benchmarking (0/5 published)  
-**Next:** 031 — Kafka Performance Fundamentals, Throughput, Latency and Kubernetes Benchmarking
+**Current part:** 07 — Performance Tuning and Benchmarking (1/5 published)  
+**Next:** 032 — Kafka Producer Performance Tuning, Batching, Compression, Idempotence and Kubernetes Workload Optimization
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -43,6 +43,7 @@
 | 028 — Kafka SASL Authentication, SCRAM Credentials, OAuth Integration and Kubernetes Identity Operations | Published | Pending | Pending |
 | 029 — Kafka ACLs, Authorization, Multi-Tenant Isolation and Kubernetes Security Governance | Published | Pending | Pending |
 | 030 — Kafka Networking, TLS, SASL and Authorization Kubernetes Security Reliability Capstone | Published | Pending | Pending |
+| 031 — Kafka Performance Fundamentals, Throughput, Latency and Kubernetes Benchmarking | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
