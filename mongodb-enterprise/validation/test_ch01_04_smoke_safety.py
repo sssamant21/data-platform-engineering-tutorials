@@ -21,6 +21,8 @@ class SmokeHarnessSafetyTests(unittest.TestCase):
         self.assertIn('if marker_count == total == 1', source)
         self.assertNotIn("assert coll.", source)
         self.assertNotIn("assert build.", source)
+        self.assertNotIn("                assert ", source)
+        self.assertIn('raise RuntimeError("Chapter 04 buildInfo version missing")', source)
 
     def test_reject_non_local_target(self):
         from lab_preflight import validate_inputs
