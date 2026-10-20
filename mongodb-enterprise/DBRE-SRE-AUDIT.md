@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 safety review of the actual GitHub Chapter 01–04 integration smoke harness found a remaining `assert build.get("version")` in Chapter 04. Replaced with explicit `RuntimeError` so the guard remains active under `python -O` (`c23ba55`); strengthened source regression to reject this pattern (`1cbc891`). **Changes committed; full CI and live smoke execution not verified.** Runtime-certified 0/80.
+
+
 - 2026-10-20 — Phase 4 direct GitHub local Markdown link review: fetched all 80 chapter files in seven batches and examined 183 relative Markdown-style link targets (35+27+24+35+34+20+8). Compared `.md` references against the 80 chapter names in `MASTER-LAYOUT.md` plus known curriculum indexes; **0 unknown Markdown targets or out-of-root targets flagged**. Scope limitation: does not prove anchor fragments, external URLs, or all non-Markdown relative file targets; not an execution of the Python filesystem L0 validator or GitHub Actions. Runtime-certified 0/80.
 
 
