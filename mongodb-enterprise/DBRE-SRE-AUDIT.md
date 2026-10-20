@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Directly fetched all four current offline test files from the audit branch and counted Python `test_*` method definitions: structure 9, lab preflight 13, Chapter 01–04 documentation contract 4, smoke harness safety 3 = **29 distinct test methods**; no duplicate method names within any file. Confirmed the workflow contains a minimum-29 discovery gate. This is a **source inventory only**, not Python unittest execution or proof of CI success. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Executed **five targeted local Python unittest checks** against a manually reconstructed copy of the hardened `validate_inputs` logic: valid loopback URI, missing port, invalid/out-of-range port (three subcases), empty userinfo, and noncanonical zero-padded port. **5/5 PASS**. This is not a direct import of a checked-out GitHub file and does not establish full 29-test CI success or live MongoDB safety. Runtime-certified 0/80.
 
 
