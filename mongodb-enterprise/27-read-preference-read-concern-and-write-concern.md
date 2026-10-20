@@ -307,7 +307,11 @@ Save operation results, causal session evidence and reconciliation output before
 check27(events27.countDocuments({}) === 4, "Unexpected final fixture count");
 check27(Number(events27.findOne({ _id: "ack-failure-event" }).revision) === 2,
         "Reconciliation state changed");
-lab27.dropDatabase();
+if (lab27.getName() !== "mongodb_enterprise_tutorial_ch27") {
+  throw new Error("Refusing cleanup outside the Chapter 27 training database");
+}
+const dropResult27 = lab27.dropDatabase();
+if (dropResult27.ok !== 1) throw new Error("Chapter 27 database cleanup failed");
 check27(lab27.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
