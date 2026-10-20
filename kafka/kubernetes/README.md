@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–025
+# Kubernetes-first Kafka Lab Platform — Chapters 001–026
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -217,5 +217,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 023 | Log compaction, tombstones, keyed-state bootstrap, cleaner metrics and Kubernetes recovery |
 | 024 | Tiered storage compatibility, remote log lifecycle, object-store security and Kubernetes DR |
 | 025 | Part 05 capstone: retention, compaction, storage headroom, consumer recovery and tiered storage acceptance |
+| 026 | Kafka bootstrap/advertised listeners, Kubernetes Services, EndpointSlices, DNS, NetworkPolicies and broker connectivity |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
