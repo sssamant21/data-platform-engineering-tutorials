@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 61–64: inspected UID-bound Kubernetes eviction with PDB/CSI/identity acceptance (61), staged binary upgrade and separate FCV transition (62), driver pool/deadline/uncertain-write reconciliation (63), and CDC resume/checkpoint/invalidation handling (64). **Remediated Chapter 64:** optional destructive `orders.drop()` now checks exact training database, presence of run-specific marker, chapter identity and matching `RUN64` before deletion (commit `5520100`). Chapters 61–63 already require reviewed ownership and prohibit force eviction/downgrade shortcuts; no concrete command change identified in this static pass. **Pending:** live eviction and storage identity, binary/FCV staged upgrade, client retries/elections, and CDC crash/replay/invalidation evidence. Detailed command-safety review now 64/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 57–60: reviewed Ops Manager architecture/prerequisite endpoint checks (57), Agent automation one-field change/convergence and interruption recovery (58), Linux TLS/auth systemd service restart and retained-data cleanup (59), and Kubernetes controller/CRD/StatefulSet/PVC ownership and guarded retention (60). No concrete unsafe destructive command identified requiring edits in this static batch: Ch57 is non-mutating planning/probing; Ch58 requires reviewed UI automation and avoids hand-crafted config replacement; Ch59 checks the run marker and exact service before stopping, retains data; Ch60 refuses force deletes, finalizer stripping and unqualified namespace deletion. **Pending:** live Ops Manager enrollment/convergence, systemd restart, Kubernetes operator compatibility and CSI/PV ownership tests. Detailed command-safety review now 60/80.
 
 
