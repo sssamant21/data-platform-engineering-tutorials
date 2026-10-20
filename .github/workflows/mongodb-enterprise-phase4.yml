@@ -30,11 +30,18 @@ jobs:
           python mongodb-enterprise/validation/structure_check.py \
             --root mongodb-enterprise \
             --output phase4-l0-results.json
+      - name: Check Chapters 01–04 documentation contract
+        run: |
+          python mongodb-enterprise/validation/ch01_04_contract.py \\
+            --root mongodb-enterprise \\
+            --output phase4-ch01-04-contract.json
       - name: Upload evidence even on failure
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: mongodb-enterprise-phase4-l0
-          path: phase4-l0-results.json
+          path: |
+            phase4-l0-results.json
+            phase4-ch01-04-contract.json
           if-no-files-found: warn
           retention-days: 30
