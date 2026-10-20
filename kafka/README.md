@@ -113,6 +113,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [043 — Kafka Reliability Incident Management, On-Call Operations, Escalation and Blameless Postmortems](09-sre-slis-slos-reliability/043-kafka-reliability-incident-management-on-call-operations-escalation-and-blameless-postmortems.md)
 
+- [044 — Kafka SRE Toil Reduction, Reliability Automation, Operational Readiness and Continuous Improvement](09-sre-slis-slos-reliability/044-kafka-sre-toil-reduction-reliability-automation-operational-readiness-and-continuous-improvement.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
