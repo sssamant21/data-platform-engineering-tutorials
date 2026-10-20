@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 25–28: inspected read-only oplog/topology diagnostics, dedicated three-member replica set creation and owned Compose teardown, read/write concern guarantees, and planned maintenance/stepdown readiness. All four chapters had a `dropDatabase()` without immediate exact-name check; **remediated Chapters 25–28** with `mongodb_enterprise_tutorial_chNN` guards and drop-result checks (commits `9f9b50b`, `bb4d2a3`, `eb8cb8c`, `d8f1727`). Chapter 28 uses non-forced `replSetStepDown` after health checks and explicitly verifies resulting topology rather than treating a disconnect as success; Chapter 26 warns that `docker compose -p mongodb-ch26 down --volumes` deletes six named project volumes and must not be used on retained/shared projects. **Follow-up:** verify actual project resource ownership before destructive Compose teardown and exercise member restart/stepdown and concern semantics in a controlled lab. Detailed review now 28/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 21–24: inspected explain plan experiments, scoped profiler activation/restoration, WiredTiger metric snapshots and bounded capacity fixtures. Each chapter previously called `labNN.dropDatabase()` without an immediate exact database-name guard; **remediated Chapters 21–24** with namespace checks and successful-drop assertions (commits `879d674`, `8aaa38c`, `7fe33df`, `537be56`). Chapter 22's profiling `try/finally` covers ordinary exceptions, with a saved recovery command for shell termination; actual restoration across interrupted sessions remains untested. Chapters 23–24 explicitly avoid claiming instant cache/volume reclamation after database deletion. **Pending:** live query-plan/profiler restoration and metrics/IOPS acceptance. Detailed command-safety review now 24/80.
 
 
