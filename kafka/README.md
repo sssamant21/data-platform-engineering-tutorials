@@ -75,6 +75,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [024 — Kafka Tiered Storage, Remote Log Lifecycle, Object Storage Security and Kubernetes Disaster Recovery](05-storage-retention-compaction-tiered-storage/024-kafka-tiered-storage-remote-log-lifecycle-object-storage-security-and-kubernetes-disaster-recovery.md)
 
+- [025 — Kafka Storage Reliability, Retention, Compaction and Tiered Storage Kubernetes SRE Capstone](05-storage-retention-compaction-tiered-storage/025-kafka-storage-reliability-retention-compaction-tiered-storage-kubernetes-sre-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
