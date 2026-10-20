@@ -479,6 +479,9 @@ const lab44 = db.getSiblingDB('mongodb_enterprise_tutorial_ch44');
 if (lab44.getUser('ch44_reader')?.customData?.owner !== 'chapter44-audit-lab') {
   throw new Error('Ownership marker mismatch');
 }
+if (lab44.getName() !== 'mongodb_enterprise_tutorial_ch44') {
+  throw new Error('Refusing cleanup outside Chapter 44 training database');
+}
 if (!lab44.dropUser('ch44_reader')) throw new Error('User removal failed');
 if (!lab44.dropRole('ch44_find_events')) throw new Error('Role removal failed');
 if (!lab44.events.drop()) throw new Error('Collection removal failed');
