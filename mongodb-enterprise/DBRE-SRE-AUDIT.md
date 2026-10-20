@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Executed nine locally reconstructed structure-checker regression scenarios in Python via `unittest discover`: **9/9 PASS** (synthetic 80-chapter fixtures, missing chapter/link, unclosed/mismatched/tilde/mixed/longer/trailing-text fences). This is **not** an exact GitHub checkout or proof that the full 25-test repository suite passed; CI result and actual 80-chapter Python audit remain unverified. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Added three offline regression cases for the repaired code-fence parser (`7b473dd`): mixed backtick/tilde delimiters must not close each other, longer valid closing fences are accepted, and a closing delimiter with trailing text is rejected. Structure-checker unit tests now contain 9 cases; combined offline test suite contains 25 test methods. **These new tests have not been executed or confirmed passing**; CI remains unverified, runtime-certified 0/80.
 
 
