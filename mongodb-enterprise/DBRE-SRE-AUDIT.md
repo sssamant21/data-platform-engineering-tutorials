@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 smoke-test correctness: replaced Python `assert` statements in integration acceptance checks with explicit runtime failures (`0b78384`) so checks remain active under optimized Python (`-O`). Added offline regression invariants (`108260f`). GitHub checkout still cannot resolve github.com in the execution container; **CI execution and full-repository L0 remain unverified**, and no live MongoDB run was performed. Runtime certification 0/80.
+
+
 - 2026-10-20 — Phase 4 safety correction: integration smoke pilot now refuses preexisting run-named collections and does not attempt cleanup when fixture insertion did not complete; ownership verification requires exactly one run-marked record (`4076360`). Added three offline smoke-harness safety-invariant tests (`e73f2c5`, cleanup `e40fb2d`). Compared Chapters 01–04 heading/disclaimer contracts against repository content; these appeared aligned, but the checker and CI have **not** been executed. Local git access failed due to DNS resolution. Runtime certification remains 0/80.
 
 
