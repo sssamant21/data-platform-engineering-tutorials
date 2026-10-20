@@ -589,6 +589,9 @@ const remainingUsers = app41.runCommand({ usersInfo: 1 });
 const remainingRoles = app41.runCommand({ rolesInfo: 1, showBuiltinRoles: false });
 check41(remainingUsers.ok === 1 && remainingUsers.users.length === 0, "Chapter users remain");
 check41(remainingRoles.ok === 1 && remainingRoles.roles.length === 0, "Custom roles remain");
+check41(app41.getName() === "mongodb_enterprise_tutorial_ch41" &&
+  other41.getName() === "mongodb_enterprise_tutorial_ch41_other",
+  "Refusing cleanup outside Chapter 41 owned databases");
 check41(app41.dropDatabase().ok === 1 && other41.dropDatabase().ok === 1, "Scoped data drop failed");
 check41(app41.getCollectionNames().length === 0 && other41.getCollectionNames().length === 0,
   "Fixture collections remain");
