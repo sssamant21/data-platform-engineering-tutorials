@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 3 detailed command-safety sample Chapters 09–12: manually inspected risky write operations, final assertions and cleanup blocks. All four guard the exact chapter database before dropping enumerated fixtures. Chapter 09 scopes array updates and distinguishes object/array shape failures; Chapter 10 `updateMany` uses a provider ID plus expected version and explicitly notes non-atomic cross-document freshness; Chapter 11 `collMod` migration/rollback requires scoped administration and differentiates warn mode from actual schema enforcement; Chapter 12 `updateMany` filters by typed/absent migration field and verifies counts, ordered/unordered partial bulk outcomes and replay behavior. **Follow-up:** confirm Chapter 11's restoration path on a real training server, and Chapter 12's error/result semantics with pinned server and mongosh versions; neither was executed here. Detailed spot review now covers 12/80 chapters.
+
+
 - 2026-10-19 — Phase 3 detailed command-safety sample Chapters 05–08: inspected section structure, risky command matches and full cleanup blocks. Chapter 05 gates collection removal on exact lab database and restricts container/volume deletion to `mongodb-ch05`/`mongodb-ch05-data`; Chapter 06 uses `mongodb-ch06`-scoped containers, volumes and explicit certificate filenames rather than recursive deletion; Chapters 07–08 guard the database name and enumerate exact fixture collections. Chapter 08 explicitly warns against empty-filter bulk writes. **Follow-up:** Chapter 05/06 cleanup still requires operator confirmation that named Docker resources belong to this lab; names alone do not establish ownership, especially after interrupted/reused environments. No runtime command execution or repeatability testing performed.
 
 
