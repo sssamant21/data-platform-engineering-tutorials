@@ -391,7 +391,11 @@ If finishing this disposable lab, capture evidence and connect to the primary-aw
 
 ```javascript
 const cleanupLab26 = db.getSiblingDB("mongodb_enterprise_tutorial_ch26");
-cleanupLab26.dropDatabase();
+if (cleanupLab26.getName() !== "mongodb_enterprise_tutorial_ch26") {
+  throw new Error("Refusing cleanup outside the Chapter 26 training database");
+}
+const dropResult26 = cleanupLab26.dropDatabase();
+if (dropResult26.ok !== 1) throw new Error("Chapter 26 database cleanup failed");
 if (cleanupLab26.getCollectionNames().length !== 0) {
   throw new Error("Chapter database cleanup incomplete");
 }
