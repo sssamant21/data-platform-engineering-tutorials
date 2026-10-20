@@ -66,7 +66,8 @@ def run(client, run_id):
                                "wiredtiger_metrics": "not_run"})
             else:
                 build = client.admin.command("buildInfo")
-                assert build.get("version")
+                if not build.get("version"):
+                    raise RuntimeError("Chapter 04 buildInfo version missing")
                 coll.insert_one({"_id": "edition", "run_id": run_id})
                 created = True
                 if coll.count_documents({"run_id": run_id}) != 1:
