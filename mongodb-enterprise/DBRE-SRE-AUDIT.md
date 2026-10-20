@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 73–76: inspected query plan/index regression diagnosis and reversal (73), TLS/auth fresh-session failure classification and independent recovery identity (74), disk/cache/IO incident read-only triage and logical-vs-physical reclamation (75), and replica-set election/sharding incident safety with non-forced stepdown and acknowledged-write reconciliation (76). **Remediated all four chapters** by checking exact expected lab database identity in the final cleanup block immediately before the ownership and destructive database-drop steps (commits `4a7801d`, `16df02f`, `1bdef9c`, `42245ad`). **Pending:** live query-plan and index regression, TLS/SCRAM failures and recovery, resource-pressure observations, election/topology convergence and full application correctness. Detailed command-safety review now 76/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 69–72: inspected restart-safe metric rates, FTDC/log retention and dashboard failure visibility (69), paired-window SLO alert/capacity acceptance (70), owner-approved index hide/unhide with maintenance stop gates (71), and reliability-aware FinOps/licensing decisions (72). **Remediated Chapters 69 and 71:** require exact expected lab database name before `dropDatabase()` in addition to existing ownership checks (commits `3859261`, `fe401f6`). Chapters 70 and 72 are evaluator/model and approval-focused; no concrete unsafe destructive command identified in this static pass. **Pending:** live collector freshness/alerts, maintenance planner and index recovery, independent capacity inputs, licensing/entitlement evidence. Detailed command-safety review now 72/80.
 
 
