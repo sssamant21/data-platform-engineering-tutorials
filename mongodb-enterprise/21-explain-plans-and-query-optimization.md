@@ -388,7 +388,11 @@ Save fixture counts, full plans, comparison summaries, wrong/correct pipeline ou
 ```javascript
 verify21(cursor21("tenant_status_seq").toArray());
 check21(requests21.countDocuments({}) === 30000, "Fixture changed");
-lab21.dropDatabase();
+if (lab21.getName() !== "mongodb_enterprise_tutorial_ch21") {
+  throw new Error("Refusing cleanup outside the Chapter 21 training database");
+}
+const dropResult21 = lab21.dropDatabase();
+check21(dropResult21.ok === 1, "Database cleanup command failed");
 check21(lab21.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
