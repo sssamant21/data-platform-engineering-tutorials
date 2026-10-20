@@ -342,6 +342,9 @@ Save restricted ledger/reports and nonsecret summaries. Require accepted converg
 ```javascript
 var labName = "mongodb_enterprise_ch78_resilience";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch78_resilience" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 78 database");
+}
 if (lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch78" }) === null) {
   throw new Error("Ownership missing");
 }
