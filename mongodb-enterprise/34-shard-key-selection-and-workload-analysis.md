@@ -406,6 +406,8 @@ check34(storedShapes34.length === 4 && storedShapes34.every(s => {
 check34(EJSON.stringify(db.adminCommand({ replSetGetConfig: 1 }).config) ===
         originalConfig34, "Replica configuration changed");
 check34(healthy34(db.adminCommand({ replSetGetStatus: 1 })), "Topology not ready");
+check34(lab34.getName() === "mongodb_enterprise_tutorial_ch34",
+        "Refusing cleanup outside the Chapter 34 training database");
 check34(lab34.dropDatabase().ok === 1, "Chapter cleanup failed");
 for (const host of hosts34) {
   const d = direct34(host).getDB(name34);
