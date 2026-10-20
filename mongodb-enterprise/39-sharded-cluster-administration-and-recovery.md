@@ -549,6 +549,8 @@ check35(catalog39.tags.countDocuments({ ns: ns39 }) === 0, "Unexpected fixture z
 check35(sh.enableBalancing(ns39).ok === 1, "Cannot restore collection default");
 check35(db.adminCommand({ configureCollectionBalancing: ns39, enableAutoMerger: true }).ok === 1,
   "Cannot restore collection AutoMerger default");
+check35(lab39.getName() === "mongodb_enterprise_tutorial_ch39",
+        "Refusing cleanup outside the Chapter 39 training database");
 check35(lab39.dropDatabase().ok === 1, "Scoped drop failed");
 check35(!catalog39.collections.findOne({ _id: ns39 }) &&
   catalog39.tags.countDocuments({ ns: ns39 }) === 0, "Catalog cleanup incomplete");
