@@ -2,7 +2,6 @@
 """Offline invariants for the opt-in integration harness; no database required."""
 import pathlib
 import unittest
-from unittest.mock import patch
 
 import ch01_04_smoke as smoke
 
