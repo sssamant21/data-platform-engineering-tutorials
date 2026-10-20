@@ -99,6 +99,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [036 — Kafka Observability Architecture, JMX Exporter, Prometheus, Grafana and Kubernetes Monitoring Foundations](08-monitoring-metrics-observability/036-kafka-observability-architecture-jmx-exporter-prometheus-grafana-and-kubernetes-monitoring-foundations.md)
 
+- [037 — Kafka Broker, KRaft, Producer and Consumer Metrics, PromQL and Advanced Grafana Dashboards](08-monitoring-metrics-observability/037-kafka-broker-kraft-producer-consumer-metrics-promql-and-advanced-grafana-dashboards.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
