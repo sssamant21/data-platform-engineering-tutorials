@@ -451,6 +451,9 @@ Mark each item passed, failed or not run. Keep actual evidence separate from syn
 ```javascript
 var labName = "mongodb_enterprise_ch69_observability";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch69_observability" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 69 database");
+}
 if (lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch69" }) === null) {
   throw new Error("Ownership missing: investigate before cleanup");
 }
