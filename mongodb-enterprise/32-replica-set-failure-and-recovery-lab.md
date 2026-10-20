@@ -471,6 +471,8 @@ check32(canonical32(cleanupRows32) === canonical32(committedRows32()),
         "Cleanup blocked by unresolved history mismatch");
 check32(EJSON.stringify(db.adminCommand({ replSetGetConfig: 1 }).config) ===
         originalConfig32, "Cleanup blocked by configuration change");
+check32(lab32.getName() === "mongodb_enterprise_tutorial_ch32",
+        "Refusing cleanup outside the Chapter 32 training database");
 check32(lab32.dropDatabase().ok === 1, "Chapter database cleanup failed");
 for (const host of hosts32) {
   const d = direct32(host).getDB(name32);
