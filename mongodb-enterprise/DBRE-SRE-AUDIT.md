@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Re-ran nine locally reconstructed structure-checker tests: **9/9 PASS** under normal Python and **9/9 PASS** under `python -O` (two separate executions). Local copies are not a verified GitHub checkout. Added a separate optimized-Python offline test step to CI and retained its log (`ac628b2`); full 25-test suite and GitHub Actions outcomes are **not verified**. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Strengthened Phase 4 CI failure diagnostics (`9daa9e8`): the independent 80-chapter structure audit and Chapters 01–04 documentation-contract steps now use `if: success() || failure()` so a failed offline unittest step does not skip both checks. Each check still fails its own step on errors, and artifact upload remains `always()`. **Workflow execution still unverified**; runtime-certified 0/80.
 
 
