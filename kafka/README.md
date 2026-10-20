@@ -89,6 +89,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [031 — Kafka Performance Fundamentals, Throughput, Latency and Kubernetes Benchmarking](07-performance-tuning-benchmarking/031-kafka-performance-fundamentals-throughput-latency-and-kubernetes-benchmarking.md)
 
+- [032 — Kafka Producer Performance Tuning, Batching, Compression, Idempotence and Kubernetes Workload Optimization](07-performance-tuning-benchmarking/032-kafka-producer-performance-tuning-batching-compression-idempotence-and-kubernetes-workload-optimization.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
