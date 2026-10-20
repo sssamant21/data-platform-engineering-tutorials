@@ -415,7 +415,11 @@ Finish any optional secondary read before dropping the primary fixture. Capture 
 ```javascript
 check25(events25.countDocuments({ runId: runId25 }) === 2,
         "Fixture state changed");
-lab25.dropDatabase();
+if (lab25.getName() !== "mongodb_enterprise_tutorial_ch25") {
+  throw new Error("Refusing cleanup outside the Chapter 25 training database");
+}
+const dropResult25 = lab25.dropDatabase();
+if (dropResult25.ok !== 1) throw new Error("Chapter 25 database cleanup failed");
 check25(lab25.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
