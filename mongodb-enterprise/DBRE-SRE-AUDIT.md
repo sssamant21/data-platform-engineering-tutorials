@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 Batch 1: GitHub connector lookup for commit-associated PR workflow runs returned no runs (it only reports PR-triggered runs; this does **not** establish that push/manual workflow never ran). Added opt-in, read-only MongoDB Chapters 01–04 preflight (`5936088`), six offline input-validation tests (`d0c255a`), and usage/scope limitations (`d764369`). No integration endpoint was supplied or contacted, and CI result remains unverified. Runtime certification **0/80**.
+
+
 - 2026-10-20 — Phase 4 execution automation: added [GitHub Actions offline L0 workflow](../.github/workflows/mongodb-enterprise-phase4.yml) (`3728e35`) scoped to audit-branch pushes/manual dispatch. It compiles the validation scripts, runs synthetic positive/negative unit tests, checks the actual 80-chapter Markdown tree and uploads a JSON result artifact (when present). **Workflow execution and result not yet verified; runtime certification remains 0/80.** Isolated MongoDB integration tests remain to be implemented and run only with explicitly authorized lab infrastructure.
 
 
