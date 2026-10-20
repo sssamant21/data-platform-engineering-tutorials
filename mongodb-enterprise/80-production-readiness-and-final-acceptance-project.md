@@ -286,6 +286,9 @@ Save the real or clearly synthetic packet output, smoke results and prerequisite
 function check(condition, message) { if (!condition) throw new Error(message); }
 var labName = "mongodb_enterprise_ch80_acceptance";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch80_acceptance" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 80 database");
+}
 check(lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch80" }) !== null,
       "Ownership missing");
 check(lab.items.countDocuments({}) === 25, "Reconcile smoke count first");
