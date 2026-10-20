@@ -424,6 +424,8 @@ if (cleanMeta36) {
   check35(cleanCatalog36.collections.findOne({ _id: cleanNs36 }).noBalance !== true,
           "Collection balancing default not restored");
 }
+check35(cleanLab36.getName() === "mongodb_enterprise_tutorial_ch36",
+        "Refusing cleanup outside the Chapter 36 training database");
 check35(cleanLab36.dropDatabase().ok === 1, "Owned database removal failed");
 check35(cleanLab36.getCollectionNames().length === 0 &&
   !cleanCatalog36.collections.findOne({ _id: cleanNs36 }) &&
