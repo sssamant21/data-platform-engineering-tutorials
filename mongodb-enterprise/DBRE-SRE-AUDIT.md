@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 Batch 1 preflight hardening: constrained the prototype to local-loopback MongoDB pending authenticated TLS and independently verified cluster identity; rejected URI query options, database paths and remote hosts (`d8e7f6d`), added three negative tests (`06174bf`) and revised usage guidance (`3cbdb12`). **No test execution or CI outcome verified.** Loopback is not itself proof of a disposable cluster; operator must reject production tunnels. Runtime certification 0/80.
+
+
 - 2026-10-20 — Phase 4 Batch 1: GitHub connector lookup for commit-associated PR workflow runs returned no runs (it only reports PR-triggered runs; this does **not** establish that push/manual workflow never ran). Added opt-in, read-only MongoDB Chapters 01–04 preflight (`5936088`), six offline input-validation tests (`d0c255a`), and usage/scope limitations (`d764369`). No integration endpoint was supplied or contacted, and CI result remains unverified. Runtime certification **0/80**.
 
 
