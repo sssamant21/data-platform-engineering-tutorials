@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 follow-up identified a blocking integration bug in the committed `structure_check.py`: its parser accessed `fence.group(1)` and `group(2)`, but the `FENCE` regex had no capture groups, causing an `IndexError` when a fenced block was present. Corrected the regex to capture marker and trailing text in commit `118dd25`. The earlier 80/80 read-only GitHub inspection used separate equivalent JavaScript logic, **not** this Python implementation; it did not establish Python CI success. Full Python test execution and CI remain unverified; runtime-certified 0/80.
+
+
 - 2026-10-20 — Phase 4 safety review of the actual GitHub Chapter 01–04 integration smoke harness found a remaining `assert build.get("version")` in Chapter 04. Replaced with explicit `RuntimeError` so the guard remains active under `python -O` (`c23ba55`); strengthened source regression to reject this pattern (`1cbc891`). **Changes committed; full CI and live smoke execution not verified.** Runtime-certified 0/80.
 
 
