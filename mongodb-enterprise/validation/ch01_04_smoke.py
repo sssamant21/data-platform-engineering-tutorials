@@ -27,11 +27,13 @@ def run(client, run_id):
     for n, name in NAMES.items():
         database = client[name]
         coll = database[f"phase4_{run_id}"]
-        if coll.count_documents({}) != 0:
-            raise RuntimeError("Unexpected existing fixture")
+        if coll.name in database.list_collection_names():
+            raise RuntimeError("Refusing preexisting run collection")
+        created = False
         try:
             if n == 1:
                 coll.insert_one({"_id": "fixture", "run_id": run_id, "status": "open"})
+                created = True
                 try:
                     coll.insert_one({"_id": "fixture", "run_id": run_id})
                 except DuplicateKeyError:
@@ -44,6 +46,7 @@ def run(client, run_id):
             elif n == 2:
                 oid = ObjectId()
                 coll.insert_one({"_id": oid, "run_id": run_id, "amount": 3, "enabled": True})
+                created = True
                 assert coll.count_documents({"_id": str(oid)}) == 0
                 assert coll.count_documents({"_id": oid, "enabled": True}) == 1
                 output.append({"chapter": n, "checks": ["bson_objectid", "string_mismatch", "boolean"]})
@@ -51,6 +54,7 @@ def run(client, run_id):
                 build = client.admin.command("buildInfo")
                 assert build.get("version")
                 coll.insert_one({"_id": "sentinel", "run_id": run_id})
+                created = True
                 assert coll.count_documents({"_id": "sentinel", "run_id": run_id}) == 1
                 output.append({"chapter": n, "checks": ["build_info", "bounded_sentinel"],
                                "wiredtiger_metrics": "not_run"})
@@ -58,18 +62,20 @@ def run(client, run_id):
                 build = client.admin.command("buildInfo")
                 assert build.get("version")
                 coll.insert_one({"_id": "edition", "run_id": run_id})
+                created = True
                 assert coll.count_documents({"run_id": run_id}) == 1
                 output.append({"chapter": n, "checks": ["build_info", "fixture_read"],
                                "edition_certified": False})
         finally:
             # Only the precisely named collection created for this run is removed.
             # A failure to verify ownership preserves state for manual review.
-            marker_count = coll.count_documents({"run_id": run_id})
-            total = coll.count_documents({})
-            if marker_count == total and total > 0 and coll.name == f"phase4_{run_id}":
-                coll.drop()
-            else:
-                raise RuntimeError(f"Cleanup blocked for chapter {n}: unexpected ownership")
+            if created:
+                marker_count = coll.count_documents({"run_id": run_id})
+                total = coll.count_documents({})
+                if marker_count == total == 1 and coll.name == f"phase4_{run_id}":
+                    coll.drop()
+                else:
+                    raise RuntimeError(f"Cleanup blocked for chapter {n}: unexpected ownership")
     return output
 
 def main():
