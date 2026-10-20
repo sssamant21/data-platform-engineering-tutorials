@@ -24,7 +24,10 @@ jobs:
       - name: Compile validation scripts
         run: python -m compileall -q mongodb-enterprise/validation
       - name: Run synthetic positive and negative tests
-        run: python -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v
+        shell: bash
+        run: |
+          set -o pipefail
+          python -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v 2>&1 | tee phase4-offline-tests.log
       - name: Audit all 80 real chapters
         run: |
           python mongodb-enterprise/validation/structure_check.py \
@@ -43,5 +46,6 @@ jobs:
           path: |
             phase4-l0-results.json
             phase4-ch01-04-contract.json
+            phase4-offline-tests.log
           if-no-files-found: warn
           retention-days: 30
