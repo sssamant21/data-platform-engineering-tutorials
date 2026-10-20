@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 17–20: inspected index creation/removal, uniqueness failure paths, TTL/collMod lifecycle and full cleanup sections. All four chapters previously invoked `labNN.dropDatabase()` without an immediate exact-name check. **Remediated on audit branch:** Chapters 17–20 now require exact `mongodb_enterprise_tutorial_chNN` namespace before database deletion and assert successful drop result (commits `2383569`, `13f5d56`, `bace97f`, `a3689f2`). Chapter 20 explicitly warns that TTL hiding does not suspend expiration and that restoring TTL settings does not recover already deleted data. **Pending:** live index build/plan behavior, TTL asynchronous deletion and index-collMod compatibility, cleanup execution. Detailed command-safety review now 20/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 13–16: Chapters 13–15 guard chapter database names before collection cleanup; Chapter 13 uses read-only aggregation (no `$merge`/`$out`), Chapter 14 checks source cardinality, and Chapter 15 tests signed/tenant-scoped pagination. Chapter 16 includes transaction abort/uncertain commit handling but previously called `lab16.dropDatabase()` without an immediate namespace guard. **Remediated on audit branch in commit `f5e83a6`:** require exact `mongodb_enterprise_tutorial_ch16` database name and check drop result before proceeding. Runtime transaction and cleanup validation still pending. Detailed command-safety review now 16/80.
 
 
