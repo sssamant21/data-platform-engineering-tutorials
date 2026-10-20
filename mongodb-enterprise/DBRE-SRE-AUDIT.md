@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 direct GitHub content inspection: fetched all 80 chapter Markdown files from audit branch in five batches (01–18, 19–36, 37–54, 55–72, 73–80). Each was checked for a Markdown heading and matching fenced-code markers/closing lengths using read-only equivalent logic. **80/80 fetched, 80/80 passed these two checks, 0 errors observed.** This was **not** execution of the repository's Python structure checker or GitHub Actions; local-link checks and full offline suite remain unverified. No MongoDB runtime tests; runtime-certified 0/80.
+
+
 - 2026-10-20 — Phase 4 L0 fence parser improved: now tracks opening fence marker, matching character and minimum closing length, including tilde fences (`c91fdaf`); added unequal-length and tilde-fence tests (`71ffe3d`). This corrects a blind spot in simple odd/even counting. Changes are committed but **CI and full-repository audit results are not verified**; no live MongoDB tests. Runtime certification 0/80.
 
 
