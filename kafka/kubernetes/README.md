@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–048
+# Kubernetes-first Kafka Lab Platform — Chapters 001–049
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -240,5 +240,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 046 | Incident triage: Kafka/KRaft quorum, ISR, Strimzi CRs, Kubernetes Pods/PVCs, TLS/networking, producer/consumer evidence and synthetic drills |
 | 047 | Broker/controller failures: KRaft quorum, ISR, Strimzi NodePools, PVC/CSI, disk I/O, replication, producer acknowledgments and safe incident recovery |
 | 048 | Producer/consumer failures: callbacks, idempotence, transactions, rebalances, offset commits, lag, freshness, TLS/ACLs and end-to-end ledger reconciliation |
+| 049 | Secure connectivity incidents: Kafka listeners, DNS, EndpointSlices, CNI/NetworkPolicy, TLS CA rotation, SASL/SCRAM, mTLS, Kafka ACLs and LB routing |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
