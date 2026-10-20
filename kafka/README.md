@@ -69,6 +69,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [021 — Kafka Log Segments, Storage Internals, Retention and Kubernetes Persistent Volume Reliability](05-storage-retention-compaction-tiered-storage/021-kafka-log-segments-storage-internals-retention-and-kubernetes-persistent-volume-reliability.md)
 
+- [022 — Kafka Retention Policies, Segment Lifecycle, Storage Capacity and Kubernetes Operational Governance](05-storage-retention-compaction-tiered-storage/022-kafka-retention-policies-segment-lifecycle-storage-capacity-and-kubernetes-operational-governance.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
