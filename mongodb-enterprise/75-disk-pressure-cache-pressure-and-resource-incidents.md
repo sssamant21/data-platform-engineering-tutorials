@@ -305,6 +305,9 @@ Save nonsecret observations, then clean only the owned MongoDB fixture through t
 ```javascript
 var labName = "mongodb_enterprise_ch75_resources";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch75_resources" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 75 database");
+}
 check(lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch75" }) !== null,
       "Ownership missing");
 check(lab.items.countDocuments({}) === 2500, "Reconcile expected lab state before cleanup");
