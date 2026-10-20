@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–052
+# Kubernetes-first Kafka Lab Platform — Chapters 001–053
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -244,5 +244,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 050 | Part 10 capstone: incident command, KRaft/ISR, PVC/CSI, client delivery, secure networking, telemetry, RCA, recovery and independent acceptance |
 | 051 | HA architecture: KRaft voter quorum, broker rack/ISR, AZ failure domains, Kubernetes topology/PDB, PVC/CSI resilience, RPO/RTO and readiness |
 | 052 | Failover/maintenance: partition leaders, KRaft quorum, ISR recovery, Strimzi rolling safety, PDB, node drain, PVC/CSI and client SLO gates |
+| 053 | Multi-zone and cross-region DR: KRaft/ISR AZ placement, PV/CSI topology, MirrorMaker 2 architecture, RPO/RTO watermarks, writer fencing and cutover tabletop |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
