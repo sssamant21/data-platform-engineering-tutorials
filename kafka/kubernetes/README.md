@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–023
+# Kubernetes-first Kafka Lab Platform — Chapters 001–024
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -215,5 +215,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 021 | Log segments, retention, Strimzi broker PVCs, storage capacity and disk-pressure reliability |
 | 022 | Retention policies, segment lifecycle, replay-window governance and Kubernetes storage capacity |
 | 023 | Log compaction, tombstones, keyed-state bootstrap, cleaner metrics and Kubernetes recovery |
+| 024 | Tiered storage compatibility, remote log lifecycle, object-store security and Kubernetes DR |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
