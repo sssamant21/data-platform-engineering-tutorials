@@ -398,6 +398,10 @@ Preserve the original archive/manifest and damaged source until acceptance and i
 ```javascript
 function check(condition, message) { if (!condition) throw new Error(message); }
 var names = ["mongodb_enterprise_ch79_source", "mongodb_enterprise_ch79_restored"];
+var expectedNames = ["mongodb_enterprise_ch79_source", "mongodb_enterprise_ch79_restored"];
+check(names.length === expectedNames.length && names.every((name, i) =>
+      name === expectedNames[i] && db.getSiblingDB(name).getName() === name),
+      "Refusing cleanup outside Chapter 79 recovery databases");
 for (var name of names) {
   check(db.getSiblingDB(name).ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch79" }) !== null,
         "Ownership missing: " + name);
