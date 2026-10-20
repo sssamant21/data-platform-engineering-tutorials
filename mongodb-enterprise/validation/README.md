@@ -85,3 +85,22 @@ python3 mongodb-enterprise/validation/lab_preflight.py \\
 ```
 
 This collects only server build/topology and owned-database existence. **Do not tunnel a production database to localhost**: loopback address alone does not establish lab identity. It neither runs chapter labs nor certifies them. Do not commit evidence containing internal endpoints or other sensitive environment details. Before adding mutation tests, implement TLS/auth, exact cluster-identity allowlisting, namespace ownership, explicit per-run approval and independently reviewed cleanup.
+
+## Chapters 01–04: optional isolated integration smoke test
+
+`ch01_04_smoke.py` is a **separate, mutation-enabled** pilot. It is **not part of CI** and must never be used with a production connection, a forwarded production port, or shared training data. It accepts only the local-loopback URI already enforced by `lab_preflight.py`, requires a writable standalone, and **refuses to start if any of the four chapter databases already exists**. Operators must independently confirm that localhost is a newly provisioned disposable mongod, not a tunnel. A failure can leave a partial fixture for review.
+
+The test checks a minimal Chapter 01 CRUD/duplicate-key path, Chapter 02 BSON type mismatch, Chapter 03 bounded sentinel/build information, and Chapter 04 build/fixture inspection. It **does not** exercise full WiredTiger metrics, all chapter scenarios, edition entitlements, security, or recovery drills. It only drops its run-named collections after checking run-marker ownership; it never drops databases. These tests do not certify the chapters.
+
+After a separate lab approval and manual review:
+
+```bash
+export MONGODB_LAB_URI='mongodb://127.0.0.1:27017'
+export MONGODB_LAB_APPROVED=YES
+export MONGODB_LAB_MUTATION_APPROVED=YES
+python3 mongodb-enterprise/validation/ch01_04_smoke.py \\
+  --allowed-host 127.0.0.1 --run-id pilot_20261020 \\
+  --output phase4-ch01-04-smoke.json
+```
+
+Record the image digest, server version, process identity, endpoint provenance, approvals, run ID, actual outputs and cleanup evidence outside the repository. A smoke pass is only a partial L2 signal; full per-chapter lab acceptance and independent review remain required.
