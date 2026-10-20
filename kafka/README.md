@@ -81,6 +81,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [027 — Kafka TLS, Certificate Management, Strimzi Listener Encryption and Kubernetes Secret Rotation](06-networking-security-tls-sasl-acls/027-kafka-tls-certificate-management-strimzi-listener-encryption-and-kubernetes-secret-rotation.md)
 
+- [028 — Kafka SASL Authentication, SCRAM Credentials, OAuth Integration and Kubernetes Identity Operations](06-networking-security-tls-sasl-acls/028-kafka-sasl-authentication-scram-credentials-oauth-integration-and-kubernetes-identity-operations.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
