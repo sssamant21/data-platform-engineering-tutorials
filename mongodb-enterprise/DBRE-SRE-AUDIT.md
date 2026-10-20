@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 CI correctness: identified and fixed an extra backslash in the Chapters 01–04 contract command in GitHub Actions (`145f703`), which could have broken command argument continuation. Added four offline positive/fail-closed unit tests for the chapter contract (`043041a`). **CI execution still unverified; no runtime tests or certification performed.**
+
+
 - 2026-10-20 — Phase 4: added Chapters 01–04 L0 documentation contract checker (`479e61c`) and integrated its JSON evidence into offline CI (`9fb4bbb`). These checks do not execute MongoDB labs. Repository checkout was unavailable in this execution environment, and CI outcomes have not been verified. Runtime certification remains 0/80.
 
 
