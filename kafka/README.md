@@ -157,6 +157,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [065 — Kafka Streams Production Observability, Performance, Failure Recovery and Reliability Acceptance Capstone](13-kafka-streams-stream-processing/065-kafka-streams-production-observability-performance-failure-recovery-reliability-acceptance-capstone.md)
 
+- [066 — Advanced Kafka on Kubernetes: Strimzi Operator Architecture, KRaft and GitOps Foundations](14-advanced-kubernetes-strimzi-gitops/066-advanced-kafka-kubernetes-strimzi-operator-architecture-kraft-gitops-foundations.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
