@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Executed **five targeted local Python unittest checks** against a manually reconstructed copy of the hardened `validate_inputs` logic: valid loopback URI, missing port, invalid/out-of-range port (three subcases), empty userinfo, and noncanonical zero-padded port. **5/5 PASS**. This is not a direct import of a checked-out GitHub file and does not establish full 29-test CI success or live MongoDB safety. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Hardened Chapter 01–04 pilot URI validation (`aa21f60`): requires an explicit valid numeric TCP port and canonical `host:port` authority, rejecting missing/invalid/out-of-range ports, empty userinfo and ambiguous zero-padded ports. Added four regression test methods (`b7d9422`), increasing the expected offline test count from 25 to **29**. New tests and full suite are **not yet executed**; CI and MongoDB runtime remain unverified, runtime-certified 0/80.
 
 
