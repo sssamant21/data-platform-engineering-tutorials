@@ -21,6 +21,14 @@ def validate_inputs(uri, allowed_host, chapter, run_id):
     parts = urlsplit(uri)
     if parts.scheme != "mongodb" or not parts.hostname:
         raise ValueError("Pilot requires a mongodb:// URI with a single explicit host")
+    try:
+        port = parts.port
+    except ValueError as exc:
+        raise ValueError("Pilot requires a valid numeric TCP port") from exc
+    if port is None or not 1 <= port <= 65535:
+        raise ValueError("Pilot requires an explicit valid TCP port")
+    if parts.netloc != f"{parts.hostname}:{port}":
+        raise ValueError("Pilot URI authority must be exactly host:port without userinfo or aliases")
     if parts.hostname != allowed_host or "," in parts.netloc:
         raise ValueError("MongoDB endpoint is not the exact allowlisted host")
     if parts.hostname in {"localhost", "127.0.0.1"} and allowed_host not in {"localhost", "127.0.0.1"}:
