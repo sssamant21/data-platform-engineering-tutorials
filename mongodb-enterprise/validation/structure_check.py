@@ -9,7 +9,7 @@ import sys
 
 CHAPTER = re.compile(r"^(\d{2})-.*\.md$")
 LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
-FENCE = re.compile(r"^[ \t]*```", re.M)
+FENCE = re.compile(r"^[ \t]*(`{3,}|~{3,})([^\r\n]*)$", re.M)
 HEADING = re.compile(r"^#{1,6}\s+\S", re.M)
 
 def audit(root):
