@@ -123,6 +123,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [048 — Kafka Producer, Consumer, Consumer Group and End-to-End Data Delivery Troubleshooting](10-troubleshooting-incident-response/048-kafka-producer-consumer-consumer-group-and-end-to-end-data-delivery-troubleshooting.md)
 
+- [049 — Kafka Networking, TLS, SASL, ACL and Kubernetes Connectivity Incident Troubleshooting](10-troubleshooting-incident-response/049-kafka-networking-tls-sasl-acl-and-kubernetes-connectivity-incident-troubleshooting.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
