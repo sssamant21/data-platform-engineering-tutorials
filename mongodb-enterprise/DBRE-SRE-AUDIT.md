@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 69–72: inspected restart-safe metric rates, FTDC/log retention and dashboard failure visibility (69), paired-window SLO alert/capacity acceptance (70), owner-approved index hide/unhide with maintenance stop gates (71), and reliability-aware FinOps/licensing decisions (72). **Remediated Chapters 69 and 71:** require exact expected lab database name before `dropDatabase()` in addition to existing ownership checks (commits `3859261`, `fe401f6`). Chapters 70 and 72 are evaluator/model and approval-focused; no concrete unsafe destructive command identified in this static pass. **Pending:** live collector freshness/alerts, maintenance planner and index recovery, independent capacity inputs, licensing/entitlement evidence. Detailed command-safety review now 72/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 65–68: inspected time-series TTL/bucket-aware retention and policy restoration (65), GridFS lifecycle plus capped collection rollover (66), MongoDB-to-Snowflake direct integration and owned schema retirement (67), and JSON/BSON transfer with typed reconciliation and guarded three-database cleanup (68). **Remediated Chapters 66–68** with exact expected owned database-name checks before destructive cleanup (commits `4da8b59`, `fc05fc3`, `798bdfd`). Chapter 65 already checks its exact lab namespace and ownership marker before database drop; no additional code edit required. **Pending:** live TTL timing/bucket behavior, GridFS abort/orphan reconciliation, Snowflake source-to-target identity and failure replay, and migration metadata/type acceptance. Detailed command-safety review now 68/80.
 
 
