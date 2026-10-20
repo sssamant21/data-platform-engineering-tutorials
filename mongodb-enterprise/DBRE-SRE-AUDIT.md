@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 3 detailed command-safety sample Chapters 05–08: inspected section structure, risky command matches and full cleanup blocks. Chapter 05 gates collection removal on exact lab database and restricts container/volume deletion to `mongodb-ch05`/`mongodb-ch05-data`; Chapter 06 uses `mongodb-ch06`-scoped containers, volumes and explicit certificate filenames rather than recursive deletion; Chapters 07–08 guard the database name and enumerate exact fixture collections. Chapter 08 explicitly warns against empty-filter bulk writes. **Follow-up:** Chapter 05/06 cleanup still requires operator confirmation that named Docker resources belong to this lab; names alone do not establish ownership, especially after interrupted/reused environments. No runtime command execution or repeatability testing performed.
+
+
 - 2026-10-19 — Phase 3 detailed command-safety sample Chapters 01–04: inspected exact filenames, section structure, risky command occurrences and cleanup contexts. Chapters 01–03 use chapter-specific databases/collections and explicit namespace guards before `.drop()`, with `docker stop`/`docker rm` scoped to chapter-named optional containers; Chapter 02 explicitly warns not to remove shared training servers. Chapter 03 optional restart evidence is distinguished from required acceptance. Chapter 04 is a deployment comparison lab with no risky command match in this sample. **Finding:** no unguarded broad database drop or `rm -rf` observed in these four chapter texts. This is a manual spot review, not full command semantic proof, actual shell execution or security acceptance. Next review should inspect command dependencies and failure-path cleanup in Chapters 05–08.
 
 
