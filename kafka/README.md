@@ -93,6 +93,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [033 — Kafka Consumer Performance Tuning, Fetch Optimization, Group Parallelism and Kubernetes Scaling](07-performance-tuning-benchmarking/033-kafka-consumer-performance-tuning-fetch-optimization-group-parallelism-and-kubernetes-scaling.md)
 
+- [034 — Kafka Broker Performance Tuning, JVM, Network, Storage and Kubernetes Resource Optimization](07-performance-tuning-benchmarking/034-kafka-broker-performance-tuning-jvm-network-storage-and-kubernetes-resource-optimization.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
