@@ -97,6 +97,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [035 — Kafka End-to-End Performance Benchmarking, Capacity Acceptance and Kubernetes SRE Capstone](07-performance-tuning-benchmarking/035-kafka-end-to-end-performance-benchmarking-capacity-acceptance-and-kubernetes-sre-capstone.md)
 
+- [036 — Kafka Observability Architecture, JMX Exporter, Prometheus, Grafana and Kubernetes Monitoring Foundations](08-monitoring-metrics-observability/036-kafka-observability-architecture-jmx-exporter-prometheus-grafana-and-kubernetes-monitoring-foundations.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
