@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–056
+# Kubernetes-first Kafka Lab Platform — Chapters 001–057
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -248,5 +248,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 054 | Cross-cluster DR: Strimzi MirrorMaker 2, Kafka Connect tasks, topic mapping, per-partition replication watermarks, consumer checkpoints, offset translation, cutover and failback |
 | 055 | Part 11 capstone: primary/secondary KRaft and ISR, multi-AZ/region failure tabletop, MirrorMaker 2, RPO/RTO, writer fencing, DR cutover, failback and acceptance |
 | 056 | Kafka Connect: Strimzi KafkaConnect CR, distributed workers, connector/task lifecycle, internal config/offset/status topics, plugin security, REST isolation, DLQ and SLO |
+| 057 | Source/sink reliability: Connect offsets, synthetic data ledger, converters, SMTs, task scaling, retries, DLQ, idempotent sink, source/sink freshness and replay |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
