@@ -27,6 +27,10 @@ def validate_inputs(uri, allowed_host, chapter, run_id):
         raise ValueError("Endpoint mismatch")
     if parts.username or parts.password:
         raise ValueError("Do not put credentials in the pilot URI; use a separately configured auth mechanism")
+    if parts.query or parts.fragment or parts.path not in ("", "/"):
+        raise ValueError("Pilot URI must not contain query options, fragment or database path")
+    if parts.hostname not in {"localhost", "127.0.0.1"}:
+        raise ValueError("Remote pilot connections are disabled until TLS/auth and cluster-ID verification are implemented")
     return f"{EXPECTED_PREFIX}{chapter:02d}"
 
 def main():
@@ -55,7 +59,8 @@ def main():
         info = client.admin.command("buildInfo")
         evidence["server_version"] = info.get("version")
         evidence["is_writable_primary"] = bool(hello.get("isWritablePrimary"))
-        evidence["topology"] = "replica_set" if hello.get("setName") else "standalone_or_mongos"
+        evidence["topology"] = ("mongos" if hello.get("msg") == "isdbgrid" else
+                                "replica_set" if hello.get("setName") else "standalone")
         evidence["lab_db_exists"] = database in client.list_database_names()
         evidence["status"] = "preflight_observed"
     except Exception as exc:
