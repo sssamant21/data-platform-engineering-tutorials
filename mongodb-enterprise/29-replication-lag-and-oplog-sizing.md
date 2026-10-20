@@ -417,6 +417,8 @@ Then remove only the chapter database:
 
 ```javascript
 check29(events29.countDocuments({}) === 1001, "Unexpected final fixture state");
+check29(lab29.getName() === "mongodb_enterprise_tutorial_ch29",
+        "Refusing cleanup outside the Chapter 29 training database");
 check29(lab29.dropDatabase().ok === 1, "Chapter cleanup failed");
 check29(lab29.getCollectionNames().length === 0, "Chapter database not empty");
 waitHealthy29();
