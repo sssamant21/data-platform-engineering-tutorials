@@ -44,5 +44,24 @@ class PilotPreflightTests(unittest.TestCase):
             validate_inputs("mongodb://127.0.0.1:27017/admin", "127.0.0.1", 1, "run_12345678")
 
 
+
+    def test_reject_missing_explicit_port(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://127.0.0.1", "127.0.0.1", 1, "run_12345678")
+
+    def test_reject_invalid_port(self):
+        for uri in ("mongodb://127.0.0.1:abc", "mongodb://127.0.0.1:65536",
+                    "mongodb://127.0.0.1:0"):
+            with self.subTest(uri=uri), self.assertRaises(ValueError):
+                validate_inputs(uri, "127.0.0.1", 1, "run_12345678")
+
+    def test_reject_empty_userinfo(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://@127.0.0.1:27017", "127.0.0.1", 1, "run_12345678")
+
+    def test_reject_noncanonical_port(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://127.0.0.1:027017", "127.0.0.1", 1, "run_12345678")
+
 if __name__ == "__main__":
     unittest.main()
