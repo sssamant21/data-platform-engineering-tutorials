@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Added three offline regression cases for the repaired code-fence parser (`7b473dd`): mixed backtick/tilde delimiters must not close each other, longer valid closing fences are accepted, and a closing delimiter with trailing text is rejected. Structure-checker unit tests now contain 9 cases; combined offline test suite contains 25 test methods. **These new tests have not been executed or confirmed passing**; CI remains unverified, runtime-certified 0/80.
+
+
 - 2026-10-20 — Improved Phase 4 GitHub Actions evidence collection (`504012a`): the offline unittest step now uses `bash` with `set -o pipefail`, writes complete verbose test output to `phase4-offline-tests.log` via `tee`, and includes that log in the 30-day artifact bundle alongside both JSON reports. This preserves failures without masking test exit status. **Configuration committed, not a verified successful Actions run**; runtime-certified 0/80.
 
 
