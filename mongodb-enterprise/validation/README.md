@@ -74,14 +74,14 @@ This uses Python's standard library, does **not** contact MongoDB, and never run
 
 ## Chapters 01–04: opt-in lab preflight (read-only)
 
-After obtaining authorization for a **disposable** MongoDB endpoint and reviewing network/credential configuration, install `pymongo` in the isolated environment. The pilot deliberately requires one exact host, does not accept credentials embedded in its URI, and does not perform writes. It does **not** prove the host is nonproduction; an operator must verify cluster identity out of band. TLS/auth configuration and credentials must be supplied by an approved external connection setup; the current URI-only pilot does not support every enterprise TLS/auth mode. **Never supply production credentials or run against a production cluster.**
+After obtaining authorization for a **disposable** MongoDB endpoint and reviewing network/credential configuration, install `pymongo` in the isolated environment. The pilot is currently **local-loopback only** (localhost or 127.0.0.1), requires one exact host, rejects URI query options/database paths and embedded credentials, and does not perform writes. It does **not** prove the host is nonproduction; an operator must verify cluster identity out of band. TLS/auth configuration and credentials must be supplied by an approved external connection setup; the current URI-only pilot does not support every enterprise TLS/auth mode. **Never supply production credentials or run against a production cluster.**
 
 ```bash
 export MONGODB_LAB_APPROVED=YES
-export MONGODB_LAB_URI='mongodb://lab-mongo.internal:27017'
+export MONGODB_LAB_URI='mongodb://127.0.0.1:27017'
 python3 mongodb-enterprise/validation/lab_preflight.py \\
   --chapter 1 --run-id approved_run_001 \\
-  --allowed-host lab-mongo.internal --output lab-preflight-ch01.json
+  --allowed-host 127.0.0.1 --output lab-preflight-ch01.json
 ```
 
-This collects only server build/topology and owned-database existence. It neither runs chapter labs nor certifies them. Do not commit evidence containing internal endpoints or other sensitive environment details. Before adding mutation tests, implement TLS/auth, exact cluster-identity allowlisting, namespace ownership, explicit per-run approval and independently reviewed cleanup.
+This collects only server build/topology and owned-database existence. **Do not tunnel a production database to localhost**: loopback address alone does not establish lab identity. It neither runs chapter labs nor certifies them. Do not commit evidence containing internal endpoints or other sensitive environment details. Before adding mutation tests, implement TLS/auth, exact cluster-identity allowlisting, namespace ownership, explicit per-run approval and independently reviewed cleanup.
