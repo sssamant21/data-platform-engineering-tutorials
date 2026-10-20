@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 45–48: inspected offline encrypted-data backup/restore and wrong-key isolation (45), client-side/QE key vault and KMS dependency (46), service-identity rotation and access-drift recovery (47), and hardening acceptance/evidence ledger (48). **Remediated** Chapters 46–48 by checking exact `mongodb_enterprise_tutorial_chNN` database identity before user/role/collection or database disposal (commits `5f359cd`, `12b02fe`, `bb81f5e`). Chapter 45's restore exercises operate on separate offline copies with guarded paths and no database drop; no actionable code change identified in this static pass. **Pending:** live Enterprise at-rest encryption and restore, QE library/provider compatibility, actual fresh-connection revocation tests and acceptance evidence on the target deployment. Detailed command-safety review now 48/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 41–44: inspected authenticated identity/role lifecycle, TLS/x.509 trust and renewal, external authentication compatibility gates and native audit evidence/cleanup. **Remediated:** Chapter 41 now checks both exact owned database names before two database drops; Chapters 42–43 check exact owned database names before cleanup; Chapter 44 checks the exact owned database name before dropping its user/role/collection (commits `16ff49d`, `ff9641e`, `44659fd`, `68d1987`). Existing UUID/ownership markers and privilege checks remain intact. Chapter 43's local SCRAM control is not evidence that OIDC/Kerberos/LDAP integrations work; Chapter 44 requires an actual Enterprise audit-capable binary and protected evidence handling. **Pending:** live least-privilege negative tests, TLS trust/renewal, external IdP integrations and native audit event coverage/recovery. Detailed command-safety review now 44/80.
 
 
