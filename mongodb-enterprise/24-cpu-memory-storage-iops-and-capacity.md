@@ -367,7 +367,11 @@ Save collection statistics, workload results and capacity assumptions first:
 check24(events24.countDocuments({}) === 10000, "Fixture changed");
 check24(events24.countDocuments({ revision: 1 }) === 500,
         "Updated fixture changed");
-lab24.dropDatabase();
+if (lab24.getName() !== "mongodb_enterprise_tutorial_ch24") {
+  throw new Error("Refusing cleanup outside the Chapter 24 training database");
+}
+const dropResult24 = lab24.dropDatabase();
+check24(dropResult24.ok === 1, "Database cleanup command failed");
 check24(lab24.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
