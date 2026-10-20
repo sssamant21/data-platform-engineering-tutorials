@@ -401,3 +401,5 @@ Use documentation selected for the exact deployed server and management versions
 - [Chapter 61 — Kubernetes Storage Scheduling and Maintenance](61-kubernetes-storage-scheduling-and-maintenance.md)
 
 Next: **[Chapter 63 — Drivers Connection Pools Timeouts and Retries](63-drivers-connection-pools-timeouts-and-retries.md)**.
+
+Previous: [Chapter 61 — Kubernetes Storage Scheduling and Maintenance](61-kubernetes-storage-scheduling-and-maintenance.md).
