@@ -149,6 +149,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [061 — Kafka Streams Architecture, Processing Topologies and Stateful Stream Processing](13-kafka-streams-stream-processing/061-kafka-streams-architecture-processing-topologies-stateful-stream-processing.md)
 
+- [062 — Kafka Streams Stateless Processing, Joins, Aggregations and Event-Time Windows](13-kafka-streams-stream-processing/062-kafka-streams-stateless-processing-joins-aggregations-event-time-windows.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
