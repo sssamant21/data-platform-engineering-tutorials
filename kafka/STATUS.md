@@ -1,15 +1,16 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 34 / 100  
+**Published:** 35 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
 **Completed part:** 04 — Producers, Consumers and Consumer Groups (5/5 published)  
 **Completed part:** 05 — Storage, Retention, Compaction and Tiered Storage (5/5 published)  
 **Completed part:** 06 — Networking, Security, TLS, SASL and ACLs (5/5 published)  
-**Current part:** 07 — Performance Tuning and Benchmarking (4/5 published)  
-**Next:** 035 — Kafka End-to-End Performance Benchmarking, Capacity Acceptance and Kubernetes SRE Capstone
+**Completed part:** 07 — Performance Tuning and Benchmarking (5/5 published)  
+**Current part:** 08 — Monitoring, Metrics and Observability (0/5 published)  
+**Next:** 036 — Kafka Observability Architecture, JMX Exporter, Prometheus, Grafana and Kubernetes Monitoring Foundations
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -47,6 +48,7 @@
 | 032 — Kafka Producer Performance Tuning, Batching, Compression, Idempotence and Kubernetes Workload Optimization | Published | Pending | Pending |
 | 033 — Kafka Consumer Performance Tuning, Fetch Optimization, Group Parallelism and Kubernetes Scaling | Published | Pending | Pending |
 | 034 — Kafka Broker Performance Tuning, JVM, Network, Storage and Kubernetes Resource Optimization | Published | Pending | Pending |
+| 035 — Kafka End-to-End Performance Benchmarking, Capacity Acceptance and Kubernetes SRE Capstone | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
