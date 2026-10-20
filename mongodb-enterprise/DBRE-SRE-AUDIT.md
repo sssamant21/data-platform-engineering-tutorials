@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 direct GitHub local Markdown link review: fetched all 80 chapter files in seven batches and examined 183 relative Markdown-style link targets (35+27+24+35+34+20+8). Compared `.md` references against the 80 chapter names in `MASTER-LAYOUT.md` plus known curriculum indexes; **0 unknown Markdown targets or out-of-root targets flagged**. Scope limitation: does not prove anchor fragments, external URLs, or all non-Markdown relative file targets; not an execution of the Python filesystem L0 validator or GitHub Actions. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Phase 4 direct GitHub content inspection: fetched all 80 chapter Markdown files from audit branch in five batches (01–18, 19–36, 37–54, 55–72, 73–80). Each was checked for a Markdown heading and matching fenced-code markers/closing lengths using read-only equivalent logic. **80/80 fetched, 80/80 passed these two checks, 0 errors observed.** This was **not** execution of the repository's Python structure checker or GitHub Actions; local-link checks and full offline suite remain unverified. No MongoDB runtime tests; runtime-certified 0/80.
 
 
