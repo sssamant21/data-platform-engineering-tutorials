@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–039
+# Kubernetes-first Kafka Lab Platform — Chapters 001–040
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -231,5 +231,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 037 | Advanced Kafka metrics: KRaft quorum, ISR, broker request p99, PromQL, producer/consumer lag and event age, Grafana dashboards and metric correctness |
 | 038 | Centralized logging: Kafka/KRaft/Strimzi logs, Kubernetes collectors, multiline parsing, secure sinks, audit coverage and incident forensics |
 | 039 | OpenTelemetry tracing: Kafka W3C header propagation, producer/consumer spans, collector security, trace/log/metric correlation and event age |
+| 040 | Part 08 capstone: Kafka/KRaft metrics, Grafana SLO dashboards, Alertmanager routing, logs/traces, synthetic incident drills and SRE acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
