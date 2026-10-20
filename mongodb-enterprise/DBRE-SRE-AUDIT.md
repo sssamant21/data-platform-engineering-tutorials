@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 17–32: all 16 contain MongoDB 8.0 baseline, topology and privilege/auth terminology, executable-language fences, verification/acceptance language, cleanup and rollback/recovery/stop terminology. Section scans found explicit prerequisite, failure, troubleshooting and acceptance sections throughout. Targeted document inspection: Chapter 20 bounds TTL/index lifecycle to a training server; Chapter 22 separates core self-managed profiler lab from Atlas-eligible optional query statistics; Chapter 28 uses disposable 3-member rs26 and non-forced stepdown; Chapter 30 requires owned volumes, Chapter 26 setup and healthy topology. **These are documentation presence findings, not code execution or live acceptance.**
+
+
 - 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 01–16: all 16 include MongoDB 8.0 baseline, a role/permission/auth mention, fenced executable-language code, assertions/expected results and cleanup terminology. Five chapters (11–15) do not match generic topology keywords; manual inspection confirms Chapter 11 states a Community/Enterprise training database and Chapter 16 explicitly requires replica set or sharded cluster. Seven chapters (03, 06, 08–10, 13–14) lack a generic rollback/stop/restore keyword, which is a review prompt, **not proof of missing safety controls**. These are heuristic presence checks, not syntax execution or full rubric passes. No live labs run.
 
 
