@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–028
+# Kubernetes-first Kafka Lab Platform — Chapters 001–029
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -220,5 +220,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 026 | Kafka bootstrap/advertised listeners, Kubernetes Services, EndpointSlices, DNS, NetworkPolicies and broker connectivity |
 | 027 | TLS and mTLS listeners, certificate chains, KafkaUser identity, Kubernetes Secret renewal and CA rotation |
 | 028 | SASL_SSL, SCRAM credentials, OAuth/OIDC identity integration, Kubernetes Secret RBAC and credential rotation |
+| 029 | Kafka ACLs, least-privilege authorization, tenant isolation, Kubernetes RBAC/NetworkPolicy and GitOps governance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
