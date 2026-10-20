@@ -111,6 +111,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [042 — Kafka Reliability Alerting, Multiwindow Burn Rates, Error-Budget Policies and Production Change Gates](09-sre-slis-slos-reliability/042-kafka-reliability-alerting-multiwindow-burn-rates-error-budget-policies-and-production-change-gates.md)
 
+- [043 — Kafka Reliability Incident Management, On-Call Operations, Escalation and Blameless Postmortems](09-sre-slis-slos-reliability/043-kafka-reliability-incident-management-on-call-operations-escalation-and-blameless-postmortems.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
