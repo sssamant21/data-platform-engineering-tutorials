@@ -119,6 +119,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [046 — Kafka Troubleshooting Methodology, Evidence Collection and Kubernetes Incident Triage](10-troubleshooting-incident-response/046-kafka-troubleshooting-methodology-evidence-collection-and-kubernetes-incident-triage.md)
 
+- [047 — Kafka Broker, KRaft Controller, Replication and Storage Failure Troubleshooting](10-troubleshooting-incident-response/047-kafka-broker-kraft-controller-replication-and-storage-failure-troubleshooting.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
