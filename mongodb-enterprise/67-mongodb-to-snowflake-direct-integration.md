@@ -469,6 +469,9 @@ The existing database and warehouse remain under their original owners. MongoDB 
 ```javascript
 var labName = "mongodb_enterprise_ch67_direct";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch67_direct" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 67 database");
+}
 if (lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch67" }) === null) {
   throw new Error("Ownership missing: investigate before cleanup");
 }
