@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 01–16: all 16 include MongoDB 8.0 baseline, a role/permission/auth mention, fenced executable-language code, assertions/expected results and cleanup terminology. Five chapters (11–15) do not match generic topology keywords; manual inspection confirms Chapter 11 states a Community/Enterprise training database and Chapter 16 explicitly requires replica set or sharded cluster. Seven chapters (03, 06, 08–10, 13–14) lack a generic rollback/stop/restore keyword, which is a review prompt, **not proof of missing safety controls**. These are heuristic presence checks, not syntax execution or full rubric passes. No live labs run.
+
+
 - 2026-10-19 — Phase 2 first-pass link audit: fetched all 80 indexed chapter files in five groups; chapter titles match index, no missing/duplicate chapter numbers, no unresolved recognized local chapter Markdown link destinations, and no mismatched parsed previous/next destinations. Two Chapter 63 references are external GitHub URLs, not missing local files. This scan does not validate external URL reachability, all non-chapter relative assets, anchor fragments, or prerequisites; live runtime testing remains pending.
 
 
