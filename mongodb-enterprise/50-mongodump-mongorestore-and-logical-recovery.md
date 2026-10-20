@@ -255,7 +255,11 @@ if (action === 'setup') {
     verify(S, state, true);
     check(state.targetUUIDs, 'verified target UUIDs required before cleanup');
     verify(T, state);
+    check(T === 'mongodb_enterprise_tutorial_ch50_recovered' &&
+      db.getSiblingDB(T).getName() === T, 'unexpected recovery target; refuse cleanup');
     check(db.getSiblingDB(T).dropDatabase().ok === 1, 'target cleanup failed');
+    check(S === 'mongodb_enterprise_tutorial_ch50' &&
+      db.getSiblingDB(S).getName() === S, 'unexpected source database; refuse cleanup');
     check(db.getSiblingDB(S).dropDatabase().ok === 1, 'source cleanup failed');
     check(A.dropUser('ch50_dump'), 'user cleanup failed');
     writeNew('/evidence/cleanup50.json', {runId: state.runId, observedAt: new Date(),
