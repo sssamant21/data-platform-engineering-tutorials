@@ -44,7 +44,7 @@ jobs:
           }
           with open("phase4-ci-provenance.json", "w", encoding="utf-8") as out:
               json.dump(payload, out, indent=2)
-              out.write("\\n")
+              out.write("\n")
           PY
       - name: Compile validation scripts
         run: python -m compileall -q mongodb-enterprise/validation
