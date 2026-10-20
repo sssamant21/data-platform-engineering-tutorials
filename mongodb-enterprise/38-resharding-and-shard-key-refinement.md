@@ -536,6 +536,8 @@ if (saved38.globalAutoMerger) sh.startAutoMerger();
 else sh.stopAutoMerger();
 check35(sh.getBalancerState() === saved38.globalBalancer &&
   sh.isAutoMergerEnabled() === saved38.globalAutoMerger, "Effective shared policy not restored");
+check35(lab38.getName() === "mongodb_enterprise_tutorial_ch38",
+        "Refusing cleanup outside the Chapter 38 training database");
 check35(lab38.dropDatabase().ok === 1, "Owned database drop failed");
 check35(lab38.getCollectionNames().length === 0 &&
   catalog38.collections.countDocuments({ _id: { $in: saved38.namespaces } }) === 0 &&
