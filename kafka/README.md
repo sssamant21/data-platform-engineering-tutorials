@@ -103,6 +103,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [038 — Kafka Centralized Logging, Kubernetes Log Pipelines, Audit Events and Incident Forensics](08-monitoring-metrics-observability/038-kafka-centralized-logging-kubernetes-log-pipelines-audit-events-and-incident-forensics.md)
 
+- [039 — Kafka Distributed Tracing, OpenTelemetry, Client Correlation and End-to-End Streaming Observability](08-monitoring-metrics-observability/039-kafka-distributed-tracing-opentelemetry-client-correlation-and-end-to-end-streaming-observability.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
