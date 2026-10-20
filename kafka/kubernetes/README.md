@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–035
+# Kubernetes-first Kafka Lab Platform — Chapters 001–036
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -227,5 +227,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 033 | Consumer tuning: fetch sizing/wait, poll/commit safety, group rebalances, partition parallelism, Kubernetes scaling, lag and recovery |
 | 034 | Broker tuning: request queues, JVM heap/GC, page cache, network/IO threads, PVC IOPS, CPU throttling, ISR and GitOps rollback |
 | 035 | Part 07 capstone: end-to-end producer/broker/consumer benchmarking, capacity acceptance, failure recovery, security gates and GitOps rollback |
+| 036 | Observability foundations: JMX exporter, KRaft/controller and operator metrics, Prometheus discovery, Grafana, alerting, RBAC and cardinality |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
