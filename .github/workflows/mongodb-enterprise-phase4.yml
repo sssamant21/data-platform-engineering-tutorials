@@ -21,6 +21,31 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Capture validation provenance
+        shell: bash
+        run: |
+          python - <<'PY'
+          import datetime
+          import json
+          import os
+          import platform
+          import subprocess
+          payload = {
+              "schema": "mongodb-phase4-ci-provenance-v1",
+              "commit_sha": os.environ["GITHUB_SHA"],
+              "repository": os.environ["GITHUB_REPOSITORY"],
+              "ref": os.environ["GITHUB_REF"],
+              "run_id": os.environ["GITHUB_RUN_ID"],
+              "run_attempt": os.environ["GITHUB_RUN_ATTEMPT"],
+              "python_version": platform.python_version(),
+              "checked_at_utc": datetime.datetime.now(datetime.timezone.utc).isoformat(),
+              "chapter_count_expected": 80,
+              "runtime_certified": False,
+          }
+          with open("phase4-ci-provenance.json", "w", encoding="utf-8") as out:
+              json.dump(payload, out, indent=2)
+              out.write("\\n")
+          PY
       - name: Compile validation scripts
         run: python -m compileall -q mongodb-enterprise/validation
       - name: Run synthetic positive and negative tests
@@ -56,5 +81,6 @@ jobs:
             phase4-ch01-04-contract.json
             phase4-offline-tests.log
             phase4-offline-tests-optimized.log
+            phase4-ci-provenance.json
           if-no-files-found: warn
           retention-days: 30
