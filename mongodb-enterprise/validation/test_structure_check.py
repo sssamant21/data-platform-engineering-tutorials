@@ -79,5 +79,40 @@ class StructureCheckTests(unittest.TestCase):
             result = audit(root)
             self.assertTrue(result["passed"], result["errors"])
 
+
+    def test_mixed_fence_markers_do_not_close(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                text = "# Test\n"
+                if n == 23:
+                    text += "\n```bash\necho unfinished\n~~~\n"
+                (root / f"{n:02d}-synthetic.md").write_text(text, encoding="utf-8")
+            result = audit(root)
+            self.assertFalse(result["passed"])
+            self.assertTrue(any("23-synthetic.md: unbalanced" in e for e in result["errors"]))
+
+    def test_longer_closing_fence_is_accepted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                (root / f"{n:02d}-synthetic.md").write_text(
+                    "# Test\n```bash\necho ok\n````\n", encoding="utf-8"
+                )
+            result = audit(root)
+            self.assertTrue(result["passed"], result["errors"])
+
+    def test_closing_fence_with_text_does_not_close(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                text = "# Test\n"
+                if n == 24:
+                    text += "\n```bash\necho unfinished\n```not-a-close\n"
+                (root / f"{n:02d}-synthetic.md").write_text(text, encoding="utf-8")
+            result = audit(root)
+            self.assertFalse(result["passed"])
+            self.assertTrue(any("24-synthetic.md: unbalanced" in e for e in result["errors"]))
+
 if __name__ == "__main__":
     unittest.main()
