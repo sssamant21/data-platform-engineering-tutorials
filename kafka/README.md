@@ -131,6 +131,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [052 — Kafka Broker Failover, Leader Elections, ISR Recovery and Safe Kubernetes Maintenance](11-high-availability-failover-disaster-recovery/052-kafka-broker-failover-leader-elections-isr-recovery-and-safe-kubernetes-maintenance.md)
 
+- [053 — Kafka Multi-Zone Resilience, Disaster Recovery Architecture, RPO and RTO Engineering](11-high-availability-failover-disaster-recovery/053-kafka-multi-zone-resilience-disaster-recovery-architecture-rpo-and-rto-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
