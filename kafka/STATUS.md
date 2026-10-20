@@ -1,14 +1,14 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 27 / 100  
+**Published:** 28 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
 **Completed part:** 04 — Producers, Consumers and Consumer Groups (5/5 published)  
 **Completed part:** 05 — Storage, Retention, Compaction and Tiered Storage (5/5 published)  
-**Current part:** 06 — Networking, Security, TLS, SASL and ACLs (2/5 published)  
-**Next:** 028 — Kafka SASL Authentication, SCRAM Credentials, OAuth Integration and Kubernetes Identity Operations
+**Current part:** 06 — Networking, Security, TLS, SASL and ACLs (3/5 published)  
+**Next:** 029 — Kafka ACLs, Authorization, Multi-Tenant Isolation and Kubernetes Security Governance
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -39,6 +39,7 @@
 | 025 — Kafka Storage Reliability, Retention, Compaction and Tiered Storage Kubernetes SRE Capstone | Published | Pending | Pending |
 | 026 — Kafka Networking Architecture, Kubernetes Services, Listeners and Broker Connectivity Troubleshooting | Published | Pending | Pending |
 | 027 — Kafka TLS, Certificate Management, Strimzi Listener Encryption and Kubernetes Secret Rotation | Published | Pending | Pending |
+| 028 — Kafka SASL Authentication, SCRAM Credentials, OAuth Integration and Kubernetes Identity Operations | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
