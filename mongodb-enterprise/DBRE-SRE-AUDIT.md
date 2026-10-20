@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — **GitHub Actions L0 CI verified PASS**: [run #68](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/39488289184), commit `545765afbf51dab9301d5637b30413db68b101a5`, job `offline-l0` succeeded. Inspected actual job logs: **29/29 offline tests PASS** under standard Python and **29/29 PASS** under `python -O`; 29 test cases discovered. Workflow steps for the actual 80-chapter structure audit and Chapters 01–04 documentation contract succeeded. Evidence artifact `mongodb-enterprise-phase4-l0` (artifact ID `12294063478`) exists and is unexpired. This is **L0/L1 offline validation**, not a MongoDB live integration test; runtime-certified remains **0/80**. Later commits have not yet been verified by this specific run.
+
+
 - 2026-10-20 — Directly fetched all four current offline test files from the audit branch and counted Python `test_*` method definitions: structure 9, lab preflight 13, Chapter 01–04 documentation contract 4, smoke harness safety 3 = **29 distinct test methods**; no duplicate method names within any file. Confirmed the workflow contains a minimum-29 discovery gate. This is a **source inventory only**, not Python unittest execution or proof of CI success. Runtime-certified 0/80.
 
 
