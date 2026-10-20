@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Independently reran the nine locally reconstructed structure-checker tests under normal Python and `python -O`: 9/9 PASS in each mode (not a verified checkout). Added a CI discovery gate (`9896a7c`) requiring at least 25 offline test cases to be discovered before execution, preventing silent reduction of coverage. The exact 25-test repository run, real-chapter Python checker, and GitHub Actions results remain unverified. Runtime-certified 0/80.
+
+
 - 2026-10-20 — Re-executed the nine locally reconstructed structure-checker unit tests in normal Python and `python -O`: **9/9 PASS in each mode**. These files are not an exact GitHub checkout; complete 25-test CI result is not verified. Added `phase4-ci-provenance.json` to the CI artifact bundle, recording commit SHA, repository, ref, Actions run ID/attempt, Python version, UTC timestamp and runtime-certification false (`64b3abf`, corrected newline `4891324`). This provides provenance **when a future workflow run succeeds or fails**, not proof that one has run. Runtime-certified 0/80.
 
 
