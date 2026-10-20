@@ -137,6 +137,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [055 — Kafka High Availability, Cross-Region Failover and Disaster Recovery Simulation Capstone](11-high-availability-failover-disaster-recovery/055-kafka-high-availability-cross-region-failover-and-disaster-recovery-simulation-capstone.md)
 
+- [056 — Kafka Connect Architecture, Distributed Workers and Connector Lifecycle](12-kafka-connect-cdc-schema-management/056-kafka-connect-architecture-distributed-workers-and-connector-lifecycle.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
