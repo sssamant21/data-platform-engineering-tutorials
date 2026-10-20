@@ -289,6 +289,7 @@ async function main() {
       assert.equal(keys.length, 2, 'unexpected key-vault records');
       assert.ok(keys.some(k => equal(k._id, state.csfleId)) && keys.some(k => equal(k._id, state.qeId)));
       assert.equal(process.env.DISPOSE46, 'owned-fixture-and-keys', 'explicit disposal scope required');
+      assert.equal(lab.databaseName, 'mongodb_enterprise_tutorial_ch46', 'Refusing cleanup outside Chapter 46 database');
       await lab.command({dropUser: 'ch46_app'});
       await lab.dropDatabase();
       fs.renameSync(statePath, 'evidence/state46.disposed.json');
