@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 62 / 100  
+**Published:** 63 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -14,8 +14,8 @@
 **Completed part:** 10 — Troubleshooting and Incident Response (5/5 published)  
 **Completed part:** 11 — High Availability, Failover and Disaster Recovery (5/5 published)  
 **Completed part:** 12 — Kafka Connect, CDC and Schema Management (5/5 published)  
-**Current part:** 13 — Kafka Streams and Stream Processing (2/5 published)  
-**Next:** 063 — Kafka Streams State Stores, RocksDB, Changelog Topics and Fault-Tolerant Recovery
+**Current part:** 13 — Kafka Streams and Stream Processing (3/5 published)  
+**Next:** 064 — Kafka Streams Exactly-Once Processing, Transactions, Rebalancing and Recovery Engineering
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -81,6 +81,7 @@
 | 060 — Kafka Connect, CDC and Schema Management Production Reliability Capstone | Published | Pending | Pending |
 | 061 — Kafka Streams Architecture, Processing Topologies and Stateful Stream Processing | Published | Pending | Pending |
 | 062 — Kafka Streams Stateless Processing, Joins, Aggregations and Event-Time Windows | Published | Pending | Pending |
+| 063 — Kafka Streams State Stores, RocksDB, Changelog Topics and Fault-Tolerant Recovery | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
