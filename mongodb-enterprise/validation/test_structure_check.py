@@ -45,5 +45,17 @@ class StructureCheckTests(unittest.TestCase):
             self.assertTrue(any("03-synthetic.md: unbalanced" in e for e in result["errors"]))
 
 
+    def test_unbalanced_fence_after_heading_is_detected(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                (root / f"{n:02d}-synthetic.md").write_text(
+                    "# Test\n\nContent\n" + ("\n```bash\necho unfinished\n" if n == 17 else ""),
+                    encoding="utf-8",
+                )
+            result = audit(root)
+            self.assertFalse(result["passed"])
+            self.assertTrue(any("17-synthetic.md: unbalanced" in e for e in result["errors"]))
+
 if __name__ == "__main__":
     unittest.main()
