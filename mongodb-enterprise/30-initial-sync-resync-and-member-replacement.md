@@ -379,6 +379,8 @@ waitHealthy30(180000);
 verifyAll30();
 check30(configContract30(db.adminCommand({ replSetGetConfig: 1 }).config) ===
         originalContract30, "Final member contract differs");
+check30(lab30.getName() === "mongodb_enterprise_tutorial_ch30",
+        "Refusing cleanup outside the Chapter 30 training database");
 check30(lab30.dropDatabase().ok === 1, "Chapter database cleanup failed");
 for (const host of hosts30) {
   const d = direct30(host).getDB(name30);
