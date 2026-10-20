@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 49–64: all 16 include versioned baseline information, topology/deployment references, privileges/auth, executable-language code fences, acceptance/verification language, cleanup and recovery/rollback terminology. Fourteen match a generic MongoDB 8.0 text regex; Chapters 61 and 64 explicitly pin **Enterprise 8.0/FCV 8.0**, so these are regex false negatives. Targeted inspection: Chapter 55 requires Chapters 35–40 and 49–54 plus capacity for a two-shard recovery lab; Chapter 60 requires authorized Kubernetes/Ops Manager/PKI/storage and approved controller compatibility; Chapter 61 requires accepted Chapter 60 state and explicitly excludes PVC deletion; Chapter 64 requires an accepted replica-set deployment and pinned PyMongo. These are documentation-presence findings, **not successful live restore, controller deployment, storage continuity or CDC execution**.
+
+
 - 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 33–48: all 16 have explicit topology, privileges/auth, fenced code, assertions/acceptance, cleanup and recovery/rollback terminology. Fifteen match the general `MongoDB 8.0` keyword pattern; Chapter 45 instead explicitly pins **MongoDB Enterprise 8.0** and authorized binaries (false negative, not missing version baseline). Targeted reading: Chapter 38 pins Chapter 35 sharded topology and FCV; Chapter 43 separates retained TLS/SCRAM control from eligible external identity provider integration; Chapter 45 separates local keyfile demonstration from KMIP/production policy; Chapter 48 requires live evidence for accepted security controls and does not claim compliance certification. These are documentation checks only; Enterprise/KMIP/IdP and Kubernetes/live runtime acceptance remain pending.
 
 
