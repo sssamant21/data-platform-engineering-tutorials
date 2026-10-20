@@ -386,7 +386,11 @@ Capture evidence first. These commands affect only this chapter's database:
 check18(items18.countDocuments({}) === 20000, "Fixture unexpectedly changed");
 verify18(100, query18(100, esrName18).toArray());
 verify18(995, query18(995, ersName18).toArray());
-lab18.dropDatabase();
+if (lab18.getName() !== "mongodb_enterprise_tutorial_ch18") {
+  throw new Error("Refusing cleanup outside the Chapter 18 training database");
+}
+const dropResult18 = lab18.dropDatabase();
+check18(dropResult18.ok === 1, "Database cleanup command failed");
 check18(lab18.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
