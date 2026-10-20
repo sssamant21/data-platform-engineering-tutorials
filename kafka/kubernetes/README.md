@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–044
+# Kubernetes-first Kafka Lab Platform — Chapters 001–045
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -236,5 +236,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 042 | SLO alerting: multiwindow fast/medium burn, error-budget math, Prometheus rules, Alertmanager routing, telemetry blind spots and GitOps change gates |
 | 043 | Incident management: Kafka/KRaft triage, on-call escalation, incident command, synthetic client drills, communications, recovery and blameless postmortems |
 | 044 | Toil reduction: Kubernetes read-only CronJobs, RBAC, GitOps safety, SLO and capacity reporting, idempotency, operational readiness and improvement |
+| 045 | Part 09 capstone: enterprise SLO governance, Kafka/KRaft/ISR safety, Alertmanager, incident drills, GitOps gates, readiness assessment and signoff |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
