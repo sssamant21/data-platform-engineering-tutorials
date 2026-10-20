@@ -40,22 +40,28 @@ def run(client, run_id):
                     pass
                 else:
                     raise AssertionError("Duplicate-key negative test failed")
-                assert coll.update_one({"_id": "fixture", "run_id": run_id}, {"$set": {"status": "closed"}}).modified_count == 1
-                assert coll.find_one({"_id": "fixture"})["status"] == "closed"
+                if coll.update_one({"_id": "fixture", "run_id": run_id}, {"$set": {"status": "closed"}}).modified_count != 1:
+                    raise RuntimeError("Chapter 01 update count mismatch")
+                if coll.find_one({"_id": "fixture"})["status"] != "closed":
+                    raise RuntimeError("Chapter 01 readback mismatch")
                 output.append({"chapter": n, "checks": ["insert", "duplicate_key", "update", "read"]})
             elif n == 2:
                 oid = ObjectId()
                 coll.insert_one({"_id": oid, "run_id": run_id, "amount": 3, "enabled": True})
                 created = True
-                assert coll.count_documents({"_id": str(oid)}) == 0
-                assert coll.count_documents({"_id": oid, "enabled": True}) == 1
+                if coll.count_documents({"_id": str(oid)}) != 0:
+                    raise RuntimeError("Chapter 02 string ObjectId unexpectedly matched")
+                if coll.count_documents({"_id": oid, "enabled": True}) != 1:
+                    raise RuntimeError("Chapter 02 BSON lookup mismatch")
                 output.append({"chapter": n, "checks": ["bson_objectid", "string_mismatch", "boolean"]})
             elif n == 3:
                 build = client.admin.command("buildInfo")
-                assert build.get("version")
+                if not build.get("version"):
+                    raise RuntimeError("buildInfo version missing")
                 coll.insert_one({"_id": "sentinel", "run_id": run_id})
                 created = True
-                assert coll.count_documents({"_id": "sentinel", "run_id": run_id}) == 1
+                if coll.count_documents({"_id": "sentinel", "run_id": run_id}) != 1:
+                    raise RuntimeError("Chapter 03 sentinel missing")
                 output.append({"chapter": n, "checks": ["build_info", "bounded_sentinel"],
                                "wiredtiger_metrics": "not_run"})
             else:
@@ -63,7 +69,8 @@ def run(client, run_id):
                 assert build.get("version")
                 coll.insert_one({"_id": "edition", "run_id": run_id})
                 created = True
-                assert coll.count_documents({"run_id": run_id}) == 1
+                if coll.count_documents({"run_id": run_id}) != 1:
+                    raise RuntimeError("Chapter 04 fixture missing")
                 output.append({"chapter": n, "checks": ["build_info", "fixture_read"],
                                "edition_certified": False})
         finally:
