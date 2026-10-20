@@ -312,6 +312,9 @@ Save nonsecret plans/index/options and result identities. Verify restored busine
 ```javascript
 var labName = "mongodb_enterprise_ch77_modeling";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch77_modeling" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 77 database");
+}
 check(lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch77" }) !== null,
       "Ownership missing");
 var restored = lab.tasks.findOne({ tenant: "tenant-3", externalId: "task-3" });
