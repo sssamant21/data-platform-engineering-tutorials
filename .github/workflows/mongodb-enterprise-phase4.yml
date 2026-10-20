@@ -48,6 +48,20 @@ jobs:
           PY
       - name: Compile validation scripts
         run: python -m compileall -q mongodb-enterprise/validation
+      - name: Enforce complete offline test discovery
+        run: |
+          python - <<'PY'
+          import pathlib
+          import sys
+          import unittest
+          directory = pathlib.Path("mongodb-enterprise/validation").resolve()
+          sys.path.insert(0, str(directory))
+          suite = unittest.defaultTestLoader.discover(str(directory), pattern="test_*.py")
+          count = suite.countTestCases()
+          print(f"Discovered offline test cases: {count}; required minimum: 25")
+          if count < 25:
+              raise SystemExit("Offline test discovery incomplete: fewer than 25 cases")
+          PY
       - name: Run synthetic positive and negative tests
         shell: bash
         run: |
