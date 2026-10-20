@@ -370,7 +370,11 @@ if (tenantIndex17 && tenantIndex17.hidden === true) {
 }
 verifyRows17(query17(compoundName17).toArray());
 check17(tasks17.countDocuments({}) === 20000, "Fixture changed");
-lab17.dropDatabase();
+if (lab17.getName() !== "mongodb_enterprise_tutorial_ch17") {
+  throw new Error("Refusing cleanup outside the Chapter 17 training database");
+}
+const dropResult17 = lab17.dropDatabase();
+check17(dropResult17.ok === 1, "Database cleanup command failed");
 check17(lab17.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
