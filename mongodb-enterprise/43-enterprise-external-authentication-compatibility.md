@@ -502,6 +502,8 @@ check43(role.roles.length === 0 && role.privileges.length === 1 &&
   equal43(role.privileges[0].actions, ["find"]), "Control role changed");
 check43(app43.runCommand({ dropUser: "ch43_control" }).ok === 1, "Control user drop failed");
 check43(app43.runCommand({ dropRole: "Ch43ControlReader" }).ok === 1, "Control role drop failed");
+check43(app43.getName() === "mongodb_enterprise_tutorial_ch43",
+  "Refusing cleanup outside Chapter 43 training database");
 check43(app43.dropDatabase().ok === 1, "Scoped data drop failed");
 const afterUsers = app43.runCommand({ usersInfo: 1 });
 const afterRoles = app43.runCommand({ rolesInfo: 1, showBuiltinRoles: false });
