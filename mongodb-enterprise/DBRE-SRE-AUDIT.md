@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — **User-reported live L2 smoke PASS, Chapters 01–04**: disposable `mongodb-dbre-l2-0104`, MongoDB 8.0.32 standalone, localhost port 27039; Chapter 01 preflight exit 0 (`preflight_observed`, tutorial DB absent); `ch01_04_smoke.py` JSON reported `smoke_passed` for CRUD/duplicate-key (01), BSON type checks (02), buildInfo/sentinel (03), and buildInfo/fixture read (04). **Source: user-provided PowerShell JSON; not independently fetched from machine.** Smoke process exit code not supplied. Post-run collection cleanup independently verified: **pending**. WiredTiger metrics: not run; Enterprise edition: not certified. This is partial L2 evidence only; **0/80 runtime-certified**. Local evidence: `$HOME\\mongodb-l2-evidence\\preflight-ch01.json` and `smoke-ch01-04.json` (not committed). 
+
+
 - 2026-10-20 — User approved a **new disposable local Docker container** for Chapters 01–04, explicitly preserving the existing `mongodb-ch05`. The authoring environment lacks Docker and PyMongo, so **no live MongoDB lab was executed**. Added Windows PowerShell L2 runbook (`e05e774`) with separate localhost port 27039, no mounts, independent identity checks, opt-in preflight/smoke, cleanup verification and exact-container teardown. Community MongoDB smoke cannot certify Enterprise-only features. Runtime-certified 0/80.
 
 
