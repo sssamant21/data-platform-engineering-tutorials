@@ -403,7 +403,11 @@ check22(!Object.hasOwn(finalProfile22, "filter"),
         "Capture filter remains; restore before cleanup");
 check22(requests22.countDocuments({}) === 12000, "Fixture changed");
 verify22(request22(runId22 + "-cleanup", "tenant_status_seq"));
-lab22.dropDatabase();
+if (lab22.getName() !== "mongodb_enterprise_tutorial_ch22") {
+  throw new Error("Refusing cleanup outside the Chapter 22 training database");
+}
+const dropResult22 = lab22.dropDatabase();
+check22(dropResult22.ok === 1, "Database cleanup command failed");
 check22(lab22.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
