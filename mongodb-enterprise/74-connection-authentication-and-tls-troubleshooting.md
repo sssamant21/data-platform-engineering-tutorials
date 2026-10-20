@@ -332,6 +332,9 @@ Save nonsecret evidence. Through the independent lifecycle administrator, check 
 ```javascript
 var labName = "mongodb_enterprise_ch74_access";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch74_access" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 74 database");
+}
 var admin = db.getSiblingDB("admin");
 var owner = "mongodb-enterprise-tutorial-ch74";
 if (lab.ownership.findOne({ _id: owner }) === null) throw new Error("Database ownership missing");
