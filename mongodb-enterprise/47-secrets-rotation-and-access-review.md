@@ -235,6 +235,7 @@ if (action47 === 'setup') {
     assert47(rows.length === 2 && rows[0]._id === 'r1' && rows[1]._id === 'r2' &&
       rows[0].owner === owner47 && rows[1].owner === owner47 &&
       rows[0].value === 10 && rows[1].value === 20, 'Unexpected fixture content refused');
+    assert47(lab47.getName() === 'mongodb_enterprise_tutorial_ch47', 'Refusing cleanup outside Chapter 47 database');
     assert47(lab47.dropUser('ch47_reader_b'), 'Successor removal failed');
     assert47(lab47.dropRole(role47), 'Reader role removal failed');
     assert47(lab47.records.drop(), 'Fixture collection removal failed');
