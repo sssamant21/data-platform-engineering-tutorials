@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Improved Phase 4 GitHub Actions evidence collection (`504012a`): the offline unittest step now uses `bash` with `set -o pipefail`, writes complete verbose test output to `phase4-offline-tests.log` via `tee`, and includes that log in the 30-day artifact bundle alongside both JSON reports. This preserves failures without masking test exit status. **Configuration committed, not a verified successful Actions run**; runtime-certified 0/80.
+
+
 - 2026-10-20 — Queried commit `8de1f4762faef8f69d897d90751f482d990a3c1d` for combined commit statuses (empty) and associated workflow runs (empty). The available workflow-run lookup filters PR-triggered runs, so these results **do not prove that the push-triggered Phase 4 workflow ran or succeeded**. CI remains unverified; no Actions run ID, logs or artifacts available for verification. Runtime-certified 0/80.
 
 
