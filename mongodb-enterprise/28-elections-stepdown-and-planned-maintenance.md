@@ -376,7 +376,11 @@ Ensure all services are running and all members are healthy before cleanup. Leav
 waitHealthy28();
 verifyMembers28();
 check28(events28.countDocuments({}) === 3, "Final fixture count mismatch");
-lab28.dropDatabase();
+if (lab28.getName() !== "mongodb_enterprise_tutorial_ch28") {
+  throw new Error("Refusing cleanup outside the Chapter 28 training database");
+}
+const dropResult28 = lab28.dropDatabase();
+if (dropResult28.ok !== 1) throw new Error("Chapter 28 database cleanup failed");
 check28(lab28.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
