@@ -7,10 +7,10 @@ import pathlib
 import re
 import sys
 
-CHAPTER = re.compile(r"^(\\d{2})-.*\\.md$")
-LINK = re.compile(r"(?<!!)\\[[^\\]]*\\]\\(([^)]+)\\)")
-FENCE = re.compile(r"^\\s*```")
-HEADING = re.compile(r"^#{1,6}\\s+\\S", re.M)
+CHAPTER = re.compile(r"^(\d{2})-.*\.md$")
+LINK = re.compile(r"(?<!!)\[[^\]]*\]\(([^)]+)\)")
+FENCE = re.compile(r"^\s*```")
+HEADING = re.compile(r"^#{1,6}\s+\S", re.M)
 
 def audit(root):
     chapters = {}
