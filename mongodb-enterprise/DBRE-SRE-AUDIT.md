@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 13–16: Chapters 13–15 guard chapter database names before collection cleanup; Chapter 13 uses read-only aggregation (no `$merge`/`$out`), Chapter 14 checks source cardinality, and Chapter 15 tests signed/tenant-scoped pagination. Chapter 16 includes transaction abort/uncertain commit handling but previously called `lab16.dropDatabase()` without an immediate namespace guard. **Remediated on audit branch in commit `f5e83a6`:** require exact `mongodb_enterprise_tutorial_ch16` database name and check drop result before proceeding. Runtime transaction and cleanup validation still pending. Detailed command-safety review now 16/80.
+
+
 - 2026-10-19 — Phase 3 detailed command-safety sample Chapters 09–12: manually inspected risky write operations, final assertions and cleanup blocks. All four guard the exact chapter database before dropping enumerated fixtures. Chapter 09 scopes array updates and distinguishes object/array shape failures; Chapter 10 `updateMany` uses a provider ID plus expected version and explicitly notes non-atomic cross-document freshness; Chapter 11 `collMod` migration/rollback requires scoped administration and differentiates warn mode from actual schema enforcement; Chapter 12 `updateMany` filters by typed/absent migration field and verifies counts, ordered/unordered partial bulk outcomes and replay behavior. **Follow-up:** confirm Chapter 11's restoration path on a real training server, and Chapter 12's error/result semantics with pinned server and mongosh versions; neither was executed here. Detailed spot review now covers 12/80 chapters.
 
 
