@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 first observed offline test result: executed a **locally reconstructed copy** of `lab_preflight.validate_inputs` and the nine preflight tests using Python 3.13.5; **9/9 passed**. This is a limited local reconstruction result, **not** a verified checkout of the GitHub revision, GitHub Actions run, full validation suite or MongoDB integration test. GitHub DNS resolution failed from the execution container. Runtime certification remains 0/80.
+
+
 - 2026-10-20 — Phase 4 smoke-test correctness: replaced Python `assert` statements in integration acceptance checks with explicit runtime failures (`0b78384`) so checks remain active under optimized Python (`-O`). Added offline regression invariants (`108260f`). GitHub checkout still cannot resolve github.com in the execution container; **CI execution and full-repository L0 remain unverified**, and no live MongoDB run was performed. Runtime certification 0/80.
 
 
