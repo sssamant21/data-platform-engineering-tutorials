@@ -95,6 +95,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [034 — Kafka Broker Performance Tuning, JVM, Network, Storage and Kubernetes Resource Optimization](07-performance-tuning-benchmarking/034-kafka-broker-performance-tuning-jvm-network-storage-and-kubernetes-resource-optimization.md)
 
+- [035 — Kafka End-to-End Performance Benchmarking, Capacity Acceptance and Kubernetes SRE Capstone](07-performance-tuning-benchmarking/035-kafka-end-to-end-performance-benchmarking-capacity-acceptance-and-kubernetes-sre-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
