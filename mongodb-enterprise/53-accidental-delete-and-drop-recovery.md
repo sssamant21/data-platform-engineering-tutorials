@@ -302,6 +302,7 @@ if (action === 'setup') {
     check(state.phase === 'repaired', 'wrong phase'); printjson(sourceCheck(state, repaired));
   } else if (action === 'drop-incident') {
     check(state.phase === 'repaired', 'wrong phase'); sourceCheck(state, repaired);
+    check(source.getName() === 'mongodb_enterprise_tutorial_ch53', 'unexpected source namespace; refuse incident drop');
     check(source.orders.drop({writeConcern: {w: 1, j: true}}), 'drop failed');
     own(source, state, ['marker'], state.markerUUID); state.phase = 'dropped'; stateWrite(state);
     save('drop-incident53.json', {runId: state.runId, observedAt: new Date(),
@@ -348,6 +349,9 @@ if (action === 'setup') {
     const accepted = EJSON.parse(fs.readFileSync('/evidence/accepted53.json', 'utf8'));
     check(accepted.runId === state.runId, 'acceptance evidence mismatch');
     sourceCheck(state, repaired); candidateCheck(state);
+    check(candidate.getName() === 'mongodb_enterprise_tutorial_ch53_candidate' &&
+      source.getName() === 'mongodb_enterprise_tutorial_ch53',
+      'unexpected owned database names; refuse cleanup');
     check(candidate.dropDatabase().ok === 1, 'candidate cleanup failed');
     check(source.dropDatabase().ok === 1, 'source cleanup failed');
     save('cleanup53.json', {runId: state.runId, observedAt: new Date(), completed: true});
