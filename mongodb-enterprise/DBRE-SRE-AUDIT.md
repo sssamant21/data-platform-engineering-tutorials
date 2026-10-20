@@ -1,7 +1,7 @@
 # MongoDB Enterprise — DBRE/SRE Production-Readiness Audit
 
 > Scope: existing 80 chapters, unchanged numbering and chapter titles.  
-> Audit status: **in progress**. No chapter is runtime-validated by this audit.
+> Phase 3 status: **80/80 static command-safety reviews completed**. Phase 4: validation framework established, **0/80 runtime-certified**. No chapter is runtime-validated by this audit.
 
 ## Acceptance rubric (10 controls)
 
@@ -46,6 +46,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 **Important:** “Partial” means the inspected document contains relevant material but its full 10-control acceptance and runtime evidence have **not** been established. It is not a claim that the chapter is deficient in every listed follow-up area.
 
 ## Change log
+
+- 2026-10-20 — **Phase 4 initiated:** added [validation/README.md](validation/README.md) with L0–L4 evidence levels, preflight/cleanup/approval gates, evidence schema and first 01–04 pilot; added [validation/structure_check.py](validation/structure_check.py), a read-only standard-library checker for 80 chapter files, heading/code-fence balance and local links. Framework commits `c245e85` and `61b0df7`. **Checker not yet executed against a repository checkout; no L0 result claimed. No MongoDB live lab run or runtime certification.**
+
 
 - 2026-10-20 — **Phase 3 detailed command-safety review complete: Chapters 77–80, now 80/80 (100% static review).** Inspected production data modeling/query tuning and guarded state transitions (77), HA failover application-intent ledger and non-forced stepdown (78), isolated backup/restore with acknowledged-loss and two-database reconciliation (79), and final readiness evidence gate and go/no-go ownership (80). **Remediated all four chapters** with exact owned database-name checks before destructive cleanup, including both source and recovery databases in Chapter 79 (commits `a8cf59a`, `b96876f`, `954c058`, `76bb03f`). **Scope caveat:** this is completion of documentation/command-safety static review, **not** runtime lab certification, security sign-off, independent production readiness, or authorization to merge into main. Remaining work: run executable labs on isolated authorized infrastructure; verify backup/PITR and application correctness, TLS/auth and role boundaries, sharded and replica-set failover, Kubernetes storage/upgrade safety, metrics/alerts, CDC and external integrations; capture exact environment versions, logs, evidence and independent reviews; resolve failures and only then consider canonical promotion.
 
