@@ -9,7 +9,6 @@ import argparse
 import json
 import os
 import sys
-import uuid
 
 from lab_preflight import validate_inputs
 
@@ -17,11 +16,12 @@ NAMES = {n: f"mongodb_enterprise_tutorial_ch{n:02d}" for n in range(1, 5)}
 
 def run(client, run_id):
     from bson import ObjectId
-    from pymongo.errors import DuplicateKeyError, WriteError
+    from pymongo.errors import DuplicateKeyError
     output = []
+    existing = set(client.list_database_names())
     for n, name in NAMES.items():
         database = client[name]
-        if name in client.list_database_names() or database.list_collection_names():
+        if name in existing or database.list_collection_names():
             raise RuntimeError(f"Refusing nonempty or preexisting namespace: {name}")
     # Each chapter owns a separate, newly created collection with a unique run marker.
     for n, name in NAMES.items():
