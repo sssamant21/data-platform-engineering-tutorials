@@ -1,13 +1,14 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 24 / 100  
+**Published:** 25 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
 **Completed part:** 04 — Producers, Consumers and Consumer Groups (5/5 published)  
-**Current part:** 05 — Storage, Retention, Compaction and Tiered Storage (4/5 published)  
-**Next:** 025 — Kafka Storage Reliability, Retention, Compaction and Tiered Storage Kubernetes SRE Capstone
+**Completed part:** 05 — Storage, Retention, Compaction and Tiered Storage (5/5 published)  
+**Current part:** 06 — Networking, Security, TLS, SASL and ACLs (0/5 published)  
+**Next:** 026 — Kafka Networking Architecture, Kubernetes Services, Listeners and Broker Connectivity Troubleshooting
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -35,6 +36,7 @@
 | 022 — Kafka Retention Policies, Segment Lifecycle, Storage Capacity and Kubernetes Operational Governance | Published | Pending | Pending |
 | 023 — Kafka Log Compaction, Tombstones, Keyed State Recovery and Kubernetes Reliability | Published | Pending | Pending |
 | 024 — Kafka Tiered Storage, Remote Log Lifecycle, Object Storage Security and Kubernetes Disaster Recovery | Published | Pending | Pending |
+| 025 — Kafka Storage Reliability, Retention, Compaction and Tiered Storage Kubernetes SRE Capstone | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
