@@ -79,8 +79,8 @@ After obtaining authorization for a **disposable** MongoDB endpoint and reviewin
 ```bash
 export MONGODB_LAB_APPROVED=YES
 export MONGODB_LAB_URI='mongodb://127.0.0.1:27017'
-python3 mongodb-enterprise/validation/lab_preflight.py \\
-  --chapter 1 --run-id approved_run_001 \\
+python3 mongodb-enterprise/validation/lab_preflight.py \
+  --chapter 1 --run-id approved_run_001 \
   --allowed-host 127.0.0.1 --output lab-preflight-ch01.json
 ```
 
@@ -98,8 +98,8 @@ After a separate lab approval and manual review:
 export MONGODB_LAB_URI='mongodb://127.0.0.1:27017'
 export MONGODB_LAB_APPROVED=YES
 export MONGODB_LAB_MUTATION_APPROVED=YES
-python3 mongodb-enterprise/validation/ch01_04_smoke.py \\
-  --allowed-host 127.0.0.1 --run-id pilot_20261020 \\
+python3 mongodb-enterprise/validation/ch01_04_smoke.py \
+  --allowed-host 127.0.0.1 --run-id pilot_20261020 \
   --output phase4-ch01-04-smoke.json
 ```
 
