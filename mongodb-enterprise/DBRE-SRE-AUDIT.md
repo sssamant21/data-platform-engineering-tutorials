@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 safety correction: integration smoke pilot now refuses preexisting run-named collections and does not attempt cleanup when fixture insertion did not complete; ownership verification requires exactly one run-marked record (`4076360`). Added three offline smoke-harness safety-invariant tests (`e73f2c5`, cleanup `e40fb2d`). Compared Chapters 01–04 heading/disclaimer contracts against repository content; these appeared aligned, but the checker and CI have **not** been executed. Local git access failed due to DNS resolution. Runtime certification remains 0/80.
+
+
 - 2026-10-20 — Phase 4 Chapter 01–04 isolated integration pilot: published opt-in, mutation-enabled [ch01_04_smoke.py](validation/ch01_04_smoke.py) (`8a38b70`, refinement `ebf06d3`) for disposable loopback standalone only. Preflights all four namespaces before any writes; requires separate lab and mutation approvals; tests bounded CRUD/duplicate-key, BSON identity mismatch, buildInfo/sentinel and build/fixture checks; cleans up only run-owned collections, not databases. Documented limits and manual execution in [validation/README.md](validation/README.md) (`227d237`). **Not executed.** It is not in GitHub Actions and cannot certify full chapter labs. Runtime-certified 0/80.
 
 
