@@ -189,6 +189,7 @@ if (action48 === 'inventory') {
     check48(user48.customData.revision === 'rotated', 'Complete rotation before normal cleanup');
     check48(lab48.getUsers().users.length === 1 &&
       lab48.getRoles({showBuiltinRoles: false}).roles.length === 1, 'Unexpected identities/roles');
+    check48(lab48.getName() === 'mongodb_enterprise_tutorial_ch48', 'Refusing cleanup outside Chapter 48 database');
     check48(lab48.dropUser('ch48_reader'), 'Reader removal failed');
     check48(lab48.dropRole(role48), 'Role removal failed');
     check48(lab48.records.drop(), 'Collection removal failed');
