@@ -19,6 +19,8 @@ class SmokeHarnessSafetyTests(unittest.TestCase):
         self.assertIn('MONGODB_LAB_MUTATION_APPROVED', source)
         self.assertIn('if name in existing or database.list_collection_names():', source)
         self.assertIn('if marker_count == total == 1', source)
+        self.assertNotIn("assert coll.", source)
+        self.assertNotIn("assert build.", source)
 
     def test_reject_non_local_target(self):
         from lab_preflight import validate_inputs
