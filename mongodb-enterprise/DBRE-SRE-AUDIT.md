@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 L0 audit correctness: discovered that the Markdown code-fence regex lacked multiline mode, so it could silently miss unbalanced fences after the first line. Fixed multiline detection (`73dd73a`) and added a regression with an unterminated fence after a chapter heading (`21edc89`). **GitHub Actions execution and real 80-chapter audit result remain unverified**; no MongoDB integration tests executed; runtime certification 0/80.
+
+
 - 2026-10-20 — Phase 4 local offline execution expanded: ran a **reconstructed local suite** containing 9 preflight and 4 Chapters 01–04 contract unit tests using Python 3.13.5: **13 tests passed, 0 failures**. This is not execution of the exact GitHub checkout or all CI tests; actual 80-chapter L0 and GitHub Actions evidence remain unverified. No MongoDB integration was run. Runtime certification remains 0/80.
 
 
