@@ -391,7 +391,11 @@ Capture summaries and selected raw metric groups first. Validate data before dro
 check23(workload23.countDocuments({}) === 8000, "Fixture count changed");
 check23(workload23.countDocuments({ revision: 1 }) === 1000,
         "Updated state changed");
-lab23.dropDatabase();
+if (lab23.getName() !== "mongodb_enterprise_tutorial_ch23") {
+  throw new Error("Refusing cleanup outside the Chapter 23 training database");
+}
+const dropResult23 = lab23.dropDatabase();
+check23(dropResult23.ok === 1, "Database cleanup command failed");
 check23(lab23.getCollectionNames().length === 0, "Cleanup incomplete");
 const afterCleanup23 = snapshot23("after-cleanup");
 printjson({ label: afterCleanup23.label, ...occupancy23(afterCleanup23) });
