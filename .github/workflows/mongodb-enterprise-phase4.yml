@@ -58,9 +58,9 @@ jobs:
           sys.path.insert(0, str(directory))
           suite = unittest.defaultTestLoader.discover(str(directory), pattern="test_*.py")
           count = suite.countTestCases()
-          print(f"Discovered offline test cases: {count}; required minimum: 25")
-          if count < 25:
-              raise SystemExit("Offline test discovery incomplete: fewer than 25 cases")
+          print(f"Discovered offline test cases: {count}; required minimum: 29")
+          if count < 29:
+              raise SystemExit("Offline test discovery incomplete: fewer than 29 cases")
           PY
       - name: Run synthetic positive and negative tests
         shell: bash
