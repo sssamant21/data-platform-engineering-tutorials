@@ -1,0 +1,40 @@
+name: MongoDB Enterprise Phase 4 Offline Validation
+
+on:
+  push:
+    branches:
+      - audit/mongodb-dbre-sre-readiness
+    paths:
+      - 'mongodb-enterprise/**'
+      - '.github/workflows/mongodb-enterprise-phase4.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-l0:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile validation scripts
+        run: python -m compileall -q mongodb-enterprise/validation
+      - name: Run synthetic positive and negative tests
+        run: python -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v
+      - name: Audit all 80 real chapters
+        run: |
+          python mongodb-enterprise/validation/structure_check.py \
+            --root mongodb-enterprise \
+            --output phase4-l0-results.json
+      - name: Upload evidence even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mongodb-enterprise-phase4-l0
+          path: phase4-l0-results.json
+          if-no-files-found: warn
+          retention-days: 30
