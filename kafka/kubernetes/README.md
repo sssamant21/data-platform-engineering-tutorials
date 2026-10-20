@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–032
+# Kubernetes-first Kafka Lab Platform — Chapters 001–033
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -224,5 +224,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 030 | Part 06 security reliability capstone: DNS/listeners, TLS, SASL, ACL tenant isolation, rotation, incident response and SLO acceptance |
 | 031 | Performance fundamentals: producer/consumer benchmarking, throughput and tail latency, partitions, batching, storage and Kubernetes resource saturation |
 | 032 | Producer tuning: batching, linger, compression, idempotence, retries, buffer backpressure, secure listeners and Kubernetes CPU/memory sizing |
+| 033 | Consumer tuning: fetch sizing/wait, poll/commit safety, group rebalances, partition parallelism, Kubernetes scaling, lag and recovery |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
