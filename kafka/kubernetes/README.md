@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–046
+# Kubernetes-first Kafka Lab Platform — Chapters 001–047
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -238,5 +238,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 044 | Toil reduction: Kubernetes read-only CronJobs, RBAC, GitOps safety, SLO and capacity reporting, idempotency, operational readiness and improvement |
 | 045 | Part 09 capstone: enterprise SLO governance, Kafka/KRaft/ISR safety, Alertmanager, incident drills, GitOps gates, readiness assessment and signoff |
 | 046 | Incident triage: Kafka/KRaft quorum, ISR, Strimzi CRs, Kubernetes Pods/PVCs, TLS/networking, producer/consumer evidence and synthetic drills |
+| 047 | Broker/controller failures: KRaft quorum, ISR, Strimzi NodePools, PVC/CSI, disk I/O, replication, producer acknowledgments and safe incident recovery |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
