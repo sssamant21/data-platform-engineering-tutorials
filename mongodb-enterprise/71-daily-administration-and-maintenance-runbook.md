@@ -377,6 +377,9 @@ Save nonsecret evidence, verify the index is restored and document 0 is back to 
 ```javascript
 var labName = "mongodb_enterprise_ch71_maintenance";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch71_maintenance" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 71 database");
+}
 if (lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch71" }) === null) {
   throw new Error("Ownership missing: investigate before cleanup");
 }
