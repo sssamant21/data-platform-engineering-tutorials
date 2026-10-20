@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 Batch 1 preparation (Chapters 01–04): reviewed chapter lab sections and prerequisites; corrected over-escaped regular expressions in the new L0 checker (`5737d69`) so numbered filenames, headings, fences and Markdown links can be recognized. Added synthetic positive/negative standard-library unit tests (`aa822da`) for 80-file success, missing chapter/link rejection and unbalanced fence rejection. **Not yet executed** against an actual repository checkout or MongoDB server. Chapters 01–04 remain **runtime not certified**; next gate is to run tests and capture exit status and real chapter L0 results, then build isolated integration fixtures.
+
+
 - 2026-10-20 — **Phase 4 initiated:** added [validation/README.md](validation/README.md) with L0–L4 evidence levels, preflight/cleanup/approval gates, evidence schema and first 01–04 pilot; added [validation/structure_check.py](validation/structure_check.py), a read-only standard-library checker for 80 chapter files, heading/code-fence balance and local links. Framework commits `c245e85` and `61b0df7`. **Checker not yet executed against a repository checkout; no L0 result claimed. No MongoDB live lab run or runtime certification.**
 
 
