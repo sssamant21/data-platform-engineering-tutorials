@@ -388,6 +388,9 @@ Save nonsecret lab output before cleanup. Connect through the Chapter 42 mongosh
 ```javascript
 var labName = "mongodb_enterprise_ch66_specialized";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch66_specialized" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 66 database");
+}
 if (lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch66" }) === null) {
   throw new Error("Ownership missing: investigate before cleanup");
 }
