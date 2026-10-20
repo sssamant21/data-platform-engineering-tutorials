@@ -139,6 +139,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [056 — Kafka Connect Architecture, Distributed Workers and Connector Lifecycle](12-kafka-connect-cdc-schema-management/056-kafka-connect-architecture-distributed-workers-and-connector-lifecycle.md)
 
+- [057 — Kafka Connect Source and Sink Connectors, Data Movement and Production Reliability](12-kafka-connect-cdc-schema-management/057-kafka-connect-source-and-sink-connectors-data-movement-and-production-reliability.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
