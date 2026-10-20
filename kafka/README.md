@@ -143,6 +143,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [058 — Change Data Capture with Kafka Connect, Debezium and Database Reliability Engineering](12-kafka-connect-cdc-schema-management/058-change-data-capture-kafka-connect-debezium-database-reliability-engineering.md)
 
+- [059 — Kafka Schema Registry, Avro, Protobuf, JSON Schema and Compatibility Engineering](12-kafka-connect-cdc-schema-management/059-kafka-schema-registry-avro-protobuf-json-schema-compatibility-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
