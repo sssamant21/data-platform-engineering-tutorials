@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 65–68: inspected time-series TTL/bucket-aware retention and policy restoration (65), GridFS lifecycle plus capped collection rollover (66), MongoDB-to-Snowflake direct integration and owned schema retirement (67), and JSON/BSON transfer with typed reconciliation and guarded three-database cleanup (68). **Remediated Chapters 66–68** with exact expected owned database-name checks before destructive cleanup (commits `4da8b59`, `fc05fc3`, `798bdfd`). Chapter 65 already checks its exact lab namespace and ownership marker before database drop; no additional code edit required. **Pending:** live TTL timing/bucket behavior, GridFS abort/orphan reconciliation, Snowflake source-to-target identity and failure replay, and migration metadata/type acceptance. Detailed command-safety review now 68/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 61–64: inspected UID-bound Kubernetes eviction with PDB/CSI/identity acceptance (61), staged binary upgrade and separate FCV transition (62), driver pool/deadline/uncertain-write reconciliation (63), and CDC resume/checkpoint/invalidation handling (64). **Remediated Chapter 64:** optional destructive `orders.drop()` now checks exact training database, presence of run-specific marker, chapter identity and matching `RUN64` before deletion (commit `5520100`). Chapters 61–63 already require reviewed ownership and prohibit force eviction/downgrade shortcuts; no concrete command change identified in this static pass. **Pending:** live eviction and storage identity, binary/FCV staged upgrade, client retries/elections, and CDC crash/replay/invalidation evidence. Detailed command-safety review now 64/80.
 
 
