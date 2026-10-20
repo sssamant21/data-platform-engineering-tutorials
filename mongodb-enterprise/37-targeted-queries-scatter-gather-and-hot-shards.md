@@ -454,6 +454,8 @@ if (current37) {
   check35(catalog37.collections.findOne({ _id: ns37 }).noBalance !== true,
           "Collection balancing default not restored");
 }
+check35(lab37.getName() === "mongodb_enterprise_tutorial_ch37",
+        "Refusing cleanup outside the Chapter 37 training database");
 check35(lab37.dropDatabase().ok === 1, "Owned database drop failed");
 check35(lab37.getCollectionNames().length === 0 &&
   !catalog37.collections.findOne({ _id: ns37 }) && catalog37.tags.countDocuments({ ns: ns37 }) === 0,
