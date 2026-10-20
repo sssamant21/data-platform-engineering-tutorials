@@ -135,6 +135,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [054 — Kafka Cross-Cluster Replication, MirrorMaker 2, Offset Synchronization and Disaster Recovery Cutover](11-high-availability-failover-disaster-recovery/054-kafka-cross-cluster-replication-mirrormaker2-offset-synchronization-and-disaster-recovery-cutover.md)
 
+- [055 — Kafka High Availability, Cross-Region Failover and Disaster Recovery Simulation Capstone](11-high-availability-failover-disaster-recovery/055-kafka-high-availability-cross-region-failover-and-disaster-recovery-simulation-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
