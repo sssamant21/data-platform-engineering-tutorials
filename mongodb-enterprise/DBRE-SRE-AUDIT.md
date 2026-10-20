@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 L0 fence parser improved: now tracks opening fence marker, matching character and minimum closing length, including tilde fences (`c91fdaf`); added unequal-length and tilde-fence tests (`71ffe3d`). This corrects a blind spot in simple odd/even counting. Changes are committed but **CI and full-repository audit results are not verified**; no live MongoDB tests. Runtime certification 0/80.
+
+
 - 2026-10-20 — Phase 4 L0 audit correctness: discovered that the Markdown code-fence regex lacked multiline mode, so it could silently miss unbalanced fences after the first line. Fixed multiline detection (`73dd73a`) and added a regression with an unterminated fence after a chapter heading (`21edc89`). **GitHub Actions execution and real 80-chapter audit result remain unverified**; no MongoDB integration tests executed; runtime certification 0/80.
 
 
