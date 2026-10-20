@@ -381,6 +381,8 @@ for (const host of hosts31) check31(finalValid31(readRows31(host)),
                                    "Cleanup blocked by fixture mismatch: " + host);
 check31(EJSON.stringify(db.adminCommand({ replSetGetConfig: 1 }).config) ===
         originalConfig31, "Cleanup blocked by configuration change");
+check31(lab31.getName() === "mongodb_enterprise_tutorial_ch31",
+        "Refusing cleanup outside the Chapter 31 training database");
 check31(lab31.dropDatabase().ok === 1, "Chapter database cleanup failed");
 for (const host of hosts31) {
   const d = direct31(host).getDB(name31);
