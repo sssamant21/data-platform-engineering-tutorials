@@ -442,6 +442,12 @@ Save nonsecret evidence before cleanup. Remove only the owned lab databases thro
 ```javascript
 var names = ["mongodb_enterprise_ch68_source", "mongodb_enterprise_ch68_json",
              "mongodb_enterprise_ch68_bson"];
+var expectedNames = ["mongodb_enterprise_ch68_source", "mongodb_enterprise_ch68_json",
+                     "mongodb_enterprise_ch68_bson"];
+if (names.length !== expectedNames.length ||
+    names.some((name, i) => name !== expectedNames[i])) {
+  throw new Error("Refusing cleanup outside Chapter 68 owned databases");
+}
 for (var name of names) {
   if (db.getSiblingDB(name).ownership.findOne({
     _id: "mongodb-enterprise-tutorial-ch68"
