@@ -29,11 +29,13 @@ jobs:
           set -o pipefail
           python -m unittest discover -s mongodb-enterprise/validation -p 'test_*.py' -v 2>&1 | tee phase4-offline-tests.log
       - name: Audit all 80 real chapters
+        if: success() || failure()
         run: |
           python mongodb-enterprise/validation/structure_check.py \
             --root mongodb-enterprise \
             --output phase4-l0-results.json
       - name: Check Chapters 01–04 documentation contract
+        if: success() || failure()
         run: |
           python mongodb-enterprise/validation/ch01_04_contract.py \
             --root mongodb-enterprise \
