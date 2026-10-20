@@ -364,7 +364,11 @@ End the session after all successful exercises and known aborts:
 ```javascript
 session16.endSession();
 assertState16(90, 60, 1);
-lab16.dropDatabase();
+if (lab16.getName() !== "mongodb_enterprise_tutorial_ch16") {
+  throw new Error("Refusing cleanup outside the Chapter 16 training database");
+}
+const cleanupResult16 = lab16.dropDatabase();
+if (!cleanupResult16.ok) throw new Error("Chapter 16 database cleanup failed");
 ```
 
 If an unexpected commit error occurred, resolve its outcome before cleanup so evidence is not erased. Drop only this named training database.
