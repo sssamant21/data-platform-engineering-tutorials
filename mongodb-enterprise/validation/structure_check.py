@@ -33,7 +33,15 @@ def audit(root):
         content = path.read_text(encoding="utf-8")
         if not HEADING.search(content):
             errors.append(f"{path.name}: no Markdown heading")
-        if len(FENCE.findall(content)) % 2:
+        open_fence = None
+        for fence in FENCE.finditer(content):
+            marker = fence.group(1)
+            tail = fence.group(2)
+            if open_fence is None:
+                open_fence = marker
+            elif marker[0] == open_fence[0] and len(marker) >= len(open_fence) and not tail.strip():
+                open_fence = None
+        if open_fence is not None:
             errors.append(f"{path.name}: unbalanced code fences")
         for target in LINK.findall(content):
             target = target.strip().split("#", 1)[0].split("?", 1)[0]
