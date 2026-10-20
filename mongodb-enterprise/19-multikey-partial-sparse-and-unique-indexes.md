@@ -481,7 +481,11 @@ check19(contacts19.countDocuments({}) === 6, "Unexpected contact count");
 check19(contacts19.findOne({ _id: 5 }).email === "b@example.test",
         "Corrected contact state missing");
 check19(migration19.countDocuments({}) === 3, "Migration state mismatch");
-lab19.dropDatabase();
+if (lab19.getName() !== "mongodb_enterprise_tutorial_ch19") {
+  throw new Error("Refusing cleanup outside the Chapter 19 training database");
+}
+const dropResult19 = lab19.dropDatabase();
+check19(dropResult19.ok === 1, "Database cleanup command failed");
 check19(lab19.getCollectionNames().length === 0, "Cleanup incomplete");
 ```
 
