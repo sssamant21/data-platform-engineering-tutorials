@@ -57,5 +57,27 @@ class StructureCheckTests(unittest.TestCase):
             self.assertFalse(result["passed"])
             self.assertTrue(any("17-synthetic.md: unbalanced" in e for e in result["errors"]))
 
+    def test_mismatched_fence_lengths_fail_closed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                content = "# Test\n"
+                if n == 22:
+                    content += "\n````python\nprint(1)\n```\n"
+                (root / f"{n:02d}-synthetic.md").write_text(content, encoding="utf-8")
+            result = audit(root)
+            self.assertFalse(result["passed"])
+            self.assertTrue(any("22-synthetic.md: unbalanced" in e for e in result["errors"]))
+
+    def test_tilde_fences_can_close(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = pathlib.Path(tmp)
+            for n in range(1, 81):
+                (root / f"{n:02d}-synthetic.md").write_text(
+                    "# Test\n~~~bash\necho ok\n~~~\n", encoding="utf-8"
+                )
+            result = audit(root)
+            self.assertTrue(result["passed"], result["errors"])
+
 if __name__ == "__main__":
     unittest.main()
