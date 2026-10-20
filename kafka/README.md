@@ -79,6 +79,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [026 — Kafka Networking Architecture, Kubernetes Services, Listeners and Broker Connectivity Troubleshooting](06-networking-security-tls-sasl-acls/026-kafka-networking-architecture-kubernetes-services-listeners-and-broker-connectivity-troubleshooting.md)
 
+- [027 — Kafka TLS, Certificate Management, Strimzi Listener Encryption and Kubernetes Secret Rotation](06-networking-security-tls-sasl-acls/027-kafka-tls-certificate-management-strimzi-listener-encryption-and-kubernetes-secret-rotation.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
