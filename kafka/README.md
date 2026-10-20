@@ -153,6 +153,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [063 — Kafka Streams State Stores, RocksDB, Changelog Topics and Fault-Tolerant Recovery](13-kafka-streams-stream-processing/063-kafka-streams-state-stores-rocksdb-changelog-topics-fault-tolerant-recovery.md)
 
+- [064 — Kafka Streams Exactly-Once Processing, Transactions, Rebalancing and Recovery Engineering](13-kafka-streams-stream-processing/064-kafka-streams-exactly-once-processing-transactions-rebalancing-recovery-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
