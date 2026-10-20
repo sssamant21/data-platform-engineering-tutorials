@@ -450,7 +450,14 @@ Acceptance: every acknowledged source test write reaches the inbox, duplicates d
 Perform only after completing the required drills, separately reviewing the fixture retirement and verifying the owner marker matches `RUN64`. Dropping the source destroys lab data and invalidates the collection watch.
 
 ```javascript
-db.getSiblingDB("mongodb_enterprise_tutorial_ch64").orders.drop();
+const owned64 = db.getSiblingDB("mongodb_enterprise_tutorial_ch64");
+const run64 = process.env.RUN64;
+const marker64 = owned64.markers.findOne({_id: "owner"});
+if (owned64.getName() !== "mongodb_enterprise_tutorial_ch64" ||
+    !run64 || !marker64 || marker64.chapter !== 64 || marker64.runId !== run64) {
+  throw new Error("Refusing Chapter 64 lifecycle drop without matching RUN64 ownership");
+}
+if (!owned64.orders.drop()) throw new Error("Chapter 64 lifecycle drop failed");
 ```
 
 Expected: observe lifecycle events and the script's invalidation stop. The script deliberately requires operator review rather than automatically attaching to a replacement collection.
