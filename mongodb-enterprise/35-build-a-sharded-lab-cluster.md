@@ -516,6 +516,8 @@ load("/scripts/lib35.js");
 router35();
 const cleanup35 = db.getSiblingDB("mongodb_enterprise_tutorial_ch35");
 check35(cleanup35.getCollectionNames().every(n => n === "events"), "Unexpected collections; preserve database");
+check35(cleanup35.getName() === "mongodb_enterprise_tutorial_ch35",
+        "Refusing cleanup outside the Chapter 35 training database");
 check35(cleanup35.dropDatabase().ok === 1, "Drop failed");
 check35(cleanup35.getCollectionNames().length === 0, "Namespace cleanup incomplete");
 ```
