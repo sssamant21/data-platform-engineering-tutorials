@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 33–48: all 16 have explicit topology, privileges/auth, fenced code, assertions/acceptance, cleanup and recovery/rollback terminology. Fifteen match the general `MongoDB 8.0` keyword pattern; Chapter 45 instead explicitly pins **MongoDB Enterprise 8.0** and authorized binaries (false negative, not missing version baseline). Targeted reading: Chapter 38 pins Chapter 35 sharded topology and FCV; Chapter 43 separates retained TLS/SCRAM control from eligible external identity provider integration; Chapter 45 separates local keyfile demonstration from KMIP/production policy; Chapter 48 requires live evidence for accepted security controls and does not claim compliance certification. These are documentation checks only; Enterprise/KMIP/IdP and Kubernetes/live runtime acceptance remain pending.
+
+
 - 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 17–32: all 16 contain MongoDB 8.0 baseline, topology and privilege/auth terminology, executable-language fences, verification/acceptance language, cleanup and rollback/recovery/stop terminology. Section scans found explicit prerequisite, failure, troubleshooting and acceptance sections throughout. Targeted document inspection: Chapter 20 bounds TTL/index lifecycle to a training server; Chapter 22 separates core self-managed profiler lab from Atlas-eligible optional query statistics; Chapter 28 uses disposable 3-member rs26 and non-forced stepdown; Chapter 30 requires owned volumes, Chapter 26 setup and healthy topology. **These are documentation presence findings, not code execution or live acceptance.**
 
 
