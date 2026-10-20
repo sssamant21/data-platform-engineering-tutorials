@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Strengthened Phase 4 CI failure diagnostics (`9daa9e8`): the independent 80-chapter structure audit and Chapters 01–04 documentation-contract steps now use `if: success() || failure()` so a failed offline unittest step does not skip both checks. Each check still fails its own step on errors, and artifact upload remains `always()`. **Workflow execution still unverified**; runtime-certified 0/80.
+
+
 - 2026-10-20 — Executed nine locally reconstructed structure-checker regression scenarios in Python via `unittest discover`: **9/9 PASS** (synthetic 80-chapter fixtures, missing chapter/link, unclosed/mismatched/tilde/mixed/longer/trailing-text fences). This is **not** an exact GitHub checkout or proof that the full 25-test repository suite passed; CI result and actual 80-chapter Python audit remain unverified. Runtime-certified 0/80.
 
 
