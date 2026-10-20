@@ -155,6 +155,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [064 — Kafka Streams Exactly-Once Processing, Transactions, Rebalancing and Recovery Engineering](13-kafka-streams-stream-processing/064-kafka-streams-exactly-once-processing-transactions-rebalancing-recovery-engineering.md)
 
+- [065 — Kafka Streams Production Observability, Performance, Failure Recovery and Reliability Acceptance Capstone](13-kafka-streams-stream-processing/065-kafka-streams-production-observability-performance-failure-recovery-reliability-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
