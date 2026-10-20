@@ -508,6 +508,8 @@ check42(role.roles.length === 0 && role.privileges.length === 1 &&
   equal42(role.privileges[0].actions, ["find"]), "Reader role changed");
 check42(external42.runCommand({ dropUser: subject42 }).ok === 1, "External user removal failed");
 check42(app42.runCommand({ dropRole: "Ch42CertificateReader" }).ok === 1, "Role removal failed");
+check42(app42.getName() === "mongodb_enterprise_tutorial_ch42",
+  "Refusing cleanup outside Chapter 42 training database");
 check42(app42.dropDatabase().ok === 1, "Scoped data drop failed");
 const afterUser = external42.runCommand({ usersInfo: { user: subject42, db: "$external" }, showCredentials: false });
 const afterRoles = app42.runCommand({ rolesInfo: 1, showBuiltinRoles: false });
