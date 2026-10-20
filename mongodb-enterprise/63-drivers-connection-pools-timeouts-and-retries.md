@@ -528,4 +528,6 @@ Select documentation matching the pinned driver/server releases; APIs/defaults a
 - [PyMongo CRUD configuration](https://www.mongodb.com/docs/languages/python/pymongo-driver/current/crud/configure/)
 - [Chapter 62 — Rolling Upgrades FCV and Rollback Constraints](62-rolling-upgrades-fcv-and-rollback-constraints.md)
 
-Next: **Chapter 64 — Change Streams Resume Tokens and CDC** (planned).
+Next: **[Chapter 64 — Change Streams Resume Tokens and CDC](64-change-streams-resume-tokens-and-cdc.md)**.
+
+Previous: [Chapter 62 — Rolling Upgrades FCV and Rollback Constraints](62-rolling-upgrades-fcv-and-rollback-constraints.md).
