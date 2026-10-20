@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 4 runbook copy/paste review found four doubled shell-continuation backslashes in the documented `lab_preflight.py` and `ch01_04_smoke.py` commands. Corrected them to single backslashes (`88f8129`) so operators can execute the multi-line examples as intended. This is a documentation fix only; CI run status and live lab execution remain unverified, runtime-certified 0/80.
+
+
 - 2026-10-20 — Phase 4 CI workflow review found the Chapters 01–04 contract step used two literal trailing backslashes on `--root mongodb-enterprise`, unlike the one-backslash shell line continuation needed. Fixed in `.github/workflows/mongodb-enterprise-phase4.yml` (`db2e242`). The workflow is configured to run on audit-branch pushes, but its actual run conclusion and uploaded artifacts have **not been retrieved or verified**. Runtime-certified 0/80.
 
 
