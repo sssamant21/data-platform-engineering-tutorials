@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–021
+# Kubernetes-first Kafka Lab Platform — Chapters 001–022
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -213,5 +213,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 019 | Transactional producers, commit/abort visibility, exactly-once scope and Kubernetes recovery |
 | 020 | Producer/consumer reliability, scaling, transactional isolation and Part 04 acceptance capstone |
 | 021 | Log segments, retention, Strimzi broker PVCs, storage capacity and disk-pressure reliability |
+| 022 | Retention policies, segment lifecycle, replay-window governance and Kubernetes storage capacity |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
