@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–038
+# Kubernetes-first Kafka Lab Platform — Chapters 001–039
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -230,5 +230,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 036 | Observability foundations: JMX exporter, KRaft/controller and operator metrics, Prometheus discovery, Grafana, alerting, RBAC and cardinality |
 | 037 | Advanced Kafka metrics: KRaft quorum, ISR, broker request p99, PromQL, producer/consumer lag and event age, Grafana dashboards and metric correctness |
 | 038 | Centralized logging: Kafka/KRaft/Strimzi logs, Kubernetes collectors, multiline parsing, secure sinks, audit coverage and incident forensics |
+| 039 | OpenTelemetry tracing: Kafka W3C header propagation, producer/consumer spans, collector security, trace/log/metric correlation and event age |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
