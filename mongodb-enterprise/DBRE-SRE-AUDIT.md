@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-19 — Phase 3 detailed command-safety sample Chapters 01–04: inspected exact filenames, section structure, risky command occurrences and cleanup contexts. Chapters 01–03 use chapter-specific databases/collections and explicit namespace guards before `.drop()`, with `docker stop`/`docker rm` scoped to chapter-named optional containers; Chapter 02 explicitly warns not to remove shared training servers. Chapter 03 optional restart evidence is distinguished from required acceptance. Chapter 04 is a deployment comparison lab with no risky command match in this sample. **Finding:** no unguarded broad database drop or `rm -rf` observed in these four chapter texts. This is a manual spot review, not full command semantic proof, actual shell execution or security acceptance. Next review should inspect command dependencies and failure-path cleanup in Chapters 05–08.
+
+
 - 2026-10-19 — Phase 2 prerequisite/lab *presence* scan Chapters 65–80: all 16 have explicit MongoDB 8.0/FCV 8.0 baseline, topology/deployment and privilege/auth references, fenced code, assertions/acceptance, cleanup and recovery/rollback terminology. Targeted inspection: Chapter 69 explicitly leaves live metrics/log/FTDC checks pending; Chapter 70's offline SLO checks do not substitute for deployed monitoring acceptance; Chapter 78 requires a live HA handoff and application reconciliation; Chapter 79 requires isolated live restore and DR acceptance; Chapter 80 explicitly requires runtime evidence from all earlier gates and does not equate writing with production readiness. **Prerequisite/documentation presence scan now covers 80/80 chapters; no live runtime execution performed, no blanket safety or correctness certification implied.** Next phase: detailed semantic prerequisite/command safety audit, offline fixture execution and controlled live labs.
 
 
