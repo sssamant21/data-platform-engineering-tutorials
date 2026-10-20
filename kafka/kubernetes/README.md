@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–065
+# Kubernetes-first Kafka Lab Platform — Chapters 001–066
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -257,5 +257,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 063 | Kafka Streams: RocksDB state stores, changelog/repartition durability, standby tasks, warm/cold restore, ephemeral/PVC storage, compaction, recovery RTO and event integrity |
 | 064 | Kafka Streams: exactly_once_v2, Kafka transactions, producer fencing, read_committed visibility, transactional ACL, coordinator, rebalancing, Kubernetes shutdown and event integrity |
 | 065 | Kafka Streams capstone: production metrics, lag/freshness SLO, RocksDB/changelog restore, event-time joins/windows, EOS-v2 transactions, fault recovery and independent acceptance |
+| 066 | Advanced Strimzi/KRaft: operator reconciliation, KafkaNodePool roles, KRaft quorum, PVCs, TLS/KafkaUser, GitOps source of truth, sync ordering, drift, safe rolling operations |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
