@@ -127,6 +127,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [050 — Kafka Production Incident Response, Recovery, RCA and Troubleshooting Acceptance Capstone](10-troubleshooting-incident-response/050-kafka-production-incident-response-recovery-rca-and-troubleshooting-acceptance-capstone.md)
 
+- [051 — Kafka High Availability Architecture, Failure Domains and Kubernetes Resilience](11-high-availability-failover-disaster-recovery/051-kafka-high-availability-architecture-failure-domains-and-kubernetes-resilience.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
