@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Phase 3 detailed command-safety review Chapters 21–24: inspected explain plan experiments, scoped profiler activation/restoration, WiredTiger metric snapshots and bounded capacity fixtures. Each chapter previously called `labNN.dropDatabase()` without an immediate exact database-name guard; **remediated Chapters 21–24** with namespace checks and successful-drop assertions (commits `879d674`, `8aaa38c`, `7fe33df`, `537be56`). Chapter 22's profiling `try/finally` covers ordinary exceptions, with a saved recovery command for shell termination; actual restoration across interrupted sessions remains untested. Chapters 23–24 explicitly avoid claiming instant cache/volume reclamation after database deletion. **Pending:** live query-plan/profiler restoration and metrics/IOPS acceptance. Detailed command-safety review now 24/80.
+
+
 - 2026-10-20 — Phase 3 detailed command-safety review Chapters 17–20: inspected index creation/removal, uniqueness failure paths, TTL/collMod lifecycle and full cleanup sections. All four chapters previously invoked `labNN.dropDatabase()` without an immediate exact-name check. **Remediated on audit branch:** Chapters 17–20 now require exact `mongodb_enterprise_tutorial_chNN` namespace before database deletion and assert successful drop result (commits `2383569`, `13f5d56`, `bace97f`, `a3689f2`). Chapter 20 explicitly warns that TTL hiding does not suspend expiration and that restoring TTL settings does not recover already deleted data. **Pending:** live index build/plan behavior, TTL asynchronous deletion and index-collMod compatibility, cleanup execution. Detailed command-safety review now 20/80.
 
 
