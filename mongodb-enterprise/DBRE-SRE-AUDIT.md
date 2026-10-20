@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — User approved a **new disposable local Docker container** for Chapters 01–04, explicitly preserving the existing `mongodb-ch05`. The authoring environment lacks Docker and PyMongo, so **no live MongoDB lab was executed**. Added Windows PowerShell L2 runbook (`e05e774`) with separate localhost port 27039, no mounts, independent identity checks, opt-in preflight/smoke, cleanup verification and exact-container teardown. Community MongoDB smoke cannot certify Enterprise-only features. Runtime-certified 0/80.
+
+
 - 2026-10-20 — **GitHub Actions L0 CI verified PASS**: [run #68](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/39488289184), commit `545765afbf51dab9301d5637b30413db68b101a5`, job `offline-l0` succeeded. Inspected actual job logs: **29/29 offline tests PASS** under standard Python and **29/29 PASS** under `python -O`; 29 test cases discovered. Workflow steps for the actual 80-chapter structure audit and Chapters 01–04 documentation contract succeeded. Evidence artifact `mongodb-enterprise-phase4-l0` (artifact ID `12294063478`) exists and is unexpired. This is **L0/L1 offline validation**, not a MongoDB live integration test; runtime-certified remains **0/80**. Later commits have not yet been verified by this specific run.
 
 
