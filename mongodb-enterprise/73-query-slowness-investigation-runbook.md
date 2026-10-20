@@ -328,6 +328,9 @@ Save nonsecret full explain output and relevant live query/trace evidence before
 ```javascript
 var labName = "mongodb_enterprise_ch73_slowness";
 var lab = db.getSiblingDB(labName);
+if (labName !== "mongodb_enterprise_ch73_slowness" || lab.getName() !== labName) {
+  throw new Error("Refusing cleanup outside Chapter 73 database");
+}
 check(lab.ownership.findOne({ _id: "mongodb-enterprise-tutorial-ch73" }) !== null,
       "Ownership missing");
 var index = lab.events.getIndexes().find(x => x.name === "tenant_created_id");
