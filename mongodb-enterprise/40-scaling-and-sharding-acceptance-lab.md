@@ -558,6 +558,8 @@ check35(catalog40.tags.countDocuments({ ns: ns40 }) === 0, "Unexpected owned nam
 check35(sh.enableBalancing(ns40).ok === 1, "Cannot restore collection default");
 check35(db.adminCommand({ configureCollectionBalancing: ns40, enableAutoMerger: true }).ok === 1,
   "Cannot restore collection AutoMerger default");
+check35(lab40.getName() === "mongodb_enterprise_tutorial_ch40",
+        "Refusing cleanup outside the Chapter 40 training database");
 check35(lab40.dropDatabase().ok === 1, "Scoped drop failed");
 check35(!catalog40.collections.findOne({ _id: ns40 }) &&
   catalog40.tags.countDocuments({ ns: ns40 }) === 0, "Catalog cleanup incomplete");
