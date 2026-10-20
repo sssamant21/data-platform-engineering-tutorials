@@ -47,6 +47,9 @@ For each chapter, record **Pass / Partial / Gap / Not applicable / Not yet inspe
 
 ## Change log
 
+- 2026-10-20 — Hardened Chapter 01–04 pilot URI validation (`aa21f60`): requires an explicit valid numeric TCP port and canonical `host:port` authority, rejecting missing/invalid/out-of-range ports, empty userinfo and ambiguous zero-padded ports. Added four regression test methods (`b7d9422`), increasing the expected offline test count from 25 to **29**. New tests and full suite are **not yet executed**; CI and MongoDB runtime remain unverified, runtime-certified 0/80.
+
+
 - 2026-10-20 — Independently reran the nine locally reconstructed structure-checker tests under normal Python and `python -O`: 9/9 PASS in each mode (not a verified checkout). Added a CI discovery gate (`9896a7c`) requiring at least 25 offline test cases to be discovered before execution, preventing silent reduction of coverage. The exact 25-test repository run, real-chapter Python checker, and GitHub Actions results remain unverified. Runtime-certified 0/80.
 
 
