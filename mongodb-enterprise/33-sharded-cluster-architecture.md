@@ -366,6 +366,8 @@ check33(finalEvents33.length === 6 && finalEvents33.every((r, i) =>
 check33(EJSON.stringify(db.adminCommand({ replSetGetConfig: 1 }).config) ===
         originalConfig33, "Replica configuration changed");
 check33(healthy33(db.adminCommand({ replSetGetStatus: 1 })), "Topology not ready");
+check33(lab33.getName() === "mongodb_enterprise_tutorial_ch33",
+        "Refusing cleanup outside the Chapter 33 training database");
 check33(lab33.dropDatabase().ok === 1, "Chapter database cleanup failed");
 for (const host of hosts33) {
   const c = new Mongo("mongodb://" + host + "/?directConnection=true&serverSelectionTimeoutMS=5000");
