@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–054
+# Kubernetes-first Kafka Lab Platform — Chapters 001–055
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -246,5 +246,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 052 | Failover/maintenance: partition leaders, KRaft quorum, ISR recovery, Strimzi rolling safety, PDB, node drain, PVC/CSI and client SLO gates |
 | 053 | Multi-zone and cross-region DR: KRaft/ISR AZ placement, PV/CSI topology, MirrorMaker 2 architecture, RPO/RTO watermarks, writer fencing and cutover tabletop |
 | 054 | Cross-cluster DR: Strimzi MirrorMaker 2, Kafka Connect tasks, topic mapping, per-partition replication watermarks, consumer checkpoints, offset translation, cutover and failback |
+| 055 | Part 11 capstone: primary/secondary KRaft and ISR, multi-AZ/region failure tabletop, MirrorMaker 2, RPO/RTO, writer fencing, DR cutover, failback and acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
