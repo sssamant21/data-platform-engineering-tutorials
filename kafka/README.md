@@ -107,6 +107,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [040 — Kafka Observability, Alerting, SLO Dashboards and Incident Detection SRE Capstone](08-monitoring-metrics-observability/040-kafka-observability-alerting-slo-dashboards-and-incident-detection-sre-capstone.md)
 
+- [041 — Kafka Reliability Engineering, SLIs, SLOs, Error Budgets and Kubernetes Service Ownership](09-sre-slis-slos-reliability/041-kafka-reliability-engineering-slis-slos-error-budgets-and-kubernetes-service-ownership.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
