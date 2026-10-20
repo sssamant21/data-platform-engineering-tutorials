@@ -7,7 +7,7 @@ from lab_preflight import validate_inputs
 class PilotPreflightTests(unittest.TestCase):
     def test_approved_exact_host_and_chapter(self):
         self.assertEqual(
-            validate_inputs("mongodb://lab-mongo.internal:27017", "lab-mongo.internal", 1, "run_12345678"),
+            validate_inputs("mongodb://127.0.0.1:27017", "127.0.0.1", 1, "run_12345678"),
             "mongodb_enterprise_tutorial_ch01",
         )
 
@@ -30,6 +30,18 @@ class PilotPreflightTests(unittest.TestCase):
     def test_reject_unsafe_run_id(self):
         with self.assertRaises(ValueError):
             validate_inputs("mongodb://lab.internal:27017", "lab.internal", 4, "../unsafe")
+
+    def test_reject_remote_endpoint_even_if_allowlisted(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://lab.internal:27017", "lab.internal", 1, "run_12345678")
+
+    def test_reject_uri_query_override(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://127.0.0.1:27017/?tls=false", "127.0.0.1", 1, "run_12345678")
+
+    def test_reject_database_path(self):
+        with self.assertRaises(ValueError):
+            validate_inputs("mongodb://127.0.0.1:27017/admin", "127.0.0.1", 1, "run_12345678")
 
 
 if __name__ == "__main__":
