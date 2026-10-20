@@ -147,6 +147,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [060 — Kafka Connect, CDC and Schema Management Production Reliability Capstone](12-kafka-connect-cdc-schema-management/060-kafka-connect-cdc-schema-management-production-reliability-capstone.md)
 
+- [061 — Kafka Streams Architecture, Processing Topologies and Stateful Stream Processing](13-kafka-streams-stream-processing/061-kafka-streams-architecture-processing-topologies-stateful-stream-processing.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
