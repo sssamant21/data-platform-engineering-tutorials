@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–074
+# Kubernetes-first Kafka Lab Platform — Chapters 001–075
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -266,5 +266,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 072 | Amazon MSK provisioning and operations: broker sizing, Kafka config revisions, RF/minISR, partition placement, storage autoscaling/expansion, broker scaling, version upgrades and EKS client acceptance |
 | 073 | Amazon MSK SRE monitoring: CloudWatch/Open Monitoring, broker CPU/network/disk, ISR/offline partitions, consumer lag, EKS client SLO, alerting, scaling diagnosis and incident response |
 | 074 | Amazon MSK security/DR: IAM/TLS/SCRAM, EKS identity, cross-VPC and cross-account connectivity, replication, consumer offsets, RPO/RTO, failover/failback and production change controls |
+| 075 | Amazon MSK enterprise capstone: EKS connectivity and identity, Kafka RF/minISR, CloudWatch/client SLO, regional replication, RPO/RTO, failover/failback, incident command and independent acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
