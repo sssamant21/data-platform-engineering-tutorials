@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 70 / 100  
+**Published:** 71 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -16,8 +16,8 @@
 **Completed part:** 12 — Kafka Connect, CDC and Schema Management (5/5 published)  
 **Completed part:** 13 — Kafka Streams and Stream Processing (5/5 published)  
 **Completed part:** 14 — Advanced Kubernetes, Strimzi and GitOps (5/5 published)  
-**Current part:** 15 — Amazon MSK and AWS Kafka Operations (0/5 published)  
-**Next:** 071 — Amazon MSK Architecture, Networking, IAM and Production Administration
+**Current part:** 15 — Amazon MSK and AWS Kafka Operations (1/5 published)  
+**Next:** 072 — Amazon MSK Provisioning, Broker Configuration, Storage Scaling and Kafka Cluster Operations
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -91,6 +91,7 @@
 | 068 — Strimzi Kafka Security, Network Policies, TLS, Authentication and Multi-Tenant Isolation | Published | Pending | Pending |
 | 069 — Strimzi GitOps, Argo CD/Flux, Progressive Delivery and Policy-as-Code | Published | Pending | Pending |
 | 070 — Advanced Strimzi GitOps Production Operations and Kubernetes Reliability Acceptance Capstone | Published | Pending | Pending |
+| 071 — Amazon MSK Architecture, Networking, IAM and Production Administration | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
