@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–071
+# Kubernetes-first Kafka Lab Platform — Chapters 001–072
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -263,5 +263,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 069 | Strimzi GitOps: Argo CD/Flux reconciliation, CRD/operator ordering, Git provenance, policy-as-code, drift, staged promotion, prune protection and Kafka-aware rollback |
 | 070 | Advanced Strimzi GitOps capstone: KRaft quorum, broker ISR, KafkaNodePool/PVC, tenant security, Argo/Flux release, policy gates, synthetic client SLO and independent acceptance |
 | 071 | Amazon MSK with EKS clients: provisioned/serverless architecture, VPC/DNS/SG connectivity, IAM/IRSA/Pod Identity, TLS/SCRAM, CloudWatch, capacity and production administration |
+| 072 | Amazon MSK provisioning and operations: broker sizing, Kafka config revisions, RF/minISR, partition placement, storage autoscaling/expansion, broker scaling, version upgrades and EKS client acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
