@@ -177,6 +177,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [075 — Amazon MSK Enterprise SRE Operations, Disaster Recovery and Security Acceptance Capstone](15-amazon-msk-aws-kafka-operations/075-amazon-msk-enterprise-sre-operations-disaster-recovery-security-acceptance-capstone.md)
 
+- [076 — Kafka Infrastructure as Code with Terraform, GitOps and CI/CD Automation](16-automation-terraform-ci-cd/076-kafka-infrastructure-as-code-terraform-gitops-ci-cd-automation.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
