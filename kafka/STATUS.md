@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 66 / 100  
+**Published:** 67 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -15,8 +15,8 @@
 **Completed part:** 11 — High Availability, Failover and Disaster Recovery (5/5 published)  
 **Completed part:** 12 — Kafka Connect, CDC and Schema Management (5/5 published)  
 **Completed part:** 13 — Kafka Streams and Stream Processing (5/5 published)  
-**Current part:** 14 — Advanced Kubernetes, Strimzi and GitOps (1/5 published)  
-**Next:** 067 — Strimzi KafkaNodePools, Scheduling, Storage, Availability and Production Operations
+**Current part:** 14 — Advanced Kubernetes, Strimzi and GitOps (2/5 published)  
+**Next:** 068 — Strimzi Kafka Security, Network Policies, TLS, Authentication and Multi-Tenant Isolation
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -86,6 +86,7 @@
 | 064 — Kafka Streams Exactly-Once Processing, Transactions, Rebalancing and Recovery Engineering | Published | Pending | Pending |
 | 065 — Kafka Streams Production Observability, Performance, Failure Recovery and Reliability Acceptance Capstone | Published | Pending | Pending |
 | 066 — Advanced Kafka on Kubernetes: Strimzi Operator Architecture, KRaft and GitOps Foundations | Published | Pending | Pending |
+| 067 — Strimzi KafkaNodePools, Scheduling, Storage, Availability and Production Operations | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
