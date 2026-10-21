@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 72 / 100  
+**Published:** 73 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -16,8 +16,8 @@
 **Completed part:** 12 — Kafka Connect, CDC and Schema Management (5/5 published)  
 **Completed part:** 13 — Kafka Streams and Stream Processing (5/5 published)  
 **Completed part:** 14 — Advanced Kubernetes, Strimzi and GitOps (5/5 published)  
-**Current part:** 15 — Amazon MSK and AWS Kafka Operations (2/5 published)  
-**Next:** 073 — Amazon MSK Monitoring, Performance, Scaling and SRE Incident Response
+**Current part:** 15 — Amazon MSK and AWS Kafka Operations (3/5 published)  
+**Next:** 074 — Amazon MSK Security, Multi-VPC Connectivity, Disaster Recovery and Production Change Management
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -93,6 +93,7 @@
 | 070 — Advanced Strimzi GitOps Production Operations and Kubernetes Reliability Acceptance Capstone | Published | Pending | Pending |
 | 071 — Amazon MSK Architecture, Networking, IAM and Production Administration | Published | Pending | Pending |
 | 072 — Amazon MSK Provisioning, Broker Configuration, Storage Scaling and Kafka Cluster Operations | Published | Pending | Pending |
+| 073 — Amazon MSK Monitoring, Performance, Scaling and SRE Incident Response | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
