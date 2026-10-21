@@ -161,6 +161,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [067 — Strimzi KafkaNodePools, Scheduling, Storage, Availability and Production Operations](14-advanced-kubernetes-strimzi-gitops/067-strimzi-kafkanodepools-scheduling-storage-availability-production-operations.md)
 
+- [068 — Strimzi Kafka Security, Network Policies, TLS, Authentication and Multi-Tenant Isolation](14-advanced-kubernetes-strimzi-gitops/068-strimzi-kafka-security-network-policies-tls-authentication-multi-tenant-isolation.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
