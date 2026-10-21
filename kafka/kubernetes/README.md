@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–076
+# Kubernetes-first Kafka Lab Platform — Chapters 001–077
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -268,5 +268,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 074 | Amazon MSK security/DR: IAM/TLS/SCRAM, EKS identity, cross-VPC and cross-account connectivity, replication, consumer offsets, RPO/RTO, failover/failback and production change controls |
 | 075 | Amazon MSK enterprise capstone: EKS connectivity and identity, Kafka RF/minISR, CloudWatch/client SLO, regional replication, RPO/RTO, failover/failback, incident command and independent acceptance |
 | 076 | Kafka IaC automation: Terraform AWS/EKS/MSK, GitOps Strimzi CR ownership, remote state, CI validation, policy-as-code, drift, promotion, rollback and authenticated client acceptance |
+| 077 | Kafka CI/CD: GitLab pipelines, Terraform/schema validation, OPA/Kyverno, secret/image/SBOM scanning, GitOps sync, Kafka ISR/client smoke, canary SLO and safe rollback |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
