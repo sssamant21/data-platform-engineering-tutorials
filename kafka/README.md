@@ -179,6 +179,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [076 — Kafka Infrastructure as Code with Terraform, GitOps and CI/CD Automation](16-automation-terraform-ci-cd/076-kafka-infrastructure-as-code-terraform-gitops-ci-cd-automation.md)
 
+- [077 — Kafka CI/CD Pipelines, Policy-as-Code, Security Scanning and Progressive Delivery](16-automation-terraform-ci-cd/077-kafka-ci-cd-pipelines-policy-as-code-security-scanning-progressive-delivery.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
