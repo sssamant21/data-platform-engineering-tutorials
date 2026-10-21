@@ -167,6 +167,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [070 — Advanced Strimzi GitOps Production Operations and Kubernetes Reliability Acceptance Capstone](14-advanced-kubernetes-strimzi-gitops/070-advanced-strimzi-gitops-production-operations-kubernetes-reliability-acceptance-capstone.md)
 
+- [071 — Amazon MSK Architecture, Networking, IAM and Production Administration](15-amazon-msk-aws-kafka-operations/071-amazon-msk-architecture-networking-iam-production-administration.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
