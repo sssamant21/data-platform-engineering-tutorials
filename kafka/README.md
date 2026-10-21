@@ -175,6 +175,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [074 — Amazon MSK Security, Multi-VPC Connectivity, Disaster Recovery and Production Change Management](15-amazon-msk-aws-kafka-operations/074-amazon-msk-security-multi-vpc-connectivity-disaster-recovery-production-change-management.md)
 
+- [075 — Amazon MSK Enterprise SRE Operations, Disaster Recovery and Security Acceptance Capstone](15-amazon-msk-aws-kafka-operations/075-amazon-msk-enterprise-sre-operations-disaster-recovery-security-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
