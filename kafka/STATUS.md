@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 76 / 100  
+**Published:** 77 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -17,8 +17,8 @@
 **Completed part:** 13 — Kafka Streams and Stream Processing (5/5 published)  
 **Completed part:** 14 — Advanced Kubernetes, Strimzi and GitOps (5/5 published)  
 **Completed part:** 15 — Amazon MSK and AWS Kafka Operations (5/5 published)  
-**Current part:** 16 — Automation, Terraform and CI/CD (1/5 published)  
-**Next:** 077 — Kafka CI/CD Pipelines, Policy-as-Code, Security Scanning and Progressive Delivery
+**Current part:** 16 — Automation, Terraform and CI/CD (2/5 published)  
+**Next:** 078 — Kafka GitOps Drift Detection, Automated Reconciliation and Safe Rollback Engineering
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -98,6 +98,7 @@
 | 074 — Amazon MSK Security, Multi-VPC Connectivity, Disaster Recovery and Production Change Management | Published | Pending | Pending |
 | 075 — Amazon MSK Enterprise SRE Operations, Disaster Recovery and Security Acceptance Capstone | Published | Pending | Pending |
 | 076 — Kafka Infrastructure as Code with Terraform, GitOps and CI/CD Automation | Published | Pending | Pending |
+| 077 — Kafka CI/CD Pipelines, Policy-as-Code, Security Scanning and Progressive Delivery | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
