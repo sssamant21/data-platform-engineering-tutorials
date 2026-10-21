@@ -169,6 +169,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [071 — Amazon MSK Architecture, Networking, IAM and Production Administration](15-amazon-msk-aws-kafka-operations/071-amazon-msk-architecture-networking-iam-production-administration.md)
 
+- [072 — Amazon MSK Provisioning, Broker Configuration, Storage Scaling and Kafka Cluster Operations](15-amazon-msk-aws-kafka-operations/072-amazon-msk-provisioning-broker-configuration-storage-scaling-cluster-operations.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
