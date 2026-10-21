@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–069
+# Kubernetes-first Kafka Lab Platform — Chapters 001–070
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -261,5 +261,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 067 | KafkaNodePool operations: controller/broker roles, scheduling, affinity, rack/zone spread, PVC/storage performance, PDB, scaling, safe rolling maintenance and quorum/ISR |
 | 068 | Strimzi security: TLS/SASL/OAuth, KafkaUser topic/group/TransactionalId ACLs, NetworkPolicy, Kubernetes RBAC, secrets rotation, tenant quotas and negative authorization tests |
 | 069 | Strimzi GitOps: Argo CD/Flux reconciliation, CRD/operator ordering, Git provenance, policy-as-code, drift, staged promotion, prune protection and Kafka-aware rollback |
+| 070 | Advanced Strimzi GitOps capstone: KRaft quorum, broker ISR, KafkaNodePool/PVC, tenant security, Argo/Flux release, policy gates, synthetic client SLO and independent acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
