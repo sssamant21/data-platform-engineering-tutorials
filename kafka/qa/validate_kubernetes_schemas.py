@@ -61,7 +61,7 @@ def main() -> int:
                         else:
                             candidate = Path(temp) / f"candidate-{len(results):04d}.yaml"
                             candidate.write_text(body + "\n", encoding="utf-8")
-                            command = (["docker", "run", "--rm", "--network", "none", "--read-only",
+                            command = (["docker", "run", "--rm", "--read-only",
                                         "--mount", f"type=bind,source={candidate},target=/manifest.yaml,readonly",
                                         "ghcr.io/yannh/kubeconform:latest", "-strict", "-summary", "-output", "json",
                                         "-kubernetes-version", args.kubernetes_version, "/manifest.yaml"]
