@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 90 / 100  
+**Published:** 91 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -20,8 +20,8 @@
 **Completed part:** 16 — Automation, Terraform and CI/CD (5/5 published)  
 **Completed part:** 17 — Capacity Planning, Performance and FinOps (5/5 published)  
 **Completed part:** 18 — Security, Governance and Compliance (5/5 published)  
-**Current part:** 19 — Chaos Engineering and Resilience Validation (0/5 published)  
-**Next:** 091 — Kafka Chaos Engineering Foundations, Failure Injection Safety and Game Day Design
+**Current part:** 19 — Chaos Engineering and Resilience Validation (1/5 published)  
+**Next:** 092 — Kafka Broker, Partition and KRaft Failure Injection and Recovery Engineering
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -115,6 +115,7 @@
 | 088 — Kafka Data Governance, Privacy, Retention and Compliance Engineering | Published | Pending | Pending |
 | 089 — Kafka Security Observability, Threat Detection and Incident Response Automation | Published | Pending | Pending |
 | 090 — Kafka Enterprise Security, Governance and Compliance Acceptance Capstone | Published | Pending | Pending |
+| 091 — Kafka Chaos Engineering Foundations, Failure Injection Safety and Game Day Design | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
