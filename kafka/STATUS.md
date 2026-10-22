@@ -163,3 +163,11 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Progress:** 107/120 published (89.17%); 13 remaining. Part 21: 7/10.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 108 — Azure Kafka HA, Availability Zones, Backup and DR.
+
+
+## Chapter 108 publication update — 2026-10-22
+
+- **Chapter 108:** Azure Kafka HA, Availability Zones, Backup and DR — published.
+- **Progress:** 108/120 published (90%); 12 remaining. Part 21: 8/10.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 109 — Azure Kafka Incident Response, Security and Upgrade Operations.
