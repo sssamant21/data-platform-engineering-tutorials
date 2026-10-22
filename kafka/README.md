@@ -205,6 +205,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [089 — Kafka Security Observability, Threat Detection and Incident Response Automation](18-security-governance-compliance/089-kafka-security-observability-threat-detection-incident-response-automation.md)
 
+- [090 — Kafka Enterprise Security, Governance and Compliance Acceptance Capstone](18-security-governance-compliance/090-kafka-enterprise-security-governance-compliance-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
