@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–094
+# Kubernetes-first Kafka Lab Platform — Chapters 001–095
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -286,5 +286,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 092 | Kafka broker/partition/KRaft chaos: leader election, ISR/minISR, replica catch-up, controller quorum, Strimzi recovery, broker disk/network faults, acknowledged event ledger and safe rollback |
 | 093 | Kafka network/storage/AZ chaos: client/broker latency and packet loss, DNS, EBS/PVC throttling, volume topology, AZ survivability, RF/minISR, KRaft quorum and safe recovery |
 | 094 | Kafka streaming pipeline chaos: producer acknowledgements/idempotence, consumer rebalances, Kafka Connect/CDC failures, schema/DLQ, sink backpressure, streaming state and end-to-end event reconciliation |
+| 095 | Kafka enterprise chaos capstone: integrated broker/KRaft, ISR/minISR, network/storage/AZ, producer/consumer/Connect/CDC correctness, game-day command, recovery and independent reliability acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
