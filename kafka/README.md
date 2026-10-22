@@ -251,6 +251,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [110 — Azure Kafka Enterprise Production Capstone and Acceptance](21-azure-kafka-engineering-sre/110-azure-kafka-enterprise-production-capstone-acceptance.md)
 
+- [111 — Google Cloud Kafka Architecture: GKE + Strimzi vs Managed Service for Apache Kafka](22-google-cloud-kafka-engineering-sre/111-google-cloud-kafka-architecture-gke-strimzi-vs-managed-service.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
