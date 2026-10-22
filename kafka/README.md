@@ -199,6 +199,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [086 — Kafka Enterprise Security Architecture, Zero Trust and Governance Controls](18-security-governance-compliance/086-kafka-enterprise-security-architecture-zero-trust-governance-controls.md)
 
+- [087 — Kafka Identity, Access Management, Secrets and Certificate Lifecycle Engineering](18-security-governance-compliance/087-kafka-identity-access-management-secrets-certificate-lifecycle-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
