@@ -206,3 +206,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 2/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 113 — Google Cloud Kafka IAM, TLS, Authentication, ACL and Secrets.
+
+
+## Chapter 113 publication update — 2026-10-22
+
+- **Chapter 113:** Google Cloud Kafka IAM, TLS, Authentication, ACL and Secrets — published.
+- **Progress:** 113/120 published (94.17%); 7 remaining.
+- **Part 22 — Google Cloud Kafka:** 3/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 114 — Google Cloud Managed Service for Apache Kafka Operations and Compatibility.
