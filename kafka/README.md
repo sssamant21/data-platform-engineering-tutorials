@@ -237,6 +237,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [103 — Azure Kafka Identity, Entra ID, TLS, SASL, ACL and Secrets](21-azure-kafka-engineering-sre/103-azure-kafka-identity-entra-id-tls-sasl-acl-secrets.md)
 
+- [104 — Azure Event Hubs Kafka Compatibility, Limits and Client Migration](21-azure-kafka-engineering-sre/104-azure-event-hubs-kafka-compatibility-limits-client-migration.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
