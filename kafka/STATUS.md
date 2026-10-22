@@ -224,3 +224,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 4/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 115 — Google Cloud Kafka Producers, Consumers, Topics and Data Pipelines.
+
+
+## Chapter 115 publication update — 2026-10-22
+
+- **Chapter 115:** Google Cloud Kafka Producers, Consumers, Topics and Data Pipelines — published.
+- **Progress:** 115/120 published (95.83%); 5 remaining.
+- **Part 22 — Google Cloud Kafka:** 5/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 116 — Google Cloud Kafka Observability, Cloud Monitoring, Prometheus and SLOs.
