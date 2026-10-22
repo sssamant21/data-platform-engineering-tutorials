@@ -215,6 +215,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [094 — Kafka Producer, Consumer, Kafka Connect and Streaming Pipeline Chaos Engineering](19-chaos-engineering-resilience-validation/094-kafka-producer-consumer-connect-streaming-pipeline-chaos-engineering.md)
 
+- [095 — Kafka Enterprise Chaos Engineering, Resilience Game Day and Reliability Acceptance Capstone](19-chaos-engineering-resilience-validation/095-kafka-enterprise-chaos-engineering-resilience-game-day-reliability-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
