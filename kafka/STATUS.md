@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 120 chapters  
-**Published:** 104 / 120  
+**Published:** 120 / 120 (documentation publication; repository-wide QA pending)  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -22,7 +22,7 @@
 **Completed part:** 18 — Security, Governance and Compliance (5/5 published)  
 **Completed part:** 19 — Chaos Engineering and Resilience Validation (5/5 published)  
 **Completed part:** 20 — Final Enterprise SRE Capstone (5/5 published)  
-**Current part:** 21 — Microsoft Azure Kafka Engineering & SRE (4/10 published)  
+**Completed part:** 21 — Microsoft Azure Kafka Engineering & SRE (10/10 published)  
 **Planned part:** 22 — Google Cloud Kafka Engineering & SRE (0/10 published)  
 **Next:** 105 — Azure Kafka Producers, Consumers, Topics and Data Pipelines  
 **Cloud roadmap:** [CLOUD-EXPANSION-ROADMAP.md](CLOUD-EXPANSION-ROADMAP.md)  
