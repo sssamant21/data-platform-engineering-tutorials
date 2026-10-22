@@ -263,6 +263,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [116 — Google Cloud Kafka Observability, Cloud Monitoring, Prometheus and SLOs](22-google-cloud-kafka-engineering-sre/116-google-cloud-kafka-observability-cloud-monitoring-prometheus-slos.md)
 
+- [117 — Google Cloud Kafka Performance, Capacity, Storage and FinOps](22-google-cloud-kafka-engineering-sre/117-google-cloud-kafka-performance-capacity-storage-finops.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
