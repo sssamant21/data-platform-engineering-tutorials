@@ -269,6 +269,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [119 — Google Cloud Kafka Incident Response, Security and Upgrade Operations](22-google-cloud-kafka-engineering-sre/119-google-cloud-kafka-incident-response-security-upgrade-operations.md)
 
+- [120 — Google Cloud Kafka Enterprise Production Capstone and Acceptance](22-google-cloud-kafka-engineering-sre/120-google-cloud-kafka-enterprise-production-capstone-acceptance.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
