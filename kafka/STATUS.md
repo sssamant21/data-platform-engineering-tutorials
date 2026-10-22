@@ -188,3 +188,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 21 — Azure Kafka:** 10/10 chapters published (content-complete).
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 111 — Google Cloud Kafka Architecture: GKE + Strimzi vs Managed Service for Apache Kafka.
+
+
+## Chapter 111 publication update — 2026-10-22
+
+- **Chapter 111:** Google Cloud Kafka Architecture: GKE + Strimzi vs Managed Service for Apache Kafka — published.
+- **Progress:** 111/120 published (92.5%); 9 remaining.
+- **Part 22 — Google Cloud Kafka:** 1/10 chapters published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 112 — Provision GKE, Networking, Storage and Strimzi KRaft.
