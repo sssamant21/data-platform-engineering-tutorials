@@ -1,10 +1,10 @@
 # Apache Kafka Administration, SRE & Platform Engineering
 
-A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DBREs and platform engineers. Labs target modern KRaft-based Kafka; commands must be tested in isolated environments before production use.
+A 120-chapter, production-oriented curriculum for Kafka administrators, SREs, DBREs and platform engineers. Labs target modern KRaft-based Kafka; commands must be tested in isolated environments before production use.
 
 ## Kubernetes-first curriculum standard
 
-**Required for every chapter (001–100):** Kubernetes is the primary execution environment. Deploy and administer Apache Kafka in KRaft mode with the Strimzi Operator and Kubernetes custom resources. Use `kubectl`, Kubernetes manifests, Pods, Services, PVCs, StorageClasses, NetworkPolicies, Secrets, and operator-managed rolling operations for the main labs. Local clusters may use kind/minikube; cloud examples should prioritize Amazon EKS and explain AKS/GKE differences where relevant. Prefer supported Strimzi/Kafka version combinations and check the release-specific CRD schema. Production labs require RBAC, TLS/authentication, capacity planning, monitoring, backup and safe rollback. Docker Compose is optional legacy/reference material only, **not** the primary lab platform.
+**Required for every chapter (001–120):** Kubernetes is the primary execution environment. Deploy and administer Apache Kafka in KRaft mode with the Strimzi Operator and Kubernetes custom resources. Use `kubectl`, Kubernetes manifests, Pods, Services, PVCs, StorageClasses, NetworkPolicies, Secrets, and operator-managed rolling operations for the main labs. Local clusters may use kind/minikube; cloud examples should prioritize Amazon EKS and explain AKS/GKE differences where relevant. Prefer supported Strimzi/Kafka version combinations and check the release-specific CRD schema. Production labs require RBAC, TLS/authentication, capacity planning, monitoring, backup and safe rollback. Docker Compose is optional legacy/reference material only, **not** the primary lab platform.
 
 **Migration status:** Chapters 001–009 now include Kubernetes-first Strimzi lab sections and link to the [shared Kubernetes lab foundation](kubernetes/README.md). Their original Docker Compose sections remain marked as superseded historical references; complete replacement/removal of those sections and live validation are pending. Chapter 010 onward must be Kubernetes-native from initial publication. Publication, live lab execution, security review and Kubernetes compliance are separate statuses.
 
@@ -226,6 +226,10 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 - [099 — Kafka Enterprise Reliability Validation, Chaos Game Day, Performance and Disaster Recovery Acceptance](20-final-enterprise-sre-capstone/099-kafka-enterprise-reliability-validation-chaos-game-day-performance-disaster-recovery-acceptance.md)
 
 - [100 — Kafka Enterprise SRE Final Assessment, Production Readiness and Operational Certification Capstone](20-final-enterprise-sre-capstone/100-kafka-enterprise-sre-final-assessment-production-readiness-operational-certification-capstone.md)
+
+## Multi-cloud expansion — Chapters 101–120
+
+The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure Kafka** and **Part 22 (111–120): Google Cloud Kafka** are planned, with publication and live validation tracked separately. See [Cloud Expansion Roadmap](CLOUD-EXPANSION-ROADMAP.md) for all 20 chapter titles, architecture choices and quality gates.
 
 ## Chapter quality standard
 
