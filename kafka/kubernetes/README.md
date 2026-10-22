@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–098
+# Kubernetes-first Kafka Lab Platform — Chapters 001–099
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -290,5 +290,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 096 | Kafka enterprise SRE architecture capstone: KRaft/Strimzi/EKS topology, RF/minISR, private networking, identity/ACL, data governance, Connect/CDC, SLO, DR, GitOps, capacity/FinOps and readiness acceptance |
 | 097 | Kafka enterprise platform build: EKS/Strimzi KRaft controllers/brokers, Kafka CRs/topics/users, TLS/ACL, GitOps, synthetic producer/consumer, Connect/CDC, observability and end-to-end smoke reconciliation |
 | 098 | Kafka enterprise SRE operations: incident command, KRaft/ISR recovery, producer/consumer/Connect correctness, backup/restore, AZ/region DR, Kafka/Strimzi/EKS upgrades, RPO/RTO and RCA acceptance |
+| 099 | Kafka enterprise reliability acceptance: performance/soak, broker/KRaft/ISR chaos, network/storage/AZ resilience, producer/consumer/Connect correctness, clean-room restore, cross-region DR and independent SLO/RPO/RTO gates |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
