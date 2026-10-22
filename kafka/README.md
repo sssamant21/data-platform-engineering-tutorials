@@ -219,6 +219,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [096 — Kafka Enterprise SRE Capstone Architecture, Requirements and Production Readiness](20-final-enterprise-sre-capstone/096-kafka-enterprise-sre-capstone-architecture-requirements-production-readiness.md)
 
+- [097 — Kafka Enterprise Platform Build, GitOps Deployment and End-to-End Streaming Implementation](20-final-enterprise-sre-capstone/097-kafka-enterprise-platform-build-gitops-deployment-end-to-end-streaming-implementation.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
