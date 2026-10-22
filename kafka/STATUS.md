@@ -242,3 +242,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 6/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 117 — Google Cloud Kafka Performance, Capacity, Storage and FinOps.
+
+
+## Chapter 117 publication update — 2026-10-22
+
+- **Chapter 117:** Google Cloud Kafka Performance, Capacity, Storage and FinOps — published.
+- **Progress:** 117/120 published (97.5%); 3 remaining.
+- **Part 22 — Google Cloud Kafka:** 7/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 118 — Google Cloud Kafka HA, Zones, Backup and DR.
