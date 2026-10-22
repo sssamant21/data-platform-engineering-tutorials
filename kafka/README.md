@@ -245,6 +245,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [107 — Azure Kafka Performance, Capacity, Disk and FinOps](21-azure-kafka-engineering-sre/107-azure-kafka-performance-capacity-disk-finops.md)
 
+- [108 — Azure Kafka HA, Availability Zones, Backup and DR](21-azure-kafka-engineering-sre/108-azure-kafka-ha-availability-zones-backup-dr.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
