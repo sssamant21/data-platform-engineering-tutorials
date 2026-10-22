@@ -1,6 +1,6 @@
 # Kafka Multi-Cloud Expansion Roadmap — Chapters 101–120
 
-**Original curriculum:** 001–100 published. **Expanded target:** 120. **Cloud expansion status:** planned, not published unless explicitly listed in STATUS.md. **Live labs/security review:** pending.
+**Original curriculum:** 001–100 published. **Expanded target:** 120. **Cloud expansion publication status:** Chapters 101–120 published; repository-wide file/link verification and live validation pending. **Live labs/security review:** pending.
 
 ## Part 21 — Microsoft Azure Kafka Engineering & SRE (101–110)
 
