@@ -155,3 +155,11 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Progress:** 106/120 published (88.33%); 14 remaining. Part 21: 6/10.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 107 — Azure Kafka Performance, Capacity, Disk and FinOps.
+
+
+## Chapter 107 publication update — 2026-10-22
+
+- **Chapter 107:** Azure Kafka Performance, Capacity, Disk and FinOps — published.
+- **Progress:** 107/120 published (89.17%); 13 remaining. Part 21: 7/10.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 108 — Azure Kafka HA, Availability Zones, Backup and DR.
