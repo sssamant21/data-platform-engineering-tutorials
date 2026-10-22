@@ -27,12 +27,13 @@ def main() -> int:
     p.add_argument("--root", type=Path, default=Path("kafka"))
     p.add_argument("--output", type=Path, default=Path("kafka/qa/evidence/kubernetes-schema-audit.json"))
     p.add_argument("--kubernetes-version", default="1.31.0")
+    p.add_argument("--docker", action="store_true", help="Run kubeconform in Docker instead of local binary")
     args = p.parse_args()
     if yaml is None:
         print("PyYAML required", file=sys.stderr)
         return 2
-    if not shutil.which("kubeconform"):
-        print("kubeconform not found; install and add to PATH. No schemas were checked.", file=sys.stderr)
+    if not shutil.which("docker" if args.docker else "kubeconform"):
+        print("Required Docker or kubeconform executable not found. No schemas were checked.", file=sys.stderr)
         return 2
     results = []
     with tempfile.TemporaryDirectory(prefix="kafka-k8s-schema-") as temp:
@@ -60,9 +61,15 @@ def main() -> int:
                         else:
                             candidate = Path(temp) / f"candidate-{len(results):04d}.yaml"
                             candidate.write_text(body + "\n", encoding="utf-8")
+                            command = (["docker", "run", "--rm", "--network", "none", "--read-only",
+                                        "--mount", f"type=bind,source={candidate},target=/manifest.yaml,readonly",
+                                        "ghcr.io/yannh/kubeconform:latest", "-strict", "-summary", "-output", "json",
+                                        "-kubernetes-version", args.kubernetes_version, "/manifest.yaml"]
+                                       if args.docker else
+                                       ["kubeconform", "-strict", "-summary", "-output", "json",
+                                        "-kubernetes-version", args.kubernetes_version, str(candidate)])
                             proc = subprocess.run(
-                                ["kubeconform", "-strict", "-summary", "-output", "json",
-                                 "-kubernetes-version", args.kubernetes_version, str(candidate)],
+                                command,
                                 stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, timeout=45)
                             entry["status"] = "PASS" if proc.returncode == 0 else "FAIL"
                             entry["detail"] = (proc.stdout + proc.stderr)[-3000:]
