@@ -215,3 +215,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 3/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 114 — Google Cloud Managed Service for Apache Kafka Operations and Compatibility.
+
+
+## Chapter 114 publication update — 2026-10-22
+
+- **Chapter 114:** Google Cloud Managed Service for Apache Kafka Operations and Compatibility — published.
+- **Progress:** 114/120 published (95%); 6 remaining.
+- **Part 22 — Google Cloud Kafka:** 4/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 115 — Google Cloud Kafka Producers, Consumers, Topics and Data Pipelines.
