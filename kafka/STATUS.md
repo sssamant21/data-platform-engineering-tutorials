@@ -179,3 +179,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Progress:** 109/120 published (90.83%); 11 remaining. Part 21: 9/10.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 110 — Azure Kafka Enterprise Production Capstone and Acceptance.
+
+
+## Chapter 110 publication update — 2026-10-22
+
+- **Chapter 110:** Azure Kafka Enterprise Production Capstone and Acceptance — published.
+- **Progress:** 110/120 published (91.67%); 10 remaining.
+- **Part 21 — Azure Kafka:** 10/10 chapters published (content-complete).
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 111 — Google Cloud Kafka Architecture: GKE + Strimzi vs Managed Service for Apache Kafka.
