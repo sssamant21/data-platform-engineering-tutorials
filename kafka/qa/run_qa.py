@@ -31,7 +31,7 @@ def run(label: str, script: str, extra: list[str]) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", choices=["static", "shell", "report", "kubernetes", "all-static"], default="static")
+    parser.add_argument("--stage", choices=["static", "shell", "report", "kubernetes", "all-static", "strimzi"], default="static")
     parser.add_argument("--no-shell", action="store_true", help="Skip Docker ShellCheck")
     args = parser.parse_args()
     EVIDENCE.mkdir(parents=True, exist_ok=True)
@@ -73,6 +73,10 @@ def main() -> int:
                 item["status"] = "PASS_WITH_REVIEW" if counts.get("REVIEW", 0) else "PASS"
             except (OSError, KeyError, ValueError):
                 item["status"] = "UNKNOWN"
+    if args.stage in ("strimzi", "all-static"):
+        results.append(run("strimzi-crd", "validate_strimzi_crds.py",
+                           ["--root", str(ROOT), "--output", str(EVIDENCE / "strimzi-schema-audit.json"),
+                            "--cache", str(EVIDENCE / "schema-cache")]))
     summary = {"generated_at_utc": datetime.now(timezone.utc).isoformat(),
                "scope": "Offline/static only. No Kubernetes/Kafka runtime lab certification.",
                "stages": results}
