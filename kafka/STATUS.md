@@ -197,3 +197,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 1/10 chapters published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 112 — Provision GKE, Networking, Storage and Strimzi KRaft.
+
+
+## Chapter 112 publication update — 2026-10-22
+
+- **Chapter 112:** Provision GKE, Networking, Storage and Strimzi KRaft — published.
+- **Progress:** 112/120 published (93.33%); 8 remaining.
+- **Part 22 — Google Cloud Kafka:** 2/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 113 — Google Cloud Kafka IAM, TLS, Authentication, ACL and Secrets.
