@@ -209,6 +209,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [091 — Kafka Chaos Engineering Foundations, Failure Injection Safety and Game Day Design](19-chaos-engineering-resilience-validation/091-kafka-chaos-engineering-foundations-failure-injection-safety-game-day-design.md)
 
+- [092 — Kafka Broker, Partition and KRaft Failure Injection and Recovery Engineering](19-chaos-engineering-resilience-validation/092-kafka-broker-partition-kraft-failure-injection-recovery-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
