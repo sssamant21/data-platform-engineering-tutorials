@@ -59,6 +59,20 @@ def main() -> int:
                            ["--root", str(ROOT), "--output", str(EVIDENCE / "kubernetes-manifest-audit.json")]))
         results.append(run("kubernetes-schema", "validate_kubernetes_schemas.py",
                            ["--root", str(ROOT), "--output", str(EVIDENCE / "kubernetes-schema-audit.json"), "--docker"]))
+    # Read evidence counts; exit 0 means execution succeeded, not that every item passed.
+    evidence_names = {
+        "kubernetes-inventory": "kubernetes-manifest-audit.json",
+        "kubernetes-schema": "kubernetes-schema-audit.json",
+    }
+    for item in results:
+        evidence_name = evidence_names.get(item["stage"])
+        if evidence_name and item["exit_code"] == 0:
+            try:
+                counts = json.loads((EVIDENCE / evidence_name).read_text(encoding="utf-8"))["summary"]
+                item["counts"] = counts
+                item["status"] = "PASS_WITH_REVIEW" if counts.get("REVIEW", 0) else "PASS"
+            except (OSError, KeyError, ValueError):
+                item["status"] = "UNKNOWN"
     summary = {"generated_at_utc": datetime.now(timezone.utc).isoformat(),
                "scope": "Offline/static only. No Kubernetes/Kafka runtime lab certification.",
                "stages": results}
