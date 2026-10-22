@@ -63,6 +63,7 @@ def main() -> int:
     evidence_names = {
         "kubernetes-inventory": "kubernetes-manifest-audit.json",
         "kubernetes-schema": "kubernetes-schema-audit.json",
+        "strimzi-crd": "strimzi-schema-audit.json",
     }
     for item in results:
         evidence_name = evidence_names.get(item["stage"])
