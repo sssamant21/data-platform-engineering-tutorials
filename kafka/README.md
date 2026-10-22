@@ -255,6 +255,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [112 — Provision GKE, Networking, Storage and Strimzi KRaft](22-google-cloud-kafka-engineering-sre/112-provision-gke-networking-storage-strimzi-kraft.md)
 
+- [113 — Google Cloud Kafka IAM, TLS, Authentication, ACL and Secrets](22-google-cloud-kafka-engineering-sre/113-google-cloud-kafka-iam-tls-authentication-acl-secrets.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
