@@ -48,7 +48,7 @@ def load_schemas(version: str, cache: Path, offline: bool):
     paths = [x["path"] for x in tree.get("tree", [])
              if x.get("type") == "blob"
              and x["path"].startswith("packaging/install/cluster-operator/")
-             and re.search(r"/\\d+-Crd-.*\\.ya?ml$", x["path"], re.IGNORECASE)]
+             and "-Crd-" in x["path"] and x["path"].endswith((".yaml", ".yml"))]
     if not paths:
         raise RuntimeError(f"No CRDs found in pinned Strimzi tag {version}")
     schemas = {}
