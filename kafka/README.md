@@ -203,6 +203,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [088 — Kafka Data Governance, Privacy, Retention and Compliance Engineering](18-security-governance-compliance/088-kafka-data-governance-privacy-retention-compliance-engineering.md)
 
+- [089 — Kafka Security Observability, Threat Detection and Incident Response Automation](18-security-governance-compliance/089-kafka-security-observability-threat-detection-incident-response-automation.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
