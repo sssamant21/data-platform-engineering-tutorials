@@ -191,6 +191,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [082 — Kafka Storage, Partition and Broker Capacity Engineering for Production Workloads](17-capacity-planning-performance-finops/082-kafka-storage-partition-broker-capacity-engineering-production-workloads.md)
 
+- [083 — Kafka Performance Benchmarking, Load Testing and Capacity Validation Engineering](17-capacity-planning-performance-finops/083-kafka-performance-benchmarking-load-testing-capacity-validation-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
