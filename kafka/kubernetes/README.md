@@ -292,5 +292,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 098 | Kafka enterprise SRE operations: incident command, KRaft/ISR recovery, producer/consumer/Connect correctness, backup/restore, AZ/region DR, Kafka/Strimzi/EKS upgrades, RPO/RTO and RCA acceptance |
 | 099 | Kafka enterprise reliability acceptance: performance/soak, broker/KRaft/ISR chaos, network/storage/AZ resilience, producer/consumer/Connect correctness, clean-room restore, cross-region DR and independent SLO/RPO/RTO gates |
 | 100 | Kafka enterprise SRE final assessment: 100-chapter artifact inventory, KRaft/Strimzi/EKS readiness, security/governance, end-to-end streaming correctness, performance/SLO, incident/chaos, DR/upgrades and independent operational certification gates |
+| 101 | Azure Kafka architecture: AKS/Strimzi KRaft vs Azure Event Hubs Kafka-compatible endpoint, Azure Disk/AZ, VNet/private networking, identities, client/Connect API compatibility, monitoring, HA/DR and FinOps |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
