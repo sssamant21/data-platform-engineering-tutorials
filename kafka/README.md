@@ -185,6 +185,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [079 — Kafka Automation Observability, Release Reliability, Compliance Evidence and SRE Runbooks](16-automation-terraform-ci-cd/079-kafka-automation-observability-release-reliability-compliance-evidence-sre-runbooks.md)
 
+- [080 — Kafka Enterprise Automation, GitOps, CI/CD and Reliability Acceptance Capstone](16-automation-terraform-ci-cd/080-kafka-enterprise-automation-gitops-ci-cd-reliability-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
