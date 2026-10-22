@@ -260,3 +260,12 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 8/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 119 — Google Cloud Kafka Incident Response, Security and Upgrade Operations.
+
+
+## Chapter 119 publication update — 2026-10-22
+
+- **Chapter 119:** Google Cloud Kafka Incident Response, Security and Upgrade Operations — published.
+- **Progress:** 119/120 published (99.17%); 1 remaining.
+- **Part 22 — Google Cloud Kafka:** 9/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 120 — Google Cloud Kafka Enterprise Production Capstone and Acceptance.
