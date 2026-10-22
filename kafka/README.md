@@ -211,6 +211,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [092 — Kafka Broker, Partition and KRaft Failure Injection and Recovery Engineering](19-chaos-engineering-resilience-validation/092-kafka-broker-partition-kraft-failure-injection-recovery-engineering.md)
 
+- [093 — Kafka Network, Storage and Availability Zone Chaos Engineering](19-chaos-engineering-resilience-validation/093-kafka-network-storage-availability-zone-chaos-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
