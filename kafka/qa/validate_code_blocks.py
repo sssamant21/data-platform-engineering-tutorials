@@ -22,7 +22,7 @@ except ImportError:
 
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})(.*)$")
 LANGUAGES = {
-    "yaml": "yaml", "yml": "yaml", "json": "json",
+    "yaml": "yaml", "yml": "yaml", "json": "json", "jsonl": "jsonl", "ndjson": "jsonl",
     "powershell": "powershell", "pwsh": "powershell", "ps1": "powershell",
     "bash": "shell", "sh": "shell", "shell": "shell", "console": "shell",
     "python": "python", "py": "python", "properties": "properties",
@@ -88,6 +88,22 @@ def validate(root: Path) -> dict:
                         result = "PASS"
                     except json.JSONDecodeError as exc:
                         result, details = "FAIL", f"JSON parse: {exc}"
+            elif kind == "jsonl":
+                if placeholder:
+                    result, details = "REVIEW", "Contains template placeholders; JSON Lines parsing not definitive"
+                else:
+                    try:
+                        records = [line for line in body.splitlines() if line.strip()]
+                        if not records:
+                            raise ValueError("JSON Lines fixture has no records")
+                        for index, line in enumerate(records, 1):
+                            try:
+                                json.loads(line)
+                            except json.JSONDecodeError as exc:
+                                raise ValueError(f"JSON Lines record {index}: {exc}") from exc
+                        result = "PASS"
+                    except ValueError as exc:
+                        result, details = "FAIL", str(exc)
             elif kind == "yaml":
                 if placeholder:
                     result, details = "REVIEW", "Contains template placeholders; YAML parsing not definitive"
