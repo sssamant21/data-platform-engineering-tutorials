@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–091
+# Kubernetes-first Kafka Lab Platform — Chapters 001–092
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -283,5 +283,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 089 | Kafka security observability: broker auth/ACL detection, KRaft and Strimzi drift, Kubernetes/MSK audit, SIEM correlation, anomalous consumers/egress, privacy-safe telemetry and guarded incident automation |
 | 090 | Kafka enterprise security capstone: identity/ACL, TLS/KRaft/Strimzi isolation, privacy lineage and retention, threat detection, guarded incident automation and independent security/privacy acceptance |
 | 091 | Kafka chaos engineering: isolated failure hypotheses, broker/KRaft/ISR guardrails, AZ and disk failure modeling, PDBs, event correctness, game-day abort/rollback and independent readiness |
+| 092 | Kafka broker/partition/KRaft chaos: leader election, ISR/minISR, replica catch-up, controller quorum, Strimzi recovery, broker disk/network faults, acknowledged event ledger and safe rollback |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
