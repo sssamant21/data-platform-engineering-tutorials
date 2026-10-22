@@ -247,6 +247,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [108 — Azure Kafka HA, Availability Zones, Backup and DR](21-azure-kafka-engineering-sre/108-azure-kafka-ha-availability-zones-backup-dr.md)
 
+- [109 — Azure Kafka Incident Response, Security and Upgrade Operations](21-azure-kafka-engineering-sre/109-azure-kafka-incident-response-security-upgrade-operations.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
