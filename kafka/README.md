@@ -233,6 +233,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [101 — Azure Kafka Architecture: AKS + Strimzi vs Azure Event Hubs Kafka Endpoint](21-azure-kafka-engineering-sre/101-azure-kafka-architecture-aks-strimzi-vs-azure-event-hubs-kafka-endpoint.md)
 
+- [102 — Provision AKS, Networking, Storage and Strimzi KRaft](21-azure-kafka-engineering-sre/102-provision-aks-networking-storage-strimzi-kraft.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
