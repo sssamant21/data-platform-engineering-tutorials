@@ -197,6 +197,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [085 — Kafka Enterprise Capacity, Performance and FinOps Acceptance Capstone](17-capacity-planning-performance-finops/085-kafka-enterprise-capacity-performance-finops-acceptance-capstone.md)
 
+- [086 — Kafka Enterprise Security Architecture, Zero Trust and Governance Controls](18-security-governance-compliance/086-kafka-enterprise-security-architecture-zero-trust-governance-controls.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
