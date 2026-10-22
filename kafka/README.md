@@ -213,6 +213,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [093 — Kafka Network, Storage and Availability Zone Chaos Engineering](19-chaos-engineering-resilience-validation/093-kafka-network-storage-availability-zone-chaos-engineering.md)
 
+- [094 — Kafka Producer, Consumer, Kafka Connect and Streaming Pipeline Chaos Engineering](19-chaos-engineering-resilience-validation/094-kafka-producer-consumer-connect-streaming-pipeline-chaos-engineering.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
