@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–084
+# Kubernetes-first Kafka Lab Platform — Chapters 001–085
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -276,5 +276,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 082 | Kafka storage and partition engineering: PVC/CSI, per-partition skew, log segments, compaction, disk IOPS, KRaft metadata, ISR/AZ reserves, Strimzi node-pool and MSK scaling |
 | 083 | Kafka performance benchmarking: isolated EKS producers/consumers, P99/throughput, event-ID correctness, partition/CPU/disk/network bottlenecks, KRaft/ISR abort gates, Strimzi/MSK sizing |
 | 084 | Kafka reliability-aware FinOps: broker compute, provisioned storage, retention/compaction, AZ transfer, tiered storage, Strimzi/MSK TCO, cost per useful GiB and data/SLO protection |
+| 085 | Kafka enterprise capacity/FinOps capstone: demand baseline, broker/partition/PVC sizing, benchmark correctness, KRaft/ISR N-1 and AZ reserve, cloud cost, governance and independent acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
