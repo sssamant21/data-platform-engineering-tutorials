@@ -249,6 +249,8 @@ The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure 
 
 - [109 — Azure Kafka Incident Response, Security and Upgrade Operations](21-azure-kafka-engineering-sre/109-azure-kafka-incident-response-security-upgrade-operations.md)
 
+- [110 — Azure Kafka Enterprise Production Capstone and Acceptance](21-azure-kafka-engineering-sre/110-azure-kafka-enterprise-production-capstone-acceptance.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
