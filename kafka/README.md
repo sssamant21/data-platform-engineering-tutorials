@@ -217,6 +217,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [095 — Kafka Enterprise Chaos Engineering, Resilience Game Day and Reliability Acceptance Capstone](19-chaos-engineering-resilience-validation/095-kafka-enterprise-chaos-engineering-resilience-game-day-reliability-acceptance-capstone.md)
 
+- [096 — Kafka Enterprise SRE Capstone Architecture, Requirements and Production Readiness](20-final-enterprise-sre-capstone/096-kafka-enterprise-sre-capstone-architecture-requirements-production-readiness.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
