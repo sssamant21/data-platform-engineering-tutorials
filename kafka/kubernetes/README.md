@@ -1,6 +1,6 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–100
+# Kubernetes-first Kafka Lab Platform — Chapters 001–120 (101–120 planned)
 
-**Status:** Reference lab design; live execution and security review pending.
+**Status:** Reference lab design; live execution and security review pending. Chapters 101–120 extend the lab platform to AKS and GKE, and compare Azure Event Hubs Kafka compatibility with Google Cloud Managed Service for Apache Kafka. See [cloud expansion roadmap](../CLOUD-EXPANSION-ROADMAP.md).
 
 All Kafka labs use **Kubernetes + Strimzi + KRaft** as the primary execution platform. Docker Compose instructions in older revisions are superseded. Use a disposable kind/minikube cluster locally or a dedicated EKS/AKS/GKE namespace with approved storage, IAM and security controls. Do not deploy plaintext examples to production.
 
