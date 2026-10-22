@@ -111,7 +111,7 @@ Interpret slot lag on the appropriate primary, check null LSNs, version/permissi
 
 ## 7. Synthetic integrated data fixture
 
-```json
+```jsonl
 {"event_id":"sre060-001","order_id":"o-001","version":1,"operation":"insert","amount":10}
 {"event_id":"sre060-002","order_id":"o-001","version":2,"operation":"update","amount":12}
 {"event_id":"sre060-003","order_id":"o-002","version":1,"operation":"insert","amount":20}
