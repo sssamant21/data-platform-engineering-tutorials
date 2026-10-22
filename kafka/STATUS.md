@@ -171,3 +171,11 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Progress:** 108/120 published (90%); 12 remaining. Part 21: 8/10.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 109 — Azure Kafka Incident Response, Security and Upgrade Operations.
+
+
+## Chapter 109 publication update — 2026-10-22
+
+- **Chapter 109:** Azure Kafka Incident Response, Security and Upgrade Operations — published.
+- **Progress:** 109/120 published (90.83%); 11 remaining. Part 21: 9/10.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 110 — Azure Kafka Enterprise Production Capstone and Acceptance.
