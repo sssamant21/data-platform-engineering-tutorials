@@ -195,6 +195,8 @@ A 100-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 - [084 — Kafka Cloud Cost Optimization, Storage Lifecycle and Reliability-Aware FinOps](17-capacity-planning-performance-finops/084-kafka-cloud-cost-optimization-storage-lifecycle-reliability-aware-finops.md)
 
+- [085 — Kafka Enterprise Capacity, Performance and FinOps Acceptance Capstone](17-capacity-planning-performance-finops/085-kafka-enterprise-capacity-performance-finops-acceptance-capstone.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
