@@ -31,21 +31,21 @@ def run(label: str, script: str, extra: list[str]) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--stage", choices=["static", "shell", "report"], default="static")
+    parser.add_argument("--stage", choices=["static", "shell", "report", "kubernetes", "all-static"], default="static")
     parser.add_argument("--no-shell", action="store_true", help="Skip Docker ShellCheck")
     args = parser.parse_args()
     EVIDENCE.mkdir(parents=True, exist_ok=True)
     results = []
-    if args.stage == "static":
+    if args.stage in ("static", "all-static"):
         results.append(run("curriculum", "audit_curriculum.py",
                            ["--root", str(ROOT), "--output", str(EVIDENCE / "repository-audit.json")]))
         results.append(run("code-blocks", "validate_code_blocks.py",
                            ["--root", str(ROOT), "--output", str(EVIDENCE / "code-block-audit.json")]))
-    if args.stage in ("static", "shell") and not args.no_shell:
+    if args.stage in ("static", "shell", "all-static") and not args.no_shell:
         results.append(run("shellcheck", "lint_embedded_shell.py",
                            ["--root", str(ROOT), "--output", str(EVIDENCE / "shellcheck-automated.json"),
                             "--resume"]))
-    if args.stage in ("static", "shell", "report") and not args.no_shell:
+    if args.stage in ("static", "shell", "report", "all-static") and not args.no_shell:
         report_path = EVIDENCE / "shellcheck-automated.json"
         if report_path.exists():
             results.append(run("shellcheck-report", "summarize_shellcheck.py",
@@ -54,6 +54,11 @@ def main() -> int:
         else:
             results.append({"stage": "shellcheck-report", "exit_code": 2,
                             "status": "ERROR", "error": "No ShellCheck evidence found"})
+    if args.stage in ("kubernetes", "all-static"):
+        results.append(run("kubernetes-inventory", "audit_kubernetes_manifests.py",
+                           ["--root", str(ROOT), "--output", str(EVIDENCE / "kubernetes-manifest-audit.json")]))
+        results.append(run("kubernetes-schema", "validate_kubernetes_schemas.py",
+                           ["--root", str(ROOT), "--output", str(EVIDENCE / "kubernetes-schema-audit.json"), "--docker"]))
     summary = {"generated_at_utc": datetime.now(timezone.utc).isoformat(),
                "scope": "Offline/static only. No Kubernetes/Kafka runtime lab certification.",
                "stages": results}
