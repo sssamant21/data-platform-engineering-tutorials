@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–086
+# Kubernetes-first Kafka Lab Platform — Chapters 001–087
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -278,5 +278,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 084 | Kafka reliability-aware FinOps: broker compute, provisioned storage, retention/compaction, AZ transfer, tiered storage, Strimzi/MSK TCO, cost per useful GiB and data/SLO protection |
 | 085 | Kafka enterprise capacity/FinOps capstone: demand baseline, broker/partition/PVC sizing, benchmark correctness, KRaft/ISR N-1 and AZ reserve, cloud cost, governance and independent acceptance |
 | 086 | Kafka zero-trust security: SASL/TLS/mTLS, ACL least privilege, KRaft controller isolation, Strimzi RBAC, NetworkPolicies, secrets/KMS, MSK IAM, audit and sensitive-data governance |
+| 087 | Kafka identity lifecycle: Strimzi KafkaUser, SASL/SCRAM/mTLS, ACL scoping, cert/CA rotation, OAuth/MSK IAM, external secrets, KMS, break-glass and credential incident response |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
