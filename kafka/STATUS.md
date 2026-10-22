@@ -269,3 +269,13 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 22 — Google Cloud Kafka:** 9/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 120 — Google Cloud Kafka Enterprise Production Capstone and Acceptance.
+
+
+## Chapter 120 publication update — 2026-10-22
+
+- **Chapter 120:** Google Cloud Kafka Enterprise Production Capstone and Acceptance — published.
+- **Documentation progress:** 120/120 chapters published (100%); no chapters remaining in the planned sequence.
+- **Part 22 — Google Cloud Kafka:** 10/10 published.
+- **Repository-wide completeness/link audit:** pending.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next phase:** repository-wide QA, lab execution, code validation, compatibility review and evidence-backed capstone acceptance.
