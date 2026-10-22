@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–079
+# Kubernetes-first Kafka Lab Platform — Chapters 001–080
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -271,5 +271,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 077 | Kafka CI/CD: GitLab pipelines, Terraform/schema validation, OPA/Kyverno, secret/image/SBOM scanning, GitOps sync, Kafka ISR/client smoke, canary SLO and safe rollback |
 | 078 | Kafka GitOps drift: Argo CD/Flux diffs, Terraform/Strimzi ownership, safe self-heal, prune prevention, KafkaTopic/NodePool/PVC safety, break-glass, rollback and Kafka client correctness |
 | 079 | Kafka automation observability: CI/CD and Terraform metrics, Argo/Flux/Strimzi reconciliation, release SLO, Kafka broker/EKS client event correctness, audit evidence and incident runbooks |
+| 080 | Kafka enterprise automation capstone: Terraform state/plan, CI policy and supply-chain scans, GitOps/Strimzi ownership, KRaft quorum/ISR, EKS client correctness, canary rollback, audit and independent acceptance |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
