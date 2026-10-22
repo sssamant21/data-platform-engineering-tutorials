@@ -23,8 +23,8 @@
 **Completed part:** 19 — Chaos Engineering and Resilience Validation (5/5 published)  
 **Completed part:** 20 — Final Enterprise SRE Capstone (5/5 published)  
 **Completed part:** 21 — Microsoft Azure Kafka Engineering & SRE (10/10 published)  
-**Planned part:** 22 — Google Cloud Kafka Engineering & SRE (0/10 published)  
-**Next:** 105 — Azure Kafka Producers, Consumers, Topics and Data Pipelines  
+**Completed part:** 22 — Google Cloud Kafka Engineering & SRE (10/10 published)  
+**Next:** QA validation, runtime lab execution and independent review  
 **Cloud roadmap:** [CLOUD-EXPANSION-ROADMAP.md](CLOUD-EXPANSION-ROADMAP.md)  
 **Original 100-chapter milestone:** Complete; live lab execution and independent review remain pending
 
