@@ -138,3 +138,12 @@
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
 Publication is not equivalent to execution or production approval. Update this table as chapters are independently verified.
+
+
+## Chapter 105 publication update — 2026-10-22
+
+- **Chapter 105:** Azure Kafka Producers, Consumers, Topics and Data Pipelines — published.
+- **Progress:** 105/120 published (87.5%); 15 chapters remaining.
+- **Part 21:** 5/10 published.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 106 — Azure Kafka Observability, Azure Monitor, Prometheus and SLOs.
