@@ -147,3 +147,11 @@ Publication is not equivalent to execution or production approval. Update this t
 - **Part 21:** 5/10 published.
 - **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
 - **Next:** Chapter 106 — Azure Kafka Observability, Azure Monitor, Prometheus and SLOs.
+
+
+## Chapter 106 publication update — 2026-10-22
+
+- **Chapter 106:** Azure Kafka Observability, Azure Monitor, Prometheus and SLOs — published.
+- **Progress:** 106/120 published (88.33%); 14 remaining. Part 21: 6/10.
+- **Live labs:** pending; **independent technical/security review:** pending; **runtime certification:** not claimed.
+- **Next:** Chapter 107 — Azure Kafka Performance, Capacity, Disk and FinOps.
