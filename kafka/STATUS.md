@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 100 chapters  
-**Published:** 93 / 100  
+**Published:** 94 / 100  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -20,8 +20,8 @@
 **Completed part:** 16 — Automation, Terraform and CI/CD (5/5 published)  
 **Completed part:** 17 — Capacity Planning, Performance and FinOps (5/5 published)  
 **Completed part:** 18 — Security, Governance and Compliance (5/5 published)  
-**Current part:** 19 — Chaos Engineering and Resilience Validation (3/5 published)  
-**Next:** 094 — Kafka Producer, Consumer, Kafka Connect and Streaming Pipeline Chaos Engineering
+**Current part:** 19 — Chaos Engineering and Resilience Validation (4/5 published)  
+**Next:** 095 — Kafka Enterprise Chaos Engineering, Resilience Game Day and Reliability Acceptance Capstone
 
 | Chapter | Publication | Live lab | Security review |
 |---|---|---|---|
@@ -118,6 +118,7 @@
 | 091 — Kafka Chaos Engineering Foundations, Failure Injection Safety and Game Day Design | Published | Pending | Pending |
 | 092 — Kafka Broker, Partition and KRaft Failure Injection and Recovery Engineering | Published | Pending | Pending |
 | 093 — Kafka Network, Storage and Availability Zone Chaos Engineering | Published | Pending | Pending |
+| 094 — Kafka Producer, Consumer, Kafka Connect and Streaming Pipeline Chaos Engineering | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
