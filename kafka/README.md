@@ -231,6 +231,8 @@ A 120-chapter, production-oriented curriculum for Kafka administrators, SREs, DB
 
 The original 100 chapters are published. **Part 21 (101–110): Microsoft Azure Kafka** and **Part 22 (111–120): Google Cloud Kafka** are planned, with publication and live validation tracked separately. See [Cloud Expansion Roadmap](CLOUD-EXPANSION-ROADMAP.md) for all 20 chapter titles, architecture choices and quality gates.
 
+- [101 — Azure Kafka Architecture: AKS + Strimzi vs Azure Event Hubs Kafka Endpoint](21-azure-kafka-engineering-sre/101-azure-kafka-architecture-aks-strimzi-vs-azure-event-hubs-kafka-endpoint.md)
+
 ## Chapter quality standard
 
 Each chapter includes learning objectives, architecture, technical explanations, runnable isolated labs, validation and automated checks, failure scenarios, troubleshooting, production runbooks, and assessment. Production changes require review and backups. Lab execution and security review are tracked separately from publication.
