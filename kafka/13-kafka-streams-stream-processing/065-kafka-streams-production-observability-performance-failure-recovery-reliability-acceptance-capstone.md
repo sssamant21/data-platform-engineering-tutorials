@@ -98,7 +98,7 @@ Validate Strimzi release-specific CRDs and actual listener TLS/SASL settings. If
 
 ## 7. Deterministic golden event fixture
 
-```json
+```jsonl
 {"event_id":"sre65-001","key":"customer-a","event_time":"2026-10-20T12:00:01Z","amount":10}
 {"event_id":"sre65-002","key":"customer-a","event_time":"2026-10-20T12:00:02Z","amount":12}
 {"event_id":"sre65-003","key":"customer-b","event_time":"2026-10-20T12:00:03Z","amount":20}
