@@ -1,7 +1,7 @@
 # Kafka Curriculum Status
 
 **Target:** 120 chapters  
-**Published:** 102 / 120  
+**Published:** 103 / 120  
 **Completed part:** 01 — Kafka Fundamentals and Architecture (5/5 published)  
 **Completed part:** 02 — Installation, KRaft and Cluster Administration (5/5 published)  
 **Completed part:** 03 — Brokers, Topics, Partitions and Replication (5/5 published)  
@@ -22,9 +22,9 @@
 **Completed part:** 18 — Security, Governance and Compliance (5/5 published)  
 **Completed part:** 19 — Chaos Engineering and Resilience Validation (5/5 published)  
 **Completed part:** 20 — Final Enterprise SRE Capstone (5/5 published)  
-**Current part:** 21 — Microsoft Azure Kafka Engineering & SRE (2/10 published)  
+**Current part:** 21 — Microsoft Azure Kafka Engineering & SRE (3/10 published)  
 **Planned part:** 22 — Google Cloud Kafka Engineering & SRE (0/10 published)  
-**Next:** 103 — Azure Kafka Identity, Entra ID, TLS, SASL, ACL and Secrets  
+**Next:** 104 — Azure Event Hubs Kafka Compatibility, Limits and Client Migration  
 **Cloud roadmap:** [CLOUD-EXPANSION-ROADMAP.md](CLOUD-EXPANSION-ROADMAP.md)  
 **Original 100-chapter milestone:** Complete; live lab execution and independent review remain pending
 
@@ -132,6 +132,7 @@
 | 100 — Kafka Enterprise SRE Final Assessment, Production Readiness and Operational Certification Capstone | Published | Pending | Pending |
 | 101 — Azure Kafka Architecture: AKS + Strimzi vs Azure Event Hubs Kafka Endpoint | Published | Pending | Pending |
 | 102 — Provision AKS, Networking, Storage and Strimzi KRaft | Published | Pending | Pending |
+| 103 — Azure Kafka Identity, Entra ID, TLS, SASL, ACL and Secrets | Published | Pending | Pending |
 
 **Platform standard:** Kubernetes-first, Strimzi-managed KRaft Kafka. Chapters 001–009 now contain Kubernetes-first Strimzi lab sections and share [Kubernetes lab foundation](kubernetes/README.md). The legacy Docker sections remain as explicitly superseded historical references. **Migration status: Kubernetes primary labs added (9/9); complete legacy replacement and live validation pending.** Chapter 010 onward must use Kubernetes as the primary platform.
 
