@@ -1,4 +1,4 @@
-# Kubernetes-first Kafka Lab Platform — Chapters 001–081
+# Kubernetes-first Kafka Lab Platform — Chapters 001–082
 
 **Status:** Reference lab design; live execution and security review pending.
 
@@ -273,5 +273,6 @@ Do not delete the Kafka cluster or PVCs unless you explicitly intend to destroy 
 | 079 | Kafka automation observability: CI/CD and Terraform metrics, Argo/Flux/Strimzi reconciliation, release SLO, Kafka broker/EKS client event correctness, audit evidence and incident runbooks |
 | 080 | Kafka enterprise automation capstone: Terraform state/plan, CI policy and supply-chain scans, GitOps/Strimzi ownership, KRaft quorum/ISR, EKS client correctness, canary rollback, audit and independent acceptance |
 | 081 | Kafka capacity planning: compressed ingest, retention/RF storage model, broker disk/CPU/network, partitions/KRaft, consumer drain, AZ failure reserve, Strimzi/MSK scaling and FinOps forecasts |
+| 082 | Kafka storage and partition engineering: PVC/CSI, per-partition skew, log segments, compaction, disk IOPS, KRaft metadata, ISR/AZ reserves, Strimzi node-pool and MSK scaling |
 
 **References:** [Strimzi documentation](https://strimzi.io/documentation/), [Apache Kafka documentation](https://kafka.apache.org/documentation/), [Kubernetes documentation](https://kubernetes.io/docs/).
