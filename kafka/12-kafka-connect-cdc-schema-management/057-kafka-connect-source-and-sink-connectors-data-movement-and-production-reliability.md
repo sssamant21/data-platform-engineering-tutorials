@@ -91,7 +91,7 @@ Check installed Strimzi CRD and Kafka Connect version before interpreting these 
 
 Use a bounded test set with deterministic keys and explicit expected sink state:
 
-```json
+```jsonl
 {"event_id":"sre057-001","customer_id":"c-001","sequence":1,"event_type":"upsert","value":10}
 {"event_id":"sre057-002","customer_id":"c-001","sequence":2,"event_type":"upsert","value":11}
 {"event_id":"sre057-003","customer_id":"c-002","sequence":1,"event_type":"upsert","value":20}
