@@ -1,0 +1,82 @@
+name: Kafka Curriculum QA
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "kafka/**"
+      - ".github/workflows/kafka-qa.yml"
+  pull_request:
+    paths:
+      - "kafka/**"
+      - ".github/workflows/kafka-qa.yml"
+  workflow_dispatch:
+    inputs:
+      extended_checks:
+        description: "Run ShellCheck, Kubernetes and Strimzi schema checks"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-qa-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  static-qa:
+    name: Kafka static curriculum QA
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: .github/workflows/kafka-qa.yml
+      - name: Install QA dependencies
+        run: python -m pip install "PyYAML>=6,<7" "jsonschema>=4,<5"
+      - name: Run static checks (no containers, no clusters)
+        run: python kafka/qa/run_qa.py --stage static --no-shell
+      - name: Upload static QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kafka-static-qa-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 3
+
+  extended-qa:
+    name: Kafka extended static QA
+    if: github.event_name == 'workflow_dispatch' && inputs.extended_checks == true
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install QA dependencies
+        run: python -m pip install "PyYAML>=6,<7" "jsonschema>=4,<5"
+      - name: Run full static QA (Docker tools; no cluster access)
+        run: python kafka/qa/run_qa.py --stage all-static
+      - name: Upload extended QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kafka-extended-qa-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 3
