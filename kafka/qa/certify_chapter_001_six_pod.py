@@ -83,10 +83,21 @@ def main():
         else:
             raise RuntimeError("Could not publish with acks=all after broker failure")
         report["checks"]["publish_after_failure"] = "PASS"
+        # Kafka Ready may briefly remain true while Pod deletion/recreation is in flight.
+        # Observe the replacement UID and container readiness before asserting recovery.
+        replacement_deadline = time.monotonic() + 420
+        replacement_seen = False
+        while time.monotonic() < replacement_deadline:
+            replacements = {p["metadata"]["name"]: p for p in pods()}
+            candidate = replacements.get(name)
+            if candidate and candidate["metadata"]["uid"] != uid and ready(candidate):
+                replacement_seen = True
+                break
+            time.sleep(5)
+        if not replacement_seen:
+            raise RuntimeError("Replacement broker Pod with new UID and Ready container not observed within 420 seconds")
+        report["checks"]["replacement_pod_ready"] = "PASS"
         k("wait", "kafka/qa-six", "--for=condition=Ready", "--timeout=420s", timeout=450)
-        replacements = {p["metadata"]["name"]: p for p in pods()}
-        if name not in replacements or replacements[name]["metadata"]["uid"] == uid:
-            raise RuntimeError("Replacement broker Pod UID not observed")
         report["checks"]["operator_recovery"] = "PASS"
         output = cli(broker(), "kafka-console-consumer.sh", "--topic", TOPIC,
                      "--from-beginning", "--max-messages", "2",
