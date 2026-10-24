@@ -1,0 +1,135 @@
+{
+  "schema_version": 1,
+  "scope": "Part 01 Kafka chapters 001-005",
+  "policy": "Mapping is not certification. Each lab requires a dedicated executed check, evidence artifact, and review.",
+  "labs": [
+    {
+      "id": "KAFKA-001-A",
+      "chapter": "001",
+      "objective": "Strimzi/KRaft architecture: operator, controller and broker roles",
+      "required_environment": "kind Strimzi single-node for basic architecture; HA variant for six role-specific pods",
+      "automation": "PARTIAL",
+      "existing_gate": "kafka-strimzi-runtime.yml",
+      "status": "NOT_CERTIFIED",
+      "gap": "No chapter-scoped role and topology evidence"
+    },
+    {
+      "id": "KAFKA-001-B",
+      "chapter": "001",
+      "objective": "KafkaTopic lifecycle and two-event produce/consume",
+      "required_environment": "kind Strimzi",
+      "automation": "CANDIDATE",
+      "existing_gate": "kafka-strimzi-runtime.yml",
+      "status": "NOT_CERTIFIED",
+      "gap": "Shared gate uses a different topic and messages"
+    },
+    {
+      "id": "KAFKA-002-A",
+      "chapter": "002",
+      "objective": "Three-partition RF3 topic and min ISR2",
+      "required_environment": "3 broker Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Single-broker smoke cannot validate RF3"
+    },
+    {
+      "id": "KAFKA-002-B",
+      "chapter": "002",
+      "objective": "Keyed ordering, partition and offset inspection",
+      "required_environment": "3 broker Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Need per-key partition and monotonic offset assertions"
+    },
+    {
+      "id": "KAFKA-003-A",
+      "chapter": "003",
+      "objective": "Producer acknowledgments and keyed writes",
+      "required_environment": "Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Need chapter-specific producer checks"
+    },
+    {
+      "id": "KAFKA-003-B",
+      "chapter": "003",
+      "objective": "Consumer group offset lifecycle",
+      "required_environment": "Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Need committed-offset evidence"
+    },
+    {
+      "id": "KAFKA-003-C",
+      "chapter": "003",
+      "objective": "Explicit manual commits with Python client",
+      "required_environment": "Strimzi cluster and Python client",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Need isolated Python consumer integration"
+    },
+    {
+      "id": "KAFKA-003-D",
+      "chapter": "003",
+      "objective": "Controlled replay without offset reset",
+      "required_environment": "Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Need replay and group isolation assertions"
+    },
+    {
+      "id": "KAFKA-004-A",
+      "chapter": "004",
+      "objective": "RF3 ISR and leader metadata",
+      "required_environment": "3 broker Strimzi cluster",
+      "automation": "CANDIDATE",
+      "status": "NOT_TESTED",
+      "gap": "Requires healthy RF3 baseline"
+    },
+    {
+      "id": "KAFKA-004-B",
+      "chapter": "004",
+      "objective": "One broker Pod failure and leader election",
+      "required_environment": "3 broker isolated Strimzi cluster",
+      "automation": "GUARDED",
+      "status": "NOT_TESTED",
+      "gap": "Must precheck quorum and ISR, delete only QA-owned broker Pod"
+    },
+    {
+      "id": "KAFKA-004-C",
+      "chapter": "004",
+      "objective": "ISR restoration and write safety",
+      "required_environment": "3 broker isolated Strimzi cluster",
+      "automation": "GUARDED",
+      "status": "NOT_TESTED",
+      "gap": "Need before/during/after and no-loss evidence"
+    },
+    {
+      "id": "KAFKA-005-A",
+      "chapter": "005",
+      "objective": "Capstone deployment, keyed events and replay",
+      "required_environment": "3 controller and 3 broker Strimzi cluster with PVCs",
+      "automation": "PARTIAL",
+      "status": "NOT_TESTED",
+      "gap": "Requires persistent storage and six-role topology"
+    },
+    {
+      "id": "KAFKA-005-B",
+      "chapter": "005",
+      "objective": "Broker outage, min ISR write behavior and recovery",
+      "required_environment": "isolated HA Strimzi cluster",
+      "automation": "GUARDED",
+      "status": "NOT_TESTED",
+      "gap": "Need safe failure injection and business-event reconciliation"
+    },
+    {
+      "id": "KAFKA-005-C",
+      "chapter": "005",
+      "objective": "Capstone assessment and incident evidence",
+      "required_environment": "isolated HA Strimzi cluster",
+      "automation": "REVIEW_REQUIRED",
+      "status": "NOT_TESTED",
+      "gap": "Requires rubric >=85 and zero unsafe operations"
+    }
+  ]
+}
