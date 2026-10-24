@@ -1,0 +1,54 @@
+name: Kafka Chapter 001 Recovery Lab
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  chapter-001-recovery:
+    name: Disposable Strimzi broker recovery
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Create isolated kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Check isolated context
+        run: test "$(kubectl config current-context)" = "kind-kafka-qa"
+      - name: Install pinned Strimzi operator
+        run: |
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+      - name: Deploy Kafka and topic
+        run: kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/strimzi-single-node.yaml
+      - name: Run Chapter 001 broker recovery
+        run: python kafka/qa/certify_chapter_001_recovery.py
+      - name: Collect failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkatopics,kafkanodepools -o wide > kafka/qa/evidence/chapter-001-recovery-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-001-recovery-events.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > kafka/qa/evidence/chapter-001-recovery-operator.log 2>&1 || true
+      - name: Upload recovery evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: chapter-001-recovery-${{ github.run_id }}
+          path: kafka/qa/evidence/chapter-001-recovery-*
+          if-no-files-found: warn
+          retention-days: 7
