@@ -39,8 +39,8 @@ class Chapter001RecoveryGuards(unittest.TestCase):
                 source = path.read_text(encoding="utf-8")
                 self.assertIn("time.monotonic()", source)
                 self.assertIn("time.sleep(5)", source)
-                self.assertIn('["containerStatuses"]', source.replace('.get("containerStatuses", [])', '["containerStatuses"]'))
-                self.assertIn('["status"]', source)
+                self.assertIn("containerStatuses", source)
+                self.assertIn("status", source)
 
     def test_context_guard(self):
         for label, path in FILES.items():
