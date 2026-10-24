@@ -79,10 +79,24 @@ def main():
         else:
             raise RuntimeError("Failed to produce with acks=all after one Pod failure")
         result["checks"]["produce_after_failure"] = "PASS"
+        # Kafka Ready can be observed before the replacement Pod is fully recreated.
+        # Require a new UID and a ready Kafka container before testing recovery.
+        replacement_deadline = time.monotonic() + 420
+        replacement_seen = False
+        while time.monotonic() < replacement_deadline:
+            current = {p["metadata"]["name"]: p for p in brokers()}
+            candidate = current.get(victim)
+            if (candidate and candidate["metadata"]["uid"] != old_uid and
+                candidate["status"].get("phase") == "Running" and
+                any(c.get("name") == "kafka" and c.get("ready")
+                    for c in candidate["status"].get("containerStatuses", []))):
+                replacement_seen = True
+                break
+            time.sleep(5)
+        if not replacement_seen:
+            raise RuntimeError("Replacement Pod UID and ready Kafka container not observed within 420 seconds")
+        result["checks"]["replacement_pod_ready"] = "PASS"
         run("wait", "kafka/qa-ha", "--for=condition=Ready", "--timeout=420s", timeout=445)
-        current = {p["metadata"]["name"]: p for p in brokers()}
-        if victim not in current or current[victim]["metadata"]["uid"] == old_uid:
-            raise RuntimeError("Replacement Pod UID not observed")
         result["checks"]["operator_recovered"] = "PASS"
         # Unique consumer group ensures the full topic is read from the beginning.
         output = cli(client_pod(), "kafka-console-consumer.sh", "--topic", TOPIC,
