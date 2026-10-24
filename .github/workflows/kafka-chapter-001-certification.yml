@@ -2,6 +2,20 @@ name: Kafka Chapter 001 Lab Certification
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/runtime/strimzi-single-node.yaml'
+      - 'kafka/qa/certify_chapter_001.py'
+      - 'kafka/qa/certify_chapter_001_recovery.py'
+      - 'kafka/qa/labs/phase-05-02-chapter-001.md'
+      - 'kafka/qa/labs/phase-05-03-chapter-001-recovery.md'
+      - '.github/workflows/kafka-chapter-001-certification.yml'
+      - '.github/workflows/kafka-chapter-001-recovery.yml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: read
