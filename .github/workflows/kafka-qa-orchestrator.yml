@@ -1,0 +1,133 @@
+name: Kafka QA Changed-Chapter Orchestrator
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/**'
+      - '.github/workflows/kafka-chapter-*.yml'
+      - '.github/workflows/kafka-qa-orchestrator.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-qa-orchestrator-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  select:
+    name: Select affected chapter tests
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.selection.outputs.matrix }}
+      has_tests: ${{ steps.selection.outputs.has_tests }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Select changed chapters
+        id: selection
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            BEFORE="$(git rev-parse HEAD^ 2>/dev/null || printf '%040d' 0)"
+          fi
+          python kafka/qa/select_changed_chapters.py \
+            --before "$BEFORE" --after "$AFTER" \
+            --output /tmp/kafka-chapter-selection.json > /tmp/kafka-matrix.json
+          echo "matrix=$(cat /tmp/kafka-matrix.json)" >> "$GITHUB_OUTPUT"
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          x=json.load(open('/tmp/kafka-chapter-selection.json'))
+          print('has_tests=' + str(bool(x['chapters'])).lower())
+          PY
+          cat /tmp/kafka-chapter-selection.json >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload selection evidence
+        uses: actions/upload-artifact@v6
+        with:
+          name: kafka-qa-selection-${{ github.run_id }}
+          path: /tmp/kafka-chapter-selection.json
+          retention-days: 7
+
+  validate:
+    name: Kafka Chapter ${{ matrix.chapter }} Runtime QA
+    needs: select
+    if: needs.select.outputs.has_tests == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix: ${{ fromJSON(needs.select.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Create disposable Kubernetes cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Install pinned Strimzi operator
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+          kubectl --context kind-kafka-qa -n kafka-qa rollout status \
+            deployment/strimzi-cluster-operator --timeout=180s
+      - name: Apply chapter fixture
+        env:
+          FIXTURE: ${{ matrix.fixture }}
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f "kafka/qa/runtime/$FIXTURE"
+      - name: Execute chapter runtime acceptance
+        env:
+          CHAPTER: ${{ matrix.chapter }}
+        run: python "kafka/qa/run_chapter_$CHAPTER.py"
+      - name: Capture failure diagnostics
+        if: failure()
+        env:
+          CHAPTER: ${{ matrix.chapter }}
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkanodepool,kafkatopic,pvc -o wide > "kafka/qa/evidence/chapter-$CHAPTER-resources.txt" 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > "kafka/qa/evidence/chapter-$CHAPTER-events.txt" 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > "kafka/qa/evidence/chapter-$CHAPTER-operator-log.txt" 2>&1 || true
+      - name: Publish chapter result summary
+        if: always()
+        env:
+          CHAPTER: ${{ matrix.chapter }}
+        run: |
+          python - <<'PY'
+          import json, os, pathlib
+          chapter=os.environ['CHAPTER']
+          p=pathlib.Path(f'kafka/qa/evidence/chapter-{chapter}-runtime.json')
+          if p.exists():
+              r=json.loads(p.read_text())
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+                  f.write(f"### Kafka Chapter {chapter}\n\nStatus: **{r.get('status','UNKNOWN')}** · Certification: **{r.get('certification','NOT_CERTIFIED')}**\n")
+          else:
+              with open(os.environ['GITHUB_STEP_SUMMARY'],'a') as f:
+                  f.write(f"### Kafka Chapter {chapter}\n\n**NO EVIDENCE** — setup or test failed before report generation.\n")
+          PY
+      - name: Upload runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kafka-qa-ch${{ matrix.chapter }}-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 7
