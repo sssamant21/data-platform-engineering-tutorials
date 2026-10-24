@@ -1,0 +1,64 @@
+name: Kafka Chapter 001 HA Lab
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/runtime/strimzi-three-node-ha.yaml'
+      - 'kafka/qa/certify_chapter_001_ha.py'
+      - 'kafka/qa/labs/phase-05-04-chapter-001-ha.md'
+      - '.github/workflows/kafka-chapter-001-ha.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  ha:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Create isolated kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Verify context
+        run: test "$(kubectl config current-context)" = "kind-kafka-qa"
+      - name: Install Strimzi
+        run: |
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+      - name: Deploy three-node Kafka
+        run: kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/strimzi-three-node-ha.yaml
+      - name: Validate failure and recovery
+        run: python kafka/qa/certify_chapter_001_ha.py
+      - name: Collect diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkatopics,kafkanodepools -o wide > kafka/qa/evidence/chapter-001-ha-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-001-ha-events.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > kafka/qa/evidence/chapter-001-ha-operator.log 2>&1 || true
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: chapter-001-ha-${{ github.run_id }}
+          path: kafka/qa/evidence/chapter-001-ha-*
+          retention-days: 7
+          if-no-files-found: warn
