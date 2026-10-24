@@ -1,0 +1,32 @@
+name: Kafka Chapter 001 Recovery Regression
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/certify_chapter_001_recovery.py'
+      - 'kafka/qa/certify_chapter_001_ha.py'
+      - 'kafka/qa/certify_chapter_001_six_pod.py'
+      - 'kafka/qa/test_chapter_001_recovery_guards.py'
+      - '.github/workflows/kafka-chapter-001-regression.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  recovery-regression:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Check Python syntax
+        run: |
+          python -m py_compile kafka/qa/certify_chapter_001_recovery.py kafka/qa/certify_chapter_001_ha.py kafka/qa/certify_chapter_001_six_pod.py
+      - name: Run recovery guard regression checks
+        run: python kafka/qa/test_chapter_001_recovery_guards.py
