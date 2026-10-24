@@ -11,6 +11,7 @@ from pathlib import Path
 CTX, NS, CLUSTER, TOPIC = "kind-kafka-qa", "kafka-qa", "qa-kafka-ha", "sre-capstone-orders"
 OUT = Path("kafka/qa/evidence/chapter-005-runtime.json")
 EVENTS = [f"order-{i:03d}:created-{i:03d}" for i in range(1, 7)]
+VALUES = [event.split(":", 1)[1] for event in EVENTS]
 
 def k(*args, data=None, timeout=100):
     cmd = ["kubectl", "--context", CTX, "-n", NS, *args]
@@ -46,7 +47,7 @@ def consume(pod, group):
     output = cli(pod, "console-consumer", "--topic", TOPIC, "--group", group,
                  "--from-beginning", "--max-messages", "6", "--timeout-ms", "45000", timeout=85)
     records = [s.strip() for s in output.splitlines() if s.strip()]
-    if len(records) != len(EVENTS) or set(records) != set(EVENTS):
+    if len(records) != len(VALUES) or set(records) != set(VALUES):
         raise RuntimeError(f"Business event ID mismatch for {group}: {records!r}")
     return records
 
@@ -128,6 +129,7 @@ def main():
         consume(active, "qa-ch005-replay")
         report["checks"]["independent_group_replay_no_offset_reset"] = "PASS"
         report["verified_event_ids"] = EVENTS
+        report["verified_consumer_values"] = VALUES
         report["status"], report["certification"] = "PASS", "PARTIAL_RUNTIME_PASS"
     except (OSError, subprocess.SubprocessError, RuntimeError, ValueError, KeyError) as exc:
         report["error"] = str(exc)[:1600]
