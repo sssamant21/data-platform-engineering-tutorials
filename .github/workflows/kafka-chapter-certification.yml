@@ -1,0 +1,37 @@
+name: Kafka Chapter Certification Inventory
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "kafka/**"
+      - ".github/workflows/kafka-chapter-certification.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  inventory:
+    name: Inventory Kafka chapters 001-120
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Generate chapter inventory and certification baseline
+        run: python kafka/qa/build_chapter_certification.py
+      - name: Upload inventory evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kafka-chapter-certification-${{ github.run_id }}
+          path: |
+            kafka/qa/evidence/chapter-certification.csv
+            kafka/qa/evidence/chapter-certification-summary.json
+          if-no-files-found: warn
+          retention-days: 7
