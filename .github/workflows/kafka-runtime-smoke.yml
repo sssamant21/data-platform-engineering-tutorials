@@ -1,0 +1,36 @@
+name: Kafka Runtime Smoke QA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-runtime-smoke-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  kafka-smoke:
+    name: Single-broker Kafka smoke test
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Run disposable Kafka smoke test
+        run: python kafka/qa/run_kafka_smoke.py --run-id "${{ github.run_id }}" --output kafka/qa/evidence/kafka-runtime-smoke.json
+      - name: Upload runtime evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kafka-runtime-smoke-${{ github.run_id }}
+          path: kafka/qa/evidence/kafka-runtime-smoke.json
+          if-no-files-found: warn
+          retention-days: 3
