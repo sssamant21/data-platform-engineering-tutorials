@@ -1,0 +1,68 @@
+name: Kafka Kubernetes Strimzi Runtime QA
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-strimzi-runtime-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  strimzi-runtime:
+    name: Disposable kind + Strimzi Kafka smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Create disposable kind cluster
+        uses: helm/kind-action@v1.12.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Verify isolated Kubernetes context
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl cluster-info --context kind-kafka-qa
+      - name: Install Strimzi operator 0.47.0
+        run: |
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 \
+            --namespace kafka-qa \
+            --set watchAnyNamespace=false \
+            --wait --timeout 5m
+          kubectl --context kind-kafka-qa -n kafka-qa rollout status \
+            deployment/strimzi-cluster-operator --timeout=180s
+      - name: Deploy KRaft Kafka and topic fixtures
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply \
+            -f kafka/qa/runtime/strimzi-single-node.yaml
+      - name: Verify operator reconciliation and Kafka messages
+        run: python kafka/qa/run_strimzi_smoke.py
+      - name: Collect failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkanodepool,kafkatopic -o wide > kafka/qa/evidence/strimzi-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/strimzi-events.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > kafka/qa/evidence/strimzi-operator-log.txt 2>&1 || true
+      - name: Upload integration QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kafka-strimzi-runtime-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 3
