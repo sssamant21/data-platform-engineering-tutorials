@@ -13,22 +13,22 @@ concurrency:
 jobs:
   kafka-smoke:
     name: Single-broker Kafka smoke test
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 12
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           persist-credentials: false
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - name: Run disposable Kafka smoke test
         run: python kafka/qa/run_kafka_smoke.py --run-id "${{ github.run_id }}" --output kafka/qa/evidence/kafka-runtime-smoke.json
       - name: Upload runtime evidence
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: kafka-runtime-smoke-${{ github.run_id }}
           path: kafka/qa/evidence/kafka-runtime-smoke.json
