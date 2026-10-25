@@ -1,0 +1,62 @@
+name: Kafka Chapter 003 Delivery Semantics Lab
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/runtime/strimzi-six-pod.yaml'
+      - 'kafka/qa/runtime/chapter-003-topic.yaml'
+      - 'kafka/qa/runtime/Chapter003Delivery.java'
+      - 'kafka/qa/certify_chapter_003_delivery.py'
+      - 'kafka/qa/labs/phase-07-01-chapter-003-delivery.md'
+      - '.github/workflows/kafka-chapter-003-delivery.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  delivery-semantics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Create isolated kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Install Strimzi
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+      - name: Deploy Kafka and delivery topic
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/strimzi-six-pod.yaml
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/chapter-003-topic.yaml
+      - name: Validate producer consumer delivery
+        run: python kafka/qa/certify_chapter_003_delivery.py
+      - name: Collect failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkatopics -o wide > kafka/qa/evidence/chapter-003-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-003-events.txt 2>&1 || true
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: chapter-003-delivery-${{ github.run_id }}
+          path: kafka/qa/evidence/chapter-003-*
+          retention-days: 7
+          if-no-files-found: warn
