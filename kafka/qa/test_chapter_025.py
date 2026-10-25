@@ -37,6 +37,13 @@ class StorageCapstoneTests(unittest.TestCase):
         with self.assertRaises(RuntimeError):
             retention.validate_policy_change(before,after,synthetic_lab_authorized=True,record_age_seconds=50,chapter='021',annotations=chapter.ANNOTATIONS)
 
+    def test_stage_resource_names_are_dns_safe(self):
+        self.assertEqual(chapter.stage_resource_suffix('retention_baseline'),'retention-baseline')
+        self.assertEqual(chapter.stage_resource_suffix('state-seed'),'state-seed')
+        for value in ['UPPER', 'bad stage', '-invalid', 'x'*31]:
+            with self.assertRaises(ValueError):
+                chapter.stage_resource_suffix(value)
+
     def test_shared_client_and_guard_dependencies_include_capstone(self):
         self.assertIn('025',selector.select(['kafka/qa/runtime/CompactionAcceptance.java']))
         self.assertIn('025',selector.select(['kafka/qa/runtime/StorageAcceptance.java']))

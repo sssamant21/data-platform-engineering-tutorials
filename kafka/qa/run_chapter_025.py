@@ -40,6 +40,13 @@ def state_checksum(log):
     return values.pop()
 
 
+def stage_resource_suffix(stage):
+    suffix = stage.replace('_', '-')
+    if len(suffix)>30 or not re.fullmatch(r'[a-z0-9](?:[a-z0-9-]*[a-z0-9])?',suffix):
+        raise ValueError('Invalid Kubernetes client stage name')
+    return suffix
+
+
 def consumer_manifest(name, image, source, args):
     return {'apiVersion': 'apps/v1', 'kind': 'Deployment', 'metadata': {'name': name}, 'spec': {
         'replicas': 1, 'selector': {'matchLabels': {'app': name}},
@@ -98,7 +105,7 @@ def main():
         jobs = []
         def client(stage, main, args, required):
             child = Lab('025', LIMITS)
-            child.tag, child.image, child.out, child.owned = lab.tag+'-'+stage, lab.image, lab.out/stage, lab.owned
+            child.tag, child.image, child.out, child.owned = lab.tag+'-'+stage_resource_suffix(stage), lab.image, lab.out/stage, lab.owned
             try:
                 child.run_job(main,args,required)
             finally:
