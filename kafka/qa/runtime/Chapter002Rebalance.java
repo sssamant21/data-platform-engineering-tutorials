@@ -44,6 +44,12 @@ public class Chapter002Rebalance {
         });
         while (active.get()) {
           ConsumerRecords<String,String> records = c.poll(Duration.ofMillis(250));
+          // Cooperative rebalance callbacks report incremental changes, not
+          // necessarily the complete assignment. Read the consumer's actual
+          // post-poll assignment as the authoritative snapshot.
+          Set<Integer> current = new TreeSet<>();
+          for (TopicPartition tp : c.assignment()) current.add(tp.partition());
+          assignment.set(Collections.unmodifiableSet(current));
           messages.addAndGet(records.count());
           if (!records.isEmpty()) c.commitSync(Duration.ofSeconds(10));
         }
