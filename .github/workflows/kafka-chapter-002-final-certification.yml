@@ -1,0 +1,86 @@
+name: Kafka Chapter 002 Final Certification Gate
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/certify_chapter_002_final.py'
+      - '.github/workflows/kafka-chapter-002-final-certification.yml'
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  chapter-002-final:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Fetch latest run and evidence for each required lab
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p kafka/qa/evidence/chapter-002-final
+          workflows=(
+            "partition-ordering:kafka-chapter-002-certification.yml"
+            "offset-recovery:kafka-chapter-002-offset-recovery.yml"
+            "consumer-rebalance:kafka-chapter-002-rebalance.yml"
+            "consumer-lag:kafka-chapter-002-lag.yml"
+          )
+          for item in "${workflows[@]}"; do
+            label="${item%%:*}"
+            workflow="${item#*:}"
+            target="kafka/qa/evidence/chapter-002-final/$label"
+            mkdir -p "$target"
+            gh run list --repo "$GH_REPO" --workflow "$workflow" --branch main --limit 1 \
+              --json databaseId,conclusion,headSha,workflowName > "$target/runs.json"
+            python - "$target" <<'PY'
+          import json, pathlib, sys
+          target = pathlib.Path(sys.argv[1])
+          runs = json.loads((target / "runs.json").read_text())
+          if not runs:
+              raise SystemExit("No workflow run for " + str(target))
+          (target / "run.json").write_text(json.dumps(runs[0], indent=2))
+          if runs[0].get("conclusion") != "success":
+              raise SystemExit("Latest run is not successful: " + str(target))
+          PY
+            run_id="$(python -c 'import json,sys;print(json.load(open(sys.argv[1]))["databaseId"])' "$target/run.json")"
+            gh run download "$run_id" --repo "$GH_REPO" --dir "$target"
+            # Each artifact is downloaded into a subdirectory; locate the required JSON.
+            case "$label" in
+              partition-ordering) file="chapter-002-certification.json" ;;
+              offset-recovery) file="chapter-002-offset-recovery.json" ;;
+              consumer-rebalance) file="chapter-002-rebalance-result.json" ;;
+              consumer-lag) file="chapter-002-lag-result.json" ;;
+            esac
+            found="$(find "$target" -type f -name "$file" -print -quit)"
+            if [[ -z "$found" ]]; then
+              echo "::error::Missing $file for $label"
+              exit 1
+            fi
+            if [[ "$found" != "$target/$file" ]]; then
+              cp "$found" "$target/$file"
+            fi
+          done
+      - name: Validate all required PASS checks
+        run: python kafka/qa/certify_chapter_002_final.py
+      - name: Upload certification evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: chapter-002-final-certification-${{ github.run_id }}
+          path: |
+            kafka/qa/evidence/chapter-002-final-certification.json
+            kafka/qa/evidence/chapter-002-final/
+          retention-days: 14
+          if-no-files-found: warn
