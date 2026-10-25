@@ -7,10 +7,17 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUPPORTED = tuple(f"{i:03d}" for i in range(1, 22))
+SUPPORTED = tuple(f"{i:03d}" for i in range(1, 23))
 CHAPTER = re.compile(r"(?:^|/)(\d{3})-[^/]+\.(?:md|py)$")
 RUNNER = re.compile(r"^kafka/qa/run_chapter_(\d{3})\.py$")
 WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
+
+# Known storage dependencies avoid rerunning unrelated chapters for each new lab.
+SCOPED_RUNTIME = {
+    "kafka/qa/runtime/StorageAcceptance.java": ("021", "022"),
+    "kafka/qa/runtime/strimzi-three-node-persistent-ch021.yaml": ("021", "022"),
+    "kafka/qa/run_chapter_021.py": ("021", "022"),
+}
 
 def changed(before, after):
     zero = "0" * 40
@@ -24,11 +31,17 @@ def changed(before, after):
 def select(paths):
     selected = set()
     shared = False
+    selector_changed = False
     for path in paths:
         if path.startswith("kafka/qa/evidence/"):
             continue
-        if path in ("kafka/qa/select_changed_chapters.py",
-                    "kafka/qa/runtime_acceptance.py",
+        if path == "kafka/qa/select_changed_chapters.py":
+            selector_changed = True
+            continue
+        if path in SCOPED_RUNTIME:
+            selected.update(ch for ch in SCOPED_RUNTIME[path] if ch in SUPPORTED)
+            continue
+        if path in ("kafka/qa/runtime_acceptance.py",
                     ".github/workflows/kafka-qa-orchestrator.yml"):
             shared = True
             continue
@@ -42,12 +55,12 @@ def select(paths):
         else:
             if path.startswith("kafka/qa/runtime/") or path.startswith("kafka/kubernetes/"):
                 shared = True
-    if shared:
+    if shared or (selector_changed and not selected):
         selected.update(SUPPORTED)
     return sorted(selected)
 
 def fixture_for(chapter):
-    if chapter == "021":
+    if chapter in ("021", "022"):
         return "strimzi-three-node-persistent-ch021.yaml"
     if chapter in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019", "020"):
         return "strimzi-three-node-ch004.yaml"

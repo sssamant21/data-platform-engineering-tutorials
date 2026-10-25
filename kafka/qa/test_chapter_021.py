@@ -101,7 +101,7 @@ class StorageTests(unittest.TestCase):
             chapter.quantity_bytes('unbounded')
 
     def test_selector_keeps_existing_fixtures_and_selects_persistent_021(self):
-        self.assertEqual(selector.select(['kafka/qa/run_chapter_021.py']), ['021'])
+        self.assertEqual(selector.select(['kafka/qa/run_chapter_021.py']), ['021', '022'])
         self.assertEqual(selector.fixture_for('021'), 'strimzi-three-node-persistent-ch021.yaml')
         self.assertEqual(selector.fixture_for('020'), 'strimzi-three-node-ch004.yaml')
         self.assertEqual(selector.fixture_for('001'), 'strimzi-single-node.yaml')

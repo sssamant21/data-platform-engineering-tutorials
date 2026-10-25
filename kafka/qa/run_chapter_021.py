@@ -99,11 +99,11 @@ def storage_inventory(pool, pods, claims, volumes, classes):
     return sorted(mappings, key=lambda item: item['pod'])
 
 
-def safe_partition_path(directory, mount, topic, partition):
+def safe_partition_path(directory, mount, topic, partition, chapter="021"):
     root, base = PurePosixPath(directory), PurePosixPath(mount)
     require(root.is_absolute() and '..' not in root.parts and root.is_relative_to(base),
             'Kafka log directory is outside verified PVC mount')
-    require(re.fullmatch(r'ch021-[a-f0-9]{12}-storage', topic) and partition in range(3), 'Unowned topic/partition inspection target')
+    require(chapter in ('021', '022') and re.fullmatch(rf'ch{chapter}-[a-f0-9]{{12}}-storage', topic) and partition in range(3), 'Unowned topic/partition inspection target')
     return str(root / f'{topic}-{partition}')
 
 
@@ -148,8 +148,8 @@ def segment_files(output):
 
 
 class StorageLab(Lab):
-    def __init__(self):
-        super().__init__('021', LIMITATIONS)
+    def __init__(self, chapter='021', limitations=None):
+        super().__init__(chapter, LIMITATIONS if limitations is None else limitations)
         self.result['checks'].update({name: 'NOT_RUN' for name in STORAGE_CHECKS + CLIENT_CHECKS})
 
     def read(self, label, *args):
@@ -158,7 +158,7 @@ class StorageLab(Lab):
                  'command': ['kubectl', '--context', CTX, '-n', NS, *args],
                  'expected': 'successful read-only observation: ' + label,
                  'reviewer': 'automated-harness; independent assessment pending',
-                 'evidence_path': f'chapter-021-{label}.txt', 'status': 'FAIL'}
+                 'evidence_path': f'chapter-{self.chapter}-{label}.txt', 'status': 'FAIL'}
         self.result['actions'].append(event)
         try:
             output = k(*args, timeout=90)
