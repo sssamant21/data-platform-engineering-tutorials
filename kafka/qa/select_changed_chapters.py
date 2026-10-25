@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUPPORTED = tuple(f"{i:03d}" for i in range(1, 20))
+SUPPORTED = tuple(f"{i:03d}" for i in range(1, 21))
 CHAPTER = re.compile(r"(?:^|/)(\d{3})-[^/]+\.(?:md|py)$")
 RUNNER = re.compile(r"^kafka/qa/run_chapter_(\d{3})\.py$")
 WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
@@ -55,7 +55,7 @@ def main():
     files = changed(args.before, args.after)
     selected = select(files)
     payload = {"include": [{"chapter": ch, "fixture": (
-        "strimzi-three-node-ch004.yaml" if ch in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019")
+        "strimzi-three-node-ch004.yaml" if ch in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019", "020")
         else "strimzi-single-node.yaml")} for ch in selected]}
     Path(args.output).write_text(json.dumps({"changed_files": files, "chapters": selected,
                                               "matrix": payload}, indent=2) + "\n")

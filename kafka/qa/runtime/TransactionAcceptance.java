@@ -33,6 +33,7 @@ public class TransactionAcceptance {
   static KafkaConsumer<String,String> consumer(String id,String isolation) {
     Properties p=base();p.put("group.id",id);p.put("enable.auto.commit","false");
     p.put("auto.offset.reset","earliest");p.put("isolation.level",isolation);p.put("group.protocol","classic");
+    p.put("partition.assignment.strategy","org.apache.kafka.clients.consumer.CooperativeStickyAssignor");
     p.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
     p.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
     return new KafkaConsumer<>(p);
@@ -88,8 +89,98 @@ public class TransactionAcceptance {
       check(config.get("min.insync.replicas").value().equals("2"),"min ISR changed");
     }
   }
+  static void capstone(String[] args) throws Exception {
+    String mode=args[4];
+    if(mode.equals("worker")) {
+      java.util.concurrent.atomic.AtomicBoolean stopping=new java.util.concurrent.atomic.AtomicBoolean();
+      java.util.concurrent.CountDownLatch closed=new java.util.concurrent.CountDownLatch(1);
+      try(KafkaConsumer<String,String> c=consumer(group,"read_committed");
+          KafkaProducer<String,String> p=producer(tag+"-"+System.getenv("HOSTNAME"))) {
+        Thread hook=new Thread(() -> {
+          stopping.set(true);c.wakeup();
+          try {closed.await(45,TimeUnit.SECONDS);} catch(InterruptedException e) {Thread.currentThread().interrupt();}
+        });
+        Runtime.getRuntime().addShutdownHook(hook);
+        boolean active=false;
+        try {
+          p.initTransactions();c.subscribe(List.of(input));
+          while(!stopping.get()) {
+            ConsumerRecords<String,String> polled=c.poll(Duration.ofMillis(300));
+            if(!c.groupMetadata().memberId().isEmpty())
+              java.nio.file.Files.writeString(java.nio.file.Path.of("/tmp/qa-ready"),"joined");
+            if(polled.isEmpty())continue;
+            List<ConsumerRecord<String,String>> records=new ArrayList<>();
+            polled.forEach(records::add);
+            if(java.nio.file.Files.exists(java.nio.file.Path.of("/tmp/qa-hold"))) {
+              System.out.println("INFLIGHT_READY");
+              while(java.nio.file.Files.exists(java.nio.file.Path.of("/tmp/qa-hold")) && !stopping.get())Thread.sleep(100);
+              if(stopping.get())break;
+            }
+            p.beginTransaction();active=true;
+            Map<TopicPartition,OffsetAndMetadata> offsets=transform(p,records);
+            p.sendOffsetsToTransaction(offsets,c.groupMetadata());p.commitTransaction();active=false;
+            System.out.println("OBS:processed-and-committed:"+offsets);
+          }
+        } catch(org.apache.kafka.common.errors.WakeupException e) {
+          if(!stopping.get())throw e;
+        } finally {
+          if(active)p.abortTransaction();
+          c.close(Duration.ofSeconds(15));p.close(Duration.ofSeconds(10));
+          System.out.println("GRACEFUL_CLOSE");closed.countDown();
+          try {Runtime.getRuntime().removeShutdownHook(hook);} catch(IllegalStateException e) { /* JVM shutdown in progress */ }
+        }
+      }
+      return;
+    }
+    int total=Integer.parseInt(args[5]);
+    if(mode.equals("seed")) {
+      int start=Integer.parseInt(args[6]);
+      try(KafkaProducer<String,String> p=producer(null)) {
+        for(int i=start;i<total;i++)write(p,input,i%3,tag+"-event-"+i);
+      }
+      System.out.println("SEED_OK:"+total);return;
+    }
+    try(Admin admin=Admin.create(base())) {
+      health(admin);
+      if(mode.equals("members")) {
+        ConsumerGroupDescription gd=admin.describeConsumerGroups(List.of(group)).all().get(25,TimeUnit.SECONDS).get(group);
+        check(gd.state().toString().equalsIgnoreCase("stable"),"Group not stable");
+        check(gd.members().size()==total,"Wrong member count: "+gd.members().size());
+        Set<TopicPartition> all=new HashSet<>();
+        for(MemberDescription m:gd.members()) {
+          check(!m.assignment().topicPartitions().isEmpty(),"Idle worker below partition ceiling");
+          for(TopicPartition tp:m.assignment().topicPartitions())
+            check(tp.topic().equals(input) && all.add(tp),"Unexpected/overlapping ownership");
+          System.out.println("OBS:member:"+m.clientId()+":"+m.assignment().topicPartitions());
+        }
+        check(all.size()==3,"Incomplete partition ownership");
+        System.out.println("MEMBERS_OK:"+total);return;
+      }
+      check(mode.equals("verify") || mode.equals("progress"),"Unknown mode");
+      Map<TopicPartition,OffsetAndMetadata> offsets=committed(admin);
+      for(TopicPartition tp:partitions(input))
+        check(offsets.containsKey(tp) && offsets.get(tp).offset()==total/3,"Wrong progress for "+tp+": "+offsets);
+      List<String> actual=snapshot(output,"read_committed"), expected=new ArrayList<>();
+      for(int i=0;i<total;i++)expected.add("processed-"+tag+"-event-"+i);
+      // Check each key/partition's sequence before sorting for global ID reconciliation.
+      Map<Integer,Integer> previous=new HashMap<>();
+      for(String value:actual) {
+        int id=Integer.parseInt(value.substring(value.lastIndexOf('-')+1)), partition=id%3;
+        check(id>previous.getOrDefault(partition,-1),"Reordered or duplicated per-partition event");
+        previous.put(partition,id);
+      }
+      Collections.sort(actual);Collections.sort(expected);
+      check(actual.equals(expected),"Missing/duplicate output IDs: "+actual);
+      if(mode.equals("progress")) {System.out.println("PROGRESS_OK:"+total);return;}
+      List<String> seeded=snapshot(input,"read_committed");
+      List<String> expectedInput=new ArrayList<>();for(int i=0;i<total;i++)expectedInput.add(tag+"-event-"+i);
+      Collections.sort(seeded);Collections.sort(expectedInput);check(seeded.equals(expectedInput),"Input ID reconciliation failed");
+      System.out.println("OBS:input-offsets:"+offsets);System.out.println("VERIFIED_OK:"+total);
+    }
+  }
   public static void main(String[] args) throws Exception {
     input=args[0];output=args[1];group=args[2];tag=args[3];
+    if(args.length>4) {capstone(args);return;}
     try(Admin admin=Admin.create(base())) {
       health(admin);pass("topics_rf3_isr3_minisr2");
       try(KafkaProducer<String,String> p=producer(tag+"-visibility")) {
