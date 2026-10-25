@@ -1,0 +1,60 @@
+name: Kafka Chapter 003 Targeted Leader Failover Lab
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/runtime/strimzi-six-pod.yaml'
+      - 'kafka/qa/runtime/chapter-003-topic.yaml'
+      - 'kafka/qa/runtime/Chapter003LeaderFailover.java'
+      - 'kafka/qa/certify_chapter_003_leader_failover.py'
+      - 'kafka/qa/labs/phase-07-03-chapter-003-leader-failover.md'
+      - '.github/workflows/kafka-chapter-003-leader-failover.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  targeted-leader-failover:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Install Strimzi
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+      - name: Deploy Kafka and topic
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/strimzi-six-pod.yaml
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/chapter-003-topic.yaml
+      - name: Run targeted leader failover acceptance
+        run: python kafka/qa/certify_chapter_003_leader_failover.py
+      - name: Collect diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkatopics -o wide > kafka/qa/evidence/chapter-003-leader-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-003-leader-events.txt 2>&1 || true
+      - uses: actions/upload-artifact@v6
+        if: always()
+        with:
+          name: chapter-003-leader-failover-${{ github.run_id }}
+          path: kafka/qa/evidence/chapter-003-leader*
+          retention-days: 7
+          if-no-files-found: warn
