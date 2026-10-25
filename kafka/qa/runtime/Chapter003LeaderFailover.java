@@ -4,7 +4,7 @@ import java.util.concurrent.*;
 import org.apache.kafka.clients.consumer.*;
 import org.apache.kafka.clients.producer.*;
 import org.apache.kafka.common.*;
-import org.apache.kafka.common.metrics.Metric;
+import org.apache.kafka.common.Metric;
 import org.apache.kafka.common.serialization.*;
 
 public class Chapter003LeaderFailover {
