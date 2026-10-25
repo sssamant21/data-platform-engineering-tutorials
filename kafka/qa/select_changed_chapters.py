@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUPPORTED = tuple(f"{i:03d}" for i in range(1, 24))
+SUPPORTED = tuple(f"{i:03d}" for i in range(1, 25))
 CHAPTER = re.compile(r"(?:^|/)(\d{3})-[^/]+\.(?:md|py)$")
 RUNNER = re.compile(r"^kafka/qa/run_chapter_(\d{3})\.py$")
 WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
@@ -15,9 +15,10 @@ WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
 # Known storage dependencies avoid rerunning unrelated chapters for each new lab.
 SCOPED_RUNTIME = {
     "kafka/qa/runtime/StorageAcceptance.java": ("021", "022"),
-    "kafka/qa/runtime/strimzi-three-node-persistent-ch021.yaml": ("021", "022", "023"),
-    "kafka/qa/run_chapter_021.py": ("021", "022", "023"),
+    "kafka/qa/runtime/strimzi-three-node-persistent-ch021.yaml": ("021", "022", "023", "024"),
+    "kafka/qa/run_chapter_021.py": ("021", "022", "023", "024"),
     "kafka/qa/runtime/CompactionAcceptance.java": ("023",),
+    "kafka/qa/runtime/TieredPreflight.java": ("024",),
 }
 
 def changed(before, after):
@@ -61,7 +62,7 @@ def select(paths):
     return sorted(selected)
 
 def fixture_for(chapter):
-    if chapter in ("021", "022", "023"):
+    if chapter in ("021", "022", "023", "024"):
         return "strimzi-three-node-persistent-ch021.yaml"
     if chapter in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019", "020"):
         return "strimzi-three-node-ch004.yaml"

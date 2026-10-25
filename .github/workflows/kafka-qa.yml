@@ -43,6 +43,8 @@ jobs:
           cache-dependency-path: .github/workflows/kafka-qa.yml
       - name: Install QA dependencies
         run: python -m pip install "PyYAML>=6,<7" "jsonschema>=4,<5"
+      - name: Run offline chapter guard and selector tests
+        run: python -m unittest discover -s kafka/qa -p "test_chapter_*.py" -v
       - name: Run static checks (no containers, no clusters)
         run: python kafka/qa/run_qa.py --stage static --no-shell
       - name: Upload static QA evidence

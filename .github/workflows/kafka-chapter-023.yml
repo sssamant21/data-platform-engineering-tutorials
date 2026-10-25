@@ -9,7 +9,6 @@ on:
       - "kafka/qa/test_chapter_023.py"
       - "kafka/qa/run_chapter_021.py"
       - "kafka/qa/runtime/strimzi-three-node-persistent-ch021.yaml"
-      - "kafka/qa/select_changed_chapters.py"
       - "kafka/05-storage-retention-compaction-tiered-storage/023-*.md"
       - "kafka/qa/runtime_acceptance.py"
       - ".github/workflows/kafka-chapter-023.yml"
