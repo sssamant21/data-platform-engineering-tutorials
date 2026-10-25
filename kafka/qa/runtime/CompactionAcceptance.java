@@ -63,6 +63,10 @@ public class CompactionAcceptance {
       check(done,"Bootstrap did not reach captured end offsets");
       check(state.equals(Map.of("customer-1","tier=diamond","customer-3","tier=premium","literal-null","null")),"Wrong rebuilt state: "+state);
       check(tombstones>=1,"No actual null-value tombstone observed");
+      try {
+        byte[] digest=java.security.MessageDigest.getInstance("SHA-256").digest(state.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+        System.out.println("OBS:STATE_CHECKSUM:"+HexFormat.of().formatHex(digest));
+      } catch(java.security.NoSuchAlgorithmException e) {throw new IllegalStateException(e);}
       System.out.println("OBS:STATE:"+state+":records="+records+":actual_null_tombstones="+tombstones);
       System.out.println("OBS:OFFSET_SNAPSHOT:earliest="+starts+":latest="+ends+":last_returned="+last);
       return records;
@@ -96,6 +100,17 @@ public class CompactionAcceptance {
         pass("cleaner_observation_recorded_without_completion_sla");
       }
       health(admin,topic);pass("final_full_isr_and_config_unchanged");
+      if(phase.equals("serve")) {
+        java.util.concurrent.atomic.AtomicBoolean stopping=new java.util.concurrent.atomic.AtomicBoolean();
+        java.util.concurrent.CountDownLatch closed=new java.util.concurrent.CountDownLatch(1);
+        Thread hook=new Thread(() -> {stopping.set(true);try {closed.await(20,TimeUnit.SECONDS);} catch(InterruptedException e) {Thread.currentThread().interrupt();}});
+        Runtime.getRuntime().addShutdownHook(hook);
+        java.nio.file.Files.writeString(java.nio.file.Path.of("/tmp/compaction-ready"),"bootstrapped");
+        try {while(!stopping.get())Thread.sleep(250);} finally {
+          System.out.println("GRACEFUL_CLOSE");closed.countDown();
+          try {Runtime.getRuntime().removeShutdownHook(hook);} catch(IllegalStateException e) { /* JVM shutdown */ }
+        }
+      }
     }
   }
 }

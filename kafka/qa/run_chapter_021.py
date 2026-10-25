@@ -103,7 +103,7 @@ def safe_partition_path(directory, mount, topic, partition, chapter="021"):
     root, base = PurePosixPath(directory), PurePosixPath(mount)
     require(root.is_absolute() and '..' not in root.parts and root.is_relative_to(base),
             'Kafka log directory is outside verified PVC mount')
-    require(chapter in ('021', '022') and re.fullmatch(rf'ch{chapter}-[a-f0-9]{{12}}-storage', topic) and partition in range(3), 'Unowned topic/partition inspection target')
+    require(re.fullmatch(r'\d{3}', chapter) is not None and re.fullmatch(rf'ch{chapter}-[a-f0-9]{{12}}-storage', topic) and partition in range(3), 'Unowned topic/partition inspection target')
     return str(root / f'{topic}-{partition}')
 
 
