@@ -29,13 +29,15 @@ class AcceptanceHarnessTests(unittest.TestCase):
         self.assertFalse(lab.safe)
 
     def test_failed_job_reports_error_without_waiting_for_timeout(self):
-        lab = harness.Lab('019', [])
-        lab.image = 'image:4.0.0'
-        with patch.object(lab, 'source', return_value='source'), patch.object(lab, 'apply'), patch.object(
-                harness, 'k', side_effect=[json.dumps({'status': {'conditions': [{'type': 'Failed', 'status': 'True'}]}}), 'JAVA_FAILURE']):
-            with self.assertRaisesRegex(RuntimeError, 'JAVA_FAILURE'):
-                lab.run_job('Main', [], ['expected_assertion'])
-        self.assertEqual(lab.result['checks'], {'expected_assertion': 'NOT_RUN_OR_FAILED'})
+        with tempfile.TemporaryDirectory(dir=harness.ROOT) as directory:
+            lab = harness.Lab('019', [])
+            lab.image, lab.out = 'image:4.0.0', Path(directory)
+            with patch.object(lab, 'source', return_value='source'), patch.object(lab, 'apply'), patch.object(
+                    harness, 'k', side_effect=[json.dumps({'status': {'conditions': [{'type': 'Failed', 'status': 'True'}]}}), 'JAVA_FAILURE']):
+                with self.assertRaisesRegex(RuntimeError, 'JAVA_FAILURE'):
+                    lab.run_job('Main', [], ['expected_assertion'])
+            self.assertEqual(lab.result['checks'], {'expected_assertion': 'NOT_RUN_OR_FAILED'})
+            self.assertIn('JAVA_FAILURE', (lab.out / 'chapter-019-client.log').read_text())
 
     def test_missing_assertion_cannot_pass_job(self):
         with tempfile.TemporaryDirectory(dir=harness.ROOT) as directory:
