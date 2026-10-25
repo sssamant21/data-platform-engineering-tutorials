@@ -59,9 +59,11 @@ def main():
         while time.monotonic()<deadline:
             log=k("exec",survivor,"-c","kafka","--","sh","-c","cat /tmp/ch003-leader.log 2>/dev/null || true",timeout=15)
             if "PRODUCER_PROGRESS_10" in log:break
-            if "Exception" in log or "Error" in log:raise RuntimeError("Java failed before injection: "+log[-1200:])
+            exit_status=k("exec",survivor,"-c","kafka","--","sh","-c","cat /tmp/ch003-leader.exit 2>/dev/null || true",timeout=15).strip()
+            if exit_status:raise RuntimeError("Producer exited before progress (exit "+exit_status+"): "+log[-1800:])
+            if "Exception" in log or "Error" in log:raise RuntimeError("Java failed before injection: "+log[-1800:])
             time.sleep(2)
-        else:raise RuntimeError("Producer progress marker not observed")
+        else:raise RuntimeError("Producer progress marker not observed within 120s. Producer log: "+log[-1800:])
         report["checks"]["producer_active_before_failure"]="PASS"
         k("delete","pod",victim_name,"--wait=false",timeout=30)
         report["checks"]["leader_broker_deletion_requested"]="PASS"
