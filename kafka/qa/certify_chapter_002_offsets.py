@@ -101,7 +101,8 @@ def main():
         prefix = "ch002-"+uuid.uuid4().hex[:10]
         initial = [prefix+"-baseline-"+str(i) for i in range(3)]
         cli("kafka-console-producer.sh", "--topic", TOPIC,
-            "--producer-property", "acks=all", data="\n".join(initial)+"\n")
+            "--producer-property", "acks=all", "--property", "parse.key=true", "--property", "key.separator=|",
+            data="\n".join("stable-key|"+v for v in initial)+"\n")
         result["checks"]["baseline_produced"] = "PASS"
         group = "ch002-"+uuid.uuid4().hex[:10]
         consume_java(group, 3, "earliest", initial)
@@ -114,7 +115,8 @@ def main():
         result["checks"]["committed_offsets_visible"] = "PASS"
         followup = prefix+"-after-restart"
         cli("kafka-console-producer.sh", "--topic", TOPIC,
-            "--producer-property", "acks=all", data=followup+"\n")
+            "--producer-property", "acks=all", "--property", "parse.key=true", "--property", "key.separator=|",
+            data="stable-key|"+followup+"\n")
         consume_java(group, 1, "earliest", [followup])
         result["checks"]["resume_after_restart"] = "PASS"
         consume_java("ch002-replay-"+uuid.uuid4().hex[:10], 4, "earliest", initial+[followup])
