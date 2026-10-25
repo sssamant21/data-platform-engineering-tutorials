@@ -222,9 +222,19 @@ public class TransactionAcceptance {
         for(TopicPartition tp:c.assignment())c.seek(tp,0);
         records=batch(c);p.beginTransaction();offsets=transform(p,records);
         p.sendOffsetsToTransaction(offsets,c.groupMetadata());p.commitTransaction();
-        Map<TopicPartition,OffsetAndMetadata> observed=committed(admin);
-        check(observed.size()==3,"Missing committed partitions");
-        for(TopicPartition tp:partitions(input))check(observed.get(tp).offset()==2,"Wrong committed next offset");
+        // The transaction coordinator can acknowledge EndTxn before all group
+        // coordinator commit markers become visible through the Admin API.
+        Map<TopicPartition,OffsetAndMetadata> observed=Collections.emptyMap();
+        long visibleBy=System.nanoTime()+Duration.ofSeconds(25).toNanos();
+        boolean complete=false;
+        while(System.nanoTime()<visibleBy) {
+          observed=committed(admin);complete=observed.size()==3;
+          for(TopicPartition tp:partitions(input))
+            complete &= observed.containsKey(tp) && observed.get(tp).offset()==2;
+          if(complete)break;
+          Thread.sleep(200);
+        }
+        check(complete,"Committed next offsets did not converge to two per partition: "+observed);
         System.out.println("OBS:committed-input-offsets:"+observed);pass("atomic_output_and_offsets_committed");
       }
       List<String> actual=snapshot(output,"read_committed");

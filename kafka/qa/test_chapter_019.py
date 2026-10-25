@@ -35,7 +35,7 @@ class AcceptanceHarnessTests(unittest.TestCase):
                 harness, 'k', side_effect=[json.dumps({'status': {'conditions': [{'type': 'Failed', 'status': 'True'}]}}), 'JAVA_FAILURE']):
             with self.assertRaisesRegex(RuntimeError, 'JAVA_FAILURE'):
                 lab.run_job('Main', [], ['expected_assertion'])
-        self.assertEqual(lab.result['checks'], {})
+        self.assertEqual(lab.result['checks'], {'expected_assertion': 'NOT_RUN_OR_FAILED'})
 
     def test_missing_assertion_cannot_pass_job(self):
         with tempfile.TemporaryDirectory(dir=harness.ROOT) as directory:

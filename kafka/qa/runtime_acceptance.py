@@ -101,9 +101,8 @@ class Lab:
         while time.monotonic() < deadline:
             job = json.loads(k('get', 'job', name, '-o', 'json'))
             conditions = {c['type']: c['status'] for c in job.get('status', {}).get('conditions', [])}
-            if conditions.get('Failed') == 'True':
-                raise RuntimeError('Client Job failed: ' + k('logs', 'job/' + name, '--tail=150', timeout=20))
-            if conditions.get('Complete') == 'True':
+            failed = conditions.get('Failed') == 'True'
+            if failed or conditions.get('Complete') == 'True':
                 break
             time.sleep(3)
         else:
@@ -112,9 +111,12 @@ class Lab:
         self.out.mkdir(parents=True, exist_ok=True)
         (self.out / f'chapter-{self.chapter}-client.log').write_text(log, encoding='utf-8')
         for check in required:
-            if f'CHECK:{check}:PASS' not in log:
+            self.result['checks'][check] = 'PASS' if f'CHECK:{check}:PASS' in log else 'NOT_RUN_OR_FAILED'
+        if failed:
+            raise RuntimeError('Client Job failed: ' + log[-6000:])
+        for check in required:
+            if self.result['checks'][check] != 'PASS':
                 raise RuntimeError('Missing client assertion: ' + check)
-            self.result['checks'][check] = 'PASS'
         self.result['client_observations'] = [x for x in log.splitlines() if x.startswith(('OBS:', 'CHECK:'))]
 
     def finish(self, error=None):
