@@ -1,0 +1,77 @@
+name: Kafka Chapter 019 Transaction Recovery
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "kafka/qa/run_chapter_019.py"
+      - "kafka/qa/runtime/TransactionAcceptance.java"
+      - "kafka/qa/test_chapter_019.py"
+      - "kafka/qa/runtime_acceptance.py"
+      - ".github/workflows/kafka-chapter-019.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-ch019-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chapter-019:
+    name: Chapter 019 transaction visibility and atomic offset recovery
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Static and guard tests
+        run: |
+          python -m py_compile kafka/qa/run_chapter_019.py kafka/qa/select_changed_chapters.py
+          python -m unittest discover -s kafka/qa -p test_chapter_019.py -v
+      - name: Create isolated kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Verify isolated context and install Strimzi
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+          kubectl --context kind-kafka-qa -n kafka-qa rollout status \
+            deployment/strimzi-cluster-operator --timeout=180s
+      - name: Deploy three-broker Kafka fixture
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply \
+            -f kafka/qa/runtime/strimzi-three-node-ch004.yaml
+      - name: Execute Chapter 019 transaction acceptance
+        env:
+          QA_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python kafka/qa/run_chapter_019.py
+      - name: Capture failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkanodepool,kafkatopic,pvc -o wide > kafka/qa/evidence/chapter-019-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-019-events.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > kafka/qa/evidence/chapter-019-operator-log.txt 2>&1 || true
+      - name: Destroy disposable cluster
+        if: always()
+        run: kind delete cluster --name kafka-qa
+      - name: Upload Chapter 019 evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kafka-chapter-019-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 7
