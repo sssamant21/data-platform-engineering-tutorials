@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUPPORTED = tuple(f"{i:03d}" for i in range(1, 21))
+SUPPORTED = tuple(f"{i:03d}" for i in range(1, 22))
 CHAPTER = re.compile(r"(?:^|/)(\d{3})-[^/]+\.(?:md|py)$")
 RUNNER = re.compile(r"^kafka/qa/run_chapter_(\d{3})\.py$")
 WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
@@ -46,6 +46,14 @@ def select(paths):
         selected.update(SUPPORTED)
     return sorted(selected)
 
+def fixture_for(chapter):
+    if chapter == "021":
+        return "strimzi-three-node-persistent-ch021.yaml"
+    if chapter in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019", "020"):
+        return "strimzi-three-node-ch004.yaml"
+    return "strimzi-single-node.yaml"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--before", required=True)
@@ -54,9 +62,7 @@ def main():
     args = parser.parse_args()
     files = changed(args.before, args.after)
     selected = select(files)
-    payload = {"include": [{"chapter": ch, "fixture": (
-        "strimzi-three-node-ch004.yaml" if ch in ("004", "005", "007", "009", "010", "011", "012", "013", "014", "015", "016", "017", "018", "019", "020")
-        else "strimzi-single-node.yaml")} for ch in selected]}
+    payload = {"include": [{"chapter": ch, "fixture": fixture_for(ch)} for ch in selected]}
     Path(args.output).write_text(json.dumps({"changed_files": files, "chapters": selected,
                                               "matrix": payload}, indent=2) + "\n")
     print(json.dumps(payload, separators=(",", ":")))
