@@ -1,0 +1,62 @@
+name: Kafka Chapter 002 Consumer Rebalance Lab
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'kafka/qa/runtime/strimzi-six-pod.yaml'
+      - 'kafka/qa/runtime/chapter-002-topic.yaml'
+      - 'kafka/qa/runtime/Chapter002Rebalance.java'
+      - 'kafka/qa/certify_chapter_002_rebalance.py'
+      - 'kafka/qa/labs/phase-06-03-chapter-002-consumer-rebalance.md'
+      - '.github/workflows/kafka-chapter-002-rebalance.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  consumer-rebalance:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+      - name: Create disposable kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Install Strimzi
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+      - name: Deploy Kafka and topic
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/strimzi-six-pod.yaml
+          kubectl --context kind-kafka-qa -n kafka-qa apply -f kafka/qa/runtime/chapter-002-topic.yaml
+      - name: Validate consumer partition reassignment
+        run: python kafka/qa/certify_chapter_002_rebalance.py
+      - name: Collect diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkatopics -o wide > kafka/qa/evidence/chapter-002-rebalance-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-002-rebalance-events.txt 2>&1 || true
+      - name: Upload evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: chapter-002-rebalance-${{ github.run_id }}
+          path: kafka/qa/evidence/chapter-002-rebalance-*
+          retention-days: 7
+          if-no-files-found: warn
