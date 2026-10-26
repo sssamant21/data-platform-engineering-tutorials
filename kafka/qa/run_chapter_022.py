@@ -16,13 +16,14 @@ ANNOTATIONS = {'sre.example.com/owner': 'kafka-qa', 'sre.example.com/change-tick
                'sre.example.com/data-classification': 'synthetic'}
 
 
-def validate_policy_change(before, after, *, synthetic_lab_authorized, record_age_seconds):
+def validate_policy_change(before, after, *, synthetic_lab_authorized, record_age_seconds, chapter="022", annotations=None):
     if not synthetic_lab_authorized or not 0 <= record_age_seconds < 3000:
         raise RuntimeError('Retention change requires authorized synthetic scope and a safe retained-record age')
+    required_annotations = ANNOTATIONS if annotations is None else annotations
     name = before['metadata']['name']
-    if not re.fullmatch(r'ch022-[a-f0-9]{12}-storage', name):
+    if chapter not in ('022', '025') or not re.fullmatch(rf'ch{chapter}-[a-f0-9]{{12}}-storage', name):
         raise RuntimeError('Unowned topic')
-    if before['metadata'] != after['metadata'] or before['metadata']['annotations'] != ANNOTATIONS:
+    if before['metadata'] != after['metadata'] or before['metadata']['annotations'] != required_annotations:
         raise RuntimeError('Governance metadata changed or missing')
     if before['metadata']['labels'].get('strimzi.io/cluster') != CLUSTER:
         raise RuntimeError('Wrong cluster ownership')

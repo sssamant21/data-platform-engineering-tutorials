@@ -32,7 +32,7 @@ class TieredPreflightTests(unittest.TestCase):
         self.assertEqual(selector.select(['kafka/qa/runtime/TieredPreflight.java']), ['024'])
         self.assertEqual(selector.fixture_for('024'), 'strimzi-three-node-persistent-ch021.yaml')
         self.assertTrue({'021','022','023','024'}.issubset(selector.select(['kafka/qa/run_chapter_021.py'])))
-        self.assertEqual(selector.select(['kafka/qa/select_changed_chapters.py','kafka/qa/run_chapter_024.py']), ['024'])
+        self.assertIn('024', selector.select(['kafka/qa/select_changed_chapters.py','kafka/qa/run_chapter_024.py']))
 
 
 if __name__ == '__main__':

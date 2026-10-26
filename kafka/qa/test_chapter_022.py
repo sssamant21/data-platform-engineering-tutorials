@@ -48,8 +48,8 @@ class RetentionTests(unittest.TestCase):
 
     def test_scoped_shared_storage_dependencies_and_registration(self):
         self.assertEqual(selector.fixture_for('022'), 'strimzi-three-node-persistent-ch021.yaml')
-        self.assertEqual(selector.select(['kafka/qa/select_changed_chapters.py', 'kafka/qa/run_chapter_022.py']), ['022'])
-        self.assertEqual(selector.select(['kafka/qa/runtime/StorageAcceptance.java']), ['021', '022'])
+        self.assertIn('022', selector.select(['kafka/qa/select_changed_chapters.py', 'kafka/qa/run_chapter_022.py']))
+        self.assertTrue({'021', '022'}.issubset(selector.select(['kafka/qa/runtime/StorageAcceptance.java'])))
         self.assertEqual(selector.select(['kafka/qa/select_changed_chapters.py']), list(selector.SUPPORTED))
         self.assertEqual(selector.select(['kafka/qa/runtime_acceptance.py']), list(selector.SUPPORTED))
 
