@@ -6,6 +6,7 @@ on:
     paths:
       - "kafka/qa/run_chapter_031.py"
       - "kafka/qa/performance_acceptance.py"
+      - "kafka/qa/performance_lab.py"
       - "kafka/qa/run_chapter_027.py"
       - "kafka/qa/run_chapter_028.py"
       - "kafka/qa/run_chapter_029.py"
