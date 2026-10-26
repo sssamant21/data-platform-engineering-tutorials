@@ -23,7 +23,9 @@ health acceptance. A single-host kind result is not production capacity evidence
   compression=none, linger=0 and batch.size=16384 throughout.
 - Use native `--producer.config`, `--print-metrics`, and `--consumer.config`
   flags. Record exact safe commands, exit codes, client version, raw summaries,
-  timestamps, per-trial outputs and Pod resource allocation. Each native worker
+  timestamps, per-trial outputs and Pod resource allocation. Help may return 1 only with validated expected flags; benchmark commands
+  still require exit 0. Launcher logs use the private writable temporary directory.
+  Each native worker
   heap is bounded at 128MiB; the complete client Pod has 1 CPU/768MiB limits.
 - Poll real Kafka Admin leader/full-ISR/quorum state while native processes run;
   kill their process tree and fail on unhealthy observations or bounded process

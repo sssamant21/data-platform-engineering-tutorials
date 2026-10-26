@@ -35,6 +35,7 @@ public class PerfAcceptance {
   static String execute(Admin admin,Path logging,int timeout,String... command) throws Exception {
     ProcessBuilder builder=new ProcessBuilder(command).redirectErrorStream(true);
     builder.environment().put("KAFKA_HEAP_OPTS","-Xms64m -Xmx128m");
+    builder.environment().put("LOG_DIR",logging.getParent().toString());
     builder.environment().put("KAFKA_LOG4J_OPTS","-Dlog4j2.configurationFile="+logging);
     System.out.println("OBS:NATIVE_COMMAND:"+String.join(" ",command));
     Process process=builder.start();ExecutorService reader=Executors.newSingleThreadExecutor();ByteArrayOutputStream output=new ByteArrayOutputStream();
@@ -47,7 +48,13 @@ public class PerfAcceptance {
       }
       drain.get(10,TimeUnit.SECONDS);String text=output.toString(java.nio.charset.StandardCharsets.UTF_8);
       System.out.println("RAW_TOOL_BEGIN:"+Path.of(command[0]).getFileName());System.out.print(text);System.out.println("RAW_TOOL_END");reported=true;System.out.println("OBS:NATIVE_EXIT_CODE:"+Path.of(command[0]).getFileName()+":"+process.exitValue());
-      check(process.exitValue()==0,"Native performance tool nonzero exit");health(admin);return text;
+      boolean help=Arrays.asList(command).contains("--help");
+      if(help) {
+        boolean producer=command[0].endsWith("kafka-producer-perf-test.sh");
+        check((process.exitValue()==0 || process.exitValue()==1) && text.contains(producer ? "--producer.config" : "--consumer.config")
+          && text.contains(producer ? "--throughput" : "--messages") && text.contains("--topic") && !text.contains("Permission denied"),"Native tool help did not establish supported flags");
+      } else check(process.exitValue()==0,"Native performance tool nonzero exit");
+      health(admin);return text;
     } finally {
       if(process.isAlive())stop(process);
       if(!reported) {try {drain.get(5,TimeUnit.SECONDS);}catch(Exception ignored) {}System.out.println("RAW_FAILED_TOOL_OUTPUT");System.out.print(output.toString(java.nio.charset.StandardCharsets.UTF_8));}
