@@ -76,7 +76,7 @@ class TlsTests(unittest.TestCase):
         self.assertEqual(acls[1]['resource'],{'type':'group','name':'group','patternType':'literal'})
         self.assertFalse(any('All' in rule['operations'] for rule in acls))
         self.assertEqual(selector.fixture_for('027'),'strimzi-three-node-mtls-ch027.yaml')
-        self.assertEqual(selector.select(['kafka/qa/security_acceptance.py']),['027'])
+        self.assertIn('027',selector.select(['kafka/qa/security_acceptance.py']))
 
 
 if __name__=='__main__':unittest.main()

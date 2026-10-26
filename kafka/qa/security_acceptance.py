@@ -1,4 +1,5 @@
 """Shared secret-safe client Job controls for disposable security acceptance."""
+import base64
 import copy
 import json
 import re
@@ -50,21 +51,24 @@ def redact_private_material(text):
         nonlocal changed
         if match[2]=='[REDACTED]':return match[0]
         changed=True;return match[1]+' [REDACTED]'
-    text=re.sub(r'(?m)^(\s*user\.(?:key|p12|password):)\s*(\S.*)$',yaml_value,text)
+    text=re.sub(r'(?m)^(\s*(?:user\.(?:key|p12|password)|password|sasl\.jaas\.config):)\s*(\S.*)$',yaml_value,text)
     def json_value(match):
         nonlocal changed
         if match[2]=='[REDACTED]':return match[0]
         changed=True;return match[1]+'[REDACTED]'+match[3]
-    text=re.sub(r'("user\.(?:key|p12|password)"\s*:\s*")([^"\r\n]+)(")',json_value,text)
+    text=re.sub(r'("(?:user\.(?:key|p12|password)|password|sasl\.jaas\.config)"\s*:\s*")([^"\r\n]+)(")',json_value,text)
     text,count=re.subn(r'(?m)((?:ssl\.(?:keystore|key)\.password|sasl\.jaas\.config)\s*=\s*)(?!\[hidden\]|\[REDACTED\]|null)(\S[^\r\n]*)',r'\1[REDACTED]',text);changed|=bool(count)
     return text,changed
 
 
-def sanitize_evidence(directory, chapter):
+def sanitize_evidence(directory, chapter, private_values=()):
     root=Path(directory);redacted_any=False
     for path in root.rglob('chapter-'+chapter+'*'):
         if not path.is_file():continue
         text=path.read_text(encoding='utf-8',errors='replace');cleaned,redacted=redact_private_material(text)
+        for value in private_values:
+            for encoded in (value, base64.b64encode(value.encode()).decode()):
+                if encoded and encoded in cleaned:cleaned=cleaned.replace(encoded,'[REDACTED]');redacted=True
         if redacted:path.write_text(cleaned,encoding='utf-8');redacted_any=True
     report=root/f'chapter-{chapter}-runtime.json'
     if report.exists():
@@ -81,6 +85,7 @@ class SecurityLab(StorageLab):
         super().__init__(chapter,limitations)
         self.result['checks']={}
         self.identity_items=['user.p12','user.password']
+        self.private_values=()
 
     def apply(self, manifest):
         if manifest['kind']=='Job':
@@ -97,9 +102,12 @@ class SecurityLab(StorageLab):
         safe_error=None
         if error is not None:
             message,redacted=redact_private_material(str(error))
+            for value in self.private_values:
+                for encoded in (value,base64.b64encode(value.encode()).decode()):
+                    if encoded and encoded in message:message=message.replace(encoded,'[REDACTED]');redacted=True
             safe_error=RuntimeError('Private output redacted; security evidence check failed') if redacted else RuntimeError(message)
         super().finish(safe_error)
-        sanitize_evidence(self.out,self.chapter)
+        sanitize_evidence(self.out,self.chapter,self.private_values)
         self.result=json.loads((self.out/f'chapter-{self.chapter}-runtime.json').read_text(encoding='utf-8'))
         return 0 if self.result['status']=='PASS' else 1
 
