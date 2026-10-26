@@ -1,0 +1,97 @@
+name: Kafka Chapter 031 Bounded Native Performance Acceptance
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "kafka/qa/run_chapter_031.py"
+      - "kafka/qa/performance_acceptance.py"
+      - "kafka/qa/run_chapter_027.py"
+      - "kafka/qa/run_chapter_028.py"
+      - "kafka/qa/run_chapter_029.py"
+      - "kafka/qa/runtime/PerfAcceptance.java"
+      - "kafka/qa/test_chapter_031.py"
+      - "kafka/qa/security_acceptance.py"
+      - "kafka/qa/run_chapter_021.py"
+      - "kafka/qa/runtime/strimzi-three-node-scram-ch028.yaml"
+      - "kafka/07-performance-tuning-benchmarking/031-*.md"
+      - "kafka/qa/runtime_acceptance.py"
+      - ".github/workflows/kafka-chapter-031.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: kafka-ch031-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  chapter-031:
+    name: Chapter 031 secure native Kafka performance microbenchmark repeatability
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Static and guard tests
+        run: |
+          python -m py_compile kafka/qa/run_chapter_031.py kafka/qa/select_changed_chapters.py
+          python -m unittest discover -s kafka/qa -p "test_chapter_0*.py" -v
+      - name: Create isolated kind cluster
+        uses: helm/kind-action@v1.13.0
+        with:
+          cluster_name: kafka-qa
+          wait: 120s
+      - name: Verify isolated context and install Strimzi
+        run: |
+          test "$(kubectl config current-context)" = "kind-kafka-qa"
+          kubectl --context kind-kafka-qa create namespace kafka-qa
+          helm repo add strimzi https://strimzi.io/charts/
+          helm repo update strimzi
+          helm install kafka-qa-operator strimzi/strimzi-kafka-operator \
+            --version 0.47.0 --namespace kafka-qa \
+            --set watchAnyNamespace=false --wait --timeout 5m
+          kubectl --context kind-kafka-qa -n kafka-qa rollout status \
+            deployment/strimzi-cluster-operator --timeout=180s
+      - name: Verify disposable local-path StorageClass
+        run: kubectl --context kind-kafka-qa get storageclass standard -o yaml
+      - name: Deploy persistent three-broker Kafka fixture
+        run: |
+          kubectl --context kind-kafka-qa -n kafka-qa apply \
+            -f kafka/qa/runtime/strimzi-three-node-scram-ch028.yaml
+      - name: Execute Chapter 031 bounded secure native performance tools acceptance
+        env:
+          QA_HEAD_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: python kafka/qa/run_chapter_031.py
+      - name: Capture failure diagnostics
+        if: failure()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pods,kafka,kafkanodepool,kafkatopic,pvc,pv,storageclass -o wide > kafka/qa/evidence/chapter-031-resources.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa get events --sort-by=.metadata.creationTimestamp > kafka/qa/evidence/chapter-031-events.txt 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs deployment/strimzi-cluster-operator --tail=200 > kafka/qa/evidence/chapter-031-operator-log.txt 2>&1 || true
+      - name: Capture storage diagnostics
+        if: always()
+        run: |
+          mkdir -p kafka/qa/evidence
+          kubectl --context kind-kafka-qa -n kafka-qa get pvc -o yaml > kafka/qa/evidence/chapter-031-pvc-diagnostics.yaml 2>&1 || true
+          kubectl --context kind-kafka-qa get pv,storageclass -o yaml > kafka/qa/evidence/chapter-031-pv-storageclass-diagnostics.yaml 2>&1 || true
+          kubectl --context kind-kafka-qa -n kafka-qa logs -l strimzi.io/pool-name=dual-role -c kafka --prefix --tail=100 --max-log-requests=3 > kafka/qa/evidence/chapter-031-broker-diagnostics.log 2>&1 || true
+      - name: Destroy disposable cluster
+        if: always()
+        run: kind delete cluster --name kafka-qa
+      - name: Sanitize and validate security evidence
+        if: always()
+        run: python kafka/qa/security_acceptance.py --chapter 031 --path kafka/qa/evidence
+      - name: Upload Chapter 031 evidence
+        if: always()
+        uses: actions/upload-artifact@v6
+        with:
+          name: kafka-chapter-031-${{ github.run_id }}
+          path: kafka/qa/evidence/
+          if-no-files-found: warn
+          retention-days: 7

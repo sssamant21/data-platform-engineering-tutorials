@@ -7,7 +7,7 @@ import subprocess
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-SUPPORTED = tuple(f"{i:03d}" for i in range(1, 31))
+SUPPORTED = tuple(f"{i:03d}" for i in range(1, 32))
 CHAPTER = re.compile(r"(?:^|/)(\d{3})-[^/]+\.(?:md|py)$")
 RUNNER = re.compile(r"^kafka/qa/run_chapter_(\d{3})\.py$")
 WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
@@ -16,7 +16,7 @@ WORKFLOW = re.compile(r"^\.github/workflows/kafka-chapter-(\d{3})\.yml$")
 SCOPED_RUNTIME = {
     "kafka/qa/runtime/StorageAcceptance.java": ("021", "022", "025"),
     "kafka/qa/runtime/strimzi-three-node-persistent-ch021.yaml": ("021", "022", "023", "024", "025", "026"),
-    "kafka/qa/run_chapter_021.py": ("021", "022", "023", "024", "025", "026", "027", "028", "029", "030"),
+    "kafka/qa/run_chapter_021.py": ("021", "022", "023", "024", "025", "026", "027", "028", "029", "030", "031"),
     "kafka/qa/run_chapter_020.py": ("020", "025"),
     "kafka/qa/run_chapter_022.py": ("022", "025"),
     "kafka/qa/run_chapter_023.py": ("023", "025"),
@@ -24,13 +24,15 @@ SCOPED_RUNTIME = {
     "kafka/qa/runtime/CompactionAcceptance.java": ("023", "025"),
     "kafka/qa/runtime/TieredPreflight.java": ("024",),
     "kafka/qa/runtime/NetworkAcceptance.java": ("026",),
-    "kafka/qa/security_acceptance.py": ("027", "028", "029", "030"),
+    "kafka/qa/security_acceptance.py": ("027", "028", "029", "030", "031"),
     "kafka/qa/runtime/ScramAcceptance.java": ("028", "029", "030"),
-    "kafka/qa/runtime/strimzi-three-node-scram-ch028.yaml": ("028", "029", "030"),
-    "kafka/qa/run_chapter_028.py": ("028", "029", "030"),
+    "kafka/qa/runtime/strimzi-three-node-scram-ch028.yaml": ("028", "029", "030", "031"),
+    "kafka/qa/run_chapter_028.py": ("028", "029", "030", "031"),
     "kafka/qa/run_chapter_026.py": ("026", "030"),
-    "kafka/qa/run_chapter_027.py": ("027", "030"),
-    "kafka/qa/run_chapter_029.py": ("029", "030"),
+    "kafka/qa/run_chapter_027.py": ("027", "030", "031"),
+    "kafka/qa/run_chapter_029.py": ("029", "030", "031"),
+    "kafka/qa/performance_acceptance.py": ("031",),
+    "kafka/qa/runtime/PerfAcceptance.java": ("031",),
     "kafka/qa/runtime/TlsAcceptance.java": ("027", "030"),
     "kafka/qa/runtime/strimzi-three-node-mtls-ch027.yaml": ("027",),
 }
@@ -76,7 +78,7 @@ def select(paths):
     return sorted(selected)
 
 def fixture_for(chapter):
-    if chapter in ("028", "029", "030"):
+    if chapter in ("028", "029", "030", "031"):
         return "strimzi-three-node-scram-ch028.yaml"
     if chapter == "027":
         return "strimzi-three-node-mtls-ch027.yaml"
