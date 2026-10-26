@@ -153,7 +153,51 @@ public class ScramAcceptance {
       transactionChecks(secret,own,ownTxn,foreignTxn,group);
     }
   }
+  static InetAddress[] lookup(String host) throws Exception {
+    ExecutorService executor=Executors.newSingleThreadExecutor(r->{Thread t=new Thread(r,"capstone-dns");t.setDaemon(true);return t;});
+    try {
+      try {return executor.submit(()->InetAddress.getAllByName(host)).get(10,TimeUnit.SECONDS);}
+      catch(ExecutionException e) {if(e.getCause() instanceof Exception)throw (Exception)e.getCause();throw e;}
+    } finally {executor.shutdownNow();}
+  }
+  static void networkMain(String[] args) throws Exception {
+    bootstrap=args[0];user=args[1];phase="network";String topic=args[2],group=args[3];int badPort=Integer.parseInt(args[4]);String secret=password();
+    URI endpoint=URI.create("ssl://"+bootstrap);InetAddress[] resolved=lookup(endpoint.getHost());check(resolved.length>0,"Bootstrap DNS empty");
+    System.out.println("OBS:RESOLV_CONF:"+Files.readString(Path.of("/etc/resolv.conf")).replace('\n',';'));
+    System.out.println("OBS:BOOTSTRAP_DNS:"+String.join(",",Arrays.stream(resolved).map(InetAddress::getHostAddress).toList()));
+    try(Admin admin=Admin.create(properties(user,secret))) {
+      String cluster=admin.describeCluster().clusterId().get(18,TimeUnit.SECONDS);Collection<Node> nodes=admin.describeCluster().nodes().get(18,TimeUnit.SECONDS);check(nodes.size()==3,"Expected all three advertised endpoints");
+      for(Node node:nodes) {
+        check(node.port()==endpoint.getPort(),"Advertised listener protocol/port mismatch");InetAddress[] addresses=lookup(node.host());check(addresses.length>0,"Advertised DNS empty");
+        try(Socket tcp=new Socket()) {tcp.connect(new InetSocketAddress(addresses[0],node.port()),5000);}
+        Properties direct=properties(user,secret);direct.put("bootstrap.servers",node.host()+":"+node.port());
+        try(Admin broker=Admin.create(direct)) {check(cluster.equals(broker.describeCluster().clusterId().get(18,TimeUnit.SECONDS)),"Direct broker TLS/SASL metadata mismatch");}
+        System.out.println("OBS:BROKER_ENDPOINT:"+node.id()+"|"+node.host()+"|"+node.port()+"|"+String.join(",",Arrays.stream(addresses).map(InetAddress::getHostAddress).toList()));
+      }pass("dns_tcp_sasl_ssl_all_brokers_hostname_verified");
+      long started=System.nanoTime();boolean invalid=false;
+      try {lookup("capstone-ch030.invalid");}catch(UnknownHostException|java.util.concurrent.TimeoutException expected) {invalid=true;System.out.println("OBS:NEGATIVE_DNS:"+expected.getClass().getSimpleName());}
+      check(invalid,"Reserved invalid DNS unexpectedly resolved");pass("invalid_dns_classified_client_side_only");
+      boolean refused=false;try(Socket wrong=new Socket()) {wrong.connect(new InetSocketAddress(resolved[0],badPort),5000);}
+      catch(ConnectException|SocketTimeoutException|NoRouteToHostException expected) {refused=true;System.out.println("OBS:NEGATIVE_TCP:"+expected.getClass().getSimpleName());}
+      check(refused,"Unused Service port unexpectedly reachable");pass("unused_port_classified_tcp_failure");
+      Properties wrong=properties(user,secret);wrong.put("bootstrap.servers",endpoint.getHost()+":"+badPort);wrong.put("default.api.timeout.ms","5000");wrong.put("request.timeout.ms","3000");
+      boolean metadataFailed=false;try(Admin absent=Admin.create(wrong)) {
+        try {absent.describeCluster().nodes().get(8,TimeUnit.SECONDS);}
+        catch(ExecutionException expected) {check(expected.getCause() instanceof org.apache.kafka.common.errors.TimeoutException,"Wrong-port metadata was not connectivity timeout");metadataFailed=true;}
+      }check(metadataFailed,"Wrong-port Kafka metadata unexpectedly succeeded");pass("wrong_endpoint_metadata_failure_classified");
+      TopicDescription description=admin.describeTopics(List.of(topic)).allTopicNames().get(18,TimeUnit.SECONDS).get(topic);
+      for(TopicPartitionInfo partition:description.partitions())check(partition.replicas().size()==3 && partition.isr().size()==3,"Degraded recovery topic ISR");
+      ownRecords(secret,topic,group,0);check(cluster.equals(admin.describeCluster().clusterId().get(18,TimeUnit.SECONDS)),"Secure metadata did not recover");
+      double seconds=(System.nanoTime()-started)/1e9;check(seconds<=120.0,"Predeclared synthetic failure-to-client-completion budget exceeded");
+      System.out.println("OBS:CLIENT_DRILL_COMPLETION_SECONDS:"+seconds+":BUDGET=120:NOT_PRODUCTION_SLO");pass("secure_recovery_exact_acks_all_records_commits_within_budget");
+      QuorumInfo quorum=admin.describeMetadataQuorum().quorumInfo().get(18,TimeUnit.SECONDS);
+      check(quorum.leaderId()>=0 && quorum.voters().size()==3 && quorum.highWatermark()>=0,"KRaft quorum leader/voters/high watermark invalid");
+      System.out.println("OBS:KRAFT_QUORUM:leader="+quorum.leaderId()+":voters="+quorum.voters().size()+":high_watermark="+quorum.highWatermark());pass("secure_kraft_quorum_and_final_isr");
+    }
+  }
   public static void main(String[] args) throws Exception {
+    if(args.length>0 && args[0].equals("network")) {networkMain(Arrays.copyOfRange(args,1,args.length));return;}
+
     if(args.length>0 && args[0].equals("acl")) {aclMain(Arrays.copyOfRange(args,1,args.length));return;}
 
     bootstrap=args[0];user=args[1];String allowed=args[2],denied=args[3],group=args[4];phase=args[5];int start=Integer.parseInt(args[6]);String secret=password();
