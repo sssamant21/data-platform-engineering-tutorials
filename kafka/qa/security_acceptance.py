@@ -56,7 +56,7 @@ def redact_private_material(text):
         nonlocal changed
         if match[2]=='[REDACTED]':return match[0]
         changed=True;return match[1]+'[REDACTED]'+match[3]
-    text=re.sub(r'("(?:user\.(?:key|p12|password)|password|sasl\.jaas\.config)"\s*:\s*")([^"\r\n]+)(")',json_value,text)
+    text=re.sub(r'("(?:user\.(?:key|p12|password)|password|sasl\.jaas\.config)"\s*:\s*")((?:\\.|[^"\\])+)(")',json_value,text)
     text,count=re.subn(r'(?m)((?:ssl\.(?:keystore|key)\.password|sasl\.jaas\.config)\s*=\s*)(?!\[hidden\]|\[REDACTED\]|null)(\S[^\r\n]*)',r'\1[REDACTED]',text);changed|=bool(count)
     return text,changed
 

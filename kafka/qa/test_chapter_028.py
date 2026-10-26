@@ -59,6 +59,10 @@ class ScramTests(unittest.TestCase):
             clean,redacted=security.redact_private_material(text)
             self.assertTrue(redacted);self.assertNotIn('fake-',clean)
             self.assertFalse(security.redact_private_material(clean)[1])
+        jaas=json.dumps({'sasl.jaas.config':'LoginModule required username="synthetic" password="private-fake-value";'})
+        clean,redacted=security.redact_private_material(jaas)
+        self.assertTrue(redacted);self.assertEqual(json.loads(clean)['sasl.jaas.config'],'[REDACTED]')
+        self.assertNotIn('private-fake-value',clean)
         with tempfile.TemporaryDirectory(dir=Path(__file__).resolve().parent) as directory:
             secret='synthetic-random-private-password'
             path=Path(directory)/'chapter-028-diagnostic.txt';path.write_text('opaque '+base64.b64encode(secret.encode()).decode())
