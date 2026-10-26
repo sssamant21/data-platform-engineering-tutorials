@@ -154,4 +154,3 @@ def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, 
         if active_trial is not None and active_trial.get('status')=='RUNNING':active_trial['status']='FAIL';active_trial['failure_class']=type(exc).__name__
         print('Chapter '+chapter+' '+phase+' failed: '+type(exc).__name__+'; sanitized evidence has details',file=sys.stderr)
     return lab.finish(error)
-
