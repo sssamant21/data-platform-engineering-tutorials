@@ -28,7 +28,7 @@ Actual per-broker HTTP JMX samples are captured before, during and after native 
 All three brokers require finite nonnegative request counts and stage p95/p99 samples
 for Produce, FetchConsumer and FetchFollower, positive traffic deltas, full replication
 health, network idle fractions, raw combined-role handler meter, approved actual heap maximum and JVM GC
-cumulative count/time in milliseconds. Missing telemetry fails the supported measurement rather than
+cumulative count/time in seconds. Missing telemetry fails the supported measurement rather than
 being filled with zero. Raw timestamped samples remain in logs. Per-broker reservoir
 percentiles include background activity; they are neither averaged across brokers nor
 presented as isolated interval or business-handler p99. Cumulative GC deltas do not
@@ -70,4 +70,4 @@ by its own thread count in [KafkaRequestHandler](https://github.com/apache/kafka
 The combined raw MeanRate was about1.97 on the first run. It is retained without
 clamping, division or a false broker-only0..1 bound. Broker-only handler saturation
 remains NOT_ISOLATED; network idle and all health/configuration/data checks retain
-their independent assertions. Heap and GC beans are explicitly mapped from java.lang Memory/GarbageCollector; the first exporter did not provide the assumed default JVM collector series. The failed first attempt is preserved.
+their independent assertions. Heap is explicitly mapped from java.lang Memory HeapMemoryUsage; the assumed default heap series was absent. GC uses the actual default jvm_gc_collection_seconds_count/sum series observed in both runtime attempts. The second attempt rejected an unnecessary custom GC mapping; the valid raw default GC counters were retained. The failed first attempt is preserved.

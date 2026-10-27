@@ -188,7 +188,7 @@ def broker_observations(text,trial):
                     'p99_ms_snapshots':[metric(values,'qa_request_ms',request=request,stage=stage,quantile='0.99') for values in maps],
                     'scope':'broker reservoir snapshots; not interval-only percentiles or summed/averaged p99'}
         gc=[]
-        keys=[key for key in maps[0] if key[0] in ('qa_jvm_gc_collections_total','qa_jvm_gc_collection_time_ms_total')]
+        keys=[key for key in maps[0] if key[0] in ('jvm_gc_collection_seconds_count','jvm_gc_collection_seconds_sum')]
         if not keys:raise RuntimeError('JVM GC collector observations absent')
         for key in keys:
             values=[m.get(key) for m in maps]

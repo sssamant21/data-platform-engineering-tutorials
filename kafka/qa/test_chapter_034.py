@@ -18,7 +18,7 @@ def evidence():
         for identity in range(3):
             metrics=['qa_under_replicated_partitions 0','qa_under_min_isr_partitions 0','qa_handler_idle 0.5','qa_network_idle 0.6',
                 'qa_jvm_heap_bytes{measure="max",} 536870912','qa_jvm_heap_bytes{measure="used",} 100000000',
-                'qa_jvm_gc_collections_total{collector="G1 Young Generation",} 2','qa_jvm_gc_collection_time_ms_total{collector="G1 Young Generation",} 0.01']
+                'jvm_gc_collection_seconds_count{gc="G1 Young Generation",} 2','jvm_gc_collection_seconds_sum{gc="G1 Young Generation",} 0.01']
             for request in ('Produce','FetchConsumer','FetchFollower'):
                 for stage in ('TotalTimeMs','RequestQueueTimeMs','LocalTimeMs','RemoteTimeMs','ResponseQueueTimeMs','ResponseSendTimeMs'):
                     metrics.append(f'qa_request_events_total{{stage="{stage}",request="{request}",}} {sequence+1}')
