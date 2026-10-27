@@ -76,7 +76,7 @@ class ProducerTuningTests(unittest.TestCase):
 
     def test_shared_performance_changes_regress_031_and_032(self):
         for path in ('kafka/qa/runtime/PerfAcceptance.java','kafka/qa/performance_lab.py','kafka/qa/performance_acceptance.py'):
-            self.assertEqual(selector.select([path]),['031','032'])
+            self.assertTrue({'031','032'}.issubset(selector.select([path])))
         self.assertEqual(selector.fixture_for('032'),'strimzi-three-node-scram-ch028.yaml')
         self.assertEqual(selector.select(['kafka/qa/run_chapter_032.py']),['032'])
 

@@ -64,11 +64,16 @@ def aggregate(trials):
     return results
 
 
-def native_metric(text,name,required=True):
-    found=re.findall(r'(?m)^producer-metrics:'+re.escape(name)+r':\{[^}\r\n]*\}\s*:\s*([\d.Ee+-]+)\s*$',text)
+def client_metric(text,group,name,required=True):
+    matches=re.findall(r'(?m)^'+re.escape(group)+':'+re.escape(name)+r':\{([^}\r\n]*)\}\s*:\s*([\d.Ee+-]+)\s*$',text)
+    found=[value for tags,value in matches if not re.search(r'(?:^|,\s*)topic=',tags)]
     if not found and not required:return None
-    if len(found)!=1 or not math.isfinite(float(found[0])) or float(found[0])<0:raise RuntimeError('Missing/invalid native producer metric '+name)
+    if len(found)!=1 or not math.isfinite(float(found[0])) or float(found[0])<0:raise RuntimeError('Missing/invalid native client metric '+name)
     return float(found[0])
+
+
+def native_metric(text,name,required=True):
+    return client_metric(text,'producer-metrics',name,required)
 
 
 def cgroup_observations(observations):
