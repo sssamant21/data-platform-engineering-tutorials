@@ -8,6 +8,7 @@ LIMITS=[
     'Single-node kind with shared local-path PVCs and dual-role brokers is not production broker capacity, independent failure domains, cloud/CSI latency or storage certification.',
     'Six matched short trials use fixed offered cap400 records/s and1200x1KiB synthetic records. IO thread8 versus10 is an observation, not a required improvement or production tuning recommendation.',
     'Per-broker JMX request histogram percentiles are actual reservoir snapshots containing background traffic. They are never summed/averaged across brokers or treated as interval-only application p99.',
+    'The combined broker/controller handler MeanRate is a shared raw meter, not an isolated broker idle fraction; broker-only handler saturation remains NOT_ISOLATED.',
     'JVM heap and cumulative GC count/time are measured. Allocation profiling, pause distributions and attributed node page cache remain NOT_EXECUTED; heap headroom budget is not measured free memory.',
     'Provider IOPS/latency, burst credits, sustained warm-cache sensitivity, tenant quota fairness, TLS/plaintext overhead comparisons, JVM/resource rolling experiments and independent review remain NOT_EXECUTED/PENDING.',
     'The operator-managed IO thread change and rollback use only the disposable chapter fixture. No broker PVC/segment mutation, direct Pod edits or durability/security reductions are performed. Full assessment NOT_YET_ACCEPTED and enterprise NOT_CERTIFIED.'

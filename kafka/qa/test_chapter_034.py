@@ -17,8 +17,8 @@ def evidence():
     for sequence,phase in enumerate(('before','native_window','native_window','after')):
         for identity in range(3):
             metrics=['qa_under_replicated_partitions 0','qa_under_min_isr_partitions 0','qa_handler_idle 0.5','qa_network_idle 0.6',
-                'jvm_memory_bytes_max{area="heap",} 536870912','jvm_memory_bytes_used{area="heap",} 100000000',
-                'jvm_gc_collection_seconds_count{gc="G1 Young Generation",} 2','jvm_gc_collection_seconds_sum{gc="G1 Young Generation",} 0.01']
+                'qa_jvm_heap_bytes{measure="max",} 536870912','qa_jvm_heap_bytes{measure="used",} 100000000',
+                'qa_jvm_gc_collections_total{collector="G1 Young Generation",} 2','qa_jvm_gc_collection_time_ms_total{collector="G1 Young Generation",} 0.01']
             for request in ('Produce','FetchConsumer','FetchFollower'):
                 for stage in ('TotalTimeMs','RequestQueueTimeMs','LocalTimeMs','RemoteTimeMs','ResponseQueueTimeMs','ResponseSendTimeMs'):
                     metrics.append(f'qa_request_events_total{{stage="{stage}",request="{request}",}} {sequence+1}')
@@ -75,6 +75,11 @@ class BrokerTests(unittest.TestCase):
             with self.assertRaises(RuntimeError):broker.broker_observations(evidence().replace('qa_under_replicated_partitions 0',bad),{'io_threads':10})
         with self.assertRaises(RuntimeError):broker.broker_observations(evidence().replace('qa_handler_idle 0.5','unavailable_metric 0.5'),{'io_threads':10})
         with self.assertRaises(RuntimeError):broker.metrics_map(['qa_handler_idle 0.5','qa_handler_idle 0.5'])
+
+    def test_combined_role_handler_meter_is_raw_and_network_fraction_remains_strict(self):
+        proof=broker.broker_observations(evidence().replace('qa_handler_idle 0.5','qa_handler_idle 1.97'),{'io_threads':10})
+        self.assertEqual(proof['brokers'][0]['combined_role_handler_idle_raw_mean_rates'],[1.97]*4)
+        with self.assertRaises(RuntimeError):broker.broker_observations(evidence().replace('qa_network_idle 0.6','qa_network_idle 1.1'),{'io_threads':10})
 
     def test_missing_effective_rollback_or_config_match_fails(self):
         with self.assertRaises(RuntimeError):broker.broker_observations(evidence().replace('"to": 8','"to": 10'),{'io_threads':10})

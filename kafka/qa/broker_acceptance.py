@@ -64,7 +64,7 @@ class BrokerLab(PerformanceLab):
         for kind in ('kafkas','kafkanodepools'):
             self.read(kind+'-crd','get','crd',kind+'.kafka.strimzi.io','-o','json')
         pool=json.loads(self.read('broker-resource-budgets','get','kafkanodepool','dual-role','-o','json'))
-        if pool['spec']['resources']['limits']!={'memory':'1280Mi','cpu':'2'} or pool['spec']['jvmOptions']!={'-Xms':'256m','-Xmx':'512m'} or pool['spec']['replicas']!=3:
+        if pool['spec']['resources']['limits']!={'memory':'1280Mi','cpu':'2'} or pool['spec']['jvmOptions']!={'-Xms':'256m','-Xmx':'512m'} or pool['spec']['replicas']!=3 or set(pool['spec']['roles'])!={'broker','controller'}:
             raise RuntimeError('Unexpected broker JVM/container budget or replica count')
         self.result['checks']['chapter_owned_instrumented_broker_baseline']='PASS'
 
@@ -171,9 +171,11 @@ def broker_observations(text,trial):
         for values in maps:
             for name in ('qa_under_replicated_partitions','qa_under_min_isr_partitions'):
                 if metric(values,name)!=0:raise RuntimeError('Broker replication health metric violated')
-            for name in ('qa_handler_idle','qa_network_idle'):
-                if not 0<=metric(values,name)<=1:raise RuntimeError('Broker idle fraction outside supported range')
-            if metric(values,'jvm_memory_bytes_max',area='heap')!=512*1024*1024 or metric(values,'jvm_memory_bytes_used',area='heap')>512*1024*1024:
+            # Kafka4 combined-role pools share this Yammer meter name; its raw mean
+            # sums both independently normalized pool contributions. It is not a broker fraction.
+            metric(values,'qa_handler_idle')
+            if not 0<=metric(values,'qa_network_idle')<=1:raise RuntimeError('Broker network idle fraction outside supported range')
+            if metric(values,'qa_jvm_heap_bytes',measure='max')!=512*1024*1024 or metric(values,'qa_jvm_heap_bytes',measure='used')>512*1024*1024:
                 raise RuntimeError('Effective JVM heap exceeds approved memory budget')
         stages={}
         for request in ('Produce','FetchConsumer','FetchFollower'):
@@ -186,13 +188,16 @@ def broker_observations(text,trial):
                     'p99_ms_snapshots':[metric(values,'qa_request_ms',request=request,stage=stage,quantile='0.99') for values in maps],
                     'scope':'broker reservoir snapshots; not interval-only percentiles or summed/averaged p99'}
         gc=[]
-        keys=[key for key in maps[0] if key[0] in ('jvm_gc_collection_seconds_count','jvm_gc_collection_seconds_sum')]
+        keys=[key for key in maps[0] if key[0] in ('qa_jvm_gc_collections_total','qa_jvm_gc_collection_time_ms_total')]
         if not keys:raise RuntimeError('JVM GC collector observations absent')
         for key in keys:
             values=[m.get(key) for m in maps]
             if any(v is None for v in values) or any(a>b for a,b in zip(values,values[1:])):raise RuntimeError('GC counter disappeared or reset')
             gc.append({'name':key[0],'labels':dict(key[1]),'delta':values[-1]-values[0]})
         results.append({'broker':broker,'sample_count':len(rows),'request_stages':stages,'gc_cumulative_deltas':gc,
+            'combined_role_handler_idle_raw_mean_rates':[metric(values,'qa_handler_idle') for values in maps],
+            'handler_idle_scope':'shared broker/controller meter; NOT an isolated broker fraction or saturation gate',
+            'network_idle_fractions':[metric(values,'qa_network_idle') for values in maps],
             'heap_max_bytes':512*1024*1024,'container_memory_limit_bytes':1280*1024*1024,'budget_remaining_bytes_not_free_memory':768*1024*1024,
             'timestamps_utc':[row['timestamp_utc'] for row in rows]})
     configs=[json.loads(line.split(':',2)[2]) for line in text.splitlines() if line.startswith('OBS:EFFECTIVE_IO_CONFIG:')]

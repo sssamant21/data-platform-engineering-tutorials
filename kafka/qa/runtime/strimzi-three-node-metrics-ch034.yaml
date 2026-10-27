@@ -7,6 +7,21 @@ data:
   metrics.yml: |
     lowercaseOutputName: true
     rules:
+      - pattern: 'java.lang<type=Memory><HeapMemoryUsage>(max|used)'
+        name: qa_jvm_heap_bytes
+        type: GAUGE
+        labels:
+          measure: "$1"
+      - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionCount'
+        name: qa_jvm_gc_collections_total
+        type: COUNTER
+        labels:
+          collector: "$1"
+      - pattern: 'java.lang<type=GarbageCollector, name=(.+)><>CollectionTime'
+        name: qa_jvm_gc_collection_time_ms_total
+        type: COUNTER
+        labels:
+          collector: "$1"
       - pattern: 'kafka.network<type=RequestMetrics, name=(TotalTimeMs|RequestQueueTimeMs|LocalTimeMs|RemoteTimeMs|ResponseQueueTimeMs|ResponseSendTimeMs), request=(Produce|FetchConsumer|FetchFollower)><>Count'
         name: qa_request_events_total
         type: COUNTER

@@ -27,8 +27,8 @@ manually mutated, and security/replication settings are never reduced.
 Actual per-broker HTTP JMX samples are captured before, during and after native load.
 All three brokers require finite nonnegative request counts and stage p95/p99 samples
 for Produce, FetchConsumer and FetchFollower, positive traffic deltas, full replication
-health, network/handler idle fractions, approved actual heap maximum and JVM GC
-cumulative count/time. Missing telemetry fails the supported measurement rather than
+health, network idle fractions, raw combined-role handler meter, approved actual heap maximum and JVM GC
+cumulative count/time in milliseconds. Missing telemetry fails the supported measurement rather than
 being filled with zero. Raw timestamped samples remain in logs. Per-broker reservoir
 percentiles include background activity; they are neither averaged across brokers nor
 presented as isolated interval or business-handler p99. Cumulative GC deltas do not
@@ -62,3 +62,12 @@ Version-specific references: [Kafka4 broker settings](https://kafka.apache.org/4
 [tagged dynamic thread configuration](https://github.com/apache/kafka/blob/4.0.0/core/src/main/scala/kafka/server/DynamicBrokerConfig.scala),
 [Strimzi0.47 configuration](https://strimzi.io/docs/operators/0.47.0/configuring.html),
 [tagged exporter mappings](https://github.com/strimzi/strimzi-kafka-operator/blob/0.47.0/examples/metrics/kafka-metrics.yaml).
+
+Kafka4 combined-mode metric correction: the [broker pool](https://github.com/apache/kafka/blob/4.0.0/core/src/main/scala/kafka/server/BrokerServer.scala)
+and [controller pool](https://github.com/apache/kafka/blob/4.0.0/core/src/main/scala/kafka/server/ControllerServer.scala)
+use the same RequestHandlerAvgIdlePercent meter name. Each pool records time normalized
+by its own thread count in [KafkaRequestHandler](https://github.com/apache/kafka/blob/4.0.0/core/src/main/scala/kafka/server/KafkaRequestHandler.scala).
+The combined raw MeanRate was about1.97 on the first run. It is retained without
+clamping, division or a false broker-only0..1 bound. Broker-only handler saturation
+remains NOT_ISOLATED; network idle and all health/configuration/data checks retain
+their independent assertions. Heap and GC beans are explicitly mapped from java.lang Memory/GarbageCollector; the first exporter did not provide the assumed default JVM collector series. The failed first attempt is preserved.
