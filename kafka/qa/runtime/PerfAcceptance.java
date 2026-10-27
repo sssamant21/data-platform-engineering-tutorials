@@ -155,14 +155,25 @@ public class PerfAcceptance {
       check(invalid,"Unsupported idempotent max.in.flight combination was not rejected");pass("unsupported_idempotent_inflight_rejected_before_traffic");
       Properties wrong=orderingProperties(5);java.net.URI endpoint=java.net.URI.create("ssl://"+bootstrap);
       wrong.put("bootstrap.servers",endpoint.getHost()+":"+badPort);wrong.put("max.block.ms","2000");wrong.put("request.timeout.ms","1000");wrong.put("delivery.timeout.ms","3000");wrong.put("retry.backoff.ms","100");
-      KafkaProducer<String,String> blocked=new KafkaProducer<>(wrong);boolean metadataTimeout=false;long started=System.nanoTime();double elapsed;
+      TopicPartition target=new TopicPartition(topic,0);
+      long before=admin.listOffsets(Map.of(target,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(target).offset();
+      KafkaProducer<String,String> blocked=new KafkaProducer<>(wrong);long started=System.nanoTime();Throwable observed=null;String surface="NONE";
       try {
-        try {blocked.send(new ProducerRecord<>(topic,0,"ordering-key","must-not-enqueue"));}
-        catch(org.apache.kafka.common.errors.TimeoutException expected) {metadataTimeout=true;}
-        elapsed=(System.nanoTime()-started)/1e9;check(metadataTimeout && elapsed<=10.0,"Unreachable bootstrap did not produce a bounded synchronous metadata max.block timeout");
-        System.out.println("OBS:PRODUCER_TIMEOUT:class=METADATA_MAX_BLOCK:outcome=NOT_ENQUEUED:seconds="+elapsed+":max_block_ms=2000:acceptance_budget_seconds=10:queued_delivery_timeout_not_proven");
+        try {
+          Future<RecordMetadata> failed=blocked.send(new ProducerRecord<>(topic,0,"ordering-key","must-not-append"));
+          try {failed.get(4,TimeUnit.SECONDS);throw new IllegalStateException("Unreachable producer send unexpectedly succeeded");}
+          catch(ExecutionException expected) {observed=expected.getCause();surface="FAILED_FUTURE";}
+        } catch(org.apache.kafka.common.errors.TimeoutException expected) {observed=expected;surface="DIRECT_EXCEPTION";}
+        double elapsed=(System.nanoTime()-started)/1e9;
+        System.out.println("OBS:PRODUCER_TIMEOUT_API_SURFACE:"+surface+":cause="+(observed==null ? "NONE" : observed.getClass().getSimpleName())+":seconds="+elapsed);
+        check(observed instanceof org.apache.kafka.common.errors.TimeoutException
+          && ("Topic "+topic+" not present in metadata after 2000 ms.").equals(observed.getMessage()) && elapsed<=10.0,
+          "Unreachable bootstrap did not produce the bounded metadata max.block failure");
+        long after=admin.listOffsets(Map.of(target,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(target).offset();
+        check(after==before,"Negative metadata probe unexpectedly appended target records");
+        System.out.println("OBS:PRODUCER_TIMEOUT:class=METADATA_MAX_BLOCK:outcome=NOT_APPENDED:api_surface="+surface+":seconds="+elapsed+":max_block_ms=2000:acceptance_budget_seconds=10:before_end="+before+":after_end="+after+":queued_delivery_timeout_not_proven");
       } finally {blocked.close(Duration.ofSeconds(1));}
-      pass("unreachable_metadata_max_block_classified_not_enqueued");
+      pass("unreachable_metadata_max_block_classified_before_append");
       keyedSequence(admin,args[2],1);keyedSequence(admin,args[3],5);health(admin);resourceSnapshot("after");
       System.out.println("OBS:IDEMPOTENCE_BOUNDARY:wire_ack_loss_retry_deduplication=NOT_EXECUTED:external_business_exactly_once=NOT_CLAIMED");pass("secure_producer_recovery_full_isr_and_quorum");
     }

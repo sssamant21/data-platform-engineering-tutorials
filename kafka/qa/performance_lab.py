@@ -118,6 +118,10 @@ def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, 
         lab.result['checks'][phase]='PASS';results=[]
         for trial in all_trials:trial['status']='NOT_EXECUTED'
         lab.result['trial_attempts']=all_trials
+        if extra_run:
+            phase='additional_correctness_and_recovery';extra_run(lab,{'bootstrap':bootstrap,'username':username,'extras':extras,'baseline':baseline})
+            if broker_snapshot(json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'])!=baseline:raise RuntimeError('Broker drift during additional acceptance')
+            lab.result['checks'][phase]='PASS'
         for trial in all_trials:
             phase=trial['trial']+'_native_benchmark';active_trial=trial;trial_started=time.monotonic()
             trial['started_utc']=datetime.now(timezone.utc).isoformat();trial['status']='RUNNING'
@@ -143,10 +147,6 @@ def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, 
             else:results.append(trial);lab.result['trials']=results
         phase='repeatability_and_statistical_integrity';lab.result[comparison_key]=aggregation(results);lab.result['broker_baseline_and_final']=baseline
         lab.result['checks'][phase]='PASS'
-        if extra_run:
-            phase='additional_correctness_and_recovery';extra_run(lab,{'bootstrap':bootstrap,'username':username,'extras':extras,'baseline':baseline})
-            if broker_snapshot(json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'])!=baseline:raise RuntimeError('Broker drift during additional acceptance')
-            lab.result['checks'][phase]='PASS'
         lab.result['performance_assessment']=assessment
         lab.result['runtime_scope']=runtime_scope;lab.result['status']='PASS'
     except (RuntimeError,OSError,subprocess.SubprocessError,KeyError,ValueError,StopIteration) as exc:

@@ -41,6 +41,8 @@ invented pooled percentile. Public per-trial profiles and hashes preserve contro
 
 ## Correctness and failure boundaries
 
+These checks run before the tuning matrix to fail early on contract errors.
+
 - Reject max.in.flight=6 with explicit idempotence enabled through the Kafka client
   configuration validator before traffic. Acks and ISR are never lowered.
 - In separate owned topics, send 30 uniquely keyed sequence values on partition 0
@@ -50,9 +52,11 @@ invented pooled percentile. Public per-trial profiles and hashes preserve contro
   percentile definition. This proves the tested healthy-session partition-local
   behavior, not global order or arbitrary external business exactly-once effects.
 - Use a verified-unpublished Service port only in a fresh client's bootstrap config.
-  With max.block=2000ms, classify the synchronous metadata TimeoutException as
-  NOT_ENQUEUED within a predeclared ten-second harness budget. A returned Future or
-  successful send fails this assertion. Fresh secure producers then prove recovery.
+  With max.block=2000ms, classify the metadata TimeoutException from a failed Future
+  (or direct exception), require the exact pinned metadata-failure reason, and prove
+  the owned target partition log end is unchanged within a predeclared ten-second harness budget. A successful send or a different failure class fails this assertion. Kafka 4.0
+  wraps API exceptions in failed Futures, as defined in the tagged
+  [KafkaProducer implementation](https://github.com/apache/kafka/blob/4.0.0/clients/src/main/java/org/apache/kafka/clients/producer/KafkaProducer.java). Fresh secure producers then prove recovery.
   Queued delivery timeout and acknowledgment-loss retry deduplication are explicitly
   NOT_EXECUTED; metadata failure cannot substitute for those tests.
 

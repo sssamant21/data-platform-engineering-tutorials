@@ -16,14 +16,14 @@ CANDIDATES=[{'candidate':'baseline','linger_ms':0,'batch_size':16384,'compressio
 LIMITS=['These are short six-partition SASL_SSL microbenchmarks on one kind host with shared local-path PVC storage. No production throughput, saturation, storage IOPS or multi-zone capacity is certified.',
     'Five candidates vary linger, batching and compression through matched comparisons at fixed offered cap, payload entropy, client resources, acks=all, idempotence=true, RF3/minISR2 and security. A faster result is not required and no production configuration is selected.',
     'Controlled compressible payload IDs/padding are synthetic, not representative application JSON/Avro/Protobuf. Native unkeyed distribution is recorded, not claimed uniformly balanced. Separate keyed checks prove only partition-local healthy-session ordering.',
-    'The unreachable bootstrap test establishes synchronous metadata max.block timeout and NOT_ENQUEUED. It does not prove queued delivery timeout, ambiguous-ack outcome handling, wire-ack-loss retry deduplication or external business exactly-once effects.',
+    'The unreachable bootstrap test establishes metadata max.block timeout (failed Future or direct exception) and unchanged target log end. It does not prove queued delivery timeout, ambiguous-ack outcome handling, wire-ack-loss retry deduplication or external business exactly-once effects.',
     'Client cgroup observations include JVM startup, native CLI, monitoring and auditing. Broker CPU/network/IOPS, provider burst credits, production GC/queue telemetry and alert dashboards are NOT_AVAILABLE; absence is not low utilization.',
     'Extra linger/batch values, snappy/gzip, message-size/skew/concurrency and matched plaintext/security-overhead experiments remain NOT_EXECUTED. Independent performance/security review, production rollout selection and the full assessment remain pending.']
 ASSESSMENT={'status':'NOT_YET_ACCEPTED','score':None,'production_configuration_selection':'NOT_MADE',
     'critical_gaps':['controlled in-flight acknowledgement-loss retry/deduplication','broker CPU/network/storage and production resource correlation','independent assessor signoff'],
     'other_sweeps':'NOT_EXECUTED: linger20/batch128, snappy/gzip, message size/key skew, concurrency, matched plaintext/security overhead',
     'exactly_once_business_effects':'NOT_CLAIMED'}
-CORRECTNESS_CHECKS=['unsupported_idempotent_inflight_rejected_before_traffic','unreachable_metadata_max_block_classified_not_enqueued',
+CORRECTNESS_CHECKS=['unsupported_idempotent_inflight_rejected_before_traffic','unreachable_metadata_max_block_classified_before_append',
     'keyed_ordering_commits_max_inflight_1','keyed_ordering_commits_max_inflight_5','secure_producer_recovery_full_isr_and_quorum']
 
 
@@ -78,9 +78,9 @@ def extra_run(lab,context):
     finally:lab.result['checks'].update(child.result['checks'])
     observations=child.result['client_observations']
     lab.result['producer_correctness']={'checks':child.result['checks'],'observations':observations,'client_cgroup':cgroup_observations(observations),
-        'data_budget':{'keyed_records':60,'maximum_partition_inflight_modes':[1,5],'negative_metadata_records_enqueued':0},
+        'data_budget':{'keyed_records':60,'maximum_partition_inflight_modes':[1,5],'negative_metadata_target_records_appended':0},
         'ordering_scope':'one explicit partition per healthy session; captured starting/end offsets, exact callback and committed sequence',
-        'metadata_timeout_scope':'synchronous max.block metadata failure, NOT_ENQUEUED, not queued delivery-timeout proof',
+        'metadata_timeout_scope':'metadata max.block failure with observed API surface and unchanged target log end, not queued delivery-timeout proof',
         'retry_ack_loss':'NOT_EXECUTED','business_exactly_once':'NOT_CLAIMED'}
 
 
