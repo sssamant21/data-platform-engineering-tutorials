@@ -83,7 +83,7 @@ class BrokerLab(PerformanceLab):
     def run_job(self,main,args,required):
         if main!='BrokerAcceptance':return super().run_job(main,args,required)
         target=int(args[-1]); original_tag=self.tag; original_out=self.out
-        transitions={}; original_log=original_out/'chapter-034-client.log'
+        transitions={}; original_log=original_out/f'chapter-{self.chapter}-client.log'
         before=broker_snapshot(json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'])
         # Even a partially failed apply is followed by rollback; never discard a failed trial.
         try:
@@ -96,7 +96,7 @@ class BrokerLab(PerformanceLab):
             try:
                 verify=['verify',args[0],args[1],args[2],args[3],args[-2],'8']
                 super().run_job(main,verify,['restore_effective_broker_config_full_isr_and_quorum'])
-                restore=self.out/'chapter-034-client.log'
+                restore=self.out/f'chapter-{self.chapter}-client.log'
                 transitions['effective_rollback_evidence']=str(restore.relative_to(original_out))
                 after=broker_snapshot(json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'])
                 if after!=before:raise RuntimeError('Broker restarted or changed during dynamic tuning/rollback')

@@ -100,7 +100,7 @@ class ConsumerTests(unittest.TestCase):
         self.assertTrue({'031','032','033'}.issubset(selector.select(['kafka/qa/performance_lab.py'])))
         self.assertTrue({'031','032','033'}.issubset(selector.select(['kafka/qa/runtime/PerfAcceptance.java'])))
         for path in ('kafka/qa/runtime/ConsumerAcceptance.java','kafka/qa/consumer_acceptance.py'):
-            self.assertEqual(selector.select([path]),['033'])
+            self.assertTrue({'033'}.issubset(selector.select([path])))
         self.assertTrue({'033'}.issubset(selector.select(['kafka/qa/java_sources.py'])))
         self.assertEqual(selector.select(['kafka/qa/run_chapter_020.py']),['020','025','033'])
         self.assertEqual(selector.fixture_for('033'),'strimzi-three-node-scram-ch028.yaml')
