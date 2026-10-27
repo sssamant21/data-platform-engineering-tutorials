@@ -1,0 +1,115 @@
+# Isolated chapter instrumentation; only selected JMX beans plus JVM collectors.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: qa-broker-metrics-ch034
+data:
+  metrics.yml: |
+    lowercaseOutputName: true
+    rules:
+      - pattern: 'java.lang<type=Memory><HeapMemoryUsage>(max|used)'
+        name: qa_jvm_heap_bytes
+        type: GAUGE
+        labels:
+          measure: "$1"
+      - pattern: 'kafka.network<type=RequestMetrics, name=(TotalTimeMs|RequestQueueTimeMs|LocalTimeMs|RemoteTimeMs|ResponseQueueTimeMs|ResponseSendTimeMs), request=(Produce|FetchConsumer|FetchFollower)><>Count'
+        name: qa_request_events_total
+        type: COUNTER
+        labels:
+          stage: "$1"
+          request: "$2"
+      - pattern: 'kafka.network<type=RequestMetrics, name=(TotalTimeMs|RequestQueueTimeMs|LocalTimeMs|RemoteTimeMs|ResponseQueueTimeMs|ResponseSendTimeMs), request=(Produce|FetchConsumer|FetchFollower)><>(95|99)thPercentile'
+        name: qa_request_ms
+        type: GAUGE
+        labels:
+          stage: "$1"
+          request: "$2"
+          quantile: "0.$3"
+      - pattern: 'kafka.server<type=ReplicaManager, name=UnderReplicatedPartitions><>Value'
+        name: qa_under_replicated_partitions
+        type: GAUGE
+      - pattern: 'kafka.server<type=ReplicaManager, name=UnderMinIsrPartitionCount><>Value'
+        name: qa_under_min_isr_partitions
+        type: GAUGE
+      - pattern: 'kafka.server<type=KafkaRequestHandlerPool, name=RequestHandlerAvgIdlePercent><>MeanRate'
+        name: qa_handler_idle
+        type: GAUGE
+      - pattern: 'kafka.network<type=SocketServer, name=NetworkProcessorAvgIdlePercent><>Value'
+        name: qa_network_idle
+        type: GAUGE
+---
+# Disposable kind local-path PVCs; not a CSI/multi-zone storage certification.
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: dual-role
+  labels:
+    strimzi.io/cluster: qa-kafka-ha
+spec:
+  replicas: 3
+  roles:
+    - controller
+    - broker
+  storage:
+    type: persistent-claim
+    size: 1Gi
+    class: standard
+    deleteClaim: false
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 200m
+    limits:
+      memory: 1280Mi
+      cpu: "2"
+  jvmOptions:
+    -Xms: 256m
+    -Xmx: 512m
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: qa-kafka-ha
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
+    qa.kafka/chapter: "034"
+spec:
+  kafka:
+    version: 4.0.0
+    metadataVersion: 4.0-IV3
+    listeners:
+      - name: plain
+        port: 9092
+        type: internal
+        tls: false
+      - name: tlslab
+        port: 9094
+        type: internal
+        tls: true
+        authentication:
+          type: tls
+      - name: scramlab
+        port: 9095
+        type: internal
+        tls: true
+        authentication:
+          type: scram-sha-512
+    authorization:
+      type: simple
+    config:
+      num.io.threads: 8
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: qa-broker-metrics-ch034
+          key: metrics.yml
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
