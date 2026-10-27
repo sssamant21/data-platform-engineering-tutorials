@@ -15,11 +15,7 @@ def producer_summary(text,expected_records):
     if int(values[0])!=expected_records or not all(math.isfinite(v) and v>=0 for v in values) or values[1]<=0:
         raise RuntimeError('Producer count/rate/finite values invalid')
     if not values[5]<=values[6]<=values[7]<=values[8]<=values[4] or values[3]>values[4]:raise RuntimeError('Producer latency statistics are inconsistent')
-    def metric(name):
-        found=re.findall(r'(?m)^producer-metrics:'+re.escape(name)+r':\{[^}\r\n]*\}\s*:\s*([\d.Ee+-]+)\s*$',text)
-        if len(found)!=1 or not math.isfinite(float(found[0])) or float(found[0])<0:raise RuntimeError('Missing/invalid native producer metric '+name)
-        return float(found[0])
-    errors,retries=metric('record-error-total'),metric('record-retry-total')
+    errors,retries=native_metric(text,'record-error-total'),native_metric(text,'record-retry-total')
     if errors!=0:raise RuntimeError('Native producer reported record errors despite process exit')
     return {'acknowledged_records':int(values[0]),'achieved_records_per_second':values[1],'raw_MB_per_sec':values[2],
         'raw_unit_definition':'Kafka 4.0 MB/sec divides payload bytes by 1024^2; rounded tool output retained',
@@ -66,3 +62,37 @@ def aggregate(trials):
             'per_trial_p99_ms':[trial['producer']['latency_ms']['p99'] for trial in selected],
             'percentile_aggregation':'per-trial p99 retained; no averaged/global p99 inferred'})
     return results
+
+
+def native_metric(text,name,required=True):
+    found=re.findall(r'(?m)^producer-metrics:'+re.escape(name)+r':\{[^}\r\n]*\}\s*:\s*([\d.Ee+-]+)\s*$',text)
+    if not found and not required:return None
+    if len(found)!=1 or not math.isfinite(float(found[0])) or float(found[0])<0:raise RuntimeError('Missing/invalid native producer metric '+name)
+    return float(found[0])
+
+
+def cgroup_observations(observations):
+    result={'scope':'entire client Pod, native tool startup, health polling and auditing; not broker CPU','snapshots':{}}
+    for line in observations:
+        if not line.startswith('OBS:CLIENT_CGROUP:'):continue
+        _,_,when,name,value=line.split(':',4)
+        if when not in ('before','after'):raise RuntimeError('Unknown client cgroup snapshot stage')
+        snapshot=result['snapshots'].setdefault(when,{})
+        if name in snapshot:raise RuntimeError('Duplicate client cgroup snapshot')
+        if value=='NOT_AVAILABLE':snapshot[name]=None
+        elif name=='cpu.stat':
+            pairs=[field.split() for field in value.split(';')]
+            if any(len(pair)!=2 or not pair[1].isdigit() for pair in pairs):raise RuntimeError('Malformed client cgroup CPU snapshot')
+            snapshot[name]={key:int(value) for key,value in pairs}
+        elif name in ('memory.current','memory.peak'):
+            if not value.isdigit():raise RuntimeError('Malformed client cgroup memory snapshot')
+            snapshot[name]=int(value)
+    before=result['snapshots'].get('before',{}).get('cpu.stat')
+    after=result['snapshots'].get('after',{}).get('cpu.stat')
+    if before is not None and after is not None:
+        delta={key:after[key]-before[key] for key in ('usage_usec','nr_periods','nr_throttled','throttled_usec') if key in before and key in after}
+        if any(value<0 for value in delta.values()):raise RuntimeError('Client cgroup counters moved backwards')
+        result['cpu_delta']=delta
+        if 'usage_usec' in delta:result['cpu_core_seconds']=delta['usage_usec']/1e6
+    else:result['cpu_delta_status']='NOT_AVAILABLE'
+    return result

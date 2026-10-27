@@ -7,12 +7,15 @@ import java.util.*;
 import java.util.concurrent.*;
 import org.apache.kafka.clients.admin.*;
 import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.producer.*;
+import org.apache.kafka.common.config.ConfigException;
 import org.apache.kafka.common.*;
 import org.apache.kafka.common.utils.AppInfoParser;
 
 /** Bounded native Kafka performance tools; credentials never leave the restricted Pod. */
 public class PerfAcceptance {
-  static String bootstrap,user,topic,group,trial;static int records,size,rate,healthSamples;
+  static String bootstrap,user,topic,group,trial;static int records,size,rate,healthSamples,partitions=3,linger=0,batch=16384;
+  static String compression="none",payloadMode="native-random";
   static void check(boolean value,String message) {if(!value)throw new IllegalStateException(message);}
   static void pass(String name) {System.out.println("CHECK:"+trial+"_"+name+":PASS");}
   static String escape(String value) {return value.replace("\\","\\\\").replace("\"","\\\"");}
@@ -26,7 +29,7 @@ public class PerfAcceptance {
   }
   static void health(Admin admin) throws Exception {
     TopicDescription current=admin.describeTopics(List.of(topic)).allTopicNames().get(15,TimeUnit.SECONDS).get(topic);
-    check(current.partitions().size()==3,"Unexpected partition count");
+    check(current.partitions().size()==partitions,"Unexpected partition count");
     for(TopicPartitionInfo partition:current.partitions())check(partition.leader()!=null && partition.leader().id()>=0 && partition.replicas().size()==3 && partition.isr().size()==3,"ABORT: missing leader, RF3 or full ISR");
     QuorumInfo quorum=admin.describeMetadataQuorum().quorumInfo().get(15,TimeUnit.SECONDS);
     check(quorum.leaderId()>=0 && quorum.voters().size()==3 && quorum.highWatermark()>=0,"ABORT: KRaft quorum unhealthy");healthSamples++;
@@ -68,12 +71,16 @@ public class PerfAcceptance {
   }
   static String digest(byte[] value) throws Exception {return HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(value));}
   static void audit(Admin admin) throws Exception {
-    List<TopicPartition> partitions=List.of(new TopicPartition(topic,0),new TopicPartition(topic,1),new TopicPartition(topic,2));
+    List<TopicPartition> partitions=java.util.stream.IntStream.range(0,PerfAcceptance.partitions).mapToObj(i->new TopicPartition(topic,i)).toList();
     Map<TopicPartition,OffsetSpec> requests=new HashMap<>();for(TopicPartition partition:partitions)requests.put(partition,OffsetSpec.latest());
     Map<TopicPartition,ListOffsetsResult.ListOffsetsResultInfo> end=admin.listOffsets(requests).all().get(15,TimeUnit.SECONDS);
     check(end.values().stream().mapToLong(ListOffsetsResult.ListOffsetsResultInfo::offset).sum()==records,"Native acknowledgment count differs from total log end offsets");
     Map<String,Integer> expected=new HashMap<>();SplittableRandom random=new SplittableRandom(0);byte[] payload=new byte[size];
-    for(int i=0;i<records;i++) {for(int j=0;j<size;j++)payload[j]=(byte)(random.nextInt(26)+65);expected.merge(digest(payload),1,Integer::sum);}
+    for(int i=0;i<records;i++) {
+      if(payloadMode.equals("native-random"))for(int j=0;j<size;j++)payload[j]=(byte)(random.nextInt(26)+65);
+      else payload=compressiblePayload(random.nextInt(1200));
+      expected.merge(digest(payload),1,Integer::sum);
+    }
     Properties cp=security();cp.put("key.deserializer","org.apache.kafka.common.serialization.ByteArrayDeserializer");cp.put("value.deserializer","org.apache.kafka.common.serialization.ByteArrayDeserializer");
     cp.put("group.id",group);cp.put("enable.auto.commit","false");cp.put("auto.offset.reset","earliest");
     try(KafkaConsumer<byte[],byte[]> consumer=new KafkaConsumer<>(cp)) {
@@ -99,31 +106,125 @@ public class PerfAcceptance {
       System.out.println("OBS:CLIENT_CGROUP:"+when+":"+name+":"+Files.readString(Path.of("/sys/fs/cgroup/"+name)).trim().replace('\n',';'));
     }catch(IOException e) {System.out.println("OBS:CLIENT_CGROUP:"+when+":"+name+":NOT_AVAILABLE");}
   }
+  static Properties orderingProperties(int inflight) throws Exception {
+    Properties p=security();p.put("key.serializer","org.apache.kafka.common.serialization.StringSerializer");p.put("value.serializer","org.apache.kafka.common.serialization.StringSerializer");
+    p.put("acks","all");p.put("enable.idempotence","true");p.put("max.in.flight.requests.per.connection",Integer.toString(inflight));
+    p.put("request.timeout.ms","8000");p.put("delivery.timeout.ms","30000");p.put("max.block.ms","15000");p.put("linger.ms","0");return p;
+  }
+  static double percentile(double[] samples,double quantile) {
+    double[] sorted=samples.clone();Arrays.sort(sorted);return sorted[Math.max(0,(int)Math.ceil(quantile*sorted.length)-1)];
+  }
+  static void keyedSequence(Admin admin,String ownTopic,int inflight) throws Exception {
+    topic=ownTopic;health(admin);TopicPartition partition=new TopicPartition(topic,0);
+    long start=admin.listOffsets(Map.of(partition,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(partition).offset();
+    double[] callbacks=new double[30],enqueue=new double[30];java.util.concurrent.atomic.AtomicInteger success=new java.util.concurrent.atomic.AtomicInteger(),failures=new java.util.concurrent.atomic.AtomicInteger();
+    try(KafkaProducer<String,String> producer=new KafkaProducer<>(orderingProperties(inflight))) {
+      List<Future<RecordMetadata>> pending=new ArrayList<>();
+      for(int i=0;i<30;i++) {
+        int id=i;long before=System.nanoTime();
+        pending.add(producer.send(new ProducerRecord<>(topic,0,"ordering-key",user+"-inflight"+inflight+"-"+id),(metadata,error)->{
+          callbacks[id]=(System.nanoTime()-before)/1e6;if(error==null)success.incrementAndGet();else failures.incrementAndGet();
+        }));enqueue[i]=(System.nanoTime()-before)/1e6;
+      }
+      producer.flush();for(int i=0;i<pending.size();i++)check(pending.get(i).get(35,TimeUnit.SECONDS).offset()==start+i,"Unexpected acknowledged partition sequence");
+      check(success.get()==30 && failures.get()==0,"Producer callback outcomes incomplete");
+      System.out.println("OBS:ORDERING_CALLBACKS:inflight="+inflight+":attempts=30:success="+success+":failures="+failures+":p50_ms="+percentile(callbacks,.5)+":p95_ms="+percentile(callbacks,.95)+":p99_ms="+percentile(callbacks,.99)+":maximum_enqueue_ms="+percentile(enqueue,1.0)+":nearest_rank_per_run_samples=30");
+    }
+    Properties cp=security();cp.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");cp.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");cp.put("group.id",group);cp.put("enable.auto.commit","false");
+    try(KafkaConsumer<String,String> consumer=new KafkaConsumer<>(cp)) {
+      consumer.assign(List.of(partition));consumer.seek(partition,start);int next=0;long deadline=System.nanoTime()+Duration.ofSeconds(45).toNanos();
+      while(next<30 && System.nanoTime()<deadline) {
+        for(ConsumerRecord<String,String> record:consumer.poll(Duration.ofMillis(300))) {
+          check(record.partition()==0 && record.offset()==start+next && record.key().equals("ordering-key") && record.value().equals(user+"-inflight"+inflight+"-"+next),"Partition-local keyed sequence gap, duplicate, value or order mismatch");next++;
+        }health(admin);
+      }
+      check(next==30 && consumer.position(partition)==start+30,"Keyed sequence incomplete");
+      long end=admin.listOffsets(Map.of(partition,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(partition).offset();
+      check(end==start+30,"Unexpected additional records in keyed partition");consumer.commitSync(Map.of(partition,new OffsetAndMetadata(end)),Duration.ofSeconds(15));
+      check(consumer.committed(Set.of(partition),Duration.ofSeconds(15)).get(partition).offset()==end,"Keyed sequence committed offset mismatch");
+      System.out.println("OBS:KEYED_ORDERING:inflight="+inflight+":start="+start+":end="+end+":records=30:partition=0:scope=healthy_session_no_ack_loss_injected");
+    }pass("keyed_ordering_commits_max_inflight_"+inflight);
+  }
+  static void correctness(String[] args) throws Exception {
+    check(args.length==6,"Expected approved producer correctness arguments");check(AppInfoParser.getVersion().equals("4.0.0"),"Unexpected producer correctness client version");bootstrap=args[0];user=args[1];group=args[4];trial="producer-correctness";partitions=6;topic=args[2];int badPort=Integer.parseInt(args[5]);
+    check(badPort==19095,"Unapproved client-only metadata failure endpoint");resourceSnapshot("before");
+    try(Admin admin=Admin.create(security())) {
+      health(admin);boolean invalid=false;
+      try(KafkaProducer<String,String> unsupported=new KafkaProducer<>(orderingProperties(6))) {unsupported.close(Duration.ofSeconds(1));}
+      catch(ConfigException expected) {invalid=true;}
+      check(invalid,"Unsupported idempotent max.in.flight combination was not rejected");pass("unsupported_idempotent_inflight_rejected_before_traffic");
+      Properties wrong=orderingProperties(5);java.net.URI endpoint=java.net.URI.create("ssl://"+bootstrap);
+      wrong.put("bootstrap.servers",endpoint.getHost()+":"+badPort);wrong.put("max.block.ms","2000");wrong.put("request.timeout.ms","1000");wrong.put("delivery.timeout.ms","3000");wrong.put("retry.backoff.ms","100");
+      TopicPartition target=new TopicPartition(topic,0);
+      long before=admin.listOffsets(Map.of(target,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(target).offset();
+      KafkaProducer<String,String> blocked=new KafkaProducer<>(wrong);long started=System.nanoTime();Throwable observed=null;String surface="NONE";
+      try {
+        try {
+          Future<RecordMetadata> failed=blocked.send(new ProducerRecord<>(topic,0,"ordering-key","must-not-append"));
+          try {failed.get(4,TimeUnit.SECONDS);throw new IllegalStateException("Unreachable producer send unexpectedly succeeded");}
+          catch(ExecutionException expected) {observed=expected.getCause();surface="FAILED_FUTURE";}
+        } catch(org.apache.kafka.common.errors.TimeoutException expected) {observed=expected;surface="DIRECT_EXCEPTION";}
+        double elapsed=(System.nanoTime()-started)/1e9;
+        System.out.println("OBS:PRODUCER_TIMEOUT_API_SURFACE:"+surface+":cause="+(observed==null ? "NONE" : observed.getClass().getSimpleName())+":seconds="+elapsed);
+        check(observed instanceof org.apache.kafka.common.errors.TimeoutException
+          && ("Topic "+topic+" not present in metadata after 2000 ms.").equals(observed.getMessage()) && elapsed<=10.0,
+          "Unreachable bootstrap did not produce the bounded metadata max.block failure");
+        long after=admin.listOffsets(Map.of(target,OffsetSpec.latest())).all().get(15,TimeUnit.SECONDS).get(target).offset();
+        check(after==before,"Negative metadata probe unexpectedly appended target records");
+        System.out.println("OBS:PRODUCER_TIMEOUT:class=METADATA_MAX_BLOCK:outcome=NOT_APPENDED:api_surface="+surface+":seconds="+elapsed+":max_block_ms=2000:acceptance_budget_seconds=10:before_end="+before+":after_end="+after+":queued_delivery_timeout_not_proven");
+      } finally {blocked.close(Duration.ofSeconds(1));}
+      pass("unreachable_metadata_max_block_classified_before_append");
+      keyedSequence(admin,args[2],1);keyedSequence(admin,args[3],5);health(admin);resourceSnapshot("after");
+      System.out.println("OBS:IDEMPOTENCE_BOUNDARY:wire_ack_loss_retry_deduplication=NOT_EXECUTED:external_business_exactly_once=NOT_CLAIMED");pass("secure_producer_recovery_full_isr_and_quorum");
+    }
+  }
+  static byte[] compressiblePayload(int id) {
+    String header=String.format(Locale.ROOT,"synthetic-event-%06d|",id);return (header+"A".repeat(1024-header.length())).getBytes(java.nio.charset.StandardCharsets.UTF_8);
+  }
+  static String[] producerCommand(Path config,Path payload) {
+    List<String> command=new ArrayList<>(List.of("/opt/kafka/bin/kafka-producer-perf-test.sh","--topic",topic,"--num-records",Integer.toString(records),"--throughput",Integer.toString(rate),"--producer.config",config.toString(),"--print-metrics"));
+    if(payloadMode.equals("native-random"))command.addAll(List.of("--record-size",Integer.toString(size)));
+    else command.addAll(List.of("--payload-file",payload.toString()));
+    return command.toArray(String[]::new);
+  }
   public static void main(String[] args) throws Exception {
+    if(args.length>0 && args[0].equals("correctness")) {correctness(Arrays.copyOfRange(args,1,args.length));return;}
+    check(args.length==8 || args.length==13,"Expected approved benchmark argument profile");
+    if(args.length==13) {
+      partitions=Integer.parseInt(args[8]);linger=Integer.parseInt(args[9]);batch=Integer.parseInt(args[10]);compression=args[11];payloadMode=args[12];
+      check(Set.of(3,6).contains(partitions) && Set.of(0,5,20).contains(linger) && Set.of(16384,65536,131072).contains(batch)
+        && Set.of("none","lz4","zstd","snappy","gzip").contains(compression) && Set.of("native-random","compressible-set").contains(payloadMode),"Unapproved producer experiment profile");
+    }
+
     bootstrap=args[0];user=args[1];topic=args[2];group=args[3];trial=args[4];records=Integer.parseInt(args[5]);size=Integer.parseInt(args[6]);rate=Integer.parseInt(args[7]);
     check(records>0 && records<=1200 && size==1024 && rate>=1 && rate<=800,"Unapproved benchmark payload/rate budget");
     check(AppInfoParser.getVersion().equals("4.0.0"),"Unexpected native client version");System.out.println("OBS:KAFKA_CLIENT_VERSION:"+AppInfoParser.getVersion());
     for(String tool:List.of("kafka-producer-perf-test.sh","kafka-consumer-perf-test.sh"))check(Files.isExecutable(Path.of("/opt/kafka/bin/"+tool)),"Required native Kafka tool missing");
     Path directory=Files.createTempDirectory("restricted-perf-",PosixFilePermissions.asFileAttribute(PosixFilePermissions.fromString("rwx------")));
-    Path producer=directory.resolve("producer.properties"),consumer=directory.resolve("consumer.properties"),logging=directory.resolve("logging.xml");
+    Path producer=directory.resolve("producer.properties"),consumer=directory.resolve("consumer.properties"),logging=directory.resolve("logging.xml"),payloadFile=directory.resolve("synthetic-payloads.txt");
     try(Admin admin=Admin.create(security())) {
-      health(admin);Properties pp=security();pp.put("acks","all");pp.put("enable.idempotence","true");pp.put("compression.type","none");pp.put("linger.ms","0");pp.put("batch.size","16384");
+      health(admin);Properties pp=security();pp.put("acks","all");pp.put("enable.idempotence","true");pp.put("compression.type",compression);pp.put("linger.ms",Integer.toString(linger));pp.put("batch.size",Integer.toString(batch));pp.put("max.in.flight.requests.per.connection","5");
       pp.put("delivery.timeout.ms","30000");pp.put("max.block.ms","15000");
       Properties cp=security();cp.put("enable.auto.commit","false");writeConfig(producer,pp);writeConfig(consumer,cp);
       Files.writeString(logging,"<Configuration status=\"ERROR\"><Appenders><Console name=\"Console\" target=\"SYSTEM_ERR\"><PatternLayout pattern=\"%level %message%n\"/></Console></Appenders><Loggers><Root level=\"warn\"><AppenderRef ref=\"Console\"/></Root></Loggers></Configuration>");
+      if(payloadMode.equals("compressible-set")) {
+        StringBuilder data=new StringBuilder();for(int i=0;i<1200;i++)data.append(new String(compressiblePayload(i),java.nio.charset.StandardCharsets.UTF_8)).append('\n');
+        Files.writeString(payloadFile,data);System.out.println("OBS:CONTROLLED_PAYLOAD_DATASET_SHA256:"+digest(Files.readAllBytes(payloadFile))+":records=1200:bytes_each=1024:compressible_synthetic_not_real_application");
+      }
+      System.out.println("OBS:PRODUCER_PROFILE:partitions="+partitions+":linger="+linger+":batch="+batch+":compression="+compression+":payload="+payloadMode+":acks=all:idempotence=true:max_inflight=5");
       resourceSnapshot("before");
       if(trial.equals("warmup")) {
         execute(admin,logging,30,"/opt/kafka/bin/kafka-producer-perf-test.sh","--help");
         execute(admin,logging,30,"/opt/kafka/bin/kafka-consumer-perf-test.sh","--help");
       }
       long started=System.nanoTime();
-      execute(admin,logging,90,"/opt/kafka/bin/kafka-producer-perf-test.sh","--topic",topic,"--num-records",Integer.toString(records),"--record-size",Integer.toString(size),"--throughput",Integer.toString(rate),"--producer.config",producer.toString(),"--print-metrics");
+      execute(admin,logging,90,producerCommand(producer,payloadFile));
       pass("native_producer_process_completed_acks_all_idempotent");
       execute(admin,logging,60,"/opt/kafka/bin/kafka-consumer-perf-test.sh","--bootstrap-server",bootstrap,"--topic",topic,"--messages",Integer.toString(records),"--group",group,"--timeout","30000","--consumer.config",consumer.toString());
       pass("native_consumer_process_completed");audit(admin);resourceSnapshot("after");health(admin);
       System.out.println("OBS:PERF_TRIAL_COMPLETION_SECONDS:"+(System.nanoTime()-started)/1e9+":health_samples="+healthSamples+":NOT_PRODUCTION_CAPACITY");pass("full_isr_quorum_polling_and_final_health");
     } finally {
-      Files.deleteIfExists(producer);Files.deleteIfExists(consumer);Files.deleteIfExists(logging);Files.deleteIfExists(directory);
+      Files.deleteIfExists(producer);Files.deleteIfExists(consumer);Files.deleteIfExists(logging);Files.deleteIfExists(payloadFile);Files.deleteIfExists(directory);
     }
   }
 }
