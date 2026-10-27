@@ -7,6 +7,7 @@ import subprocess
 import sys
 import time
 from datetime import datetime, timezone
+from dataclasses import dataclass
 from runtime_acceptance import k, CLUSTER, ROOT
 from security_acceptance import SecurityLab, immutable_kafka_image
 from run_chapter_027 import tls_user
@@ -49,6 +50,15 @@ class PerformanceLab(SecurityLab):
         return super().apply(manifest)
 
 
+@dataclass(frozen=True)
+class TrialDriver:
+    lab_class: type = PerformanceLab
+    main: str = 'PerfAcceptance'
+    arguments: object = native_arguments
+    analyze: object = None
+    profile_fields: tuple = ()
+
+
 def broker_snapshot(pods):
     snapshot={}
     for pod in pods:
@@ -67,13 +77,14 @@ def filesystem_headroom(text):
     return {'available_KiB':available_kib,'used_percent':used_percent,'scope':'shared local-path host filesystem, not an enforced PVC quota'}
 
 
-def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, aggregation, comparison_key="rate_comparison", extra_setup=None, extra_run=None, runtime_scope="ACTUAL_SECURE_NATIVE_PERF_TOOLS_NINE_CAPPED_REPEATED_MICROBENCHMARKS_EXACT_DATA_AND_POLLING_NOT_PRODUCTION_CAPACITY"):
-    lab=PerformanceLab(chapter,limitations);active_trial=None;error,phase=None,'benchmark_capacity_and_persistent_storage_preflight'
+def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, aggregation, comparison_key="rate_comparison", extra_setup=None, extra_run=None, runtime_scope="ACTUAL_SECURE_NATIVE_PERF_TOOLS_NINE_CAPPED_REPEATED_MICROBENCHMARKS_EXACT_DATA_AND_POLLING_NOT_PRODUCTION_CAPACITY", driver=None):
+    driver=driver or TrialDriver()
+    lab=driver.lab_class(chapter,limitations);active_trial=None;error,phase=None,'benchmark_capacity_and_persistent_storage_preflight'
     try:
         if not 1<=len(plan)<=15 or len({t['trial'] for t in plan})!=len(plan):raise RuntimeError('Unapproved/missing/duplicate benchmark plan')
         for item in plan:
             if item['records']!=RECORDS or not re.fullmatch(r'[a-z0-9][a-z0-9-]{0,23}',item['trial']):raise RuntimeError('Unsafe benchmark trial identifier')
-            native_arguments('qa-bootstrap:9095','synthetic',{**item,'topic':'synthetic','group':'synthetic'})
+            driver.arguments('qa-bootstrap:9095','synthetic',{**item,'topic':'synthetic','group':'synthetic'})
         lab.prepare();cluster=json.loads(k('get','kafka',CLUSTER,'-o','json'));bootstrap=bootstrap_from_status(cluster)
         baseline_pods=json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'];baseline=broker_snapshot(baseline_pods)
         lab.image=immutable_kafka_image(next(c['imageID'] for c in baseline_pods[0]['status']['containerStatuses'] if c['name']=='kafka'));lab.result['client_image']=lab.image
@@ -127,14 +138,17 @@ def execute_benchmark(chapter, plan, limitations, public_overrides, assessment, 
             trial['started_utc']=datetime.now(timezone.utc).isoformat();trial['status']='RUNNING'
             print('Chapter '+chapter+' trial '+trial['trial']+' started (bounded synthetic load)',flush=True)
             trial['evidence']=trial['trial']+f'/chapter-{chapter}-client.log'
-            child=PerformanceLab(chapter,limitations);child.tag,child.image,child.out,child.owned=lab.tag+'-'+trial['trial'],lab.image,lab.out/trial['trial'],lab.owned
+            child=driver.lab_class(chapter,limitations);child.tag,child.image,child.out,child.owned=lab.tag+'-'+trial['trial'],lab.image,lab.out/trial['trial'],lab.owned
             child.client_service_account,child.ca_secret,child.identity_secret=lab.client_service_account,lab.ca_secret,username;child.identity_items=['password']
-            try:child.run_job('PerfAcceptance',native_arguments(bootstrap,username,trial),[trial['trial']+'_'+check for check in CHECKS])
+            try:child.run_job(driver.main,driver.arguments(bootstrap,username,trial),[trial['trial']+'_'+check for check in CHECKS])
             finally:lab.result['checks'].update(child.result['checks'])
             text=(child.out/f'chapter-{chapter}-client.log').read_text(encoding='utf-8');trial['producer']=producer_summary(text,trial['records']);trial['consumer']=consumer_summary(text,trial['records'],SIZE)
             trial['observations']=child.result['client_observations'];trial['client_cgroup']=cgroup_observations(trial['observations'])
             trial['producer_metrics']={name:native_metric(text,name,required=False) for name in ('batch-size-avg','compression-rate-avg','bufferpool-wait-time-ns-total','buffer-available-bytes','requests-in-flight')}
             trial['public_profile']={**public,'linger.ms':trial.get('linger_ms',0),'batch.size':trial.get('batch_size',16384),'compression.type':trial.get('compression','none'),'partitions':trial.get('partitions',3),'payload_mode':trial.get('payload_mode','native-random'),'measured_records':trial['records']}
+            trial['public_profile'].update({native:trial[field] for field,native in driver.profile_fields})
+            if driver.analyze:trial['study_observations']=driver.analyze(text,trial)
+            trial['java_source_bundle_sha256']=child.result.get('java_source_bundle_sha256')
             trial['public_profile_sha256']=hashlib.sha256(json.dumps(trial['public_profile'],sort_keys=True).encode()).hexdigest()
             trial['evidence']=str((child.out/f'chapter-{chapter}-client.log').relative_to(lab.out));trial['harness_completion_seconds']=round(time.monotonic()-trial_started,3)
             after=broker_snapshot(json.loads(k('get','pods','-l','strimzi.io/pool-name=dual-role','-o','json'))['items'])

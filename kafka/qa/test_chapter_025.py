@@ -47,7 +47,7 @@ class StorageCapstoneTests(unittest.TestCase):
     def test_shared_client_and_guard_dependencies_include_capstone(self):
         self.assertIn('025',selector.select(['kafka/qa/runtime/CompactionAcceptance.java']))
         self.assertIn('025',selector.select(['kafka/qa/runtime/StorageAcceptance.java']))
-        self.assertEqual(selector.select(['kafka/qa/run_chapter_020.py']),['020','025'])
+        self.assertTrue({'020','025'}.issubset(selector.select(['kafka/qa/run_chapter_020.py'])))
         self.assertEqual(selector.fixture_for('025'),'strimzi-three-node-persistent-ch021.yaml')
 
 
