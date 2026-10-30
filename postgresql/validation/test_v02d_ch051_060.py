@@ -52,9 +52,9 @@ class Review051060(unittest.TestCase):
                     "BEGIN;", "COMMIT;", "lock_timeout", "statement_timeout",
                 ):
                     self.assertIn(required, src, required)
-                self.assertIn("confirm_stage=" + token, lab(db[:5]))
+                self.assertIn("confirm_stage=" + token, lab(db[2:5]))
                 self.assertIn("expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID",
-                              lab(db[:5]))
+                              lab(db[2:5]))
 
     def test_051_roles_and_privilege_validation_exit_nonzero(self):
         provision = source("051-provision.sql")
