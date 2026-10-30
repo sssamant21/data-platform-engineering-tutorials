@@ -114,6 +114,19 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
         if "level-02" in path.name:
             if "ALTER SESSION UNSET QUERY_TAG" not in raw or "ROWCOUNT => 100" not in raw:
                 problems.append(str(rel) + ": L2 query tag cleanup or row count missing")
+        if "level-03" in path.name:
+            if ("LEVEL_03_SMOKE_RESULT" not in raw or
+                    "COUNT(DISTINCT ORDER_ID)" not in raw or
+                    "SUM(AMOUNT) = 54110" not in raw or
+                    "COUNT_IF(REGION_ID = 1) = 100" not in raw or
+                    "SUM(IFF(REGION_ID = 1, AMOUNT, 0)) = 5060" not in raw):
+                problems.append(str(rel) + ": L3 deterministic assertions missing")
+        if "level-04" in path.name:
+            if ("WAREHOUSE_METERING_HISTORY" not in raw or
+                    "WAREHOUSE_LOAD_HISTORY" not in raw or
+                    "METERING_DAILY_HISTORY" not in raw or
+                    "EXECUTION_STATUS = 'fail'" not in raw):
+                problems.append(str(rel) + ": L4 monitoring/billing evidence queries missing")
     if is_lesson:
         for section in REQUIRED:
             if section not in raw:
@@ -149,6 +162,8 @@ def main() -> int:
                  "validation/runtime/README.md",
                  "validation/runtime/level-01-smoke.sql",
                  "validation/runtime/level-02-smoke.sql",
+                 "validation/runtime/level-03-smoke.sql",
+                 "validation/runtime/level-04-smoke.sql",
                  "validation/test_validator.py"):
         problems, metadata = check_file(TRACK / file, file in LESSONS)
         errors.extend(problems)
