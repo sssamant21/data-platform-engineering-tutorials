@@ -3,12 +3,12 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database()='ops_lab' AND current_user='lab_admin'
  AND inet_server_addr()=inet '127.0.0.1' AND inet_server_port()=55432
@@ -30,6 +30,6 @@ SELECT CASE WHEN current_database()='ops_lab' AND current_user='lab_admin'
  \echo 'Disposable PostgreSQL 18 lab target and fixture state verified'
 \else
  \echo 'REFUSED: wrong target, approval token or fixture state'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT slot_name,lsn FROM pg_create_physical_replication_slot('ch047_lab_physical',false);
