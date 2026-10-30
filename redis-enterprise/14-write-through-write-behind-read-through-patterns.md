@@ -1578,12 +1578,10 @@ Add an idempotency record for non-idempotent operations.
 ## 71. Create Event
 
 ``` redis
-XADD tutorial:chapter14:writes * \
-  operation_id op-1001 \
-  entity_id 1001 \
-  version 5 \
-  status inactive
+XADD tutorial:chapter14:writes '*' operation_id op-1001 entity_id 1001 version 5 status inactive
 ```
+
+**Expected:** `XADD` returns a generated Stream ID, which will vary by execution. In the same isolated lab database, `XRANGE tutorial:chapter14:writes - +` should include the new ID and the four field/value pairs. Do not assume the stream was empty or that its total length is fixed. The example uses a **single interactive Redis command**; Bash-style backslash continuation is not valid when the lines are pasted independently into an interactive `redis-cli` prompt.
 
 ------------------------------------------------------------------------
 
