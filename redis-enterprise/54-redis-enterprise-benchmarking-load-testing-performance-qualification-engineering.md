@@ -629,18 +629,24 @@ Do not treat default output as production capacity certification.
 
 # Part 28 --- Basic Lab
 
-## 32. Disposable Environment
+## 32. Disposable Environment — Bounded Microbenchmark
 
-Example:
+**This is a write-generating workload, not a read-only diagnostic.** Do not point it at an existing production or shared Redis endpoint: `SET` can overwrite keys, and even a small test creates request, CPU and memory pressure. Obtain the lab owner's approval, confirm the exact target instance, capacity budget and stop conditions, and ensure it contains **no other workload**.
+
+For an explicitly dedicated, disposable **local loopback-only** Redis sandbox with no authentication or TLS (never an Enterprise/remote endpoint), use a minimal smoke test:
 
 ``` bash
-redis-benchmark -h "$REDIS_HOST" -p "$REDIS_PORT" -c 50 -n 100000 -t get,set
+test "${REDIS_HOST:-127.0.0.1}" = "127.0.0.1"
+redis-benchmark -h 127.0.0.1 -p 6379 -c 2 -n 200 -t get,set -q
 ```
 
-For TLS/authentication, use the options supported by the installed
-benchmark/client version and approved secret handling.
+**Expected:** The command prints `GET` and `SET` throughput summaries (requests/second), and can include percentile latency output depending on client version. **No throughput or latency number is guaranteed.** Record both client/server versions, host, load, CPU, network, memory, and actual results. A failed connectivity/permission check means `FAIL`, not that Redis performance is inadequate.
 
-Never place reusable production secrets into shell history.
+The previous `-c 50 -n 100000` example could generate considerable unapproved load, so it is **not** the default lab. A representative throughput test must use a dedicated approved staging database, agreed client concurrency/request budget, workload isolation, TLS/authentication compatible with the installed benchmark version, and a stop trigger. Benchmark utilities can generate or overwrite their test keys, so isolate the complete database/instance rather than relying only on a key prefix.
+
+**STOP** if client errors, memory/eviction or application latency exceed the approved threshold. Never assume a benchmark run is safe because the command itself is syntactically valid, and never put secrets in CLI arguments or logs.
+
+Official reference: [Redis benchmark utility, options and limitations](https://redis.io/docs/latest/operate/oss_and_stack/management/optimization/benchmarks/).
 
 ------------------------------------------------------------------------
 
