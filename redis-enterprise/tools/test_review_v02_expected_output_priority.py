@@ -19,6 +19,13 @@ class ExpectedOutputPriorityTests(unittest.TestCase):
         self.assertEqual(data["summary"]["candidates"], 2)
         self.assertEqual(data["review_queue"][0]["category"], "release_sensitive")
 
+    def test_textual_command_list_is_not_executable_version_gate(self):
+        self.add("01-fixture.md", "## Vocabulary\n~~~text\nJSON.SET\nJSON.GET\n~~~\n")
+        data = inspect(self.root)
+        self.assertEqual(data["summary"]["candidates"], 1)
+        self.assertEqual(data["summary"]["version_sensitive_candidates"], 0)
+        self.assertEqual(data["review_queue"][0]["category"], "generic_or_text")
+
     def test_expected_cue_removes_candidate(self):
         self.add("01-fixture.md", "## Lab\n~~~redis\nGET tutorial:chapter01:key\n~~~\nExpected: demo\n")
         self.assertEqual(inspect(self.root)["summary"]["candidates"], 0)
