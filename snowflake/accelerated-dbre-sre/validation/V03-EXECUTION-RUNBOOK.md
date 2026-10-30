@@ -35,6 +35,37 @@ snow sql --connection dbre-training --local-only --enhanced-exit-codes --filenam
 snow sql --connection dbre-training --local-only --enhanced-exit-codes --filename snowflake/accelerated-dbre-sre/validation/runtime/level-02-smoke.sql
 ~~~
 
+### Windows fail-closed preflight launcher (preferred)
+
+An optional [PowerShell launcher](run-training-preflight.ps1) checks the *actual connected account locator*, role, warehouse, database and scratch schema against explicit operator-supplied expected values. By default it performs **read-only preflight only**. It never stores passwords or evidence, blocks administrator roles and requires an explicit typed confirmation before running the Level 1 or Level 2 SQL file.
+
+~~~powershell
+# Replace every SAMPLE_* placeholder with the authorized training account's values.
+$base = 'snowflake/accelerated-dbre-sre/validation/run-training-preflight.ps1'
+$expected = @{
+  Connection = 'dbre-training'
+  ExpectedAccountLocator = 'SAMPLE_ACCOUNT_LOCATOR'
+  ExpectedRole = 'SAMPLE_LAB_ROLE'
+  ExpectedWarehouse = 'SAMPLE_XS_WAREHOUSE'
+  ExpectedDatabase = 'SAMPLE_TRAINING_DATABASE'
+  ExpectedSchema = 'SAMPLE_EMPTY_SCRATCH_SCHEMA'
+  ApprovedNonProductionAccount = $true
+}
+
+# First invocation only verifies context; no lab DDL or INSERT is executed.
+& $base @expected -Mode Preflight
+
+# After owner confirmation of the EMPTY scratch schema and change/test approval:
+& $base @expected -Mode Level1 -ScratchSchemaVerifiedEmpty -ApprovalReference 'SAMPLE_APPROVED_TICKET'
+
+# Run Level 2 only AFTER an independent reviewer has accepted Level 1 evidence:
+& $base @expected -Mode Level2 -Level1Accepted -ApprovalReference 'SAMPLE_APPROVED_TICKET'
+~~~
+
+The approved account locator is the value of `CURRENT_ACCOUNT()`, not necessarily the organization-qualified account name. Ask the account owner for the exact locator and case-sensitive context values. **The PowerShell script itself has not been run against Snowflake or tested under a local PowerShell interpreter here.** It is an optional safeguard and does not replace independent review or prevent connection configuration changes between the preflight and SQL execution.
+
+The `--local-only` CLI option **does not execute SQL offline**. It blocks `!source` and `!load` from fetching remote HTTP(S) files; all SQL statements still execute against the connected Snowflake account. Do not treat this flag as a nonproduction safety control. <https://docs.snowflake.com/en/developer-guide/snowflake-cli/command-reference/sql-commands/sql>
+
 The name "dbre-training" is a placeholder for a *preapproved nonproduction connection*. Do not automate these commands against unknown or production aliases. Review the SQL before running. Do not redirect raw CLI output to a shared log. If a Level 2 SQL worksheet stops before ALTER SESSION UNSET QUERY_TAG, execute the cleanup in the **same session**, or document session termination and cleanup.
 
 Later levels use separate files under [runtime/](runtime/README.md). Level 3 creates a temporary table in the scratch schema. Levels 4–7 are read-only by design. Level 6 historical reads require a pre-existing, specifically approved training table and verified retention. Optional monitoring/security views require separate account-usage grants; record missing permissions as BLOCKED.
