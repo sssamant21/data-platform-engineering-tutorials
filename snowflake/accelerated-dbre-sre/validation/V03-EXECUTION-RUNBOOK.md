@@ -45,6 +45,8 @@ $base = 'snowflake/accelerated-dbre-sre/validation/run-training-preflight.ps1'
 $expected = @{
   Connection = 'dbre-training'
   ExpectedAccountLocator = 'SAMPLE_ACCOUNT_LOCATOR'
+  ExpectedOrganization = 'SAMPLE_ORGANIZATION'
+  ExpectedRegion = 'SAMPLE_REGION'
   ExpectedRole = 'SAMPLE_LAB_ROLE'
   ExpectedWarehouse = 'SAMPLE_XS_WAREHOUSE'
   ExpectedDatabase = 'SAMPLE_TRAINING_DATABASE'
@@ -62,7 +64,7 @@ $expected = @{
 & $base @expected -Mode Level2 -Level1Accepted -ApprovalReference 'SAMPLE_APPROVED_TICKET'
 ~~~
 
-The approved account locator is the value of `CURRENT_ACCOUNT()`, not necessarily the organization-qualified account name. Ask the account owner for the exact locator and case-sensitive context values. **The PowerShell script itself has not been run against Snowflake or tested under a local PowerShell interpreter here.** It is an optional safeguard and does not replace independent review or prevent connection configuration changes between the preflight and SQL execution.
+The approved account locator is the value of `CURRENT_ACCOUNT()`, not necessarily the organization-qualified account name. The launcher also matches `CURRENT_ORGANIZATION_NAME()` and `CURRENT_REGION()` to reduce the risk of connecting to an unintended account with a similar locator. Ask the account owner for the exact locator and case-sensitive context values. **The PowerShell script itself has not been run against Snowflake or tested under a local PowerShell interpreter here.** It is an optional safeguard and does not replace independent review or prevent connection configuration changes between the preflight and SQL execution.
 
 The `--local-only` CLI option **does not execute SQL offline**. It blocks `!source` and `!load` from fetching remote HTTP(S) files; all SQL statements still execute against the connected Snowflake account. Do not treat this flag as a nonproduction safety control. <https://docs.snowflake.com/en/developer-guide/snowflake-cli/command-reference/sql-commands/sql>
 
