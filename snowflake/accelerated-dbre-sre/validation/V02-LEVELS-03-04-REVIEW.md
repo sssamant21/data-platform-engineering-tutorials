@@ -58,7 +58,7 @@ The corresponding Python regression test checks these calculations. This does **
 
 ## Final gate
 
-**V02 static:** Await latest Actions confirmation.  
+**V02 static:** PASS — [GitHub Actions run #59](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41104831358) (extended validator and regression suite), commit `e64438ef328d19651d179d0830a187a341916ffd`.  
 **V03 runtime:** NOT RUN — no authorized Snowflake environment connected.  
 **V04 independent review:** PENDING.  
 **V05 production certification:** NOT CERTIFIED.
