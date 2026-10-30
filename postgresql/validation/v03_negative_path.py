@@ -8,7 +8,6 @@ There is no production/shared-host override.
 """
 from __future__ import annotations
 
-import hashlib
 import json
 import os
 from pathlib import Path
@@ -112,7 +111,7 @@ def preflight():
     expected = str(lab_root / "primary")
     identity = query("""SELECT current_database()||'|'||current_user||'|'||
                         current_setting('data_directory')||'|'||
-                        inet_server_addr()::text||'|'||inet_server_port()::text||'|'||
+                        host(inet_server_addr())||'|'||inet_server_port()::text||'|'||
                         pg_is_in_recovery()::text||'|'||
                         current_setting('server_version_num')""").split("|")
     if identity != ["ops_lab", "lab_admin", expected, "127.0.0.1",
