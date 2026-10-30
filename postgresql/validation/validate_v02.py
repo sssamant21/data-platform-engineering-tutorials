@@ -51,7 +51,7 @@ def sql_prep(text):
         if META.match(line):
             skipped += 1
             # A standalone psql execution terminator also ends the SQL query.
-            if re.match(r"^\s*\\\\(?:gexec|gset|g|watch)\b", line, re.I) and lines:
+            if line.lstrip().split()[0].lower() in ("\\gexec", "\\gset", "\\g", "\\watch") and lines:
                 lines[-1] += ";"
         else:
             lines.append(INLINE_META.sub(";", line))
