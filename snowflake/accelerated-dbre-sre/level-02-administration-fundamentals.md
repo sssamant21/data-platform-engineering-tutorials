@@ -75,10 +75,11 @@ With an accessible database selected:
 ~~~sql
 SELECT QUERY_ID, QUERY_TAG, EXECUTION_STATUS,
        TOTAL_ELAPSED_TIME, START_TIME
-FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(RESULT_LIMIT => 30))
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
+WHERE QUERY_TAG = 'snowflake_dbre_sre_level_02'
 ORDER BY START_TIME DESC;
 ~~~
-Expected: recent visible queries; confirm a completed training query. The Information Schema table function covers a shorter history than Account Usage.
+Expected: recent tagged queries from this worksheet session, subject to the function's retrieval limit. Confirm a completed training query and its actual status. Query-history functions select the newest results up to RESULT_LIMIT **before** applying the outer WHERE filter; they cover up to seven days and are not equivalent to Account Usage.
 
 ### Step 5 — Clean up session state
 ~~~sql
