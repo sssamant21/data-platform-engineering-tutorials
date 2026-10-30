@@ -45,7 +45,7 @@ Always record baseline, intervention, elapsed/exec time, workload and cost befor
 
 ## Hands-on lab and expected results
 ### Step 1 — Generate a small reproducible dataset in a scratch schema
-Run only against your approved training database and small warehouse:
+Run only against your dedicated training scratch schema and small warehouse. Before the CREATE, confirm there is no other table of this name (including permanent tables): a temporary table may shadow another table with the same name.
 ~~~sql
 CREATE TEMP TABLE DBRE_SRE_L3_SALES AS
 SELECT ORDER_ID,
