@@ -18,12 +18,24 @@
   \quit 3
 \endif
 SELECT CASE WHEN current_database() = :'expected_db'
-  AND current_database() NOT IN ('template0','template1')
+  AND current_database()='ops_lab'
+  AND current_user='lab_admin'
+  AND inet_server_addr()=inet '127.0.0.1'
+  AND inet_server_port()=55432
+  AND current_setting('data_directory') ~ '^/tmp/postgresql-dbre-lab\.[A-Za-z0-9]+/primary$'
   AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
   AND NOT pg_is_in_recovery()
   AND EXISTS (SELECT 1 FROM pg_control_system() c
               WHERE c.system_identifier::text = :'expected_system_id')
   AND :'confirm_cleanup' = '048-DROP'
+  AND EXISTS (SELECT 1 FROM pg_namespace n WHERE n.nspname='ch048'
+              AND n.nspowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND EXISTS (SELECT 1 FROM pg_class c WHERE c.oid=to_regclass('ch048.events')
+              AND c.relowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND (SELECT count(*) FROM ch048.events)=5000
+  AND NOT EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                  WHERE n.nspname='ch048' AND c.relkind IN ('r','p','v','m','f')
+                  AND c.relname<>'events')
   THEN 'true' ELSE 'false' END AS cleanup_permitted
 \gset
 \if :cleanup_permitted
@@ -32,10 +44,11 @@ SELECT CASE WHEN current_database() = :'expected_db'
   \echo 'REFUSED: database, cluster, version, role or cleanup token mismatch'
   \quit 3
 \endif
-DO $$
-BEGIN
- IF NOT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname='ch048') THEN
-  RAISE EXCEPTION 'Expected lab schema not found; cleanup refused';
- END IF;
-END $$;
-DROP SCHEMA ch048 CASCADE;
+
+BEGIN;
+SET LOCAL lock_timeout='1s';
+SET LOCAL statement_timeout='10s';
+DROP TABLE ch048.events;
+DROP SCHEMA ch048;
+COMMIT;
+SELECT count(*) AS remaining_schema FROM pg_namespace WHERE nspname='ch048';
