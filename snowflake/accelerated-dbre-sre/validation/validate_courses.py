@@ -175,6 +175,7 @@ def main() -> int:
                  "validation/V01-V02-INITIAL-AUDIT.md",
                  "validation/V02-SECOND-PASS-REVIEW.md",
                  "validation/V02-LEVELS-03-04-REVIEW.md",
+                 "validation/V02-LEVELS-05-07-REVIEW.md",
                  "validation/RUNTIME-EVIDENCE-TEMPLATE.md",
                  "validation/runtime/README.md",
                  "validation/runtime/level-01-smoke.sql",
