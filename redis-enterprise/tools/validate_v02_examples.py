@@ -195,6 +195,16 @@ def main() -> int:
          "untyped": c["untyped_commands"], "expected_cues": c["missing_expected_cues"],
          "safety": c["safety_review"], "syntax": c["syntax_review"]}
         for c in result["chapters"] if c["chapter"] in focus]))
+    print("V02 SYNTAX SAMPLES:", json.dumps([
+        {"chapter": c["chapter"], **s}
+        for c in result["review_queue"] for s in c["samples"]
+        if s["kind"] in {"json_syntax_review", "python_syntax_review"}
+    ][:20]))
+    print("V02 SAFETY SAMPLES:", json.dumps([
+        {"chapter": c["chapter"], **s}
+        for c in result["review_queue"] for s in c["samples"]
+        if s["kind"] == "safety_review"
+    ][:20]))
     print("Human review required: command correctness, expected values, release compatibility,"
           " side effects, lab reproducibility. No Redis command was executed.")
     return 0 if s["chapters"] == args.expected else 1
