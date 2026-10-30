@@ -29,5 +29,15 @@ ORDER BY START_TIME DESC;
 -- cleanup independently; a SQL worksheet may stop the script on failure.
 ALTER SESSION UNSET QUERY_TAG;
 
+-- Evidence capture: check query tag is unset and obtain query IDs/status from this
+-- session. Do not include QUERY_TEXT or user identifiers in exported evidence.
+SELECT CURRENT_SESSION() AS SESSION_ID, CURRENT_ROLE() AS ROLE_NAME,
+       CURRENT_WAREHOUSE() AS WH_NAME;
+SELECT QUERY_ID, QUERY_TYPE, QUERY_TAG, EXECUTION_STATUS,
+       TOTAL_ELAPSED_TIME, START_TIME
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
+ORDER BY START_TIME DESC
+LIMIT 30;
+
 -- Record role visibility, query ID, expected/actual status, and authorized training cost.
 -- Never resize or suspend a production warehouse during this smoke test.
