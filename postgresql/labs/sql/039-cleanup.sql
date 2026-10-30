@@ -24,6 +24,17 @@ SELECT CASE WHEN current_database() = :'expected_db'
   AND EXISTS (SELECT 1 FROM pg_control_system() c
               WHERE c.system_identifier::text = :'expected_system_id')
   AND :'confirm_cleanup' = '039-DROP'
+  AND EXISTS (SELECT 1 FROM pg_namespace n
+              WHERE n.nspname='ch039'
+                AND n.nspowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+              WHERE n.nspname='ch039' AND c.relname='events'
+                AND c.relkind IN ('r','p')
+                AND c.relowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND NOT EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                  WHERE n.nspname='ch039' AND c.relkind IN ('r','p','v','m','f')
+                    AND c.relname NOT IN ('events','events_2026_01','events_2026_02','events_2026_03'))
+  AND (SELECT count(*) FROM pg_inherits WHERE inhparent='ch039.events'::regclass)=3
   THEN 'true' ELSE 'false' END AS cleanup_permitted
 \gset
 \if :cleanup_permitted
@@ -33,5 +44,11 @@ SELECT CASE WHEN current_database() = :'expected_db'
   \quit 3
 \endif
 \echo 'Disposable lab only: removing ch039 schema'
-DROP SCHEMA ch039 CASCADE;
+-- Refuse unknown independent dependencies; no schema-wide CASCADE.
+BEGIN;
+SET LOCAL lock_timeout='1s';
+SET LOCAL statement_timeout='15s';
+DROP TABLE ch039.events;
+DROP SCHEMA ch039;
+COMMIT;
 SELECT count(*) AS remaining FROM pg_namespace WHERE nspname='ch039';
