@@ -33,7 +33,7 @@ def numeric(value):
 
 
 def index(sample):
-    if type(sample.get("schema_version")) is not int or sample["schema_version"] != 1:
+    if not isinstance(sample, dict) or type(sample.get("schema_version")) is not int or sample["schema_version"] != 1:
         raise ValueError("unsupported schema")
     for key in IDENTITY + ("sampled_at", "entries", "truncated"):
         if key not in sample:
@@ -68,6 +68,8 @@ def index(sample):
         raise ValueError("invalid/bounded entry set required")
     entries = {}
     for entry in sample["entries"]:
+        if not isinstance(entry, dict):
+            raise ValueError("entry object required")
         for key in ("userid", "dbid", "queryid", "toplevel", "stats_since") + COUNTERS:
             if key not in entry:
                 raise ValueError("missing entry field " + key)
