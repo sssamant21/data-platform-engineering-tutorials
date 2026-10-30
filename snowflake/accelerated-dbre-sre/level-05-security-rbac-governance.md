@@ -44,13 +44,13 @@ Application owner requests SELECT → data owner approves → security reviews a
 ~~~sql
 SELECT CURRENT_USER(), CURRENT_ROLE(), CURRENT_SECONDARY_ROLES();
 ~~~
-Expected: principal and active roles. Review whether secondary roles are in use.
+Expected: the active principal and roles. `CURRENT_SECONDARY_ROLES()` returns a JSON-encoded VARCHAR describing the requested/activated secondary roles, not a relational list. The active primary role alone may not describe effective access.
 
 ### Step 2 — Review the roles assigned to the current user
 ~~~sql
 SHOW GRANTS;
 ~~~
-Expected: grants visible to the user.
+Expected: roles granted to the **current user**. Without arguments, `SHOW GRANTS` is equivalent to `SHOW GRANTS TO USER current_user`; it is not an inventory of every object privilege in the account.
 
 ### Step 3 — Inspect available roles and a designated table
 ~~~sql
@@ -67,6 +67,9 @@ A user can access \`DBRE_SRE_LAB\` but sees "insufficient privileges" on \`TRAIN
 Design a hypothetical analyst role permitted to see regional totals but not individual patient contact information. Identify where a secure view, masking policy, row access policy or aggregation may be appropriate.
 
 **Pass:** document the minimal privilege set, a request approval chain, and the verification needed after granting access.
+
+### Read-only security audit (optional)
+With an approved security-monitoring role, inspect **aggregated** login outcomes using the [Level 5 smoke script](validation/runtime/level-05-smoke.sql). `SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY` can lag up to two hours; a missing event is not evidence that no login attempt occurred. Avoid retaining raw usernames, IP addresses or authentication error messages in training artifacts. Without the correct privilege, record the step as **BLOCKED**, not PASS.
 
 ## DBRE/SRE troubleshooting quick reference
 | Symptom | Evidence | Escalation |
@@ -97,6 +100,9 @@ Production GRANT/REVOKE changes require explicit authorization, ticketing and ro
 
 ## Official documentation
 - https://docs.snowflake.com/en/user-guide/security-access-control-overview
+- https://docs.snowflake.com/en/sql-reference/sql/show-grants
+- https://docs.snowflake.com/en/sql-reference/functions/current_secondary_roles
+- https://docs.snowflake.com/en/sql-reference/account-usage/login_history
 - https://docs.snowflake.com/en/sql-reference/account-usage
 
 [Back to accelerated track index](README.md) | [Validation tracker](STATUS.md)
