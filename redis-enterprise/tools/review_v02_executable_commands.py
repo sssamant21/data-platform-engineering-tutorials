@@ -107,6 +107,8 @@ def main() -> int:
     for item in [x for x in result["findings"]
                  if x["priority"] == "high" and x["rule"] != "database_flush"][:25]:
         print("V02 NON-FLUSH PRIORITY:", json.dumps(item, sort_keys=True))
+    for item in [x for x in result["findings"] if x["priority"] == "medium"]:
+        print("V02 MEDIUM-RISK CANDIDATE:", json.dumps(item, sort_keys=True))
     print("V02 TOP EXECUTABLE CHAPTERS:", json.dumps(
         sorted(result["chapters"],
                key=lambda ch: (ch["high_risk_candidates"],
