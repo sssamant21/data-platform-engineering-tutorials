@@ -304,7 +304,7 @@ class V02LabContractsTests(unittest.TestCase):
     def test_chapter_10_scan_unlink_expectations(self):
         doc = (CHAPTER_DIR / "10-architecture-inspection-foundation-acceptance-lab.md").read_text(encoding="utf-8")
         self.assertIn("SCAN 0 MATCH", doc)
-        self.assertIn("integer `1` if that exact disposable lab key existed", doc)
+        self.assertIn("Integer `1` if that exact disposable lab key existed", doc)
         self.assertIn("not proof of immediate memory reduction", doc)
 
 
