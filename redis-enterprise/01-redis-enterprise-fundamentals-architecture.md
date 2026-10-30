@@ -525,11 +525,13 @@ Client
 
 ## 15. Request Flow --- Write with Replication
 
-Consider:
+Consider an isolated, owner-approved lab write (use a dedicated test database rather than production customer data):
 
 ``` redis
-SET customer:1001 active
+SET tutorial:chapter01:write-flow active EX 300
 ```
+
+**Expected Redis reply:** `OK`. This confirms the primary accepted the write, **not** that a replica has already acknowledged it or that the write survives every failover. The key expires after about five minutes and must be included in scoped lab cleanup.
 
 Simplified flow:
 
@@ -1189,6 +1191,8 @@ GET tutorial:chapter01:requests
 LRANGE tutorial:chapter01:events 0 -1
 ```
 
+**Expected in a fresh isolated lab database:** `SET` returns `OK`; `HSET` returns integer `2` for two new fields, and its `EXPIRE` returns `1`; `INCR` returns `1` for a previously absent counter, and its `EXPIRE` returns `1`; `LPUSH` adds three elements and returns length `3`, while `EXPIRE` returns `1`. The subsequent `GET` returns `Alice`, `HGETALL` contains `profile_status=active` and `region=us-east` (unordered), the counter `GET` returns `1`, and `LRANGE` returns `event3`, `event2`, `event1` in that order. Repeat runs change the `INCR` and `LPUSH` counts; expiration may also remove keys between commands. Do not treat those expected numbers as unconditional.
+
 The purpose here is not data-model mastery. It is to confirm that normal
 Redis commands work through the Enterprise endpoint.
 
@@ -1724,6 +1728,7 @@ DEL tutorial:chapter01:requests
 DEL tutorial:chapter01:events
 DEL tutorial:chapter01:counter
 DEL tutorial:chapter01:expire-test
+DEL tutorial:chapter01:write-flow
 ```
 
 If you created the optional numbered keys, remove only that exact
