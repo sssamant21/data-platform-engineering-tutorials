@@ -143,6 +143,8 @@ def main() -> int:
     errors: list[str] = []
     evidence = []
     for file in (*LESSONS, "README.md", "STATUS.md", "validation/VALIDATION-PLAN.md",
+                 "validation/V01-V02-INITIAL-AUDIT.md",
+                 "validation/V02-SECOND-PASS-REVIEW.md",
                  "validation/RUNTIME-EVIDENCE-TEMPLATE.md",
                  "validation/runtime/README.md",
                  "validation/runtime/level-01-smoke.sql",
