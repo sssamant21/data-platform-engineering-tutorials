@@ -51,7 +51,7 @@ A source exports data or streams changes to Snowflake; ingestion loads it into t
 
 ## Hands-on lab and expected results
 ### Prerequisites
-Use Snowsight and a designated **training** warehouse. For the CREATE TABLE exercise, use an existing scratch database/schema where your training role has CREATE TABLE privileges. Do not create tables in production schemas.
+Use Snowsight and a designated **training** warehouse. For the temporary-table exercise, use a **dedicated, instructor-controlled scratch schema** with USAGE and a unique object name. Snowflake does not require schema-level CREATE TABLE privilege to create a TEMP table. Verify the scratch schema does not contain another temporary or permanent table of the same name: a temporary table can shadow a permanent table in the session. Do not create tables in production schemas.
 
 ### Step 1 — Confirm session context (read-only)
 ~~~sql
@@ -67,7 +67,7 @@ FROM VALUES ('EAST',120),('WEST',80),('EAST',50);
 ~~~
 Expected: three rows, two columns.
 
-### Step 3 — Create data only in your approved scratch schema
+### Step 3 — Create data only in an empty, approved scratch schema
 ~~~sql
 CREATE TEMP TABLE DBRE_SRE_L1_ORDERS (
   ORDER_ID NUMBER, REGION VARCHAR, AMOUNT NUMBER(10,2)
@@ -78,7 +78,7 @@ SELECT REGION, COUNT(*) AS NUM_ORDERS, SUM(AMOUNT) AS SALES
 FROM DBRE_SRE_L1_ORDERS
 GROUP BY REGION ORDER BY REGION;
 ~~~
-Expected: EAST has 2 orders, sales 170; WEST has 1 order, sales 80. The temporary table is session-scoped. The CREATE command intentionally fails if the name is already in use: do not replace an existing object. Use a fresh session or a new uniquely named scratch table for a re-run. The temporary table disappears when the session ends.
+Expected: EAST has 2 orders, sales 170; WEST has 1 order, sales 80. The temporary table is session-scoped. Use this name only after confirming it does not collide with an existing object in the approved scratch schema. Snowflake can allow a temporary table to shadow a permanent table with the same name; `CREATE TEMP TABLE` is **not** a collision-proof safety guard. For another run, choose a new lab-specific identifier in an isolated scratch schema. The temporary table disappears when the session ends.
 
 ### Step 4 — Explain the result
 Identify the database, schema, table, three columns, three rows, and the warehouse used. **Pass:** correct counts and an explanation of why the warehouse—not the table—provides compute.
