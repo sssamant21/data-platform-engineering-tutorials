@@ -112,8 +112,8 @@ class BackupReplication041050(unittest.TestCase):
     def test_004_topology_slot_capacity_and_checkpoint_retention(self):
         """Fail static CI if the disposable topology cannot run Chapter 047."""
         script=(ROOT/"scripts"/"004-operations-lab.sh").read_text(encoding="utf-8")
-        cap=re.search(r"(?m)^max_replication_slots = (\\d+)$",script)
-        bounded=re.search(r"(?m)^max_slot_wal_keep_size = '(\\d+)MB'$",script)
+        cap=re.search(r"(?m)^max_replication_slots = (\d+)$",script)
+        bounded=re.search(r"(?m)^max_slot_wal_keep_size = '(\d+)MB'$",script)
         self.assertIsNotNone(cap,"Chapter 004 must explicitly configure slots")
         self.assertIsNotNone(bounded,"Chapter 004 must bound slot WAL retention")
         self.assertGreaterEqual(int(cap.group(1)),1)
