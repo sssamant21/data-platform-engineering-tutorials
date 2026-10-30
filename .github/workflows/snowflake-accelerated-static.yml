@@ -1,0 +1,26 @@
+name: Snowflake accelerated curriculum static validation
+
+on:
+  pull_request:
+    paths:
+      - "snowflake/accelerated-dbre-sre/**"
+      - "snowflake/README.md"
+      - ".github/workflows/snowflake-accelerated-static.yml"
+  push:
+    paths:
+      - "snowflake/accelerated-dbre-sre/**"
+      - ".github/workflows/snowflake-accelerated-static.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-snowflake-accelerated:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Run V01/V02 static curriculum gate
+        run: python3 snowflake/accelerated-dbre-sre/validation/validate_courses.py
