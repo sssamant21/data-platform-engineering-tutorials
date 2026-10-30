@@ -64,6 +64,8 @@ $expected = @{
 & $base @expected -Mode Level2 -Level1Accepted -ApprovalReference 'SAMPLE_APPROVED_TICKET'
 ~~~
 
+The launcher passes the expected `--role`, `--warehouse`, `--database`, and `--schema` on **both** the read-only preflight CLI query and the later lesson CLI invocation. This reduces dependence on mutable connection defaults. The account alias is still resolved separately for each CLI call, however: a connection configuration change between the calls remains a risk. The operator must avoid editing/replacing the alias during the run. These checks do **not** verify scratch-schema emptiness or independently authenticate owner approval.
+
 The approved account locator is the value of `CURRENT_ACCOUNT()`, not necessarily the organization-qualified account name. The launcher also matches `CURRENT_ORGANIZATION_NAME()` and `CURRENT_REGION()` to reduce the risk of connecting to an unintended account with a similar locator. Ask the account owner for the exact locator and case-sensitive context values. **The PowerShell script itself has not been run against Snowflake or tested under a local PowerShell interpreter here.** It is an optional safeguard and does not replace independent review or prevent connection configuration changes between the preflight and SQL execution.
 
 The `--local-only` CLI option **does not execute SQL offline**. It blocks `!source` and `!load` from fetching remote HTTP(S) files; all SQL statements still execute against the connected Snowflake account. Do not treat this flag as a nonproduction safety control. <https://docs.snowflake.com/en/developer-guide/snowflake-cli/command-reference/sql-commands/sql>
