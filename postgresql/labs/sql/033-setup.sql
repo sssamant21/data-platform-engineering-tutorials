@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP on
-\echo 'WARNING: disposable database only; ch033 schema will be replaced'
+\echo 'LAB ONLY: will refuse to overwrite existing ch033; run reviewed cleanup separately'
 SELECT current_database() AS database_name, current_user AS operator, version();
-DROP SCHEMA IF EXISTS ch033 CASCADE;
+-- Do not automatically destroy an existing schema. Clean up explicitly after verifying target.
 CREATE SCHEMA ch033;
 CREATE TABLE ch033.orders (
   id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
