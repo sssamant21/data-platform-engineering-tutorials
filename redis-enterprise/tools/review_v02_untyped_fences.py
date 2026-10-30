@@ -46,6 +46,8 @@ def bucket(source: str, preceding: str) -> tuple[str, str]:
     # merely because they contain a Redis verb somewhere.
     if all(FORMULA.match(x) for x in lines):
         return ("formula_or_symbolic_text", "Symbolic assignment rather than Redis command")
+    if any(re.match(r"^\s*(?:if|else|when|then)\b", x, re.I) for x in lines):
+        return ("ambiguous_reference_text", "Pseudocode control flow, not a paste-ready command block")
     if any(SYMBOLS.search(x) for x in lines):
         return ("diagram_or_comparison", "Diagram, outcome, arrow, or comparison")
     if all(BARE_CMD.fullmatch(x) or re.fullmatch(r"[A-Z][A-Z0-9_.-]+(?:\s+[A-Z][A-Z0-9_.-]+)?", x)
