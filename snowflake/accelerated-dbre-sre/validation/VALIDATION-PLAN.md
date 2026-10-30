@@ -36,10 +36,11 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 - Use a designated training Snowflake account, a small permitted warehouse and a scratch schema.
 - Verify CURRENT_USER, CURRENT_ROLE, CURRENT_WAREHOUSE, CURRENT_DATABASE and CURRENT_SCHEMA reflect approved context.
 - Verify the VALUES expression returns 3 rows.
-- Verify CREATE TEMP TABLE and INSERT create 3 rows without overwriting existing objects.
+- Use an instructor-controlled empty scratch schema; verify no table-name collision. A Snowflake TEMP table can shadow a permanent table name; no schema-level CREATE TABLE grant is needed for TEMP table creation.
+- Verify CREATE TEMP TABLE and INSERT create 3 rows in the isolated session.
 - Verify aggregation: EAST -> 2 orders / 170 sales, WEST -> 1 order / 80 sales.
 - End session and confirm the temporary table lifecycle. Record precise query IDs and anonymized outputs.
-- Negative test: without CREATE TABLE privilege, confirm denial is reported and no admin role is adopted.
+- Negative test: under a role without USAGE on the scratch schema, confirm object access/creation is denied as applicable; **do not** expect Snowflake TEMP CREATE to require CREATE TABLE privilege. Do not escalate to an admin role.
 - Query text, identifiers, credentials and screenshots must be reviewed for sensitive information before archival.
 
 ## V03 detailed acceptance for Level 2
@@ -48,7 +49,7 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 - SHOW GRANTS must list roles for the current user (not arbitrary role privileges).
 - Session tag setting and unset must work; capture QUERY_TAG from Information Schema QUERY_HISTORY_BY_USER.
 - GENERATOR(ROWCOUNT => 100) must return 100.
-- Verify QUERY_HISTORY function is available with an active database context and proper permissions, and note its 7-day history versus Account Usage 365-day retention.
+- Verify QUERY_HISTORY_BY_SESSION function is available with an active database context and proper permissions, and note its 7-day history versus Account Usage 365-day retention. Record that outer WHERE filtering occurs after the table function's RESULT_LIMIT.
 - Capture query ID, status, measured elapsed time, warehouse, cost, account edition and any permission error.
 - No warehouse resize or production SUSPEND permitted as part of the lab.
 
