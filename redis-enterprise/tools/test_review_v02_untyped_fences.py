@@ -20,6 +20,18 @@ class UntypedFencesTests(unittest.TestCase):
         self.assertEqual(bucket("GET\nSET\nHSET\nTTL", "Common commands")[0],
                          "command_vocabulary_list")
 
+    def test_natural_language_set_is_not_runnable(self):
+        classification, _ = bucket("set only if the key exists", "XX means:")
+        self.assertNotEqual(classification, "possible_runnable_command")
+
+    def test_explanatory_expected_ttl_is_not_runnable(self):
+        classification, _ = bucket("TTL remains positive", "Expected:")
+        self.assertNotEqual(classification, "possible_runnable_command")
+
+    def test_contextual_diagram_is_not_runnable(self):
+        classification, _ = bucket("GET key\nif missing:\n  SET key", "Concept:")
+        self.assertEqual(classification, "ambiguous_reference_text")
+
     def test_ledger_counts_text_and_unlabeled(self):
         with tempfile.TemporaryDirectory() as d:
             p=Path(d)/"01-fixture.md"
