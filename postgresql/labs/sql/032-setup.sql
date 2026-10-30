@@ -1,5 +1,5 @@
 \set ON_ERROR_STOP on
-DROP SCHEMA IF EXISTS ch032 CASCADE;
+-- Do not automatically destroy an existing schema. Clean up explicitly after verifying target.
 CREATE SCHEMA ch032;
 CREATE TABLE ch032.orders (
  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
