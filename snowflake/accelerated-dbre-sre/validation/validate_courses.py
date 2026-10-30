@@ -109,11 +109,15 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
         for finding in unsafe_sql_statements(raw):
             problems.append(str(rel) + ": " + finding)
         if "level-01" in path.name:
-            if "LEVEL_01_SMOKE_RESULT" not in raw or "CREATE TEMP TABLE" not in raw:
-                problems.append(str(rel) + ": expected L1 assertions or TEMP scope missing")
+            if ("LEVEL_01_SMOKE_RESULT" not in raw or
+                    "CREATE TEMP TABLE" not in raw or
+                    "QUERY_HISTORY_BY_SESSION" not in raw):
+                problems.append(str(rel) + ": expected L1 assertions, TEMP scope or evidence query missing")
         if "level-02" in path.name:
-            if "ALTER SESSION UNSET QUERY_TAG" not in raw or "ROWCOUNT => 100" not in raw:
-                problems.append(str(rel) + ": L2 query tag cleanup or row count missing")
+            if ("ALTER SESSION UNSET QUERY_TAG" not in raw or
+                    "ROWCOUNT => 100" not in raw or
+                    "QUERY_HISTORY_BY_SESSION" not in raw):
+                problems.append(str(rel) + ": L2 query tag cleanup, row count or evidence query missing")
         if "level-03" in path.name:
             if ("LEVEL_03_SMOKE_RESULT" not in raw or
                     "COUNT(DISTINCT ORDER_ID)" not in raw or
