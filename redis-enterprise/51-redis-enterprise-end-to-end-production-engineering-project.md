@@ -163,12 +163,14 @@ rcli UNLINK "$PROFILE"
 rcli UNLINK "$SESSION"
 rcli UNLINK "$LIMIT_TOKEN"
 rcli UNLINK "$STREAM"
-test "$(rcli EXISTS "$PROFILE" "$SESSION" "$LIMIT_TOKEN" "$STREAM")" = "0"
+for key in "$PROFILE" "$SESSION" "$LIMIT_TOKEN" "$STREAM"; do
+  test "$(rcli EXISTS "$key")" = "0"
+done
 echo "PASS: only this run's four known lab keys removed"
 unset REDISCLI_AUTH
 ~~~
 
-**Expected:** Each UNLINK returns 1 when its key still exists, or 0 if already expired; EXISTS on the four explicit keys returns 0. UNLINK removes stream data and its attached test consumer-group metadata with that isolated stream. If cleanup fails, record the exact keys and notify the lab owner rather than broadening the deletion scope.
+**Expected:** Each UNLINK returns 1 when its key still exists, or 0 if already expired; Each single-key EXISTS returns 0 (avoiding cross-slot multi-key assumptions in clustered deployments). UNLINK removes stream data and its attached test consumer-group metadata with that isolated stream. If cleanup fails, record the exact keys and notify the lab owner rather than broadening the deletion scope.
 
 ## 15.6 Evidence sheet and acceptance boundary
 
