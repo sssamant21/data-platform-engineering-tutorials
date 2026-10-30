@@ -44,7 +44,7 @@ def run():
     # Fail static validation on unsafe psql refusal branches.
     for script in (ROOT / "labs" / "sql").glob("*.sql"):
         content = script.read_text(encoding="utf-8")
-        if r"\\quit 3" in content:
+        if r"\quit 3" in content:
             errors.append({"chapter": script.name,
                            "error": "unsafe psql \\quit 3: use ON_ERROR_STOP and a SQL-error refusal"})
     for chapter in SETUP_IDS:

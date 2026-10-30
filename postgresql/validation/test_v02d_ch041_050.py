@@ -142,14 +142,14 @@ class BackupReplication041050(unittest.TestCase):
         for name in guarded:
             with self.subTest(name=name):
                 script=sql(name)
-                self.assertIn(r"\\set ON_ERROR_STOP on",script)
-                self.assertNotIn(r"\\quit 3",script)
+                self.assertIn(r"\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\quit 3",script)
                 self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
         for number in ("032","033","034","035","036","038","039","040"):
             with self.subTest(chapter=number):
                 script=sql(number+"-cleanup.sql")
-                self.assertIn(r"\\set ON_ERROR_STOP on",script)
-                self.assertNotIn(r"\\quit 3",script)
+                self.assertIn(r"\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\quit 3",script)
                 self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
 
     def test_047_slot_creation_and_one_time_wal_fixture(self):
