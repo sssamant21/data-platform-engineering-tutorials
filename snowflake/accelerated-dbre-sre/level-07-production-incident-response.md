@@ -27,7 +27,7 @@ Detection -> Scope -> Evidence -> Hypothesis
    -> Approved mitigation -> Validation
    -> Monitoring -> Blameless RCA -> Prevention
 ~~~
-Preserve QUERY_ID, WAREHOUSE_NAME, ROLE_NAME, timestamps, error code and affected job/run IDs. Treat full SQL text and query bindings as potentially sensitive; never post raw patient identifiers or secrets in tickets.
+Preserve QUERY_ID, WAREHOUSE_NAME, ROLE_NAME, timestamps, error code and affected job/run IDs. The Information Schema query-history table functions and historical ACCOUNT_USAGE view differ in scope, latency and status values; use the former for recent visible incidents and the latter for approved historical investigation. Treat full SQL text and query bindings as potentially sensitive; never post raw patient identifiers or secrets in tickets.
 
 ### Five common incident tracks
 1. **Slowness:** compare execution, overload queueing, provisioning and transaction blocking; examine Query Profile.
@@ -55,10 +55,10 @@ SELECT QUERY_ID, WAREHOUSE_NAME, EXECUTION_STATUS,
        TOTAL_ELAPSED_TIME, EXECUTION_TIME,
        QUEUED_OVERLOAD_TIME, QUEUED_PROVISIONING_TIME,
        TRANSACTION_BLOCKED_TIME, START_TIME
-FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY(RESULT_LIMIT => 100))
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
 ORDER BY START_TIME DESC;
 ~~~
-Expected: recently completed queries visible to the current role, subject to the function's lookback and privileges. This is useful for recent triage; it does not replace full monitoring.
+Expected: current-session query records, potentially including running queries, subject to the seven-day history window and result limit. This demonstrates evidence capture but does not expose all queries across the production account; account-wide incident review requires separately authorized monitoring. Avoid exporting `QUERY_TEXT` or sensitive bind data.
 
 ### Step 3 — Tabletop scenario A: report latency
 At 09:05 p95 report time rises 3s -> 40s; overload queueing is 34s while execution is 5s. Investigate concurrent workloads and queuing; propose isolating heavy ETL jobs rather than changing SQL blindly.
@@ -66,8 +66,11 @@ At 09:05 p95 report time rises 3s -> 40s; overload queueing is 34s while executi
 ### Step 4 — Tabletop scenario B: stale patient analytics
 The data freshness SLO is 15 minutes; dashboard is 75 minutes behind. Verify ingestion/source health, task failure details and downstream refresh; do not assume Snowflake query execution is the root cause.
 
-### Step 5 — Write a mini incident record
-Include: impact, severity, UTC start/end, incident commander, two query IDs or simulated evidence identifiers, leading hypothesis, authorized mitigation, before/after SLO, rollback strategy and preventive action owner. **Pass:** the report could support an audit without revealing sensitive data.
+### Step 5 — Optional account-wide historical review
+For an approved monitoring role, follow the read-only [Level 7 smoke script](validation/runtime/level-07-smoke.sql) to inspect anonymized hourly counts, failures and overload queueing. `ACCOUNT_USAGE.QUERY_HISTORY` uses `success` / `fail` / `incident` and may lag approximately 45 minutes. The Information Schema function instead uses statuses such as `failed_with_error` / `failed_with_incident`. During a live outage, use a lower-latency source.
+
+### Step 6 — Write a mini incident record
+Include: impact, severity, UTC start/end, incident commander, two query IDs or simulated evidence identifiers, leading hypothesis, authorized mitigation, before/after SLO, rollback strategy and preventive action owner. **Pass:** the report could support an audit without revealing sensitive data. Mark any missing role/warehouse visibility or account-history data as **BLOCKED** rather than assuming healthy services.
 
 ## DBRE/SRE troubleshooting quick reference
 | Situation | Evidence | Owner / escalation |
@@ -100,6 +103,7 @@ Include: impact, severity, UTC start/end, incident commander, two query IDs or s
 
 ## Official documentation
 - https://docs.snowflake.com/en/sql-reference/functions/query_history
+- https://docs.snowflake.com/en/sql-reference/account-usage/query_history
 - https://docs.snowflake.com/en/sql-reference/account-usage
 - https://docs.snowflake.com/en/user-guide/ui-query-profile
 
