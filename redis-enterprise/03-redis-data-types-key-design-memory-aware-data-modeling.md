@@ -2092,13 +2092,15 @@ Useful commands may include:
 ``` redis
 DBSIZE
 INFO memory
-SCAN
+SCAN 0 MATCH 'tutorial:chapter03:*' COUNT 100
 MEMORY USAGE <key>
 TYPE <key>
 TTL <key>
 ```
 
 Avoid running expensive broad diagnostics blindly during an incident.
+
+**Expected:** `SCAN` returns a cursor and possibly zero or more lab keys; continue using the returned cursor until it is `0`, even if an intermediate batch is empty. `COUNT` is a hint, duplicates are possible, and scanning is not a transactional snapshot. `DBSIZE` and `INFO` are database-wide metrics, so review permissions and operational cost before using them. Replace `<key>` with an exact owned key before type/size checks. One SCAN call is not a complete inventory.
 
 ------------------------------------------------------------------------
 
