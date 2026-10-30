@@ -965,7 +965,7 @@ $env:REDIS_PORT="6379"
 $env:REDIS_PASSWORD=""
 ```
 
-Do not commit production credentials into lab files.
+Do not commit production credentials into lab files. **Two deployment modes:** The defaults are for an **isolated, local, unauthenticated sandbox only**. For a remote or Enterprise lab endpoint, set `REDIS_TLS=1`, supply a trusted `REDIS_CA`, and provision `REDIS_PASSWORD` via your approved secret mechanism (never directly in a committed file). Where required, set `REDIS_USER`, `REDIS_CLIENT_CERT` and `REDIS_CLIENT_KEY`. The Python examples below reject non-loopback connections unless TLS is enabled. The short CLI connectivity example uses `REDISCLI_AUTH` only for that invocation; Python scripts separately use `REDIS_PASSWORD` from the approved secure environment.
 
 ## 20. Verify Connectivity
 
@@ -1015,13 +1015,26 @@ import redis
 HOST = os.getenv("REDIS_HOST", "localhost")
 PORT = int(os.getenv("REDIS_PORT", "6379"))
 PASSWORD = os.getenv("REDIS_PASSWORD") or None
-
-r = redis.Redis(
-    host=HOST,
-    port=PORT,
-    password=PASSWORD,
-    decode_responses=True,
-)
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+CA_FILE = os.getenv("REDIS_CA")
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+if USE_TLS and not CA_FILE:
+    raise RuntimeError("TLS is enabled: supply trusted REDIS_CA certificate path")
+client_options = {
+    "host": HOST, "port": PORT, "password": PASSWORD,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+    "socket_connect_timeout": 3, "socket_timeout": 3,
+}
+if USE_TLS:
+    client_options.update(ssl=True, ssl_ca_certs=CA_FILE, ssl_cert_reqs="required")
+    if os.getenv("REDIS_CLIENT_CERT") and os.getenv("REDIS_CLIENT_KEY"):
+        client_options.update(
+            ssl_certfile=os.environ["REDIS_CLIENT_CERT"],
+            ssl_keyfile=os.environ["REDIS_CLIENT_KEY"],
+        )
+r = redis.Redis(**client_options)
 
 CACHE_KEY = "tutorial:chapter15:item:1001"
 LOCK_KEY = "tutorial:chapter15:lock:item:1001"
@@ -1243,10 +1256,26 @@ redis-cli TTL tutorial:chapter15:jitter:5
 Now distribute expirations:
 
 ``` python
+import os
 import random
 import redis
 
-r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+HOST = os.getenv("REDIS_HOST", "localhost")
+PORT = int(os.getenv("REDIS_PORT", "6379"))
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+client_options = {
+    "host": HOST, "port": PORT,
+    "password": os.getenv("REDIS_PASSWORD") or None,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+}
+if USE_TLS:
+    if not os.getenv("REDIS_CA"):
+        raise RuntimeError("REDIS_CA required for remote/TLS Redis")
+    client_options.update(ssl=True, ssl_ca_certs=os.environ["REDIS_CA"], ssl_cert_reqs="required")
+r = redis.Redis(**client_options)
 
 for i in range(1, 11):
     ttl = 60 + random.randint(0, 30)
@@ -1275,13 +1304,26 @@ import redis
 HOST = os.getenv("REDIS_HOST", "localhost")
 PORT = int(os.getenv("REDIS_PORT", "6379"))
 PASSWORD = os.getenv("REDIS_PASSWORD") or None
-
-r = redis.Redis(
-    host=HOST,
-    port=PORT,
-    password=PASSWORD,
-    decode_responses=True,
-)
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+CA_FILE = os.getenv("REDIS_CA")
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+if USE_TLS and not CA_FILE:
+    raise RuntimeError("TLS is enabled: supply trusted REDIS_CA certificate path")
+client_options = {
+    "host": HOST, "port": PORT, "password": PASSWORD,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+    "socket_connect_timeout": 3, "socket_timeout": 3,
+}
+if USE_TLS:
+    client_options.update(ssl=True, ssl_ca_certs=CA_FILE, ssl_cert_reqs="required")
+    if os.getenv("REDIS_CLIENT_CERT") and os.getenv("REDIS_CLIENT_KEY"):
+        client_options.update(
+            ssl_certfile=os.environ["REDIS_CLIENT_CERT"],
+            ssl_keyfile=os.environ["REDIS_CLIENT_KEY"],
+        )
+r = redis.Redis(**client_options)
 
 CACHE_KEY = "tutorial:chapter15:stale:item:1001"
 LOCK_KEY = "tutorial:chapter15:stale:lock:item:1001"
