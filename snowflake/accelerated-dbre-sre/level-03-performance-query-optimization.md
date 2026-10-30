@@ -67,7 +67,7 @@ SELECT COUNT(*) AS N, SUM(AMOUNT) AS TOTAL
 FROM DBRE_SRE_L3_SALES
 WHERE REGION_ID = 1;
 ~~~
-Expected: the broad count is **1,000**; filtering on REGION_ID = 1 returns **100** rows. This tiny temporary table is for *concept demonstration*, not credible evidence of Snowflake tuning gains. A real performance finding requires representative data sizes, warmed/cold cache awareness, and repeated measurements.
+Expected: the broad count is **1,000** with SUM(AMOUNT) = **54,110**; filtering on REGION_ID = 1 returns **100** rows with SUM(AMOUNT) = **5,060**. These figures come from the deterministic generator, not a Snowflake execution result. This tiny temporary table is for *concept demonstration*, not credible evidence of Snowflake tuning gains. A real performance finding requires representative data sizes, warmed/cold cache awareness, and repeated measurements.
 
 ### Step 3 — Inspect history
 ~~~sql
@@ -76,7 +76,7 @@ SELECT QUERY_ID, TOTAL_ELAPSED_TIME, EXECUTION_TIME,
 FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(RESULT_LIMIT => 20))
 ORDER BY START_TIME DESC;
 ~~~
-Expected: measurable query statistics; zero queue time is normal in a lightly loaded lab.
+Expected: measurable query statistics; zero queue time is normal in a lightly loaded lab. The current-session `QUERY_HISTORY_BY_SESSION` function is preferable for isolating this lab. If using user history, remember the function's RESULT_LIMIT is applied before external filtering. See [Level 3 QA smoke script](validation/runtime/level-03-smoke.sql) for deterministic assertions and a session-isolated history query.
 
 ### Step 4 — Open Query Profile in Snowsight
 Find the query by QUERY_ID; inspect Scan and Aggregate operators. Document partitions scanned, time, rows and spills when reported.
@@ -102,6 +102,9 @@ Never use \`ALTER WAREHOUSE\` in the lab without explicit authorization.
 3. **What makes a fair benchmark?** Comparable SQL, data, caching and load.
 4. **What tool shows costly operators?** Query Profile.
 5. **Can increasing warehouse size fix every query?** No.
+
+## Acceptance and runtime validation
+Run the [Level 3 SQL smoke](validation/runtime/level-03-smoke.sql) in a dedicated training scratch schema. Confirm the 1,000/100 row counts, the 54,110/5,060 totals, unique IDs, an actual query ID, and that the temporary table does not collide with any existing object. Record warehouse credits, Query Profile screenshots with sensitive information redacted, and cleanup evidence. This is **NOT RUN**, and the tiny synthetic dataset cannot establish production-scale performance.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
