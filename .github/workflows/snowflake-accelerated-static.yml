@@ -24,5 +24,5 @@ jobs:
         uses: actions/checkout@v4
       - name: Run V01/V02 static curriculum gate
         run: python3 snowflake/accelerated-dbre-sre/validation/validate_courses.py
-      - name: Run SQL safety checker regression tests
+      - name: Run SQL safety and V03 evidence regression tests
         run: python3 -m unittest discover -s snowflake/accelerated-dbre-sre/validation -p 'test_*.py' -v
