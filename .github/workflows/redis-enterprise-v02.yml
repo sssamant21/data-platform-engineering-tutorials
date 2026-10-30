@@ -28,10 +28,13 @@ jobs:
         run: |
           python -m unittest discover -s redis-enterprise/tools -p "test_validate_v02*.py" -v
           python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_safety.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_executable_commands.py" -v
       - name: V02 offline example inventory
         run: python redis-enterprise/tools/validate_v02_examples.py --json-file "$RUNNER_TEMP/redis-v02-review.json"
       - name: Exhaustive offline safety-pattern review inventory
         run: python redis-enterprise/tools/review_v02_safety.py --expected 80 --json-file "$RUNNER_TEMP/redis-v02-safety.json" --markdown-file "$RUNNER_TEMP/redis-v02-safety.md"
+      - name: Command-level high-risk and output-cue triage (offline only)
+        run: python redis-enterprise/tools/review_v02_executable_commands.py --json-file "$RUNNER_TEMP/redis-v02-command-triage.json"
       - name: Upload example review queue
         if: always()
         uses: actions/upload-artifact@v4
@@ -41,4 +44,5 @@ jobs:
             ${{ runner.temp }}/redis-v02-review.json
             ${{ runner.temp }}/redis-v02-safety.json
             ${{ runner.temp }}/redis-v02-safety.md
+            ${{ runner.temp }}/redis-v02-command-triage.json
           if-no-files-found: warn
