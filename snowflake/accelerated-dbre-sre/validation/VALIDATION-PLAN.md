@@ -17,8 +17,8 @@
 
 | Gate | What to validate | Evidence required | Status |
 |---|---|---|---|
-| V01 — Structure | 7 lessons, 60 minutes each, sections, navigation, Markdown fences | CI output; file inventory | Pending CI execution |
-| V02 — Static safety / SQL review | No secrets, allowed SQL, official syntax, permissions, rollback/cleanup | Lint output + reviewed source links | Initial review complete; peer review pending |
+| V01 — Structure | 7 lessons, 60 minutes each, sections, navigation, Markdown fences | CI output; file inventory | PASS — initial run #41061594991 |
+| V02 — Static safety / SQL review | No secrets, allowed SQL, official syntax, permissions, rollback/cleanup | Lint output + reviewed source links | Automated PASS, peer review pending |
 | V03 — Lab runtime | Run examples in dedicated Snowflake training account with least-privilege role | Timestamp, query IDs, outputs, error codes, cleanup | NOT RUN |
 | V04 — Independent review | DBRE, Snowflake admin, Security and Data Owner review | Review approval with identified reviewer | PENDING |
 | V05 — Production acceptance | Workload SLOs, security policy, cost guardrails, RPO/RTO and operational procedures | Signed release checklist, retest cycle | NOT CERTIFIED |
