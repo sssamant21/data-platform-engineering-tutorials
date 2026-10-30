@@ -257,6 +257,8 @@ version.
 JSON.GET tutorial:chapter55:profile:1001
 ```
 
+**Expected for the initialized document:** a JSON-encoded object with `id`, `name`, `status`, `address`, `tags` and `version`; its textual field ordering is not a stable equality condition. `nil` or an ACL/module error is a failed prerequisite, not proof that a correct document was returned.
+
 Whole-document reads can be convenient but may transfer unnecessary
 data.
 
@@ -290,6 +292,8 @@ transfer.
 ``` redis
 JSON.SET tutorial:chapter55:profile:1001 '$.status' '"inactive"'
 ```
+
+**Expected on the initialized JSON document:** `OK`, followed by `JSON.GET ... '$.status'` returning `["inactive"]` as serialized JSON under a JSONPath RESP2 bulk-string reply. Reusing the example on a missing document or invalid JSON path may return null/error rather than creating a root document.
 
 The application does not need to fetch, modify, and rewrite the entire
 document.
