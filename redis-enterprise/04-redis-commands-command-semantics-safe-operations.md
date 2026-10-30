@@ -762,10 +762,7 @@ Batch intentionally.
 Example:
 
 ``` redis
-MSET \
-  tutorial:chapter04:a 1 \
-  tutorial:chapter04:b 2 \
-  tutorial:chapter04:c 3
+MSET  tutorial:chapter04:a 1  tutorial:chapter04:b 2  tutorial:chapter04:c 3
 ```
 
 Useful for multiple string writes.
@@ -1330,19 +1327,13 @@ EXPIRE tutorial:chapter04:persist-test 300
 ## 51. Lab 8 --- Multi-Key Read
 
 ``` redis
-MSET \
-  tutorial:chapter04:m1 one \
-  tutorial:chapter04:m2 two \
-  tutorial:chapter04:m3 three
+MSET  tutorial:chapter04:m1 one  tutorial:chapter04:m2 two  tutorial:chapter04:m3 three
 ```
 
 Read:
 
 ``` redis
-MGET \
-  tutorial:chapter04:m1 \
-  tutorial:chapter04:m2 \
-  tutorial:chapter04:m3
+MGET  tutorial:chapter04:m1  tutorial:chapter04:m2  tutorial:chapter04:m3
 ```
 
 Expected:
@@ -1531,12 +1522,7 @@ cursor = 0
 Create:
 
 ``` redis
-HSET tutorial:chapter04:inventory \
-  product:1001 10 \
-  product:1002 20 \
-  product:1003 30 \
-  product:1004 40 \
-  product:1005 50
+HSET tutorial:chapter04:inventory  product:1001 10  product:1002 20  product:1003 30  product:1004 40  product:1005 50
 ```
 
 Then:
