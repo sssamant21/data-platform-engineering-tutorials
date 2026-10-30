@@ -985,7 +985,7 @@ field absent
 from:
 
 ``` json
-"field": null
+{"field": null}
 ```
 
 This can affect application and Search behavior.
