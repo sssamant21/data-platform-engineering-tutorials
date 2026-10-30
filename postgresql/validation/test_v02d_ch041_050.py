@@ -55,6 +55,13 @@ class BackupReplication041050(unittest.TestCase):
             self.assertIn(required,content)
         self.assertIn("pg_stat_archiver",sql("044-preflight.sql"))
         self.assertIn("pg_current_wal_lsn()",sql("044-marker.sql"))
+        marker=sql("044-marker.sql")
+        for expected in ("expected_data_directory","expected_operator",
+                         "expected_system_id","044-MARKER","pg_control_system()",
+                         r"\if :stage_permitted","BEGIN;","COMMIT;"):
+            self.assertIn(expected,marker)
+        self.assertNotIn("IF NOT EXISTS",marker)
+        self.assertIn("confirm_stage=044-MARKER",lab("044"))
 
     def test_045_incident_restricted_to_source_identity(self):
         source=sql("045-incident.sql")
@@ -68,6 +75,17 @@ class BackupReplication041050(unittest.TestCase):
             self.assertIn(required,source)
         doc=lab("045")
         self.assertIn("expected_source_data_directory=",doc)
+        for name,token in (("045-fixture.sql","045-CREATE-FIXTURE"),
+                           ("045-good-marker.sql","045-GOOD-MARKER")):
+            stage=sql(name)
+            with self.subTest(name=name):
+                for expected in ("expected_data_directory","expected_operator",
+                                 "expected_system_id",token,
+                                 "pg_control_system()",r"\if :stage_permitted"):
+                    self.assertIn(expected,stage)
+                self.assertIn("confirm_stage="+token,doc)
+        self.assertIn("BEGIN;",sql("045-fixture.sql"))
+        self.assertIn("COMMIT;",sql("045-fixture.sql"))
         self.assertIn("expected_operator=",doc)
 
     def test_045_recovery_verification_has_exit_code_failure(self):
