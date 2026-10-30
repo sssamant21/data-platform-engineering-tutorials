@@ -25,13 +25,20 @@ jobs:
         with:
           python-version: "3.11"
       - name: V02 fixture-only validator tests
-        run: python -m unittest discover -s redis-enterprise/tools -p "test_validate_v02*.py" -v
+        run: |
+          python -m unittest discover -s redis-enterprise/tools -p "test_validate_v02*.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_safety.py" -v
       - name: V02 offline example inventory
         run: python redis-enterprise/tools/validate_v02_examples.py --json-file "$RUNNER_TEMP/redis-v02-review.json"
+      - name: Exhaustive offline safety-pattern review inventory
+        run: python redis-enterprise/tools/review_v02_safety.py --expected 81 --json-file "$RUNNER_TEMP/redis-v02-safety.json" --markdown-file "$RUNNER_TEMP/redis-v02-safety.md"
       - name: Upload example review queue
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: redis-enterprise-v02-review
-          path: ${{ runner.temp }}/redis-v02-review.json
+          path: |
+            ${{ runner.temp }}/redis-v02-review.json
+            ${{ runner.temp }}/redis-v02-safety.json
+            ${{ runner.temp }}/redis-v02-safety.md
           if-no-files-found: warn
