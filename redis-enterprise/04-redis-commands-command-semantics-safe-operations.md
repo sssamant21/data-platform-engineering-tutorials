@@ -762,7 +762,7 @@ Batch intentionally.
 Example:
 
 ``` redis
-MSET  tutorial:chapter04:a 1  tutorial:chapter04:b 2  tutorial:chapter04:c 3
+MSET tutorial:chapter04:a 1 tutorial:chapter04:b 2 tutorial:chapter04:c 3
 ```
 
 Useful for multiple string writes.
@@ -1327,14 +1327,16 @@ EXPIRE tutorial:chapter04:persist-test 300
 ## 51. Lab 8 --- Multi-Key Read
 
 ``` redis
-MSET  tutorial:chapter04:m1 one  tutorial:chapter04:m2 two  tutorial:chapter04:m3 three
+MSET tutorial:chapter04:m1 one tutorial:chapter04:m2 two tutorial:chapter04:m3 three
 ```
 
 Read:
 
 ``` redis
-MGET  tutorial:chapter04:m1  tutorial:chapter04:m2  tutorial:chapter04:m3
+MGET tutorial:chapter04:m1 tutorial:chapter04:m2 tutorial:chapter04:m3
 ```
+
+**Expected per-command results:** `MSET` returns `OK`, then `MGET` returns three values in the *same order as requested*. Unlike `SET ... EX`, `MSET` does not assign per-key TTLs, and a successful replacement of a pre-existing key may remove that key's previous TTL.
 
 Expected:
 
@@ -1351,6 +1353,8 @@ EXPIRE tutorial:chapter04:m1 300
 EXPIRE tutorial:chapter04:m2 300
 EXPIRE tutorial:chapter04:m3 300
 ```
+
+**Expected:** Each `EXPIRE` returns integer `1` for an existing key, and an immediate `TTL` on each key would be a positive integer up to 300 seconds. A missing key causes `EXPIRE` to return `0`; do not hide that discrepancy in lab evidence.
 
 Notice that `MSET` itself did not establish these per-key TTLs.
 
@@ -1522,7 +1526,7 @@ cursor = 0
 Create:
 
 ``` redis
-HSET tutorial:chapter04:inventory  product:1001 10  product:1002 20  product:1003 30  product:1004 40  product:1005 50
+HSET tutorial:chapter04:inventory product:1001 10  product:1002 20  product:1003 30  product:1004 40  product:1005 50
 ```
 
 Then:
@@ -1530,6 +1534,8 @@ Then:
 ``` redis
 HSCAN tutorial:chapter04:inventory 0 COUNT 2
 ```
+
+**Expected:** For a previously absent hash key, `HSET` returns integer `5`. `HSCAN` returns a cursor and field/value pairs; the number returned can differ from `COUNT 2`, which is a work hint. Continue using the returned cursor until `0`, even if a particular batch is empty. An `HSCAN` over an existing but different-type key returns `WRONGTYPE`, not hash fields.
 
 Continue using returned cursors.
 
