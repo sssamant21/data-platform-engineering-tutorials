@@ -1,4 +1,36 @@
 \set ON_ERROR_STOP on
+-- Mutations allowed only on the independently verified Chapter 004 disposable PG18 primary.
+\if :{?expected_system_id}
+\else
+ \echo 'REFUSED: expected_system_id required'
+ \quit 3
+\endif
+\if :{?confirm_stage}
+\else
+ \echo 'REFUSED: confirm_stage required'
+ \quit 3
+\endif
+SELECT CASE WHEN current_database()='ch051_lab'
+ AND current_user='lab_admin'
+ AND inet_server_addr()=inet '127.0.0.1' AND inet_server_port()=55432
+ AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
+ AND current_setting('data_directory') ~ '^/tmp/postgresql-dbre-lab\.[A-Za-z0-9]+/primary$'
+ AND NOT pg_is_in_recovery()
+ AND EXISTS(SELECT 1 FROM pg_control_system() c
+            WHERE c.system_identifier::text=:'expected_system_id')
+ AND :'confirm_stage'='051-PROVISION'
+ AND to_regnamespace('ch051') IS NULL
+ THEN 'true' ELSE 'false' END AS stage_permitted
+\gset
+\if :stage_permitted
+ \echo 'Verified disposable Chapter 004 lab identity and initial state.'
+\else
+ \echo 'REFUSED: wrong database, cluster identity, role, stage or existing lab fixture'
+ \quit 3
+\endif
+BEGIN;
+SET LOCAL statement_timeout='30s';
+SET LOCAL lock_timeout='1s';
 -- Run ONLY in dedicated ch051_lab database as lab administrator.
 DO $$
 BEGIN
@@ -34,3 +66,5 @@ ALTER DEFAULT PRIVILEGES FOR ROLE ch051_owner IN SCHEMA ch051 GRANT USAGE,SELECT
 SET ROLE ch051_owner;
 CREATE TABLE ch051.after_default_grants(id bigint PRIMARY KEY,payload text NOT NULL);
 RESET ROLE;
+
+COMMIT;
