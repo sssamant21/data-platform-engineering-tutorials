@@ -1,4 +1,6 @@
 # Chapter 038 — Table Partitioning Hands-on Lab
+**V02-B destructive cleanup gate:** Cleanup is deliberately blocked until the operator passes the exact database name, the PostgreSQL 18 cluster system identifier, and the chapter token `038-DROP`. On the **same disposable target** used by this lab, first run `SELECT current_database(), system_identifier FROM pg_control_system();`, examine the reported values and verify the instance is truly disposable. Manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID` in the cleanup command. The system identifier alone does not prove that an environment is safe; never execute this cleanup on production or shared staging. These guards are not a substitute for reviewing ownership and dependencies.
+
 
 **PostgreSQL 18 · Disposable database only · Runtime verification pending.** Run against a local lab instance. The scripts operate on schema `ch038`; verify the schema is lab-owned before cleanup.
 
@@ -7,7 +9,7 @@
 ```bash
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/038-setup.sql
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/038-investigate.sql
-psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/038-cleanup.sql
+psql -X -v ON_ERROR_STOP=1 -d postgres -v expected_db=postgres -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_cleanup=038-DROP -f postgresql/labs/sql/038-cleanup.sql
 ```
 
 Do not wrap a concurrent detach in a transaction block. This lab uses ordinary DETACH/ATTACH on an isolated small table; it is not a production retention procedure.
