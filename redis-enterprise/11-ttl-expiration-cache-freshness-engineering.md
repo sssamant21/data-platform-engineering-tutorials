@@ -330,6 +330,8 @@ Conceptually:
 EXPIRE key 300 NX
 ```
 
+**Expected (Redis 7.0+):** integer `1` when a **present, persistent** key acquires its first TTL, or `0` when the key is absent or already expiring. This `key` is schematic, not a tutorial-owned production key to mutate. Do not treat `0` as proof of a network failure; inspect `TTL` and key existence on an authorized isolated lab key.
+
 Set expiration only if the key currently has no expiry.
 
 Useful when:
@@ -349,6 +351,8 @@ Conceptually:
 ``` redis
 EXPIRE key 300 XX
 ```
+
+**Expected (Redis 7.0+):** integer `1` if a **present, already-expiring** key has its deadline updated; integer `0` for an absent or persistent key. Unlike `NX`, `XX` does not introduce a TTL on a persistent key. Substitute only an exact owner-approved disposable test key.
 
 Apply only when an expiration already exists.
 
