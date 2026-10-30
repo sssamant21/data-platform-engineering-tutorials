@@ -271,9 +271,13 @@ Where supported:
 XAUTOCLAIM stream group recovery-worker 60000 0-0 COUNT 100
 ```
 
+**Version and environment gate:** `XAUTOCLAIM` was introduced in Redis **6.2**. This is **illustrative**, not a command to run against a production stream/group named `stream`/`group`. It changes ownership of pending entries and can trigger duplicate business processing if retry/idempotency controls are absent. Use a separately approved, populated, isolated lab stream and consumer group.
+
+**Expected:** The reply includes a cursor-like stream ID to pass as the next `start` argument and a list of messages claimed whose idle time exceeds the threshold. The cursor `0-0` indicates this scan pass completed, **not** that the queue is permanently empty. In Redis **7.0+**, a *third* reply element lists pending IDs removed because their stream entries no longer exist; Redis 6.2 replies do not include that third deleted-ID list. `COUNT` bounds attempted claim work and does not guarantee exactly 100 returned records. A claim does not `XACK` those entries.
+
 This can scan for sufficiently idle pending entries and claim them.
 
-Use bounded `COUNT`.
+Use bounded `COUNT`; never lower a real application's recovery idle threshold simply to make a tutorial command return a result.
 
 ------------------------------------------------------------------------
 
@@ -1407,6 +1411,8 @@ Where supported:
 ``` redis
 XAUTOCLAIM tutorial:chapter33:orders order-workers recovery-worker 10000 0-0 COUNT 5
 ```
+
+**Expected only after the isolated lab has a valid `order-workers` group and unacknowledged messages idle for at least 10,000 ms:** A next cursor, zero to five claimed message IDs with fields, and (Redis 7.0+) a third list for deleted/missing entries. Empty claimed messages are **valid** if no entry qualifies; capture actual IDs instead of expecting deterministic timestamps. If group/key is missing, record the error and correct lab setup rather than creating/altering a shared group. Claims move ownership into `recovery-worker`'s pending entries; validate source writes and deduplication before acknowledging the specific IDs. A repeated recovery pass can reclaim other entries that have become eligible.
 
 The 10-second value is for an isolated learning lab only.
 
