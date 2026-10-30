@@ -57,7 +57,7 @@ Role/database defaults are catalog state, not ordinary file entries. pg_db_role_
 
 The accompanying capture SQL exports a deliberately small PostgreSQL 18 settings set:
 
-- Identity: data_directory, port and listen_addresses.
+- Connection profile: server_version, port and listen_addresses. The disposable data directory is verified separately using the Chapter 004 administrator/OS guard; it is not part of low-privilege app or observer CSV captures because configuration-path visibility may be restricted.
 - Capacity: shared_buffers, max_connections and work_mem.
 - Durability/replication: fsync, full_page_writes, synchronous_commit, wal_level and synchronous_standby_names.
 - Logging: log_min_duration_statement.
