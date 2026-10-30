@@ -232,6 +232,8 @@ Verify:
 TTL tutorial:chapter04:session
 ```
 
+**Expected:** `SET` returns `OK`; an immediate `TTL` returns a positive integer up to 300 seconds. `TTL` can return `-2` if the key expires or is missing; a fixed 300 is not a stable expected value.
+
 This is preferable to:
 
 ``` redis
@@ -260,6 +262,8 @@ Check:
 ``` redis
 PTTL tutorial:chapter04:short-lived
 ```
+
+**Expected:** `SET` returns `OK`; `PTTL` returns a positive remaining lifetime no greater than 5,000 milliseconds. The observed value decreases with elapsed time, `-2` means the key no longer exists, and `-1` means it exists without an expiry.
 
 `PX` specifies milliseconds.
 
@@ -379,6 +383,8 @@ Example:
 INCR tutorial:chapter04:counter
 ```
 
+**Expected:** If the key is absent and no concurrent writer acts, `INCR` returns integer `1`, creating the key. Later increments return `2`, `3`, etc.; the expected value is **not always 1** in repeat or concurrent lab runs. `INCR` fails if the key holds a non-integer string or incompatible data type.
+
 Multiple clients can increment the same counter without implementing a
 client-side:
 
@@ -440,6 +446,8 @@ Increment a hash field:
 HSET tutorial:chapter04:metrics requests 0
 HINCRBY tutorial:chapter04:metrics requests 1
 ```
+
+**Expected on a new lab hash:** `HSET` returns integer `1` for the first field, then `HINCRBY` returns integer `1` for the incremented value. `HSET` returns `0` if the field already exists; repeated increments continue increasing the value.
 
 This avoids application-side:
 
