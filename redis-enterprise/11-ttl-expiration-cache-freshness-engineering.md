@@ -273,6 +273,8 @@ SET tutorial:chapter11:item value2
 TTL tutorial:chapter11:item
 ```
 
+**Expected:** Both `SET` calls return `OK`. Immediately after the first, `TTL` is a positive integer up to 300; after the second successful `SET`, `TTL` returns `-1` because the key is persistent. If the key expired before the replacement, the later `SET` still creates a persistent value. This is intentionally a demonstration of lost expiration—do **not** use an application-owned key for the experiment.
+
 A successful normal `SET` replacement discards the previous TTL unless
 an expiration option preserving or replacing it is used.
 
@@ -1150,6 +1152,8 @@ EXPIRE tutorial:chapter11:expire 120
 TTL tutorial:chapter11:expire
 ```
 
+**Expected:** `SET` returns `OK`, `EXPIRE` returns integer `1` for the existing lab key, and `TTL` reports a positive remaining duration no greater than 120 seconds. On a missing key, `EXPIRE` returns `0` and `TTL` is `-2`; capture the actual result rather than assuming a fixed 120.
+
 ------------------------------------------------------------------------
 
 ## 53. Lab 9 --- `PERSIST`
@@ -1158,6 +1162,8 @@ TTL tutorial:chapter11:expire
 PERSIST tutorial:chapter11:expire
 TTL tutorial:chapter11:expire
 ```
+
+**Expected per-command replies:** `PERSIST` returns `1` if the key exists with a TTL, then `TTL` returns `-1`. If the key was already persistent or absent, `PERSIST` returns `0`; `TTL` returns `-1` for a present persistent key or `-2` for an absent key.
 
 Expected:
 
@@ -1173,6 +1179,8 @@ Expected:
 EXPIRE tutorial:chapter11:expire 120 NX
 TTL tutorial:chapter11:expire
 ```
+
+**Expected after the preceding successful `PERSIST` step:** On Redis 7.0+ with the existing persistent lab key, `EXPIRE ... NX` returns `1` and `TTL` becomes positive up to 120 seconds. A repeat `EXPIRE ... NX` should return `0` while the key already has an expiration; a missing key also returns `0`. The `NX` option is version-gated; check the deployed Redis command support before running this example.
 
 Then test supported conditional variants in your deployed release.
 
