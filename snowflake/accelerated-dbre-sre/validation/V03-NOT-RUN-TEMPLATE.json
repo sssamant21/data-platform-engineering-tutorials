@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "level": 1,
+  "execution_state": "NOT_RUN",
+  "revision_sha": "",
+  "started_at_utc": null,
+  "environment": {
+    "classification": "TRAINING",
+    "account_alias": "REDACTED_TRAINING_ACCOUNT",
+    "warehouse_alias": "TRAINING_XS",
+    "role_alias": "LAB_TRAINING_ROLE",
+    "scratch_schema_alias": "LAB_SCRATCH_SCHEMA"
+  },
+  "approval_reference": null,
+  "runner_alias": null,
+  "query_ids": [],
+  "tests": [],
+  "assertions": {},
+  "cleanup_verified": false,
+  "redaction_checked": false,
+  "evidence_reference": null,
+  "independent_reviewer_alias": null,
+  "independent_review_status": "PENDING"
+}
