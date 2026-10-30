@@ -11,6 +11,16 @@
   \echo 'REFUSED: expected_system_id required'
   \quit 3
 \endif
+\if :{?expected_source_data_directory}
+\else
+  \echo 'REFUSED: independently verified expected_source_data_directory required'
+  \quit 3
+\endif
+\if :{?expected_operator}
+\else
+  \echo 'REFUSED: expected_operator required'
+  \quit 3
+\endif
 \if :{?confirm_incident}
 \else
   \echo 'REFUSED: chapter-specific incident token required'
@@ -19,6 +29,8 @@
 SELECT CASE WHEN current_database() = :'expected_db'
   AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
   AND NOT pg_is_in_recovery()
+  AND current_user = :'expected_operator'
+  AND current_setting('data_directory') = :'expected_source_data_directory'
   AND EXISTS (SELECT 1 FROM pg_control_system() c
               WHERE c.system_identifier::text = :'expected_system_id')
   AND :'confirm_incident' = '045-INCIDENT'
