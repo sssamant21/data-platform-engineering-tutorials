@@ -1,6 +1,6 @@
 # Snowflake Levels 1–7 Runtime Smoke Pack
 
-These SQL scripts are **manual, nonproduction acceptance tests** only. GitHub Actions does not run SQL or connect to Snowflake. The [V03 execution runbook](../V03-EXECUTION-RUNBOOK.md) explains operator authorization, Snowflake CLI usage, redacted evidence capture and the offline evidence acceptance gate.
+These SQL scripts are **manual, nonproduction acceptance tests** only. For Windows, use the [opt-in account preflight launcher](../run-training-preflight.ps1) to compare actual account/role/warehouse/database/schema to approved values before executing a lesson. **\`--local-only\` does not mean SQL is executed offline.** GitHub Actions does not run SQL or connect to Snowflake. The [V03 execution runbook](../V03-EXECUTION-RUNBOOK.md) explains operator authorization, Snowflake CLI usage, redacted evidence capture and the offline evidence acceptance gate.
 
 - [Level 1 smoke](level-01-smoke.sql): session context, VALUES data, scratch temporary table, 3-row insert, aggregation and PASS/FAIL assertion.
 - [Level 2 smoke](level-02-smoke.sql): active context, warehouse and role visibility, query tag, 100 generated rows, tagged query history, tag cleanup.
