@@ -181,6 +181,20 @@ def main() -> int:
         args.json_file.parent.mkdir(parents=True, exist_ok=True)
         args.json_file.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
     print("V02 OFFLINE INVENTORY:", json.dumps(s, sort_keys=True))
+    top = sorted(result["review_queue"],
+                 key=lambda c: (c["safety_review"] * 4 + c["syntax_review"] * 3
+                                + c["missing_expected_cues"] + c["untyped_commands"]),
+                 reverse=True)[:12]
+    print("V02 TOP REVIEW CHAPTERS:", json.dumps([
+        {"chapter": c["chapter"], "expected_cues": c["missing_expected_cues"],
+         "safety": c["safety_review"], "untyped": c["untyped_commands"],
+         "syntax": c["syntax_review"]} for c in top]))
+    focus = {42, 44, 47, 51}
+    print("V02 FOUR-CHAPTER FOCUS:", json.dumps([
+        {"chapter": c["chapter"], "command_blocks": c["commands"],
+         "untyped": c["untyped_commands"], "expected_cues": c["missing_expected_cues"],
+         "safety": c["safety_review"], "syntax": c["syntax_review"]}
+        for c in result["chapters"] if c["chapter"] in focus]))
     print("Human review required: command correctness, expected values, release compatibility,"
           " side effects, lab reproducibility. No Redis command was executed.")
     return 0 if s["chapters"] == args.expected else 1
