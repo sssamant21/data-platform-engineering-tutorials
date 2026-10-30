@@ -1216,6 +1216,8 @@ SET tutorial:chapter04:nx-test "second" NX EX 300
 GET tutorial:chapter04:nx-test
 ```
 
+**Expected per-command results:** The initial scoped `DEL` returns 0 or 1 depending on whether the disposable key existed. The first conditional `SET ... NX` returns `OK`; the second returns **nil/null** because the key is already present, and it does not replace the original value. Do not confuse a conditional `SET` null reply with a network failure.
+
 Expected final value:
 
 ``` text
@@ -1244,6 +1246,8 @@ Then:
 SET tutorial:chapter04:missing-xx "value" XX
 EXISTS tutorial:chapter04:missing-xx
 ```
+
+**Expected per-command results:** A conditional `SET ... XX` against a missing key returns **nil/null** (not `OK`) because no update occurred. `EXISTS` must return integer 0.
 
 Expected:
 
