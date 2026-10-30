@@ -71,7 +71,7 @@ class BackupReplication041050(unittest.TestCase):
                          "current_user = :'expected_operator'",
                          "current_setting('data_directory') = :'expected_source_data_directory'",
                          "pg_control_system()", "045-INCIDENT", r"\if :incident_permitted",
-                         r"\quit 3", "UPDATE ch045.orders"):
+                         "SELECT 1/0 AS refusal_nonzero;", "UPDATE ch045.orders"):
             self.assertIn(required,source)
         doc=lab("045")
         self.assertIn("expected_source_data_directory=",doc)
@@ -93,7 +93,7 @@ class BackupReplication041050(unittest.TestCase):
         for required in ("expected_recovery_data_directory","expected_system_id",
                          "045-VERIFY-RECOVERY", "pg_control_system()",
                          "recovery_accepted", r"\if :recovery_accepted",
-                         r"\quit 3", "status='corrupted'", "status='valid'",
+                         "SELECT 1/0 AS refusal_nonzero;", "status='corrupted'", "status='valid'",
                          "marker_name='known-good'"):
             self.assertIn(required,source)
         doc=lab("045")
@@ -133,6 +133,25 @@ class BackupReplication041050(unittest.TestCase):
         self.assertIn("max_slot_wal_keep_size",guide)
         self.assertIn("checkpoint",guide.lower())
 
+    def test_guarded_refusals_produce_nonzero_psql_exit(self):
+        # ON_ERROR_STOP must encounter a real SQL error, not a normal \\quit.
+        guarded = ("044-marker.sql", "045-fixture.sql", "045-good-marker.sql",
+                   "045-incident.sql", "045-verify.sql", "047-create-lab-slot.sql",
+                   "047-generate-wal.sql", "047-cleanup.sql",
+                   "048-workload.sql", "048-cleanup.sql")
+        for name in guarded:
+            with self.subTest(name=name):
+                script=sql(name)
+                self.assertIn(r"\\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\\quit 3",script)
+                self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
+        for number in ("032","033","034","035","036","038","039","040"):
+            with self.subTest(chapter=number):
+                script=sql(number+"-cleanup.sql")
+                self.assertIn(r"\\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\\quit 3",script)
+                self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
+
     def test_047_slot_creation_and_one_time_wal_fixture(self):
         for file,stage in (("047-create-lab-slot.sql","047-CREATE-SLOT"),
                            ("047-generate-wal.sql","047-GENERATE-WAL")):
@@ -141,7 +160,7 @@ class BackupReplication041050(unittest.TestCase):
                 for token in ("expected_system_id",r"\if :{?confirm_stage}",
                               stage,"pg_control_system()", "inet_server_port()=55432",
                               "current_user='lab_admin'", "data_directory",
-                              "pg_is_in_recovery()",r"\if :stage_permitted",r"\quit 3"):
+                              "pg_is_in_recovery()",r"\if :stage_permitted","SELECT 1/0 AS refusal_nonzero;"):
                     self.assertIn(token,content)
         fixture=sql("047-generate-wal.sql")
         self.assertIn("CREATE SCHEMA ch047",fixture)
