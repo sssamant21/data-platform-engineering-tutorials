@@ -10,8 +10,8 @@ class UntypedFencesTests(unittest.TestCase):
                          "possible_runnable_command")
 
     def test_command_under_warning_is_not_promoted_as_safe(self):
-        self.assertEqual(bucket("FLUSHALL", "Never do this against production")[0],
-                         "potential_negative_example" if False else "command_vocabulary_list")  # bare word not executable
+        self.assertEqual(bucket("DEL dangerous:key", "Never do this against production")[0],
+                         "potential_negative_example")
 
     def test_symbolic_ttl_is_not_executable(self):
         self.assertEqual(bucket("TTL = 3600", "A hypothetical cache")[0], "formula_or_symbolic_text")
