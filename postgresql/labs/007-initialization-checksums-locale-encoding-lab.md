@@ -179,17 +179,28 @@ Do not refresh versions, edit catalogs or downgrade libraries during this lab.
 
 ## 9. Cleanup
 
-Close all sessions connected to the two comparison databases. From postgres, drop only the databases created during this run:
+Close all sessions connected to the two comparison databases. **Do not paste an unguarded DROP DATABASE command**. Inspect the exact disposable primary and independently confirm its Chapter 004 lab marker, port, user, database, data directory, system identifier, object ownership and two created provider types:
 
 ~~~bash
 psql -X -w -v ON_ERROR_STOP=1 \
   -h 127.0.0.1 -p 55432 -U lab_admin -d postgres \
-  -c "DROP DATABASE chapter007_libc;"
-
+  -c "SELECT current_database(), current_user, inet_server_port(), current_setting('data_directory'), system_identifier FROM pg_control_system();"
 psql -X -w -v ON_ERROR_STOP=1 \
   -h 127.0.0.1 -p 55432 -U lab_admin -d postgres \
-  -c "DROP DATABASE chapter007_builtin;"
+  -c "SELECT datname, datlocprovider, pg_get_userbyid(datdba) AS owner FROM pg_database WHERE datname IN ('chapter007_libc','chapter007_builtin');"
 ~~~
+
+If this is **the disposable Chapter 004 cluster and both databases were created by this run**, replace the placeholder with the observed system identifier and invoke the fail-closed cleanup script:
+
+~~~bash
+psql -X -w -v ON_ERROR_STOP=1 \
+  -h 127.0.0.1 -p 55432 -U lab_admin -d postgres \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_cleanup=007-DROP-DATABASES \
+  -f postgresql/scripts/007-drop-lab-databases.sql
+~~~
+
+The script refuses wrong cluster, role, port, data directory, provider, owner, active sessions, PostgreSQL major or confirmation token. It requires **both** expected databases to exist: after a partial creation failure, do not attempt blind cleanup; inspect and use a separately reviewed plan. Two DROP DATABASE commands cannot be atomic. If cleanup is interrupted, examine which names remain before trying anything else.
 
 If an open session blocks cleanup, identify and close your exercise session. Do not use FORCE to disconnect unrelated work.
 
