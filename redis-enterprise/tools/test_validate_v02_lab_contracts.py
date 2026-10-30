@@ -385,6 +385,34 @@ class V02LabContractsTests(unittest.TestCase):
                                       capture_output=True, timeout=5, check=False)
                 self.assertEqual(proc.returncode, 0, proc.stderr)
 
+    def test_chapter_33_xautoclaim_release_reply_and_safety(self):
+        src = (CHAPTER_DIR / "33-redis-streams-reliability-retry-dlq-recovery-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("introduced in Redis **6.2**", src)
+        self.assertIn("Redis **7.0+**", src)
+        self.assertIn("third", src)
+        self.assertIn("0-0", src)
+        self.assertIn("XAUTOCLAIM tutorial:chapter33:orders order-workers recovery-worker 10000 0-0 COUNT 5", src)
+        self.assertIn("A claim does not", src)
+        self.assertIn("Empty claimed messages", src)
+
+    def test_chapter_56_json_create_read_are_interactive(self):
+        src = (CHAPTER_DIR / "56-redis-enterprise-search-query-architecture-indexing-operations.md").read_text(encoding="utf-8")
+        self.assertIn("JSON.SET tutorial:chapter56:jsonproduct:2001 '$'", src)
+        self.assertIn("JSON.GET tutorial:chapter56:jsonproduct:2001 '$.price'", src)
+        self.assertIn("[89.99]", src)
+        self.assertIn("CA-verified TLS Redis CLI", src)
+        self.assertNotIn("redis-cli JSON.SET tutorial:chapter56:jsonproduct:2001", src)
+        self.assertIn("does **not** prove the Search index exists", src)
+
+    def test_chapter_59_json_smoke_needs_module_acl_and_cert(self):
+        src = (CHAPTER_DIR / "59-redis-enterprise-modules-capabilities-lifecycle-compatibility-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("SET tutorial:chapter59:core \"ok\" EX 300", src)
+        self.assertIn("JSON.GET tutorial:chapter59:json '$.status'", src)
+        self.assertIn('["ok"]', src)
+        self.assertIn("certificate-validated TLS/ACL", src)
+        self.assertIn("RedisJSON v2", src)
+        self.assertNotIn("redis-cli JSON.SET tutorial:chapter59:json", src)
+
 
 if __name__ == "__main__":
     unittest.main()
