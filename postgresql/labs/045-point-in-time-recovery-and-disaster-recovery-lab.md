@@ -38,10 +38,17 @@ Before executing the incident script on the disposable source, record its identi
 Restore the verified physical backup into an isolated PostgreSQL 18 instance. Configure a tested `restore_command`, create `recovery.signal` and choose a verified target after the good marker and before the incident. Monitor replay and pause at the target. Do not promote or accept writes until validation passes.
 
 ```bash
-psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-verify.sql
+# Use the isolated recovery endpoint, NOT the source endpoint.
+# Independently verify its data-directory path and original source system ID.
+psql -X -w -v ON_ERROR_STOP=1 -h RECOVERY_HOST -p RECOVERY_PORT -U lab_admin \
+  -d postgres \
+  -v expected_recovery_data_directory=/absolute/path/to/isolated/recovered/PGDATA \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_SOURCE_LAB_SYSTEM_ID \
+  -v confirm_recovery=045-VERIFY-RECOVERY \
+  -f postgresql/labs/sql/045-verify.sql
 ```
 
-Run verification against the **recovered instance**, not the source. If any test fails, reject the recovery target and repeat from a clean restored backup.
+Run verification against the **recovered instance**, not the source. Replace the endpoint, independently observed absolute PGDATA path and source-cluster system identifier. Verify that the restored instance is isolated from all application writers. The script now exits **nonzero** for wrong target or unacceptable row/marker state; a printed result alone is not a success gate. If any test fails, reject the target and repeat from a clean restored backup. The data_directory value can require a privileged verification role, not an application account.
 
 ## Evidence worksheet
 
