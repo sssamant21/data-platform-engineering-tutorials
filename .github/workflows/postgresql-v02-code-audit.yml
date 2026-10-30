@@ -44,6 +44,8 @@ jobs:
         run: python -m unittest discover -s postgresql/validation -p 'test_v02d_ch031_040.py' -v
       - name: Validate Chapter 041-050 backup, PITR and failover safety contracts (V02-D)
         run: python -m unittest discover -s postgresql/validation -p 'test_v02d_ch041_050.py' -v
+      - name: Validate Chapter 051-060 security, pooling and safe fixture contracts (V02-D)
+        run: python -m unittest discover -s postgresql/validation -p 'test_v02d_ch051_060.py' -v
       - name: Retain full parser and risk evidence
         if: always()
         uses: actions/upload-artifact@v4
