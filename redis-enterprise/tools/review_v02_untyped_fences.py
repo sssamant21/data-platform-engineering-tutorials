@@ -32,6 +32,10 @@ SAFE_TOKEN = re.compile(r"(?:^|\s)(?:--password|-a)\s+\S+")
 def bucket(source: str, preceding: str) -> tuple[str, str]:
     lines = [x.strip() for x in source.splitlines() if x.strip()]
     runnable = [x for x in lines if OPERATIVE.match(x)]
+    # Symbolic examples such as TTL = 3600 resemble commands but are not
+    # executable Redis command lines. Test BEFORE generic command-argument logic.
+    if lines and all(FORMULA.match(x) for x in lines):
+        return ("formula_or_symbolic_text", "Symbolic description, not Redis CLI syntax")
     # Plain shell snippets with args, complete Redis instructions, or concrete
     # arguments are legitimate potential copy/paste hazards, even if illustrative.
     if runnable:
