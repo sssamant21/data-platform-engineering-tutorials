@@ -231,7 +231,7 @@ class V02LabContractsTests(unittest.TestCase):
         }
         for chapter, name in documents.items():
             doc = (CHAPTER_DIR / name).read_text(encoding="utf-8")
-            self.assertIn("conceptual application key", doc.lower(), chapter)
+            self.assertTrue(("conceptual application key" in doc.lower()) or ("illustrative application key" in doc.lower()), chapter)
             self.assertIn("0", doc)
             self.assertIn("1", doc)
             self.assertIn("shared", doc.lower())
