@@ -19,13 +19,13 @@ class V01AuditTests(unittest.TestCase):
                 f"# Chapter {n:02d} — Example\n\n```python\nprint('ok')\n```\n",
                 encoding="utf-8")
         self.index_lines = ["## Chapter index", ""] + [
-            f"- [{n:02d}](\\u005c{n:02d}-chapter.md)" for n in range(1, 81)
+            f"- [{n:02d}]({n:02d}-chapter.md)" for n in range(1, 81)
         ]
         self.write_index()
 
     def write_index(self):
         (self.root / "README.md").write_text(
-            "\n".join(self.index_lines).replace("\\u005c", "") + "\n\n## End of index\n",
+            "\n".join(self.index_lines) + "\n\n## End of index\n",
             encoding="utf-8")
 
     def check(self, **kw):
