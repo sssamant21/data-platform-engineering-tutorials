@@ -22,6 +22,7 @@ OPERATIONS = (
     r"FT\.SEARCH|JSON\.SET|JSON\.GET"
 )
 CLI = r"redis-cli|rladmin|kubectl|curl|docker|python(?:3)?"
+SAFE_TOKEN = re.compile(r"(?:^|\s)(?:--password|-a)\s+\S+")
 OPERATIVE = re.compile(rf"^\s*(?:{OPERATIONS}|{CLI})\b(?:\s+\S+)+")
 # This classifier is intentionally conservative. Narrative text uses ordinary
 # words such as 'set', 'type', 'info', 'ttl'; those are NOT Redis commands.
