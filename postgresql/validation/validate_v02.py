@@ -50,6 +50,9 @@ def sql_prep(text):
     for line in text.splitlines():
         if META.match(line):
             skipped += 1
+            # A standalone psql execution terminator also ends the SQL query.
+            if re.match(r"^\s*\\\\(?:gexec|gset|g|watch)\b", line, re.I) and lines:
+                lines[-1] += ";"
         else:
             lines.append(INLINE_META.sub(";", line))
     return PGVAR.sub("'__psql_variable__'", "\n".join(lines)), skipped
