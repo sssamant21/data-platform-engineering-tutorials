@@ -193,6 +193,36 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("user1 100", doc)
         self.assertIn("schematic", doc)
 
+    def test_chapter_54_benchmark_is_bounded_and_isolated(self):
+        chapter = (CHAPTER_DIR / "54-redis-enterprise-benchmarking-load-testing-performance-qualification-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("redis-benchmark -h 127.0.0.1 -p 6379 -c 2 -n 200 -t get,set -q", chapter)
+        self.assertIn("write-generating workload", chapter)
+        self.assertIn("no other workload", chapter)
+        self.assertIn("Expected:", chapter)
+        self.assertNotIn("redis-benchmark -h \"$REDIS_HOST\" -p \"$REDIS_PORT\" -c 50 -n 100000 -t get,set", chapter)
+
+    def test_scan_examples_include_required_cursors(self):
+        examples = {
+            3: "SCAN 0 MATCH 'tutorial:chapter03:*' COUNT 100",
+            4: "SCAN 0 MATCH 'tutorial:chapter04:*' COUNT 100",
+            18: "SCAN 0 MATCH 'tutorial:chapter18:*' COUNT 100",
+            40: "SCAN 0 MATCH 'tutorial:chapter40:*' COUNT 100",
+        }
+        paths = {
+            3: "03-redis-data-types-key-design-memory-aware-data-modeling.md",
+            4: "04-redis-commands-command-semantics-safe-operations.md",
+            18: "18-redis-hot-keys-big-keys-workload-skew-engineering.md",
+            40: "40-redis-enterprise-performance-troubleshooting-production-incident-engineering.md",
+        }
+        for number, cmd in examples.items():
+            doc = (CHAPTER_DIR / paths[number]).read_text(encoding="utf-8")
+            self.assertIn(cmd, doc)
+            self.assertIn("cursor", doc.lower())
+        doc4 = (CHAPTER_DIR / paths[4]).read_text(encoding="utf-8")
+        self.assertIn("HSCAN tutorial:chapter04:inventory 0 COUNT 100", doc4)
+        self.assertIn("SSCAN tutorial:chapter04:lab-set 0 COUNT 100", doc4)
+        self.assertIn("ZSCAN tutorial:chapter04:lab-zset 0 COUNT 100", doc4)
+
 
 if __name__ == "__main__":
     unittest.main()
