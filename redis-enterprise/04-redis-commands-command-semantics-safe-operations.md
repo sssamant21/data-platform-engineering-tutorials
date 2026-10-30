@@ -909,31 +909,33 @@ Use bounded queries or incremental iteration when appropriate.
 
 ## 33. Incremental Iteration
 
-Keyspace:
+Keyspace (approved lab namespace):
 
 ``` redis
-SCAN
+SCAN 0 MATCH 'tutorial:chapter04:*' COUNT 100
 ```
 
-Hash:
+Hash (pre-create this exact lab hash):
 
 ``` redis
-HSCAN
+HSCAN tutorial:chapter04:inventory 0 COUNT 100
 ```
 
-Set:
+Set (pre-create this exact lab set):
 
 ``` redis
-SSCAN
+SSCAN tutorial:chapter04:lab-set 0 COUNT 100
 ```
 
-Sorted set:
+Sorted set (pre-create this exact lab sorted set):
 
 ``` redis
-ZSCAN
+ZSCAN tutorial:chapter04:lab-zset 0 COUNT 100
 ```
 
 These support incremental iteration.
+
+**Expected:** Each call returns a cursor and items (for `HSCAN`/`ZSCAN`, field/member and value/score pairs); an empty batch does not imply completion. Continue with the returned cursor until `0`. `COUNT` is a hint, duplicates may occur, and no scan is a transactional snapshot. The hash/set/sorted-set example keys are illustrative lab objects and need to exist with the correct types. A production keyspace scan requires approval and throttling.
 
 Example:
 
