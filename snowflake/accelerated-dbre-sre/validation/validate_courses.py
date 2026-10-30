@@ -69,6 +69,17 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
         if secret.search(raw):
             problems.append(str(rel) + ": possible embedded credential")
     meta = {"file": str(rel), "bytes": len(raw.encode("utf-8"))}
+    if path.suffix.lower() == ".sql":
+        for line_number, line in enumerate(raw.splitlines(), 1):
+            live = line.split("--", 1)[0].strip()
+            if live and BLOCKED_SQL.match(live):
+                problems.append(str(rel) + f": blocked runtime SQL at {line_number}: {live[:100]}")
+        if "level-01" in path.name:
+            if "LEVEL_01_SMOKE_RESULT" not in raw or "CREATE TEMP TABLE" not in raw:
+                problems.append(str(rel) + ": expected L1 assertions or TEMP scope missing")
+        if "level-02" in path.name:
+            if "ALTER SESSION UNSET QUERY_TAG" not in raw or "ROWCOUNT => 100" not in raw:
+                problems.append(str(rel) + ": L2 query tag cleanup or row count missing")
     if is_lesson:
         for section in REQUIRED:
             if section not in raw:
@@ -101,7 +112,10 @@ def main() -> int:
     errors: list[str] = []
     evidence = []
     for file in (*LESSONS, "README.md", "STATUS.md", "validation/VALIDATION-PLAN.md",
-                 "validation/RUNTIME-EVIDENCE-TEMPLATE.md"):
+                 "validation/RUNTIME-EVIDENCE-TEMPLATE.md",
+                 "validation/runtime/README.md",
+                 "validation/runtime/level-01-smoke.sql",
+                 "validation/runtime/level-02-smoke.sql"):
         problems, metadata = check_file(TRACK / file, file in LESSONS)
         errors.extend(problems)
         if metadata:
