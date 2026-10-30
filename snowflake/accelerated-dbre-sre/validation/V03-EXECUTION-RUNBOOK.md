@@ -102,6 +102,10 @@ Both Level 1 and Level 2 SQL files now end with a **same-session** `QUERY_HISTOR
 
 The offline checker rejects missing evidence, privileged identities, production classification, missing tests, incorrect arithmetic and unexpected sensitive fields. Its best possible outcome is **READY_FOR_INDEPENDENT_REVIEW**. It cannot authenticate Snowflake query IDs or grant V03 PASS, V04 approval or V05 certification. The reviewer must independently match query IDs and the documented results inside Snowflake and sign off using [the evidence form](RUNTIME-EVIDENCE-TEMPLATE.md).
 
+## Mock-only regression coverage
+
+The [PowerShell mock preflight tests](test-training-preflight.ps1) run under GitHub Actions and check nonproduction account matching and failure-to-proceed controls **without real Snowflake access**. [CI run #144](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124509495) passed. Mock results are not proof of Snowflake connectivity or SQL result correctness. See [V03 readiness blocker tracker](V03-PREFLIGHT-STATUS.md).
+
 ## Official CLI docs
 
 - https://docs.snowflake.com/en/developer-guide/snowflake-cli/command-reference/sql-commands/sql
