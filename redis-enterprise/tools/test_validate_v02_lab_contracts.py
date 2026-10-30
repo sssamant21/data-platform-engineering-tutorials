@@ -146,7 +146,7 @@ class V02LabContractsTests(unittest.TestCase):
         helpers = [b for b in blocks if b["language"] == "bash" and "rcli() {" in b["source"]]
         self.assertEqual(len(helpers), 1)
         self.assertIn('test "$(rcli PING)" = "PONG"', helpers[0]["source"])
-        self.assertIn('RefUSED' if False else 'REFUSED: non-loopback', helpers[0]["source"])
+        self.assertIn("REFUSED: non-loopback", helpers[0]["source"])
         if not shutil.which("bash"):
             self.skipTest("bash not installed")
         result = subprocess.run(["bash", "-n"], text=True, input=helpers[0]["source"],
