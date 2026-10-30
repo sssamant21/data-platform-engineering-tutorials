@@ -47,7 +47,7 @@ def load_events(path):
 
 
 def metric(total, good, target):
-    if not Decimal(0) < target < Decimal(1):
+    if not target.is_finite() or not Decimal(0) < target < Decimal(1):
         raise ValueError("targets must be strictly between 0 and 1")
     if total == 0:
         return dict(total=0, good=0, bad=0, sli=None, allowed_bad=None,
