@@ -55,7 +55,12 @@ def sql_prep(text):
                 lines[-1] += ";"
         else:
             lines.append(INLINE_META.sub(";", line))
-    return PGVAR.sub("'__psql_variable__'", "\n".join(lines)), skipped
+    def replace_variable(match):
+        raw = match.group(0)
+        # psql :"name" quotes SQL identifiers, unlike :'name' (SQL literals).
+        # Parser placeholders are NOT a security/execution substitute.
+        return "__psql_identifier__" if raw.startswith(':"') else "'__psql_variable__'"
+    return PGVAR.sub(replace_variable, "\n".join(lines)), skipped
 
 
 def command_check(args, env=None):
