@@ -12,7 +12,8 @@ All 10 chapter/lab pairs, the related SQL and operational instructions have been
 
 ## Automated evidence
 
-- [Test suite — Chapters 051–060](test_v02d_ch051_060.py): 10 new *static/source-contract* tests, covering the topics below. Cumulative V02-D total is **58 tests** (8 previous Chapter 001–010 checks, plus five batches of 10).
+- [Passing V02 workflow #41119560453](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41119560453), code-bearing commit `b988ffb8`: **58/58 static contract/unit tests PASS**, **160/160 standalone SQL source files parsed**, zero parser failures. [Machine-readable evidence](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41119560453/artifacts/13007941436). Final tracker/documentation-only commit must be separately checked.
+- [Test suite — Chapters 051–060](test_v02d_ch051_060.py): **10/10 PASS**, all earlier 48 checks retained.
 - [V02 workflow](../../.github/workflows/postgresql-v02-code-audit.yml): parser and code review, existing V02-B/C checks and new regression tests. Confirm the final branch-run conclusion; a queued/failed job is not acceptance.
 - PostgreSQL 18 references: [SET SESSION AUTHORIZATION](https://www.postgresql.org/docs/18/sql-set-session-authorization.html), [role membership](https://www.postgresql.org/docs/18/role-membership.html), [ALTER DEFAULT PRIVILEGES](https://www.postgresql.org/docs/18/sql-alterdefaultprivileges.html).
 - PgBouncer references: [pooling modes and compatibility](https://www.pgbouncer.org/features.html), [prepared statement caveats](https://www.pgbouncer.org/faq.html), [admin interface](https://www.pgbouncer.org/usage.html).
