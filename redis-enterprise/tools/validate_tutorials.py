@@ -146,6 +146,57 @@ def audit(root: Path, expected: int = EXPECTED_CHAPTERS,
                     findings.append(issue("error", "broken_relative_link", rel, line_no,
                                           f"Target does not exist: {target}"))
 
+    # Validate README navigation independently from chapter body links.
+    # An index may have 80 links even though individual chapters contain none.
+    index = root / "README.md"
+    summary["index_chapters_covered"] = 0
+    summary["index_relative_links_checked"] = 0
+    if not index.is_file():
+        findings.append(issue("error", "missing_navigation_index", "redis-enterprise/README.md", 0,
+                              "Expected chapter navigation index not found"))
+    else:
+        in_chapter_index = False
+        seen = {}
+        for line_no, line in enumerate(index.read_text(encoding="utf-8").splitlines(), 1):
+            if line.strip() == "## Chapter index":
+                in_chapter_index = True
+            elif line.startswith("## ") and in_chapter_index:
+                in_chapter_index = False
+            for match in LINK.finditer(line):
+                target = match.group(1).strip()
+                if target.startswith("<") and target.endswith(">"):
+                    target = target[1:-1]
+                else:
+                    target = re.split(r"\s+[\"']", target, maxsplit=1)[0]
+                if not target or target.startswith("#") or target.startswith("//"):
+                    continue
+                parsed = urlsplit(target)
+                if parsed.scheme or parsed.netloc or not parsed.path:
+                    continue
+                resolved = (root / unquote(parsed.path)).resolve()
+                summary["index_relative_links_checked"] += 1
+                if not resolved.is_relative_to(repo_root):
+                    findings.append(issue("error", "index_link_escapes_repository",
+                                          "redis-enterprise/README.md", line_no, target))
+                    continue
+                if not resolved.is_file():
+                    findings.append(issue("error", "index_missing_target",
+                                          "redis-enterprise/README.md", line_no, target))
+                if in_chapter_index and resolved.parent == root and CHAPTER.fullmatch(resolved.name):
+                    number = int(CHAPTER.fullmatch(resolved.name).group(1))
+                    if number in seen:
+                        findings.append(issue("error", "index_duplicate_chapter",
+                                              "redis-enterprise/README.md", line_no,
+                                              f"Chapter {number:02d} also linked at line {seen[number]}"))
+                    else:
+                        seen[number] = line_no
+        summary["index_chapters_covered"] = len(seen)
+        for number in range(1, expected + 1):
+            if number not in seen:
+                findings.append(issue("error", "index_missing_chapter",
+                                      "redis-enterprise/README.md", 0,
+                                      f"Chapter {number:02d} missing from chapter index"))
+
     summary["errors"] = sum(f["severity"] == "error" for f in findings)
     summary["warnings"] = sum(f["severity"] == "warning" for f in findings)
     return {"phase": "V01", "scope": "offline static checks only; no Redis execution",
