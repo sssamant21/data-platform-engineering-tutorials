@@ -7,6 +7,8 @@
 param(
     [Parameter(Mandatory = $true)][string]$Connection,
     [Parameter(Mandatory = $true)][string]$ExpectedAccountLocator,
+    [Parameter(Mandatory = $true)][string]$ExpectedOrganization,
+    [Parameter(Mandatory = $true)][string]$ExpectedRegion,
     [Parameter(Mandatory = $true)][string]$ExpectedRole,
     [Parameter(Mandatory = $true)][string]$ExpectedWarehouse,
     [Parameter(Mandatory = $true)][string]$ExpectedDatabase,
@@ -46,6 +48,8 @@ if ($Mode -eq "Level2" -and -not $Level1Accepted) {
 # One SELECT in the configured connection. Parse output but do not print actual identifiers.
 $sql = @"
 SELECT CURRENT_ACCOUNT() AS ACCOUNT_LOCATOR,
+       CURRENT_ORGANIZATION_NAME() AS ORGANIZATION_NAME,
+       CURRENT_REGION() AS REGION_NAME,
        CURRENT_ROLE() AS ROLE_ALIAS,
        CURRENT_WAREHOUSE() AS WAREHOUSE_ALIAS,
        CURRENT_DATABASE() AS DATABASE_ALIAS,
@@ -65,6 +69,8 @@ try {
     # Case-sensitive matches are intentionally conservative (fail closed).
     $checks = @{
         ACCOUNT_LOCATOR = $ExpectedAccountLocator
+        ORGANIZATION_NAME = $ExpectedOrganization
+        REGION_NAME = $ExpectedRegion
         ROLE_ALIAS = $ExpectedRole
         WAREHOUSE_ALIAS = $ExpectedWarehouse
         DATABASE_ALIAS = $ExpectedDatabase
