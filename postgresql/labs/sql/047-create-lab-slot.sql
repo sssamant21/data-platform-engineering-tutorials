@@ -18,6 +18,11 @@ SELECT CASE WHEN current_database()='ops_lab' AND current_user='lab_admin'
  AND EXISTS (SELECT 1 FROM pg_control_system() c
              WHERE c.system_identifier::text=:'expected_system_id')
  AND :'confirm_stage'='047-CREATE-SLOT'
+ -- Require spare slot capacity and a finite WAL-retention setting in the isolated lab.
+ AND current_setting('max_replication_slots')::integer >= 1
+ AND (SELECT count(*) FROM pg_replication_slots) < current_setting('max_replication_slots')::integer
+ AND EXISTS (SELECT 1 FROM pg_settings WHERE name='max_slot_wal_keep_size'
+             AND unit='MB' AND setting::integer BETWEEN 1 AND 512)
  AND NOT EXISTS (SELECT 1 FROM pg_replication_slots WHERE slot_name='ch047_lab_physical')
  THEN 'true' ELSE 'false' END AS stage_permitted
 \gset
