@@ -30,10 +30,14 @@ jobs:
         run: python -m pip install -r postgresql/validation/requirements-v02.txt
       - name: Audit source files without executing SQL
         run: python postgresql/validation/validate_v02.py --require-parsers --json-out postgresql-v02-evidence.json
+      - name: Verify destructive cleanup fail-closed guards
+        run: python postgresql/validation/validate_v02b.py --json-out postgresql-v02b-evidence.json
       - name: Retain full parser and risk evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: postgresql-v02-evidence
-          path: postgresql-v02-evidence.json
+          path: |
+            postgresql-v02-evidence.json
+            postgresql-v02b-evidence.json
           if-no-files-found: warn
