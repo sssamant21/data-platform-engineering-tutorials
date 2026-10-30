@@ -8,7 +8,7 @@ import sys
 FIELDS = ["name", "setting", "unit", "source", "context", "sourcefile",
           "pending_restart", "server_major", "is_in_recovery"]
 NAMES = {
-    "data_directory", "port", "listen_addresses", "shared_buffers",
+    "server_version", "port", "listen_addresses", "shared_buffers",
     "max_connections", "work_mem", "fsync", "full_page_writes",
     "synchronous_commit", "wal_level", "synchronous_standby_names",
     "log_min_duration_statement",
@@ -40,8 +40,8 @@ def read_snapshot(path):
             raise ValueError(f"{path}: missing settings {sorted(NAMES - set(rows))}")
         if len({r["is_in_recovery"] for r in rows.values()}) != 1:
             raise ValueError(f"{path}: inconsistent instance role")
-        if not rows["data_directory"]["setting"] or not rows["port"]["setting"]:
-            raise ValueError(f"{path}: missing instance identity")
+        if not rows["server_version"]["setting"] or not rows["port"]["setting"] or not rows["listen_addresses"]["setting"]:
+            raise ValueError(f"{path}: missing version/listener identity")
         return rows
 
 
