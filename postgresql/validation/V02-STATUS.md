@@ -3,7 +3,7 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **V02-B static triage complete (37/37); V02-C syntax inventory passed; further technical and runtime review pending**  
+**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–010 reviewed with 8 CI tests; further technical and runtime review pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
@@ -31,6 +31,8 @@
 | Distinct assets referenced in prose / command examples | 118 | Existence checked; zero missing references flagged |
 
 Other fenced content includes 89 text, 11 conf, 2 ini, one PromQL and one Mermaid block. These have not all been technically verified.
+
+**Updated risk-pattern accounting:** The original 37-file triage was a frozen baseline. The new guarded Chapter 007 cleanup SQL adds one deliberate `DROP DATABASE` match, bringing the current V02-A source risk-inventory count to **38**; this is not an additional unguarded finding. Refer to the V02-D report for its mitigation and remaining runtime gate.
 
 ## V02-B follow-up — published static safeguards
 
@@ -78,8 +80,8 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 ## Next validation tasks
 
 1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
-2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 790 fences inventoried, 668 static syntax passes, 18 manual-context items, 51 risk matches and 108 editorial-context flags. Full technical sign-off and live examples remain pending.
-3. **V02-D:** validate SQL semantic assumptions and privileges by chapter, starting with 001–010 and then 011 onward.
+2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 791 fences inventoried, 668 static syntax passes, 19 manual-context items, 50 risk matches and 108 editorial-context flags on the V02-D commit. Full technical sign-off and live examples remain pending.
+3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. Runtime proof and independent sign-off remain pending; continue Chapters 011–020.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
 
 **Certification rule:** V02 automated syntax checks have passed. **Do not label V02 fully certified**, and do not advance any chapter to runtime verified or enterprise certified without recorded execution and independent sign-off.
