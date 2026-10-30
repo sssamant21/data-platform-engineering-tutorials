@@ -32,14 +32,14 @@ On disposable instances only, have the operator confirm fencing and candidate re
 
 ## 4. pg_rewind assessment
 
-For the **stopped, fenced** former primary, confirm common ancestry, compatible PostgreSQL major version, `wal_log_hints` or data checksums, `full_page_writes`, and required WAL availability. Record dry-run output:
+For the **cleanly stopped, independently fenced** former primary, confirm common ancestry, compatible PostgreSQL major version, `wal_log_hints` or data checksums, `full_page_writes`, and required WAL availability. A stopped server is not necessarily fenced from all clients or automated restarts. Record dry-run output:
 
 ```bash
 pg_rewind --dry-run --target-pgdata=/isolated/old-primary-pgdata \
   --source-server="host=new-primary port=5432 user=rewind_user dbname=postgres"
 ```
 
-Do not run actual rewind without approved target backup, target ownership checks, credentials, and documented rejoin plan. If prerequisites fail, use a fresh verified base backup.
+Do not run actual rewind without approved target backup, target ownership checks, credentials, and documented rejoin plan. **After a successful rewind, configure standby recovery (standby.signal and correct connection/WAL settings) before starting the former primary.** Rewind may copy configuration from the source; starting it as writable risks a second divergence. A failed rewind can leave the target PGDATA unusable, in which case rebuild from a verified base backup. If prerequisites fail, use a fresh verified base backup.
 
 ## 5. Rejoin verification
 
