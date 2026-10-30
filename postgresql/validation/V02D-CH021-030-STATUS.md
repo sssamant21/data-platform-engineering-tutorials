@@ -2,7 +2,7 @@
 
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
-**Status:** Targeted static review and remediation published; CI verification tracked below. **Not runtime-validated or enterprise-certified.**
+**Status:** Targeted static review and remediation published. **28/28 cumulative V02-D unit/contract checks passed on code commit `85eac56`**; latest documentation-only branch CI rerun may remain queued. **No live PostgreSQL testing.** **Not runtime-validated or enterprise-certified.**
 
 ## Scope
 
@@ -12,7 +12,7 @@ The review compared each of the ten chapters with its lab guide, supporting SQL/
 
 ## Source and regression evidence
 
-- [New test suite — Chapters 021–030](test_v02d_ch021_030.py): 10 deterministic tests, **CI result must be checked on the latest commit**.
+- [New test suite — Chapters 021–030](test_v02d_ch021_030.py): **10/10 PASS** in [GitHub Actions run #41103490392](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103490392), job `124226307845` (commit `85eac56`). Cumulative V02-D suites **8 + 10 + 10 = 28/28 PASS**. GitHub workflow-level completion may lag the already completed successful job.
 - [V02 workflow](../../.github/workflows/postgresql-v02-code-audit.yml) enforces this suite alongside earlier Chapters 001–020 suites, SQL parsing and guard checks.
 - [SLO evaluator](../scripts/021-slo-evaluate.py), [statistics delta helper](../scripts/022-statistics-window-delta.py), [query ranking](../scripts/023-query-window-rank.py), [JSON log correlation](../scripts/024-correlate-json-logs.py), [alert receiver](../scripts/025-lab-alert-receiver.py), and [EXPLAIN plan summarizer](../scripts/027-plan-summary.py) are exercised by synthetic offline inputs.
 - SQL setup changes for [Chapter 028](../scripts/028-statistics-setup.sql) and [Chapter 030](../scripts/030-project-setup.sql) add SQL-level fail-closed controls.
@@ -65,7 +65,7 @@ The tests use **synthetic Python data only**. No PostgreSQL client commands, ser
 
 ## Open certification gates
 
-- Confirm parser and all 28 cumulative V02-D regression tests pass on the final QA commit.
+- The code-bearing commit `85eac56` passed all 28 V02-D tests and the V02 parser. Confirm the final documentation-only QA commit's workflow completes before merge; do not equate a queued workflow with a pass.
 - Independently classify remaining V02-C embedded code risk and evidence-guidance flags; the block counts change as documentation changes.
 - In a disposable PostgreSQL 18 environment, first exercise negative identity tests, then execute Chapter 021–030 labs in order. Retain SQLSTATE/exit status, identity, expected-versus-observed values and cleanup evidence.
 - Verify role privileges, `pg_stat_statements` extension configuration, real structured log/session correlation, PromQL/alert behavior and planner statistics with actual postgresql/hardware conditions.
