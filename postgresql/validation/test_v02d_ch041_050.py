@@ -109,6 +109,30 @@ class BackupReplication041050(unittest.TestCase):
         self.assertIn("pg_stat_archiver",sql("046-monitor.sql"))
         self.assertIn("pg_stat_progress_basebackup",sql("046-monitor.sql"))
 
+    def test_004_topology_slot_capacity_and_checkpoint_retention(self):
+        """Fail static CI if the disposable topology cannot run Chapter 047."""
+        script=(ROOT/"scripts"/"004-operations-lab.sh").read_text(encoding="utf-8")
+        cap=re.search(r"(?m)^max_replication_slots = (\\d+)$",script)
+        bounded=re.search(r"(?m)^max_slot_wal_keep_size = '(\\d+)MB'$",script)
+        self.assertIsNotNone(cap,"Chapter 004 must explicitly configure slots")
+        self.assertIsNotNone(bounded,"Chapter 004 must bound slot WAL retention")
+        self.assertGreaterEqual(int(cap.group(1)),1)
+        self.assertGreater(int(bounded.group(1)),0)
+        self.assertLessEqual(int(bounded.group(1)),512)
+        self.assertIn('SHOW max_replication_slots',script)
+        self.assertIn("name='max_slot_wal_keep_size'",script)
+        self.assertIn('for port in 55432 55433 55434',script)
+        slot=sql("047-create-lab-slot.sql")
+        for guard in ("current_setting('max_replication_slots')::integer >= 1",
+                      "(SELECT count(*) FROM pg_replication_slots) < current_setting('max_replication_slots')::integer",
+                      "name='max_slot_wal_keep_size'", "unit='MB'",
+                      "setting::integer BETWEEN 1 AND 512"):
+            self.assertIn(guard,slot)
+        guide=lab("047")
+        self.assertIn("max_replication_slots",guide)
+        self.assertIn("max_slot_wal_keep_size",guide)
+        self.assertIn("checkpoint",guide.lower())
+
     def test_047_slot_creation_and_one_time_wal_fixture(self):
         for file,stage in (("047-create-lab-slot.sql","047-CREATE-SLOT"),
                            ("047-generate-wal.sql","047-GENERATE-WAL")):
