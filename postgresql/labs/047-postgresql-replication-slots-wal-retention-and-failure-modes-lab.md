@@ -8,6 +8,8 @@ Before all commands, provision/verify the Chapter 004 lab as a non-root OS user,
 
 
 
+**Mandatory slot-capacity preflight:** use a **fresh** Chapter 004 disposable topology provisioned with `max_replication_slots = 4` and `max_slot_wal_keep_size = '256MB'` on the primary and copied standbys. Earlier lab instances with `max_replication_slots = 0` cannot execute the slot exercise; do not patch a shared database or bypass its cluster-identity checks. The slot-count setting requires restart, so construct a new isolated lab after reviewing any existing lab data. Run `bash postgresql/scripts/004-operations-lab.sh verify` with `PG_LAB_ROOT` exported. Before slot creation, inspect `SHOW max_replication_slots;`, `SHOW max_slot_wal_keep_size;`, free disk and the current number of slots. A finite `max_slot_wal_keep_size` is checked at **checkpoint** and is **not an immediate hard disk cap**; exceeding it can invalidate a replication consumer. The Chapter 047 stage SQL rejects exhausted capacity and missing/unbounded slot retention. These preflights do not authorize the exercise on any non-disposable instance.
+
 ## 1. Read-only baseline
 
 ```bash
