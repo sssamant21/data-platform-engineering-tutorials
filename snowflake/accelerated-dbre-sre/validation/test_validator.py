@@ -72,6 +72,31 @@ class UnsafeSQLTest(unittest.TestCase):
     def test_invalid_session_change(self):
         self.assert_blocked("ALTER SESSION SET STATEMENT_TIMEOUT_IN_SECONDS = 0;")
 
+    def test_l3_training_create_as_select(self):
+        self.assert_allowed(
+            "CREATE TEMP TABLE DBRE_SRE_L3_QA_20261030 AS "
+            "SELECT ORDER_ID FROM (SELECT ROW_NUMBER() OVER (ORDER BY SEQ4()) AS ORDER_ID "
+            "FROM TABLE(GENERATOR(ROWCOUNT => 1000)));"
+        )
+
+    def test_l3_arithmetic_expectations(self):
+        orders = list(range(1, 1001))
+        self.assertEqual(1000, len(orders))
+        self.assertEqual(54110, sum(10 + (i % 90) for i in orders))
+        filtered = [i for i in orders if i % 10 == 1]
+        self.assertEqual(100, len(filtered))
+        self.assertEqual(5060, sum(10 + (i % 90) for i in filtered))
+
+    def test_l4_monitoring_read_only(self):
+        self.assert_allowed(
+            "SELECT WAREHOUSE_NAME, SUM(CREDITS_USED) "
+            "FROM SNOWFLAKE.ACCOUNT_USAGE.WAREHOUSE_METERING_HISTORY "
+            "GROUP BY WAREHOUSE_NAME;"
+        )
+
+    def test_l4_disallow_monitoring_role_escalation(self):
+        self.assert_blocked("GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE PUBLIC;")
+
 
 if __name__ == "__main__":
     unittest.main()
