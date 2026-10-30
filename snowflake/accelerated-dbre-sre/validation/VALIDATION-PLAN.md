@@ -47,7 +47,7 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 
 - Use non-admin monitoring and training roles. Verify SHOW WAREHOUSES and SHOW ROLES visibility under least privilege.
 - SHOW GRANTS must list roles for the current user (not arbitrary role privileges).
-- Session tag setting and unset must work; capture QUERY_TAG from Information Schema QUERY_HISTORY_BY_USER.
+- Session tag setting and unset must work; capture QUERY_TAG from Information Schema QUERY_HISTORY_BY_SESSION and its actual QUERY_ID.
 - GENERATOR(ROWCOUNT => 100) must return 100.
 - Verify QUERY_HISTORY_BY_SESSION function is available with an active database context and proper permissions, and note its 7-day history versus Account Usage 365-day retention. Record that outer WHERE filtering occurs after the table function's RESULT_LIMIT.
 - Capture query ID, status, measured elapsed time, warehouse, cost, account edition and any permission error.
@@ -80,4 +80,12 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 - https://docs.snowflake.com/en/sql-reference/sql/show-parameters
 - https://docs.snowflake.com/en/sql-reference/functions/generator
 
-**Next review target:** execute Level 1 and Level 2 in a training account; peer-review Level 3–7 SQL and safety constraints prior to runtime validation.
+## V03 readiness and attestation
+
+- [V03 execution runbook](V03-EXECUTION-RUNBOOK.md) gives a safe operator procedure for running the seven SQL smoke scripts only with explicit authorization in a training account.
+- [V03 preflight status](V03-PREFLIGHT-STATUS.md) identifies missing account access, approval, live output and reviewer evidence.
+- [Offline evidence checker](validate_runtime_evidence.py) validates operator-submitted JSON locally. The checker does **not authenticate** QUERY_ID values or grant runtime acceptance by itself; at best it reports READY_FOR_INDEPENDENT_REVIEW.
+- [Blank NOT_RUN template](V03-NOT-RUN-TEMPLATE.json) must remain empty in Git. Real query outputs and evidence must be kept in an approved secure repository outside GitHub.
+- [Evidence regression tests](test_runtime_evidence.py) are synthetic unit tests, not live Snowflake execution.
+
+**Next review target:** obtain an authorized training Snowflake connection, approval and independent reviewer; execute Level 1 then Level 2, collect actual query IDs/results and continue through Levels 3–7.
