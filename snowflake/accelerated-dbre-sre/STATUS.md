@@ -28,7 +28,7 @@
 ## Latest verification boundary
 
 - [Run #43 — passed](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103967587) for the prior seven-course validator and regression-test revision.
-- The newer L3/L4 smoke scripts and extended assertions need a **new CI pass**; do not treat the older result as approval of new changes.
+- **Latest expanded CI check:** [Run #59 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41104831358), confirming the extended L3/L4 static checks and regression tests against commit `e64438ef328d19651d179d0830a187a341916ffd`.
 - No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
 
 ## Validation gates
