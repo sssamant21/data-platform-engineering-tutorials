@@ -30,10 +30,15 @@ For a disposable self-managed cluster, configure a **tested** archive tool or sa
 Run this only in a dedicated disposable lab database after archive configuration is confirmed:
 
 ```bash
-psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/044-marker.sql
+psql -X -w -v ON_ERROR_STOP=1 -d postgres \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_DISPOSABLE_SOURCE_SYSTEM_ID \
+  -v expected_data_directory=/absolute/path/to/disposable/source/PGDATA \
+  -v expected_operator=AUTHORIZED_SOURCE_ROLE \
+  -v confirm_stage=044-MARKER \
+  -f postgresql/labs/sql/044-marker.sql
 ```
 
-Record the marker timestamp and its transaction context. A wall-clock marker is illustrative; confirm actual commit boundaries and WAL availability before selecting a PITR target. Do not intentionally damage production data.
+This one-time marker requires a verified, disposable PostgreSQL 18 source cluster, an exact operator role, its independently inspected absolute data-directory path, cluster system identifier and `044-MARKER` token. Replace every placeholder manually and use an appropriately privileged connection. The script refuses existing `ch044` objects and creates its fixture transactionally; never re-run against an occupied schema. Record the marker timestamp and its transaction context. A wall-clock marker is illustrative; confirm actual commit boundaries and WAL availability before selecting a PITR target. Do not intentionally damage production data.
 
 ## 4. Isolated PITR rehearsal
 
