@@ -18,7 +18,7 @@ SELECT CASE WHEN current_database() = 'postgres'
   AND inet_server_port() = 55432
   AND inet_server_addr() = inet '127.0.0.1'
   AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
-  AND current_setting('data_directory') ~ '^/tmp/postgresql-dbre-lab\.[[:alnum:]]+/primary$'
+  AND current_setting('data_directory') ~ '^/tmp/postgresql-dbre-lab\.[A-Za-z0-9]+/primary$'
   AND NOT pg_is_in_recovery()
   AND EXISTS (SELECT 1 FROM pg_control_system() c
               WHERE c.system_identifier::text = :'expected_system_id')
