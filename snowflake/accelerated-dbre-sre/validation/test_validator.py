@@ -141,6 +141,8 @@ class UnsafeSQLTest(unittest.TestCase):
         for invariant in (
             "CURRENT_ACCOUNT()", "CURRENT_ROLE()", "CURRENT_WAREHOUSE()",
             "CURRENT_DATABASE()", "CURRENT_SCHEMA()", "ExpectedAccountLocator",
+            "CURRENT_ORGANIZATION_NAME()", "CURRENT_REGION()",
+            "ExpectedOrganization", "ExpectedRegion",
             "ApprovedNonProductionAccount", "ACCOUNTADMIN", "SECURITYADMIN",
             "USERADMIN", "SYSADMIN", "ScratchSchemaVerifiedEmpty",
         ):
