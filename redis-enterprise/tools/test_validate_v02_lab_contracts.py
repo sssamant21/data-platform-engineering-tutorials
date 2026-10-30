@@ -307,6 +307,40 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("Integer `1` if that exact disposable lab key existed", doc)
         self.assertIn("not proof of immediate memory reduction", doc)
 
+    def test_chapter_02_approved_pod_diagnostic_requires_tls(self):
+        src = (CHAPTER_DIR / "02-connecting-to-redis-enterprise-clients-endpoints-tls-connection-management.md").read_text(encoding="utf-8")
+        section = src.split("## 36. Redis Test from a Pod", 1)[1].split("# Hands-On Lab", 1)[0]
+        self.assertIn('REDISCLI_AUTH', section)
+        self.assertIn('redis-cli --tls --cacert "$REDIS_CA"', section)
+        self.assertIn('test -r "$REDIS_CA"', section)
+        self.assertIn("**NOT EXECUTED**", section)
+        self.assertNotIn("Add authentication/TLS options as required.", section)
+        self.assertNotIn("redis-cli \\\n  -h <REDIS_ENDPOINT>", section)
+        if shutil.which("bash"):
+            bash_blocks = [b["source"] for b in find_blocks(section.splitlines()) if b["language"] == "bash"]
+            self.assertEqual(len(bash_blocks), 1)
+            proc = subprocess.run(["bash", "-n"], input=bash_blocks[0], text=True,
+                                  capture_output=True, timeout=5, check=False)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+
+    def test_chapter_70_bounded_hash_and_mget_examples(self):
+        src = (CHAPTER_DIR / "70-redis-enterprise-command-complexity-slowlog-latency-forensics.md").read_text(encoding="utf-8")
+        self.assertIn("HGET tutorial:chapter70:hash f1", src)
+        self.assertIn("HGETALL tutorial:chapter70:hash", src)
+        self.assertIn("MGET tutorial:chapter70:{lab70}:k1", src)
+        self.assertIn("MGET 10", src)  # explicitly described as invalid batch-size shorthand
+        self.assertIn("would read the one key literally named", src)
+        self.assertIn("UNLINK tutorial:chapter70:{lab70}:k1", src)
+        self.assertIn("dedicated, owner-approved nonproduction lab", src)
+        redis_blocks = [b["source"] for b in find_blocks(src.splitlines()) if b["language"] == "redis"]
+        self.assertFalse(any("MGET 10\n" in block or "HGET one field" in block for block in redis_blocks))
+
+    def test_chapter_25_incomplete_expire_warning_is_non_executable(self):
+        src = (CHAPTER_DIR / "25-redis-rate-limiting-quotas-traffic-protection.md").read_text(encoding="utf-8")
+        self.assertIn("intentionally schematic, non-executable pseudocode", src)
+        self.assertIn("EXPIRE key seconds", src)
+        self.assertIn("unsafe two-command sequence", src)
+
 
 if __name__ == "__main__":
     unittest.main()
