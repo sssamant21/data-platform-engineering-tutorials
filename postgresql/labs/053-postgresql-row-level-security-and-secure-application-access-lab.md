@@ -2,14 +2,16 @@
 
 **PostgreSQL 18 · Dedicated disposable database · Runtime validation pending.**
 
+**Safety update (V02-D):** Use the independently verified **Chapter 004 disposable PostgreSQL 18 primary** (127.0.0.1:55432, `lab_admin`), not the host's default PostgreSQL service. Before creating `ch053_lab`, verify the Chapter 004 `PG_LAB_ROOT/LAB_MARKER`, that the data directory is `$PG_LAB_ROOT/primary`, that this primary is not in recovery, and that the intended database and chapter roles do not already exist. Do not overwrite an occupied database or use a production/shared cluster. Set `PGPASSFILE="$PG_LAB_ROOT/credentials.pgpass"`, record the cluster system identifier with `SELECT system_identifier FROM pg_control_system();` and manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID` in the commands below. The provision/event SQL refuses mismatches and runs its changes transactionally; independently review the connection and privileges before invoking the role/database creation commands. Follow the separate, reviewed cleanup only after all chapter-owned dependencies and sessions are verified. **Live negative tests pending.**
+
 ## 1. Safety and setup
 
 Use a **new isolated** PostgreSQL database named `ch053_lab`, accessed by a lab administrator. Confirm the five lab roles are not in use anywhere else on the server. Never run against production. The test switches session authorization to simulate real tenant identities; use an authorized superuser in this disposable environment.
 
 ```powershell
-psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -c "CREATE DATABASE ch053_lab"
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch053_lab -f postgresql/labs/sql/053-provision.sql
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch053_lab -f postgresql/labs/sql/053-verify.sql
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d postgres -c "CREATE DATABASE ch053_lab"
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch053_lab -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_stage=053-PROVISION -f postgresql/labs/sql/053-provision.sql
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch053_lab -f postgresql/labs/sql/053-verify.sql
 ```
 
 The provision script refuses to run outside `ch053_lab`. Roles have no passwords: `SET SESSION AUTHORIZATION` is used for isolated test assertions; for real application connection tests, provision credentials through a secret manager.
