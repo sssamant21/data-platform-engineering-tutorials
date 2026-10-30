@@ -315,6 +315,10 @@ This intentionally creates a new expiration deadline.
 
 # Part 4 --- Conditional Expiration
 
+**Version gate:** The conditional `EXPIRE NX`, `XX`, `GT`, and `LT` options were introduced in Redis 7.0.0. Confirm the exact Redis engine/version and Redis Software/Enterprise compatibility before using these examples. In particular, Redis treats a persistent (non-expiring) key as having an infinite TTL when evaluating `GT`/`LT`: a `GT` request cannot extend that infinite deadline, while a suitable `LT` request can introduce a finite expiry. `EXPIRE` returns integer `1` when the expiration is applied, or `0` when it is not.
+
+Reference: [Redis EXPIRE command/version history](https://redis.io/docs/latest/commands/expire/).
+
 ## 13. `EXPIRE NX`
 
 Conceptually:
