@@ -21,6 +21,7 @@
 - **Technical audit:** [V01/V02 initial audit](validation/V01-V02-INITIAL-AUDIT.md).
 - **Second-pass technical review:** [V02 findings SF-007–SF-012](validation/V02-SECOND-PASS-REVIEW.md).
 - **Level 3–4 follow-on review:** [V02 findings SF-013–SF-017](validation/V02-LEVELS-03-04-REVIEW.md); [Level 3 smoke](validation/runtime/level-03-smoke.sql) and [Level 4 smoke](validation/runtime/level-04-smoke.sql) are prepared for **manual nonproduction** runtime testing.
+- **Level 5–7 follow-on review:** [V02 findings SF-018–SF-024](validation/V02-LEVELS-05-07-REVIEW.md); [L5](validation/runtime/level-05-smoke.sql), [L6](validation/runtime/level-06-smoke.sql) and [L7](validation/runtime/level-07-smoke.sql) read-only smoke scripts are authored, **NOT RUN**.
 - **SQL safety regression tests:** [test_validator.py](validation/test_validator.py), required by the [CI workflow](../../.github/workflows/snowflake-accelerated-static.yml). Latest revision's CI run must pass before V02 static verification is considered complete.
 - **Test execution plan:** [Validation plan](validation/VALIDATION-PLAN.md); [Levels 1–2 smoke pack](validation/runtime/README.md).
 - A CI PASS is an initial authoring/safety filter, not execution evidence or an independent security review.
@@ -28,7 +29,7 @@
 ## Latest verification boundary
 
 - [Run #43 — passed](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103967587) for the prior seven-course validator and regression-test revision.
-- **Latest expanded CI check:** [Run #59 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41104831358), confirming the extended L3/L4 static checks and regression tests against commit `e64438ef328d19651d179d0830a187a341916ffd`.
+- **Previous expanded CI check:** [Run #62 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41105075877), for the Levels 1–4 revision. **The new Level 5–7 checks require their own CI run before PASS can be assigned to the current branch head.**
 - No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
 
 ## Validation gates
