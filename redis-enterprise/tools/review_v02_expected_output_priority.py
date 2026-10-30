@@ -53,7 +53,9 @@ def inspect(root: Path) -> dict:
             after = "\n".join(lines[block["end"]+1:block["end"]+8])
             prior_head = next((x.strip() for x in reversed(lines[:block["start"]])
                                if re.match(r"^#{1,4} ", x)), "")
-            version = bool(VERSIONS.search(source))
+            # A list of command names in a text fence can match JSON.SET or GETEX,
+            # but is not an executable version-sensitive example.
+            version = explicit and bool(VERSIONS.search(source))
             special = bool(HIGH.search(source))
             write = any(WRITE.search(x) for x in commands)
             read = any(READ.search(x) for x in commands)
