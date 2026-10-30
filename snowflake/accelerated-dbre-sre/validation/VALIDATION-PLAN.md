@@ -57,9 +57,9 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 
 - **L3:** [Level 3 smoke](runtime/level-03-smoke.sql) confirms 1,000 distinct sequential IDs, SUM(AMOUNT)=54,110, exactly 100 rows where REGION_ID=1 and regional sum=5,060; capture Query Profile without asserting this tiny data is a real tuning benchmark.
 - **L4:** [Level 4 smoke](runtime/level-04-smoke.sql) validates permission-gated historical views and nonempty/empty behavior; warehouse `CREDITS_USED` is gross usage, not final billed credits. Compare account `METERING_DAILY_HISTORY.CREDITS_BILLED` if permitted; record Account Usage latency and the `fail` status convention.
-- **L5:** CURRENT_SECONDARY_ROLES and SHOW GRANTS execute with a read-only role; access-denied scenario is documentation-only.
-- **L6:** Retention scope and edition confirmed; optional permanent scratch table has a uniquely qualified location; Time Travel point is after table creation; cleanup requires data-owner approval.
-- **L7:** QUERY_HISTORY function fields and visibility confirmed; tabletop exercises reviewed with app/incident owner.
+- **L5:** [Level 5 smoke](runtime/level-05-smoke.sql) confirms `CURRENT_SECONDARY_ROLES()` returns JSON-encoded text, `SHOW GRANTS` enumerates current-user roles, and optional aggregated `ACCOUNT_USAGE.LOGIN_HISTORY` is read with a permitted security-audit role; view latency can reach two hours. No raw user/IP/error-message export. Denied-access scenario remains documentation-only.
+- **L6:** [Level 6 smoke](runtime/level-06-smoke.sql) checks `MIN_DATA_RETENTION_TIME_IN_DAYS` at account scope plus database/table `DATA_RETENTION_TIME_IN_DAYS`, supported table type and edition, and historical `AT(OFFSET => -60)` only on a previously approved lab object. Historical point must follow creation, fall within effective retention and be older than insertion. No object creation or recovery in the smoke; cleanup requires data-owner approval for any optional writable course lab.
+- **L7:** [Level 7 smoke](runtime/level-07-smoke.sql) captures permitted current-session `QUERY_HISTORY_BY_SESSION` fields and optional aggregated `ACCOUNT_USAGE.QUERY_HISTORY` under an approved monitoring role. Distinguish `failed_with_error` (Information Schema) from `fail` (Account Usage) and account-history lag. Tabletop exercises reviewed with app/incident owner.
 
 ## Security, cost and change-management requirements
 
