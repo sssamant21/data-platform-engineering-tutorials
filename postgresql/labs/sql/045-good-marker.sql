@@ -3,22 +3,22 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_data_directory}
 \else
  \echo 'REFUSED: expected_data_directory required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_operator}
 \else
  \echo 'REFUSED: expected_operator required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database()='postgres'
  AND current_user=:'expected_operator'
@@ -35,7 +35,7 @@ SELECT CASE WHEN current_database()='postgres'
  \echo 'Explicitly identified disposable source and lab state matched'
 \else
  \echo 'REFUSED: source identity, approval or lab fixture state mismatch'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 INSERT INTO ch045.recovery_markers(marker_name) VALUES ('known-good');
 SELECT marker_name,recorded_at FROM ch045.recovery_markers;
