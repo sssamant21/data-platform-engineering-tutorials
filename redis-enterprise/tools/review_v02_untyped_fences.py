@@ -22,34 +22,61 @@ OPERATIONS = (
     r"FT\.SEARCH|JSON\.SET|JSON\.GET"
 )
 CLI = r"redis-cli|rladmin|kubectl|curl|docker|python(?:3)?"
-OPERATIVE = re.compile(rf"^\s*(?:{OPERATIONS}|{CLI})\b(?:\s+\S+)+", re.I)
-NOUN_LIST = re.compile(r"^[A-Z][A-Z0-9_.-]{1,28}$")
-FORMULA = re.compile(r"^[A-Z][A-Z0-9_-]*\s*(?:=|->|:|/)\s*", re.I)
-TABLE = re.compile(r"^\s*(?:[^\n]*\s(?:->|<-|=>|\|)\s[^\n]*)$")
-SAFE_TOKEN = re.compile(r"(?:^|\s)(?:--password|-a)\s+\S+")
+OPERATIVE = re.compile(rf"^\s*(?:{OPERATIONS}|{CLI})\b(?:\s+\S+)+")
+# This classifier is intentionally conservative. Narrative text uses ordinary
+# words such as 'set', 'type', 'info', 'ttl'; those are NOT Redis commands.
+SYMBOLS = re.compile(r"(?:->|<-|=>|\||\?|=|\n\s*[+|v])")
+FORMULA = re.compile(r"^[A-Z][A-Z0-9_-]*\s*=\s*")
+EXPLANATORY = re.compile(
+    r"^\s*(?:(?:TTL|SET|GET|DEL|INFO|TYPE)\s+(?:remains|with|only|too|policy|or|is|from|means|requires|not|below|accidentally|suddenly|expired|returns)\b)",
+    re.I)
+BARE_CMD = re.compile(rf"^(?:{OPERATIONS}|{CLI})$", re.I)
+SHELL_START = re.compile(rf"^\s*(?:{CLI})\b")
+STOPWORDS = {"remains", "with", "only", "too", "policy", "or", "is",
+             "from", "means", "requires", "not", "below", "accidentally",
+             "suddenly", "expired", "returns", "when", "the", "a", "an"}
 
 
 def bucket(source: str, preceding: str) -> tuple[str, str]:
     lines = [x.strip() for x in source.splitlines() if x.strip()]
-    runnable = [x for x in lines if OPERATIVE.match(x)]
-    # Symbolic examples such as TTL = 3600 resemble commands but are not
-    # executable Redis command lines. Test BEFORE generic command-argument logic.
-    if lines and all(FORMULA.match(x) for x in lines):
-        return ("formula_or_symbolic_text", "Symbolic description, not Redis CLI syntax")
-    # Plain shell snippets with args, complete Redis instructions, or concrete
-    # arguments are legitimate potential copy/paste hazards, even if illustrative.
-    if runnable:
+    if not lines:
+        return ("ambiguous_reference_text", "Empty or whitespace-only example")
+    # Text charts, formulas, and illustrative pseudo-code are NOT executable
+    # merely because they contain a Redis verb somewhere.
+    if all(FORMULA.match(x) for x in lines):
+        return ("formula_or_symbolic_text", "Symbolic assignment rather than Redis command")
+    if any(SYMBOLS.search(x) for x in lines):
+        return ("diagram_or_comparison", "Diagram, outcome, arrow, or comparison")
+    if all(BARE_CMD.fullmatch(x) or re.fullmatch(r"[A-Z][A-Z0-9_.-]+(?:\s+[A-Z][A-Z0-9_.-]+)?", x)
+           for x in lines) and len(lines) >= 2:
+        return ("command_vocabulary_list", "Standalone command/type names, without arguments")
+    executable = []
+    for line in lines:
+        if EXPLANATORY.match(line) or line.endswith(":"):
+            continue
+        if not OPERATIVE.match(line):
+            continue
+        first, *rest = line.split()
+        if first.lower() in {"redis-cli", "rladmin", "kubectl", "curl",
+                             "docker", "python", "python3"}:
+            if len(rest) > 0:
+                executable.append(line)
+            continue
+        # Avoid interpreting natural-language text ('set only if', etc.) as
+        # uppercase Redis command syntax. Arguments still require context.
+        if first != first.upper() or not rest:
+            continue
+        if rest[0].lower() in STOPWORDS:
+            continue
+        executable.append(line)
+    if executable and len(executable) >= max(1, (len(lines) + 1) // 2):
         if re.search(r"\b(?:do not|never|avoid|unsafe|prohibit|anti.pattern)\b",
                      preceding, re.I):
-            return ("potential_negative_example", "Complete command under negative/warning context")
-        return ("possible_runnable_command", "Has command plus arguments: check intent and environment")
-    if any(FORMULA.match(x) for x in lines):
-        return ("formula_or_symbolic_text", "Symbolic description, not Redis CLI syntax")
-    if len(lines) >= 2 and sum(bool(NOUN_LIST.fullmatch(x)) for x in lines) >= 2:
-        return ("command_vocabulary_list", "Bare tokens in an inventory/list")
-    if any(TABLE.match(x) for x in lines):
-        return ("diagram_or_comparison", "Diagram/arrow/comparison, not paste-ready commands")
-    return ("ambiguous_reference_text", "Command-like words within text; human classification needed")
+            return ("potential_negative_example", "Copyable syntax under explicit caution")
+        return ("possible_runnable_command", "Command plus arguments; evaluate owner/environment")
+    if any(BARE_CMD.fullmatch(x) for x in lines):
+        return ("command_vocabulary_list", "Reference commands, not complete executable lines")
+    return ("ambiguous_reference_text", "Prose, diagram, checklist or mixed text requires human review")
 
 
 def inspect(root: Path) -> dict:
