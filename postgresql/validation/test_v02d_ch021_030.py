@@ -100,8 +100,8 @@ class Review021030(unittest.TestCase):
 
     def test_setup_sql_hard_rejects_wrong_cluster(self):
         for ch in ("028", "030"):
-            script = (SCRIPTS / f"{ch}-" + "setup.sql") if False else (
-                SCRIPTS / ("028-statistics-setup.sql" if ch == "028" else "030-project-setup.sql"))
+            script = SCRIPTS / ("028-statistics-setup.sql" if ch == "028"
+                                else "030-project-setup.sql")
             text = script.read_text(encoding="utf-8")
             with self.subTest(chapter=ch):
                 for guard in (
