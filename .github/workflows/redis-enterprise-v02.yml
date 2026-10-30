@@ -31,6 +31,7 @@ jobs:
           python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_executable_commands.py" -v
           python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_redis_fence_syntax.py" -v
           python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_untyped_fences.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_expected_output_priority.py" -v
       - name: V02 offline example inventory
         run: python redis-enterprise/tools/validate_v02_examples.py --json-file "$RUNNER_TEMP/redis-v02-review.json"
       - name: Exhaustive offline safety-pattern review inventory
@@ -41,6 +42,8 @@ jobs:
         run: python redis-enterprise/tools/review_v02_redis_fence_syntax.py --fail-on-any-finding --json-file "$RUNNER_TEMP/redis-v02-redis-fence-syntax.json"
       - name: Contextual classification of untyped code fences (offline)
         run: python redis-enterprise/tools/review_v02_untyped_fences.py --json-file "$RUNNER_TEMP/redis-v02-untyped-review.json"
+      - name: Prioritize executable and version-sensitive output-cue review
+        run: python redis-enterprise/tools/review_v02_expected_output_priority.py --json-file "$RUNNER_TEMP/redis-v02-output-priority.json"
       - name: Upload example review queue
         if: always()
         uses: actions/upload-artifact@v4
@@ -53,4 +56,5 @@ jobs:
             ${{ runner.temp }}/redis-v02-command-triage.json
             ${{ runner.temp }}/redis-v02-redis-fence-syntax.json
             ${{ runner.temp }}/redis-v02-untyped-review.json
+            ${{ runner.temp }}/redis-v02-output-priority.json
           if-no-files-found: warn
