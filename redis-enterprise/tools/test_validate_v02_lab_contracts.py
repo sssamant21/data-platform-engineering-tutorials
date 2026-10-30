@@ -99,7 +99,7 @@ class V02LabContractsTests(unittest.TestCase):
         source = (CHAPTER_DIR / "03-redis-data-types-key-design-memory-aware-data-modeling.md").read_text(encoding="utf-8")
         self.assertIn('HSET tutorial:chapter03:product:1002:v1 name "Mouse"', source)
         self.assertIn("HSET reports 4 newly added hash fields", source)
-        self.assertNotIn('HSET tutorial:chapter03:product:1002:v1 ' + chr(92) + '\\n', source)
+        self.assertNotIn('HSET tutorial:chapter03:product:1002:v1 ' + chr(92) + chr(10), source)
 
 
 if __name__ == "__main__":
