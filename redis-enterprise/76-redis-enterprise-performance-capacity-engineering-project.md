@@ -787,13 +787,13 @@ batch size
 
 ## 45. Capture
 
-Use supported metrics and:
+Use supported product metrics and, **only where supported and permitted**, inspect database/server memory through an approved, authenticated and certificate-validated Redis endpoint (for example, in an authorized interactive Redis CLI session):
 
-``` text
-INFO MEMORY
+``` redis
+INFO memory
 ```
 
-where applicable.
+**Expected:** A section of memory statistics with name/value lines such as `used_memory:` and `used_memory_rss:`; actual metric availability and the scope of the response depend on Redis Software/Enterprise version, deployment, and ACL permissions. Do not confuse a single `INFO` reply with a complete multi-node or multi-shard cluster capacity report. Use the Redis Enterprise monitoring API/dashboard and cluster metrics for authoritative capacity analysis; if the command is restricted, record that fact rather than bypassing access controls.
 
 Track:
 
