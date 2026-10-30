@@ -131,5 +131,36 @@ class UnsafeSQLTest(unittest.TestCase):
         self.assert_blocked("CALL SYSTEM$CANCEL_QUERY('test-id');")
 
 
+    def test_training_preflight_script_exists(self):
+        script = validator.TRACK / "validation" / "run-training-preflight.ps1"
+        self.assertTrue(script.is_file())
+        self.assertIn("Mode = \"Preflight\"", script.read_text(encoding="utf-8"))
+
+    def test_training_preflight_checks_account_and_nonadmin_role(self):
+        script = (validator.TRACK / "validation" / "run-training-preflight.ps1").read_text(encoding="utf-8")
+        for invariant in (
+            "CURRENT_ACCOUNT()", "CURRENT_ROLE()", "CURRENT_WAREHOUSE()",
+            "CURRENT_DATABASE()", "CURRENT_SCHEMA()", "ExpectedAccountLocator",
+            "ApprovedNonProductionAccount", "ACCOUNTADMIN", "SECURITYADMIN",
+            "USERADMIN", "SYSADMIN", "ScratchSchemaVerifiedEmpty",
+        ):
+            self.assertIn(invariant, script)
+
+    def test_training_launcher_requires_explicit_opt_in(self):
+        script = (validator.TRACK / "validation" / "run-training-preflight.ps1").read_text(encoding="utf-8")
+        for invariant in (
+            'Mode -eq "Preflight"', "Level1Accepted", "ApprovalReference",
+            "Read-Host", "RUN ", "--local-only", "--enhanced-exit-codes",
+            "No V03 PASS may be claimed",
+        ):
+            self.assertIn(invariant, script)
+
+    def test_training_launcher_never_auto_runs_level_two(self):
+        script = (validator.TRACK / "validation" / "run-training-preflight.ps1").read_text(encoding="utf-8")
+        self.assertIn('if ($Mode -eq "Level1")', script)
+        self.assertIn('else { $filename = "runtime/level-02-smoke.sql" }', script)
+        self.assertIn('if ($Mode -eq "Level2" -and -not $Level1Accepted)', script)
+
+
 if __name__ == "__main__":
     unittest.main()
