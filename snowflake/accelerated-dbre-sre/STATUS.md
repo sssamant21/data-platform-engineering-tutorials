@@ -29,7 +29,7 @@
 ## Latest verification boundary
 
 - [Run #43 — passed](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103967587) for the prior seven-course validator and regression-test revision.
-- **Previous expanded CI check:** [Run #62 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41105075877), for the Levels 1–4 revision. **The new Level 5–7 checks require their own CI run before PASS can be assigned to the current branch head.**
+- **Previous expanded CI check:** [Run #62 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41105075877), for the Levels 1–4 revision. **Levels 5–7 expanded CI:** [Run #83 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41106248957), commit `61197443f464b657af0fd5fae3528d59d6479f26`, including the read-only L5/L6/L7 smoke scripts and SQL safety regression tests.
 - No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
 
 ## Validation gates
