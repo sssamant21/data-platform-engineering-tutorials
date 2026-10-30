@@ -45,6 +45,17 @@ class Chapters031040Contracts(unittest.TestCase):
                               r"\quit 3"):
                     self.assertIn(token, cleanup)
                 self.assertIn(f"-v confirm_cleanup={ident}-DROP", lab)
+                self.assertIn("n.nspowner", cleanup)
+                self.assertIn("c.relowner", cleanup)
+                self.assertIn("NOT EXISTS (SELECT 1 FROM pg_class", cleanup)
+                self.assertIn("BEGIN;", cleanup)
+                self.assertIn("COMMIT;", cleanup)
+                self.assertIn(f"DROP SCHEMA ch{ident};", cleanup)
+                expected_table = "orders" if ident in ("032", "033") else "events"
+                self.assertIn(f"DROP TABLE ch{ident}.{expected_table};", cleanup)
+                self.assertNotRegex(cleanup, r"(?im)^\\s*DROP\\s+SCHEMA\\s+.*CASCADE\\b")
+                if ident in ("038", "039"):
+                    self.assertIn("pg_inherits", cleanup)
 
     def test_chapter_033_concurrent_index_workflow_not_wrapped_in_transaction(self):
         sql = (SQL / "033-investigate.sql").read_text()
