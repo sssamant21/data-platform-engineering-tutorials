@@ -1,0 +1,39 @@
+name: PostgreSQL V02 Code and Command Static Audit
+
+on:
+  push:
+    branches: [qa/postgresql-v01-static-validation-20261030]
+    paths:
+      - "postgresql/**"
+      - ".github/workflows/postgresql-v02-code-audit.yml"
+  pull_request:
+    paths:
+      - "postgresql/**"
+      - ".github/workflows/postgresql-v02-code-audit.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  code-audit-v02:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: postgresql/validation/requirements-v02.txt
+      - name: Install pinned static parsers
+        run: python -m pip install -r postgresql/validation/requirements-v02.txt
+      - name: Audit source files without executing SQL
+        run: python postgresql/validation/validate_v02.py --require-parsers --json-out postgresql-v02-evidence.json
+      - name: Retain full parser and risk evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v02-evidence
+          path: postgresql-v02-evidence.json
+          if-no-files-found: warn
