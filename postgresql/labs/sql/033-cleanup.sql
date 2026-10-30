@@ -24,6 +24,16 @@ SELECT CASE WHEN current_database() = :'expected_db'
   AND EXISTS (SELECT 1 FROM pg_control_system() c
               WHERE c.system_identifier::text = :'expected_system_id')
   AND :'confirm_cleanup' = '033-DROP'
+  AND EXISTS (SELECT 1 FROM pg_namespace n
+              WHERE n.nspname='ch033'
+                AND n.nspowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+              WHERE n.nspname='ch033' AND c.relname='orders'
+                AND c.relkind IN ('r','p')
+                AND c.relowner=(SELECT oid FROM pg_roles WHERE rolname=current_user))
+  AND NOT EXISTS (SELECT 1 FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace
+                  WHERE n.nspname='ch033' AND c.relkind IN ('r','p','v','m','f')
+                    AND c.relname NOT IN ('orders'))
   THEN 'true' ELSE 'false' END AS cleanup_permitted
 \gset
 \if :cleanup_permitted
@@ -33,5 +43,11 @@ SELECT CASE WHEN current_database() = :'expected_db'
   \quit 3
 \endif
 \echo 'WARNING: drops ch033 schema and all its lab objects'
-DROP SCHEMA IF EXISTS ch033 CASCADE;
+-- Refuse unknown independent dependencies; no schema-wide CASCADE.
+BEGIN;
+SET LOCAL lock_timeout='1s';
+SET LOCAL statement_timeout='15s';
+DROP TABLE ch033.orders;
+DROP SCHEMA ch033;
+COMMIT;
 SELECT count(*) AS remaining_ch033_schema FROM pg_namespace WHERE nspname='ch033';
