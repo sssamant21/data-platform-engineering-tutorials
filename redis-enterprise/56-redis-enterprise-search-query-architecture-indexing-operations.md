@@ -553,12 +553,21 @@ response memory
 
 ## 30. Example
 
-If RedisJSON and Search integration are available:
+If RedisJSON and Search integration are available, use an **owner-approved isolated database** with module/index support verified for the deployed release. The following is one **interactive Redis command**, issued only after connecting through a securely authenticated, CA-verified TLS Redis CLI session (as established in the Chapter 55 lab). Do not paste `JSON.SET` directly into a host shell or run it on application-owned data:
 
-``` bash
-redis-cli JSON.SET tutorial:chapter56:jsonproduct:2001 '$' \
-'{"name":"Running Shoes","category":"sports","status":"active","price":89.99}'
+``` redis
+JSON.SET tutorial:chapter56:jsonproduct:2001 '$' '{"name":"Running Shoes","category":"sports","status":"active","price":89.99}'
 ```
+
+**Expected:** `OK` when the module is available and the JSON is accepted; the document is created or replaced at this **exact lab key**. Optional verification:
+
+``` redis
+JSON.GET tutorial:chapter56:jsonproduct:2001 '$.price'
+```
+
+**Expected for the fresh document:** A JSON-encoded array containing `89.99` (schematically `[89.99]`, depending on RESP/client rendering). Module-not-available, ACL, TLS, or syntax errors are **FAIL/NOT EXECUTED**, not a reason to bypass security gates. The successful JSON write alone does **not** prove the Search index exists or is compatible.
+
+Delete only this exact owned lab key after the exercise and verify that it is no longer required by subsequent lab steps; never delete shared business documents.
 
 ------------------------------------------------------------------------
 
