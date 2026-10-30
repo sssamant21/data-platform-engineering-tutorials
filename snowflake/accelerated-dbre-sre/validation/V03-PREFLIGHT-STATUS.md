@@ -39,3 +39,11 @@ The offline JSON checker explicitly produces READY_FOR_INDEPENDENT_REVIEW, not c
 - **Improvement committed:** [Level 1 SQL](runtime/level-01-smoke.sql) and [Level 2 SQL](runtime/level-02-smoke.sql) now capture recent same-session `QUERY_ID`, `EXECUTION_STATUS` and timing without exposing raw query text. [V03 runbook](V03-EXECUTION-RUNBOOK.md) explains secure evidence handling.
 - **Latest static-only CI:** [Run #111 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41119260657), includes validator and offline evidence regression tests; it is **not** runtime execution.
 - **Next action:** user connects authorized nonproduction Snowflake provider, or an approved operator executes scripts in a training account and provides sanitized results and query IDs for independent review.
+
+## Mocked PowerShell integration gate — 2026-10-30
+
+- [CI run #144: PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124509495).
+- [test-training-preflight.ps1](test-training-preflight.ps1) installs a local PowerShell mock of the Snowflake CLI command before invoking the operator launcher.
+- Verified: matching nonproduction account passes read-only preflight; wrong account locator/organization/region, administrative role, missing owner attestation, missing L1 scratch-schema sign-off, missing L2 acceptance, and a simulated query failure all fail closed. **Zero live Snowflake calls**.
+- The simulated CLI failure leaves a nonzero `LASTEXITCODE`, which the test runner now clears after confirming expected refusal behavior. This is test harness bookkeeping only.
+- **Actual V03 execution remains BLOCKED:** Snowflake plugin is available but not connected. The assistant cannot access the operator's Windows machine or Snowflake CLI configuration.
