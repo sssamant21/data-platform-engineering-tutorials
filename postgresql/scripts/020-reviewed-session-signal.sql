@@ -1,11 +1,16 @@
 -- LAB ONLY. Signals are irreversible by SQL ROLLBACK.
 -- Caller must first run the Chapter 020 shell guard and preview the target.
 -- All -v variables are mandatory: action, confirm, target_pid,
--- target_start, target_state, target_query_start, target_app.
+-- target_start, target_state, target_query_start, target_app, expected_system_id.
 -- action is cancel or terminate; confirm must be yes.
 -- Zero rows means refused/not matched, not success. Never retry blindly.
 \set ON_ERROR_STOP on
 \pset pager off
+\if :{?expected_system_id}
+\else
+  \echo 'Missing independently observed disposable cluster system identifier'
+  SELECT 1/0;
+\endif
 \if :{?action}
 \else
   \echo 'Missing action'
@@ -54,6 +59,12 @@ SELECT clock_timestamp() AS action_at, a.pid, a.backend_start,
 FROM pg_stat_activity a
 JOIN pg_roles r ON r.oid = a.usesysid
 WHERE current_database() = 'ops_lab'
+  AND current_user = 'lab_admin'
+  AND inet_server_addr() = inet '127.0.0.1'
+  AND inet_server_port() = 55432
+  AND current_setting('data_directory') LIKE '/tmp/postgresql-dbre-lab.%/primary'
+  AND EXISTS (SELECT 1 FROM pg_control_system() c
+              WHERE c.system_identifier::text = :'expected_system_id')
   AND NOT pg_is_in_recovery()
   AND current_setting('server_version_num')::int BETWEEN 180000 AND 189999
   AND :'confirm' = 'yes'
