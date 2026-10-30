@@ -37,6 +37,9 @@ SELECT CASE WHEN current_database()='postgres'
  \echo 'REFUSED: source identity, approval or lab fixture state mismatch'
  \quit 3
 \endif
+BEGIN;
+SET LOCAL statement_timeout='10s';
+SET LOCAL lock_timeout='1s';
 CREATE SCHEMA ch044;
 CREATE TABLE ch044.recovery_markers (
  marker_id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -45,5 +48,6 @@ CREATE TABLE ch044.recovery_markers (
 );
 INSERT INTO ch044.recovery_markers(marker_name)
 VALUES ('before-pitr-drill');
+COMMIT;
 SELECT marker_id,marker_name,inserted_at FROM ch044.recovery_markers ORDER BY marker_id;
 SELECT pg_current_wal_lsn() AS observed_lsn,clock_timestamp() AS observed_at;
