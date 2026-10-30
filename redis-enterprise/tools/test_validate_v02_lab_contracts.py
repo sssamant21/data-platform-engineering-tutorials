@@ -259,6 +259,18 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("HSET` returns integer `5`", doc)
         self.assertIn("COUNT 2", doc)
 
+    def test_all_chapters_redis_interactive_fences_have_no_known_syntax_faults(self):
+        from review_v02_redis_fence_syntax import inspect as inspect_fences
+        results = inspect_fences(CHAPTER_DIR)
+        self.assertEqual(results["summary"]["chapters"], 80)
+        self.assertEqual(results["summary"]["syntax_review_candidates"], 0, results["findings"][:10])
+
+    def test_chapter_14_xadd_is_single_valid_interactive_command(self):
+        doc = (CHAPTER_DIR / "14-write-through-write-behind-read-through-patterns.md").read_text(encoding="utf-8")
+        self.assertIn("XADD tutorial:chapter14:writes '*' operation_id op-1001", doc)
+        self.assertIn("generated Stream ID", doc)
+        self.assertIn("four field/value pairs", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
