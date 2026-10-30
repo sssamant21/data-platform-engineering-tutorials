@@ -55,8 +55,8 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 
 ## V03 acceptance for Levels 3–7
 
-- **L3:** Generated training table has 1,000 distinct sequential IDs and 100 rows where REGION_ID=1; Query Profile inspection described, not presented as real tuning benchmark.
-- **L4:** Historical view permissions, nonempty/empty account behavior and Account Usage latency verified; calculate credits and queueing, ensure failure-status syntax is correct for Account Usage.
+- **L3:** [Level 3 smoke](runtime/level-03-smoke.sql) confirms 1,000 distinct sequential IDs, SUM(AMOUNT)=54,110, exactly 100 rows where REGION_ID=1 and regional sum=5,060; capture Query Profile without asserting this tiny data is a real tuning benchmark.
+- **L4:** [Level 4 smoke](runtime/level-04-smoke.sql) validates permission-gated historical views and nonempty/empty behavior; warehouse `CREDITS_USED` is gross usage, not final billed credits. Compare account `METERING_DAILY_HISTORY.CREDITS_BILLED` if permitted; record Account Usage latency and the `fail` status convention.
 - **L5:** CURRENT_SECONDARY_ROLES and SHOW GRANTS execute with a read-only role; access-denied scenario is documentation-only.
 - **L6:** Retention scope and edition confirmed; optional permanent scratch table has a uniquely qualified location; Time Travel point is after table creation; cleanup requires data-owner approval.
 - **L7:** QUERY_HISTORY function fields and visibility confirmed; tabletop exercises reviewed with app/incident owner.
