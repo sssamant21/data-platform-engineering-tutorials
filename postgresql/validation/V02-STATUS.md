@@ -3,7 +3,7 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–020 reviewed with 18 CI tests; further technical and runtime review pending**  
+**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–030 reviewed; 18 prior CI tests passed and 10 new offline tests added; latest CI verification pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
@@ -81,7 +81,7 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 
 1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
 2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 792 fences inventoried, 666 static syntax passes, 22 manual-context items, 48 risk matches and 107 editorial-context flags on the Chapters 011–020 V02-D commit. Full technical sign-off and live examples remain pending.
-3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. [Chapters 011–020 security/concurrency review](V02D-CH011-020-STATUS.md) also published with three guarded-operation fixes and **10/10 additional regression tests passing**. Runtime proof and independent sign-off remain pending; continue Chapters 021–030.
+3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. [Chapters 011–020 security/concurrency review](V02D-CH011-020-STATUS.md) also published with three guarded-operation fixes and **10/10 additional regression tests passing**. See [Chapters 021–030 observability/performance review](V02D-CH021-030-STATUS.md) for two fail-closed SQL setup guards, input-validation fixes in the SLO and query-statistics utilities, and 10 new offline regression tests (latest CI run pending). Runtime proof and independent sign-off remain pending; next Chapters 031–040.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
 
 **Certification rule:** V02 automated syntax checks have passed. **Do not label V02 fully certified**, and do not advance any chapter to runtime verified or enterprise certified without recorded execution and independent sign-off.
