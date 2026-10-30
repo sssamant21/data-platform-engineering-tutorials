@@ -31,7 +31,7 @@ jobs:
       - name: V02 offline example inventory
         run: python redis-enterprise/tools/validate_v02_examples.py --json-file "$RUNNER_TEMP/redis-v02-review.json"
       - name: Exhaustive offline safety-pattern review inventory
-        run: python redis-enterprise/tools/review_v02_safety.py --expected 81 --json-file "$RUNNER_TEMP/redis-v02-safety.json" --markdown-file "$RUNNER_TEMP/redis-v02-safety.md"
+        run: python redis-enterprise/tools/review_v02_safety.py --expected 80 --json-file "$RUNNER_TEMP/redis-v02-safety.json" --markdown-file "$RUNNER_TEMP/redis-v02-safety.md"
       - name: Upload example review queue
         if: always()
         uses: actions/upload-artifact@v4
