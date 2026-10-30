@@ -218,6 +218,8 @@ INCR counter
 EXPIRE counter
 ```
 
+**This is intentionally schematic, non-executable pseudocode illustrating an unsafe two-command sequence.** The literal `EXPIRE counter` is also missing the required timeout argument: runnable Redis syntax is `EXPIRE key seconds`. Do **not** use the illustrated two-command sequence as a safe rate-limit implementation. Instead, the later Lua lab shows how to initialize a counter and its expiration atomically, subject to the validated Redis version and application semantics.
+
 But performing these as unrelated client commands can create
 race/failure problems.
 

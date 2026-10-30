@@ -1492,20 +1492,24 @@ Calculate call/time deltas.
 
 ## 96. Exercise
 
-Create a bounded hash under:
+In a **dedicated, owner-approved nonproduction lab database** with a confirmed client identity, create a small synthetic hash and set its expiration using an authenticated, certificate-validated Redis CLI session. These are **Redis commands**, not commands to paste into a host shell:
 
-``` text
-tutorial:chapter70:hash
+``` redis
+HSET tutorial:chapter70:hash f1 one f2 two f3 three
+EXPIRE tutorial:chapter70:hash 300
+HGET tutorial:chapter70:hash f1
+HGETALL tutorial:chapter70:hash
 ```
 
-Compare:
+**Expected for a previously absent key:** `HSET` returns `3` newly added fields, `EXPIRE` returns `1`, `HGET` returns `one`, and `HGETALL` returns all three field/value pairs in an unspecified order. Repeat runs can cause `HSET` to return `0`. This tiny sample only verifies command semantics; it **does not** demonstrate a meaningful large-hash performance difference. A real cardinality experiment requires a separately approved size/memory/latency budget and cleanup.
 
-``` text
-HGET one field
-HGETALL
+After measurement, remove only the exact synthetic lab key if you own it:
+
+``` redis
+UNLINK tutorial:chapter70:hash
 ```
 
-as cardinality grows.
+**Expected:** `1` if it existed or `0` if it already expired. Never benchmark `HGETALL` against an unknown production-sized hash merely because this example succeeded.
 
 ------------------------------------------------------------------------
 
@@ -1531,17 +1535,28 @@ Measure server and client latency.
 
 ## 98. Exercise
 
-Compare bounded:
+Compare **bounded batch sizes of 10, 100, and 1,000 keys** only after a workload owner approves the maximum response size and client/Redis memory budget. These are *counts of key arguments*, not Redis commands: `MGET 10` would read the one key literally named `10`, not ten keys.
 
-``` text
-MGET 10
-MGET 100
-MGET 1000
+First verify the syntax with three synthetic keys in a dedicated isolated lab. For Redis Cluster compatibility, all example keys use the same hash tag (`{lab70}`):
+
+``` redis
+SET tutorial:chapter70:{lab70}:k1 one EX 300
+SET tutorial:chapter70:{lab70}:k2 two EX 300
+SET tutorial:chapter70:{lab70}:k3 three EX 300
+MGET tutorial:chapter70:{lab70}:k1 tutorial:chapter70:{lab70}:k2 tutorial:chapter70:{lab70}:k3
 ```
 
-with representative values.
+**Expected:** Each `SET` returns `OK`; `MGET` returns `one`, `two`, `three` **in the requested key order**. Missing or expired keys can return nil; actual Redis CLI line formatting depends on the protocol/client. `MGET` requires explicit key names (`MGET key [key ...]`) and cost grows with the number and sizes of returned values.
 
-Measure response bytes and P99.
+For subsequent 10/100/1,000-key tests, prepare separately owner-approved synthetic data and supply an explicit list of those keys, while recording payload bytes, client P99, network and server resource usage. Do not run these larger variations against a shared endpoint.
+
+Cleanup only the three known synthetic keys after the smoke test:
+
+``` redis
+UNLINK tutorial:chapter70:{lab70}:k1 tutorial:chapter70:{lab70}:k2 tutorial:chapter70:{lab70}:k3
+```
+
+**Expected:** An integer from 0 to 3, depending on how many keys still existed. Do not assume that a successful `MGET` qualifies a database for production-scale batching.
 
 ------------------------------------------------------------------------
 

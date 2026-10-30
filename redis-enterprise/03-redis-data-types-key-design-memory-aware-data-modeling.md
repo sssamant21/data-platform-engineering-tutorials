@@ -188,8 +188,7 @@ GETRANGE
 An application may serialize an entire object:
 
 ``` redis
-SET tutorial:chapter03:product:1001 \
-'{"name":"Keyboard","price":49.99,"stock":25}'
+SET tutorial:chapter03:product:1001  '{"name":"Keyboard","price":49.99,"stock":25}'
 ```
 
 Read:
@@ -292,10 +291,7 @@ A hash stores field/value pairs under one Redis key.
 Example:
 
 ``` redis
-HSET tutorial:chapter03:user:1001 \
-  name "Alice" \
-  status "active" \
-  region "us-east"
+HSET tutorial:chapter03:user:1001  name "Alice"  status "active"  region "us-east"
 ```
 
 Read one field:
@@ -354,10 +350,7 @@ HSCAN
 Suppose:
 
 ``` redis
-HSET tutorial:chapter03:product:1002 \
-  name "Mouse" \
-  price "19.99" \
-  stock "25"
+HSET tutorial:chapter03:product:1002  name "Mouse"  price "19.99"  stock "25"
 ```
 
 Update only stock:
@@ -395,18 +388,16 @@ Stock: 25
 ### String model
 
 ``` redis
-SET product:1001 \
-'{"name":"Keyboard","price":49.99,"stock":25}'
+SET tutorial:chapter03:model:string:1001 '{"name":"Keyboard","price":49.99,"stock":25}'
 ```
 
 ### Hash model
 
 ``` redis
-HSET product:1001 \
-  name "Keyboard" \
-  price "49.99" \
-  stock "25"
+HSET tutorial:chapter03:model:hash:1001 name "Keyboard" price "49.99" stock "25"
 ```
+
+**Expected:** `SET` returns `OK` and `HSET` reports `3` fields added when the hash key is absent. `TYPE tutorial:chapter03:model:string:1001` returns `string`; `TYPE tutorial:chapter03:model:hash:1001` returns `hash`. **Use distinct test keys for the two representations:** writing both types under one key would produce `WRONGTYPE` on the hash command, not a fair data-model comparison. These examples belong only in an isolated lab database.
 
 Neither is universally better.
 
@@ -582,10 +573,7 @@ Sorted sets associate members with numeric scores.
 Example:
 
 ``` redis
-ZADD tutorial:chapter03:leaderboard \
-  1500 alice \
-  2200 bob \
-  1800 carol
+ZADD tutorial:chapter03:leaderboard  1500 alice  2200 bob  1800 carol
 ```
 
 Read ordered ranking:
@@ -599,6 +587,8 @@ Descending ranking:
 ``` redis
 ZREVRANGE tutorial:chapter03:leaderboard 0 -1 WITHSCORES
 ```
+
+**Expected with an initially absent lab key:** `ZADD` returns `3` new members; ascending `ZRANGE` returns alice=1500, carol=1800, bob=2200; descending `ZREVRANGE` returns bob=2200, carol=1800, alice=1500. Redis CLI displays members and scores as alternating elements, rather than necessarily on one line as these schematic pairs. A repeat `ZADD` can return `0` when all members already exist.
 
 Common commands:
 
@@ -651,9 +641,7 @@ workloads.
 Example:
 
 ``` redis
-XADD tutorial:chapter03:events '*' \
-  type login \
-  user 1001
+XADD tutorial:chapter03:events '*'  type login  user 1001
 ```
 
 Read:
@@ -661,6 +649,8 @@ Read:
 ``` redis
 XRANGE tutorial:chapter03:events - +
 ```
+
+**Expected:** `XADD` returns a newly generated stream entry ID (never hardcode a timestamp or sequence); `XRANGE` returns one or more entries containing that ID with `type=login` and `user=1001`. The stream may already contain entries from other isolated lab steps, so an exact total count is not guaranteed. For consistency testing, use a fresh lab database or track the returned entry ID.
 
 Common concepts:
 
@@ -689,9 +679,7 @@ Bound growth deliberately.
 Example approximate trimming:
 
 ``` redis
-XADD tutorial:chapter03:bounded-stream \
-  MAXLEN ~ 1000 \
-  '*' type test value 1
+XADD tutorial:chapter03:bounded-stream  MAXLEN ~ 1000  '*' type test value 1
 ```
 
 Retention requirements should be based on:
@@ -1139,18 +1127,13 @@ Do not build application correctness around a specific encoding.
 Create string:
 
 ``` redis
-SET tutorial:chapter03:product:string \
-'{"name":"Keyboard","price":"49.99","stock":"25","category":"accessories"}'
+SET tutorial:chapter03:product:string  '{"name":"Keyboard","price":"49.99","stock":"25","category":"accessories"}'
 ```
 
 Create hash:
 
 ``` redis
-HSET tutorial:chapter03:product:hash \
-  name "Keyboard" \
-  price "49.99" \
-  stock "25" \
-  category "accessories"
+HSET tutorial:chapter03:product:hash  name "Keyboard"  price "49.99"  stock "25"  category "accessories"
 ```
 
 Measure:
@@ -1580,12 +1563,10 @@ Memory usage:
 Create:
 
 ``` redis
-HSET tutorial:chapter03:product:1002:v1 \
-  name "Mouse" \
-  price "19.99" \
-  stock "25" \
-  category "accessories"
+HSET tutorial:chapter03:product:1002:v1 name "Mouse" price "19.99" stock "25" category "accessories"
 ```
+
+**Expected:** HSET reports 4 newly added hash fields when run on an absent lab key. The example uses a **single Redis command**; do not paste Bash-style trailing backslashes into an interactive Redis command prompt. If a prior lab run left this key in place, the added-field count can differ; use a fresh isolated test database or review/remove the exact disposable key first.
 
 Apply TTL:
 
@@ -1662,10 +1643,7 @@ The exercise demonstrates explicit bounding.
 ## 53. Lab 5 --- Product Tags Set
 
 ``` redis
-SADD tutorial:chapter03:product:1001:tags \
-  electronics \
-  accessories \
-  keyboard
+SADD tutorial:chapter03:product:1001:tags  electronics  accessories  keyboard
 ```
 
 Then:
@@ -1688,10 +1666,7 @@ Expected cardinality:
 ## 54. Lab 6 --- Leaderboard Sorted Set
 
 ``` redis
-ZADD tutorial:chapter03:product:views \
-  150 1001 \
-  275 1002 \
-  90 1003
+ZADD tutorial:chapter03:product:views  150 1001  275 1002  90 1003
 ```
 
 Read descending:
@@ -1714,6 +1689,8 @@ ZCARD tutorial:chapter03:product:views
 EXPIRE tutorial:chapter03:product:views 600
 ```
 
+**Expected with a previously absent key:** The initial `ZADD` returns `3`; descending `ZREVRANGE` shows member 1002 (275), then 1001 (150), then 1003 (90). `ZINCRBY ... 25 1001` returns the new score `175`; `ZSCORE` returns `175`, `ZCARD` returns `3`, and `EXPIRE` returns integer `1`. Scores are returned as text in a Redis CLI reply and may be displayed with decimal formatting. A previous run may change the initial added-member count or scores.
+
 ------------------------------------------------------------------------
 
 ## 55. Lab 7 --- Stream
@@ -1721,17 +1698,13 @@ EXPIRE tutorial:chapter03:product:views 600
 Create:
 
 ``` redis
-XADD tutorial:chapter03:events MAXLEN ~ 1000 '*' \
-  type product_view \
-  product_id 1001
+XADD tutorial:chapter03:events MAXLEN ~ 1000 '*'  type product_view  product_id 1001
 ```
 
 Add another:
 
 ``` redis
-XADD tutorial:chapter03:events MAXLEN ~ 1000 '*' \
-  type product_view \
-  product_id 1002
+XADD tutorial:chapter03:events MAXLEN ~ 1000 '*'  type product_view  product_id 1002
 ```
 
 Inspect:
@@ -1746,6 +1719,8 @@ Set TTL for the lab:
 ``` redis
 EXPIRE tutorial:chapter03:events 600
 ```
+
+**Expected:** Each `XADD` returns a unique entry ID; `XLEN` is at least `2` if the two lab entries remain in the stream; `XRANGE` shows those IDs and their respective fields. `EXPIRE` returns `1` when the stream exists. The `MAXLEN ~ 1000` setting is **approximate** and does not enforce exactly 1,000 elements at every moment.
 
 Production stream retention should be designed explicitly rather than
 relying solely on a key-level TTL.
@@ -2094,13 +2069,15 @@ Useful commands may include:
 ``` redis
 DBSIZE
 INFO memory
-SCAN
+SCAN 0 MATCH 'tutorial:chapter03:*' COUNT 100
 MEMORY USAGE <key>
 TYPE <key>
 TTL <key>
 ```
 
 Avoid running expensive broad diagnostics blindly during an incident.
+
+**Expected:** `SCAN` returns a cursor and possibly zero or more lab keys; continue using the returned cursor until it is `0`, even if an intermediate batch is empty. `COUNT` is a hint, duplicates are possible, and scanning is not a transactional snapshot. `DBSIZE` and `INFO` are database-wide metrics, so review permissions and operational cost before using them. Replace `<key>` with an exact owned key before type/size checks. One SCAN call is not a complete inventory.
 
 ------------------------------------------------------------------------
 

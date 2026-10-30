@@ -1128,26 +1128,36 @@ application images merely for convenience.
 
 ## 36. Redis Test from a Pod
 
-If `redis-cli` is available:
+Run this only from an **approved troubleshooting container in the same network and security context as the affected workload**, with `redis-cli` installed and permission to test the database endpoint. For a remote Redis Software/Enterprise endpoint, **require certificate-validated TLS and the approved database identity**. Obtain `REDISCLI_AUTH` through an approved ephemeral secret-injection mechanism rather than passing a password in command arguments.
 
 ``` bash
-redis-cli \
-  -h <REDIS_ENDPOINT> \
-  -p <REDIS_PORT> \
-  PING
+: "${REDIS_HOST:?Approved Redis endpoint is required}"
+: "${REDIS_PORT:?Approved database port is required}"
+: "${REDIS_CA:?Trusted CA bundle is required}"
+: "${REDISCLI_AUTH:?Approved Redis database secret is required}"
+test -r "$REDIS_CA" || { echo "Missing trusted CA bundle" >&2; exit 2; }
+
+if [[ -n "${REDIS_USER:-}" ]]; then
+  redis-cli --tls --cacert "$REDIS_CA" --user "$REDIS_USER" \
+    -h "$REDIS_HOST" -p "$REDIS_PORT" PING
+else
+  redis-cli --tls --cacert "$REDIS_CA" \
+    -h "$REDIS_HOST" -p "$REDIS_PORT" PING
+fi
 ```
 
-Add authentication/TLS options as required.
+**Expected:** `PONG` for a reachable endpoint with valid server certificate, authentication and `PING` permission. A TLS/certificate error, ACL denial, timeout, or DNS failure must be retained as evidence; **do not** disable TLS verification or weaken ACLs merely to get `PONG`. If mutual TLS is required, supply the approved `--cert` and `--key` options in addition to the CA and fail closed if those files are unavailable. Avoid including passwords or secret-bearing environment dumps in a ticket. Unset any temporary interactive secret after the test.
 
 Compare:
 
 ``` text
 application fails
-redis-cli from same pod succeeds
+approved TLS redis-cli PING succeeds from the same workload context
 ```
 
-This strongly shifts investigation toward application client
-configuration.
+This shifts investigation toward application client configuration **but does not rule out ACL authorization for other commands, client-library behavior, connection pooling, or a pod-specific identity/network difference**. The test is read-only and **NOT EXECUTED** by the V02 static review.
+
+See [Redis Software TLS client documentation](https://redis.io/docs/latest/operate/rs/security/encryption/tls/enable-tls/).
 
 ------------------------------------------------------------------------
 

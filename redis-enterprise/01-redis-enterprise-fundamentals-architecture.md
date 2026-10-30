@@ -525,11 +525,13 @@ Client
 
 ## 15. Request Flow --- Write with Replication
 
-Consider:
+Consider an isolated, owner-approved lab write (use a dedicated test database rather than production customer data):
 
 ``` redis
-SET customer:1001 active
+SET tutorial:chapter01:write-flow active EX 300
 ```
+
+**Expected Redis reply:** `OK`. This confirms the primary accepted the write, **not** that a replica has already acknowledged it or that the write survives every failover. The key expires after about five minutes and must be included in scoped lab cleanup.
 
 Simplified flow:
 
@@ -949,42 +951,43 @@ as part of this tutorial.
 
 ## 25. Lab Variables
 
-Replace these placeholders:
+Replace example endpoint and certificate paths with your approved **nonproduction** Redis Software/Enterprise values. Use the trusted certificate for the **database proxy** and a trusted CA for the **management API**; the certificate files may be different.
 
 ``` text
-<REDIS_HOST>
-<REDIS_PORT>
-<REDIS_PASSWORD>
-<CLUSTER_HOST>
-<API_USER>
-<API_PASSWORD>
-<DATABASE_NAME>
+REDIS_HOST / REDIS_PORT / REDIS_CA
+CLUSTER_HOST / API_USER / API_CA
+DATABASE_NAME
 ```
 
-Example environment variables on Linux/macOS:
+Example environment variables for a trusted Bash lab terminal:
 
 ``` bash
 export REDIS_HOST="redis-test.example.internal"
 export REDIS_PORT="12000"
-export REDIS_PASSWORD="<secret>"
+export REDIS_CA="/secure/path/proxy_cert.pem"
 export CLUSTER_HOST="redis-cluster.example.internal"
 export API_USER="<api-user>"
-export API_PASSWORD="<secret>"
+export API_CA="/secure/path/management_ca.pem"
+test -r "$REDIS_CA" && test -r "$API_CA"
+read -r -s -p "Staging Redis database password: " REDISCLI_AUTH
+echo
+export REDISCLI_AUTH
 ```
 
-For Windows PowerShell:
+The `redis-cli` commands below use **REDISCLI_AUTH**, not a password command-line argument. For Redis ACL users, provide the approved `--user` argument as appropriate. The management REST examples use `curl --user "$API_USER"` so curl prompts for the API password rather than including it in process arguments.
+
+For Windows PowerShell, configure non-secret connection parameters as follows and supply `REDISCLI_AUTH` privately through an approved secrets workflow:
 
 ``` powershell
 $env:REDIS_HOST="redis-test.example.internal"
 $env:REDIS_PORT="12000"
-$env:REDIS_PASSWORD="<secret>"
+$env:REDIS_CA="C:\secure\proxy_cert.pem"
 $env:CLUSTER_HOST="redis-cluster.example.internal"
 $env:API_USER="<api-user>"
-$env:API_PASSWORD="<secret>"
+$env:API_CA="C:\secure\management_ca.pem"
 ```
 
-Avoid placing real passwords into committed shell scripts or Markdown
-files.
+**Do not** put actual passwords into shell history, committed scripts, screenshots, command arguments, or ticket records. When finished, run `unset REDISCLI_AUTH` in the Bash session. The examples require accessible certificate trust and permitted identities; stop if TLS validation fails rather than bypassing it.
 
 ------------------------------------------------------------------------
 
@@ -1031,7 +1034,7 @@ Password authentication example:
 redis-cli \
   -h "$REDIS_HOST" \
   -p "$REDIS_PORT" \
-  -a "$REDIS_PASSWORD" \
+  --tls --cacert "$REDIS_CA" \
   PING
 ```
 
@@ -1041,20 +1044,17 @@ Expected:
 PONG
 ```
 
-Prefer mechanisms that avoid exposing passwords in shell history where
-possible.
+The credential comes from the privately populated REDISCLI_AUTH environment variable.
 
-If TLS is required, the connection options must match the environment's
-TLS configuration.
+These staging examples **require** hostname-validated TLS with a trusted CA; adjust for mTLS with a client certificate and key where required by your deployment.
 
 A typical TLS form is:
 
 ``` bash
 redis-cli \
-  --tls \
   -h "$REDIS_HOST" \
   -p "$REDIS_PORT" \
-  -a "$REDIS_PASSWORD" \
+  --tls --cacert "$REDIS_CA" \
   PING
 ```
 
@@ -1070,19 +1070,19 @@ TLS is covered in the security section of this curriculum.
 Run:
 
 ``` bash
-redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" -a "$REDIS_PASSWORD" INFO server
+redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" --tls --cacert "$REDIS_CA" INFO server
 ```
 
 Then:
 
 ``` bash
-redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" -a "$REDIS_PASSWORD" INFO memory
+redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" --tls --cacert "$REDIS_CA" INFO memory
 ```
 
 Then:
 
 ``` bash
-redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" -a "$REDIS_PASSWORD" INFO stats
+redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" --tls --cacert "$REDIS_CA" INFO stats
 ```
 
 Do not attempt to memorize every metric yet.
@@ -1109,7 +1109,7 @@ Use a namespace that cannot collide with application keys:
 redis-cli \
   -h "$REDIS_HOST" \
   -p "$REDIS_PORT" \
-  -a "$REDIS_PASSWORD" \
+  --tls --cacert "$REDIS_CA" \
   SET tutorial:chapter01:hello "redis-enterprise" EX 300
 ```
 
@@ -1125,7 +1125,7 @@ Read it:
 redis-cli \
   -h "$REDIS_HOST" \
   -p "$REDIS_PORT" \
-  -a "$REDIS_PASSWORD" \
+  --tls --cacert "$REDIS_CA" \
   GET tutorial:chapter01:hello
 ```
 
@@ -1141,7 +1141,7 @@ Check TTL:
 redis-cli \
   -h "$REDIS_HOST" \
   -p "$REDIS_PORT" \
-  -a "$REDIS_PASSWORD" \
+  --tls --cacert "$REDIS_CA" \
   TTL tutorial:chapter01:hello
 ```
 
@@ -1190,6 +1190,8 @@ HGETALL tutorial:chapter01:user:1001
 GET tutorial:chapter01:requests
 LRANGE tutorial:chapter01:events 0 -1
 ```
+
+**Expected in a fresh isolated lab database:** `SET` returns `OK`; `HSET` returns integer `2` for two new fields, and its `EXPIRE` returns `1`; `INCR` returns `1` for a previously absent counter, and its `EXPIRE` returns `1`; `LPUSH` adds three elements and returns length `3`, while `EXPIRE` returns `1`. The subsequent `GET` returns `Alice`, `HGETALL` contains `profile_status=active` and `region=us-east` (unordered), the counter `GET` returns `1`, and `LRANGE` returns `event3`, `event2`, `event1` in that order. Repeat runs change the `INCR` and `LPUSH` counts; expiration may also remove keys between commands. Do not treat those expected numbers as unconditional.
 
 The purpose here is not data-model mastery. It is to confirm that normal
 Redis commands work through the Enterprise endpoint.
@@ -1388,16 +1390,12 @@ Redis Enterprise REST APIs commonly use the management HTTPS endpoint.
 Example:
 
 ``` bash
-curl -k \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/cluster"
 ```
 
-`-k` disables certificate validation and is acceptable only for a
-controlled lab where the management endpoint uses an untrusted test
-certificate.
-
-For production automation, validate TLS certificates properly.
+Use a trusted management certificate bundle (`--cacert`) and a hostname matching the certificate. The interactive curl password prompt avoids exposing an API password in command arguments. For noninteractive automation, use a supported, approved secret-delivery mechanism that does not leak credentials into process arguments. **Never** bypass certificate verification to make a failing lab pass.
 
 Expected:
 
@@ -1413,16 +1411,16 @@ documentation.
 ## 38. Step 13 --- List Nodes with REST API
 
 ``` bash
-curl -k \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/nodes"
 ```
 
 If `jq` is available:
 
 ``` bash
-curl -ks \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/nodes" | jq
 ```
 
@@ -1440,16 +1438,16 @@ perspectives.
 ## 39. Step 14 --- List Databases with REST API
 
 ``` bash
-curl -k \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/bdbs"
 ```
 
 With `jq`:
 
 ``` bash
-curl -ks \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/bdbs" | jq
 ```
 
@@ -1473,16 +1471,16 @@ Field names can vary with product version.
 ## 40. Step 15 --- Inspect Shards with REST API
 
 ``` bash
-curl -k \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/shards"
 ```
 
 With `jq`:
 
 ``` bash
-curl -ks \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/shards" | jq
 ```
 
@@ -1500,8 +1498,8 @@ Do not assume shard IDs correspond to database IDs.
 ## 41. Step 16 --- Inspect Proxies with REST API
 
 ``` bash
-curl -k \
-  -u "$API_USER:$API_PASSWORD" \
+curl --fail --silent --show-error --cacert "$API_CA" \
+  --user "$API_USER" \
   "https://$CLUSTER_HOST:9443/v1/proxies"
 ```
 
@@ -1701,7 +1699,7 @@ keys:
 
 ``` bash
 for i in $(seq 1 100); do
-  redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" -a "$REDIS_PASSWORD" \
+  redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" --tls --cacert "$REDIS_CA" \
     SET "tutorial:chapter01:key:$i" "$i" EX 300 >/dev/null
 done
 ```
@@ -1730,6 +1728,7 @@ DEL tutorial:chapter01:requests
 DEL tutorial:chapter01:events
 DEL tutorial:chapter01:counter
 DEL tutorial:chapter01:expire-test
+DEL tutorial:chapter01:write-flow
 ```
 
 If you created the optional numbered keys, remove only that exact
@@ -1916,8 +1915,7 @@ Instead validate:
 -   expiration
 -   correct management endpoint
 
-`curl -k` should be limited to controlled troubleshooting or labs when
-appropriate.
+Use certificate-verified HTTPS with an approved trust bundle; do not normalize TLS bypass flags even for ad hoc troubleshooting.
 
 ------------------------------------------------------------------------
 

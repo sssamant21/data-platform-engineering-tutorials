@@ -965,7 +965,7 @@ $env:REDIS_PORT="6379"
 $env:REDIS_PASSWORD=""
 ```
 
-Do not commit production credentials into lab files.
+Do not commit production credentials into lab files. **Two deployment modes:** The defaults are for an **isolated, local, unauthenticated sandbox only**. For a remote or Enterprise lab endpoint, set `REDIS_TLS=1`, supply a trusted `REDIS_CA`, and provision `REDIS_PASSWORD` via your approved secret mechanism (never directly in a committed file). Where required, set `REDIS_USER`, `REDIS_CLIENT_CERT` and `REDIS_CLIENT_KEY`. The Python examples below reject non-loopback connections unless TLS is enabled. For a remote/staging lab, the CLI wrapper and Python programs in this chapter use the same privately provided `REDISCLI_AUTH` credential (Python also accepts `REDIS_PASSWORD` from an approved secret source). Keep the Bash session open throughout the lab, then unset credentials as part of the final cleanup. The plain `redis-cli` localhost example below is ONLY for a dedicated loopback-only, unauthenticated sandbox.
 
 ## 20. Verify Connectivity
 
@@ -981,14 +981,40 @@ Expected:
 PONG
 ```
 
-Authenticated example:
+Authenticated **nonproduction Redis Software/Enterprise** example (Bash). Use your approved endpoint, port, and trusted Redis database proxy certificate. Avoid credentials on the command line and never turn off TLS verification:
 
 ``` bash
-redis-cli -h <host> -p <port> -a "<password>" PING
+export REDIS_HOST="lab-redis.example.test"
+export REDIS_PORT="10000"
+export REDIS_TLS="1"  # mandatory for non-loopback hosts
+export REDIS_CA="/secure/path/proxy_cert.pem"
+export REDIS_USER=""  # replace if a named Redis ACL user is required
+test -r "$REDIS_CA"
+read -r -s -p "Staging database password: " REDISCLI_AUTH
+echo
+export REDISCLI_AUTH
+
+# Define ONCE in this Bash shell, then use rcli for every command below.
+rcli() {
+  if [[ "$REDIS_TLS" == "1" ]]; then
+    test -r "$REDIS_CA" || return 2
+    if [[ -n "$REDIS_USER" ]]; then
+      redis-cli --tls --cacert "$REDIS_CA" --user "$REDIS_USER" -h "$REDIS_HOST" -p "$REDIS_PORT" "$@"
+    else
+      redis-cli --tls --cacert "$REDIS_CA" -h "$REDIS_HOST" -p "$REDIS_PORT" "$@"
+    fi
+  elif [[ "$REDIS_HOST" == "localhost" || "$REDIS_HOST" == "127.0.0.1" || "$REDIS_HOST" == "::1" ]]; then
+    redis-cli -h "$REDIS_HOST" -p "$REDIS_PORT" "$@"
+  else
+    echo "REFUSED: non-loopback Redis connection without TLS" >&2
+    return 2
+  fi
+}
+test "$(rcli PING)" = "PONG"
+echo "PASS: secure staging Redis connectivity"
 ```
 
-Use the TLS parameters required by your Redis Enterprise deployment when
-applicable.
+**Expected:** `PONG` and the PASS message for an authorized staging identity on a reachable, certificate-validated endpoint. The `rcli` function persists only in the current Bash session: **run the later example blocks in that same session**. For a loopback-only test sandbox, explicitly choose `REDIS_TLS=0`, `REDIS_HOST=localhost`, and the appropriate local port before defining the function. A named ACL identity can use `REDIS_USER`; mutual TLS deployments must add approved client `--cert`/`--key` options to this wrapper before using the lab (do not bypass client-certificate requirements). Never substitute `--insecure` or `-a <password>` for troubleshooting convenience; record failures instead. See the [Redis Software CLI guidance](https://redis.io/docs/latest/operate/rs/references/cli-utilities/redis-cli/) and [TLS instructions](https://redis.io/docs/latest/operate/rs/security/encryption/tls/enable-tls/).
 
 ## 21. Create the Stampede Lab
 
@@ -1007,14 +1033,27 @@ import redis
 
 HOST = os.getenv("REDIS_HOST", "localhost")
 PORT = int(os.getenv("REDIS_PORT", "6379"))
-PASSWORD = os.getenv("REDIS_PASSWORD") or None
-
-r = redis.Redis(
-    host=HOST,
-    port=PORT,
-    password=PASSWORD,
-    decode_responses=True,
-)
+PASSWORD = os.getenv("REDISCLI_AUTH") or os.getenv("REDIS_PASSWORD") or None
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+CA_FILE = os.getenv("REDIS_CA")
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+if USE_TLS and not CA_FILE:
+    raise RuntimeError("TLS is enabled: supply trusted REDIS_CA certificate path")
+client_options = {
+    "host": HOST, "port": PORT, "password": PASSWORD,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+    "socket_connect_timeout": 3, "socket_timeout": 3,
+}
+if USE_TLS:
+    client_options.update(ssl=True, ssl_ca_certs=CA_FILE, ssl_cert_reqs="required")
+    if os.getenv("REDIS_CLIENT_CERT") and os.getenv("REDIS_CLIENT_KEY"):
+        client_options.update(
+            ssl_certfile=os.environ["REDIS_CLIENT_CERT"],
+            ssl_keyfile=os.environ["REDIS_CLIENT_KEY"],
+        )
+r = redis.Redis(**client_options)
 
 CACHE_KEY = "tutorial:chapter15:item:1001"
 LOCK_KEY = "tutorial:chapter15:lock:item:1001"
@@ -1188,23 +1227,27 @@ same key.
 ## 24. Inspect the Hot Key
 
 ``` bash
-redis-cli GET tutorial:chapter15:item:1001
-redis-cli TTL tutorial:chapter15:item:1001
-redis-cli PTTL tutorial:chapter15:item:1001
+rcli GET tutorial:chapter15:item:1001
+rcli TTL tutorial:chapter15:item:1001
+rcli PTTL tutorial:chapter15:item:1001
 ```
 
 Inspect the lock while regeneration is active:
 
 ``` bash
-redis-cli GET tutorial:chapter15:lock:item:1001
-redis-cli PTTL tutorial:chapter15:lock:item:1001
+rcli GET tutorial:chapter15:lock:item:1001
+rcli PTTL tutorial:chapter15:lock:item:1001
 ```
+
+**Expected observations:** While the synthetic cache entry is present, `GET` returns JSON and `TTL`/`PTTL` report a positive remaining lifetime. The lock may already have expired: a missing `GET` returns nil and `PTTL` returns `-2`. Do not treat the lock's disappearance after completion as failure; investigate only while a lock owner is actively regenerating data.
 
 ## 25. Force the Hot-Key Miss
 
 ``` bash
-redis-cli DEL tutorial:chapter15:item:1001
+rcli DEL tutorial:chapter15:item:1001
 ```
+
+**Expected:** `DEL` returns integer `1` if the disposable key exists or `0` if it has already expired. This deliberately forces a **cold-cache miss** for a synthetic lab record. Run only in a dedicated, approved test database with no shared clients.
 
 Immediately run the concurrent test again.
 
@@ -1216,30 +1259,48 @@ invalidation.
 Create synchronized keys:
 
 ``` bash
-redis-cli SET tutorial:chapter15:jitter:1 value EX 60
-redis-cli SET tutorial:chapter15:jitter:2 value EX 60
-redis-cli SET tutorial:chapter15:jitter:3 value EX 60
-redis-cli SET tutorial:chapter15:jitter:4 value EX 60
-redis-cli SET tutorial:chapter15:jitter:5 value EX 60
+rcli SET tutorial:chapter15:jitter:1 value EX 60
+rcli SET tutorial:chapter15:jitter:2 value EX 60
+rcli SET tutorial:chapter15:jitter:3 value EX 60
+rcli SET tutorial:chapter15:jitter:4 value EX 60
+rcli SET tutorial:chapter15:jitter:5 value EX 60
 ```
 
 Check:
 
 ``` bash
-redis-cli TTL tutorial:chapter15:jitter:1
-redis-cli TTL tutorial:chapter15:jitter:2
-redis-cli TTL tutorial:chapter15:jitter:3
-redis-cli TTL tutorial:chapter15:jitter:4
-redis-cli TTL tutorial:chapter15:jitter:5
+rcli TTL tutorial:chapter15:jitter:1
+rcli TTL tutorial:chapter15:jitter:2
+rcli TTL tutorial:chapter15:jitter:3
+rcli TTL tutorial:chapter15:jitter:4
+rcli TTL tutorial:chapter15:jitter:5
 ```
+
+**Expected:** Each fresh `SET ... EX 60` returns `OK`, and immediately sampled TTLs are positive integers no greater than 60. `TTL=-2` means the key expired (or was absent), not that the TLS endpoint changed. Differences in TTL between calls are normal.
 
 Now distribute expirations:
 
 ``` python
+import os
 import random
 import redis
 
-r = redis.Redis(host="localhost", port=6379, decode_responses=True)
+HOST = os.getenv("REDIS_HOST", "localhost")
+PORT = int(os.getenv("REDIS_PORT", "6379"))
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+client_options = {
+    "host": HOST, "port": PORT,
+    "password": os.getenv("REDISCLI_AUTH") or os.getenv("REDIS_PASSWORD") or None,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+}
+if USE_TLS:
+    if not os.getenv("REDIS_CA"):
+        raise RuntimeError("REDIS_CA required for remote/TLS Redis")
+    client_options.update(ssl=True, ssl_ca_certs=os.environ["REDIS_CA"], ssl_cert_reqs="required")
+r = redis.Redis(**client_options)
 
 for i in range(1, 11):
     ttl = 60 + random.randint(0, 30)
@@ -1267,14 +1328,27 @@ import redis
 
 HOST = os.getenv("REDIS_HOST", "localhost")
 PORT = int(os.getenv("REDIS_PORT", "6379"))
-PASSWORD = os.getenv("REDIS_PASSWORD") or None
-
-r = redis.Redis(
-    host=HOST,
-    port=PORT,
-    password=PASSWORD,
-    decode_responses=True,
-)
+PASSWORD = os.getenv("REDISCLI_AUTH") or os.getenv("REDIS_PASSWORD") or None
+USE_TLS = os.getenv("REDIS_TLS", "0") == "1"
+CA_FILE = os.getenv("REDIS_CA")
+if HOST not in {"localhost", "127.0.0.1", "::1"} and not USE_TLS:
+    raise RuntimeError("Remote lab Redis connections require REDIS_TLS=1")
+if USE_TLS and not CA_FILE:
+    raise RuntimeError("TLS is enabled: supply trusted REDIS_CA certificate path")
+client_options = {
+    "host": HOST, "port": PORT, "password": PASSWORD,
+    "username": os.getenv("REDIS_USER") or None,
+    "decode_responses": True,
+    "socket_connect_timeout": 3, "socket_timeout": 3,
+}
+if USE_TLS:
+    client_options.update(ssl=True, ssl_ca_certs=CA_FILE, ssl_cert_reqs="required")
+    if os.getenv("REDIS_CLIENT_CERT") and os.getenv("REDIS_CLIENT_KEY"):
+        client_options.update(
+            ssl_certfile=os.environ["REDIS_CLIENT_CERT"],
+            ssl_keyfile=os.environ["REDIS_CLIENT_KEY"],
+        )
+r = redis.Redis(**client_options)
 
 CACHE_KEY = "tutorial:chapter15:stale:item:1001"
 LOCK_KEY = "tutorial:chapter15:stale:lock:item:1001"
@@ -1462,22 +1536,26 @@ other business requirements require current data.
 Create a lock:
 
 ``` bash
-redis-cli SET tutorial:chapter15:testlock owner-1 NX EX 5
+rcli SET tutorial:chapter15:testlock owner-1 NX EX 5
 ```
+
+**Expected:** `OK` for an absent key; a nil/null reply indicates that an existing key blocked `NX`. Use a dedicated lab database and do **not** delete a key you do not own to force the example to pass.
 
 Verify:
 
 ``` bash
-redis-cli GET tutorial:chapter15:testlock
-redis-cli TTL tutorial:chapter15:testlock
+rcli GET tutorial:chapter15:testlock
+rcli TTL tutorial:chapter15:testlock
 ```
+
+**Expected:** `GET` returns `owner-1` while present; `TTL` returns 1–5 seconds when promptly observed. A key may expire before the inspection; in that case `GET` is nil and `TTL` is `-2`. Neither outcome justifies deleting an unrelated lock.
 
 Do not delete it.
 
 After expiration:
 
 ``` bash
-redis-cli EXISTS tutorial:chapter15:testlock
+rcli EXISTS tutorial:chapter15:testlock
 ```
 
 Expected:
@@ -2241,23 +2319,40 @@ You should be able to answer:
 
 # 118. Lab Cleanup
 
-Find chapter keys first:
+Use the same trusted Bash shell and the existing TLS-aware `rcli` function. Begin with a **read-only** scoped inventory; each `SCAN` reply contains a cursor and matching keys, and you must manually iterate the returned cursor until it reaches 0. `COUNT` is only a hint. For Redis Software clustered configurations, review product-specific scan visibility and placement before inferring that one scan covers every shard.
 
-``` redis
-SCAN 0 MATCH 'tutorial:chapter15:*' COUNT 100
+``` bash
+rcli SCAN 0 MATCH 'tutorial:chapter15:*' COUNT 100
 ```
 
-Delete only exact isolated lab keys:
+Confirm this is the **dedicated, owner-approved Chapter 15 lab database** and that the following five exact synthetic records are yours. Then delete **only these known keys** and check each key individually:
 
-``` redis
-UNLINK tutorial:chapter15:item:1001
-UNLINK tutorial:chapter15:lock:item:1001
-UNLINK tutorial:chapter15:stale:item:1001
-UNLINK tutorial:chapter15:stale:lock:item:1001
-UNLINK tutorial:chapter15:testlock
+``` bash
+for key in \
+  tutorial:chapter15:item:1001 \
+  tutorial:chapter15:lock:item:1001 \
+  tutorial:chapter15:stale:item:1001 \
+  tutorial:chapter15:stale:lock:item:1001 \
+  tutorial:chapter15:testlock
+do
+  rcli UNLINK "$key"
+  test "$(rcli EXISTS "$key")" = "0"
+done
+echo "PASS: five known lab keys are absent"
 ```
 
-Delete jitter keys only after confirming they belong to this lab.
+Delete jitter keys only after confirming they belong to this lab. Run cleanup commands through the same `rcli` function on the **approved isolated lab endpoint**, not a new/default localhost connection. Never delete a wildcard pattern without inspecting the returned keys, ownership, and client impact.
+
+**Expected for exact-key cleanup:** `UNLINK` returns 1 for a present key (or 0 for a key that expired); `EXISTS` on each known key returns 0 after cleanup. The return counts may differ if keys already expired.
+
+When all Chapter 15 lab exercises have finished, clear the interactive secret and client connection variables from the Bash environment:
+
+``` bash
+unset REDISCLI_AUTH REDIS_PASSWORD
+unset -f rcli
+```
+
+**Expected:** This removes those shell variables and function from the current session; it does not revoke any independently stored identity, nor establish that every lab artifact was deleted.
 
 Do not use:
 

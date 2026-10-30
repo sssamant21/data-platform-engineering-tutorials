@@ -431,6 +431,8 @@ DEL cache:profile:1001:v1
 Use the appropriate deletion semantics for your object size and
 environment.
 
+**Safety/expected result:** `cache:profile:1001:v1` is a **conceptual application key**, not a tutorial-owned key to delete in a shared database. Do not execute either command without confirming key ownership, the correct environment, and an authorized invalidation workflow. `DEL`/`UNLINK` return the number of keys removed (usually `1` when present or `0` when absent). Demonstrate deletion only on a synthetic, isolated lab key.
+
 ------------------------------------------------------------------------
 
 ## 16. Why Source First?

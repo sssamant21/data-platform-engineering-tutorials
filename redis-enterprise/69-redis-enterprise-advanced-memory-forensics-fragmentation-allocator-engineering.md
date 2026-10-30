@@ -356,13 +356,15 @@ KEYS *
 
 on large production keyspaces.
 
-Use incremental scanning:
+Use incremental scanning with a valid Redis command, a **scoped lab namespace**, and a cursor that is continued until Redis returns 0:
 
-``` bash
-SCAN
+``` redis
+SCAN 0 MATCH 'tutorial:chapter69:*' COUNT 100
 ```
 
-with appropriate controls.
+**Expected:** A cursor and a list of zero or more matching keys. The `COUNT` argument is a work hint, not a guarantee of exactly 100 keys. Repeat `SCAN <returned-cursor> MATCH 'tutorial:chapter69:*' COUNT 100` until the returned cursor is 0. Entries may appear multiple times while iterating, and the result is not a transactional snapshot. Execute only in an approved lab with appropriate permissions and rate limits; a large scan can still consume resources.
+
+References: [SCAN behavior](https://redis.io/docs/latest/commands/scan/), [KEYS production caution](https://redis.io/docs/latest/commands/keys/).
 
 ------------------------------------------------------------------------
 

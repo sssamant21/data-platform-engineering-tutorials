@@ -1,0 +1,60 @@
+name: Redis Enterprise V02 examples and expected-results inventory
+
+on:
+  pull_request:
+    paths:
+      - "redis-enterprise/**"
+      - ".github/workflows/redis-enterprise-v02.yml"
+  push:
+    branches: [main]
+    paths:
+      - "redis-enterprise/**"
+      - ".github/workflows/redis-enterprise-v02.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  v02-static-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: V02 fixture-only validator tests
+        run: |
+          python -m unittest discover -s redis-enterprise/tools -p "test_validate_v02*.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_safety.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_executable_commands.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_redis_fence_syntax.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_untyped_fences.py" -v
+          python -m unittest discover -s redis-enterprise/tools -p "test_review_v02_expected_output_priority.py" -v
+      - name: V02 offline example inventory
+        run: python redis-enterprise/tools/validate_v02_examples.py --json-file "$RUNNER_TEMP/redis-v02-review.json"
+      - name: Exhaustive offline safety-pattern review inventory
+        run: python redis-enterprise/tools/review_v02_safety.py --expected 80 --json-file "$RUNNER_TEMP/redis-v02-safety.json" --markdown-file "$RUNNER_TEMP/redis-v02-safety.md"
+      - name: Command-level high-risk and output-cue triage (offline only)
+        run: python redis-enterprise/tools/review_v02_executable_commands.py --json-file "$RUNNER_TEMP/redis-v02-command-triage.json"
+      - name: Redis interactive fence syntax review (no execution)
+        run: python redis-enterprise/tools/review_v02_redis_fence_syntax.py --fail-on-any-finding --json-file "$RUNNER_TEMP/redis-v02-redis-fence-syntax.json"
+      - name: Contextual classification of untyped code fences (offline)
+        run: python redis-enterprise/tools/review_v02_untyped_fences.py --json-file "$RUNNER_TEMP/redis-v02-untyped-review.json"
+      - name: Prioritize executable and version-sensitive output-cue review
+        run: python redis-enterprise/tools/review_v02_expected_output_priority.py --json-file "$RUNNER_TEMP/redis-v02-output-priority.json"
+      - name: Upload example review queue
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: redis-enterprise-v02-review
+          path: |
+            ${{ runner.temp }}/redis-v02-review.json
+            ${{ runner.temp }}/redis-v02-safety.json
+            ${{ runner.temp }}/redis-v02-safety.md
+            ${{ runner.temp }}/redis-v02-command-triage.json
+            ${{ runner.temp }}/redis-v02-redis-fence-syntax.json
+            ${{ runner.temp }}/redis-v02-untyped-review.json
+            ${{ runner.temp }}/redis-v02-output-priority.json
+          if-no-files-found: warn
