@@ -37,6 +37,9 @@ SELECT CASE WHEN current_database()='postgres'
  \echo 'REFUSED: source identity, approval or lab fixture state mismatch'
  \quit 3
 \endif
+BEGIN;
+SET LOCAL statement_timeout='10s';
+SET LOCAL lock_timeout='1s';
 CREATE SCHEMA ch045;
 CREATE TABLE ch045.orders (
  order_id integer PRIMARY KEY,
@@ -50,4 +53,5 @@ CREATE TABLE ch045.recovery_markers (
  marker_name text PRIMARY KEY,
  recorded_at timestamptz NOT NULL DEFAULT clock_timestamp()
 );
+COMMIT;
 SELECT count(*) AS baseline_rows FROM ch045.orders;
