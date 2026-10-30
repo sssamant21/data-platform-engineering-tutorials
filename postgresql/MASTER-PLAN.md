@@ -4,7 +4,7 @@
 
 **Audience: DBRE and SRE teams only.** The series teaches how to deploy, operate, observe, troubleshoot, secure, recover and scale PostgreSQL in production. SQL, schemas and application behavior appear when needed to explain reliability or diagnose incidents. General application development, ORM training and analytics coursework are outside scope.
 
-**Curriculum: 100 chapters in 20 modules.** This is a proposed plan; chapters are not yet marked complete. Self-managed PostgreSQL is the common foundation. Managed services and Kubernetes are separate deployment tracks.
+**Curriculum: 100 published chapters in 20 modules.** Publication is complete; independent content review, lab execution, and certification are tracked separately. Self-managed PostgreSQL is the common foundation. The original proposed managed-service and Kubernetes tracks are not standalone modules in the published sequence.
 
 ## Prerequisites and lab design
 
@@ -37,23 +37,25 @@ Every chapter follows the same operational format:
 
 Use service objectives and measured workloads to choose thresholds. Avoid universal tuning values. Restore and failover exercises must measure achieved RPO and RTO; a successful backup command alone is insufficient evidence of recoverability.
 
-## Master chapter list
+## Master chapter list — current published curriculum
+
+All 100 chapters below exist. **Authored/published** is not the same as **independently validated** or **lab verified**. See [PROGRESS.md](PROGRESS.md) and [V01 status](validation/V01-STATUS.md) for separate review gates.
 
 ### Module 01 — Operational Foundations
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 001 | [PostgreSQL Responsibilities for DBRE and SRE](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md) | Authored; lab execution pending |
-| 002 | [Architecture: Processes, Memory, Storage and WAL](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored; lab execution pending |
+| 001 | [Responsibilities](chapters/001-postgresql-responsibilities-for-dbre-and-sre.md) | Authored; lab execution pending |
+| 002 | [Architecture](chapters/002-architecture-processes-memory-storage-and-wal.md) | Authored; lab execution pending |
 | 003 | [Linux, Networking and Storage Prerequisites](chapters/003-linux-networking-and-storage-prerequisites.md) | Authored; lab execution pending |
-| 004 | [Build a Reproducible PostgreSQL Operations Lab](chapters/004-build-a-reproducible-postgresql-operations-lab.md) | Authored; lab execution pending |
-| 005 | [psql, System Catalogs and Safe Administrative SQL](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored; lab execution pending |
+| 004 | [Reproducible Operations Lab](chapters/004-build-a-reproducible-postgresql-operations-lab.md) | Authored; lab execution pending |
+| 005 | [psql, Catalogs and Safe SQL](chapters/005-psql-system-catalogs-and-safe-administrative-sql.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Build a disposable primary and two standbys; record topology and baseline evidence.
+**Module acceptance target:** Demonstrate a safe baseline and operational ownership with retained evidence (pending runtime evidence).
 
 ### Module 02 — Installation and Service Operations
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
 | 006 | [Installation, Packages and Directory Layout](chapters/006-installation-packages-and-directory-layout.md) | Authored; lab execution pending |
 | 007 | [Initialization, Checksums, Locale and Encoding](chapters/007-initialization-checksums-locale-and-encoding.md) | Authored; lab execution pending |
@@ -61,11 +63,11 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | 009 | [systemd, Startup, Shutdown and Crash Recovery](chapters/009-systemd-startup-shutdown-and-crash-recovery.md) | Authored; lab execution pending |
 | 010 | [Configuration Drift and Baseline Acceptance](chapters/010-configuration-drift-and-baseline-acceptance.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Recover a failed start and demonstrate reload versus restart using controlled configuration changes.
+**Module acceptance target:** Verify installation, configuration changes and restart-versus-reload behavior (pending runtime evidence).
 
-### Module 03 — Access and Security
+### Module 03 — Identity, Authentication and Security
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
 | 011 | [Roles, Ownership, Membership and Least Privilege](chapters/011-roles-ownership-membership-and-least-privilege.md) | Authored; lab execution pending |
 | 012 | [pg_hba.conf, Authentication and Connection Diagnosis](chapters/012-pg-hba-conf-authentication-and-connection-diagnosis.md) | Authored; lab execution pending |
@@ -73,224 +75,223 @@ Use service objectives and measured workloads to choose thresholds. Avoid univer
 | 014 | [Secrets Rotation and Service Account Lifecycle](chapters/014-secrets-rotation-and-service-account-lifecycle.md) | Authored; lab execution pending |
 | 015 | [Audit Logging, Network Isolation and Security Acceptance](chapters/015-audit-logging-network-isolation-and-security-acceptance.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Provision restricted service access; diagnose authentication failures and rotate credentials.
+**Module acceptance target:** Exercise least-privilege access, TLS and rotation in an isolated environment (pending runtime evidence).
 
 ### Module 04 — Transactions and Concurrency
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
 | 016 | [MVCC, Snapshots and Tuple Visibility](chapters/016-mvcc-snapshots-and-tuple-visibility.md) | Authored; lab execution pending |
 | 017 | [Isolation Levels and Application Failure Patterns](chapters/017-isolation-levels-and-application-failure-patterns.md) | Authored; lab execution pending |
 | 018 | [Locks, Blocking Chains and Deadlocks](chapters/018-locks-blocking-chains-and-deadlocks.md) | Authored; lab execution pending |
-| [019](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Long Transactions, Idle Sessions and Transaction Timeouts | Authored; lab execution pending |
-| [020](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md) | Safe Cancellation, Termination and Concurrency Incident Lab | Authored; lab execution pending |
+| 019 | [Long Transactions, Idle Sessions and Transaction Timeouts](chapters/019-long-transactions-idle-sessions-and-transaction-timeouts.md) | Authored; lab execution pending |
+| 020 | [Safe Cancellation, Termination and Concurrency Incident Lab](chapters/020-safe-cancellation-termination-and-concurrency-incident-lab.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Create a blocking chain and deadlock; identify the owner, impact and safest mitigation.
+**Module acceptance target:** Diagnose lock chains and transaction anomalies and demonstrate safe mitigation (pending runtime evidence).
 
 ### Module 05 — Observability and SLOs
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| [021](chapters/021-database-slis-slos-and-error-budgets.md) | Database SLIs, SLOs and Error Budgets | Authored; lab execution pending |
-| [022](chapters/022-statistics-views-resets-and-measurement-windows.md) | Statistics Views, Resets and Measurement Windows | Authored; lab execution pending |
-| [023](chapters/023-query-statistics-with-pg-stat-statements.md) | Query Statistics with pg_stat_statements | Authored; lab execution pending |
-| [024](chapters/024-logs-slow-statements-and-correlation-with-application-traces.md) | Logs, Slow Statements and Correlation with Application Traces | Authored; lab execution pending |
-| [025](chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md) | Prometheus, Grafana and Actionable Alert Acceptance | Authored; lab execution pending |
+| 021 | [Database SLIs, SLOs and Error Budgets](chapters/021-database-slis-slos-and-error-budgets.md) | Authored; lab execution pending |
+| 022 | [Statistics Views, Resets and Measurement Windows](chapters/022-statistics-views-resets-and-measurement-windows.md) | Authored; lab execution pending |
+| 023 | [Query Statistics with pg_stat_statements](chapters/023-query-statistics-with-pg-stat-statements.md) | Authored; lab execution pending |
+| 024 | [Logs, Slow Statements and Correlation with Application Traces](chapters/024-logs-slow-statements-and-correlation-with-application-traces.md) | Authored; lab execution pending |
+| 025 | [Prometheus, Grafana and Actionable Alert Acceptance](chapters/025-prometheus-grafana-and-actionable-alert-acceptance.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Build an operational dashboard and alerts; distinguish user latency from aggregate database metrics.
+**Module acceptance target:** Validate time-windowed database metrics and actionable alert behavior (pending runtime evidence).
 
 ### Module 06 — Performance Diagnosis
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| [026](chapters/026-performance-triage-and-evidence-collection.md) | Performance Triage and Evidence Collection | Authored; lab execution pending |
-| [027](chapters/027-explain-and-explain-analyze-safely.md) | EXPLAIN and EXPLAIN ANALYZE Safely | Authored; lab execution pending |
-| [028](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Planner Estimates, Statistics and Extended Statistics | Authored; lab execution pending |
-| [029](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md) | CPU, Memory, I/O and Wait Event Diagnosis | Authored; lab execution pending |
-| [030](chapters/030-production-slowness-investigation-project.md) | Production Slowness Investigation Project | Authored; lab execution pending |
+| 026 | [Performance Triage and Evidence Collection](chapters/026-performance-triage-and-evidence-collection.md) | Authored; lab execution pending |
+| 027 | [EXPLAIN and EXPLAIN ANALYZE Safely](chapters/027-explain-and-explain-analyze-safely.md) | Authored; lab execution pending |
+| 028 | [Planner Estimates, Statistics and Extended Statistics](chapters/028-planner-estimates-statistics-and-extended-statistics.md) | Authored; lab execution pending |
+| 029 | [CPU, Memory, I/O and Wait Event Diagnosis](chapters/029-cpu-memory-io-and-wait-event-diagnosis.md) | Authored; lab execution pending |
+| 030 | [Production Slowness Investigation Project](chapters/030-production-slowness-investigation-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Diagnose a slow workload with plans, waits and OS evidence; validate improvement against a baseline.
+**Module acceptance target:** Compare plans, wait events and resource evidence before and after safe mitigation (pending runtime evidence).
 
-### Module 07 — Indexes and Safe Schema Operations
+### Module 07 — Indexes and Safe Index Maintenance
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| [031](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md) | B-tree and Other Index Types: Operational Tradeoffs | Authored; lab execution pending |
-| 032 | Composite, Partial, Expression and Covering Indexes | Planned |
-| 033 | Unused, Duplicate and Bloated Index Diagnosis | Planned |
-| 034 | Concurrent Index Builds, Failed Builds and Reindexing | Planned |
-| 035 | DDL Locking, Schema Changes and Migration Acceptance | Planned |
+| 031 | [B-tree and Other Index Types: Operational Tradeoffs](chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md) | Authored; lab execution pending |
+| 032 | [Composite, Partial, Expression and Covering Indexes](chapters/032-composite-partial-expression-and-covering-indexes.md) | Authored; lab execution pending |
+| 033 | [Index Build, Reindex and Concurrent Maintenance](chapters/033-index-build-reindex-and-concurrent-maintenance.md) | Authored; lab execution pending |
+| 034 | [Index Bloat, Usage and Lifecycle Decisions](chapters/034-index-bloat-usage-and-lifecycle-decisions.md) | Authored; lab execution pending |
+| 035 | [VACUUM, Autovacuum and Index Cleanup](chapters/035-vacuum-autovacuum-and-index-cleanup.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Reproduce DDL blocking and an invalid concurrent index; complete a monitored change with recovery steps.
+**Module acceptance target:** Show index design tradeoffs, validity and operational rollout controls (pending runtime evidence).
 
-### Module 08 — Vacuum and Data Lifecycle
+### Module 08 — Autovacuum, Maintenance and Partitioning
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 036 | VACUUM, ANALYZE and Visibility Maps | Planned |
-| 037 | Autovacuum Workers, Thresholds and Per-table Tuning | Planned |
-| 038 | Transaction ID and Multixact Wraparound Protection | Planned |
-| 039 | Bloat, HOT Updates and Space Reclamation | Planned |
-| 040 | Retention, Partition Maintenance and Vacuum Incident Lab | Planned |
+| 036 | [Autovacuum Tuning, Freeze and Wraparound Incident Response](chapters/036-autovacuum-tuning-freeze-and-wraparound-incident-response.md) | Authored; lab execution pending |
+| 037 | [Table and Index Maintenance Strategy](chapters/037-table-and-index-maintenance-strategy.md) | Authored; lab execution pending |
+| 038 | [Table Partitioning Fundamentals and Operational Tradeoffs](chapters/038-table-partitioning-fundamentals-and-operational-tradeoffs.md) | Authored; lab execution pending |
+| 039 | [Partition Pruning, Indexes and Query Performance](chapters/039-partition-pruning-indexes-and-query-performance.md) | Authored; lab execution pending |
+| 040 | [Partition Lifecycle, Retention and Recovery Project](chapters/040-partition-lifecycle-retention-and-recovery-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Create churn, detect vacuum blockers and establish a safe remediation plan with measurable thresholds.
+**Module acceptance target:** Perform bounded maintenance and partition lifecycle with cleanup and evidence (pending runtime evidence).
 
-### Module 09 — Storage, WAL and Capacity
+### Module 09 — Backup Foundations and PITR
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 041 | Heap Pages, TOAST, Forks and Tablespaces | Planned |
-| 042 | WAL Generation, Checkpoints and Recovery Tradeoffs | Planned |
-| 043 | WAL Retention, Archiving and Replication Slot Growth | Planned |
-| 044 | Disk Latency, Throughput, Filesystem and Storage Capacity | Planned |
-| 045 | Disk-full and WAL-growth Recovery Acceptance | Planned |
+| 041 | [PostgreSQL Backup Architecture and Recovery Objectives](chapters/041-postgresql-backup-architecture-and-recovery-objectives.md) | Authored; lab execution pending |
+| 042 | [Logical Backups with pg_dump, pg_restore and pg_dumpall](chapters/042-logical-backups-with-pg_dump-pg_restore-and-pg_dumpall.md) | Authored; lab execution pending |
+| 043 | [Physical Backups with pg_basebackup and Backup Manifests](chapters/043-physical-backups-with-pg_basebackup-and-backup-manifests.md) | Authored; lab execution pending |
+| 044 | [WAL Archiving, Restore Commands and PITR Foundations](chapters/044-wal-archiving-restore-commands-and-pitr-foundations.md) | Authored; lab execution pending |
+| 045 | [Point-in-Time Recovery and Disaster Recovery Lab](chapters/045-point-in-time-recovery-and-disaster-recovery-lab.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Fill a constrained lab volume; identify the cause and recover without deleting database or WAL files.
+**Module acceptance target:** Restore from a backup in a disposable target and show PITR checkpoints (pending runtime evidence).
 
-### Module 10 — Connections and Resource Control
+### Module 10 — Backup Validation, Replication and Recovery
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 046 | Connection Capacity and Backend Resource Costs | Planned |
-| 047 | PgBouncer Pool Modes and Application Compatibility | Planned |
-| 048 | Pool Sizing, Queueing and Connection Storms | Planned |
-| 049 | Memory Budgets: Shared Buffers, Work Memory and Maintenance | Planned |
-| 050 | Connection Exhaustion and Out-of-memory Incident Lab | Planned |
+| 046 | [Backup Monitoring, Restore Validation and Recovery Automation](chapters/046-backup-monitoring-restore-validation-and-recovery-automation.md) | Authored; lab execution pending |
+| 047 | [PostgreSQL Replication Slots, WAL Retention and Failure Modes](chapters/047-postgresql-replication-slots-wal-retention-and-failure-modes.md) | Authored; lab execution pending |
+| 048 | [Replication Lag, Standby Conflicts and Recovery Operations](chapters/048-replication-lag-standby-conflicts-and-recovery-operations.md) | Authored; lab execution pending |
+| 049 | [Replication Failover, Rejoin and Timeline Recovery](chapters/049-replication-failover-rejoin-and-timeline-recovery.md) | Authored; lab execution pending |
+| 050 | [High Availability and Disaster Recovery Acceptance Project](chapters/050-high-availability-and-disaster-recovery-acceptance-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Generate a connection storm and concurrent memory pressure; tune pools and admission limits.
+**Module acceptance target:** Measure recoverability and replication/failover readiness against objectives (pending runtime evidence).
 
-### Module 11 — Backup and Restore
+### Module 11 — Security Architecture and Access Controls
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 051 | Backup Architecture, RPO, RTO and Failure Domains | Planned |
-| 052 | pg_dump, pg_restore and Logical Recovery | Planned |
-| 053 | Physical Base Backups and Backup Verification | Planned |
-| 054 | WAL Archiving and Point-in-time Recovery | Planned |
-| 055 | Backup Tooling: pgBackRest or Barman Acceptance | Planned |
+| 051 | [PostgreSQL Security Architecture, Roles and Privilege Boundaries](chapters/051-postgresql-security-architecture-roles-and-privilege-boundaries.md) | Authored; lab execution pending |
+| 052 | [PostgreSQL Authentication, pg_hba.conf and TLS Security](chapters/052-postgresql-authentication-pg-hba-conf-and-tls-security.md) | Authored; lab execution pending |
+| 053 | [PostgreSQL Row-Level Security and Secure Application Access](chapters/053-postgresql-row-level-security-and-secure-application-access.md) | Authored; lab execution pending |
+| 054 | [PostgreSQL Auditing, Logging and Security Monitoring](chapters/054-postgresql-auditing-logging-and-security-monitoring.md) | Authored; lab execution pending |
+| 055 | [PostgreSQL Security Hardening and Access Control Acceptance Lab](chapters/055-postgresql-security-hardening-and-access-control-acceptance-lab.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Restore into an isolated target; verify data, permissions and measured recovery time.
+**Module acceptance target:** Test access boundaries, auditing and hardening with least-privilege evidence (pending runtime evidence).
 
-### Module 12 — Disaster Recovery
+### Module 12 — PgBouncer and Connection Pooling
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 056 | Accidental DELETE, TRUNCATE and DROP Recovery | Planned |
-| 057 | Tablespace, Host and Storage Loss Recovery | Planned |
-| 058 | Corruption Detection, Checksums and Escalation | Planned |
-| 059 | Cross-region Recovery and Dependency Readiness | Planned |
-| 060 | Disaster Recovery Drill and Evidence Review | Planned |
+| 056 | [PostgreSQL Connection Management and PgBouncer Fundamentals](chapters/056-postgresql-connection-management-and-pgbouncer-fundamentals.md) | Authored; lab execution pending |
+| 057 | [PgBouncer Pooling Modes, Sizing and Transaction Compatibility](chapters/057-pgbouncer-pooling-modes-sizing-and-transaction-compatibility.md) | Authored; lab execution pending |
+| 058 | [PostgreSQL Connection Pool Saturation, Timeouts and Recovery](chapters/058-postgresql-connection-pool-saturation-timeouts-and-recovery.md) | Authored; lab execution pending |
+| 059 | [PostgreSQL Connection Pool Monitoring, Capacity and Alerting](chapters/059-postgresql-connection-pool-monitoring-capacity-and-alerting.md) | Authored; lab execution pending |
+| 060 | [PostgreSQL Connection Pooling and Availability Acceptance Project](chapters/060-postgresql-connection-pooling-and-availability-acceptance-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Recover from a timestamped destructive event; reconcile recovered records and document achieved RPO/RTO.
+**Module acceptance target:** Characterize pool modes and saturation without production impact (pending runtime evidence).
 
-### Module 13 — Streaming Replication
+### Module 13 — Backups, Retention and Restore Testing
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 061 | Physical Replication Architecture and WAL Flow | Planned |
-| 062 | Build and Secure Streaming Standbys | Planned |
-| 063 | Asynchronous and Synchronous Replication Tradeoffs | Planned |
-| 064 | Replication Lag: Send, Write, Flush and Replay | Planned |
-| 065 | Slots, Cascading Replication and Standby Query Conflicts | Planned |
+| 061 | [PostgreSQL Backup Strategy, RPO and RTO Fundamentals](chapters/061-postgresql-backup-strategy-rpo-and-rto-fundamentals.md) | Authored; lab execution pending |
+| 062 | [PostgreSQL Logical Backups with pg_dump, pg_restore and pg_dumpall](chapters/062-postgresql-logical-backups-with-pg-dump-pg-restore-and-pg-dumpall.md) | Authored; lab execution pending |
+| 063 | [PostgreSQL Physical Backups with pg_basebackup and Backup Verification](chapters/063-postgresql-physical-backups-with-pg-basebackup-and-backup-verification.md) | Authored; lab execution pending |
+| 064 | [PostgreSQL WAL Archiving and Point-in-Time Recovery](chapters/064-postgresql-wal-archiving-and-point-in-time-recovery.md) | Authored; lab execution pending |
+| 065 | [PostgreSQL Backup Retention, Automation and Restore Testing](chapters/065-postgresql-backup-retention-automation-and-restore-testing.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Interrupt replication, measure lag correctly and recover while managing retention and read conflicts.
+**Module acceptance target:** Prove backup integrity, retention automation and restore acceptance (pending runtime evidence).
 
-### Module 14 — High Availability and Failover
+### Module 14 — Disaster Recovery and High Availability Fundamentals
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 066 | HA Topology, Quorum, Fencing and Split-brain Prevention | Planned |
-| 067 | Patroni and Distributed Consensus Operations | Planned |
-| 068 | Planned Switchover and Client Reconnection | Planned |
-| 069 | Unplanned Failover and Data-loss Assessment | Planned |
-| 070 | Rejoin, pg_rewind, Rebuild and Failback Acceptance | Planned |
+| 066 | [PostgreSQL Backup and Disaster Recovery Acceptance Lab](chapters/066-postgresql-backup-and-disaster-recovery-acceptance-lab.md) | Authored; lab execution pending |
+| 067 | [PostgreSQL Streaming Replication and High Availability Architecture](chapters/067-postgresql-streaming-replication-and-high-availability-architecture.md) | Authored; lab execution pending |
+| 068 | [PostgreSQL Replication Slots, WAL Retention and Lag Management](chapters/068-postgresql-replication-slots-wal-retention-and-lag-management.md) | Authored; lab execution pending |
+| 069 | [PostgreSQL Synchronous Replication and Commit Durability](chapters/069-postgresql-synchronous-replication-and-commit-durability.md) | Authored; lab execution pending |
+| 070 | [PostgreSQL Planned Switchover, Failover and Split-Brain Prevention](chapters/070-postgresql-planned-switchover-failover-and-split-brain-prevention.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Exercise switchover and fenced failure; prove a single writable primary and validate client recovery.
+**Module acceptance target:** Exercise durability and controlled failover with explicit stop conditions (pending runtime evidence).
 
-### Module 15 — Logical Replication and Migrations
+### Module 15 — HA Automation and Multi-region Readiness
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 071 | Publications, Subscriptions and Replica Identity | Planned |
-| 072 | Initial Synchronization and Slot Capacity | Planned |
-| 073 | Logical Replication Lag, Conflicts and Recovery | Planned |
-| 074 | Schema, Sequence and DDL Coordination | Planned |
-| 075 | Low-downtime Migration and Cutover Acceptance | Planned |
+| 071 | [PostgreSQL HA Automation, Leader Election and Failover Orchestration](chapters/071-postgresql-ha-automation-leader-election-and-failover-orchestration.md) | Authored; lab execution pending |
+| 072 | [PostgreSQL High Availability Observability and Failure Recovery](chapters/072-postgresql-high-availability-observability-and-failure-recovery.md) | Authored; lab execution pending |
+| 073 | [PostgreSQL Multi-Zone High Availability and Disaster Recovery Design](chapters/073-postgresql-multi-zone-high-availability-and-disaster-recovery-design.md) | Authored; lab execution pending |
+| 074 | [PostgreSQL Cross-Region Replication, DR Cutover and Failback](chapters/074-postgresql-cross-region-replication-dr-cutover-and-failback.md) | Authored; lab execution pending |
+| 075 | [PostgreSQL High Availability and Disaster Recovery Acceptance Project](chapters/075-postgresql-high-availability-and-disaster-recovery-acceptance-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Migrate a lab workload; reconcile schema and sequences, test cutover and define rollback boundaries.
+**Module acceptance target:** Prove single-writer failover, alerting, runbooks and DR acceptance (pending runtime evidence).
 
-### Module 16 — Maintenance and Upgrades
+### Module 16 — Advanced Security Operations
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 076 | Maintenance Planning and Production Change Controls | Planned |
-| 077 | Minor Updates, Extensions and Restart Coordination | Planned |
-| 078 | Major Upgrades with pg_upgrade | Planned |
-| 079 | Major Upgrades Using Logical Migration | Planned |
-| 080 | Upgrade Rehearsal, Rollback and Post-change Validation | Planned |
+| 076 | [PostgreSQL Security Architecture, Roles and Privileges](chapters/076-postgresql-security-architecture-roles-and-privileges.md) | Authored; lab execution pending |
+| 077 | [PostgreSQL Authentication, pg_hba.conf, TLS and Connection Security](chapters/077-postgresql-authentication-pg-hba-conf-tls-and-connection-security.md) | Authored; lab execution pending |
+| 078 | [PostgreSQL Row-Level Security, Data Protection and Audit Controls](chapters/078-postgresql-row-level-security-data-protection-and-audit-controls.md) | Authored; lab execution pending |
+| 079 | [PostgreSQL Encryption, Secrets Management and Security Hardening](chapters/079-postgresql-encryption-secrets-management-and-security-hardening.md) | Authored; lab execution pending |
+| 080 | [PostgreSQL Security Operations, Incident Response and Compliance Acceptance Project](chapters/080-postgresql-security-operations-incident-response-and-compliance-acceptance-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Rehearse a major upgrade on a restored copy; measure downtime and verify workload and extension compatibility.
+**Module acceptance target:** Demonstrate access, encryption and incident control validation (pending runtime evidence).
 
-### Module 17 — Managed PostgreSQL
+### Module 17 — Extensions, Upgrades and Operational Governance
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 081 | RDS PostgreSQL Responsibility Boundaries and Parameters | Planned |
-| 082 | RDS Backups, Recovery and Multi-AZ Operations | Planned |
-| 083 | Aurora PostgreSQL Architecture and Operational Differences | Planned |
-| 084 | Azure and Google Cloud PostgreSQL Operations | Planned |
-| 085 | Managed-service Failover, Scaling and Migration Acceptance | Planned |
+| 081 | [PostgreSQL Extensions, Compatibility and Operational Lifecycle](chapters/081-postgresql-extensions-compatibility-and-operational-lifecycle.md) | Authored; lab execution pending |
+| 082 | [PostgreSQL Version Upgrades, Compatibility Testing and Rollback Planning](chapters/082-postgresql-version-upgrades-compatibility-testing-and-rollback-planning.md) | Authored; lab execution pending |
+| 083 | [PostgreSQL Configuration Management, Infrastructure as Code and Drift Detection](chapters/083-postgresql-configuration-management-infrastructure-as-code-and-drift-detection.md) | Authored; lab execution pending |
+| 084 | [PostgreSQL Maintenance Automation, Scheduling and Operational Runbooks](chapters/084-postgresql-maintenance-automation-scheduling-and-operational-runbooks.md) | Authored; lab execution pending |
+| 085 | [PostgreSQL Production Operations, Change Management and Reliability Acceptance Project](chapters/085-postgresql-production-operations-change-management-and-reliability-acceptance-project.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Use one supported provider sandbox to test backup recovery, parameter changes and endpoint behavior.
+**Module acceptance target:** Validate extension compatibility, change control and upgrade rollback criteria (pending runtime evidence).
 
-### Module 18 — Kubernetes Operations
+### Module 18 — Capacity, FinOps and Geo-replication Foundations
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 086 | PostgreSQL on Kubernetes: Suitability and Failure Modes | Planned |
-| 087 | Operators, Reconciliation and Supported Topologies | Planned |
-| 088 | Persistent Volumes, Scheduling and Failure Domains | Planned |
-| 089 | Operator-managed Backups, Upgrades and Recovery | Planned |
-| 090 | Kubernetes Database Failure and Restore Acceptance | Planned |
+| 086 | [PostgreSQL Capacity Forecasting, Cost Optimization and FinOps](chapters/086-postgresql-capacity-forecasting-cost-optimization-and-finops.md) | Authored; lab execution pending |
+| 087 | [PostgreSQL Workload Forecasting, Performance Baselines and Capacity Stress Testing](chapters/087-postgresql-workload-forecasting-performance-baselines-and-capacity-stress-testing.md) | Authored; lab execution pending |
+| 088 | [PostgreSQL Storage Growth, Retention and Lifecycle Optimization](chapters/088-postgresql-storage-growth-retention-and-lifecycle-optimization.md) | Authored; lab execution pending |
+| 089 | [PostgreSQL Cloud Cost Governance, Rightsizing and FinOps Acceptance Project](chapters/089-postgresql-cloud-cost-governance-rightsizing-and-finops-acceptance-project.md) | Authored; lab execution pending |
+| 090 | [PostgreSQL Multi-Region Architecture, Geo-Replication and Disaster Recovery Design](chapters/090-postgresql-multi-region-architecture-geo-replication-and-disaster-recovery-design.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Use one selected operator; test a pod/node failure, restore and document storage and fencing behavior.
+**Module acceptance target:** Reconcile capacity forecasts and cost choices without violating reliability goals (pending runtime evidence).
 
-### Module 19 — Reliability Engineering and Automation
+### Module 19 — Multi-region Recovery and Enterprise Readiness
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 091 | Capacity Forecasting and Cost Optimization | Planned |
-| 092 | Infrastructure as Code and Configuration Management | Planned |
-| 093 | Operational Scripts, Idempotency and Guardrails | Planned |
-| 094 | Load Testing, Chaos Experiments and Reliability Limits | Planned |
-| 095 | Incident Command, RCA and Preventive Action Tracking | Planned |
+| 091 | [PostgreSQL Cross-Region Failover, Fencing and Split-Brain Prevention](chapters/091-postgresql-cross-region-failover-fencing-and-split-brain-prevention.md) | Authored; lab execution pending |
+| 092 | [PostgreSQL Cross-Region Backup, Restore and Disaster Recovery Automation](chapters/092-postgresql-cross-region-backup-restore-and-disaster-recovery-automation.md) | Authored; lab execution pending |
+| 093 | [PostgreSQL Multi-Region Observability, DR Drills and Reliability Testing](chapters/093-postgresql-multi-region-observability-dr-drills-and-reliability-testing.md) | Authored; lab execution pending |
+| 094 | [PostgreSQL Multi-Region Disaster Recovery Simulation and Acceptance Project](chapters/094-postgresql-multi-region-disaster-recovery-simulation-and-acceptance-project.md) | Authored; lab execution pending |
+| 095 | [PostgreSQL Enterprise Reliability and Operational Readiness Review](chapters/095-postgresql-enterprise-reliability-and-operational-readiness-review.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Automate read-only health checks and bounded changes; conduct a failure exercise and write an evidence-based RCA.
+**Module acceptance target:** Measure cross-region failover and restore evidence and complete readiness review (pending runtime evidence).
 
-### Module 20 — Production Runbooks and Capstone
+### Module 20 — Incident Response, Automation and Final Capstone
 
-| Chapter | Tutorial | Status |
+| Chapter | Tutorial | Publication / runtime state |
 |---|---|---|
-| 096 | Slowness, Blocking and Connection Incident Runbooks | Planned |
-| 097 | Replication Lag, Failover and WAL-growth Runbooks | Planned |
-| 098 | Vacuum, Wraparound, Disk-full and Corruption Runbooks | Planned |
-| 099 | Production Readiness Review and Operational Handover | Planned |
-| 100 | End-to-end PostgreSQL Reliability Acceptance Project | Planned |
+| 096 | [PostgreSQL Enterprise Incident Response, Escalation and Operational Command](chapters/096-postgresql-enterprise-incident-response-escalation-and-operational-command.md) | Authored; lab execution pending |
+| 097 | [PostgreSQL Production Incident Simulation, Root Cause Analysis and Corrective Actions](chapters/097-postgresql-production-incident-simulation-root-cause-analysis-and-corrective-actions.md) | Authored; lab execution pending |
+| 098 | [PostgreSQL Reliability Automation, Continuous Validation and Operational Excellence](chapters/098-postgresql-reliability-automation-continuous-validation-and-operational-excellence.md) | Authored; lab execution pending |
+| 099 | [PostgreSQL Enterprise Reliability Engineering and Operational Acceptance Project](chapters/099-postgresql-enterprise-reliability-engineering-and-operational-acceptance-project.md) | Authored; lab execution pending |
+| 100 | [PostgreSQL End-to-End Production Reliability and Recovery Final Capstone](chapters/100-postgresql-end-to-end-production-reliability-and-recovery-final-capstone.md) | Authored; lab execution pending |
 
-**Module acceptance lab:** Run a workload, inject failures, recover service and data, and submit an operational evidence pack.
+**Module acceptance target:** Run end-to-end incident and recovery exercise with independent reviewer sign-off (pending runtime evidence).
 
-## Learning routes
+## Learning routes — actual published modules
 
-| Route | Modules | Outcome |
+| Route | Current modules | Intended outcome |
 |---|---|---|
-| Core on-call operations | 01–10 | Diagnose access, latency, locks, vacuum, storage and connection incidents. |
-| Recovery and availability | 11–14 | Prove restore capability and operate replication and failover safely. |
-| Migration and lifecycle | 15–16 | Plan migrations and upgrades with rehearsed cutover and recovery procedures. |
-| Managed-service specialization | 17 | Apply the foundation to a selected provider and document service-specific limits. |
-| Kubernetes specialization | 18 | Operate a selected PostgreSQL operator with tested persistent-storage recovery. |
-| Production qualification | 19–20 | Automate operations, run incident exercises and complete readiness acceptance. |
+| Core on-call operations | 01–08, 12 | Diagnose common access, performance, maintenance and pooling incidents |
+| Backups and resilience | 09–10, 13–15 | Prove restore, replication, single-writer failover and RPO/RTO objectives |
+| Security operations | 03, 11, 16 | Validate security boundaries, auditing and incident controls |
+| Platform lifecycle and cost | 17–18 | Manage upgrades, drift, maintenance and reliability-aware FinOps |
+| Multi-region and enterprise readiness | 18–20 | Validate cross-region recovery, operations reviews and final capstone |
 
-Complete both deployment specializations if the team's ownership spans both environments. Otherwise qualify on the team's actual deployment track and record the other as not applicable rather than completed.
+**Scope reconciliation:** The earlier proposed plan included standalone managed PostgreSQL and Kubernetes specialization modules. The published 001–100 curriculum uses different chapter assignments; these specializations are **not represented as standalone modules** in this canonical published sequence. Validate any cloud-provider and Kubernetes material actually present in chapters separately; do not claim completion of the original proposed specialization tracks without evidence.
 
 ## Required operational deliverables
 
@@ -312,21 +313,19 @@ Complete both deployment specializations if the team's ownership spans both envi
 5. A rehearsed maintenance or upgrade change passes prechecks and post-change verification.
 6. Dashboards, alerts, runbooks and handover material allow another operator to repeat the procedures.
 
-## Suggested repository structure
+## Current repository structure
 
-This folder starts the new DBRE/SRE curriculum. Previous tutorial content remains available in Git history. Add the following directories as chapters and labs are completed.
+- `postgresql/README.md` — canonical chapter navigation.
+- `postgresql/MASTER-PLAN.md` — the published chapter sequence, operational standards, and acceptance targets.
+- `postgresql/PROGRESS.md` — authored, reviewed and runtime-lab status per chapter.
+- `postgresql/chapters/` — numbered canonical chapter documents.
+- `postgresql/labs/` — numbered lab instructions and supporting SQL, configuration, acceptance and monitoring assets.
+- `postgresql/scripts/` — shared operational tooling.
+- `postgresql/monitoring/`, `projects/` and `templates/` — supporting assets and evidence examples.
+- `postgresql/validation/` — independent QA code and retained validation reports.
 
-- `postgresql/MASTER-PLAN.md` — scope, sequence and chapter index.
-- `postgresql/PROGRESS.md` — authored, reviewed and lab-verified status tracked separately.
-- `postgresql/chapters/001-postgresql-responsibilities-for-dbre-and-sre.md` — numbered canonical chapters.
-- `postgresql/labs/001-operations-foundations-lab.md` — matching lab instructions.
-- `postgresql/scripts/` — reusable shell and SQL helpers.
-- `postgresql/runbooks/` — production incident and maintenance procedures.
-- `postgresql/projects/` — acceptance projects and evidence templates.
+## Authoring and validation workflow
 
-## Authoring workflow
+Keep chapter publication, editorial review, static checks, runnable example review, PostgreSQL runtime tests, destructive-operation controls, and independent acceptance as **separate statuses**. The final gate requires repeatable evidence and reviewer sign-off. See [the V01 audit](validation/V01-STATUS.md).
 
-Finish one chapter and its lab before advancing. Validate commands on the pinned environment, review operational impact, then update the tracker. A chapter is **complete** only when its content, lab, expected results, cleanup and acceptance evidence have been reviewed. Repository publication is a separate tracked action.
-
-**First chapter: 001 — PostgreSQL Responsibilities for DBRE and SRE.**
-
+**Current publication:** Chapters 001–100 authored; runtime verification and certification pending.
