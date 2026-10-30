@@ -271,6 +271,42 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("generated Stream ID", doc)
         self.assertIn("four field/value pairs", doc)
 
+    def test_chapter_01_replication_ack_and_datatype_outputs(self):
+        doc = (CHAPTER_DIR / "01-redis-enterprise-fundamentals-architecture.md").read_text(encoding="utf-8")
+        self.assertIn("SET tutorial:chapter01:write-flow active EX 300", doc)
+        self.assertIn("not** that a replica has already acknowledged", doc)
+        self.assertIn("DEL tutorial:chapter01:write-flow", doc)
+        self.assertIn("LPUSH` adds three elements", doc)
+        self.assertIn("event3`, `event2`, `event1", doc)
+
+    def test_chapter_04_atomic_ops_have_time_dependent_outputs(self):
+        doc = (CHAPTER_DIR / "04-redis-commands-command-semantics-safe-operations.md").read_text(encoding="utf-8")
+        self.assertIn("PTTL` returns a positive remaining lifetime", doc)
+        self.assertIn("INCR` returns integer `1`", doc)
+        self.assertIn("HINCRBY` returns integer `1`", doc)
+
+    def test_chapter_11_ttl_release_semantics_examples(self):
+        doc = (CHAPTER_DIR / "11-ttl-expiration-cache-freshness-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("TTL` returns `-1` because the key is persistent", doc)
+        self.assertIn("PERSIST` returns `1`", doc)
+        self.assertIn("EXPIRE ... NX` returns `1`", doc)
+        self.assertIn("Redis 7.0+", doc)
+
+    def test_chapters_09_76_inspection_examples_are_typed(self):
+        chapter09 = (CHAPTER_DIR / "09-redis-enterprise-administration-interfaces-ui-rladmin-rest-api.md").read_text(encoding="utf-8")
+        self.assertIn("``` bash\nrladmin status\nrladmin info db", chapter09)
+        self.assertIn("Exact fields vary by release", chapter09)
+        chapter76 = (CHAPTER_DIR / "76-redis-enterprise-performance-capacity-engineering-project.md").read_text(encoding="utf-8")
+        self.assertIn("``` redis\nINFO memory\n```", chapter76)
+        self.assertIn("used_memory_rss:", chapter76)
+        self.assertIn("multi-shard cluster capacity report", chapter76)
+
+    def test_chapter_10_scan_unlink_expectations(self):
+        doc = (CHAPTER_DIR / "10-architecture-inspection-foundation-acceptance-lab.md").read_text(encoding="utf-8")
+        self.assertIn("SCAN 0 MATCH", doc)
+        self.assertIn("integer `1` if that exact disposable lab key existed", doc)
+        self.assertIn("not proof of immediate memory reduction", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
