@@ -1,0 +1,38 @@
+name: PostgreSQL V01 Static Validation
+
+on:
+  push:
+    branches:
+      - qa/postgresql-v01-static-validation-20261030
+    paths:
+      - "postgresql/**"
+      - ".github/workflows/postgresql-v01-static-validation.yml"
+  pull_request:
+    paths:
+      - "postgresql/**"
+      - ".github/workflows/postgresql-v01-static-validation.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-v01:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Scan PostgreSQL documentation (read-only)
+        run: python postgresql/validation/validate_v01.py --json-out postgresql-v01-evidence.json
+      - name: Retain V01 evidence (including failed runs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v01-evidence
+          path: postgresql-v01-evidence.json
+          if-no-files-found: warn
