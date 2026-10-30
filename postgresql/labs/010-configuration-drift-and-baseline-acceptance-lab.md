@@ -87,7 +87,7 @@ capture_010 lab_observer "$EVIDENCE_010/candidate-observer.csv" || exit 2
 capture_010 lab_app "$EVIDENCE_010/candidate-app.csv" || exit 2
 ~~~
 
-Read each candidate and compare it with the Chapter 004 contract and current source files. Verify all 12 rows, source attribution and recovery role. Observer/app sourcefile visibility can differ; do not interchange their baselines. Record your review and approval in the report.
+Read each candidate and compare it with the Chapter 004 contract and current source files. Verify all 12 rows, source attribution and recovery role. The snapshots now include the role-visible `server_version` setting instead of `data_directory`; verify the actual data directory separately as `lab_admin` with the guarded `SHOW data_directory` above. `pg_settings.sourcefile` can be NULL for `lab_app` without `pg_read_all_settings` privileges; do not treat that as proof of a default setting. `lab_observer` has `pg_monitor` in Chapter 004 and can typically see the file provenance. Compare profiles independently and retain a privileged, private source-file verification in the evidence report. Do not grant application accounts extra monitoring privileges just to make this exercise pass. Record your review and approval in the report.
 
 Only after that review, create the exercise's approved copies:
 
