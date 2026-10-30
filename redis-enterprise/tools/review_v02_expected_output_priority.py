@@ -108,6 +108,7 @@ def main() -> int:
         args.json_file.parent.mkdir(parents=True, exist_ok=True)
         args.json_file.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     print("V02 OUTPUT PRIORITY:", json.dumps(data["summary"], sort_keys=True))
+    print("V02 ALL VERSION-SENSITIVE ITEMS:", json.dumps([x for x in data["review_queue"] if x["version_sensitive"]], sort_keys=True))
     for row in data["review_queue"][:args.top]:
         print("V02 OUTPUT PRIORITY ITEM:", json.dumps(row, sort_keys=True))
     return int(data["summary"]["chapters"] != args.expected_chapters)
