@@ -1,4 +1,6 @@
 # Chapter 048 — Replication Lag, Standby Conflicts and Recovery Operations Lab
+**V02-B destructive cleanup gate:** Cleanup is deliberately blocked until the operator passes the exact database name, the PostgreSQL 18 cluster system identifier, and the chapter token `048-DROP`. On the **same disposable target** used by this lab, first run `SELECT current_database(), system_identifier FROM pg_control_system();`, examine the reported values and verify the instance is truly disposable. Manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID` in the cleanup command. The system identifier alone does not prove that an environment is safe; never execute this cleanup on production or shared staging. These guards are not a substitute for reviewing ownership and dependencies.
+
 
 **PostgreSQL 18 · Dedicated primary/standby test topology · Runtime validation pending.**
 
@@ -45,7 +47,7 @@ On standby, inspect `pg_stat_database_conflicts`, `pg_stat_activity` wait events
 After verifying the schema is exclusively lab-owned:
 
 ```bash
-psql -X -v ON_ERROR_STOP=1 -h PRIMARY_HOST -d postgres -f postgresql/labs/sql/048-cleanup.sql
+psql -X -v ON_ERROR_STOP=1 -h PRIMARY_HOST -d postgres -v expected_db=postgres -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_cleanup=048-DROP -f postgresql/labs/sql/048-cleanup.sql
 ```
 
 Cleanup only removes the lab schema. Confirm replica replay has caught up after cleanup.
