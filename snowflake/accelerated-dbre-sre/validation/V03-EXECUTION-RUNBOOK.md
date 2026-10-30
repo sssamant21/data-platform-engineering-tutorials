@@ -63,6 +63,10 @@ The [blank evidence template](V03-NOT-RUN-TEMPLATE.json) is intentionally marked
 python snowflake/accelerated-dbre-sre/validation/validate_runtime_evidence.py --input C:\SecureLabEvidence\level-01-evidence.json
 ~~~
 
+### Query-ID capture and verification
+
+Both Level 1 and Level 2 SQL files now end with a **same-session** `QUERY_HISTORY_BY_SESSION` query, returning query IDs, query type, execution status and timing **without exporting QUERY_TEXT**. The operator must match these IDs to the statements just executed and record the actual numeric results. A query-history row or shaped UUID alone does not prove the expected result, and the CLI may use another session for a separate `snow sql` invocation. The history query is last in the SQL file for this reason. If it fails due to permissions or context, mark evidence **BLOCKED** rather than invent IDs.
+
 The offline checker rejects missing evidence, privileged identities, production classification, missing tests, incorrect arithmetic and unexpected sensitive fields. Its best possible outcome is **READY_FOR_INDEPENDENT_REVIEW**. It cannot authenticate Snowflake query IDs or grant V03 PASS, V04 approval or V05 certification. The reviewer must independently match query IDs and the documented results inside Snowflake and sign off using [the evidence form](RUNTIME-EVIDENCE-TEMPLATE.md).
 
 ## Official CLI docs
