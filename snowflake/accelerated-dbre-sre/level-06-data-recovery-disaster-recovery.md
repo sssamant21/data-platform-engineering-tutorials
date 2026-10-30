@@ -57,6 +57,13 @@ SELECT COUNT(*) AS ROWS_BEFORE FROM DBRE_SRE_L6_RECOVERY;
 ~~~
 Expected: ROWS_BEFORE = 2. This uses a **permanent** lab table to demonstrate Time Travel, and consumes storage. The CREATE command must fail closed if the name already exists; do not use OR REPLACE. Obtain approval for creation, retention and eventual removal in a dedicated scratch schema. Do not create it in production.
 
+### Step 2b — Check effective table retention
+After selecting the approved scratch database/schema and creating the table, inspect the table-level setting (which may differ from the database default):
+~~~sql
+SHOW PARAMETERS LIKE 'DATA_RETENTION_TIME_IN_DAYS' IN TABLE DBRE_SRE_L6_RECOVERY;
+~~~
+Expected: the retained-history setting and its configured level. If effective retention is 0, do not assume historical recovery will work; stop and review the lab design with the training administrator.
+
 ### Step 3 — Read a historical version after sufficient time
 Run this **only after more than 60 seconds have elapsed since the INSERT completed**, while still within the effective Time Travel retention:
 ~~~sql
