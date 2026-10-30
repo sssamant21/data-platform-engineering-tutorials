@@ -49,20 +49,20 @@ Replace DBRE_SRE_LAB with your existing authorized lab database. Expected: effec
 ### Step 2 — Create an approved lab table (optional writable branch)
 In a dedicated scratch schema only:
 ~~~sql
-CREATE TABLE RECOVERY_L6 (
+CREATE TABLE DBRE_SRE_L6_RECOVERY (
     ID NUMBER, STATUS VARCHAR
 );
-INSERT INTO RECOVERY_L6 VALUES (101, 'OK'), (102, 'OK');
-SELECT COUNT(*) AS ROWS_BEFORE FROM RECOVERY_L6;
+INSERT INTO DBRE_SRE_L6_RECOVERY VALUES (101, 'OK'), (102, 'OK');
+SELECT COUNT(*) AS ROWS_BEFORE FROM DBRE_SRE_L6_RECOVERY;
 ~~~
-Expected: ROWS_BEFORE = 2. This uses a permanent lab table to demonstrate retention. Do not create it in production.
+Expected: ROWS_BEFORE = 2. This uses a **permanent** lab table to demonstrate Time Travel, and consumes storage. The CREATE command must fail closed if the name already exists; do not use OR REPLACE. Obtain approval for creation, retention and eventual removal in a dedicated scratch schema. Do not create it in production.
 
 ### Step 3 — Read a historical version after sufficient time
-After the table has existed at least one minute and within configured retention:
+Run this **only after more than 60 seconds have elapsed since the INSERT completed**, while still within the effective Time Travel retention:
 ~~~sql
-SELECT * FROM RECOVERY_L6 AT(OFFSET => -60);
+SELECT * FROM DBRE_SRE_L6_RECOVERY AT(OFFSET => -60);
 ~~~
-Expected: the earlier version of the lab table, depending on its state one minute ago. If the table did not yet exist, the query will fail; use an offset after its creation.
+Expected: two rows if the table and INSERT were both completed more than 60 seconds ago and data remains within retention. Otherwise, the query may show a prior row state or fail if the requested point predates creation. Record the INSERT completion timestamp. Note that time-based queries are sensitive to the point in time selected and account settings.
 
 ### Step 4 — Paper exercise: accidental DELETE
 A user mistakenly deletes 5,000 rows at 10:03 and detection occurs at 10:21. Write down the timestamp or statement ID to investigate, the retention deadline, and the owner-approved plan to compare historical and current rows. Do **not** execute DELETE, DROP, or a production restore.
@@ -70,7 +70,10 @@ A user mistakenly deletes 5,000 rows at 10:03 and detection occurs at 10:21. Wri
 ### Step 5 — Plan an outage test
 Create a sample RPO/RTO table for a BI workload, including dependency on ingestion, roles, warehouse readiness, downstream dashboards and communications.
 
-**Pass:** select the right recovery mechanism for accidental DML, dropped objects and region outage; describe validation and rollback. Remove the optional lab table only after verifying ownership and no remaining dependency.
+**Pass:** select the right recovery mechanism for accidental DML, dropped objects and region outage; describe validation and rollback.
+
+### Lab cleanup (owner-approved, separate step)
+The permanent scratch table is intentionally not dropped by the instructional SQL. After retaining evidence and obtaining the lab owner's approval, an authorized operator should verify the fully qualified object name and remove only **DBRE_SRE_L6_RECOVERY** in the training scratch schema. Never run an unqualified DROP against a shared environment.
 
 ## DBRE/SRE troubleshooting quick reference
 | Event | Preferred investigation | Safety rule |
