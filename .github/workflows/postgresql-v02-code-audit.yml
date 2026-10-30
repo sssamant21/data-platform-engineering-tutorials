@@ -36,6 +36,8 @@ jobs:
         run: python postgresql/validation/validate_v02c.py --require-parsers --json-out postgresql-v02c-evidence.json
       - name: Validate Chapter 001-010 semantic contracts and comparator (V02-D)
         run: python -m unittest discover -s postgresql/validation -p 'test_v02d_ch001_010.py' -v
+      - name: Validate Chapter 011-020 safety contracts and retry semantics (V02-D)
+        run: python -m unittest discover -s postgresql/validation -p 'test_v02d_ch011_020.py' -v
       - name: Retain full parser and risk evidence
         if: always()
         uses: actions/upload-artifact@v4
