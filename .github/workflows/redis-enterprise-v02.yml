@@ -37,7 +37,7 @@ jobs:
       - name: Command-level high-risk and output-cue triage (offline only)
         run: python redis-enterprise/tools/review_v02_executable_commands.py --json-file "$RUNNER_TEMP/redis-v02-command-triage.json"
       - name: Redis interactive fence syntax review (no execution)
-        run: python redis-enterprise/tools/review_v02_redis_fence_syntax.py --assert-chapters-clear 3 4 --json-file "$RUNNER_TEMP/redis-v02-redis-fence-syntax.json"
+        run: python redis-enterprise/tools/review_v02_redis_fence_syntax.py --fail-on-any-finding --json-file "$RUNNER_TEMP/redis-v02-redis-fence-syntax.json"
       - name: Upload example review queue
         if: always()
         uses: actions/upload-artifact@v4
