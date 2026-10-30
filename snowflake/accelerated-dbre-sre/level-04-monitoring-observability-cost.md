@@ -25,7 +25,7 @@ Track query failure rate, latency percentiles, overload queueing, warehouse stat
 Snowsight Query History and Information Schema query-history functions support more immediate triage (subject to permissions and retention). SNOWFLAKE.ACCOUNT_USAGE provides historical views, but latency varies: QUERY_HISTORY can lag about 45 minutes; WAREHOUSE_LOAD_HISTORY and WAREHOUSE_METERING_HISTORY can lag up to about three hours. A historical dashboard is not a real-time alert. **Important SQL distinction:** `ACCOUNT_USAGE.QUERY_HISTORY.EXECUTION_STATUS` uses `success`, `fail`, and `incident` status values, whereas Information Schema query-history table functions use values such as `failed_with_error` and `failed_with_incident`. The failure-query example below intentionally targets **Account Usage**, not Information Schema.
 
 ### Warehouse metering
-Credit use depends on warehouse size and runtime. AUTO_SUSPEND can reduce idle spend, while overly aggressive stopping and restarting can create overhead and provisioning delay. Multi-cluster and other serverless features affect billing differently. Resource monitors govern supported warehouses; they are not universal controls for all serverless usage.
+Credit use depends on warehouse size and runtime. `WAREHOUSE_METERING_HISTORY.CREDITS_USED` includes compute and cloud-services usage and **does not necessarily equal final billed credits**. Use account-level `METERING_DAILY_HISTORY.CREDITS_BILLED` when billing adjustments matter. Do not interpret a gross usage aggregate as an invoice amount. AUTO_SUSPEND can reduce idle spend, while overly aggressive stopping and restarting can create overhead and provisioning delay. Multi-cluster and other serverless features affect billing differently. Resource monitors govern supported warehouses; they are not universal controls for all serverless usage.
 
 ### What an operations dashboard should show
 | Panel | Metric | Decision supported |
@@ -52,7 +52,7 @@ WHERE START_TIME >= DATEADD('day', -7, CURRENT_TIMESTAMP())
 GROUP BY WAREHOUSE_NAME
 ORDER BY CREDITS_7D DESC;
 ~~~
-Expected: one row per active billed warehouse with credits in the window; may return none in an unused training account.
+Expected: a gross warehouse-credit usage total per warehouse with data in the window; may return none in an unused or delayed training account. **This is not the account's final billed total.**
 
 ### Step 2 — Warehouse queueing over 24 hours
 ~~~sql
@@ -81,7 +81,10 @@ Expected: aggregate query and failure counts; ensure view latency is considered.
 ### Step 4 — Interpret a hypothetical case
 Credits rise 40%, query count stays flat, AVG_QUEUED_LOAD stays low. Evaluate warehouse runtime and size changes, ingestion changes and idle duration before claiming inefficiency.
 
-**Pass:** identify one expensive warehouse, one contention signal, and write a draft alert with a measured baseline. No live alert configuration is required.
+**Pass:** identify one expensive warehouse if data exists, one contention signal, and write a draft alert with a measured baseline. If history is empty or privileges are insufficient, record this as **BLOCKED / no data**, not a false PASS. No live alert configuration is required.
+
+### Verification script
+See the [Level 4 read-only SQL smoke test](validation/runtime/level-04-smoke.sql), which includes gross warehouse usage, load, failures and billed account credits. All queries are **NOT RUN** until an authorized monitoring role and training account are available.
 
 ## DBRE/SRE troubleshooting quick reference
 | Metric anomaly | Verify | Owner action |
