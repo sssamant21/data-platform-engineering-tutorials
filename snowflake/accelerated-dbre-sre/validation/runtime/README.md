@@ -6,6 +6,9 @@ These SQL scripts are **manual, nonproduction acceptance tests** only. GitHub Ac
 - [Level 2 smoke](level-02-smoke.sql): active context, warehouse and role visibility, query tag, 100 generated rows, tagged query history, tag cleanup.
 - [Level 3 smoke](level-03-smoke.sql): deterministic 1,000-row dataset, numeric assertions, current-session query history and Query Profile review.
 - [Level 4 smoke](level-04-smoke.sql): read-only historical credit, queueing, failure and billing-adjustment queries; account-usage latency and privilege guards.
+- [Level 5 smoke](level-05-smoke.sql): current/secondary roles, SHOW GRANTS and optional aggregated authentication audit (requires security-monitoring privilege).
+- [Level 6 smoke](level-06-smoke.sql): read-only account/database/table retention inspection and optional historical SELECT on an approved permanent training table.
+- [Level 7 smoke](level-07-smoke.sql): current-session incident evidence and optional approved account-level historical failure/queueing analysis.
 - [Validation plan](../VALIDATION-PLAN.md): prerequisites, levels 1–7 acceptance, negative cases and evidence.
 - [Evidence form](../RUNTIME-EVIDENCE-TEMPLATE.md): complete one per authorized execution.
 
@@ -17,6 +20,7 @@ These SQL scripts are **manual, nonproduction acceptance tests** only. GitHub Ac
 4. Run Level 2 under an approved least-privilege role. If a SHOW command or query history is not visible, record the permission or visibility gap; don't escalate to ACCOUNTADMIN. Run `ALTER SESSION UNSET QUERY_TAG` cleanup explicitly even if the preceding SQL fails.
 5. Run Level 3 only in an instructor-controlled scratch schema; validate exact aggregates (1,000/54,110 and 100/5,060) before capturing query history. Run Level 4 with preapproved read-only ACCOUNT_USAGE access; record historical-view latency and empty datasets as limitations.
 6. Record QUERY_ID, version/edition if available, actual rows, elapsed time, warehouse credit estimate, unexpected errors and reviewer sign-off.
-7. Verify cleanup. Redact any identity, query text, credentials and sensitive results before posting evidence.
+7. For Levels 5–7, keep security audit access least-privileged, use only **approved** recovery objects, and never export identifying login details or raw query text. If an optional view/table is unavailable, record **BLOCKED**, not PASS.
+8. Verify cleanup. Redact any identity, query text, credentials and sensitive results before posting evidence.
 
 **Test status: NOT RUN.** Writing executable SQL and a CI static pass cannot establish Snowflake runtime behavior.
