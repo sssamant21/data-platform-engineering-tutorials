@@ -47,23 +47,27 @@ Always record baseline, intervention, elapsed/exec time, workload and cost befor
 ### Step 1 — Generate a small reproducible dataset in a scratch schema
 Run only against your approved training database and small warehouse:
 ~~~sql
-CREATE OR REPLACE TEMP TABLE SALES_L3 AS
-SELECT SEQ4() AS ORDER_ID,
-       MOD(SEQ4(), 10) AS REGION_ID,
-       10 + MOD(SEQ4(), 90) AS AMOUNT
-FROM TABLE(GENERATOR(ROWCOUNT => 1000));
+CREATE TEMP TABLE DBRE_SRE_L3_SALES AS
+SELECT ORDER_ID,
+       MOD(ORDER_ID, 10) AS REGION_ID,
+       10 + MOD(ORDER_ID, 90) AS AMOUNT
+FROM (
+    SELECT ROW_NUMBER() OVER (ORDER BY SEQ4()) AS ORDER_ID
+    FROM TABLE(GENERATOR(ROWCOUNT => 1000))
+);
+-- This creates one deterministic numeric ID per synthetic row.
 ~~~
-Note: repeated SEQ4() expressions are not guaranteed to produce correlated sequences for business purposes. This is synthetic data only.
+The ROW_NUMBER result creates 1,000 contiguous synthetic identifiers; deriving REGION_ID and AMOUNT from the same identifier avoids unrelated SEQ4() calls. This is a teaching dataset, not a representative performance benchmark.
 
 ### Step 2 — Compare a broad and selective query
 ~~~sql
 SELECT COUNT(*) AS N, SUM(AMOUNT) AS TOTAL
-FROM SALES_L3;
+FROM DBRE_SRE_L3_SALES;
 SELECT COUNT(*) AS N, SUM(AMOUNT) AS TOTAL
-FROM SALES_L3
+FROM DBRE_SRE_L3_SALES
 WHERE REGION_ID = 1;
 ~~~
-Expected: both queries succeed and the filtered count is no greater than the unfiltered count. This tiny temp table is for *concept demonstration*, not credible evidence of Snowflake tuning gains.
+Expected: the broad count is **1,000**; filtering on REGION_ID = 1 returns **100** rows. This tiny temporary table is for *concept demonstration*, not credible evidence of Snowflake tuning gains. A real performance finding requires representative data sizes, warmed/cold cache awareness, and repeated measurements.
 
 ### Step 3 — Inspect history
 ~~~sql
