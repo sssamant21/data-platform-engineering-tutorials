@@ -69,16 +69,16 @@ Expected: three rows, two columns.
 
 ### Step 3 — Create data only in your approved scratch schema
 ~~~sql
-CREATE OR REPLACE TEMP TABLE ORDERS_L1 (
+CREATE TEMP TABLE DBRE_SRE_L1_ORDERS (
   ORDER_ID NUMBER, REGION VARCHAR, AMOUNT NUMBER(10,2)
 );
-INSERT INTO ORDERS_L1 VALUES
+INSERT INTO DBRE_SRE_L1_ORDERS VALUES
   (1,'EAST',120),(2,'WEST',80),(3,'EAST',50);
 SELECT REGION, COUNT(*) AS NUM_ORDERS, SUM(AMOUNT) AS SALES
-FROM ORDERS_L1
+FROM DBRE_SRE_L1_ORDERS
 GROUP BY REGION ORDER BY REGION;
 ~~~
-Expected: EAST has 2 orders, sales 170; WEST has 1 order, sales 80. The temporary table is session-scoped; CREATE OR REPLACE changes only this lab object.
+Expected: EAST has 2 orders, sales 170; WEST has 1 order, sales 80. The temporary table is session-scoped. The CREATE command intentionally fails if the name is already in use: do not replace an existing object. Use a fresh session or a new uniquely named scratch table for a re-run. The temporary table disappears when the session ends.
 
 ### Step 4 — Explain the result
 Identify the database, schema, table, three columns, three rows, and the warehouse used. **Pass:** correct counts and an explanation of why the warehouse—not the table—provides compute.
