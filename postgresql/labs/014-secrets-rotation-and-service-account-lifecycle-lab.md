@@ -227,33 +227,12 @@ Retain version, timestamps, role state, sanitized errors and observed outputs, w
 
 Close all c014_db sessions. Cleanup destroys only the exercise database and remaining dedicated roles:
 
+From the guarded Chapter 004 primary, record the exact cluster identifier using `lab_sql -Atc 'SELECT system_identifier FROM pg_control_system();'`, compare it with the lab's instance identity and independently verify `SHOW data_directory`, ownership of `c014_db`, expected roles and absence of sessions. The cleanup script refuses mismatched identity and requires a chapter-specific approval token. **Replace the placeholder manually and never run this on production or shared staging.**
+
 ~~~bash
-lab_sql <<'SQL'
-DO $guard$
-BEGIN
-  IF current_user <> 'lab_admin' OR current_database() <> 'ops_lab'
-     OR pg_is_in_recovery() THEN
-    RAISE EXCEPTION 'Wrong cleanup connection';
-  END IF;
-  IF NOT EXISTS (SELECT FROM pg_database d JOIN pg_roles r ON r.oid=d.datdba
-                 WHERE d.datname='c014_db' AND r.rolname='c014_owner') THEN
-    RAISE EXCEPTION 'Unexpected/missing exercise database owner';
-  END IF;
-  IF EXISTS (SELECT FROM pg_stat_activity WHERE datname='c014_db') THEN
-    RAISE EXCEPTION 'Close exercise database sessions before cleanup';
-  END IF;
-END
-$guard$;
-DROP DATABASE c014_db;
-DROP ROLE IF EXISTS c014_blue;
-DROP ROLE c014_single;
-DROP ROLE c014_green;
-DROP ROLE c014_reader;
-DROP ROLE c014_owner;
-SELECT rolname FROM pg_roles WHERE rolname IN
- ('c014_owner','c014_reader','c014_single','c014_blue','c014_green');
-SELECT datname FROM pg_database WHERE datname='c014_db';
-SQL
+lab_sql -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_cleanup=014-DROP-ROLES-DB \
+  -f scripts/014-cleanup-lab.sql
 bash scripts/004-operations-lab.sh verify
 ~~~
 
