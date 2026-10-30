@@ -113,6 +113,19 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("persistent (non-expiring) key", chapter)
         self.assertIn("EXPIRE command/version history", chapter)
 
+    def test_chapter_15_authenticated_example_is_tls_and_no_inline_password(self):
+        source = (CHAPTER_DIR / "15-cache-stampede-thundering-herd-source-protection.md").read_text(encoding="utf-8")
+        self.assertIn("Staging database password:", source)
+        self.assertIn("REDISCLI_AUTH", source)
+        self.assertIn('redis-cli --tls --cacert "$REDIS_CA"', source)
+        self.assertNotIn('redis-cli -h <host> -p <port> -a "<password>" PING', source)
+
+    def test_chapter_69_scan_has_cursor_and_expected_behavior(self):
+        source = (CHAPTER_DIR / "69-redis-enterprise-advanced-memory-forensics-fragmentation-allocator-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("SCAN 0 MATCH 'tutorial:chapter69:*' COUNT 100", source)
+        self.assertIn("COUNT argument is a work hint", source)
+        self.assertNotIn("~~~bash\nSCAN\n~~~", source)
+
 
 if __name__ == "__main__":
     unittest.main()
