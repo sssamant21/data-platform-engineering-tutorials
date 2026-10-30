@@ -18,6 +18,15 @@ class V01AuditTests(unittest.TestCase):
             (self.root / f"{n:02d}-chapter.md").write_text(
                 f"# Chapter {n:02d} — Example\n\n```python\nprint('ok')\n```\n",
                 encoding="utf-8")
+        self.index_lines = ["## Chapter index", ""] + [
+            f"- [{n:02d}](\\u005c{n:02d}-chapter.md)" for n in range(1, 81)
+        ]
+        self.write_index()
+
+    def write_index(self):
+        (self.root / "README.md").write_text(
+            "\n".join(self.index_lines).replace("\\u005c", "") + "\n\n## End of index\n",
+            encoding="utf-8")
 
     def check(self, **kw):
         return audit(self.root, minimum_bytes=0, **kw)
@@ -66,6 +75,25 @@ class V01AuditTests(unittest.TestCase):
         (self.root / "05-chapter.md").write_text(
             "# Chapter 05\n```text\n[fake](missing.md)\n```\n", encoding="utf-8")
         self.assertEqual(self.check()["summary"]["relative_links_checked"], 0)
+
+    def test_navigation_covers_all_80(self):
+        result = self.check()
+        self.assertEqual(result["summary"]["index_chapters_covered"], 80)
+
+    def test_navigation_missing_chapter(self):
+        self.index_lines = [x for x in self.index_lines if "40-chapter.md" not in x]
+        self.write_index()
+        self.assertIn("index_missing_chapter", [f["check"] for f in self.check()["findings"]])
+
+    def test_navigation_duplicate_chapter(self):
+        self.index_lines.append("- [again](40-chapter.md)")
+        self.write_index()
+        self.assertIn("index_duplicate_chapter", [f["check"] for f in self.check()["findings"]])
+
+    def test_navigation_broken_target(self):
+        self.index_lines[2] = "- [broken](01-missing.md)"
+        self.write_index()
+        self.assertIn("index_missing_target", [f["check"] for f in self.check()["findings"]])
 
 
 if __name__ == "__main__":
