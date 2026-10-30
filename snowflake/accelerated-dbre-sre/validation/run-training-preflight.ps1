@@ -56,7 +56,7 @@ SELECT CURRENT_ACCOUNT() AS ACCOUNT_LOCATOR,
        CURRENT_SCHEMA() AS SCHEMA_ALIAS
 "@
 try {
-    $output = & snow sql --connection $Connection --local-only --enhanced-exit-codes --format JSON --query $sql 2>&1
+    $output = & snow sql --connection $Connection --role $ExpectedRole --warehouse $ExpectedWarehouse --database $ExpectedDatabase --schema $ExpectedSchema --local-only --enhanced-exit-codes --format JSON --query $sql 2>&1
     if ($LASTEXITCODE -ne 0) {
         Deny "Snowflake CLI preflight query failed; verify configuration and authentication privately."
     }
@@ -102,7 +102,7 @@ if (-not (Test-Path -LiteralPath $scriptPath -PathType Leaf)) {
     Deny "Required version-controlled SQL file not found locally."
 }
 Write-Output "The lesson SQL runs against the *configured live training account*."
-Write-Output "The preflight used a separate connection; confirm the connection configuration did not change."
+Write-Output "The preflight used a separate CLI connection; the execution command explicitly pins the approved role, warehouse, database and schema. Reconfirm the connection alias still targets the same nonproduction account."
 Write-Output "Never redirect raw query results, credentials or query text to a shared log."
 $expectedPhrase = "RUN " + $Mode.ToUpperInvariant() + " IN TRAINING"
 $answer = Read-Host ("Type exactly '" + $expectedPhrase + "' to proceed")
@@ -111,7 +111,7 @@ if ($answer -cne $expectedPhrase) {
 }
 # One CLI call executes all SQL statements in the selected file on a single connection.
 # No automatic L2 execution: run only after Level 1 reviewer acceptance.
-& snow sql --connection $Connection --local-only --enhanced-exit-codes --filename $scriptPath
+& snow sql --connection $Connection --role $ExpectedRole --warehouse $ExpectedWarehouse --database $ExpectedDatabase --schema $ExpectedSchema --local-only --enhanced-exit-codes --filename $scriptPath
 $exitCode = $LASTEXITCODE
 if ($exitCode -ne 0) {
     Deny ("Snowflake CLI lesson ended with an error code " + $exitCode + ". No V03 PASS may be claimed.")
