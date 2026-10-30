@@ -1580,12 +1580,10 @@ Memory usage:
 Create:
 
 ``` redis
-HSET tutorial:chapter03:product:1002:v1 \
-  name "Mouse" \
-  price "19.99" \
-  stock "25" \
-  category "accessories"
+HSET tutorial:chapter03:product:1002:v1 name "Mouse" price "19.99" stock "25" category "accessories"
 ```
+
+**Expected:** HSET reports 4 newly added hash fields when run on an absent lab key. The example uses a **single Redis command**; do not paste Bash-style trailing backslashes into an interactive Redis command prompt. If a prior lab run left this key in place, the added-field count can differ; use a fresh isolated test database or review/remove the exact disposable key first.
 
 Apply TTL:
 
