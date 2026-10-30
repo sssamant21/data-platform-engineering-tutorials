@@ -36,7 +36,7 @@ SHELL_RISK = {
 }
 FENCE = re.compile(r"^\s{0,3}(" + chr(96) + r"{3,}|~{3,})(.*)$")
 ASSET = re.compile(r"postgresql/(?:labs|scripts|monitoring|templates|projects)/[A-Za-z0-9_./-]+\.(?:sql|py|sh|ps1|json|yml|yaml|conf)")
-PGVAR = re.compile(r""":'[^']+'|:"[^"]+"|(?<!:):[A-Za-z_][A-Za-z_0-9]*""")
+PGVAR = re.compile(r"""(?<![A-Za-z0-9_':"]):'[^'\n]+'|(?<![A-Za-z0-9_':"]):"[^"\n]+"|(?<!:):[A-Za-z_][A-Za-z_0-9]*""")
 META = re.compile(r"^\s*\\")
 INLINE_META = re.compile(r"\\(?:gexec|gset|gdesc|g|watch)\b[^\n]*", re.I)
 
@@ -51,7 +51,7 @@ def sql_prep(text):
         if META.match(line):
             skipped += 1
         else:
-            lines.append(INLINE_META.sub("", line))
+            lines.append(INLINE_META.sub(";", line))
     return PGVAR.sub("'__psql_variable__'", "\n".join(lines)), skipped
 
 
