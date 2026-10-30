@@ -8,7 +8,7 @@
 
 ## GitHub Actions evidence
 
-- [Passing V02 workflow run #41054743458](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41054743458)
+- [Latest successful V02 workflow run #41062449652](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41062449652)
 - [Machine-readable full V02 artifact](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41054743458/artifacts/12975638987): `postgresql-v02-evidence`
 - Earlier V02 attempts failed because the auditor initially treated some `psql` variable expressions and standalone `\gexec` directives as plain SQL. Parser preprocessing was corrected and the affected SQL files now parse.
 
@@ -18,7 +18,7 @@
 
 | Scope | Count | Result |
 |---|---:|---|
-| Standalone SQL source files | 156 | 156 parsed; zero errors |
+| Standalone SQL source files | 159 | 159 parsed; zero errors |
 | Python files | 13 | 13 AST syntax passes |
 | Bash scripts | 5 | 5 `bash -n` passes |
 | PowerShell scripts | 2 | 2 AST parser passes on GitHub runner |
@@ -32,7 +32,7 @@
 
 Other fenced content includes 89 text, 11 conf, 2 ini, one PromQL and one Mermaid block. These have not all been technically verified.
 
-**Updated risk-pattern accounting:** The original 37-file triage was a frozen baseline. The new guarded Chapter 007 cleanup SQL adds one deliberate `DROP DATABASE` match, bringing the current V02-A source risk-inventory count to **38**; this is not an additional unguarded finding. Refer to the V02-D report for its mitigation and remaining runtime gate.
+**Updated risk-pattern accounting:** The original 37-match V02-B triage is a frozen baseline. The guarded Chapter 007, Chapter 011 and Chapter 014 database cleanup SQL files each add one intentional `DROP DATABASE` pattern, bringing the current V02-A source risk inventory to **40** matches (not 40 confirmed defects). See the V02-D reports for mitigations and remaining runtime gates.
 
 ## V02-B follow-up — published static safeguards
 
@@ -80,8 +80,8 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 ## Next validation tasks
 
 1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
-2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 791 fences inventoried, 668 static syntax passes, 19 manual-context items, 50 risk matches and 108 editorial-context flags on the V02-D commit. Full technical sign-off and live examples remain pending.
-3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. Runtime proof and independent sign-off remain pending; continue Chapters 011–020.
+2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 792 fences inventoried, 666 static syntax passes, 22 manual-context items, 48 risk matches and 107 editorial-context flags on the Chapters 011–020 V02-D commit. Full technical sign-off and live examples remain pending.
+3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. [Chapters 011–020 security/concurrency review](V02D-CH011-020-STATUS.md) also published with three guarded-operation fixes and **10/10 additional regression tests passing**. Runtime proof and independent sign-off remain pending; continue Chapters 021–030.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
 
 **Certification rule:** V02 automated syntax checks have passed. **Do not label V02 fully certified**, and do not advance any chapter to runtime verified or enterprise certified without recorded execution and independent sign-off.
