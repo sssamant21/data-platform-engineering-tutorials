@@ -101,6 +101,18 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("HSET reports 4 newly added hash fields", source)
         self.assertNotIn('HSET tutorial:chapter03:product:1002:v1 ' + chr(92) + chr(10), source)
 
+    def test_chapter_04_conditional_set_expected_replies(self):
+        chapter = (CHAPTER_DIR / "04-redis-commands-command-semantics-safe-operations.md").read_text(encoding="utf-8")
+        self.assertIn("Expected per-command results:", chapter)
+        self.assertIn("nil/null", chapter)
+        self.assertIn("does not replace the original value", chapter)
+
+    def test_chapter_11_expire_version_gate(self):
+        chapter = (CHAPTER_DIR / "11-ttl-expiration-cache-freshness-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("Redis 7.0.0", chapter)
+        self.assertIn("persistent (non-expiring) key", chapter)
+        self.assertIn("EXPIRE command/version history", chapter)
+
 
 if __name__ == "__main__":
     unittest.main()
