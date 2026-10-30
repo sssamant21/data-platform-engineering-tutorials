@@ -284,22 +284,23 @@ This is a common production bug.
 
 ## 11. Preserve TTL
 
-Where supported:
+**Prerequisite and version gate:** The previous exercise intentionally removed this key's TTL (`TTL = -1`). `KEEPTTL` cannot restore a deadline that no longer exists. It only preserves the TTL already present **at the time of the new SET**. `SET ... KEEPTTL` requires Redis **6.0+** and a deployed Redis Software/Enterprise database supporting that engine option.
+
+Re-establish an expiration on this **owned, isolated lab key** before testing:
 
 ``` redis
-SET tutorial:chapter11:item value3 KEEPTTL
-```
-
-Then:
-
-``` redis
+EXPIRE tutorial:chapter11:item 300
 TTL tutorial:chapter11:item
+SET tutorial:chapter11:item value3 KEEPTTL
+TTL tutorial:chapter11:item
+GET tutorial:chapter11:item
 ```
 
-The existing TTL is retained.
+**Expected on the existing lab key:** `EXPIRE` returns integer `1`; the first `TTL` is positive and at most 300 seconds. `SET ... KEEPTTL` returns `OK`; the second `TTL` remains positive and is no greater than the previous value (apart from clock/observation timing), and `GET` returns `value3`. If the key has already expired, `EXPIRE` returns `0` and the experiment must be reset. If the key was persistent and `EXPIRE` was skipped, `KEEPTTL` would correctly leave the new key **persistent** (`TTL=-1`)—not demonstrate preservation of a finite TTL.
 
-Use this only when preserving the old expiration is semantically
-correct.
+Use this only when preserving the existing expiration is semantically correct; do not apply to a shared application key.
+
+Reference: [Redis SET command and KEEPTTL version history](https://redis.io/docs/latest/commands/set/).
 
 ------------------------------------------------------------------------
 
