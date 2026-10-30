@@ -183,6 +183,7 @@ def main() -> int:
                  "validation/V03-PREFLIGHT-STATUS.md",
                  "validation/V03-EXECUTION-RUNBOOK.md",
                  "validation/run-training-preflight.ps1",
+                 "validation/check-powershell-syntax.ps1",
                  "validation/V03-NOT-RUN-TEMPLATE.json",
                  "validation/validate_runtime_evidence.py",
                  "validation/test_runtime_evidence.py",
