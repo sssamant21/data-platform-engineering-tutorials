@@ -223,6 +223,19 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("SSCAN tutorial:chapter04:lab-set 0 COUNT 100", doc4)
         self.assertIn("ZSCAN tutorial:chapter04:lab-zset 0 COUNT 100", doc4)
 
+    def test_conceptual_cache_delete_examples_are_qualified(self):
+        documents = {
+            12: "12-cache-aside-pattern.md",
+            13: "13-cache-updates-invalidation-consistency.md",
+            20: "20-redis-cache-invalidation-consistency-change-propagation.md",
+        }
+        for chapter, name in documents.items():
+            doc = (CHAPTER_DIR / name).read_text(encoding="utf-8")
+            self.assertIn("conceptual application key", doc.lower(), chapter)
+            self.assertIn("0", doc)
+            self.assertIn("1", doc)
+            self.assertIn("shared", doc.lower())
+
 
 if __name__ == "__main__":
     unittest.main()
