@@ -3,12 +3,12 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–030 reviewed; 28/28 targeted contract/unit tests passed on code commit 85eac56; final documentation-only branch CI rerun pending**  
+**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–040 statically reviewed; 38/38 targeted contract/unit tests passed on the latest code-bearing commit; live runtime and independent review pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
 
-- [Latest successful V02 workflow run #41062449652](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41062449652)
+- [Passing V02 workflow #41106227830 (all 38 tests)](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41106227830)
 - [Machine-readable V02-A/B/C artifact on the passing Chapter 011–020 run](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41062449652/artifacts/12979761963): `postgresql-v02-evidence`
 - Earlier V02 attempts failed because the auditor initially treated some `psql` variable expressions and standalone `\gexec` directives as plain SQL. Parser preprocessing was corrected and the affected SQL files now parse.
 
@@ -18,21 +18,21 @@
 
 | Scope | Count | Result |
 |---|---:|---|
-| Standalone SQL source files | 159 | 159 parsed; zero errors |
+| Standalone SQL source files | 160 | 160 parsed; zero errors |
 | Python files | 13 | 13 AST syntax passes |
 | Bash scripts | 5 | 5 `bash -n` passes |
 | PowerShell scripts | 2 | 2 AST parser passes on GitHub runner |
 | JSON files | 1 | 1 parsed |
 | YAML files | 5 | 5 parsed |
-| `psql` directive lines excluded from SQL grammar parser | 620 | Classified as client commands, not executed |
+| `psql` directive lines excluded from SQL grammar parser | 706 | Classified as client commands, not executed |
 | Markdown fenced `sql` code blocks | 252 | V02-C inspected/parsed where complete; contextual review remains pending |
-| Markdown fenced `bash` blocks | 386 | V02-C inspected/parsed where complete; contextual review remains pending |
+| Markdown fenced `bash` blocks | 392 | V02-C inspected/parsed where complete; contextual review remains pending |
 | Markdown fenced `powershell` blocks | 50 | V02-C inspected/parsed where complete; contextual review remains pending |
-| Distinct assets referenced in prose / command examples | 126 | Existence checked; zero missing references flagged |
+| Distinct assets referenced in prose / command examples | 127 | Existence checked; zero missing references flagged |
 
 Other fenced content includes 89 text, 11 conf, 2 ini, one PromQL and one Mermaid block. These have not all been technically verified.
 
-**Updated risk-pattern accounting:** The original 37-match V02-B triage is a frozen baseline. The guarded Chapter 007, Chapter 011 and Chapter 014 database cleanup SQL files each add one intentional `DROP DATABASE` pattern, bringing the current V02-A source risk inventory to **40** matches (not 40 confirmed defects). See the V02-D reports for mitigations and remaining runtime gates.
+**Updated risk-pattern accounting:** The frozen V02-B initial register covered 37 matches. The current V02-A scanner records **50 keyword matches** across source files, including new **guarded** DROP TABLE/SCHEMA procedures. These matches are not vulnerability counts. See the Chapters 031–040 review for explicit no-CASCADE mitigations and pending runtime refusal tests.
 
 ## V02-B follow-up — published static safeguards
 
@@ -80,8 +80,8 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 ## Next validation tasks
 
 1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
-2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 792 fences inventoried, 666 static syntax passes, 22 manual-context items, 48 risk matches and 107 editorial-context flags on the Chapters 011–020 V02-D commit. Full technical sign-off and live examples remain pending.
-3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. [Chapters 011–020 security/concurrency review](V02D-CH011-020-STATUS.md) also published with three guarded-operation fixes and **10/10 additional regression tests passing**. See [Chapters 021–030 observability/performance review](V02D-CH021-030-STATUS.md) for two fail-closed SQL setup guards, input-validation fixes in the SLO and query-statistics utilities, and 10 new offline regression tests (**10/10 passed in code-bearing run #41103490392**). Runtime proof and independent sign-off remain pending; next Chapters 031–040.
+2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 798 fences inventoried, 671 static syntax passes, 23 manual-context items, 48 potential destructive command matches and 107 editorial flags on the Chapters 031–040 V02-D code commit. Full technical sign-off and live examples remain pending.
+3. **V02-D:** [Chapters 001–010 static review](V02D-CH001-010-STATUS.md) published: all 10 chapter/lab pairs checked, two fixes (Chapter 007 guarded database deletion and Chapter 010 low-privilege configuration capture), **8/8 regression tests passing**. [Chapters 011–020 security/concurrency review](V02D-CH011-020-STATUS.md) also published with three guarded-operation fixes and **10/10 additional regression tests passing**. See [Chapters 021–030 observability/performance review](V02D-CH021-030-STATUS.md) for two fail-closed SQL setup guards, input-validation fixes in the SLO and query-statistics utilities, and 10 new offline regression tests (**10/10 passed in code-bearing run #41103490392**). [Chapters 031–040 index/maintenance/partition review](V02D-CH031-040-STATUS.md) is published: Chapter 037 one-time guarded setup/churn/cleanup, Chapter 040 exact partition topology/no-CASCADE cleanup, and seven additional controlled schema-cleanup changes; **10/10 additional regression tests passed**. Runtime proof and independent sign-off remain pending; next Chapters 041–050.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
 
 **Certification rule:** V02 automated syntax checks have passed. **Do not label V02 fully certified**, and do not advance any chapter to runtime verified or enterprise certified without recorded execution and independent sign-off.
