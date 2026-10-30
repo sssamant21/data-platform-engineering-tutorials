@@ -56,7 +56,7 @@ def inspect(root: Path) -> dict:
             # A list of command names in a text fence can match JSON.SET or GETEX,
             # but is not an executable version-sensitive example.
             version = explicit and bool(VERSIONS.search(source))
-            special = bool(HIGH.search(source))
+            special = explicit and bool(HIGH.search(source))
             write = any(WRITE.search(x) for x in commands)
             read = any(READ.search(x) for x in commands)
             warning = bool(NEGATIVE.search(preceding+"\n"+after))
