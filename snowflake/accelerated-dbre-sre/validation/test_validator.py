@@ -98,5 +98,38 @@ class UnsafeSQLTest(unittest.TestCase):
         self.assert_blocked("GRANT IMPORTED PRIVILEGES ON DATABASE SNOWFLAKE TO ROLE PUBLIC;")
 
 
+    def test_l5_read_only_role_discovery(self):
+        self.assert_allowed(
+            "SELECT CURRENT_ROLE(), CURRENT_SECONDARY_ROLES();"
+            "SHOW GRANTS; SHOW ROLES;"
+        )
+
+    def test_l5_login_audit_aggregate(self):
+        self.assert_allowed(
+            "SELECT IS_SUCCESS, COUNT(*) AS N "
+            "FROM SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY "
+            "GROUP BY IS_SUCCESS;"
+        )
+
+    def test_l6_retention_and_historical_select(self):
+        self.assert_allowed(
+            "SHOW PARAMETERS LIKE 'MIN_DATA_RETENTION_TIME_IN_DAYS' IN ACCOUNT;"
+            "SHOW PARAMETERS LIKE 'DATA_RETENTION_TIME_IN_DAYS' IN DATABASE DBRE_SRE_LAB;"
+            "SELECT COUNT(*) FROM DBRE_SRE_L6_RECOVERY AT (OFFSET => -60);"
+        )
+
+    def test_l6_drop_training_table_is_forbidden(self):
+        self.assert_blocked("DROP TABLE DBRE_SRE_L6_RECOVERY;")
+
+    def test_l7_read_only_incident_metrics(self):
+        self.assert_allowed(
+            "SELECT QUERY_ID, ERROR_CODE, QUEUED_OVERLOAD_TIME "
+            "FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000));"
+        )
+
+    def test_l7_no_incident_query_cancellation(self):
+        self.assert_blocked("CALL SYSTEM$CANCEL_QUERY('test-id');")
+
+
 if __name__ == "__main__":
     unittest.main()
