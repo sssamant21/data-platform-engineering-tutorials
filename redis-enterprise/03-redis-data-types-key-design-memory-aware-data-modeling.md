@@ -388,14 +388,16 @@ Stock: 25
 ### String model
 
 ``` redis
-SET product:1001  '{"name":"Keyboard","price":49.99,"stock":25}'
+SET tutorial:chapter03:model:string:1001 '{"name":"Keyboard","price":49.99,"stock":25}'
 ```
 
 ### Hash model
 
 ``` redis
-HSET product:1001  name "Keyboard"  price "49.99"  stock "25"
+HSET tutorial:chapter03:model:hash:1001 name "Keyboard" price "49.99" stock "25"
 ```
+
+**Expected:** `SET` returns `OK` and `HSET` reports `3` fields added when the hash key is absent. `TYPE tutorial:chapter03:model:string:1001` returns `string`; `TYPE tutorial:chapter03:model:hash:1001` returns `hash`. **Use distinct test keys for the two representations:** writing both types under one key would produce `WRONGTYPE` on the hash command, not a fair data-model comparison. These examples belong only in an isolated lab database.
 
 Neither is universally better.
 
@@ -586,6 +588,8 @@ Descending ranking:
 ZREVRANGE tutorial:chapter03:leaderboard 0 -1 WITHSCORES
 ```
 
+**Expected with an initially absent lab key:** `ZADD` returns `3` new members; ascending `ZRANGE` returns alice=1500, carol=1800, bob=2200; descending `ZREVRANGE` returns bob=2200, carol=1800, alice=1500. Redis CLI displays members and scores as alternating elements, rather than necessarily on one line as these schematic pairs. A repeat `ZADD` can return `0` when all members already exist.
+
 Common commands:
 
 ``` text
@@ -645,6 +649,8 @@ Read:
 ``` redis
 XRANGE tutorial:chapter03:events - +
 ```
+
+**Expected:** `XADD` returns a newly generated stream entry ID (never hardcode a timestamp or sequence); `XRANGE` returns one or more entries containing that ID with `type=login` and `user=1001`. The stream may already contain entries from other isolated lab steps, so an exact total count is not guaranteed. For consistency testing, use a fresh lab database or track the returned entry ID.
 
 Common concepts:
 
@@ -1683,6 +1689,8 @@ ZCARD tutorial:chapter03:product:views
 EXPIRE tutorial:chapter03:product:views 600
 ```
 
+**Expected with a previously absent key:** The initial `ZADD` returns `3`; descending `ZREVRANGE` shows member 1002 (275), then 1001 (150), then 1003 (90). `ZINCRBY ... 25 1001` returns the new score `175`; `ZSCORE` returns `175`, `ZCARD` returns `3`, and `EXPIRE` returns integer `1`. Scores are returned as text in a Redis CLI reply and may be displayed with decimal formatting. A previous run may change the initial added-member count or scores.
+
 ------------------------------------------------------------------------
 
 ## 55. Lab 7 --- Stream
@@ -1711,6 +1719,8 @@ Set TTL for the lab:
 ``` redis
 EXPIRE tutorial:chapter03:events 600
 ```
+
+**Expected:** Each `XADD` returns a unique entry ID; `XLEN` is at least `2` if the two lab entries remain in the stream; `XRANGE` shows those IDs and their respective fields. `EXPIRE` returns `1` when the stream exists. The `MAXLEN ~ 1000` setting is **approximate** and does not enforce exactly 1,000 elements at every moment.
 
 Production stream retention should be designed explicitly rather than
 relying solely on a key-level TTL.
