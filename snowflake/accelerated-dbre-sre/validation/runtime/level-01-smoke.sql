@@ -46,5 +46,15 @@ SELECT IFF(
 ) AS LEVEL_01_SMOKE_RESULT
 FROM DBRE_SRE_L1_QA_20261030;
 
+-- Evidence capture: return query IDs/status for this exact connection without raw SQL text.
+-- Snowflake CLI executes all statements from one --filename on one connection.
+-- Save the IDs of the sample VALUES, CREATE, INSERT, aggregation and PASS assertion.
+-- Query History applies RESULT_LIMIT before outer filters; this is session-scoped.
+SELECT QUERY_ID, QUERY_TYPE, EXECUTION_STATUS, TOTAL_ELAPSED_TIME,
+       WAREHOUSE_NAME, START_TIME
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
+ORDER BY START_TIME DESC
+LIMIT 30;
+
 -- Cleanup: TEMP TABLE goes away when the current session ends.
 -- Do not use DROP against shared or production objects.
