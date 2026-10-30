@@ -34,6 +34,10 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 - L6: Time Travel, clone, UNDROP, replication, RPO/RTO
 - L7: Production triage, evidence capture, recovery and blameless RCA
 
+## V03 controlled runtime validation
+
+The lessons and seven manual SQL smoke tests are published as drafts only. For authorized training-account execution, follow the [V03 execution runbook](validation/V03-EXECUTION-RUNBOOK.md), [readiness status](validation/V03-PREFLIGHT-STATUS.md), and [offline evidence validator](validation/validate_runtime_evidence.py). **The evidence tool only checks record completeness; it never connects to Snowflake or certifies results.** An independent Snowflake administrator/DBRE reviewer must check actual query IDs, permissions, cleanup, costs and results before recording runtime acceptance.
+
 ## Production-safety boundary
 All labs require a designated Snowflake training environment. Never use real patient/customer data. Read-only SQL is preferred; create/alter/drop/grant/recovery commands are either constrained to scratch objects or discussed as owner-approved examples. Account Usage grants and feature availability vary. **Published draft ≠ runtime validated ≠ production certified**.
 
