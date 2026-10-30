@@ -580,6 +580,8 @@ Use:
 SCAN 0 MATCH 'tutorial:chapter10:*' COUNT 100
 ```
 
+**Expected:** A cursor followed by zero or more matching keys. Continue the read-only scan with the returned cursor until it reaches `0`, even if one batch is empty. `COUNT 100` is only a hint; the scan can include duplicates and is not a snapshot. Do not interpret a single response as a complete production inventory. Authorize a specific namespace and workload budget before scanning any shared database.
+
 Do not use:
 
 ``` redis
@@ -597,6 +599,8 @@ For known lab keys:
 ``` redis
 UNLINK tutorial:chapter10:string
 ```
+
+**Expected:** Integer `1` if that exact disposable lab key existed, or `0` if it had already expired or been removed. `UNLINK` removes the key from the keyspace without waiting for all memory reclamation to finish; a successful integer reply is not proof of immediate memory reduction. Confirm the key belongs to this isolated lab before running.
 
 Recreate it if needed for later exercises.
 
