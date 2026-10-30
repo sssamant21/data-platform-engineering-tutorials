@@ -55,6 +55,7 @@ def main() -> int:
     p.add_argument("--root", type=Path, default=Path(__file__).resolve().parents[1])
     p.add_argument("--json-file", type=Path)
     p.add_argument("--assert-chapters-clear", nargs="*", type=int, default=[])
+    p.add_argument("--fail-on-any-finding", action="store_true", help="Require every chapter Redis interactive fence to avoid both scanned defects")
     args = p.parse_args()
     result = inspect(args.root)
     if args.json_file:
@@ -63,7 +64,7 @@ def main() -> int:
     print("V02 REDIS INTERACTIVE SYNTAX:", json.dumps(result["summary"], sort_keys=True))
     for issue in result["findings"][:40]:
         print("V02 REDIS SYNTAX CANDIDATE:", json.dumps(issue, sort_keys=True))
-    outstanding = [x for x in result["findings"] if x["chapter"] in args.assert_chapters_clear]
+    outstanding = [x for x in result["findings"] if args.fail_on_any_finding or x["chapter"] in args.assert_chapters_clear]
     if outstanding:
         print("FAIL: targeted chapters still contain bad interactive Redis syntax:",
               json.dumps(outstanding[:20]))
