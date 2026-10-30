@@ -22,7 +22,7 @@
 - **Second-pass technical review:** [V02 findings SF-007–SF-012](validation/V02-SECOND-PASS-REVIEW.md).
 - **Level 3–4 follow-on review:** [V02 findings SF-013–SF-017](validation/V02-LEVELS-03-04-REVIEW.md); [Level 3 smoke](validation/runtime/level-03-smoke.sql) and [Level 4 smoke](validation/runtime/level-04-smoke.sql) are prepared for **manual nonproduction** runtime testing.
 - **Level 5–7 follow-on review:** [V02 findings SF-018–SF-024](validation/V02-LEVELS-05-07-REVIEW.md); [L5](validation/runtime/level-05-smoke.sql), [L6](validation/runtime/level-06-smoke.sql) and [L7](validation/runtime/level-07-smoke.sql) read-only smoke scripts are authored, **NOT RUN**.
-- **SQL safety regression tests:** [test_validator.py](validation/test_validator.py), required by the [CI workflow](../../.github/workflows/snowflake-accelerated-static.yml). Latest revision's CI run must pass before V02 static verification is considered complete.
+- **SQL safety regression tests:** [test_validator.py](validation/test_validator.py), required by the [CI workflow](../../.github/workflows/snowflake-accelerated-static.yml). The latest V01/V02 and V03 offline/mocked validation passed in [run #156](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124974600).
 - **Test execution plan:** [Validation plan](validation/VALIDATION-PLAN.md); [Levels 1–2 smoke pack](validation/runtime/README.md).
 - A CI PASS is an initial authoring/safety filter, not execution evidence or an independent security review.
 
@@ -33,12 +33,19 @@
 - No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
 - **CLI preflight hardening (2026-10-30):** [Windows operator launcher](validation/run-training-preflight.ps1) defaults to read-only, verifies exact org/account locator/region/role/warehouse/database/schema against operator-approved values, and requires typed authorization before L1/L2. [Latest CI #134 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41123715672), including PowerShell parse-only validation. **Script has not executed against Snowflake.**
 - **Execution attempt (2026-10-30): BLOCKED — no connected Snowflake training session.** Level 1 and Level 2 actual SQL results and query IDs remain unavailable. Same-session query-history capture added to both smoke scripts. [Static CI run #111 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41119260657) does not satisfy V03.
-- **V03 readiness package:** [operator runbook](validation/V03-EXECUTION-RUNBOOK.md), [preflight blocker register](validation/V03-PREFLIGHT-STATUS.md), [offline evidence checker](validation/validate_runtime_evidence.py) and [blank NOT_RUN template](validation/V03-NOT-RUN-TEMPLATE.json). The new local evidence checks and regression tests are subject to a separate CI run. **No evidence has been submitted.**
+- **V03 readiness package:** [operator runbook](validation/V03-EXECUTION-RUNBOOK.md), [preflight blocker register](validation/V03-PREFLIGHT-STATUS.md), [offline evidence checker](validation/validate_runtime_evidence.py) and [blank NOT_RUN template](validation/V03-NOT-RUN-TEMPLATE.json). The offline evidence checker and mock preflight tests passed their CI gates. **No evidence has been submitted.**
 
 ## V03 mock execution safety evidence — 2026-10-30
 
 - [Run #144 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124509495): 48 Python tests and a PowerShell mocked nonproduction preflight suite. The mock rejects incorrect account locator/organization/region, admin role, absent nonproduction owner attestation, missing L1 empty-scratch approval, missing L2 acceptance, and a simulated CLI connection error.
 - No live Snowflake account was contacted by the mock tests. **All seven V03 runtime labs remain NOT RUN**, and no genuine query IDs exist.
+
+## Latest V03 preflight CI verification — 2026-10-30
+
+- **PASS:** [GitHub Actions run #156](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124974600) for commit `206521a9a8e6b4fd01e75b66452d6e668002cc0f`. All **48 Python tests** passed; PowerShell syntax parsing and mock-only preflight integration steps passed.
+- The simulated launcher verified **positive** Level 1/Level 2 confirmation, correct SQL file selection, pinned role/warehouse/database/schema options, and negative safeguards (wrong account, admin role, absent approval, wrong typed confirmation and mock connection failure).
+- **No live Snowflake access:** No connected Snowflake plugin or local workstation/CLI session was available to this chat. All V03 SQL smoke scripts remain **NOT RUN**. No actual query IDs or outputs have been captured; V04/V05 remain pending.
+- **Next actionable dependency:** An approved nonproduction Snowflake connection plus verified scratch namespace, budget and independent reviewer. Run Level 1, retain actual sanitized results/query IDs, obtain acceptance, and only then run Level 2.
 
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
