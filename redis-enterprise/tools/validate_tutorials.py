@@ -221,7 +221,9 @@ def main(argv: list[str] | None = None) -> int:
     summary = result["summary"]
     print(f"Redis Enterprise V01: {summary['chapters_found']}/{summary['expected_chapters']} chapters; "
           f"{summary['code_blocks']} fenced blocks; {summary['python_blocks']} Python blocks; "
-          f"{summary['relative_links_checked']} relative links", flush=True)
+          f"{summary['relative_links_checked']} chapter relative links; "
+          f"{summary['index_chapters_covered']}/{summary['expected_chapters']} indexed; "
+          f"{summary['index_relative_links_checked']} index links", flush=True)
     print(f"Findings: {summary['errors']} errors, {summary['warnings']} warnings "
           f"({summary['python_syntax_errors']} Python syntax warnings/errors)")
     for finding in result["findings"]:
