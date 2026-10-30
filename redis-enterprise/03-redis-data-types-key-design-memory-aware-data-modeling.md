@@ -188,8 +188,7 @@ GETRANGE
 An application may serialize an entire object:
 
 ``` redis
-SET tutorial:chapter03:product:1001 \
-'{"name":"Keyboard","price":49.99,"stock":25}'
+SET tutorial:chapter03:product:1001  '{"name":"Keyboard","price":49.99,"stock":25}'
 ```
 
 Read:
@@ -292,10 +291,7 @@ A hash stores field/value pairs under one Redis key.
 Example:
 
 ``` redis
-HSET tutorial:chapter03:user:1001 \
-  name "Alice" \
-  status "active" \
-  region "us-east"
+HSET tutorial:chapter03:user:1001  name "Alice"  status "active"  region "us-east"
 ```
 
 Read one field:
@@ -354,10 +350,7 @@ HSCAN
 Suppose:
 
 ``` redis
-HSET tutorial:chapter03:product:1002 \
-  name "Mouse" \
-  price "19.99" \
-  stock "25"
+HSET tutorial:chapter03:product:1002  name "Mouse"  price "19.99"  stock "25"
 ```
 
 Update only stock:
@@ -395,17 +388,13 @@ Stock: 25
 ### String model
 
 ``` redis
-SET product:1001 \
-'{"name":"Keyboard","price":49.99,"stock":25}'
+SET product:1001  '{"name":"Keyboard","price":49.99,"stock":25}'
 ```
 
 ### Hash model
 
 ``` redis
-HSET product:1001 \
-  name "Keyboard" \
-  price "49.99" \
-  stock "25"
+HSET product:1001  name "Keyboard"  price "49.99"  stock "25"
 ```
 
 Neither is universally better.
@@ -582,10 +571,7 @@ Sorted sets associate members with numeric scores.
 Example:
 
 ``` redis
-ZADD tutorial:chapter03:leaderboard \
-  1500 alice \
-  2200 bob \
-  1800 carol
+ZADD tutorial:chapter03:leaderboard  1500 alice  2200 bob  1800 carol
 ```
 
 Read ordered ranking:
@@ -651,9 +637,7 @@ workloads.
 Example:
 
 ``` redis
-XADD tutorial:chapter03:events '*' \
-  type login \
-  user 1001
+XADD tutorial:chapter03:events '*'  type login  user 1001
 ```
 
 Read:
@@ -689,9 +673,7 @@ Bound growth deliberately.
 Example approximate trimming:
 
 ``` redis
-XADD tutorial:chapter03:bounded-stream \
-  MAXLEN ~ 1000 \
-  '*' type test value 1
+XADD tutorial:chapter03:bounded-stream  MAXLEN ~ 1000  '*' type test value 1
 ```
 
 Retention requirements should be based on:
@@ -1139,18 +1121,13 @@ Do not build application correctness around a specific encoding.
 Create string:
 
 ``` redis
-SET tutorial:chapter03:product:string \
-'{"name":"Keyboard","price":"49.99","stock":"25","category":"accessories"}'
+SET tutorial:chapter03:product:string  '{"name":"Keyboard","price":"49.99","stock":"25","category":"accessories"}'
 ```
 
 Create hash:
 
 ``` redis
-HSET tutorial:chapter03:product:hash \
-  name "Keyboard" \
-  price "49.99" \
-  stock "25" \
-  category "accessories"
+HSET tutorial:chapter03:product:hash  name "Keyboard"  price "49.99"  stock "25"  category "accessories"
 ```
 
 Measure:
@@ -1660,10 +1637,7 @@ The exercise demonstrates explicit bounding.
 ## 53. Lab 5 --- Product Tags Set
 
 ``` redis
-SADD tutorial:chapter03:product:1001:tags \
-  electronics \
-  accessories \
-  keyboard
+SADD tutorial:chapter03:product:1001:tags  electronics  accessories  keyboard
 ```
 
 Then:
@@ -1686,10 +1660,7 @@ Expected cardinality:
 ## 54. Lab 6 --- Leaderboard Sorted Set
 
 ``` redis
-ZADD tutorial:chapter03:product:views \
-  150 1001 \
-  275 1002 \
-  90 1003
+ZADD tutorial:chapter03:product:views  150 1001  275 1002  90 1003
 ```
 
 Read descending:
@@ -1719,17 +1690,13 @@ EXPIRE tutorial:chapter03:product:views 600
 Create:
 
 ``` redis
-XADD tutorial:chapter03:events MAXLEN ~ 1000 '*' \
-  type product_view \
-  product_id 1001
+XADD tutorial:chapter03:events MAXLEN ~ 1000 '*'  type product_view  product_id 1001
 ```
 
 Add another:
 
 ``` redis
-XADD tutorial:chapter03:events MAXLEN ~ 1000 '*' \
-  type product_view \
-  product_id 1002
+XADD tutorial:chapter03:events MAXLEN ~ 1000 '*'  type product_view  product_id 1002
 ```
 
 Inspect:
