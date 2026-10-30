@@ -223,6 +223,8 @@ UNLINK cache:key
 
 Then future reads rebuild the cache.
 
+**Safety/expected result:** `cache:key` is a conceptual application key. Use only an approved disposable key for hands-on testing and never delete production/shared application data to prove the pattern. `DEL`/`UNLINK` return `1` if a key existed or `0` otherwise; source-of-truth write/commit and concurrent request ordering are application concerns beyond this single Redis command.
+
 This avoids having the write path reproduce every cache transformation.
 
 ------------------------------------------------------------------------
