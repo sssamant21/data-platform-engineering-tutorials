@@ -1,13 +1,15 @@
 # Chapter 034 — Hands-on Index Bloat, Usage and Lifecycle Lab
+**V02-B destructive cleanup gate:** Cleanup is deliberately blocked until the operator passes the exact database name, the PostgreSQL 18 cluster system identifier, and the chapter token `034-DROP`. On the **same disposable target** used by this lab, first run `SELECT current_database(), system_identifier FROM pg_control_system();`, examine the reported values and verify the instance is truly disposable. Manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID` in the cleanup command. The system identifier alone does not prove that an environment is safe; never execute this cleanup on production or shared staging. These guards are not a substitute for reviewing ownership and dependencies.
 
-**Baseline:** PostgreSQL 18. **Safety:** disposable local database only; setup and cleanup destroy schema `ch034`. Do not run on production or shared staging.
+
+**Baseline:** PostgreSQL 18. **Safety:** disposable local database only; setup refuses an existing schema; separately confirmed cleanup destroys `ch034`. Do not run on production or shared staging.
 
 ## Execute
 
 ```bash
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/034-setup.sql
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/034-investigate.sql
-psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/034-cleanup.sql
+psql -X -v ON_ERROR_STOP=1 -d postgres -v expected_db=postgres -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_cleanup=034-DROP -f postgresql/labs/sql/034-cleanup.sql
 ```
 
 Use `psql` directly; `VACUUM` in the investigation must run outside a transaction block. Save output to an evidence log if required. The script uses `pg_stat_clear_snapshot()` to avoid a stale statistics snapshot; asynchronous statistics propagation can still make deltas lag.
