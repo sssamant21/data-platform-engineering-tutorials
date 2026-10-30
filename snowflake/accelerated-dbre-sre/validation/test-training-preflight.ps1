@@ -102,3 +102,8 @@ catch {
 $global:MockFailure = $true
 ShouldReject @{} "connection execution failure"
 Write-Output "V03 PowerShell mock integration tests PASS (zero live Snowflake calls)"
+# A mocked failing SQL command leaves LASTEXITCODE=5 even after its refusal
+# has been asserted. Reset the fake process status so the test runner reports
+# the actual success of the negative tests, not the deliberately injected error.
+$global:LASTEXITCODE = 0
+exit 0
