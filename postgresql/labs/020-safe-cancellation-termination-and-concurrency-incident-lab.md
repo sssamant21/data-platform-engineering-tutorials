@@ -67,6 +67,13 @@ Existing schema is a failed precondition: investigate rather than overwrite it.
 
 ## 2. Prepare reviewed actuation
 
+In O, independently inspect `admin -Atc 'SELECT system_identifier FROM pg_control_system();'` and the already-verified `PG_LAB_ROOT/primary` instance identity. Copy the exact **disposable Chapter 004 cluster identifier** into `PG_LAB_SYSTEM_ID_020` before calling the actuation helper. The helper **refuses** to run without it; never source an unknown identifier from a production endpoint.
+
+~~~bash
+export PG_LAB_SYSTEM_ID_020=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID
+: "${PG_LAB_SYSTEM_ID_020:?Verify the disposable system identifier first}"
+~~~
+
 In O define this helper. It accepts only cancel or terminate and prompts for the exact fields from the latest snapshot. Do not enter arbitrary PIDs.
 
 ~~~bash
@@ -79,7 +86,8 @@ reviewed_signal() {
   read -r -p "Reviewed state: " reviewed_state
   read -r -p "Reviewed query_start, including UTC offset: " reviewed_query_start
   read -r -p "Reviewed application_name: " reviewed_app
-  admin -v action="$requested_action" -v confirm=yes \
+  [[ "$PG_LAB_SYSTEM_ID_020" =~ ^[0-9]+$ ]] || { echo 'Provide verified numeric lab system identifier' >&2; return 2; }
+  admin -v expected_system_id="$PG_LAB_SYSTEM_ID_020" -v action="$requested_action" -v confirm=yes \
     -v target_pid="$reviewed_pid" -v target_start="$reviewed_start" \
     -v target_state="$reviewed_state" -v target_query_start="$reviewed_query_start" \
     -v target_app="$reviewed_app" \
@@ -182,9 +190,19 @@ For this one controlled demonstration, run admin in O's shell to open the guarde
 \set a_pid '<reviewed A PID>'
 \set a_start '<reviewed A backend_start with offset>'
 \set a_query_start '<reviewed A query_start with offset>'
+\set a_system_id '<reviewed Chapter 004 system_identifier>'
 SELECT pg_cancel_backend(a.pid) AS idle_cancel_signal_sent
 FROM pg_stat_activity a
-WHERE a.pid=:'a_pid'::integer
+WHERE current_database()='ops_lab'
+  AND current_user='lab_admin'
+  AND inet_server_addr()=inet '127.0.0.1'
+  AND inet_server_port()=55432
+  AND NOT pg_is_in_recovery()
+  AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
+  AND current_setting('data_directory') LIKE '/tmp/postgresql-dbre-lab.%/primary'
+  AND EXISTS (SELECT 1 FROM pg_control_system() c
+              WHERE c.system_identifier::text=:'a_system_id')
+  AND a.pid=:'a_pid'::integer
   AND a.backend_start=:'a_start'::timestamptz
   AND a.query_start=:'a_query_start'::timestamptz
   AND a.datname='ops_lab' AND a.usename='lab_app'
