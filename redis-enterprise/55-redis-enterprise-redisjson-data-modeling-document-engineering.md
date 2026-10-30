@@ -323,6 +323,8 @@ Example concept:
 JSON.NUMINCRBY tutorial:chapter55:profile:1001 '$.version' 1
 ```
 
+**Expected for the fresh document:** `JSON.NUMINCRBY ... '$.version' 1` increments the numeric `version` from `1` to `2`. With a JSONPath argument, a RESP2 client receives a JSON-encoded array of the resulting values (schematically `[2]`); RESP3 client representations can differ. A repeat run increments again, so `[2]` is **not** an unconditional pass criterion. Missing paths and nonnumeric values can produce null/error results depending on the command and release.
+
 This avoids a client read-modify-write cycle for simple numeric changes.
 
 ------------------------------------------------------------------------
@@ -343,6 +345,8 @@ Validate:
 JSON.GET tutorial:chapter55:profile:1001 '$.tags'
 ```
 
+**Expected for a fresh document:** `JSON.ARRAPPEND` returns the new array length for each matching path (schematically `[3]` with JSONPath and RESP2), and `JSON.GET` returns a JSON-encoded array containing the updated tags list (schematically `[["premium","mobile","web"]]`). Repeat execution appends another `web` entry; it is not a repeat-safe operation. Record RESP and RedisJSON version before asserting reply formatting.
+
 ------------------------------------------------------------------------
 
 # Part 13 --- Array Length
@@ -352,6 +356,8 @@ JSON.GET tutorial:chapter55:profile:1001 '$.tags'
 ``` redis
 JSON.ARRLEN tutorial:chapter55:profile:1001 '$.tags'
 ```
+
+**Expected:** JSONPath-based results report the length for each matched array; for the fresh document after one append, the result is `3` (schematically `[3]` for RESP2 JSONPath). The exact wire reply shape depends on RESP/client mode, and further append operations change the count.
 
 Do not allow arrays to grow without bounds.
 
@@ -366,6 +372,8 @@ Example:
 ``` redis
 JSON.DEL tutorial:chapter55:profile:1001 '$.address.state'
 ```
+
+**Expected:** Integer `1` when the initialized document contains the `state` path and it is removed, or `0` if the path is absent. This is a **real mutation**, not a diagnostic; perform it only on the owned disposable document and reinitialize before replaying the full lab.
 
 Path deletion can be safer than replacing an entire document when only
 one field must be removed.
