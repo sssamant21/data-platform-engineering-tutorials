@@ -22,7 +22,7 @@ Identify the appropriate recovery mechanism, assess retention and practice a saf
 Accidental UPDATE/DELETE can often be investigated with Time Travel inside an object's retention window. UNDROP may recover dropped supported objects while retained. Cloning helps create an isolated point-in-time copy for verification, but it is not automatically a disaster recovery plan. Fail-safe is Snowflake-operated and is not for routine self-service restoration.
 
 ### Retention and edition limitations
-Time Travel standard retention is commonly one day by default; capabilities and maximums vary by Snowflake edition, table type and configured retention. Retention set to zero can disable the ability to recover historical versions for that object. Confirm current settings **before an incident**, not during one.
+Time Travel defaults to a one-day standard retention window, with longer retention available according to edition and object type. Effective retention for permanent tables may be governed by the account-level `MIN_DATA_RETENTION_TIME_IN_DAYS`, even when `DATA_RETENTION_TIME_IN_DAYS` is lower. A configured retention of zero does not by itself establish the effective history window. Verify both parameters and the table type before concluding that recovery is possible. Confirm current settings **before an incident**, not during one.
 
 ### Regional disaster recovery
 A region or account outage requires an approved replication/failover architecture, configured in advance and tested under recovery objectives. RPO (acceptable data loss window) and RTO (acceptable restoration time) must come from the business owner. Replication and failover support, scope and limitations depend on account edition and design.
@@ -57,12 +57,13 @@ SELECT COUNT(*) AS ROWS_BEFORE FROM DBRE_SRE_L6_RECOVERY;
 ~~~
 Expected: ROWS_BEFORE = 2. This uses a **permanent** lab table to demonstrate Time Travel, and consumes storage. The CREATE command must fail closed if the name already exists; do not use OR REPLACE. Obtain approval for creation, retention and eventual removal in a dedicated scratch schema. Do not create it in production.
 
-### Step 2b — Check effective table retention
+### Step 2b — Check account minimum and table retention
 After selecting the approved scratch database/schema and creating the table, inspect the table-level setting (which may differ from the database default):
 ~~~sql
+SHOW PARAMETERS LIKE 'MIN_DATA_RETENTION_TIME_IN_DAYS' IN ACCOUNT;
 SHOW PARAMETERS LIKE 'DATA_RETENTION_TIME_IN_DAYS' IN TABLE DBRE_SRE_L6_RECOVERY;
 ~~~
-Expected: the retained-history setting and its configured level. If effective retention is 0, do not assume historical recovery will work; stop and review the lab design with the training administrator.
+Expected: visible account-minimum and table-retention parameters. For permanent tables, evaluate the effective minimum and configured retention together; for other object types, supported retention rules differ. If effective retention is zero or unknown, stop and review the lab design with the training administrator.
 
 ### Step 3 — Read a historical version after sufficient time
 Run this **only after more than 60 seconds have elapsed since the INSERT completed**, while still within the effective Time Travel retention:
@@ -77,7 +78,7 @@ A user mistakenly deletes 5,000 rows at 10:03 and detection occurs at 10:21. Wri
 ### Step 5 — Plan an outage test
 Create a sample RPO/RTO table for a BI workload, including dependency on ingestion, roles, warehouse readiness, downstream dashboards and communications.
 
-**Pass:** select the right recovery mechanism for accidental DML, dropped objects and region outage; describe validation and rollback.
+**Pass:** select the right recovery mechanism for accidental DML, dropped objects and region outage; describe validation and rollback. Use the [Level 6 read-only readiness smoke](validation/runtime/level-06-smoke.sql) if you have an approved training database/table. When the optional lab object does not exist, explicitly record the historical-query step as **BLOCKED**; do not substitute any production object.
 
 ### Lab cleanup (owner-approved, separate step)
 The permanent scratch table is intentionally not dropped by the instructional SQL. After retaining evidence and obtaining the lab owner's approval, an authorized operator should verify the fully qualified object name and remove only **DBRE_SRE_L6_RECOVERY** in the training scratch schema. Never run an unqualified DROP against a shared environment.
@@ -111,6 +112,8 @@ Any recovery claiming production readiness must have demonstrated restore tests 
 
 ## Official documentation
 - https://docs.snowflake.com/en/user-guide/data-time-travel
+- https://docs.snowflake.com/en/sql-reference/constructs/at-before
+- https://docs.snowflake.com/en/sql-reference/parameters
 - https://docs.snowflake.com/en/user-guide/data-failsafe
 - https://docs.snowflake.com/en/user-guide/account-replication-intro
 
