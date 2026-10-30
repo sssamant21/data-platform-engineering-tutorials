@@ -31,14 +31,6 @@ REQUIRED = (
     "## Operational safety and validation",
     "## Official documentation",
 )
-# Dangerous commands should never be executable in a short-course SQL lab.
-BLOCKED_SQL = re.compile(
-    r"^\s*(?:DROP\b|TRUNCATE\b|DELETE\b|REVOKE\b|GRANT\b|"
-    r"ALTER\s+(?!SESSION\b)|CREATE\s+OR\s+REPLACE\b|"
-    r"CREATE\s+USER\b|CREATE\s+ROLE\b|"
-    r"CREATE\s+WAREHOUSE\b)",
-    re.IGNORECASE,
-)
 SECRET_PATTERNS = (
     re.compile(r"AKIA[0-9A-Z]{16}"),
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
@@ -47,6 +39,50 @@ SECRET_PATTERNS = (
 MD_LINK = re.compile(r"\]\(([^)\s]+)(?:\s+['\"][^)\n]+['\"])?\)")
 SQL_BLOCK = re.compile(r"(?ms)^~~~sql\s*\n(.*?)^~~~\s*$")
 AGENDA_ROW = re.compile(r"^\|[^|\n]+\|\s*(\d+)\s*min\s*\|\s*$", re.MULTILINE)
+
+
+def executable_sql_statements(block: str) -> list[str]:
+    """Split simple training SQL into statements, ignoring standard SQL comments.
+
+    This intentionally does not implement Snowflake's full SQL grammar. Static
+    checks are a defense-in-depth guard, never a replacement for code review.
+    """
+    without_blocks = re.sub(r"/\*.*?\*/", " ", block, flags=re.DOTALL)
+    without_comments = "\n".join(
+        line.split("--", 1)[0] for line in without_blocks.splitlines()
+    )
+    return [part.strip() for part in without_comments.split(";") if part.strip()]
+
+
+def unsafe_sql_statements(block: str) -> list[str]:
+    """Deny sensitive SQL and unexpected writes in executable lab examples."""
+    problems = []
+    for statement in executable_sql_statements(block):
+        normalized = re.sub(r"\s+", " ", statement).strip().upper()
+        # Block most privileged or destructive statements wherever they appear.
+        # This also catches newlines between keywords (DROP\nTABLE, ALTER\nWAREHOUSE).
+        if re.search(r"\b(?:DROP|TRUNCATE|DELETE|UPDATE|MERGE|GRANT|REVOKE)\b", normalized):
+            problems.append("disallowed privileged/destructive SQL: " + normalized[:95])
+            continue
+        if normalized.startswith("CREATE OR REPLACE"):
+            problems.append("CREATE OR REPLACE prohibited in short-course labs")
+            continue
+        if normalized.startswith("ALTER "):
+            if not re.fullmatch(r"ALTER SESSION (?:SET QUERY_TAG\s*=\s*.+|UNSET QUERY_TAG)", normalized):
+                problems.append("only session QUERY_TAG changes are allowed: " + normalized[:95])
+            continue
+        if normalized.startswith("CREATE "):
+            if not (re.match(r"CREATE (?:TEMP|TEMPORARY) TABLE DBRE_SRE_[A-Z0-9_]+\b", normalized)
+                    or re.match(r"CREATE TABLE DBRE_SRE_L6_RECOVERY\b", normalized)):
+                problems.append("CREATE restricted to known scratch tables: " + normalized[:95])
+            continue
+        if normalized.startswith("INSERT "):
+            if not re.match(r"INSERT INTO DBRE_SRE_L[136]_[A-Z0-9_]+\b", normalized):
+                problems.append("INSERT target must be a training table: " + normalized[:95])
+            continue
+        if not re.match(r"(?:SELECT|SHOW|DESCRIBE|DESC|EXPLAIN)\b", normalized):
+            problems.append("unexpected executable SQL command: " + normalized[:95])
+    return problems
 
 def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
     problems = []
@@ -70,10 +106,8 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
             problems.append(str(rel) + ": possible embedded credential")
     meta = {"file": str(rel), "bytes": len(raw.encode("utf-8"))}
     if path.suffix.lower() == ".sql":
-        for line_number, line in enumerate(raw.splitlines(), 1):
-            live = line.split("--", 1)[0].strip()
-            if live and BLOCKED_SQL.match(live):
-                problems.append(str(rel) + f": blocked runtime SQL at {line_number}: {live[:100]}")
+        for finding in unsafe_sql_statements(raw):
+            problems.append(str(rel) + ": " + finding)
         if "level-01" in path.name:
             if "LEVEL_01_SMOKE_RESULT" not in raw or "CREATE TEMP TABLE" not in raw:
                 problems.append(str(rel) + ": expected L1 assertions or TEMP scope missing")
@@ -100,11 +134,8 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
         if not blocks:
             problems.append(str(rel) + ": no fenced SQL lab")
         for i, block in enumerate(blocks, 1):
-            # Check executable lines only; comments and educational prose do not count.
-            for line in block.splitlines():
-                live = line.split("--", 1)[0].strip()
-                if live and BLOCKED_SQL.match(live):
-                    problems.append(str(rel) + f": blocked lab SQL in block {i}: {live[:100]}")
+            for finding in unsafe_sql_statements(block):
+                problems.append(str(rel) + f": SQL block {i}: " + finding)
         meta.update({"agenda_minutes": sum(minutes), "sql_blocks": len(blocks)})
     return problems, meta
 
@@ -115,7 +146,8 @@ def main() -> int:
                  "validation/RUNTIME-EVIDENCE-TEMPLATE.md",
                  "validation/runtime/README.md",
                  "validation/runtime/level-01-smoke.sql",
-                 "validation/runtime/level-02-smoke.sql"):
+                 "validation/runtime/level-02-smoke.sql",
+                 "validation/test_validator.py"):
         problems, metadata = check_file(TRACK / file, file in LESSONS)
         errors.extend(problems)
         if metadata:
