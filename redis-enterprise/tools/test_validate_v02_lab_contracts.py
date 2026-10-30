@@ -236,6 +236,29 @@ class V02LabContractsTests(unittest.TestCase):
             self.assertIn("1", doc)
             self.assertIn("shared", doc.lower())
 
+    def test_chapters_03_04_have_no_bash_continuations_in_redis_fences(self):
+        from review_v02_redis_fence_syntax import inspect as inspect_fences
+        result = inspect_fences(CHAPTER_DIR)
+        bad = [x for x in result["findings"] if x["chapter"] in {3, 4}]
+        self.assertEqual(bad, [], bad[:12])
+
+    def test_chapter_03_string_and_hash_models_use_distinct_owned_keys(self):
+        doc = (CHAPTER_DIR / "03-redis-data-types-key-design-memory-aware-data-modeling.md").read_text(encoding="utf-8")
+        self.assertIn("SET tutorial:chapter03:model:string:1001", doc)
+        self.assertIn("HSET tutorial:chapter03:model:hash:1001", doc)
+        self.assertIn("WRONGTYPE", doc)
+        self.assertIn("ascending `ZRANGE`", doc)
+        self.assertIn("descending `ZREVRANGE`", doc)
+        self.assertIn("XADD", doc)
+        self.assertIn("generated stream entry ID", doc)
+
+    def test_chapter_04_mset_hscan_expected_results(self):
+        doc = (CHAPTER_DIR / "04-redis-commands-command-semantics-safe-operations.md").read_text(encoding="utf-8")
+        self.assertIn("MSET` returns `OK`", doc)
+        self.assertIn("same order as requested", doc)
+        self.assertIn("HSET` returns integer `5`", doc)
+        self.assertIn("COUNT 2", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
