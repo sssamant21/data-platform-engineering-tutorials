@@ -35,6 +35,11 @@
 - **Execution attempt (2026-10-30): BLOCKED — no connected Snowflake training session.** Level 1 and Level 2 actual SQL results and query IDs remain unavailable. Same-session query-history capture added to both smoke scripts. [Static CI run #111 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41119260657) does not satisfy V03.
 - **V03 readiness package:** [operator runbook](validation/V03-EXECUTION-RUNBOOK.md), [preflight blocker register](validation/V03-PREFLIGHT-STATUS.md), [offline evidence checker](validation/validate_runtime_evidence.py) and [blank NOT_RUN template](validation/V03-NOT-RUN-TEMPLATE.json). The new local evidence checks and regression tests are subject to a separate CI run. **No evidence has been submitted.**
 
+## V03 mock execution safety evidence — 2026-10-30
+
+- [Run #144 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41124509495): 48 Python tests and a PowerShell mocked nonproduction preflight suite. The mock rejects incorrect account locator/organization/region, admin role, absent nonproduction owner attestation, missing L1 empty-scratch approval, missing L2 acceptance, and a simulated CLI connection error.
+- No live Snowflake account was contacted by the mock tests. **All seven V03 runtime labs remain NOT RUN**, and no genuine query IDs exist.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
