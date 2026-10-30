@@ -1,7 +1,7 @@
 \set ON_ERROR_STOP on
-\echo 'DISPOSABLE DATABASE ONLY: replace ch034 schema'
+\echo 'LAB ONLY: will refuse to overwrite existing ch034; run reviewed cleanup separately'
 SELECT current_database() AS database_name, current_user AS operator;
-DROP SCHEMA IF EXISTS ch034 CASCADE;
+-- Do not automatically destroy an existing schema. Clean up explicitly after verifying target.
 CREATE SCHEMA ch034;
 CREATE TABLE ch034.events (
  id bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
