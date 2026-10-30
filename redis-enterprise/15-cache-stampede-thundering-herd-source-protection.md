@@ -1239,11 +1239,15 @@ rcli GET tutorial:chapter15:lock:item:1001
 rcli PTTL tutorial:chapter15:lock:item:1001
 ```
 
+**Expected observations:** While the synthetic cache entry is present, `GET` returns JSON and `TTL`/`PTTL` report a positive remaining lifetime. The lock may already have expired: a missing `GET` returns nil and `PTTL` returns `-2`. Do not treat the lock's disappearance after completion as failure; investigate only while a lock owner is actively regenerating data.
+
 ## 25. Force the Hot-Key Miss
 
 ``` bash
 rcli DEL tutorial:chapter15:item:1001
 ```
+
+**Expected:** `DEL` returns integer `1` if the disposable key exists or `0` if it has already expired. This deliberately forces a **cold-cache miss** for a synthetic lab record. Run only in a dedicated, approved test database with no shared clients.
 
 Immediately run the concurrent test again.
 
@@ -1271,6 +1275,8 @@ rcli TTL tutorial:chapter15:jitter:3
 rcli TTL tutorial:chapter15:jitter:4
 rcli TTL tutorial:chapter15:jitter:5
 ```
+
+**Expected:** Each fresh `SET ... EX 60` returns `OK`, and immediately sampled TTLs are positive integers no greater than 60. `TTL=-2` means the key expired (or was absent), not that the TLS endpoint changed. Differences in TTL between calls are normal.
 
 Now distribute expirations:
 
@@ -1533,12 +1539,16 @@ Create a lock:
 rcli SET tutorial:chapter15:testlock owner-1 NX EX 5
 ```
 
+**Expected:** `OK` for an absent key; a nil/null reply indicates that an existing key blocked `NX`. Use a dedicated lab database and do **not** delete a key you do not own to force the example to pass.
+
 Verify:
 
 ``` bash
 rcli GET tutorial:chapter15:testlock
 rcli TTL tutorial:chapter15:testlock
 ```
+
+**Expected:** `GET` returns `owner-1` while present; `TTL` returns 1–5 seconds when promptly observed. A key may expire before the inspection; in that case `GET` is nil and `TTL` is `-2`. Neither outcome justifies deleting an unrelated lock.
 
 Do not delete it.
 
@@ -2309,20 +2319,26 @@ You should be able to answer:
 
 # 118. Lab Cleanup
 
-Find chapter keys first:
+Use the same trusted Bash shell and the existing TLS-aware `rcli` function. Begin with a **read-only** scoped inventory; each `SCAN` reply contains a cursor and matching keys, and you must manually iterate the returned cursor until it reaches 0. `COUNT` is only a hint. For Redis Software clustered configurations, review product-specific scan visibility and placement before inferring that one scan covers every shard.
 
-``` redis
-SCAN 0 MATCH 'tutorial:chapter15:*' COUNT 100
+``` bash
+rcli SCAN 0 MATCH 'tutorial:chapter15:*' COUNT 100
 ```
 
-Delete only exact isolated lab keys:
+Confirm this is the **dedicated, owner-approved Chapter 15 lab database** and that the following five exact synthetic records are yours. Then delete **only these known keys** and check each key individually:
 
-``` redis
-UNLINK tutorial:chapter15:item:1001
-UNLINK tutorial:chapter15:lock:item:1001
-UNLINK tutorial:chapter15:stale:item:1001
-UNLINK tutorial:chapter15:stale:lock:item:1001
-UNLINK tutorial:chapter15:testlock
+``` bash
+for key in \
+  tutorial:chapter15:item:1001 \
+  tutorial:chapter15:lock:item:1001 \
+  tutorial:chapter15:stale:item:1001 \
+  tutorial:chapter15:stale:lock:item:1001 \
+  tutorial:chapter15:testlock
+do
+  rcli UNLINK "$key"
+  test "$(rcli EXISTS "$key")" = "0"
+done
+echo "PASS: five known lab keys are absent"
 ```
 
 Delete jitter keys only after confirming they belong to this lab. Run cleanup commands through the same `rcli` function on the **approved isolated lab endpoint**, not a new/default localhost connection. Never delete a wildcard pattern without inspecting the returned keys, ownership, and client impact.
