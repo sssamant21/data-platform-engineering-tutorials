@@ -2,6 +2,8 @@
 
 **Track:** PostgreSQL DBRE/SRE · **Baseline:** PostgreSQL 18 · **Status:** Authored; runtime verification pending
 
+Follow the complete [Chapter 045 PITR hands-on lab](../labs/045-point-in-time-recovery-and-disaster-recovery-lab.md) for the guarded source, incident and recovered-target verification commands.
+
 ## 1. Mission
 
 Execute a disaster-recovery tabletop and an isolated PostgreSQL point-in-time recovery (PITR) drill. Simulate accidental modification of application data, select a recovery point, restore a verified physical base backup, replay archived WAL to a safe target, validate the recovered state and measure achieved RPO/RTO. This capstone integrates [Chapter 041](041-postgresql-backup-architecture-and-recovery-objectives.md), [042](042-logical-backups-with-pg_dump-pg_restore-and-pg_dumpall.md), [043](043-physical-backups-with-pg_basebackup-and-backup-manifests.md) and [044](044-wal-archiving-restore-commands-and-pitr-foundations.md).
