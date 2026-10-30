@@ -3,7 +3,7 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **IN PROGRESS**  
+**Independent code/safety review:** **V02-B initial risk triage completed (37/37); runtime evidence pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
@@ -32,9 +32,17 @@
 
 Other fenced content includes 89 text, 11 conf, 2 ini, one PromQL and one Mermaid block. These have not all been technically verified.
 
+## V02-B follow-up — published static safeguards
+
+- [V02-B 37-match register](V02B-RISK-REGISTER.md): every scanner match given a classification, rationale and next acceptance step.
+- [V02-B guard checker](validate_v02b.py): enforces the three-input cleanup pattern and corresponding guide arguments on 10 scripts; verifies that Chapters 032–036 setup scripts do not automatically drop schemas.
+- [CI workflow](../../.github/workflows/postgresql-v02-code-audit.yml) now runs both V02 SQL/static parser checks and V02-B guard checks and retains their JSON evidence.
+- The Chapter 045 deliberate corruption/incident SQL now checks the expected database, cluster system identifier, PostgreSQL version, presence of its synthetic table, and `045-INCIDENT` authorization token. The lab guide is synchronized.
+- Static guard checks are *presence checks* only. They do not prove that an operator-controlled script cannot affect production when misused, nor do they replace isolated PostgreSQL execution and peer approval.
+
 ## V02-B — Safety findings and remediation
 
-The scanner reports **37 keyword/pattern matches across checked source files**, not 37 confirmed vulnerabilities. Code comments, lab setup scope and intentional negative tests require human review.
+The scanner reports **37 keyword/pattern matches across checked source files**, not 37 confirmed vulnerabilities. All 37 were assigned a file-specific static classification and runtime gate in the [V02-B risk register](V02B-RISK-REGISTER.md). Comments, privilege statements, lab setup scope and intentional negative tests require different interpretations.
 
 | Category | Matches | Review target |
 |---|---:|---|
@@ -53,11 +61,11 @@ Original setup scripts for **Chapters 032, 033, 034, 035 and 036** contained unc
 
 **Verification:** V02 risk classification changed from **5 `automatic_destructive_setup` matches** to **0** in the passing run. This is a static remediation and has not been executed against a database.
 
-### PG-V02-002 — Manual cleanup scripts need database identity checks (HIGH; open)
+### PG-V02-002 — Manual cleanup scripts need database identity checks (HIGH; mitigated statically)
 
-The remaining `DROP SCHEMA` candidates include lab cleanup scripts. Example: `labs/sql/040-cleanup.sql` executes `DROP SCHEMA ch040 CASCADE`. A narrowly named schema is not by itself proof of a safe database target. Before any execution, confirm a disposable database/instance, expected schema, explicit operator confirmation, and authorization; do not run these scripts against production.
+The remaining `DROP SCHEMA` candidates include lab cleanup scripts. Example: `labs/sql/040-cleanup.sql` executes `DROP SCHEMA ch040 CASCADE`. A narrowly named schema is not by itself proof of a safe database target. All 10 cleanup scripts now require an exact database name, independently observed PostgreSQL 18 cluster system identifier and chapter-specific confirmation. The matching lab guides were revised. This blocks accidental execution without the required inputs, but **the guards have not been exercised in a live PostgreSQL instance**. Never run these scripts against production.
 
-**Proposed closure:** add fail-closed identity and confirmation prechecks to cleanup scripts, update the matching tutorial commands, and verify guard-negative and guard-positive behavior in a disposable PostgreSQL 18 environment.
+**Remaining closure:** pass negative/positive guard tests, verify object ownership/dependencies, and record exact cleanup changes in a disposable PostgreSQL 18 environment.
 
 ### PG-V02-003 — SQL and shell examples inside Markdown (MEDIUM; open)
 
@@ -69,7 +77,7 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 
 ## Next validation tasks
 
-1. **V02-B:** triage all 37 matches; prioritize 10 schema-drop cleanup matches and destructive SQL. Retain per-file review outcome and safety controls.
+1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
 2. **V02-C:** classify and audit embedded Markdown examples; flag incomplete instructions, missing expected results, and ambiguous database context.
 3. **V02-D:** validate SQL semantic assumptions and privileges by chapter, starting with 001–010 and then 011 onward.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
