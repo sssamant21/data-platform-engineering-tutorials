@@ -29,3 +29,6 @@ jobs:
       - name: Parse V03 PowerShell launcher without running it
         shell: pwsh
         run: ./snowflake/accelerated-dbre-sre/validation/check-powershell-syntax.ps1
+      - name: Mock V03 training preflight (no Snowflake connection)
+        shell: pwsh
+        run: ./snowflake/accelerated-dbre-sre/validation/test-training-preflight.ps1
