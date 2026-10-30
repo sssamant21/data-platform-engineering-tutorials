@@ -127,6 +127,22 @@ def check_file(path: Path, is_lesson: bool) -> tuple[list[str], dict]:
                     "METERING_DAILY_HISTORY" not in raw or
                     "EXECUTION_STATUS = 'fail'" not in raw):
                 problems.append(str(rel) + ": L4 monitoring/billing evidence queries missing")
+        if "level-05" in path.name:
+            if ("CURRENT_SECONDARY_ROLES()" not in raw or
+                    "SHOW GRANTS;" not in raw or
+                    "ACCOUNT_USAGE.LOGIN_HISTORY" not in raw):
+                problems.append(str(rel) + ": L5 RBAC and audit controls missing")
+        if "level-06" in path.name:
+            if ("MIN_DATA_RETENTION_TIME_IN_DAYS" not in raw or
+                    "DATA_RETENTION_TIME_IN_DAYS" not in raw or
+                    "AT (OFFSET => -60)" not in raw):
+                problems.append(str(rel) + ": L6 retention/Time Travel controls missing")
+        if "level-07" in path.name:
+            if ("QUERY_HISTORY_BY_SESSION" not in raw or
+                    "QUEUED_OVERLOAD_TIME" not in raw or
+                    "ACCOUNT_USAGE.QUERY_HISTORY" not in raw or
+                    "EXECUTION_STATUS = 'fail'" not in raw):
+                problems.append(str(rel) + ": L7 incident triage controls missing")
     if is_lesson:
         for section in REQUIRED:
             if section not in raw:
@@ -165,6 +181,9 @@ def main() -> int:
                  "validation/runtime/level-02-smoke.sql",
                  "validation/runtime/level-03-smoke.sql",
                  "validation/runtime/level-04-smoke.sql",
+                 "validation/runtime/level-05-smoke.sql",
+                 "validation/runtime/level-06-smoke.sql",
+                 "validation/runtime/level-07-smoke.sql",
                  "validation/test_validator.py"):
         problems, metadata = check_file(TRACK / file, file in LESSONS)
         errors.extend(problems)
