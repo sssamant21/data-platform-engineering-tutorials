@@ -285,35 +285,12 @@ Close every c011_runtime/c011_deploy/observer session connected to c011_db. This
 
 Run from ops_lab as lab_admin:
 
+From the guarded Chapter 004 primary, record the exact cluster identifier using `lab_sql -Atc 'SELECT system_identifier FROM pg_control_system();'`, compare it with the lab's instance identity and independently verify `SHOW data_directory`, ownership of `c011_db`, expected roles and absence of sessions. The cleanup script refuses mismatched identity and requires a chapter-specific approval token. **Replace the placeholder manually and never run this on production or shared staging.**
+
 ~~~bash
-lab_sql <<'SQL'
-DO $guard$
-BEGIN
-  IF current_user <> 'lab_admin' OR current_database() <> 'ops_lab'
-     OR pg_is_in_recovery() THEN
-    RAISE EXCEPTION 'Wrong cleanup connection';
-  END IF;
-  IF NOT EXISTS (
-    SELECT FROM pg_database d JOIN pg_roles r ON r.oid=d.datdba
-    WHERE d.datname='c011_db' AND r.rolname='c011_owner'
-  ) THEN
-    RAISE EXCEPTION 'Unexpected/missing exercise database owner; inspect before cleanup';
-  END IF;
-  IF EXISTS (SELECT FROM pg_stat_activity WHERE datname='c011_db') THEN
-    RAISE EXCEPTION 'Close exercise database sessions first';
-  END IF;
-END
-$guard$;
-DROP DATABASE c011_db;
-DROP ROLE c011_runtime;
-DROP ROLE c011_deploy;
-DROP ROLE c011_writer;
-DROP ROLE c011_reader;
-DROP ROLE c011_owner;
-SELECT rolname FROM pg_roles WHERE rolname IN
- ('c011_owner','c011_reader','c011_writer','c011_runtime','c011_deploy');
-SELECT datname FROM pg_database WHERE datname='c011_db';
-SQL
+lab_sql -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_cleanup=011-DROP-ROLES-DB \
+  -f scripts/011-cleanup-lab.sql
 bash scripts/004-operations-lab.sh verify
 ~~~
 
