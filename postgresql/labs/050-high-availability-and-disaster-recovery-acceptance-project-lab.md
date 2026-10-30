@@ -38,8 +38,8 @@ Collect cluster identity, roles, replication LSNs, slot health, archiver status,
 
 1. Keep former A stopped and fenced.
 2. Preserve its original data and logs.
-3. Validate `pg_rewind` prerequisites and run an approved dry-run, or choose full rebuild.
-4. Rejoin A as standby of B and verify receiver state and catch-up.
+3. Validate `pg_rewind` prerequisites, clean target shutdown, known WAL divergence, checksums/`wal_log_hints` and run an approved dry-run, or choose full rebuild. A failed actual rewind can leave target PGDATA unusable.
+4. Before restart, verify rejoined A has `standby.signal` and correct `primary_conninfo`/archive settings; rewind can copy source configuration. Rejoin A as standby of B and verify receiver state and catch-up.
 5. Confirm no dual-writer state and check backup/archive configuration on B.
 
 ## 6. Acceptance worksheet
