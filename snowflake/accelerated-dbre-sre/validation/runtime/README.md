@@ -11,8 +11,8 @@ These SQL scripts are **manual, nonproduction acceptance tests** only. GitHub Ac
 
 1. Confirm the **training** Snowflake account, small approved warehouse, scratch schema, role and credit budget. Never run in production.
 2. Open each script in Snowsight and review statements before executing.
-3. Run Level 1 in a new session with CREATE TABLE privilege **only on the scratch schema**. The temporary table is dropped automatically when the session ends; if a name already exists, stop, do not overwrite.
-4. Run Level 2 under an approved least-privilege role. If a SHOW command or query history is not visible, record the permission or visibility gap; don't escalate to ACCOUNTADMIN.
+3. Run Level 1 in an instructor-controlled empty scratch schema. Snowflake does **not** require CREATE TABLE privilege for temporary tables; the role still needs appropriate schema visibility/USAGE. **A TEMP table can shadow an existing permanent table name**, so verify the intended identifier does not exist in that schema before running. Session termination cleans up temporary data.
+4. Run Level 2 under an approved least-privilege role. If a SHOW command or query history is not visible, record the permission or visibility gap; don't escalate to ACCOUNTADMIN. Run `ALTER SESSION UNSET QUERY_TAG` cleanup explicitly even if the preceding SQL fails.
 5. Record QUERY_ID, version/edition if available, actual rows, elapsed time, warehouse credit estimate, unexpected errors and reviewer sign-off.
 6. Verify cleanup. Redact any identity, query text, credentials and sensitive results before posting evidence.
 
