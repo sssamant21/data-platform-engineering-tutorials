@@ -413,6 +413,24 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("RedisJSON v2", src)
         self.assertNotIn("redis-cli JSON.SET tutorial:chapter59:json", src)
 
+    def test_conditional_expire_conceptual_replies_are_gated(self):
+        src = (CHAPTER_DIR / "11-ttl-expiration-cache-freshness-engineering.md").read_text(encoding="utf-8")
+        nx = src.split("## 13. `EXPIRE NX`", 1)[1].split("## 14. `EXPIRE XX`", 1)[0]
+        xx = src.split("## 14. `EXPIRE XX`", 1)[1].split("## 15. `EXPIRE GT`", 1)[0]
+        self.assertIn("Expected (Redis 7.0+)", nx)
+        self.assertIn("present, persistent", nx)
+        self.assertIn("Expected (Redis 7.0+)", xx)
+        self.assertIn("already-expiring", xx)
+
+    def test_chapter_55_read_write_expected_replies_are_adjacent(self):
+        src = (CHAPTER_DIR / "55-redis-enterprise-redisjson-data-modeling-document-engineering.md").read_text(encoding="utf-8")
+        read = src.split("## 11. JSON.GET", 1)[1].split("## 12. Selective Access", 1)[0]
+        write = src.split("## 13. Update One Field", 1)[1].split("## 14. Update", 1)[0]
+        self.assertIn("Expected for the initialized document", read)
+        self.assertIn("JSON-encoded object", read)
+        self.assertIn("Expected on the initialized JSON document", write)
+        self.assertIn('["inactive"]', write)
+
 
 if __name__ == "__main__":
     unittest.main()
