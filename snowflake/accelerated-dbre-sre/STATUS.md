@@ -31,6 +31,7 @@
 - [Run #43 — passed](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103967587) for the prior seven-course validator and regression-test revision.
 - **Previous expanded CI check:** [Run #62 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41105075877), for the Levels 1–4 revision. **Levels 5–7 expanded CI:** [Run #83 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41106248957), commit `61197443f464b657af0fd5fae3528d59d6479f26`, including the read-only L5/L6/L7 smoke scripts and SQL safety regression tests.
 - No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
+- **V03 readiness package:** [operator runbook](validation/V03-EXECUTION-RUNBOOK.md), [preflight blocker register](validation/V03-PREFLIGHT-STATUS.md), [offline evidence checker](validation/validate_runtime_evidence.py) and [blank NOT_RUN template](validation/V03-NOT-RUN-TEMPLATE.json). The new local evidence checks and regression tests are subject to a separate CI run. **No evidence has been submitted.**
 
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
