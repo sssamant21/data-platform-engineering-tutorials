@@ -981,14 +981,21 @@ Expected:
 PONG
 ```
 
-Authenticated example:
+Authenticated **nonproduction Redis Software/Enterprise** example (Bash). Use your approved endpoint, port, and trusted Redis database proxy certificate. Avoid credentials on the command line and never turn off TLS verification:
 
 ``` bash
-redis-cli -h <host> -p <port> -a "<password>" PING
+export REDIS_HOST="lab-redis.example.test"
+export REDIS_PORT="10000"
+export REDIS_CA="/secure/path/proxy_cert.pem"
+test -r "$REDIS_CA"
+read -r -s -p "Staging database password: " REDISCLI_AUTH
+echo
+export REDISCLI_AUTH
+redis-cli --tls --cacert "$REDIS_CA" -h "$REDIS_HOST" -p "$REDIS_PORT" PING
+unset REDISCLI_AUTH
 ```
 
-Use the TLS parameters required by your Redis Enterprise deployment when
-applicable.
+**Expected:** `PONG` for an authorized staging identity on a reachable, certificate-validated endpoint. If mutual TLS or a named ACL user is required, supply approved client certificate/key and `--user` arguments according to your deployment. Never substitute `--insecure` or `-a <password>` for troubleshooting convenience; record failures rather than disabling trust checks. See the [Redis Software CLI guidance](https://redis.io/docs/latest/operate/rs/references/cli-utilities/redis-cli/) and [TLS instructions](https://redis.io/docs/latest/operate/rs/security/encryption/tls/enable-tls/).
 
 ## 21. Create the Stampede Lab
 
