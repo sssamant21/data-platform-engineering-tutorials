@@ -35,7 +35,7 @@
 
 - [Static validator](validate_courses.py) checks the 7 lessons, navigation and core safety patterns.
 - [Unit tests](test_validator.py) exercise safe SQL, comments, session tag operations and denial of DROP/ALTER WAREHOUSE/GRANT/unsafe INSERT/CREATE, including statements split across lines.
-- [GitHub Actions workflow](../../../../.github/workflows/snowflake-accelerated-static.yml) runs the static validator and regression tests on relevant changes.
+- [GitHub Actions workflow](../../../.github/workflows/snowflake-accelerated-static.yml) runs the static validator and regression tests on relevant changes.
 - SQL linting is not a complete Snowflake SQL parser. It cannot establish grants, execution semantics, account edition support, cost or data correctness.
 
 ## Still open before production-grade certification
