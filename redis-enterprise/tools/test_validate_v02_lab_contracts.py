@@ -172,6 +172,17 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("unset REDISCLI_AUTH REDIS_PASSWORD", source)
         self.assertIn("rcli SCAN 0 MATCH 'tutorial:chapter15:*' COUNT 100", source)
 
+    def test_chapter_45_cordon_requires_approval_and_recovers_scheduling(self):
+        doc = (CHAPTER_DIR / "45-redis-enterprise-kubernetes-operations-scheduling-platform-engineering.md").read_text(encoding="utf-8")
+        self.assertIn("Only after separate approval", doc)
+        self.assertIn("NOT EXECUTED", doc)
+        self.assertIn("kubectl config current-context", doc)
+        self.assertIn("kubectl get pods -A --field-selector spec.nodeName=<lab-node>", doc)
+        self.assertIn("kubectl cordon <lab-node>", doc)
+        self.assertIn("kubectl uncordon <lab-node>", doc)
+        self.assertIn("-o jsonpath='{.spec.unschedulable}'", doc)
+        self.assertIn("does not evict existing pods", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
