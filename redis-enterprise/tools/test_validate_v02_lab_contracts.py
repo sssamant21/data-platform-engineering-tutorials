@@ -183,6 +183,16 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("-o jsonpath='{.spec.unschedulable}'", doc)
         self.assertIn("does not evict existing pods", doc)
 
+    def test_chapter_10_hash_and_zset_expected_results(self):
+        doc = (CHAPTER_DIR / "10-architecture-inspection-foundation-acceptance-lab.md").read_text(encoding="utf-8")
+        self.assertIn("returns integer " + chr(96) + "2" + chr(96) + " newly added fields", doc)
+        self.assertIn("hash field ordering is not a contract", doc)
+        self.assertIn("descending score order", doc)
+        self.assertIn("user2 200", doc)
+        self.assertIn("user3 150", doc)
+        self.assertIn("user1 100", doc)
+        self.assertIn("schematic", doc)
+
 
 if __name__ == "__main__":
     unittest.main()
