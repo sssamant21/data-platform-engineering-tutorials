@@ -26,10 +26,10 @@ psql -X -h localhost -p 6432 -U pgbouncer_admin -d pgbouncer -c "SHOW STATS;"
 Create a dedicated `ch060_lab` database, then execute:
 
 ```powershell
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch060_lab -f postgresql/labs/sql/060-fixture.sql
+psql -X -w -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch060_lab -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_stage=060-CREATE-IDEMPOTENCY -f postgresql/labs/sql/060-fixture.sql
 ```
 
-The SQL refuses execution outside `ch060_lab`. Use distinct request IDs for each write. Verify that repeating a request ID cannot create duplicate committed rows.
+Use the **Chapter 004 disposable PostgreSQL 18 primary** (127.0.0.1:55432, `lab_admin`) and its verified `PG_LAB_ROOT/primary` data directory, original cluster marker and private `PGPASSFILE`. Independently record the source system identifier via `pg_control_system()` before replacing `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID`. Check the target database and `ch060` schema do not already exist before creation; never reuse a populated fixture. The SQL refuses any other database, cluster, role or repeated invocation, and creates the fixture atomically. It intentionally performs the *same* request ID twice within that new fixture to demonstrate `PRIMARY KEY`/`ON CONFLICT DO NOTHING`. It fails with a nonzero status if the expected single row is absent or altered. Use distinct request IDs for later simulated writes and verify actual committed rows.
 
 ## 4. Baseline and burst
 
