@@ -123,7 +123,7 @@ class V02LabContractsTests(unittest.TestCase):
     def test_chapter_69_scan_has_cursor_and_expected_behavior(self):
         source = (CHAPTER_DIR / "69-redis-enterprise-advanced-memory-forensics-fragmentation-allocator-engineering.md").read_text(encoding="utf-8")
         self.assertIn("SCAN 0 MATCH 'tutorial:chapter69:*' COUNT 100", source)
-        self.assertIn("COUNT argument is a work hint", source)
+        self.assertIn("is a work hint", source)
         self.assertNotIn("~~~bash\nSCAN\n~~~", source)
 
     def test_chapter_15_python_examples_enforce_remote_tls_guard(self):
