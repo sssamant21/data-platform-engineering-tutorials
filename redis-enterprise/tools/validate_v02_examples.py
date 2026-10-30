@@ -85,7 +85,8 @@ def audit(root: Path, expected_chapters: int = 80) -> dict:
                     "safety_review_candidates": 0},
         "language_counts": {},
         "chapters": [],
-        "review_queue": []
+        "review_queue": [],
+        "syntax_details": []
     }
     totals = result["summary"]
     language_counts = Counter()
@@ -150,6 +151,8 @@ def audit(root: Path, expected_chapters: int = 80) -> dict:
                 except (ValueError, TypeError) as exc:
                     ch["syntax_review"] += 1
                     totals["json_syntax_review_candidates"] += 1
+                    result["syntax_details"].append({"chapter": ch["chapter"],
+                        "line": block["line"], "language": "json", "note": str(exc)[:120]})
                     if len(ch["review_samples"]) < 12:
                         ch["review_samples"].append({
                             "line": block["line"], "kind": "json_syntax_review",
@@ -195,6 +198,7 @@ def main() -> int:
          "untyped": c["untyped_commands"], "expected_cues": c["missing_expected_cues"],
          "safety": c["safety_review"], "syntax": c["syntax_review"]}
         for c in result["chapters"] if c["chapter"] in focus]))
+    print("V02 ALL JSON SYNTAX DETAILS:", json.dumps(result["syntax_details"]))
     print("V02 SYNTAX SAMPLES:", json.dumps([
         {"chapter": c["chapter"], **s}
         for c in result["review_queue"] for s in c["samples"]
