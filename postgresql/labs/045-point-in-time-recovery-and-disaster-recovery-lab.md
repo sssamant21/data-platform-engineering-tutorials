@@ -28,10 +28,10 @@ The backup destination must be new and empty. Preserve command exit codes, times
 
 ```bash
 psql -X -v ON_ERROR_STOP=1 -d postgres -f postgresql/labs/sql/045-good-marker.sql
-psql -X -v ON_ERROR_STOP=1 -d postgres -v expected_db=postgres -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v confirm_incident=045-INCIDENT -f postgresql/labs/sql/045-incident.sql
+psql -X -v ON_ERROR_STOP=1 -d postgres -v expected_db=postgres -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID -v expected_source_data_directory=/absolute/path/to/disposable/source/PGDATA -v expected_operator=LAB_SOURCE_ADMIN_ROLE -v confirm_incident=045-INCIDENT -f postgresql/labs/sql/045-incident.sql
 ```
 
-Before executing the incident script on the disposable source, record its identity using `SELECT current_database(), system_identifier FROM pg_control_system();`. Verify the target is a dedicated test cluster and manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID` in the command. The `045-INCIDENT` token authorizes only this intentional corruption simulation. A cluster system identifier by itself cannot establish that data is safe to modify. Run these **only** after the base backup and archive prerequisites pass. The good marker is committed before the simulated bad update. Record UTC times and available WAL evidence; a sampled timestamp is not a guaranteed exact commit boundary.
+Before executing the incident script on the disposable source, record its identity using `SELECT current_database(), system_identifier FROM pg_control_system();`. Verify the target is a dedicated test cluster and manually replace `REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID`, the expected source data-directory path, and `LAB_SOURCE_ADMIN_ROLE` (the exact authorized invoking role) in the command. The incident script rejects mismatched source paths and roles in addition to cluster identifier, database, major version and token. The `045-INCIDENT` token authorizes only this intentional corruption simulation. A cluster system identifier by itself cannot establish that data is safe to modify. Run these **only** after the base backup and archive prerequisites pass. The good marker is committed before the simulated bad update. Record UTC times and available WAL evidence; a sampled timestamp is not a guaranteed exact commit boundary.
 
 ## Phase 4 — Isolated PITR
 
