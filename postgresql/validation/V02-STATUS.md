@@ -3,7 +3,7 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **V02-B initial risk triage completed (37/37); runtime evidence pending**  
+**Independent code/safety review:** **V02-B static triage complete (37/37); V02-C syntax inventory passed; further technical and runtime review pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
@@ -78,7 +78,7 @@ Parser success does not prove that setup scripts use correct PostgreSQL privileg
 ## Next validation tasks
 
 1. **V02-B:** **37/37 risk matches statically classified** in [the risk register](V02B-RISK-REGISTER.md); 10 cleanup scripts and the Chapter 045 incident script strengthened. CI guard regression checks pass; negative/positive PostgreSQL runtime checks still pending.
-2. **V02-C:** classify and audit embedded Markdown examples; flag incomplete instructions, missing expected results, and ambiguous database context.
+2. **V02-C:** **automated embedded-code audit PASS** in [V02C-STATUS.md](V02C-STATUS.md): 790 fences inventoried, 668 static syntax passes, 18 manual-context items, 51 risk matches and 108 editorial-context flags. Full technical sign-off and live examples remain pending.
 3. **V02-D:** validate SQL semantic assumptions and privileges by chapter, starting with 001–010 and then 011 onward.
 4. **V03:** execute disposable PostgreSQL 18 lab smoke tests with explicit evidence and fault-injection gates.
 
