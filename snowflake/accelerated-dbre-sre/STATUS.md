@@ -20,9 +20,16 @@
 - **Reproducible command:** `python3 snowflake/accelerated-dbre-sre/validation/validate_courses.py`.
 - **Technical audit:** [V01/V02 initial audit](validation/V01-V02-INITIAL-AUDIT.md).
 - **Second-pass technical review:** [V02 findings SF-007–SF-012](validation/V02-SECOND-PASS-REVIEW.md).
+- **Level 3–4 follow-on review:** [V02 findings SF-013–SF-017](validation/V02-LEVELS-03-04-REVIEW.md); [Level 3 smoke](validation/runtime/level-03-smoke.sql) and [Level 4 smoke](validation/runtime/level-04-smoke.sql) are prepared for **manual nonproduction** runtime testing.
 - **SQL safety regression tests:** [test_validator.py](validation/test_validator.py), required by the [CI workflow](../../.github/workflows/snowflake-accelerated-static.yml). Latest revision's CI run must pass before V02 static verification is considered complete.
 - **Test execution plan:** [Validation plan](validation/VALIDATION-PLAN.md); [Levels 1–2 smoke pack](validation/runtime/README.md).
 - A CI PASS is an initial authoring/safety filter, not execution evidence or an independent security review.
+
+## Latest verification boundary
+
+- [Run #43 — passed](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41103967587) for the prior seven-course validator and regression-test revision.
+- The newer L3/L4 smoke scripts and extended assertions need a **new CI pass**; do not treat the older result as approval of new changes.
+- No Snowflake SQL has been executed; all seven runtime labs remain **NOT RUN**.
 
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
