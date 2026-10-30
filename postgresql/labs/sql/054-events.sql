@@ -3,12 +3,12 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database()='ch054_lab'
  AND current_user='lab_admin'
@@ -26,7 +26,7 @@ SELECT CASE WHEN current_database()='ch054_lab'
  \echo 'Verified disposable Chapter 004 lab identity and initial state.'
 \else
  \echo 'REFUSED: wrong database, cluster identity, role, stage or existing lab fixture'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 BEGIN;
 SET LOCAL statement_timeout='30s';
