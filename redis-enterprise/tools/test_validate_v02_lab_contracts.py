@@ -341,6 +341,50 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("EXPIRE key seconds", src)
         self.assertIn("unsafe two-command sequence", src)
 
+    def test_chapter_11_keepttl_requires_preexisting_expiry(self):
+        src = (CHAPTER_DIR / "11-ttl-expiration-cache-freshness-engineering.md").read_text(encoding="utf-8")
+        part = src.split("## 11. Preserve TTL", 1)[1].split("## 12. Reset TTL", 1)[0]
+        self.assertIn("Redis **6.0+**", part)
+        self.assertIn("EXPIRE tutorial:chapter11:item 300", part)
+        self.assertIn("SET tutorial:chapter11:item value3 KEEPTTL", part)
+        self.assertLess(part.index("EXPIRE tutorial:chapter11:item 300"),
+                        part.index("SET tutorial:chapter11:item value3 KEEPTTL"))
+        self.assertIn("TTL=-1", part)
+        self.assertIn("positive", part)
+
+    def test_chapter_14_distinct_stream_group_and_expected_replies(self):
+        src = (CHAPTER_DIR / "14-write-through-write-behind-read-through-patterns.md").read_text(encoding="utf-8")
+        lab = src.split("## 73. Consumer Group", 1)[1].split("# Failure Injection", 1)[0]
+        self.assertIn("XGROUP CREATE tutorial:chapter14:writes writers-lab 0 MKSTREAM", lab)
+        self.assertIn("XREADGROUP GROUP writers-lab worker1 COUNT 10", lab)
+        self.assertIn("XACK tutorial:chapter14:writes writers-lab <actual-lab-message-id>", lab)
+        self.assertIn("BUSYGROUP", lab)
+        self.assertIn("pending", lab.lower())
+        self.assertIn("Integer `1`", lab)
+        self.assertEqual(src.count("# Part 22 --- Write-Behind and Redis Streams"), 1)
+
+    def test_chapter_55_redisjson_interactive_prerequisites_and_jsonpath(self):
+        src = (CHAPTER_DIR / "55-redis-enterprise-redisjson-data-modeling-document-engineering.md").read_text(encoding="utf-8")
+        blocks = find_blocks(src.splitlines())
+        redis = [b["source"] for b in blocks if b["language"] == "redis"]
+        bash = [b["source"] for b in blocks if b["language"] == "bash"]
+        self.assertGreaterEqual(len(redis), 13)
+        self.assertTrue(any("JSON.GET tutorial:chapter55:profile:1001 '$.name'" in x for x in redis))
+        self.assertTrue(any("JSON.NUMINCRBY tutorial:chapter55:profile:1001 '$.version'" in x for x in redis))
+        self.assertTrue(any("JSON.ARRAPPEND tutorial:chapter55:profile:1001" in x for x in redis))
+        self.assertTrue(any("SCAN 0 MATCH 'tutorial:chapter55:*' COUNT 100" in x for x in redis))
+        self.assertTrue(any('redis-cli --tls --cacert "$REDIS_CA"' in x for x in bash))
+        self.assertIn("RedisJSON v2", src)
+        self.assertIn('["Ava"]', src)
+        self.assertIn('["Charlotte"]', src)
+        self.assertIn("JSON-encoded array", src)
+        self.assertIn("Integer `1` when the initialized document contains", src)
+        if shutil.which("bash"):
+            for script in bash:
+                proc = subprocess.run(["bash", "-n"], input=script, text=True,
+                                      capture_output=True, timeout=5, check=False)
+                self.assertEqual(proc.returncode, 0, proc.stderr)
+
 
 if __name__ == "__main__":
     unittest.main()
