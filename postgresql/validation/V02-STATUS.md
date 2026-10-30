@@ -3,13 +3,13 @@
 **Date:** 2026-10-30  
 **Branch:** `qa/postgresql-v01-static-validation-20261030`  
 **Automated parsing:** **PASS (0 failures)**  
-**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–010 reviewed with 8 CI tests; further technical and runtime review pending**  
+**Independent code/safety review:** **V02-B static triage complete; V02-C syntax inventory passed; V02-D Chapters 001–020 reviewed with 18 CI tests; further technical and runtime review pending**  
 **Runtime lab execution and certification:** **NOT STARTED**
 
 ## GitHub Actions evidence
 
 - [Latest successful V02 workflow run #41062449652](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41062449652)
-- [Machine-readable full V02 artifact](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41054743458/artifacts/12975638987): `postgresql-v02-evidence`
+- [Machine-readable V02-A/B/C artifact on the passing Chapter 011–020 run](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41062449652/artifacts/12979761963): `postgresql-v02-evidence`
 - Earlier V02 attempts failed because the auditor initially treated some `psql` variable expressions and standalone `\gexec` directives as plain SQL. Parser preprocessing was corrected and the affected SQL files now parse.
 
 **Important limitation:** SQL grammar parsing uses `pglast==8.7` (PostgreSQL 18 grammar) after separating `psql` meta-commands and replacing `psql` client-side variables with parser placeholders. This confirms parseability of the transformed SQL, not correctness of its runtime semantics, query results, privileges, shell integrations, SQL injection resistance, or production safety.
@@ -24,11 +24,11 @@
 | PowerShell scripts | 2 | 2 AST parser passes on GitHub runner |
 | JSON files | 1 | 1 parsed |
 | YAML files | 5 | 5 parsed |
-| `psql` directive lines excluded from SQL grammar parser | 320 | Classified as client commands, not executed |
-| Markdown fenced `sql` code blocks | 252 | Inventoried; **block-level parsing pending** |
-| Markdown fenced `bash` blocks | 384 | Inventoried; **block-level parsing pending** |
-| Markdown fenced `powershell` blocks | 50 | Inventoried; **block-level parsing pending** |
-| Distinct assets referenced in prose / command examples | 118 | Existence checked; zero missing references flagged |
+| `psql` directive lines excluded from SQL grammar parser | 620 | Classified as client commands, not executed |
+| Markdown fenced `sql` code blocks | 252 | V02-C inspected/parsed where complete; contextual review remains pending |
+| Markdown fenced `bash` blocks | 386 | V02-C inspected/parsed where complete; contextual review remains pending |
+| Markdown fenced `powershell` blocks | 50 | V02-C inspected/parsed where complete; contextual review remains pending |
+| Distinct assets referenced in prose / command examples | 126 | Existence checked; zero missing references flagged |
 
 Other fenced content includes 89 text, 11 conf, 2 ini, one PromQL and one Mermaid block. These have not all been technically verified.
 
