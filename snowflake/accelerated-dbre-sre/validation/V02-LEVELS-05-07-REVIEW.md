@@ -3,7 +3,7 @@
 **Date:** 2026-10-30  
 **Branch:** `feature/snowflake-7-level-dbre-sre-20261030`  
 **Scope:** Levels 5–7 short-course tutorials, manually executable read-only SQL smoke scripts, validator and regression tests.  
-**Disposition:** Authored technical corrections; live Snowflake tests **NOT RUN**; independent security/DBRE/data-owner approval **PENDING**.
+**Disposition:** Static technical corrections validated by GitHub Actions [run #83](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41106248957) (**PASS**); live Snowflake tests **NOT RUN**; independent security/DBRE/data-owner approval **PENDING**.
 
 ## Technical findings and remediation
 
