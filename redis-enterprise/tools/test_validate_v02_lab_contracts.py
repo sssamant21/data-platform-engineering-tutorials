@@ -126,6 +126,19 @@ class V02LabContractsTests(unittest.TestCase):
         self.assertIn("COUNT argument is a work hint", source)
         self.assertNotIn("~~~bash\nSCAN\n~~~", source)
 
+    def test_chapter_15_python_examples_enforce_remote_tls_guard(self):
+        path = CHAPTER_DIR / "15-cache-stampede-thundering-herd-source-protection.md"
+        source = path.read_text(encoding="utf-8")
+        blocks = find_blocks(source.splitlines())
+        python_blocks = [b for b in blocks if b["language"] == "python"]
+        guarded = [b for b in python_blocks if "redis.Redis(" in b["source"]]
+        self.assertEqual(len(guarded), 3)
+        for b in guarded:
+            ast.parse(b["source"])
+            self.assertIn("Remote lab Redis connections require REDIS_TLS=1", b["source"])
+            self.assertIn("ssl_ca_certs", b["source"])
+            self.assertIn('ssl_cert_reqs="required"', b["source"])
+
 
 if __name__ == "__main__":
     unittest.main()
