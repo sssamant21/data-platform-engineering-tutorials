@@ -57,9 +57,9 @@ The lessons and independent manual QA SQL are checked for key teaching contracts
 
 The [final offline release-package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) lists all seven lessons, instructor deliverables, SQL files that remain NOT RUN, audit reports, tests and outstanding human approvals. The [documentation/prerequisites audit](validation/V02-DOCS-PREREQUISITES-REVIEW.md) separates prerequisites for offline instruction from future live execution and records selected official Snowflake URL checks.
 
-## Independent review handoff — awaiting human reviewers
+## Independent review handoff — owner-requested skip
 
-The [V04 independent review packet](validation/V04-INDEPENDENT-REVIEW-PACKET.md) provides role-specific review questions for an instructor/novice learner, Snowflake DBRE, Security/IAM and data owner, Application/FinOps, and DR/incident operations. A draft reviewer decision and defect register deliberately contains **no approvals or named reviewers**. The curriculum owner must identify eligible people and request reviews; an offline documentation review is **not** live Snowflake runtime acceptance.
+The [V04 independent review packet](validation/V04-INDEPENDENT-REVIEW-PACKET.md) provides role-specific review questions for an instructor/novice learner, Snowflake DBRE, Security/IAM and data owner, Application/FinOps, and DR/incident operations. A draft reviewer decision and defect register deliberately contains **no approvals or named reviewers**. **2026-10-31 sequencing update:** The owner asked to **skip reviewer assignment**. No more reviewer names or review status checks are required to continue offline teaching. V04 remains **NOT PERFORMED / NOT APPROVED**, V03 live SQL is deferred, and V05 is **NOT CERTIFIED**. The packet remains for future use only; skipping review does not authorize a production release or merge.
 
 ## V03 controlled runtime validation
 
