@@ -14,9 +14,9 @@
 | [05](chapters/chapter-05-security-rbac-governance.md) | Security and Governance | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
 | [06](chapters/chapter-06-data-recovery-disaster-recovery.md) | Data Recovery and DR | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
 | [07](chapters/chapter-07-troubleshooting-incident-response.md) | Incident Response | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [08](chapters/chapter-08-data-loading-and-ingestion.md) | Data Loading and Ingestion | Yes | Pending CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [08](chapters/chapter-08-data-loading-and-ingestion.md) | Data Loading and Ingestion | Yes | [PASS — GitHub Actions #381](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41215020098) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
 
-**Progress:** **8/8 chapters authored**, each 60 minutes, **480 minutes total**. Original Chapters 01–07 passed prior offline CI; Chapter 08 and updated full-path tests require CI confirmation. The separate original seven-course accelerated track remains **7/7 / 420 minutes**.
+**Progress:** **8/8 chapters authored**, each 60 minutes, **480 minutes total**. **Latest offline CI [#381 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41215020098): 104 accelerated-track tests + 17 learning-path tests = 121 Python tests**, plus PowerShell parser and mocked preflight checks. No Snowflake connection was made. The separate original seven-course accelerated track remains **7/7 / 420 minutes**.
 
 ## Acceptance boundaries
 
@@ -26,6 +26,10 @@
 - Independent review assignment was **skipped by owner**: **V04 NOT PERFORMED / NOT APPROVED**.
 - **V05 NOT CERTIFIED**. Neither offline course completion nor source QA supports production operational acceptance.
 - [PR #43](https://github.com/sssamant21/data-platform-engineering-tutorials/pull/43) remains draft and unmerged until explicitly authorized.
+
+## Chapter 08 learning exercise
+
+Use the [answer-free Chapter 08 ingestion tabletop](exercises/chapter-08-ingestion-tabletop.md) to teach stage/file-format concepts, invalid numeric input, COPY validation, history scope and replay authorization. All values are synthetic; no file upload, COPY execution or Snowpipe event took place.
 
 ## Next teaching work
 
