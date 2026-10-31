@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** New Snowflake administrators, DBRE/SRE and platform operations  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account, least-privilege role and training warehouse; a selected accessible database for `INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION`; permission to inspect visible role/warehouse metadata. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Inspect warehouse state, administrative boundaries, users/roles and recent query activity using safe SQL.
