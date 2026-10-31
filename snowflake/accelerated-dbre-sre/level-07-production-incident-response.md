@@ -85,11 +85,13 @@ Include: impact, severity, UTC start/end, incident commander, two query IDs or s
 **Suggested communication cadence:** initial acknowledgement, evidence-based updates at the cadence set by severity, final recovery confirmation, and tracked RCA actions.
 
 ## Knowledge check (with answers)
-1. **First task in an incident?** Confirm impact and scope.
-2. **Why save query IDs?** Correlate evidence and query profiles.
-3. **What does high overload queueing suggest?** Concurrency/capacity pressure.
-4. **Should an operator cancel unknown production queries?** No, follow approval and impact assessment.
-5. **What makes an RCA useful?** Verified cause, impact, mitigation and prevention.
+1. **First task in an incident?** **Confirm user/business impact, service scope, severity and the incident owner**, while preserving relevant evidence. Avoid changing warehouses or cancelling queries before establishing safety and approvals.
+2. **Why save query IDs?** **A genuine `QUERY_ID` links a specific execution to Query History, profile and error/timing evidence.** Preserve timestamp and warehouse/role context; a made-up query ID is a tabletop placeholder, not proof of a live query.
+3. **What does high overload queueing suggest?** **Concurrency or warehouse-capacity pressure may be delaying queued queries.** Compare overload vs provisioning vs blocking time and check workload/warehouse utilization before deciding on isolation or scaling.
+4. **Should an operator cancel unknown production queries?** **No.** Determine ownership, customer impact, transaction consequences and the approved change/incident authority. Only the authorized operator should perform a justified, reversible mitigation where possible.
+5. **What makes an RCA useful?** **A blameless record of impact, timeline, evidence, trigger/contributing conditions, mitigation, verification and preventive actions with owners and deadlines.** Distinguish facts from hypotheses; show before/after SLOs when measurable.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
