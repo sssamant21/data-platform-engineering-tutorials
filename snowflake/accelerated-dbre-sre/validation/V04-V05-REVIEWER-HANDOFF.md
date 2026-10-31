@@ -40,6 +40,8 @@ The following are *acceptance requirements*, **not achieved milestones**:
 **Certification:** NOT CERTIFIED.  
 **PR #43:** DRAFT. Do not automatically merge based on static CI or this checklist.
 
+The offline curriculum and source handoff are inventoried in the [final offline release package](OFFLINE-RELEASE-INVENTORY.md). The [documentation/prerequisite audit](V02-DOCS-PREREQUISITES-REVIEW.md) is an **author** check of lesson availability, navigation and prerequisite clarity. Independent instructors, administrators and security reviewers must still assess and approve teaching and environment-specific correctness.
+
 ## Known limitations of completed offline work
 
 - Automated checks verify Markdown/links, selected Snowflake SQL patterns and safety heuristics. They **do not** parse full Snowflake grammar.
