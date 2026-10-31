@@ -35,7 +35,7 @@
 | Seven manual SQL smoke files | [runtime scripts and scope](runtime/README.md) | **Authored, 0/7 executed. Do not run for offline training.** |
 | V03 safety/connection handoff | [V03 runbook](V03-EXECUTION-RUNBOOK.md), [preflight readiness](V03-PREFLIGHT-STATUS.md), [PowerShell preflight](run-training-preflight.ps1) | Deferred until owner explicitly resumes V03 in an authorized account |
 | V03 evidence templates/checker | [evidence template](RUNTIME-EVIDENCE-TEMPLATE.md), [offline evidence checker](validate_runtime_evidence.py), [blank NOT_RUN example](V03-NOT-RUN-TEMPLATE.json) | Template and static schema only; no real query IDs/results |
-| Independent approval handoff | [V04/V05 checklist](V04-V05-REVIEWER-HANDOFF.md) | Reviewer package prepared, **no approvals** |
+| Independent approval handoff | [V04/V05 checklist](V04-V05-REVIEWER-HANDOFF.md), [V04 role-based review packet](V04-INDEPENDENT-REVIEW-PACKET.md), [handoff contract tests](test_independent_review_packet.py) | Reviewer packet prepared, **no reviewer assigned or approval received** |
 
 ## Offline deliverable gate / handoff decisions
 
