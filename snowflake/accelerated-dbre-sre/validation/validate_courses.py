@@ -180,6 +180,8 @@ def main() -> int:
                  "validation/V02-SECOND-PASS-REVIEW.md",
                  "validation/V02-LEVELS-03-04-REVIEW.md",
                  "validation/V02-LEVELS-05-07-REVIEW.md",
+                 "validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md",
+                 "validation/test_curriculum_consistency.py",
                  "validation/V03-PREFLIGHT-STATUS.md",
                  "validation/V03-EXECUTION-RUNBOOK.md",
                  "validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md",
