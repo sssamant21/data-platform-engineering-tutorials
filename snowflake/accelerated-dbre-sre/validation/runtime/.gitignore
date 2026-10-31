@@ -1,0 +1,8 @@
+/evidence/
+*.log
+*.out
+*.csv
+*.json
+*.ndjson
+*.parquet
+*.sql.out
