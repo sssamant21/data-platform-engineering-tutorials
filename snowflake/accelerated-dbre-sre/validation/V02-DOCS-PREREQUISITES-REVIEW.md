@@ -45,7 +45,7 @@ The following **specific documentation URLs were opened successfully** in Snowfl
 
 - **Documentation author review:** Corrected. The user can teach all seven lessons offline without creating a Snowflake account or running SQL.
 - **Official URL verification:** The named Snowflake URLs were spot-checked as reachable on 2026-10-31; an instructor should recheck before reuse. Official documentation changes after this date may require re-review.
-- **Offline QA CI:** To be recorded after GitHub Actions completes for the final branch.
+- **Offline QA CI:** [GitHub Actions #286 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41206940627): **79 Python regression tests passed**, plus PowerShell parser and mock-only CLI checks. The nine new doc/prerequisite tests check local links and authoring contracts; they do not access Snowflake or independently verify every external URL.
 - **V03 SQL runtime:** **USER-DEFERRED / NOT RUN 0/7**. No actual query outputs, credit charges, permissions or QUERY_ID evidence.
 - **V04 independent human review:** **PENDING**. No external DBA/Security/Data Owner/instructor approval implied.
 - **V05 production certification:** **NOT CERTIFIED**. PR #43 remains DRAFT; do not merge or certify based solely on documentation QA.
