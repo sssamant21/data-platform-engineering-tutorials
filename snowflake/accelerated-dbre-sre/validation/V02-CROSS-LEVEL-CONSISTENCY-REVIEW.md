@@ -27,7 +27,7 @@
 
 ## Exit status
 
-**Offline cross-level consistency:** Corrections committed; automated CI required on final branch head before declaring PASS.  
+**Offline cross-level consistency:** **AUTOMATED PASS** — [CI run #198](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171243260) on commit `8da70e0b38ae1292eaeff55d24c38cc3940ffd82`: **60 Python regression tests PASS**, PowerShell parsing and mock-only integration PASS. Nine new parity tests are included. This is not live Snowflake SQL validation.  
 **Actual V03 runtime:** USER-DEFERRED / NOT RUN (0/7 levels).  
 **Independent V04 review:** PENDING, external human approval required.  
 **Production V05:** NOT CERTIFIED. PR #43 remains draft.
