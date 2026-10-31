@@ -1,6 +1,6 @@
 # Snowflake Accelerated DBRE/SRE — Validation Tracker
 
-**Last authored:** 2026-10-30  
+**Last authored:** 2026-10-31  
 **Source:** seven-course onboarding request  
 **Scope:** `snowflake/accelerated-dbre-sre/` only; canonical 90-chapter curriculum unchanged.
 
@@ -102,7 +102,7 @@ The curriculum owner requested **skip the independent-review step for now** rath
 
 - Created [answer-free learner workbook](validation/LEARNER-OFFLINE-WORKBOOK.md) with **seven 60-minute courses**, five original comprehension prompts per course (**35**), seven applied paper exercises, seven operational safety checks and seven integrated tabletop scenarios.
 - The workbook deliberately **does not link instructor answer keys, completed worked solutions or runtime smoke scripts**; it asks students to write reasoning and keeps submissions in an approved private learning channel.
-- Added [static learner-workbook tests](validation/test_learner_workbook.py) to validate seven section counts, 35 questions, separate assessment scoring, course links, solution separation and truthful V03/V04/V05 status. **CI verification pending on the latest branch commit.**
+- Added [nine static learner-workbook tests](validation/test_learner_workbook.py) covering seven course sections, 35 questions, answer-key separation, links, scoring and truthful V03/V04/V05 status. **[CI run #323 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41212737661): 94 Python tests passed, plus PowerShell parse/mock-only checks.**
 - This does not represent an actual student completing the exercises. **V03 remains USER-DEFERRED / NOT RUN (0/7)**; **V04 skipped by owner / NOT APPROVED**; **V05 NOT CERTIFIED**. PR #43 remains draft.
 
 ## Validation gates
