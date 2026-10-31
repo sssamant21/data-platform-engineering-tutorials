@@ -235,6 +235,28 @@ class BackupReplication041050(unittest.TestCase):
                 self.assertIn("readonly",workflow)
                 self.assertIn("timeout-minutes: 20",workflow)
 
+    def test_v03_actual_rewind_lab_preflight_and_rejoin_guards(self):
+        script=(ROOT/"validation"/"v03_rewind_disposable.py").read_text(encoding="utf-8")
+        for required in ("REWIND-OWNED-FRESH-CH004-ONLY",
+                         "shared.preflight()", "check_owned_clean_dir(target)",
+                         "shutil.copytree(target, backup", "--no-ensure-shutdown",
+                         "--dry-run", "--progress", "standby.signal",
+                         "primary_conninfo", "port=55433 user=lab_repl",
+                         'query(55432,"SELECT pg_is_in_recovery()") != "t"',
+                         "NOT_PROVEN", "NOT_CERTIFIED"):
+            self.assertIn(required,script)
+        self.assertLess(script.index('ctl(target,"stop")'),script.index('ctl(candidate,"promote")'))
+        self.assertLess(script.index("shutil.copytree(target, backup"),
+                        script.index('command(args+["--progress"]'))
+        self.assertLess(script.index('(target/"standby.signal").touch'),
+                        script.index('ctl(target,"start")'))
+        self.assertNotIn("shutil.rmtree(",script)
+        workflow=(ROOT.parent/".github"/"workflows"/"postgresql-v03-actual-rewind-disposable.yml").read_text(encoding="utf-8")
+        self.assertIn("--network none --user postgres",workflow)
+        self.assertIn("readonly",workflow)
+        self.assertIn("REWIND-OWNED-FRESH-CH004-ONLY",workflow)
+        self.assertIn("timeout-minutes: 20",workflow)
+
     def test_049_050_manual_fencing_rewind_and_dr_acceptance(self):
         for ch in ("049","050"):
             doc=lab(ch).lower()
