@@ -75,7 +75,7 @@
 - **35/35 knowledge-check answers revised** across all seven lessons: expanded beginner explanations, interpretation caveats, operational safety and synthetic-versus-runtime distinctions.
 - **[Instructor grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) authored** with five question-specific scoring criteria per level (2/1/0), seven tabletop case rubrics (2/1/0), distinct 8/10 lesson and 12/14 tabletop comprehension thresholds, and a critical-safety override.
 - **[Blank scoring sheet](validation/INSTRUCTOR-SCORING-SHEET.md)** prepared for recording 7 × 5 question scores, separate A–G tabletop scores, reviewer aliases and safety remediation. **No learner evaluation has been conducted.**
-- **[Offline QA tests](validation/test_instructor_answer_keys.py) added** to ensure seven × five answers, rubric coverage, scoring separation and deferred-runtime status. **Current branch CI verification pending.**
+- **[Offline answer-key QA tests](validation/test_instructor_answer_keys.py)** cover the 35 expanded answers, all seven tabletop rubrics, scoring separation, blank scoring template, safety overrides and deferred-runtime status. **[CI run #244 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171730068): 70 Python tests, PowerShell syntax and fake-CLI checks all passed.**
 - This is **author review**, not independent instructor sign-off. V03 remains USER-DEFERRED 0/7, V04 approval PENDING, and V05 NOT CERTIFIED.
 
 ## Validation gates
