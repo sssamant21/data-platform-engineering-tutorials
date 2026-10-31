@@ -13,7 +13,7 @@ import unittest
 HERE=Path(__file__).resolve().parent
 sys.path.insert(0,str(HERE))
 from test_v04_staging_readiness import NOW
-from test_v04e_artifact_integrity import EvidenceIntegrityTests
+import test_v04e_artifact_integrity as e_fixture
 import v04_independent_review as b
 import v04e_artifact_integrity as e
 import v04f_secure_evidence_handoff as f
@@ -25,7 +25,7 @@ def timestamp(delta_ms: int) -> str:
 
 class HandoffTests(unittest.TestCase):
     def setUp(self):
-        fixture=EvidenceIntegrityTests(methodName="test_synthetic_exact_bytes_only_not_authenticated")
+        fixture=e_fixture.EvidenceIntegrityTests(methodName="test_synthetic_exact_bytes_only_not_authenticated")
         fixture.setUp()
         self.addCleanup(fixture.temp.cleanup)
         self.root=fixture.root
