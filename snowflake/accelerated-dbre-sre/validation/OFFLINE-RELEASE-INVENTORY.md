@@ -3,7 +3,7 @@
 **Prepared:** 2026-10-31  
 **Audience:** Instructor, DBRE/SRE onboarding lead, independent reviewer and curriculum maintainer.  
 **Package scope:** `snowflake/accelerated-dbre-sre/` on draft PR #43, branch `feature/snowflake-7-level-dbre-sre-20261030`. This does **not** revise the 90-chapter canonical curriculum.  
-**Release classification:** **DRAFT — OFFLINE TEACHING / AUTHOR QA COMPLETE SUBJECT TO FINAL CI; NOT RUNTIME VALIDATED; NOT PRODUCTION CERTIFIED.**
+**Release classification:** **DRAFT — OFFLINE TEACHING / AUTOMATED AUTHOR QA PASSED; NOT RUNTIME VALIDATED; NOT INDEPENDENTLY APPROVED; NOT PRODUCTION CERTIFIED.**
 
 ## Start here — learner and instructor deliverables
 
@@ -41,8 +41,8 @@
 
 | Gate | Meaning | State |
 |---|---|---|
-| Course structure and duration | All 7 lessons with 60-minute agendas and navigation | Completed by author; automated gate required |
-| Offline technical source QA | Synthetic arithmetic, safety patterns, answer-key parity, documentation and per-level prerequisites | Author corrections committed; CI verification required |
+| Course structure and duration | All 7 lessons with 60-minute agendas and navigation | **Author QA + automated CI passed** — [run #286](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41206940627) |
+| Offline technical source QA | Synthetic arithmetic, safety patterns, answer-key parity, documentation and per-level prerequisites | **79 Python tests passed, plus PowerShell parser/mock checks**, [run #286](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41206940627) |
 | External Snowflake documentation | Current official references spot-checked as described in [audit](V02-DOCS-PREREQUISITES-REVIEW.md) | Selected URLs verified; external links may change |
 | Instructor usability review | Real novice learner and independent instructor check materials and timing | **PENDING** — cannot self-sign |
 | V03 live SQL tests | Real nonproduction account tests, actual results, query IDs, costs and cleanup | **USER-DEFERRED / NOT RUN (0/7)** |
