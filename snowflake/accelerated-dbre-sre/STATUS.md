@@ -98,6 +98,13 @@ The curriculum owner requested **skip the independent-review step for now** rath
 
 **This decision does not waive operational evidence or justify production certification.** V03 live Snowflake testing remains **USER-DEFERRED / NOT RUN (0/7)**; V05 remains **NOT CERTIFIED**. The package is suitable for offline teaching as a draft based on author/static QA alone; no independent endorsement should be claimed. PR #43 stays draft and unmerged absent a separate explicit merge decision.
 
+## Learner-only offline workbook — 2026-10-31
+
+- Created [answer-free learner workbook](validation/LEARNER-OFFLINE-WORKBOOK.md) with **seven 60-minute courses**, five original comprehension prompts per course (**35**), seven applied paper exercises, seven operational safety checks and seven integrated tabletop scenarios.
+- The workbook deliberately **does not link instructor answer keys, completed worked solutions or runtime smoke scripts**; it asks students to write reasoning and keeps submissions in an approved private learning channel.
+- Added [static learner-workbook tests](validation/test_learner_workbook.py) to validate seven section counts, 35 questions, separate assessment scoring, course links, solution separation and truthful V03/V04/V05 status. **CI verification pending on the latest branch commit.**
+- This does not represent an actual student completing the exercises. **V03 remains USER-DEFERRED / NOT RUN (0/7)**; **V04 skipped by owner / NOT APPROVED**; **V05 NOT CERTIFIED**. PR #43 remains draft.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
