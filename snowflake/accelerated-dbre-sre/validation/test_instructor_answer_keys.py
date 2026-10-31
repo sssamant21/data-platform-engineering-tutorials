@@ -111,5 +111,18 @@ class InstructorAnswerKeyTests(unittest.TestCase):
             self.assertIn("Snowflake runtime validation NOT RUN (deferred)", source(level))
 
 
+    def test_blank_scoring_sheet_never_claims_completion(self):
+        sheet = (TRACK / "validation" / "INSTRUCTOR-SCORING-SHEET.md").read_text(encoding="utf-8")
+        for n in range(1, 8):
+            self.assertRegex(sheet, rf"(?m)^\| {n} — ")
+        for letter in "ABCDEFG":
+            self.assertRegex(sheet, rf"(?m)^\| {letter} — ")
+        self.assertIn("NO learner has been assessed", sheet)
+        self.assertIn("NOT ASSESSED", sheet)
+        self.assertIn("V03 DEFERRED", sheet)
+        self.assertIn("NOT CERTIFIED", sheet)
+        self.assertIn("INSTRUCTOR-ANSWER-KEY-RUBRICS.md", sheet)
+
+
 if __name__ == "__main__":
     unittest.main()
