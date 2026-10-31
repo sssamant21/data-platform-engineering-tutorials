@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** DBRE/SRE, DR coordinators, data owners and platform leads  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account and read-only permission to inspect retention for an existing, owner-approved scratch database/table. Optional permanent-table creation or recovery is a separate approved writable exercise; never use shared or production objects. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Identify the appropriate recovery mechanism, assess retention and practice a safe recovery plan.
