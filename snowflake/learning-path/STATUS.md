@@ -21,7 +21,7 @@ The previously authored **eight copied tutorial files** in `learning-path/chapte
 
 - [Navigation-only regression tests](validation/test_learning_path.py) ensure a nonduplicating index and actual local targets.
 - [Ingestion worksheet checks](validation/test_chapter_08_ingestion.py) confirm that the unique fictional exercise stays answer-free and avoids live SQL or privileged actions.
-- **GitHub Actions latest status:** record the new post-cleanup validation run after all changes/deletions have landed; earlier runs reflect the previous duplicate layout and do not certify the new index.
+- **[GitHub Actions #413 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41215988701): 104 accelerated curriculum regression tests + 13 navigation/worksheet tests passed (117 Python tests total)**. PowerShell syntax and mock-only preflight checks also passed. **No live Snowflake connection or SQL execution occurred.**
 - **V03 Snowflake runtime:** **USER-DEFERRED / NOT RUN (0/7 accelerated smoke scripts)**. No ingestion worksheet ran in Snowflake.
 - **V04 human review:** **SKIPPED BY OWNER / NOT APPROVED**. This is not a human approval.
 - **V05 production certification:** **NOT CERTIFIED**.
