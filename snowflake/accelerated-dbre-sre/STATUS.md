@@ -69,6 +69,13 @@
 - [Cross-level contract regression tests](validation/test_curriculum_consistency.py) cover nine offline lesson/smoke relationships across all seven levels. **[CI run #198 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171243260): 60 Python tests and mock-only PowerShell checks passed.**
 - This remains **documentation and static-source validation** only; V03 live Snowflake remains USER-DEFERRED / 0 of 7 run, V04 reviewer approval pending, V05 not certified.
 
+## Instructor answer-key and rubric review — 2026-10-31
+
+- **35/35 knowledge-check answers revised** across all seven lessons: expanded beginner explanations, interpretation caveats, operational safety and synthetic-versus-runtime distinctions.
+- **[Instructor grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) authored** with five question-specific scoring criteria per level (2/1/0), seven tabletop case rubrics (2/1/0), distinct 8/10 lesson and 12/14 tabletop comprehension thresholds, and a critical-safety override.
+- **[Offline QA tests](validation/test_instructor_answer_keys.py) added** to ensure seven × five answers, rubric coverage, scoring separation and deferred-runtime status. **Current branch CI verification pending.**
+- This is **author review**, not independent instructor sign-off. V03 remains USER-DEFERRED 0/7, V04 approval PENDING, and V05 NOT CERTIFIED.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
