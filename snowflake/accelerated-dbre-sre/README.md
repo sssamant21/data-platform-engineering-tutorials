@@ -18,6 +18,13 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 | 7 | [Snowflake Production Troubleshooting and Incident Response](level-07-production-incident-response.md) | 60 min | DRAFT / runtime pending |
 | **Total** | **7 courses** | **420 min (7 hours)** | |
 
+## Beginner glossary and seven-session delivery checklist
+
+- [Beginner Snowflake terminology glossary](validation/BEGINNER-SNOWFLAKE-GLOSSARY.md) — plain-language terms organized by Levels 1–7, including common misconceptions about warehouses, query latency, Account Usage, RBAC, Time Travel and incidents.
+- [Offline course delivery checklist](validation/COURSE-DELIVERY-CHECKLIST.md) — facilitator setup, each lesson's exact five-part **60-minute** agenda, paper exercises, safety prompts, blank teaching records and private learner-data safeguards.
+
+**Offline instruction only:** Neither resource requires a Snowflake login or live SQL. If using a closed-book assessment, distribute the answer-free workbook first and share the glossary only after the learner completes it; keep the instructor answer key private until grading.
+
 ## Learner workbook — answer-free assessment
 
 Start participants with the [offline learner workbook](validation/LEARNER-OFFLINE-WORKBOOK.md): **35 knowledge questions, seven applied exercises, seven safety checks, and an integrated seven-case tabletop**. No Snowflake login or SQL execution is required. This learner-only edition contains prompts and space for responses, **not the instructor solutions**. Keep the [instructor answer keys and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) separate until the exercises are complete. Do not commit filled learner worksheets, names, identifiers or private evidence to the public repository.
