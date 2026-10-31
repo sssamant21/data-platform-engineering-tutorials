@@ -83,7 +83,7 @@
 - **Seven lesson prerequisite pairs aligned:** Offline requires **no Snowflake account/CLI/credentials**; future V03 live-lab prerequisites specify level-specific nonproduction role, warehouse, scratch object, audit/monitoring permissions and owner approvals. Every SQL section explicitly states its results are hypothetical and **NOT RUN**.
 - **Source documentation:** [SF-036–SF-041 audit](validation/V02-DOCS-PREREQUISITES-REVIEW.md) records selected official Snowflake URLs checked on 2026-10-31; updated Query Profile links from a redirecting legacy path to current Snowsight Query History docs. External links may change, and the test suite verifies repository-relative link targets only.
 - **Offline instructor release/handoff:** [Final package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) covers seven lessons, instructor guide, 35-answer rubric, blank scoring sheet, static regression tests, seven **not-run** SQL smoke scripts and outstanding V03/V04/V05 acceptance.
-- **Automated gate:** [documentation/prerequisite regression tests](validation/test_docs_prerequisites.py) added; final CI to be recorded after validation. **Do not represent documentation readiness as runtime or independent sign-off.**
+- **Automated gate PASS:** [CI run #286](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41206940627) completed successfully with **79 Python regression tests**, PowerShell syntax and mock-only checks. Includes nine new documentation and prerequisite tests. **This does not establish runtime or independent sign-off.**
 
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
