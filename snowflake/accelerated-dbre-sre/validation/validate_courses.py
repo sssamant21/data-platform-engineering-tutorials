@@ -185,6 +185,8 @@ def main() -> int:
                  "validation/V03-PREFLIGHT-STATUS.md",
                  "validation/V03-EXECUTION-RUNBOOK.md",
                  "validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md",
+                 "validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md",
+                 "validation/test_instructor_answer_keys.py",
                  "validation/V04-V05-REVIEWER-HANDOFF.md",
                  "validation/run-training-preflight.ps1",
                  "validation/check-powershell-syntax.ps1",
