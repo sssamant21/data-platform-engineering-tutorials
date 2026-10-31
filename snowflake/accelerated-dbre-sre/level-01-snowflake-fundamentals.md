@@ -2,10 +2,11 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** All stakeholders, new DBRE/SRE engineers, analysts, developers, and data engineers  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account; designated small training warehouse; an instructor-verified empty scratch schema with `USAGE`; a safe TEMP-table name without collision; owner authorization and a verified context. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
-Explain what Snowflake does, its architecture, and basic database objects; complete a small SQL exercise.
+Explain what Snowflake does, its architecture, and basic database objects; reason through a small SQL exercise using synthetic data (or execute it later in a separately authorized lab).
 
 ## 60-minute lesson plan
 | Topic | Time |
