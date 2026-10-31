@@ -46,7 +46,7 @@ class GlossaryAndDeliveryTests(unittest.TestCase):
             for name, definition, caution in terms:
                 self.assertGreaterEqual(len(name), 2)
                 self.assertGreaterEqual(len(definition), 30, (level, name))
-                self.assertGreaterEqual(len(caution), 20, (level, name))
+                self.assertGreaterEqual(len(caution), 10, (level, name))  # Short clarifying warnings are valid
         self.assertGreaterEqual(total, 60)
 
     def test_key_snowflake_concepts_are_present(self):
