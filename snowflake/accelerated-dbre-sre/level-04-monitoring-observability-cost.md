@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** DBRE/SRE, observability and FinOps practitioners  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account and small training warehouse plus a separately approved read-only monitoring role with the required `SNOWFLAKE.ACCOUNT_USAGE` view privileges; historical rows may lag or be unavailable. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Build a basic operational scorecard using historical usage views, understand metric latency, and identify cost growth.
