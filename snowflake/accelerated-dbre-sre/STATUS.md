@@ -85,6 +85,13 @@
 - **Offline instructor release/handoff:** [Final package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) covers seven lessons, instructor guide, 35-answer rubric, blank scoring sheet, static regression tests, seven **not-run** SQL smoke scripts and outstanding V03/V04/V05 acceptance.
 - **Automated gate PASS:** [CI run #286](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41206940627) completed successfully with **79 Python regression tests**, PowerShell syntax and mock-only checks. Includes nine new documentation and prerequisite tests. **This does not establish runtime or independent sign-off.**
 
+## Independent reviewer handoff prepared — 2026-10-31
+
+- [V04 independent review packet and blank decision register](validation/V04-INDEPENDENT-REVIEW-PACKET.md) prepared for five review workstreams: instructor/novice learner, Snowflake DBRE, Security/IAM and data owner, Application/FinOps, and DR/incident operations.
+- [Reviewer handoff regression checks](validation/test_independent_review_packet.py) added to guard reviewer/decision placeholders and distinguish documentation review from deferred live tests. Final GitHub Actions CI result is tracked separately.
+- **GitHub review check at authoring:** PR #43 had **zero submitted reviews and zero inline review threads**; reviewers had not been requested by name. **V04 is NOT APPROVED**. The owner must identify appropriate independent reviewers before review requests can be assigned.
+- Any offline-only human decision must be recorded as `OFFLINE_DOCS_APPROVED_ONLY`, **not** V03 runtime acceptance. The PR stays **DRAFT**; V03 0/7 NOT RUN and V05 NOT CERTIFIED.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
