@@ -1,6 +1,6 @@
 # Chapter 050 — High Availability and Disaster Recovery Acceptance Lab
 
-**PostgreSQL 18 · Disposable V03 runtime acceptance PASS · independent staging/enterprise acceptance PENDING.**
+**PostgreSQL 18 · Runtime: V03 disposable lab PASS · independent staging and enterprise acceptance PENDING.**
 
 ## 1. Preconditions
 
