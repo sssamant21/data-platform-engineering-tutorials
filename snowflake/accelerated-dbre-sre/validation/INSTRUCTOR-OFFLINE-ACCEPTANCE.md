@@ -19,6 +19,10 @@
 
 **Timing:** Each source lesson already contains a 60-minute agenda. Use its breakdown as the teaching schedule; the above activities supplement the lesson rather than creating extra required instructional minutes.
 
+## Instructor delivery planning and vocabulary
+
+The [seven-session course delivery checklist](COURSE-DELIVERY-CHECKLIST.md) reproduces the exact 60-minute agenda for each level, plus ready-to-use facilitator prompts and blank *private* teaching records. The [beginner glossary](BEGINNER-SNOWFLAKE-GLOSSARY.md) defines concepts across all levels. For an independent closed-answer assessment, provide the learner workbook without glossary or instructor solutions initially; release the glossary afterward for study. **No teaching session or learner completion is claimed by publishing these documents.**
+
 ## Learner edition distribution
 
 Give attendees the [offline learner workbook](LEARNER-OFFLINE-WORKBOOK.md), which has 35 prompts and seven tabletop scenarios **without the model answers**. Keep this instructor pack, [answer key](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) and [private scoring worksheet](INSTRUCTOR-SCORING-SHEET.md) with the instructor until the assessment is complete. Learners can review the lessons to study, but note that the lesson knowledge-check sections themselves display answers: for independent closed-answer assessment, distribute **only the workbook** before the exercise. Do not upload completed learner answers or real identity data to the repository.
