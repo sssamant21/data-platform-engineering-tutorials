@@ -2,7 +2,7 @@
 
 **Seven 60-minute workshops | Learner edition | No answer key**
 
-Use this workbook alongside the [seven-lesson course index](../README.md). It is designed for **offline teaching without a Snowflake account, CLI, warehouse, or real data**. All scenarios, datasets, timing, identities, and incidents are fictional. **Do not execute SQL or collect credentials.** The instructor uses a separate [answer key and rubric](INSTRUCTOR-ANSWER-KEY-RUBRICS.md); the workbook intentionally supplies questions and answer spaces, **not solutions**.
+Use this workbook alongside the [seven-lesson course index](../README.md). It is designed for **offline teaching without a Snowflake account, CLI, warehouse, or real data**. All scenarios, datasets, timing, identities, and incidents are fictional. **Do not execute SQL or collect credentials.** The instructor keeps a separate answer key and grading rubric; the learner workbook intentionally supplies questions and answer spaces, **not solutions**.
 
 **Assessment boundary:** Any notes below are learner responses, not actual Snowflake query evidence. No runtime validation has been performed (V03 **USER-DEFERRED / NOT RUN, 0/7**). Independent review V04 **SKIPPED BY OWNER / NOT APPROVED**; production certification V05 **NOT CERTIFIED**. Keep private learner responses out of public GitHub commits.
 
@@ -164,7 +164,7 @@ A fictional dashboard is **75 minutes** behind its source; the agreed freshness 
 
 ## Final integrated tabletop — seven cases (score separately from knowledge checks)
 
-For each case, write your *reasoning, assumptions, safer next action and evidence needed*. Use the [instructor-led scoring sheet](INSTRUCTOR-SCORING-SHEET.md) to record results privately after review. **These questions do not include their solutions.**
+For each case, write your *reasoning, assumptions, safer next action and evidence needed*. The instructor can record scores privately using a separate scoring sheet after review. **These questions do not include their solutions.**
 
 | Case | Scenario to analyze | Learner response prompt |
 |---|---|---|
@@ -188,6 +188,6 @@ For each case, write your *reasoning, assumptions, safer next action and evidenc
 - [ ] Did **not** execute SQL, upload sensitive datasets or request privileged roles.
 - [ ] Shared completed worksheet only in the approved private teaching channel.
 
-**Instructor-only materials:** [grading rubrics](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) and [instructor pack](INSTRUCTOR-OFFLINE-ACCEPTANCE.md). Do not use those documents while independently completing the workbook. All grading thresholds are instructional only.
+**Instructor-only materials:** The separate answer keys, model reasoning, tabletop rubrics and grading sheets should not be supplied with the learner edition during an independent assessment. All grading thresholds are instructional only.
 
 **End-of-workbook state:** `NOT ASSESSED / OFFLINE TRAINING ONLY`. A real instructor must score learner responses; this manuscript does not count as completed training or a Snowflake runtime check.
