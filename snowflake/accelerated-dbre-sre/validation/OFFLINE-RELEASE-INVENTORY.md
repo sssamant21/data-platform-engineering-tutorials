@@ -46,7 +46,7 @@
 | External Snowflake documentation | Current official references spot-checked as described in [audit](V02-DOCS-PREREQUISITES-REVIEW.md) | Selected URLs verified; external links may change |
 | Instructor usability review | Real novice learner and independent instructor check materials and timing | **PENDING** — cannot self-sign |
 | V03 live SQL tests | Real nonproduction account tests, actual results, query IDs, costs and cleanup | **USER-DEFERRED / NOT RUN (0/7)** |
-| V04 acceptance | Independent DBA/DBRE, Security and Data Owner sign-offs | **PENDING** |
+| V04 acceptance | Independent DBA/DBRE, Security and Data Owner sign-offs | **SKIPPED BY OWNER FOR NOW / NOT APPROVED** (2026-10-31); do not require reviewer assignment for offline teaching |
 | V05 production enterprise certification | SLOs, performance baselines, DR evidence, cost/security controls, operational approvals | **NOT CERTIFIED** |
 | GitHub PR #43 | Merge | **DRAFT, NOT MERGED** |
 
@@ -54,7 +54,7 @@
 
 1. **Offline instructor:** use the [seven lessons](../README.md), the [instructor pack](INSTRUCTOR-OFFLINE-ACCEPTANCE.md) and [answer key](INSTRUCTOR-ANSWER-KEY-RUBRICS.md). Record **only fictional results** until live runtime testing is explicitly resumed.
 2. **Private grading:** use the [blank scoring template](INSTRUCTOR-SCORING-SHEET.md) in a permitted private workspace. Never commit real learner identifiers, patient information or secrets.
-3. **Independent reviewers:** inspect [V04/V05 handoff](V04-V05-REVIEWER-HANDOFF.md), technical reviews and approval requirements. Do not mark content independently approved because GitHub Actions passed.
+3. **Independent reviewers:** The owner requested this step be skipped for now. Preserve the [V04/V05 handoff](V04-V05-REVIEWER-HANDOFF.md) for later; do not solicit reviews during this offline-teaching workflow or mistake a skip for approval.
 4. **When authorized to resume V03:** verify account identity, role, scratch schema, cost cap and owner ticket; follow the [runbook](V03-EXECUTION-RUNBOOK.md) beginning with L1. Keep sanitized genuine evidence in an approved private store.
 5. **Only after V03 and V04:** consider release/certification decisions with named accountable owners. Do not automatically merge draft PR #43.
 
