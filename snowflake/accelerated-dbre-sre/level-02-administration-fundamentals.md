@@ -98,11 +98,13 @@ ALTER SESSION UNSET QUERY_TAG;
 An unexpected production query failure after a warehouse change requires rollback evaluation and application-owner involvement.
 
 ## Knowledge check (with answers)
-1. **Who manages Snowflake's underlying servers?** Snowflake.
-2. **What is warehouse auto-suspend?** Idle compute suspension.
-3. **When is resizing appropriate?** After measuring the cause and getting approval.
-4. **What identifies a query for triage?** QUERY_ID.
-5. **Should all operators use ACCOUNTADMIN?** No; use least privilege.
+1. **Who manages Snowflake's underlying servers?** **Snowflake operates the managed service infrastructure.** Your DBRE/SRE team still owns approved account configuration, identity/role boundaries, warehouse settings, operational monitoring and incident procedures.
+2. **What is warehouse auto-suspend?** **An idle warehouse can suspend automatically after its configured inactivity period**, helping avoid idle compute charges. Auto-resume allows a later compatible query to resume it, with potential startup delay and minimum-billing considerations.
+3. **When is resizing appropriate?** **After investigating performance evidence and obtaining owner/change approval.** Compare queue time, execution, concurrency and cost; then test a reversible warehouse-size change against a baseline rather than assuming larger is always faster.
+4. **What identifies a query for triage?** **`QUERY_ID` is the unique execution identifier** that connects Query History and Query Profile evidence. Save the actual ID from the approved test session, never invent one for a runtime claim.
+5. **Should all operators use ACCOUNTADMIN?** **No.** Use task-specific least-privilege roles; privileged administrative roles require separate controlled workflows. A denied lab query is a request for owner-approved access, not a reason to elevate privileges.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
