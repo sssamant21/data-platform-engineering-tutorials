@@ -21,6 +21,8 @@ CHAPTERS = (
     ("chapter-06-data-recovery-disaster-recovery.md", "level-06-data-recovery-disaster-recovery.md"),
     ("chapter-07-troubleshooting-incident-response.md", "level-07-production-incident-response.md"),
 )
+EXTENDED = ("chapter-08-data-loading-and-ingestion.md",)
+ALL_NAMES = tuple(n for n, _ in CHAPTERS) + EXTENDED
 MARKDOWN_LINK = re.compile(r"\]\(([^)]+)\)")
 AGENDA = re.compile(r"^\|[^|\n]+\|\s*(\d+)\s+min\s*\|", re.MULTILINE)
 CODE = re.compile(r"(?ms)^~~~sql\s*\n(.*?)^~~~\s*$")
@@ -31,13 +33,13 @@ def read(path: Path) -> str:
 
 
 class SnowflakeLearningPathTests(unittest.TestCase):
-    def test_exactly_seven_numbered_chapters(self):
+    def test_exactly_eight_numbered_chapters(self):
         found = sorted(p.name for p in (ROOT / "chapters").glob("chapter-*.md"))
-        self.assertEqual(sorted(name for name, _ in CHAPTERS), found)
+        self.assertEqual(sorted(ALL_NAMES), found)
 
     def test_chapter_titles_and_sixty_minute_agendas(self):
         total = 0
-        for i, (name, _) in enumerate(CHAPTERS, 1):
+        for i, name in enumerate(ALL_NAMES, 1):
             text = read(ROOT / "chapters" / name)
             self.assertTrue(text.startswith(f"# Chapter {i:02d} — "), name)
             self.assertIn("**60 min**", text)
@@ -46,12 +48,11 @@ class SnowflakeLearningPathTests(unittest.TestCase):
             self.assertEqual(5, len(minutes), name)
             self.assertEqual(60, sum(minutes), name)
             total += sum(minutes)
-        self.assertEqual(420, total)
+        self.assertEqual(480, total)
 
     def test_each_chapter_preserves_full_teaching_sections(self):
-        for name, original in CHAPTERS:
+        for name in ALL_NAMES:
             text = read(ROOT / "chapters" / name)
-            old = read(ORIGINAL / original)
             for section in ("## Learning objectives", "## Core concepts",
                             "## Hands-on lab and expected results",
                             "## DBRE/SRE troubleshooting quick reference",
@@ -59,8 +60,13 @@ class SnowflakeLearningPathTests(unittest.TestCase):
                             "## Operational safety and validation",
                             "## Official documentation"):
                 self.assertIn(section, text, (name, section))
-            self.assertEqual(len(CODE.findall(old)), len(CODE.findall(text)), name)
             self.assertGreater(len(CODE.findall(text)), 0, name)
+
+    def test_accelerated_source_fence_parity(self):
+        for name, original in CHAPTERS:
+            self.assertEqual(
+                len(CODE.findall(read(ROOT / "chapters" / name))),
+                len(CODE.findall(read(ORIGINAL / original))), name)
 
     def test_copied_core_sections_match_original_lessons(self):
         # Ignore the changed locations of Markdown links but require teaching text parity.
@@ -75,7 +81,8 @@ class SnowflakeLearningPathTests(unittest.TestCase):
 
     def test_all_relative_chapter_and_index_links_exist(self):
         docs = [ROOT / "README.md", ROOT / "STATUS.md",
-                *(ROOT / "chapters" / name for name, _ in CHAPTERS)]
+                ROOT / "exercises" / "chapter-08-ingestion-tabletop.md",
+                *(ROOT / "chapters" / name for name in ALL_NAMES)]
         checked = 0
         for path in docs:
             for link in MARKDOWN_LINK.findall(read(path)):
@@ -87,13 +94,13 @@ class SnowflakeLearningPathTests(unittest.TestCase):
                 checked += 1
         self.assertGreaterEqual(checked, 80)
 
-    def test_index_and_status_have_seven_correct_links(self):
-        for name, _ in CHAPTERS:
+    def test_index_and_status_have_eight_correct_links(self):
+        for name in ALL_NAMES:
             for index in ("README.md", "STATUS.md"):
                 self.assertIn(f"chapters/{name}", read(ROOT / index))
 
     def test_no_fake_runtime_review_or_certification(self):
-        for name, _ in CHAPTERS:
+        for name in ALL_NAMES:
             text = read(ROOT / "chapters" / name)
             self.assertIn("Snowflake runtime validation NOT RUN (deferred)", text)
             self.assertIn("independent review SKIPPED BY OWNER / NOT APPROVED", text)
@@ -107,7 +114,7 @@ class SnowflakeLearningPathTests(unittest.TestCase):
         self.assertIn("../accelerated-dbre-sre/README.md", content)
         self.assertIn("../MASTER-LAYOUT.md", content)
         self.assertIn("seven accelerated tutorials", content)
-        self.assertIn("420 minutes", content)
+        self.assertIn("480 minutes", content)
 
 
 if __name__ == "__main__":
