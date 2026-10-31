@@ -1,121 +1,102 @@
 #!/usr/bin/env python3
-"""Offline checks for the independent Snowflake Learning Path chapter layout.
+"""Ensure Snowflake learning-path navigation never duplicates tutorial content.
 
-No Snowflake connection, SQL execution, credential use or reviewer acceptance.
+Local, offline source checks only. No Snowflake account, SQL or review actions.
 """
-from __future__ import annotations
-
+from pathlib import Path
 import re
 import unittest
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SNOWFLAKE = ROOT.parent
-ORIGINAL = SNOWFLAKE / "accelerated-dbre-sre"
-CHAPTERS = (
-    ("chapter-01-snowflake-fundamentals.md", "level-01-snowflake-fundamentals.md"),
-    ("chapter-02-snowflake-administration.md", "level-02-administration-fundamentals.md"),
-    ("chapter-03-performance-query-optimization.md", "level-03-performance-query-optimization.md"),
-    ("chapter-04-monitoring-observability-cost.md", "level-04-monitoring-observability-cost.md"),
-    ("chapter-05-security-rbac-governance.md", "level-05-security-rbac-governance.md"),
-    ("chapter-06-data-recovery-disaster-recovery.md", "level-06-data-recovery-disaster-recovery.md"),
-    ("chapter-07-troubleshooting-incident-response.md", "level-07-production-incident-response.md"),
+INDEX = ROOT / "README.md"
+STATUS = ROOT / "STATUS.md"
+WORKSHEET = ROOT / "exercises" / "chapter-08-ingestion-tabletop.md"
+LINK = re.compile(r"\]\(([^)]+)\)")
+
+COURSES = (
+    "level-01-snowflake-fundamentals.md",
+    "level-02-administration-fundamentals.md",
+    "level-03-performance-query-optimization.md",
+    "level-04-monitoring-observability-cost.md",
+    "level-05-security-rbac-governance.md",
+    "level-06-data-recovery-disaster-recovery.md",
+    "level-07-production-incident-response.md",
 )
-EXTENDED = ("chapter-08-data-loading-and-ingestion.md",)
-ALL_NAMES = tuple(n for n, _ in CHAPTERS) + EXTENDED
-MARKDOWN_LINK = re.compile(r"\]\(([^)]+)\)")
-AGENDA = re.compile(r"^\|[^|\n]+\|\s*(\d+)\s+min\s*\|", re.MULTILINE)
-CODE = re.compile(r"(?ms)^~~~sql\s*\n(.*?)^~~~\s*$")
+INGESTION = (
+    "11-stages-internal-external.md",
+    "12-file-formats.md",
+    "13-copy-into-bulk-data-loading.md",
+    "15-data-loading-troubleshooting-validation.md",
+    "16-snowpipe.md",
+)
+CDC = (
+    "18-streams-change-data-capture.md",
+    "19-tasks-scheduled-processing.md",
+    "21-streams-tasks-production-pipelines.md",
+    "22-merge-upsert-incremental-processing.md",
+)
 
+def read(p: Path) -> str:
+    return p.read_text(encoding="utf-8")
 
-def read(path: Path) -> str:
-    return path.read_text(encoding="utf-8")
+class NavigationOnlyLearningPath(unittest.TestCase):
+    def test_no_duplicate_markdown_chapters(self):
+        copies = list((ROOT / "chapters").glob("*.md")) if (ROOT / "chapters").exists() else []
+        self.assertEqual([], copies, "Remove copied tutorials; keep a link-only learning path")
+        self.assertFalse((ROOT / "chapters" / "chapter-09-streams-tasks-incremental-pipelines.md").exists())
 
+    def test_single_authoritative_accelerated_source(self):
+        index = read(INDEX)
+        for source in COURSES:
+            self.assertTrue((SNOWFLAKE / "accelerated-dbre-sre" / source).is_file())
+            self.assertIn(f"../accelerated-dbre-sre/{source}", index)
+        self.assertIn("420 minutes", index)
 
-class SnowflakeLearningPathTests(unittest.TestCase):
-    def test_exactly_eight_numbered_chapters(self):
-        found = sorted(p.name for p in (ROOT / "chapters").glob("chapter-*.md"))
-        self.assertEqual(sorted(ALL_NAMES), found)
+    def test_canonical_ingestion_and_cdc_sources(self):
+        index = read(INDEX)
+        for source in (*INGESTION, *CDC):
+            self.assertTrue((SNOWFLAKE / source).is_file(), source)
+            self.assertIn(f"../{source}", index)
 
-    def test_chapter_titles_and_sixty_minute_agendas(self):
-        total = 0
-        for i, name in enumerate(ALL_NAMES, 1):
-            text = read(ROOT / "chapters" / name)
-            self.assertTrue(text.startswith(f"# Chapter {i:02d} — "), name)
-            self.assertIn("**60 min**", text)
-            agenda = text.split("## 60-minute lesson plan", 1)[1].split("## Core concepts", 1)[0]
-            minutes = list(map(int, AGENDA.findall(agenda)))
-            self.assertEqual(5, len(minutes), name)
-            self.assertEqual(60, sum(minutes), name)
-            total += sum(minutes)
-        self.assertEqual(480, total)
-
-    def test_each_chapter_preserves_full_teaching_sections(self):
-        for name in ALL_NAMES:
-            text = read(ROOT / "chapters" / name)
-            for section in ("## Learning objectives", "## Core concepts",
-                            "## Hands-on lab and expected results",
-                            "## DBRE/SRE troubleshooting quick reference",
-                            "## Knowledge check (with answers)",
-                            "## Operational safety and validation",
-                            "## Official documentation"):
-                self.assertIn(section, text, (name, section))
-            self.assertGreater(len(CODE.findall(text)), 0, name)
-
-    def test_accelerated_source_fence_parity(self):
-        for name, original in CHAPTERS:
-            self.assertEqual(
-                len(CODE.findall(read(ROOT / "chapters" / name))),
-                len(CODE.findall(read(ORIGINAL / original))), name)
-
-    def test_copied_core_sections_match_original_lessons(self):
-        # Ignore the changed locations of Markdown links but require teaching text parity.
-        for name, original in CHAPTERS:
-            current = read(ROOT / "chapters" / name)
-            prior = read(ORIGINAL / original)
-            def extract(source):
-                area = source.split("## Core concepts", 1)[1]
-                area = area.split("## Continue into the full 90-chapter curriculum", 1)[0]
-                return MARKDOWN_LINK.sub("](__LINK__)", area).strip()
-            self.assertEqual(extract(prior), extract(current), name)
-
-    def test_all_relative_chapter_and_index_links_exist(self):
-        docs = [ROOT / "README.md", ROOT / "STATUS.md",
-                ROOT / "exercises" / "chapter-08-ingestion-tabletop.md",
-                *(ROOT / "chapters" / name for name in ALL_NAMES)]
+    def test_local_links_in_index_status_and_worksheet(self):
         checked = 0
-        for path in docs:
-            for link in MARKDOWN_LINK.findall(read(path)):
-                target = link.split("#", 1)[0]
-                if not target or target.startswith(("https://", "http://", "mailto:")):
+        for path in (INDEX, STATUS, WORKSHEET):
+            for href in LINK.findall(read(path)):
+                target = href.split("#", 1)[0]
+                if not target or target.startswith(("http://", "https://", "mailto:")):
                     continue
                 self.assertTrue((path.parent / target).resolve().is_file(),
                                 f"{path.relative_to(ROOT)} -> {target}")
                 checked += 1
-        self.assertGreaterEqual(checked, 80)
+        self.assertGreaterEqual(checked, 25)
 
-    def test_index_and_status_have_eight_correct_links(self):
-        for name in ALL_NAMES:
-            for index in ("README.md", "STATUS.md"):
-                self.assertIn(f"chapters/{name}", read(ROOT / index))
+    def test_index_no_copied_chapter_links_or_duplicate_claims(self):
+        index = read(INDEX)
+        self.assertNotIn("(chapters/", index)
+        self.assertIn("no tutorial chapter copies", index)
+        self.assertIn("navigation-only", index.lower())
+        self.assertNotIn("480 minutes", index)
+        self.assertIn("self-paced", index)
 
-    def test_no_fake_runtime_review_or_certification(self):
-        for name in ALL_NAMES:
-            text = read(ROOT / "chapters" / name)
-            self.assertIn("Snowflake runtime validation NOT RUN (deferred)", text)
-            self.assertIn("independent review SKIPPED BY OWNER / NOT APPROVED", text)
-        for index in ("README.md", "STATUS.md"):
-            text = read(ROOT / index)
-            for marker in ("NOT RUN", "NOT APPROVED", "NOT CERTIFIED", "draft"):
-                self.assertIn(marker.lower(), text.lower())
+    def test_worksheet_retained_without_model_answers(self):
+        data = read(WORKSHEET)
+        self.assertIn("order_id,region,amount", data)
+        self.assertIn("104,WEST,not_a_number", data)
+        self.assertNotIn("../chapters/", data)
+        self.assertIn("without model answers", data)
+        self.assertIn("No SQL was run", data)
 
-    def test_index_links_to_original_accelerated_track_and_90_chapters(self):
-        content = read(ROOT / "README.md")
-        self.assertIn("../accelerated-dbre-sre/README.md", content)
-        self.assertIn("../MASTER-LAYOUT.md", content)
-        self.assertIn("seven accelerated tutorials", content)
-        self.assertIn("480 minutes", content)
+    def test_no_unearned_operational_acceptance(self):
+        for path in (INDEX, STATUS, WORKSHEET):
+            text = read(path).upper()
+            for value in ("NOT RUN", "NOT APPROVED", "NOT CERTIFIED"):
+                self.assertIn(value, text)
 
+    def test_original_canonical_and_accelerated_tracks_unmodified_in_scope(self):
+        self.assertTrue((SNOWFLAKE / "MASTER-LAYOUT.md").is_file())
+        self.assertTrue((SNOWFLAKE / "accelerated-dbre-sre" / "README.md").is_file())
+        self.assertIn("one authoritative", read(INDEX).lower())
 
 if __name__ == "__main__":
     unittest.main()
