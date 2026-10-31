@@ -1,0 +1,65 @@
+name: PostgreSQL V04 Staging Evidence Readiness (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_staging_evidence.template.json"
+      - "postgresql/validation/test_v04_staging_readiness.py"
+      - ".github/workflows/postgresql-v04-staging-readiness.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_staging_evidence.template.json"
+      - "postgresql/validation/test_v04_staging_readiness.py"
+      - ".github/workflows/postgresql-v04-staging-readiness.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-no-go-regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Syntax checks (no PostgreSQL or cloud connections)
+        run: |
+          python3 -m py_compile postgresql/validation/v04_staging_readiness.py
+          python3 -m py_compile postgresql/validation/test_v04_staging_readiness.py
+
+      - name: Test synthetic evidence screening and fail-closed cases
+        run: |
+          python3 -m unittest -v postgresql/validation/test_v04_staging_readiness.py
+
+      - name: Confirm unchecked template is always NO-GO
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/v04_staging_readiness.py \
+             --evidence postgresql/validation/v04_staging_evidence.template.json \
+             --json-out v04-template-no-go-evidence.json; then
+            echo "FAIL: blank staging evidence template must never be ready" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          with open("v04-template-no-go-evidence.json", encoding="utf-8") as stream:
+              result=json.load(stream)
+          assert result["result"]=="NO_GO"
+          assert result["execution"]=="NEVER"
+          assert result["authorization"]=="NONE"
+          assert len(result["reason_codes"]) >= 10
+          print("PASS: incomplete staging packet correctly refused")
+          PY
+
+      - name: Retain synthetic no-go evidence (even if tests fail)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v04-offline-no-go
+          path: v04-template-no-go-evidence.json
+          if-no-files-found: warn
