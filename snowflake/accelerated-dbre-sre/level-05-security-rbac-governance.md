@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** DBRE/SRE, IAM, security, governance and data platform teams  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account and least-privilege training role; optional `SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY` audit requires separate security-owner authorization; never export individual identity fields. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Explain role hierarchy, investigate access errors and design safe governance controls without modifying live privileges.
