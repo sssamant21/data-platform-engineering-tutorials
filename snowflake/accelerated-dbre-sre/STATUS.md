@@ -78,6 +78,13 @@
 - **[Offline answer-key QA tests](validation/test_instructor_answer_keys.py)** cover the 35 expanded answers, all seven tabletop rubrics, scoring separation, blank scoring template, safety overrides and deferred-runtime status. **[CI run #244 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171730068): 70 Python tests, PowerShell syntax and fake-CLI checks all passed.**
 - This is **author review**, not independent instructor sign-off. V03 remains USER-DEFERRED 0/7, V04 approval PENDING, and V05 NOT CERTIFIED.
 
+## Final offline docs and prerequisite audit — 2026-10-31
+
+- **Seven lesson prerequisite pairs aligned:** Offline requires **no Snowflake account/CLI/credentials**; future V03 live-lab prerequisites specify level-specific nonproduction role, warehouse, scratch object, audit/monitoring permissions and owner approvals. Every SQL section explicitly states its results are hypothetical and **NOT RUN**.
+- **Source documentation:** [SF-036–SF-041 audit](validation/V02-DOCS-PREREQUISITES-REVIEW.md) records selected official Snowflake URLs checked on 2026-10-31; updated Query Profile links from a redirecting legacy path to current Snowsight Query History docs. External links may change, and the test suite verifies repository-relative link targets only.
+- **Offline instructor release/handoff:** [Final package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) covers seven lessons, instructor guide, 35-answer rubric, blank scoring sheet, static regression tests, seven **not-run** SQL smoke scripts and outstanding V03/V04/V05 acceptance.
+- **Automated gate:** [documentation/prerequisite regression tests](validation/test_docs_prerequisites.py) added; final CI to be recorded after validation. **Do not represent documentation readiness as runtime or independent sign-off.**
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
