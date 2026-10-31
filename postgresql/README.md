@@ -188,3 +188,7 @@ Chapters 001–100 are authored and reviewed statically. Actual lab execution re
 - [100 — PostgreSQL End-to-End Production Reliability and Recovery Final Capstone](chapters/100-postgresql-end-to-end-production-reliability-and-recovery-final-capstone.md)
 
 **Series publication complete: Chapters 001–100.** Runtime lab execution and technical certification remain pending.
+
+## PostgreSQL DBRE Responsibilities — Operational Standards
+
+See [DBRE Responsibility for PostgreSQL](dbre-responsibility-for-postgresql/README.md) for seven separate, Confluence-ready operational standards covering ownership/RACI, daily operations, monitoring/SLOs, incident troubleshooting, capacity/FinOps, backup/HA/DR, and safe lifecycle maintenance. **All seven guides are drafts requiring operational validation and stakeholder approval.** This track complements Chapters 001–100 and does not duplicate them.
