@@ -47,6 +47,12 @@ Each learner submits *one* concise answer to each of these cases; the instructor
 
 A mandatory safety miss (e.g. production data manipulation, recommending broad admin privileges, leaking identities, assuming synthetic numbers prove runtime behavior) requires remediation regardless of score.
 
+## Important differences between lesson examples and QA smoke scripts
+
+The Level 1 course uses `DBRE_SRE_L1_ORDERS` and its dedicated QA script uses `DBRE_SRE_L1_QA_20261030`; Level 3 likewise uses `DBRE_SRE_L3_SALES` versus `DBRE_SRE_L3_QA_20261030`. These are **separate exercise identifiers**; do not create one and expect the other file to query its state. All use synthetic data and must remain scoped to an instructor-confirmed empty training schema. The Level 2 lesson and smoke script deliberately share the same training `QUERY_TAG` string; it does not imply that they share a CLI session.
+
+The [cross-level consistency review](V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) distinguishes teaching consistency from actual runtime acceptance.
+
 ## Curriculum boundaries and handoff
 
 - **Already authored:** Levels 1–7, agendas, core concepts, annotated SQL, troubleshooting, knowledge checks and answers.
