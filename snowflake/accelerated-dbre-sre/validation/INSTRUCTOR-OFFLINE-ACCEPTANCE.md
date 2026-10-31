@@ -59,6 +59,10 @@ The Level 1 course uses `DBRE_SRE_L1_ORDERS` and its dedicated QA script uses `D
 
 The [cross-level consistency review](V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) distinguishes teaching consistency from actual runtime acceptance.
 
+## Prerequisites and final offline package
+
+**No Snowflake account, CLI, login, credentials, virtual warehouse, scratch schema or live SQL is required for this offline course.** The seven lesson headers list separately what a future **authorized V03** test would require. During offline teaching, explain SQL and compare expected *hypothetical* outcomes only. The [final offline release-package inventory](OFFLINE-RELEASE-INVENTORY.md) lists all deliverables and the [documentation/prerequisite audit](V02-DOCS-PREREQUISITES-REVIEW.md) records corrections and selected official documentation URL checks.
+
 ## Curriculum boundaries and handoff
 
 - **Already authored:** Levels 1–7, agendas, core concepts, annotated SQL, troubleshooting, knowledge checks and answers.
