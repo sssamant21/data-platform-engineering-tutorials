@@ -82,11 +82,13 @@ With an approved security-monitoring role, inspect **aggregated** login outcomes
 Production GRANT/REVOKE changes require explicit authorization, ticketing and rollback plans; no credential or sensitive data should be exposed in screenshots.
 
 ## Knowledge check (with answers)
-1. **What is least privilege?** Only permissions required for a role's purpose.
-2. **Can a table SELECT work without required parent USAGE grants?** Generally not.
-3. **What protects individual sensitive column values?** Masking or an appropriate secure data-access design.
-4. **Should labs contain real patient records?** No.
-5. **What should a DBRE do before granting access?** Obtain owner approval and verify privilege scope.
+1. **What is least privilege?** **Grant only the permissions needed for an identity's approved job**, for the minimum necessary scope and duration. Prefer a dedicated training/monitoring role over broadly granting access to `PUBLIC` or an administrative role.
+2. **Can a table SELECT work without required parent USAGE grants?** **Normally no.** A standard query needs a usable role path with database and schema `USAGE`, table `SELECT`, and warehouse `USAGE` for warehouse-backed compute. Role inheritance/secondary roles may affect the effective privilege set.
+3. **What protects individual sensitive column values?** **A masking policy or another appropriately governed access layer can restrict sensitive column output.** Row access policies filter *rows*, not just individual column values. Secure views can expose controlled aggregates; these controls need owner/security review and testing.
+4. **Should labs contain real patient records?** **No.** Use synthetic, non-identifying records; avoid patient names, dates of birth, raw identifiers or credentials in worksheet/query-history exports. An ordinary staging account is not automatically approved for sensitive data.
+5. **What should a DBRE do before granting access?** **Verify business/data-owner approval, requested scope, role hierarchy and least-privilege dependencies**, then follow change-control and independent security review. This course only inspects access; it does not execute `GRANT` or `REVOKE`.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
