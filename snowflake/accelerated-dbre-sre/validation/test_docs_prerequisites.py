@@ -35,6 +35,8 @@ class OfflineDocsPrerequisiteTests(unittest.TestCase):
             self.assertIn("**Offline prerequisites:**", content)
             self.assertIn("no Snowflake account, CLI, credentials or live database access is required", content)
             self.assertIn("**Do not execute SQL for the offline course.**", content)
+            self.assertIn("**Offline teaching only:**", content)
+            self.assertIn("instructional target, not an observed result", content)
             self.assertNotIn("**Prerequisites:** Authorized Snowflake training account", content)
 
     def test_live_requirements_are_per_level_and_deferred(self):
