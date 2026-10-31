@@ -41,6 +41,8 @@ Credit use depends on warehouse size and runtime. `WAREHOUSE_METERING_HISTORY.CR
 For Grafana/Prometheus, collect approved, low-cardinality aggregates with a service identity and respect Snowflake rate, privilege and data-latency limits. Avoid exporting full query text or PII into dashboards.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Prerequisites
 A read-only monitoring role with SELECT on the relevant SNOWFLAKE.ACCOUNT_USAGE views. If not available, perform the queries with an approved supervisor or review synthetic examples; do **not** use ACCOUNTADMIN merely for the lab.
 
