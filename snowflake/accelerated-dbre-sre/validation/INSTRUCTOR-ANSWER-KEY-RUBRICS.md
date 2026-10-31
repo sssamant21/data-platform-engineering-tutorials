@@ -57,7 +57,7 @@ For each of the five knowledge-check questions per level, assign:
 | 2. `AVG_QUEUED_LOAD` | Explains aggregate queued-time / window-time ratio (may exceed 1 with concurrency), *not* unique users/requests | Says "queued load" without units or denominator | Describes as exact queue length or distinct users |
 | 3. Credit drivers | Warehouse size × running time drives compute credits; distinguish gross warehouse usage from adjusted billed credits | Mentions size/running time only | Equates `CREDITS_USED` with invoice total in all cases |
 | 4. p95 SLO | Workload-specific SLO with baseline/owner; p95 is latency percentile | Says threshold depends on workload | Enforces one arbitrary limit for all production workloads |
-| 5. Serverless coverage | Resource monitors cover warehouses, not serverless features/AI services; evaluate budget and relevant metering | Says resource monitors don't cover everything | Claims one resource monitor limits all Snowflake spend |
+| 5. Serverless coverage | Resource monitors cover warehouses, not serverless features/AI services; evaluate Snowflake budgets and relevant metering | Says resource monitors don't cover everything | Claims one resource monitor limits all Snowflake spend |
 
 ## Level 5 — [Security, RBAC and Governance](../level-05-security-rbac-governance.md)
 
