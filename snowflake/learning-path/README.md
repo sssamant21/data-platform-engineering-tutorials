@@ -50,7 +50,7 @@ The larger, more advanced **90-chapter Snowflake curriculum** remains separate i
 ## Current release and validation boundaries
 
 - **Chapter authoring:** 7/7 chapters published to the feature branch and prepared for offline teaching.
-- **Offline static checks:** run the [learning-path validator](validation/test_learning_path.py) alongside the accelerated curriculum static tests.
+- **Offline static checks: [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309).** The [learning-path validator](validation/test_learning_path.py) checks all seven chapters, relative links, copied teaching content and validation boundaries: **8 learning-path tests passed**, alongside **104 accelerated-track tests**. No Snowflake was accessed.
 - **V03 real Snowflake SQL execution:** **USER-DEFERRED / NOT RUN (0/7)**. No actual query IDs, costs or restore evidence.
 - **V04 independent reviewer assignment:** **SKIPPED BY OWNER / NOT APPROVED**. Not a successful review.
 - **V05 production certification:** **NOT CERTIFIED**.
