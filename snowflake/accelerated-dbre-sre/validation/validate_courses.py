@@ -182,6 +182,8 @@ def main() -> int:
                  "validation/V02-LEVELS-05-07-REVIEW.md",
                  "validation/V03-PREFLIGHT-STATUS.md",
                  "validation/V03-EXECUTION-RUNBOOK.md",
+                 "validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md",
+                 "validation/V04-V05-REVIEWER-HANDOFF.md",
                  "validation/run-training-preflight.ps1",
                  "validation/check-powershell-syntax.ps1",
                  "validation/test-training-preflight.ps1",
