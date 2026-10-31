@@ -2,7 +2,7 @@
 
 **Audience:** new DBREs/SREs, database administrators, data engineers, developers and data stakeholders.  
 **Structure:** seven independent 60-minute workshops (7 hours total).  
-**Status:** All 7 lessons authored; automated V01/V02 static checks passed. Offline instructor materials and teaching prerequisites are prepared; live V03 Snowflake validation intentionally deferred; independent review pending; production NOT CERTIFIED.  
+**Status:** All 7 lessons authored; automated V01/V02 static checks passed. Offline instructor materials and teaching prerequisites are prepared; live V03 Snowflake validation intentionally deferred; independent review skipped by owner for now (not approved); production NOT CERTIFIED.  
 
 These courses are a **short onboarding track** and do **not** replace or renumber the parent [90-chapter canonical Snowflake curriculum](../MASTER-LAYOUT.md). Use the 90 chapters for deeper study.
 
