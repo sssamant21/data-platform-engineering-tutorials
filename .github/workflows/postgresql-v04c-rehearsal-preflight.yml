@@ -1,0 +1,67 @@
+name: PostgreSQL V04-C Staging Rehearsal Preflight (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v04c_rehearsal_preflight.py"
+      - "postgresql/validation/v04c_rehearsal_request.template.json"
+      - "postgresql/validation/test_v04c_rehearsal_preflight.py"
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_independent_review.py"
+      - ".github/workflows/postgresql-v04c-rehearsal-preflight.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v04c_rehearsal_preflight.py"
+      - "postgresql/validation/v04c_rehearsal_request.template.json"
+      - "postgresql/validation/test_v04c_rehearsal_preflight.py"
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_independent_review.py"
+      - ".github/workflows/postgresql-v04c-rehearsal-preflight.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  staging-rehearsal-offline-no-go:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check offline preflight
+        run: |
+          python3 -m py_compile postgresql/validation/v04c_rehearsal_preflight.py
+          python3 -m py_compile postgresql/validation/test_v04c_rehearsal_preflight.py
+      - name: Verify synthetic V04-C NO-GO and no-authorization rules
+        run: python3 -m unittest -v postgresql/validation/test_v04c_rehearsal_preflight.py
+      - name: Public templates must always yield NO_GO
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/v04c_rehearsal_preflight.py \
+            --staging postgresql/validation/v04_staging_evidence.template.json \
+            --review postgresql/validation/v04_independent_review.template.json \
+            --request postgresql/validation/v04c_rehearsal_request.template.json \
+            --json-out v04c-template-no-go.json; then
+            echo "FAIL: missing external evidence must never allow rehearsal" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          with open("v04c-template-no-go.json", encoding="utf-8") as stream:
+              x=json.load(stream)
+          assert x["result"] == "NO_GO"
+          assert x["authorization"] == "NONE"
+          assert x["execution"] == "NEVER"
+          assert x["fencing_verified_by_tool"] is False
+          assert "v04b_no_go" in x["reason_codes"]
+          print("PASS: no staging approval can be inferred from public fixtures")
+          PY
+      - name: Retain synthetic V04-C NO-GO evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v04c-synthetic-no-go
+          path: v04c-template-no-go.json
+          if-no-files-found: warn

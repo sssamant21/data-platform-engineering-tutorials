@@ -1,0 +1,92 @@
+{
+  "schema": "pg-ha-dr-v04-1",
+  "mode": "evidence_review_only",
+  "environment": "staging",
+  "environment_id": "<REPLACE-STAGING-ENVIRONMENT-ID>",
+  "change_ticket": "<REPLACE-APPROVED-CHANGE-ID>",
+  "change_ticket_ref": "https://example.invalid/REPLACE-APPROVED-TICKET-URL",
+  "window_start_utc": "<REPLACE-START-UTC-ISO8601>",
+  "window_end_utc": "<REPLACE-END-UTC-ISO8601>",
+  "cluster": {
+    "postgres_major": 18,
+    "system_identifier": "<REPLACE-OBSERVED-CLUSTER-ID>",
+    "old_primary": {
+      "node_id": "<REPLACE-OLD-PRIMARY-ID>",
+      "endpoint": "<REPLACE-OLD-PRIMARY-ENDPOINT>",
+      "pgdata": "<REPLACE-OLD-PRIMARY-PGDATA>",
+      "role": "primary"
+    },
+    "candidate": {
+      "node_id": "<REPLACE-CANDIDATE-ID>",
+      "endpoint": "<REPLACE-CANDIDATE-ENDPOINT>",
+      "pgdata": "<REPLACE-CANDIDATE-PGDATA>",
+      "role": "standby"
+    },
+    "topology_evidence_ref": "evidence://REPLACE/TOPOLOGY-SNAPSHOT"
+  },
+  "approvals": {
+    "dbre": {
+      "name": "<REPLACE-DBRE-APPROVER>",
+      "approved_at_utc": "<REPLACE-APPROVAL-TIME-UTC>",
+      "evidence_ref": "evidence://REPLACE/DBRE-APPROVAL"
+    },
+    "application_owner": {
+      "name": "<REPLACE-APPLICATION_OWNER-APPROVER>",
+      "approved_at_utc": "<REPLACE-APPROVAL-TIME-UTC>",
+      "evidence_ref": "evidence://REPLACE/APPLICATION_OWNER-APPROVAL"
+    },
+    "fencing_owner": {
+      "name": "<REPLACE-FENCING_OWNER-APPROVER>",
+      "approved_at_utc": "<REPLACE-APPROVAL-TIME-UTC>",
+      "evidence_ref": "evidence://REPLACE/FENCING_OWNER-APPROVAL"
+    },
+    "change_manager": {
+      "name": "<REPLACE-CHANGE_MANAGER-APPROVER>",
+      "approved_at_utc": "<REPLACE-APPROVAL-TIME-UTC>",
+      "evidence_ref": "evidence://REPLACE/CHANGE_MANAGER-APPROVAL"
+    }
+  },
+  "approved_objectives": {
+    "ha_rpo_seconds": null,
+    "ha_rto_seconds": null,
+    "pitr_rpo_seconds": null,
+    "pitr_rto_seconds": null,
+    "approval_evidence_ref": "evidence://REPLACE/OBJECTIVES-APPROVAL"
+  },
+  "baseline": {
+    "observed_at_utc": "<REPLACE-FRESH-OBSERVATION-UTC>",
+    "healthy": false,
+    "evidence_ref": "evidence://REPLACE/BASELINE",
+    "candidate_marker_replayed": false,
+    "candidate_replay_evidence_ref": "evidence://REPLACE/REPLAY",
+    "replay_gap_bytes": null
+  },
+  "fencing": {
+    "mechanism": "<REPLACE-INDEPENDENT-FENCING-MECHANISM>",
+    "evidence_ref": "evidence://REPLACE/FENCE",
+    "verified_at_utc": "<REPLACE-FRESH-FENCE-OBSERVATION-UTC>",
+    "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+    "direct_write_denied": false,
+    "old_primary_restart_denied": false,
+    "orchestrator_restart_denied": false,
+    "routing_bypass_denied": false,
+    "storage_exclusion_verified": false,
+    "independent_observation_confirmed": false
+  },
+  "backup": {
+    "base_backup_verified": false,
+    "wal_archive_verified": false,
+    "isolated_restore_verified": false,
+    "evidence_ref": "evidence://REPLACE/BACKUP-WAL-RESTORE"
+  },
+  "application": {
+    "routing_smoke_plan_verified": false,
+    "rollback_route_verified": false,
+    "evidence_ref": "evidence://REPLACE/APPLICATION-ROUTING"
+  },
+  "rollback": {
+    "rejoin_or_rebuild_plan_verified": false,
+    "incident_owner_assigned": false,
+    "evidence_ref": "evidence://REPLACE/ROLLBACK"
+  }
+}

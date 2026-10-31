@@ -1,0 +1,51 @@
+name: PostgreSQL V03 Isolated Chapter 045 PITR
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v03_pitr_disposable.py"
+      - "postgresql/labs/sql/045-*.sql"
+      - ".github/workflows/postgresql-v03-pitr-disposable.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v03_pitr_disposable.py"
+      - "postgresql/labs/sql/045-*.sql"
+      - ".github/workflows/postgresql-v03-pitr-disposable.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-pg18-pitr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python syntax
+        run: python3 -m py_compile postgresql/validation/v03_pitr_disposable.py
+      - name: Build isolated PostgreSQL 18 image
+        run: |
+          docker build -t postgresql-v03-pitr:pg18 - <<'DOCKERFILE'
+          FROM postgres:18
+          RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -rf /var/lib/apt/lists/*
+          DOCKERFILE
+      - name: Verify backup WAL archive restore without network
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          docker run --rm --network none --user postgres \
+            --mount "type=bind,source=${GITHUB_WORKSPACE},target=/repo,readonly" \
+            --workdir /repo \
+            --env PG_V03_PITR_CONFIRM=NEW-ISOLATED-CH045-PITR \
+            postgresql-v03-pitr:pg18 \
+            python3 postgresql/validation/v03_pitr_disposable.py \
+            2>&1 | tee postgresql-v03-pitr-disposable.log
+      - name: Retain PITR evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-pitr-disposable
+          path: postgresql-v03-pitr-disposable.log
+          if-no-files-found: warn

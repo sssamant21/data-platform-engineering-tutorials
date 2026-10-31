@@ -71,7 +71,7 @@ class BackupReplication041050(unittest.TestCase):
                          "current_user = :'expected_operator'",
                          "current_setting('data_directory') = :'expected_source_data_directory'",
                          "pg_control_system()", "045-INCIDENT", r"\if :incident_permitted",
-                         r"\quit 3", "UPDATE ch045.orders"):
+                         "SELECT 1/0 AS refusal_nonzero;", "UPDATE ch045.orders"):
             self.assertIn(required,source)
         doc=lab("045")
         self.assertIn("expected_source_data_directory=",doc)
@@ -93,7 +93,7 @@ class BackupReplication041050(unittest.TestCase):
         for required in ("expected_recovery_data_directory","expected_system_id",
                          "045-VERIFY-RECOVERY", "pg_control_system()",
                          "recovery_accepted", r"\if :recovery_accepted",
-                         r"\quit 3", "status='corrupted'", "status='valid'",
+                         "SELECT 1/0 AS refusal_nonzero;", "status='corrupted'", "status='valid'",
                          "marker_name='known-good'"):
             self.assertIn(required,source)
         doc=lab("045")
@@ -109,6 +109,49 @@ class BackupReplication041050(unittest.TestCase):
         self.assertIn("pg_stat_archiver",sql("046-monitor.sql"))
         self.assertIn("pg_stat_progress_basebackup",sql("046-monitor.sql"))
 
+    def test_004_topology_slot_capacity_and_checkpoint_retention(self):
+        """Fail static CI if the disposable topology cannot run Chapter 047."""
+        script=(ROOT/"scripts"/"004-operations-lab.sh").read_text(encoding="utf-8")
+        cap=re.search(r"(?m)^max_replication_slots = (\d+)$",script)
+        bounded=re.search(r"(?m)^max_slot_wal_keep_size = '(\d+)MB'$",script)
+        self.assertIsNotNone(cap,"Chapter 004 must explicitly configure slots")
+        self.assertIsNotNone(bounded,"Chapter 004 must bound slot WAL retention")
+        self.assertGreaterEqual(int(cap.group(1)),1)
+        self.assertGreater(int(bounded.group(1)),0)
+        self.assertLessEqual(int(bounded.group(1)),512)
+        self.assertIn('SHOW max_replication_slots',script)
+        self.assertIn("name='max_slot_wal_keep_size'",script)
+        self.assertIn('for port in 55432 55433 55434',script)
+        slot=sql("047-create-lab-slot.sql")
+        for guard in ("current_setting('max_replication_slots')::integer >= 1",
+                      "(SELECT count(*) FROM pg_replication_slots) < current_setting('max_replication_slots')::integer",
+                      "name='max_slot_wal_keep_size'", "unit='MB'",
+                      "setting::integer BETWEEN 1 AND 512"):
+            self.assertIn(guard,slot)
+        guide=lab("047")
+        self.assertIn("max_replication_slots",guide)
+        self.assertIn("max_slot_wal_keep_size",guide)
+        self.assertIn("checkpoint",guide.lower())
+
+    def test_guarded_refusals_produce_nonzero_psql_exit(self):
+        # ON_ERROR_STOP must encounter a real SQL error, not a normal \\quit.
+        guarded = ("044-marker.sql", "045-fixture.sql", "045-good-marker.sql",
+                   "045-incident.sql", "045-verify.sql", "047-create-lab-slot.sql",
+                   "047-generate-wal.sql", "047-cleanup.sql",
+                   "048-workload.sql", "048-cleanup.sql")
+        for name in guarded:
+            with self.subTest(name=name):
+                script=sql(name)
+                self.assertIn(r"\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\quit 3",script)
+                self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
+        for number in ("032","033","034","035","036","038","039","040"):
+            with self.subTest(chapter=number):
+                script=sql(number+"-cleanup.sql")
+                self.assertIn(r"\set ON_ERROR_STOP on",script)
+                self.assertNotIn(r"\quit 3",script)
+                self.assertIn("SELECT 1/0 AS refusal_nonzero;",script)
+
     def test_047_slot_creation_and_one_time_wal_fixture(self):
         for file,stage in (("047-create-lab-slot.sql","047-CREATE-SLOT"),
                            ("047-generate-wal.sql","047-GENERATE-WAL")):
@@ -117,7 +160,7 @@ class BackupReplication041050(unittest.TestCase):
                 for token in ("expected_system_id",r"\if :{?confirm_stage}",
                               stage,"pg_control_system()", "inet_server_port()=55432",
                               "current_user='lab_admin'", "data_directory",
-                              "pg_is_in_recovery()",r"\if :stage_permitted",r"\quit 3"):
+                              "pg_is_in_recovery()",r"\if :stage_permitted","SELECT 1/0 AS refusal_nonzero;"):
                     self.assertIn(token,content)
         fixture=sql("047-generate-wal.sql")
         self.assertIn("CREATE SCHEMA ch047",fixture)
@@ -164,6 +207,55 @@ class BackupReplication041050(unittest.TestCase):
         self.assertIn("confirm_stage=048-WORKLOAD",doc)
         self.assertIn("confirm_cleanup=048-DROP",doc)
         self.assertIn("-p 55433",doc)
+
+    def test_v03_ci_is_isolated_and_keeps_high_risk_gates_manual(self):
+        ha=(ROOT/"validation"/"v03_ha_disposable.py").read_text(encoding="utf-8")
+        pitr=(ROOT/"validation"/"v03_pitr_disposable.py").read_text(encoding="utf-8")
+        for token in ("FENCE-AND-PROMOTE-NEW-LAB", "shared.preflight()",
+                      "socket_closed(55432)", 'pg_ctl(root / "primary", "stop")',
+                      'pg_ctl(root / "standby1", "promote")', "--dry-run",
+                      'rejoined-standby', '"-R"', "standby.signal",
+                      "NOT_CERTIFIED", "NOT_EXECUTED"):
+            self.assertIn(token,ha)
+        self.assertLess(ha.index('pg_ctl(root / "primary", "stop")'),
+                        ha.index('pg_ctl(root / "standby1", "promote")'))
+        self.assertNotIn("shutil.rmtree(",ha)
+        for token in ("NEW-ISOLATED-CH045-PITR", "pg_verifybackup",
+                      "pg_create_restore_point", "recovery.signal",
+                      "recovery_target_name", "045-fixture.sql",
+                      "045-good-marker.sql", "045-incident.sql", "045-verify.sql",
+                      "wrong.returncode==0", "NOT_CERTIFIED"):
+            self.assertIn(token,pitr)
+        self.assertNotIn("shutil.rmtree(",pitr)
+        for name,script in (("ha","postgresql-v03-ha-disposable.yml"),
+                            ("pitr","postgresql-v03-pitr-disposable.yml")):
+            workflow=(ROOT.parent/".github"/"workflows"/script).read_text(encoding="utf-8")
+            with self.subTest(workflow=name):
+                self.assertIn("--network none --user postgres",workflow)
+                self.assertIn("readonly",workflow)
+                self.assertIn("timeout-minutes: 20",workflow)
+
+    def test_v03_actual_rewind_lab_preflight_and_rejoin_guards(self):
+        script=(ROOT/"validation"/"v03_rewind_disposable.py").read_text(encoding="utf-8")
+        for required in ("REWIND-OWNED-FRESH-CH004-ONLY",
+                         "shared.preflight()", "check_owned_clean_dir(target)",
+                         "shutil.copytree(target, backup", "--no-ensure-shutdown",
+                         "--dry-run", "--progress", "standby.signal",
+                         "primary_conninfo", "port=55433 user=lab_repl",
+                         'query(55432,"SELECT pg_is_in_recovery()") != "t"',
+                         "NOT_PROVEN", "NOT_CERTIFIED"):
+            self.assertIn(required,script)
+        self.assertLess(script.index('ctl(target,"stop")'),script.index('ctl(candidate,"promote")'))
+        self.assertLess(script.index("shutil.copytree(target, backup"),
+                        script.index('command(args+["--progress"]'))
+        self.assertLess(script.index('(target/"standby.signal").touch'),
+                        script.index('ctl(target,"start")'))
+        self.assertNotIn("shutil.rmtree(",script)
+        workflow=(ROOT.parent/".github"/"workflows"/"postgresql-v03-actual-rewind-disposable.yml").read_text(encoding="utf-8")
+        self.assertIn("--network none --user postgres",workflow)
+        self.assertIn("readonly",workflow)
+        self.assertIn("REWIND-OWNED-FRESH-CH004-ONLY",workflow)
+        self.assertIn("timeout-minutes: 20",workflow)
 
     def test_049_050_manual_fencing_rewind_and_dr_acceptance(self):
         for ch in ("049","050"):

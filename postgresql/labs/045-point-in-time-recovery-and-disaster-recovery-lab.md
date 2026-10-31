@@ -58,6 +58,12 @@ psql -X -w -v ON_ERROR_STOP=1 -h RECOVERY_HOST -p RECOVERY_PORT -U lab_admin \
 
 Run verification against the **recovered instance**, not the source. Replace the endpoint, independently observed absolute PGDATA path and source-cluster system identifier. Verify that the restored instance is isolated from all application writers. The script now exits **nonzero** for wrong target or unacceptable row/marker state; a printed result alone is not a success gate. If any test fails, reject the target and repeat from a clean restored backup. The data_directory value can require a privileged verification role, not an application account.
 
+## CI-only Chapter 045 PITR exercise
+
+For reproducible safety testing on an isolated, network-disabled PostgreSQL 18 container, see [v03_pitr_disposable.py](../validation/v03_pitr_disposable.py) and [the dedicated workflow](../../.github/workflows/postgresql-v03-pitr-disposable.yml). Unlike the manual scenario, this harness creates its own new source, archive and recovered data directories and requires an explicit isolation token. It intentionally never overwrites source PGDATA, promotes the restore target, or routes application traffic. It checks the actual `045-verify.sql` exit status and a failed wrong-PGDATA test, not merely printed PASS/FAIL labels.
+
+Treat even a successful CI test as *lab-only* evidence. Real off-host archive durability, replay and restore failure cases, full-business RPO/RTO, production authorization and independent acceptance are still required.
+
 ## Evidence worksheet
 
 | Gate | Evidence | Result |

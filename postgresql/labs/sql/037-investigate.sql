@@ -3,12 +3,12 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_churn}
 \else
  \echo 'REFUSED: confirm_churn=037-CHURN required'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database()='ops_lab' AND current_user='lab_admin'
  AND inet_server_addr()=inet '127.0.0.1' AND inet_server_port()=55432
@@ -30,7 +30,7 @@ SELECT CASE WHEN current_database()='ops_lab' AND current_user='lab_admin'
  \echo 'Verified 037 pre-churn fixture'
 \else
  \echo 'REFUSED: wrong cluster or changed fixture'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 \timing on
 SELECT pg_relation_size('ch037.orders'::regclass) AS heap_bytes,

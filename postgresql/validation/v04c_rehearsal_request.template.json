@@ -1,0 +1,60 @@
+{
+  "schema": "pg-ha-dr-v04c-1",
+  "mode": "offline_preflight_only",
+  "requested_decision": "request_manual_authorization",
+  "environment": "staging",
+  "environment_id": "<REPLACE-V04A-ENVIRONMENT-ID>",
+  "change_ticket": "<REPLACE-APPROVED-CHANGE-TICKET>",
+  "system_identifier": "<REPLACE-V04A-CLUSTER-ID>",
+  "window_start_utc": "<REPLACE-V04A-WINDOW-START>",
+  "window_end_utc": "<REPLACE-V04A-WINDOW-END>",
+  "staging_manifest_sha256": "<REPLACE-CANONICAL-V04A-SHA256>",
+  "independent_review_sha256": "<REPLACE-CANONICAL-V04B-SHA256>",
+  "prepared_at_utc": "<REPLACE-UTC-TIME>",
+  "authorities": {
+    "change_authority": {
+      "name": "<REPLACE-INDEPENDENT-CHANGE_AUTHORITY-NAME>",
+      "disposition": "pending",
+      "attested_at_utc": "<REPLACE-UTC-TIME>",
+      "attestation_ref": "evidence://REPLACE/CHANGE_AUTHORITY-DECISION"
+    },
+    "incident_commander": {
+      "name": "<REPLACE-INDEPENDENT-INCIDENT_COMMANDER-NAME>",
+      "disposition": "pending",
+      "attested_at_utc": "<REPLACE-UTC-TIME>",
+      "attestation_ref": "evidence://REPLACE/INCIDENT_COMMANDER-DECISION"
+    }
+  },
+  "fresh_observations": {
+    "independent_fence": {
+      "reported_safe": false,
+      "observed_at_utc": "<REPLACE-UTC-TIME>",
+      "evidence_ref": "evidence://REPLACE/INDEPENDENT_FENCE-OBSERVATION",
+      "evidence_sha256": "<REPLACE-SHA256-OF-EVIDENCE-ARTIFACT>"
+    },
+    "candidate_replay": {
+      "reported_safe": false,
+      "observed_at_utc": "<REPLACE-UTC-TIME>",
+      "evidence_ref": "evidence://REPLACE/CANDIDATE_REPLAY-OBSERVATION",
+      "evidence_sha256": "<REPLACE-SHA256-OF-EVIDENCE-ARTIFACT>"
+    },
+    "application_health": {
+      "reported_safe": false,
+      "observed_at_utc": "<REPLACE-UTC-TIME>",
+      "evidence_ref": "evidence://REPLACE/APPLICATION_HEALTH-OBSERVATION",
+      "evidence_sha256": "<REPLACE-SHA256-OF-EVIDENCE-ARTIFACT>"
+    },
+    "backup_wal_restore": {
+      "reported_safe": false,
+      "observed_at_utc": "<REPLACE-UTC-TIME>",
+      "evidence_ref": "evidence://REPLACE/BACKUP_WAL_RESTORE-OBSERVATION",
+      "evidence_sha256": "<REPLACE-SHA256-OF-EVIDENCE-ARTIFACT>"
+    },
+    "rollback_ready": {
+      "reported_safe": false,
+      "observed_at_utc": "<REPLACE-UTC-TIME>",
+      "evidence_ref": "evidence://REPLACE/ROLLBACK_READY-OBSERVATION",
+      "evidence_sha256": "<REPLACE-SHA256-OF-EVIDENCE-ARTIFACT>"
+    }
+  }
+}

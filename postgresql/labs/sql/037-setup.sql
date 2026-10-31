@@ -4,12 +4,12 @@
 \if :{?expected_system_id}
 \else
   \echo 'REFUSED: pass -v expected_system_id=OBSERVED_DISPOSABLE_LAB_ID'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_setup}
 \else
   \echo 'REFUSED: pass -v confirm_setup=037-CREATE'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database()='ops_lab'
  AND current_user='lab_admin'
@@ -28,7 +28,7 @@ SELECT CASE WHEN current_database()='ops_lab'
  \echo 'Chapter 037 disposable setup target verified'
 \else
  \echo 'REFUSED: wrong target/cluster/role or existing lab schema'
- \quit 3
+ SELECT 1/0 AS refusal_nonzero;
 \endif
 BEGIN;
 SET LOCAL statement_timeout='30s';

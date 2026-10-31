@@ -48,7 +48,7 @@ class Review051060(unittest.TestCase):
                     "inet_server_port()=55432",
                     "pg_control_system()",
                     "data_directory", "pg_is_in_recovery()",
-                    r"\if :stage_permitted", r"\quit 3",
+                    r"\if :stage_permitted", "SELECT 1/0 AS refusal_nonzero;",
                     "BEGIN;", "COMMIT;", "lock_timeout", "statement_timeout",
                 ):
                     self.assertIn(required, src, required)

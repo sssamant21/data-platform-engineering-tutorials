@@ -4,17 +4,17 @@
 \if :{?expected_recovery_data_directory}
 \else
   \echo 'REFUSED: expected_recovery_data_directory missing'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_system_id}
 \else
   \echo 'REFUSED: expected_system_id missing'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_recovery}
 \else
   \echo 'REFUSED: confirm_recovery=045-VERIFY-RECOVERY missing'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
   AND current_database() = 'postgres'
@@ -28,7 +28,7 @@ SELECT CASE WHEN current_setting('server_version_num')::integer BETWEEN 180000 A
   \echo 'Recovery target identity matched supplied isolated-instance evidence.'
 \else
   \echo 'REFUSED: recovery target cluster/path/token mismatch'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT current_database() AS recovered_database, pg_is_in_recovery() AS in_recovery,
        current_setting('data_directory') AS recovered_directory;
@@ -51,5 +51,5 @@ SELECT CASE WHEN (SELECT count(*) FROM ch045.orders)=1000
   \echo 'PASS: isolated PITR fixture marker/rows validated'
 \else
   \echo 'FAIL: PITR fixture did not satisfy expected committed state'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
