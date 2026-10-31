@@ -92,6 +92,12 @@
 - **GitHub review check at authoring:** PR #43 had **zero submitted reviews and zero inline review threads**; reviewers had not been requested by name. **V04 is NOT APPROVED**. The owner must identify appropriate independent reviewers before review requests can be assigned.
 - Any offline-only human decision must be recorded as `OFFLINE_DOCS_APPROVED_ONLY`, **not** V03 runtime acceptance. The PR stays **DRAFT**; V03 0/7 NOT RUN and V05 NOT CERTIFIED.
 
+## Owner-directed sequencing — Skip independent reviewer assignment (2026-10-31)
+
+The curriculum owner requested **skip the independent-review step for now** rather than supply reviewer usernames. **V04 reviewer assignment is SKIPPED BY REQUEST / NOT PERFORMED / NOT APPROVED.** Stop requesting reviewer details or repeatedly checking PR #43 for reviews as part of the current offline curriculum workflow. The previously prepared reviewer packet remains available for possible later use, but is not an approval.
+
+**This decision does not waive operational evidence or justify production certification.** V03 live Snowflake testing remains **USER-DEFERRED / NOT RUN (0/7)**; V05 remains **NOT CERTIFIED**. The package is suitable for offline teaching as a draft based on author/static QA alone; no independent endorsement should be claimed. PR #43 stays draft and unmerged absent a separate explicit merge decision.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
