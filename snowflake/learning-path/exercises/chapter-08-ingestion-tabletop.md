@@ -1,8 +1,8 @@
 # Chapter 08 — Offline Learner Exercise: Snowflake Ingestion
 
 **Learning mode:** Paper/tabletop only. No account, warehouse, storage integration, Snowpipe setup or Snowflake SQL execution.  
-**Related chapter:** [08 — Data Loading and Ingestion](../chapters/chapter-08-data-loading-and-ingestion.md).  
-**Answer policy:** Learner worksheet **without model answers**; instructors may use the knowledge-check explanations in the chapter after collecting responses. Do not publish real user information or credentials.
+**Recommended authoritative reading:** [Canonical 11 — Stages](../../11-stages-internal-external.md), [12 — File Formats](../../12-file-formats.md), [13 — COPY INTO](../../13-copy-into-bulk-data-loading.md), [15 — Load Troubleshooting](../../15-data-loading-troubleshooting-validation.md) and [16 — Snowpipe](../../16-snowpipe.md).  
+**Answer policy:** Learner worksheet **without model answers**; instructors may refer to the canonical tutorials after collecting responses. Do not publish real user information or credentials.
 
 ## Scenario — a file reached storage, but the report is stale
 
@@ -60,4 +60,4 @@ Your team proposes reloading all files using `FORCE = TRUE`. Explain why this ca
 
 **Status:** `NOT ASSESSED`. V03 real Snowflake testing **USER-DEFERRED / NOT RUN**. V04 reviewer assignment **SKIPPED BY OWNER / NOT APPROVED**. V05 **NOT CERTIFIED**.
 
-[Return to Chapter 08](../chapters/chapter-08-data-loading-and-ingestion.md) | [Learning Path](../README.md)
+[Learning Path — ingestion reading links](../README.md) | [Canonical Snowflake curriculum](../../MASTER-LAYOUT.md)
