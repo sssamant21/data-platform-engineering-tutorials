@@ -97,11 +97,13 @@ See the [Level 4 read-only SQL smoke test](validation/runtime/level-04-smoke.sql
 Do not set an automatic suspend-on-budget threshold for a critical warehouse without an approved availability impact assessment.
 
 ## Knowledge check (with answers)
-1. **Are Account Usage metrics real time?** No.
-2. **What does AVG_QUEUED_LOAD represent?** Average query load queued for capacity.
-3. **What drives warehouse credits?** Compute size and running time.
-4. **Should p95 thresholds be global?** No, tie to workload SLO.
-5. **Are resource monitors universal for serverless?** No.
+1. **Are Account Usage metrics real time?** **No.** Historical `SNOWFLAKE.ACCOUNT_USAGE` views can lag (view-specific latency, sometimes hours). Use suitably low-latency authorized sources for active incidents; missing recent rows do not prove healthy services.
+2. **What does AVG_QUEUED_LOAD represent?** **A time-based query load ratio**, calculated from summed query waiting time due to warehouse overload divided by the time interval. It is not a number of users or queued query IDs and can exceed one when concurrent queries contribute overlapping waiting time.
+3. **What drives warehouse credits?** **Warehouse size and billed running time** are core factors; compute generation, workload shape, resumed/suspended cycles and cloud-services accounting affect usage interpretation. `CREDITS_USED` in warehouse metering is not necessarily the account's final `CREDITS_BILLED`.
+4. **Should p95 thresholds be global?** **No.** Define per-service or per-query-class SLOs and compare measured baseline, load, impact and alert noise. A universal p95 threshold ignores workload needs.
+5. **Are resource monitors universal for serverless?** **No.** Resource monitors govern user-managed warehouse credit use; they do not monitor/control spend from serverless features or AI services. Use Snowflake budgets and the relevant metering views for those costs.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
