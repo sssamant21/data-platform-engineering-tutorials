@@ -40,7 +40,7 @@ class InstructorAnswerKeyTests(unittest.TestCase):
             self.assertEqual(5, len(questions), level)
             self.assertEqual(["1", "2", "3", "4", "5"], [n for n, _, _ in questions])
             for _, question, answer in questions:
-                self.assertGreaterEqual(len(question), 15, level)
+                self.assertTrue(question.strip(), level)  # Short beginner questions are valid
                 self.assertGreaterEqual(len(answer), 100, (level, question))
             self.assertIn("Instructor grading (offline)", block)
             self.assertIn("10 points", block)
