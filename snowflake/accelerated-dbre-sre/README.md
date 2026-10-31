@@ -18,6 +18,10 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 | 7 | [Snowflake Production Troubleshooting and Incident Response](level-07-production-incident-response.md) | 60 min | DRAFT / runtime pending |
 | **Total** | **7 courses** | **420 min (7 hours)** | |
 
+## Learner workbook — answer-free assessment
+
+Start participants with the [offline learner workbook](validation/LEARNER-OFFLINE-WORKBOOK.md): **35 knowledge questions, seven applied exercises, seven safety checks, and an integrated seven-case tabletop**. No Snowflake login or SQL execution is required. This learner-only edition contains prompts and space for responses, **not the instructor solutions**. Keep the [instructor answer keys and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) separate until the exercises are complete. Do not commit filled learner worksheets, names, identifiers or private evidence to the public repository.
+
 ## How to teach each course
 
 **Offline mode (default — no account or CLI):** No Snowflake account is required for offline teaching. All seven 60-minute courses can be taught using the Markdown lessons, [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md), synthetic/fictional data and tabletop exercises. Do **not** execute Snowflake SQL, request credentials or present any expected result as observed output.
