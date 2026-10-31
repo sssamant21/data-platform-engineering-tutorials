@@ -105,6 +105,13 @@ The curriculum owner requested **skip the independent-review step for now** rath
 - Added [nine static learner-workbook tests](validation/test_learner_workbook.py) covering seven course sections, 35 questions, answer-key separation, links, scoring and truthful V03/V04/V05 status. **[CI run #323 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41212737661): 94 Python tests passed, plus PowerShell parse/mock-only checks.**
 - This does not represent an actual student completing the exercises. **V03 remains USER-DEFERRED / NOT RUN (0/7)**; **V04 skipped by owner / NOT APPROVED**; **V05 NOT CERTIFIED**. PR #43 remains draft.
 
+## Beginner glossary and course-delivery checklist — 2026-10-31
+
+- Added [beginner terminology glossary](validation/BEGINNER-SNOWFLAKE-GLOSSARY.md) with level-by-level Snowflake concepts, plain-language explanations, common pitfalls and links to official Snowflake references.
+- Added [seven-session offline delivery checklist](validation/COURSE-DELIVERY-CHECKLIST.md) preserving the five agenda blocks for each 60-minute lesson (**420 minutes total**). Instructor preparation, synthetic exercises, safety prompts and blank private teaching records are included.
+- Added [glossary/delivery source regression checks](validation/test_glossary_delivery.py) for all seven levels, concept coverage, exact 60-minute timing, Markdown links, absence of false training results and truthful validation status. **Current branch CI verification pending.**
+- **Teaching delivery has NOT occurred; no learner scores have been collected.** V03 real Snowflake tests remain **USER-DEFERRED / NOT RUN (0/7)**; V04 independent review **SKIPPED BY OWNER / NOT APPROVED**; V05 **NOT CERTIFIED**. PR #43 stays draft.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
