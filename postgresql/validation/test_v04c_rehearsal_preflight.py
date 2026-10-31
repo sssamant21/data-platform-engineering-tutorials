@@ -121,7 +121,7 @@ class StagingRehearsalGateTests(unittest.TestCase):
             ("independent_review_sha256","1"*64,"independent_review_digest_mismatch"),
             ("change_ticket","OTHER","change_ticket_binding_invalid"),
             ("environment_id","OTHER","environment_id_binding_invalid"),
-            ("window_start_utc",utc(-60),"window_start_utc_binding_invalid"),
+            ("window_start_utc",utc(-55),"window_start_utc_binding_invalid"),
             ("system_identifier","11111111111111111111","system_identifier_binding_invalid"),
         ):
             with self.subTest(key=key):
