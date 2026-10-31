@@ -18,8 +18,8 @@
 | L6 | [Recovery & DR](../level-06-data-recovery-disaster-recovery.md) | Retention, RPO/RTO and recovery tabletop | Authored; offline teaching |
 | L7 | [Incident Response](../level-07-production-incident-response.md) | SLO triage, safety, blameless RCA | Authored; offline teaching |
 | Learner-only workbook | [Offline learner workbook](LEARNER-OFFLINE-WORKBOOK.md) | 35 answer-free questions, seven exercises, seven safety checks and seven tabletop scenarios | Prepared; no learner has been assessed |
-| Beginner reference | [Snowflake glossary](BEGINNER-SNOWFLAKE-GLOSSARY.md) | Level 1–7 plain-language definitions and common confusions | Prepared; offline teaching only |
-| Facilitator delivery plan | [Course delivery checklist](COURSE-DELIVERY-CHECKLIST.md) | Exact 60-minute agenda per level, teaching/assessment boundaries and private records | Prepared; no actual sessions delivered |
+| Beginner reference | [Snowflake glossary](BEGINNER-SNOWFLAKE-GLOSSARY.md) | **70 terms** across Levels 1–7, plain-language definitions and common confusions | Prepared; offline teaching only |
+| Facilitator delivery plan | [Course delivery checklist](COURSE-DELIVERY-CHECKLIST.md) | Exact 60-minute agenda per level, teaching/assessment boundaries and private records | Prepared; no actual sessions delivered; [CI #347 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41213458848) |
 | Instructor activities | [Offline instructor pack](INSTRUCTOR-OFFLINE-ACCEPTANCE.md) | Seven tabletop cases and learner deliverables | Prepared, not yet delivered to learners |
 | Teaching answers | [35-question answer key and rubric](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) | Five explained answers per level and per-question 2/1/0 guidance | Author QA complete; independent review pending |
 | Assessment record | [Blank scoring sheet](INSTRUCTOR-SCORING-SHEET.md) | Private grading and safety-remediation log | Template only; no learner scores entered |
