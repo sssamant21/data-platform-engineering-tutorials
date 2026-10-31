@@ -4,6 +4,8 @@
 **Package:** [Accelerated Snowflake curriculum](../README.md), seven 60-minute lessons.  
 **Status:** **PREPARED FOR REVIEW; NO INDEPENDENT SIGN-OFF.** All Snowflake runtime labs V03 = **NOT RUN / USER-DEFERRED**. V05 = **NOT CERTIFIED**.
 
+**Ready-to-send assignment and decision template:** [V04 independent review packet](V04-INDEPENDENT-REVIEW-PACKET.md). It separates documentation-only comments from runtime-dependent acceptance and includes reviewer responsibilities, defect tracking and blank evidence fields. **No named reviewers or approvals have been supplied.**
+
 ## V04 — Independent review criteria
 
 | Workstream | Required independent reviewer | Evidence / decision required | State |
