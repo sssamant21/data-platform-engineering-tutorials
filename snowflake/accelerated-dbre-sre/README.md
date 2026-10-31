@@ -2,7 +2,7 @@
 
 **Audience:** new DBREs/SREs, database administrators, data engineers, developers and data stakeholders.  
 **Structure:** seven independent 60-minute workshops (7 hours total).  
-**Status:** Initial draft published for review; live runtime validation pending.  
+**Status:** All 7 lessons authored; automated V01/V02 static checks passed. Live V03 Snowflake validation intentionally deferred; independent review pending; production NOT CERTIFIED.  
 
 These courses are a **short onboarding track** and do **not** replace or renumber the parent [90-chapter canonical Snowflake curriculum](../MASTER-LAYOUT.md). Use the 90 chapters for deeper study.
 
@@ -33,6 +33,10 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 - L5: Authentication, RBAC, governance and audit safety
 - L6: Time Travel, clone, UNDROP, replication, RPO/RTO
 - L7: Production triage, evidence capture, recovery and blameless RCA
+
+## Teaching without a Snowflake connection
+
+You can complete **all seven lecture and tabletop courses** using the [offline instructor and assessment pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md). Each level has a fictional-data activity, learner deliverable, expected reasoning and safe scoring rubric. These activities **do not count as live SQL runtime testing**. Independent reviewers can use the [V04/V05 reviewer handoff](validation/V04-V05-REVIEWER-HANDOFF.md) when available.
 
 ## V03 controlled runtime validation
 
