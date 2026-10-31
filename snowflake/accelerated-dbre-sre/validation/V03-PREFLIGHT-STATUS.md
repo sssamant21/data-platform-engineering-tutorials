@@ -23,7 +23,7 @@ To advance any level to V03 runtime evidence acceptance: authorized training/sta
 
 The offline JSON checker explicitly produces READY_FOR_INDEPENDENT_REVIEW, not certification. This avoids treating self-reported results as authenticated query execution.
 
-**Review decision:** V03 tooling ready for continued validation, but runtime and certification remain BLOCKED until the account owner provides access and independent reviewer accepts evidence. PR #43 remains DRAFT.
+**Review decision:** V03 tooling prepared. **User requested deferral of all live runtime validation on 2026-10-30** to finish other authoring/review materials first. Do not attempt further Snowflake connection setup in this phase. Runtime and certification remain NOT RUN / NOT CERTIFIED. PR #43 remains DRAFT.
 
 ## Official reference
 
