@@ -41,9 +41,13 @@ Each learner submits *one* concise answer to each of these cases; the instructor
 | F — Recovery | Table created at 10:15; requested snapshot 10:14 | A historical query before table creation is invalid; check effective retention and object type first |
 | G — Incident | Dashboard freshness 75min versus 15min SLO | Start with pipeline and upstream load dependencies; preserve impact, incident timeline and approved rollback |
 
+## Detailed answer keys and grading
+
+The [35-question instructor answer key and all seven detailed tabletop rubrics](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) provide clear full-credit, partial-credit and incorrect/unsafe examples for each level. Each level uses five questions × two points (10-point quiz maximum), with a provisional 8/10 comprehension threshold. The seven-case tabletop remains a **separate** 14-point assessment with the existing 12/14 target; neither is evidence of SQL execution. A critical safety miss overrides either score and requires remediation, even at an otherwise passing total.
+
 ## Instructor scoring
 
-**Offline content assessment**, not production validation: seven cases, each 0–2 points (0 = unsafe/incorrect, 1 = partially correct, 2 = correct reasoning including safety). Target 12/14 or higher, with **zero unsafe recommendations**, for a provisional course-comprehension check. Do not turn this score into V03/V04/V05 acceptance.
+**Offline tabletop assessment**, not production validation: seven cases, each 0–2 points (0 = incorrect/unsafe, 1 = correct keyword but incomplete reasoning, 2 = correct reasoning plus safety). Target 12/14 or higher, with **zero critical safety errors**, and keep its score distinct from each level's five-question 10-point knowledge check. Do not turn this score into V03/V04/V05 acceptance.
 
 A mandatory safety miss (e.g. production data manipulation, recommending broad admin privileges, leaking identities, assuming synthetic numbers prove runtime behavior) requires remediation regardless of score.
 
