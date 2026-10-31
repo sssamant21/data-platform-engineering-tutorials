@@ -96,7 +96,7 @@ class NavigationOnlyLearningPath(unittest.TestCase):
     def test_original_canonical_and_accelerated_tracks_unmodified_in_scope(self):
         self.assertTrue((SNOWFLAKE / "MASTER-LAYOUT.md").is_file())
         self.assertTrue((SNOWFLAKE / "accelerated-dbre-sre" / "README.md").is_file())
-        self.assertIn("one authoritative", read(INDEX).lower())
+        self.assertIn("authoritative tutorial source", read(INDEX).lower())
 
 if __name__ == "__main__":
     unittest.main()
