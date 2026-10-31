@@ -1,36 +1,32 @@
-# Snowflake Learning Path — Chapter Progress
+# Snowflake Learning Path — Navigation Status
 
-**Scope:** `snowflake/learning-path/` (eight offline DBRE/SRE chapters).  
-**Last updated:** 2026-10-31  
-**Source:** [Snowflake Learning Path](README.md) adapted from the [accelerated course track](../accelerated-dbre-sre/README.md).  
-**Delivery state:** CHAPTERS AUTHORED ON FEATURE BRANCH. The 90-chapter canonical Snowflake curriculum remains unchanged.
+**Updated:** 2026-10-31  
+**Scope:** `snowflake/learning-path/` is a **navigation-only index**, not an independent curriculum.  
+**Authoritative sources:** [Canonical Snowflake curriculum — 90/90](../MASTER-LAYOUT.md); [Accelerated DBRE/SRE course — 7/7](../accelerated-dbre-sre/README.md).
 
-| Chapter | Topic | Markdown published | Offline automated QA | Actual Snowflake execution | Independent review |
-|---|---|---|---|---|---|
-| [01](chapters/chapter-01-snowflake-fundamentals.md) | Fundamentals | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [02](chapters/chapter-02-snowflake-administration.md) | Administration | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [03](chapters/chapter-03-performance-query-optimization.md) | Performance and Query Optimization | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [04](chapters/chapter-04-monitoring-observability-cost.md) | Monitoring and Cost | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [05](chapters/chapter-05-security-rbac-governance.md) | Security and Governance | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [06](chapters/chapter-06-data-recovery-disaster-recovery.md) | Data Recovery and DR | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [07](chapters/chapter-07-troubleshooting-incident-response.md) | Incident Response | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [08](chapters/chapter-08-data-loading-and-ingestion.md) | Data Loading and Ingestion | Yes | [PASS — GitHub Actions #381](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41215020098) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+## Deduplication record
 
-**Progress:** **8/8 chapters authored**, each 60 minutes, **480 minutes total**. **Latest offline CI [#381 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41215020098): 104 accelerated-track tests + 17 learning-path tests = 121 Python tests**, plus PowerShell parser and mocked preflight checks. No Snowflake connection was made. The separate original seven-course accelerated track remains **7/7 / 420 minutes**.
+The previously authored **eight copied tutorial files** in `learning-path/chapters/` are being removed from the draft feature branch. The same instructional topics continue to be available in the original canonical and accelerated teaching sources. No canonical 90-chapter file or accelerated lesson is deleted by this cleanup.
 
-## Acceptance boundaries
+| Area | Authoritative source | Learning-path action |
+|---|---|---|
+| Fundamental concepts through incident response | [Seven accelerated 60-minute lessons](../accelerated-dbre-sre/README.md) | Link to the original seven lessons; no duplicates |
+| Ingestion, CSV, COPY INTO and Snowpipe | [Canonical 11–16](../MASTER-LAYOUT.md) | Link to canonical files; retain one answer-free [tabletop worksheet](exercises/chapter-08-ingestion-tabletop.md) |
+| CDC, streams, tasks and MERGE | [Canonical 18–22](../MASTER-LAYOUT.md) | Link to canonical files, no new Chapter 09 |
+| Detailed enterprise topics | [Canonical 90-chapter curriculum](../MASTER-LAYOUT.md) | Continue using original tutorial files |
 
-- A Markdown static check validates chapter structure, local references and selected offline safety language. It does not parse or execute the SQL examples.
-- Chapters **01–07** were mirrored from the [accelerated source](../accelerated-dbre-sre/README.md); **Chapter 08** is a new ingestion lesson. Keep original-seven copies synchronized with their source; shared instructor materials remain in the accelerated track. [Chapter 08 learner exercise](exercises/chapter-08-ingestion-tabletop.md) is answer-free and offline.
-- The repository has **not** run these Snowflake examples against a training account: **V03 USER-DEFERRED / NOT RUN (0/7 original accelerated labs; Chapter 08 also NOT RUN)**.
-- Independent review assignment was **skipped by owner**: **V04 NOT PERFORMED / NOT APPROVED**.
-- **V05 NOT CERTIFIED**. Neither offline course completion nor source QA supports production operational acceptance.
-- [PR #43](https://github.com/sssamant21/data-platform-engineering-tutorials/pull/43) remains draft and unmerged until explicitly authorized.
+**Course timing:** The accelerated curriculum remains **7 × 60 = 420 minutes**. Canonical ingestion and CDC reading is **self-paced**, not an eighth or ninth authored 60-minute course.
 
-## Chapter 08 learning exercise
+## QA and safety gates
 
-Use the [answer-free Chapter 08 ingestion tabletop](exercises/chapter-08-ingestion-tabletop.md) to teach stage/file-format concepts, invalid numeric input, COPY validation, history scope and replay authorization. All values are synthetic; no file upload, COPY execution or Snowpipe event took place.
+- [Navigation-only regression tests](validation/test_learning_path.py) ensure a nonduplicating index and actual local targets.
+- [Ingestion worksheet checks](validation/test_chapter_08_ingestion.py) confirm that the unique fictional exercise stays answer-free and avoids live SQL or privileged actions.
+- **GitHub Actions latest status:** record the new post-cleanup validation run after all changes/deletions have landed; earlier runs reflect the previous duplicate layout and do not certify the new index.
+- **V03 Snowflake runtime:** **USER-DEFERRED / NOT RUN (0/7 accelerated smoke scripts)**. No ingestion worksheet ran in Snowflake.
+- **V04 human review:** **SKIPPED BY OWNER / NOT APPROVED**. This is not a human approval.
+- **V05 production certification:** **NOT CERTIFIED**.
+- [PR #43](https://github.com/sssamant21/data-platform-engineering-tutorials/pull/43) stays **DRAFT / UNMERGED** until an explicit merge decision.
 
-## Next teaching work
+## Maintenance rule
 
-Use the [glossary](../accelerated-dbre-sre/validation/BEGINNER-SNOWFLAKE-GLOSSARY.md), [workbook](../accelerated-dbre-sre/validation/LEARNER-OFFLINE-WORKBOOK.md) and [session delivery plan](../accelerated-dbre-sre/validation/COURSE-DELIVERY-CHECKLIST.md) for offline onboarding. Learner assessments have not yet occurred.
+Keep **one authoritative document per tutorial topic**. A learning path is a set of links and suggested reading steps, not another location for copying lesson Markdown. When a tutorial changes, update its original file only and fix index links if paths change.
