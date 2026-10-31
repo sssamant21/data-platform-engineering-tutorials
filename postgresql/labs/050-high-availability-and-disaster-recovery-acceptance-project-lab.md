@@ -58,7 +58,7 @@ A green CI run is **not** evidence of independent old-primary fencing, real appl
 
 The [V03 actual-rewind runner](../validation/v03_rewind_disposable.py) is a *new disposable-only* acceptance scenario. It takes a preserved backup of the stopped former-primary data directory, proves a successful rewind dry-run, attempts an actual `pg_rewind --no-ensure-shutdown`, and permits restart **only after** the former primary has been configured as a standby. It then checks replay of a post-promotion marker and one writable primary. This is distinct from the already successful [fresh-directory rebuild](../validation/v03_ha_disposable.py).
 
-This gate is **pending a confirmed green workflow** at the relevant commit. Even if it passes, Chapter 050's production-like fencing, application traffic and independent RPO/RTO gates remain **PENDING**.
+The disposable actual-rewind gate passed on [run #41171155567](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171155567): in-place PGDATA rewind, safe read-only rejoin and post-promotion marker replay. Independent production-like fencing, application traffic and business RPO/RTO gates remain **PENDING**.
 
 ## 6. Acceptance worksheet
 
