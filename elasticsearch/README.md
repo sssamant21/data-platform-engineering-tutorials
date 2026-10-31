@@ -22,6 +22,11 @@ Mapping and query performance are included explicitly in this track. They are no
 
 The operations track therefore covers both governance and troubleshooting while application teams remain responsible for their business search requirements and query semantics.
 
+
+## Elasticsearch DBRE Responsibilities
+
+See [DBRE Responsibility for Elasticsearch](dbre-responsibility-for-elasticsearch/README.md) for the Confluence-ready ownership and RACI, operating cadence, monitoring/SLO and incident-response guides. **Drafts require operational validation and stakeholder approval.**
+
 ## Master Roadmap
 
 See [ROADMAP.md](ROADMAP.md) for the 12-module Elasticsearch Administrator / DBRE / SRE learning roadmap.
