@@ -47,6 +47,8 @@ RBAC is central to Snowflake operations. Users assume roles; roles hold privileg
 Snowsight Query History is good for recent troubleshooting. Account Usage views (where grants allow) are good for longer-term historical analysis but have latency. Query IDs, warehouse names and query tags make incident evidence auditable.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Prerequisites
 An existing authorized account and approved training warehouse. Most steps are read-only; no administrator privilege escalation is required.
 
