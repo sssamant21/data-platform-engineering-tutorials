@@ -4,27 +4,27 @@
 \if :{?expected_db}
 \else
   \echo 'REFUSED: expected_db required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_system_id}
 \else
   \echo 'REFUSED: expected_system_id required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_source_data_directory}
 \else
   \echo 'REFUSED: independently verified expected_source_data_directory required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_operator}
 \else
   \echo 'REFUSED: expected_operator required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_incident}
 \else
   \echo 'REFUSED: chapter-specific incident token required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database() = :'expected_db'
   AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
@@ -41,7 +41,7 @@ SELECT CASE WHEN current_database() = :'expected_db'
   \echo 'Verified disposable cluster and incident approval token'
 \else
   \echo 'REFUSED: cluster, database, fixture or incident token mismatch'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 UPDATE ch045.orders SET status='corrupted',updated_at=clock_timestamp()
 WHERE order_id BETWEEN 1 AND 100;

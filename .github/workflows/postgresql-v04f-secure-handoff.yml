@@ -1,0 +1,68 @@
+name: PostgreSQL V04-F Secure Evidence Handoff (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v04f_secure_evidence_handoff.py"
+      - "postgresql/validation/v04f_handoff.template.json"
+      - "postgresql/validation/test_v04f_secure_evidence_handoff.py"
+      - "postgresql/validation/v04e_artifact_integrity.py"
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - ".github/workflows/postgresql-v04f-secure-handoff.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v04f_secure_evidence_handoff.py"
+      - "postgresql/validation/v04f_handoff.template.json"
+      - "postgresql/validation/test_v04f_secure_evidence_handoff.py"
+      - "postgresql/validation/v04e_artifact_integrity.py"
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - ".github/workflows/postgresql-v04f-secure-handoff.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-provenance-no-go:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax checks
+        run: |
+          python3 -m py_compile postgresql/validation/v04f_secure_evidence_handoff.py
+          python3 -m py_compile postgresql/validation/test_v04f_secure_evidence_handoff.py
+      - name: Test synthetic transfer and source-review receipts
+        run: |
+          python3 -m unittest -v postgresql/validation/test_v04f_secure_evidence_handoff.py
+      - name: Public incomplete handoff must be NO_GO
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/v04f_secure_evidence_handoff.py \
+               --acceptance postgresql/validation/v04d_ch050_acceptance.template.json \
+               --inventory postgresql/validation/v04e_evidence_inventory.template.json \
+               --handoff postgresql/validation/v04f_handoff.template.json \
+               --evidence-root postgresql/validation \
+               --json-out v04f-public-no-go.json; then
+            echo "FAIL: public templates cannot prove real source authenticity" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          obj=json.load(open("v04f-public-no-go.json",encoding="utf-8"))
+          assert obj["result"]=="NO_GO"
+          assert obj["certification"]=="NOT_CERTIFIED"
+          assert obj["authorization"]=="NONE"
+          assert obj["execution"]=="NEVER"
+          assert obj["source_systems_authenticated_by_tool"] is False
+          print("PASS: no genuine staging source-handoff packet supplied")
+          PY
+      - name: Save synthetic NO_GO report only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v04f-synthetic-no-go
+          path: v04f-public-no-go.json
+          if-no-files-found: warn

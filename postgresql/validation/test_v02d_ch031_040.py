@@ -42,7 +42,7 @@ class Chapters031040Contracts(unittest.TestCase):
                 self.assertNotRegex(setup, r"(?im)^\s*DROP\s+SCHEMA\b")
                 for token in ("expected_db", "expected_system_id", "confirm_cleanup",
                               f"{ident}-DROP", "pg_control_system()", r"\if :cleanup_permitted",
-                              r"\quit 3"):
+                              "SELECT 1/0 AS refusal_nonzero;"):
                     self.assertIn(token, cleanup)
                 self.assertIn(f"-v confirm_cleanup={ident}-DROP", lab)
                 self.assertIn("n.nspowner", cleanup)
@@ -121,7 +121,7 @@ class Chapters031040Contracts(unittest.TestCase):
                 for check in ("expected_system_id", "pg_control_system()", token,
                               "current_user='lab_admin'", "inet_server_port()=55432",
                               "data_directory", "pg_is_in_recovery()",
-                              r"\if :stage_permitted", r"\quit 3"):
+                              r"\if :stage_permitted", "SELECT 1/0 AS refusal_nonzero;"):
                     self.assertIn(check, sql)
                 self.assertIn("-v confirm_stage=" + token, lab)
         source = (SQL / "040-investigate.sql").read_text()

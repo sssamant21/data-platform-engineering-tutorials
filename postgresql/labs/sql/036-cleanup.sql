@@ -5,17 +5,17 @@
 \if :{?expected_db}
 \else
   \echo 'REFUSED: pass -v expected_db=YOUR_LAB_DATABASE'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?expected_system_id}
 \else
   \echo 'REFUSED: pass -v expected_system_id=OBSERVED_LAB_CLUSTER_ID'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \if :{?confirm_cleanup}
 \else
   \echo 'REFUSED: explicit chapter-specific cleanup confirmation required'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 SELECT CASE WHEN current_database() = :'expected_db'
   AND current_database() NOT IN ('template0','template1')
@@ -40,7 +40,7 @@ SELECT CASE WHEN current_database() = :'expected_db'
   \echo 'Cleanup preflight passed: exact lab database, cluster and token matched.'
 \else
   \echo 'REFUSED: database, cluster, version, role or cleanup token mismatch'
-  \quit 3
+  SELECT 1/0 AS refusal_nonzero;
 \endif
 \echo 'DISPOSABLE DATABASE ONLY: remove ch036 schema'
 -- Refuse unknown independent dependencies; no schema-wide CASCADE.

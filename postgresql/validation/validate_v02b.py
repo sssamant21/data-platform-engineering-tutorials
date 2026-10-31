@@ -31,7 +31,7 @@ def run():
             f"= '{chapter}-DROP'",
             r"\gset",
             r"\if :cleanup_permitted",
-            r"\quit 3",
+            "SELECT 1/0 AS refusal_nonzero;",
         )
         missing = [x for x in required if x not in source]
         if missing:
@@ -40,6 +40,13 @@ def run():
             errors.append({"chapter": chapter, "error": "lab guide missing expected invocation"})
         inspected.append({"chapter": chapter, "script": script.name, "lab": docs[0].name,
                           "static_guards_present": not missing})
+    # A psql \\quit 3 does not set a nonzero shell exit status.
+    # Fail static validation on unsafe psql refusal branches.
+    for script in (ROOT / "labs" / "sql").glob("*.sql"):
+        content = script.read_text(encoding="utf-8")
+        if r"\quit 3" in content:
+            errors.append({"chapter": script.name,
+                           "error": "unsafe psql \\quit 3: use ON_ERROR_STOP and a SQL-error refusal"})
     for chapter in SETUP_IDS:
         path = ROOT / "labs" / "sql" / f"{chapter}-setup.sql"
         if not path.is_file():

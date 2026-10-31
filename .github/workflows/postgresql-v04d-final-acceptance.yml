@@ -1,0 +1,69 @@
+name: PostgreSQL V04-D Chapter 050 Final Acceptance (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - "postgresql/validation/v04d_ch050_acceptance.template.json"
+      - "postgresql/validation/test_v04d_ch050_acceptance.py"
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_independent_review.py"
+      - "postgresql/validation/v04c_rehearsal_preflight.py"
+      - ".github/workflows/postgresql-v04d-final-acceptance.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - "postgresql/validation/v04d_ch050_acceptance.template.json"
+      - "postgresql/validation/test_v04d_ch050_acceptance.py"
+      - "postgresql/validation/v04_staging_readiness.py"
+      - "postgresql/validation/v04_independent_review.py"
+      - "postgresql/validation/v04c_rehearsal_preflight.py"
+      - ".github/workflows/postgresql-v04d-final-acceptance.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test-final-evidence-screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax verification only
+        run: |
+          python3 -m py_compile postgresql/validation/v04d_ch050_acceptance.py
+          python3 -m py_compile postgresql/validation/test_v04d_ch050_acceptance.py
+      - name: Run synthetic Chapter 050 certification boundary tests
+        run: python3 -m unittest -v postgresql/validation/test_v04d_ch050_acceptance.py
+      - name: Verify that public templates cannot certify HA/DR
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/v04d_ch050_acceptance.py \
+            --staging postgresql/validation/v04_staging_evidence.template.json \
+            --review postgresql/validation/v04_independent_review.template.json \
+            --preflight postgresql/validation/v04c_rehearsal_request.template.json \
+            --acceptance postgresql/validation/v04d_ch050_acceptance.template.json \
+            --json-out v04d-public-no-go.json; then
+            echo "FAIL: templates must not be accepted as staging evidence" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          d=json.load(open("v04d-public-no-go.json",encoding="utf-8"))
+          assert d["result"]=="NO_GO"
+          assert d["certification"]=="NOT_CERTIFIED"
+          assert d["authorization"]=="NONE"
+          assert d["execution"]=="NEVER"
+          assert "actual_staging_rehearsal_not_proven" in d["reason_codes"]
+          print("PASS: public evidence remains NO_GO / NOT_CERTIFIED")
+          PY
+      - name: Preserve synthetic refusal report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v04d-public-no-go
+          path: v04d-public-no-go.json
+          if-no-files-found: warn

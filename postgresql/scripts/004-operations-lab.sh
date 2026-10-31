@@ -54,6 +54,14 @@ stop_nodes() {
   done
 }
 verify() {
+  local port slots retention
+  # Fail before any probe writes if the Chapter 047 slot exercise cannot run safely.
+  for port in 55432 55433 55434; do
+    slots="$(sql "$port" -Atc 'SHOW max_replication_slots')"
+    retention="$(sql "$port" -Atc "SELECT setting FROM pg_settings WHERE name='max_slot_wal_keep_size' AND unit='MB'")"
+    [[ "$slots" == 4 && "$retention" == 256 ]] ||
+      { echo "Unexpected slot capacity/retention at $port: slots=$slots retention_MB=$retention; create a fresh Chapter 004 disposable lab." >&2; return 1; }
+  done
   [[ "$(sql 55432 -Atc 'SELECT pg_is_in_recovery()')" == f ]] ||
     { echo "Expected primary at 55432." >&2; return 1; }
   for port in 55433 55434; do
@@ -145,7 +153,9 @@ shared_buffers = '64MB'
 max_connections = 30
 wal_level = replica
 max_wal_senders = 6
-max_replication_slots = 0
+max_replication_slots = 4
+# Finite lab-only WAL retention: enforced at checkpoint, not an immediate disk cap.
+max_slot_wal_keep_size = '256MB'
 wal_keep_size = '128MB'
 hot_standby = on
 fsync = on

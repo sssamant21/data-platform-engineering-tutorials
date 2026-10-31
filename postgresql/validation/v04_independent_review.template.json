@@ -1,0 +1,85 @@
+{
+  "schema": "pg-ha-dr-v04b-1",
+  "mode": "independent_evidence_review_only",
+  "decision": "submit_to_change_authority",
+  "environment": "staging",
+  "environment_id": "<REPLACE-EXACT-V04A-ENV-ID>",
+  "change_ticket": "<REPLACE-EXACT-CHANGE-ID>",
+  "system_identifier": "<REPLACE-EXACT-CLUSTER-SYSTEM-ID>",
+  "window_start_utc": "<REPLACE-EXACT-V04A-UTC-START>",
+  "window_end_utc": "<REPLACE-EXACT-V04A-UTC-END>",
+  "staging_manifest_sha256": "<REPLACE-CANONICAL-SHA256-OF-V04A-JSON>",
+  "prepared_by": "<REPLACE-PACKET-PREPARER>",
+  "prepared_at_utc": "<REPLACE-PREPARATION-TIME-UTC>",
+  "reviewers": {
+    "dbre": {
+      "name": "<REPLACE-INDEPENDENT-DBRE-REVIEWER>",
+      "disposition": "pending",
+      "reviewed_at_utc": "<REPLACE-REVIEW-TIME-UTC>",
+      "attestation_ref": "evidence://REPLACE/DBRE-SIGNED-REVIEW"
+    },
+    "security_fencing": {
+      "name": "<REPLACE-INDEPENDENT-SECURITY_FENCING-REVIEWER>",
+      "disposition": "pending",
+      "reviewed_at_utc": "<REPLACE-REVIEW-TIME-UTC>",
+      "attestation_ref": "evidence://REPLACE/SECURITY_FENCING-SIGNED-REVIEW"
+    },
+    "application": {
+      "name": "<REPLACE-INDEPENDENT-APPLICATION-REVIEWER>",
+      "disposition": "pending",
+      "reviewed_at_utc": "<REPLACE-REVIEW-TIME-UTC>",
+      "attestation_ref": "evidence://REPLACE/APPLICATION-SIGNED-REVIEW"
+    },
+    "change_management": {
+      "name": "<REPLACE-INDEPENDENT-CHANGE_MANAGEMENT-REVIEWER>",
+      "disposition": "pending",
+      "reviewed_at_utc": "<REPLACE-REVIEW-TIME-UTC>",
+      "attestation_ref": "evidence://REPLACE/CHANGE_MANAGEMENT-SIGNED-REVIEW"
+    }
+  },
+  "claims": {
+    "cluster_and_scope": {
+      "status": "pending",
+      "reviewer_role": "dbre",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/CLUSTER_AND_SCOPE",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>"
+    },
+    "independent_fence_write_restart_and_bypass": {
+      "status": "pending",
+      "reviewer_role": "security_fencing",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/INDEPENDENT_FENCE_WRITE_RESTART_AND_BYPASS",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>",
+      "observed_from_independent_control_plane": false
+    },
+    "backup_archive_restore": {
+      "status": "pending",
+      "reviewer_role": "dbre",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/BACKUP_ARCHIVE_RESTORE",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>"
+    },
+    "approved_business_rpo_rto": {
+      "status": "pending",
+      "reviewer_role": "change_management",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/APPROVED_BUSINESS_RPO_RTO",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>"
+    },
+    "application_routing_and_smoke": {
+      "status": "pending",
+      "reviewer_role": "application",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/APPLICATION_ROUTING_AND_SMOKE",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>"
+    },
+    "rollback_and_abort_conditions": {
+      "status": "pending",
+      "reviewer_role": "change_management",
+      "observed_at_utc": "<REPLACE-EVIDENCE-OBSERVATION-UTC>",
+      "evidence_ref": "evidence://REPLACE/ROLLBACK_AND_ABORT_CONDITIONS",
+      "evidence_sha256": "<REPLACE-64-LOWERCASE-HEX-SHA256>"
+    }
+  }
+}
