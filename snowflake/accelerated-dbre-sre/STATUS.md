@@ -71,6 +71,7 @@
 
 ## Instructor answer-key and rubric review — 2026-10-31
 
+- **[Technical answer-key review SF-030–SF-035](validation/V02-INSTRUCTOR-ANSWER-KEY-REVIEW.md):** seven levels audited for explanation quality, grading consistency, metric semantics, security, RPO/RTO and critical safety overrides.
 - **35/35 knowledge-check answers revised** across all seven lessons: expanded beginner explanations, interpretation caveats, operational safety and synthetic-versus-runtime distinctions.
 - **[Instructor grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) authored** with five question-specific scoring criteria per level (2/1/0), seven tabletop case rubrics (2/1/0), distinct 8/10 lesson and 12/14 tabletop comprehension thresholds, and a critical-safety override.
 - **[Offline QA tests](validation/test_instructor_answer_keys.py) added** to ensure seven × five answers, rubric coverage, scoring separation and deferred-runtime status. **Current branch CI verification pending.**
