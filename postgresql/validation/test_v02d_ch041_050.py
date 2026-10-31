@@ -208,6 +208,33 @@ class BackupReplication041050(unittest.TestCase):
         self.assertIn("confirm_cleanup=048-DROP",doc)
         self.assertIn("-p 55433",doc)
 
+    def test_v03_ci_is_isolated_and_keeps_high_risk_gates_manual(self):
+        ha=(ROOT/"validation"/"v03_ha_disposable.py").read_text(encoding="utf-8")
+        pitr=(ROOT/"validation"/"v03_pitr_disposable.py").read_text(encoding="utf-8")
+        for token in ("FENCE-AND-PROMOTE-NEW-LAB", "shared.preflight()",
+                      "socket_closed(55432)", 'pg_ctl(root / "primary", "stop")',
+                      'pg_ctl(root / "standby1", "promote")', "--dry-run",
+                      'rejoined-standby', '"-R"', "standby.signal",
+                      "NOT_CERTIFIED", "NOT_EXECUTED"):
+            self.assertIn(token,ha)
+        self.assertLess(ha.index('pg_ctl(root / "primary", "stop")'),
+                        ha.index('pg_ctl(root / "standby1", "promote")'))
+        self.assertNotIn("shutil.rmtree(",ha)
+        for token in ("NEW-ISOLATED-CH045-PITR", "pg_verifybackup",
+                      "pg_create_restore_point", "recovery.signal",
+                      "recovery_target_name", "045-fixture.sql",
+                      "045-good-marker.sql", "045-incident.sql", "045-verify.sql",
+                      "wrong.returncode==0", "NOT_CERTIFIED"):
+            self.assertIn(token,pitr)
+        self.assertNotIn("shutil.rmtree(",pitr)
+        for name,script in (("ha","postgresql-v03-ha-disposable.yml"),
+                            ("pitr","postgresql-v03-pitr-disposable.yml")):
+            workflow=(ROOT.parent/".github"/"workflows"/script).read_text(encoding="utf-8")
+            with self.subTest(workflow=name):
+                self.assertIn("--network none --user postgres",workflow)
+                self.assertIn("readonly",workflow)
+                self.assertIn("timeout-minutes: 20",workflow)
+
     def test_049_050_manual_fencing_rewind_and_dr_acceptance(self):
         for ch in ("049","050"):
             doc=lab(ch).lower()
