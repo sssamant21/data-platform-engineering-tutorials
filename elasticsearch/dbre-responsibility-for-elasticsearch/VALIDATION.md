@@ -10,7 +10,7 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | 02 Operations cadence | Drafted | Staging APIs and initial operational review pending | Pending |
 | 03 Monitoring, alerts, SLO | Drafted | Exporter/Prometheus/APM dashboard tests pending | Pending |
 | 04 Incident troubleshooting | Drafted | Runbook staging/tabletop exercises pending | Pending |
-| 05 Capacity, growth and costs | Planned | Not started | Pending |
+| 05 Capacity, growth and costs | Drafted | Per-index collection, forecast validation and node-role staging load tests pending | Pending |
 | 06 DR, backup, restore | Planned | Not started | Pending |
 | 07 Index lifecycle and cleanup | Planned | Not started | Pending |
 
@@ -27,6 +27,10 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 - [ ] Test alert routing, exporter down and no-data cases.
 - [ ] Run representative shard failure, heap pressure, disk pressure and restore exercises in staging.
 - [ ] Establish actual index ownership and no-deletion-without-approval policy.
+- [ ] Validate per-index primary/total store series, calendar-period index churn and export completeness.
+- [ ] Review 30/60/90-day forecasts against actual node disk, watermarks and failure-domain reserve.
+- [ ] Confirm representative peak-workload data and data/coordinator right-sizing test criteria.
+- [ ] Record pre/post node specs, benchmark evidence, rollback exercise and cost outcomes.
 - [ ] Verify Confluence Markdown rendering, internal links and navigation.
 - [ ] Record exact version-specific caveats and unsupported lifecycle risk.
 
@@ -40,6 +44,9 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | Alert routing | TBD | TBD | TBD | TBD | Pending |
 | Runbook exercise | TBD | TBD | TBD | TBD | Pending |
 | Restore test | TBD | TBD | TBD | TBD | Pending |
+| Per-index growth history and forecast | TBD | TBD | TBD | TBD | Pending |
+| Right-sizing / failure test | TBD | TBD | TBD | TBD | Pending |
+| Cost realization review | TBD | TBD | TBD | TBD | Pending |
 
 ## Definition of done
 

@@ -2,7 +2,7 @@
 
 **Enterprise DBRE/SRE operating model** | Elasticsearch 7.17.x reference | Confluence-ready Markdown
 
-This track documents Elasticsearch platform ownership, operational cadence, monitoring and SLOs, and incident response. It is intended for teams supporting production search workloads with Elasticsearch, Prometheus, and Grafana.
+This track documents Elasticsearch platform ownership, operational cadence, monitoring and SLOs, incident response, capacity planning and cost optimization. It is intended for teams supporting production search workloads with Elasticsearch, Prometheus, and Grafana.
 
 > **Status: DRAFT.** These documents are proposed team standards. They have not been validated against live clusters or approved by DBRE, application, platform, security, data ownership, or change-management teams.
 
@@ -14,6 +14,7 @@ This track documents Elasticsearch platform ownership, operational cadence, moni
 | 02 | [Operational Checklists](02-daily-weekly-monthly-operations.md) | Daily/weekly/monthly/quarterly work, commands and reports |
 | 03 | [Monitoring, Alerting & SLOs](03-monitoring-alerting-slos.md) | Dashboards, Prometheus metrics, PromQL, error budgets, alert routing |
 | 04 | [Incident Response & Troubleshooting](04-incident-response-troubleshooting.md) | Triage, escalation, 12 diagnostic runbooks, RCA and change safety |
+| 05 | [Capacity, Index Growth & Cost Optimization](05-capacity-index-growth-cost-optimization.md) | Per-index growth, shard/capacity forecasts, node-role right-sizing, testing and cost validation |
 | QA | [Validation & Acceptance Register](VALIDATION.md) | Tasks that must pass before teams adopt these standards |
 
 ## Recommended Confluence hierarchy
@@ -23,7 +24,7 @@ This track documents Elasticsearch platform ownership, operational cadence, moni
   - 02 — Daily / Weekly / Monthly Operations
   - 03 — Monitoring, Alerting & SLOs
   - 04 — Incident Response & Troubleshooting
-  - 05 — Capacity, Index Growth & Cost Optimization (**planned**)
+  - 05 — Capacity, Index Growth & Cost Optimization
   - 06 — Backup, Disaster Recovery & Restore Testing (**planned**)
   - 07 — Index Lifecycle & Safe Maintenance (**planned**)
 
