@@ -2,7 +2,7 @@
 
 **Audience:** new DBREs/SREs, database administrators, data engineers, developers and data stakeholders.  
 **Structure:** seven independent 60-minute workshops (7 hours total).  
-**Status:** All 7 lessons authored; automated V01/V02 static checks passed. Live V03 Snowflake validation intentionally deferred; independent review pending; production NOT CERTIFIED.  
+**Status:** All 7 lessons authored; automated V01/V02 static checks passed. Offline instructor materials and teaching prerequisites are prepared; live V03 Snowflake validation intentionally deferred; independent review pending; production NOT CERTIFIED.  
 
 These courses are a **short onboarding track** and do **not** replace or renumber the parent [90-chapter canonical Snowflake curriculum](../MASTER-LAYOUT.md). Use the 90 chapters for deeper study.
 
@@ -19,11 +19,16 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 | **Total** | **7 courses** | **420 min (7 hours)** | |
 
 ## How to teach each course
+
+**Offline mode (default — no account or CLI):** All seven 60-minute courses can be taught using the Markdown lessons, [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md), synthetic/fictional data and tabletop exercises. Do **not** execute Snowflake SQL, request credentials or present any expected result as observed output.
+
 1. Present architecture and core concepts for the stated module time.
-2. Explain SQL with permission and cost context; run **only** approved examples in a nonproduction lab.
-3. Compare actual results with the stated expected outcomes.
-4. Review the failure scenario and operational safeguards.
-5. Complete the knowledge check and record any findings in the [validation tracker](STATUS.md).
+2. Explain the sample SQL, required privileges and potential credit costs **without executing it**.
+3. Compare the **hypothetical, hand-computed** results against the lesson's expected outcomes.
+4. Review the failure scenario, operational safeguards and safe alternative actions.
+5. Complete each offline knowledge check and the separate tabletop assessment; use the [blank private scoring sheet](validation/INSTRUCTOR-SCORING-SHEET.md) when appropriate.
+
+**Deferred live-lab mode (V03 only, not scheduled):** Requires owner-approved nonproduction Snowflake account, smallest permitted warehouse, level-specific least-privilege role, approved scratch schema/object scope, cost limit, and secure evidence handling. Run SQL only after authorization following the [V03 execution runbook](validation/V03-EXECUTION-RUNBOOK.md). Compare **actual** results only then; independent reviewers must verify the genuine query IDs and outcomes.
 
 ## Curriculum coverage
 - L1: What Snowflake is, architecture, database objects, SQL
@@ -47,6 +52,10 @@ A blank [instructor scoring worksheet](validation/INSTRUCTOR-SCORING-SHEET.md) i
 ## Cross-level technical consistency
 
 The lessons and independent manual QA SQL are checked for key teaching contracts (L1 expected totals, L2 query tags, L3 deterministic arithmetic and session history, L4 monitoring/billing, L5 audit visibility, L6 retention prerequisites and L7 incident history scope). See the [SF-025–SF-029 review](validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) and [offline consistency tests](validation/test_curriculum_consistency.py). These tests examine source files and synthetic examples; they cannot prove live SQL correctness.
+
+## Offline instructor handoff
+
+The [final offline release-package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) lists all seven lessons, instructor deliverables, SQL files that remain NOT RUN, audit reports, tests and outstanding human approvals. The [documentation/prerequisites audit](validation/V02-DOCS-PREREQUISITES-REVIEW.md) separates prerequisites for offline instruction from future live execution and records selected official Snowflake URL checks.
 
 ## V03 controlled runtime validation
 
