@@ -97,11 +97,13 @@ A production query has 12 seconds execution and 40 seconds overload queueing. **
 Never use \`ALTER WAREHOUSE\` in the lab without explicit authorization.
 
 ## Knowledge check (with answers)
-1. **Does total elapsed equal execution time?** Not necessarily.
-2. **Which metric identifies overload waiting?** QUEUED_OVERLOAD_TIME.
-3. **What makes a fair benchmark?** Comparable SQL, data, caching and load.
-4. **What tool shows costly operators?** Query Profile.
-5. **Can increasing warehouse size fix every query?** No.
+1. **Does total elapsed equal execution time?** **Not necessarily.** Total elapsed can include compilation, provisioning, overload queueing, execution and transaction blocking. Compare the relevant Query History components rather than treating elapsed milliseconds as pure compute time.
+2. **Which metric identifies overload waiting?** **`QUEUED_OVERLOAD_TIME`** reports how long a query waited because its warehouse was overloaded. It differs from `QUEUED_PROVISIONING_TIME` (warehouse resources starting) and `TRANSACTION_BLOCKED_TIME` (locks).
+3. **What makes a fair benchmark?** **Comparable SQL shape and parameters, data volume, workload concurrency, cache conditions, warehouse configuration and repeated measurements.** Track both latency and credit cost; 1,000 synthetic rows demonstrate SQL arithmetic, not production tuning improvement.
+4. **What tool shows costly operators?** **Snowflake Query Profile** shows scan, join, aggregation and spill operators, including scanned partitions and observed operator costs. Inspect a real approved query ID when runtime testing is resumed.
+5. **Can increasing warehouse size fix every query?** **No.** It may help compute-intensive work but will not correct an unselective scan, join explosion or inappropriate SQL. If 40 of 52 seconds are overload queueing, first investigate concurrency, workload isolation and baseline SLOs.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Acceptance and runtime validation
 Run the [Level 3 SQL smoke](validation/runtime/level-03-smoke.sql) in a dedicated training scratch schema. Confirm the 1,000/100 row counts, the 54,110/5,060 totals, unique IDs, an actual query ID, and that the temporary table does not collide with any existing object. Record warehouse credits, Query Profile screenshots with sensitive information redacted, and cleanup evidence. This is **NOT RUN**, and the tiny synthetic dataset cannot establish production-scale performance.
