@@ -1,0 +1,66 @@
+name: PostgreSQL V03 Disposable Actual Rewind Acceptance
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/scripts/004-operations-lab.sh"
+      - "postgresql/validation/v03_rewind_disposable.py"
+      - "postgresql/validation/v03_negative_path.py"
+      - ".github/workflows/postgresql-v03-actual-rewind-disposable.yml"
+  pull_request:
+    paths:
+      - "postgresql/scripts/004-operations-lab.sh"
+      - "postgresql/validation/v03_rewind_disposable.py"
+      - "postgresql/validation/v03_negative_path.py"
+      - ".github/workflows/postgresql-v03-actual-rewind-disposable.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-pg18-actual-rewind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check syntax without touching database
+        run: |
+          python3 -m py_compile postgresql/validation/v03_rewind_disposable.py
+          python3 -m py_compile postgresql/validation/v03_negative_path.py
+          bash -n postgresql/scripts/004-operations-lab.sh
+
+      - name: Build PostgreSQL 18 networkless lab image
+        run: |
+          docker build -t postgresql-v03-rewind:pg18 - <<'DOCKERFILE'
+          FROM postgres:18
+          RUN apt-get update && apt-get install -y --no-install-recommends python3 && rm -rf /var/lib/apt/lists/*
+          DOCKERFILE
+
+      - name: Execute actual pg_rewind on fresh owned disposable PGDATA only
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          docker run --rm --network none --user postgres \
+            --mount "type=bind,source=${GITHUB_WORKSPACE},target=/repo,readonly" \
+            --workdir /repo postgresql-v03-rewind:pg18 \
+            bash -euo pipefail -c '
+              result="$(bash postgresql/scripts/004-operations-lab.sh setup)"
+              printf "%s\n" "$result"
+              PG_LAB_ROOT="$(printf "%s\n" "$result" | sed -n "s/^export PG_LAB_ROOT=//p" | tail -n 1)"
+              [[ "$PG_LAB_ROOT" =~ ^/tmp/postgresql-dbre-lab\.[A-Za-z0-9]+$ ]] || exit 2
+              export PG_LAB_ROOT PGPASSFILE="$PG_LAB_ROOT/credentials.pgpass"
+              export PG_V03_CONFIRM_ISOLATED=047-048-DISPOSABLE-ONLY
+              export PG_V03_HA_CONFIRM=FENCE-AND-PROMOTE-NEW-LAB
+              export PG_V03_REWIND_CONFIRM=REWIND-OWNED-FRESH-CH004-ONLY
+              python3 postgresql/validation/v03_rewind_disposable.py
+            ' 2>&1 | tee postgresql-v03-actual-rewind.log
+
+      - name: Retain actual-rewind evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-actual-rewind
+          path: postgresql-v03-actual-rewind.log
+          if-no-files-found: warn
