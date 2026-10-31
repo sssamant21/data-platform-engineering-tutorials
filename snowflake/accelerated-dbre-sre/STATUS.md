@@ -66,7 +66,7 @@
 ## Cross-level technical parity review — 2026-10-31
 
 - **SF-025–SF-029:** [Lesson versus manual SQL consistency audit](validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) identifies the L2 query-tag mismatch, L3 session-history mismatch, and L6 configured-versus-effective retention wording; all three corrections were authored. Different L1/L3 scratch table identifiers are deliberate and cannot be mixed.
-- [Cross-level contract regression tests](validation/test_curriculum_consistency.py) now cover nine offline lesson/smoke relationships across all seven levels. **Current branch CI must pass before declaring the new gate PASS.**
+- [Cross-level contract regression tests](validation/test_curriculum_consistency.py) cover nine offline lesson/smoke relationships across all seven levels. **[CI run #198 PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171243260): 60 Python tests and mock-only PowerShell checks passed.**
 - This remains **documentation and static-source validation** only; V03 live Snowflake remains USER-DEFERRED / 0 of 7 run, V04 reviewer approval pending, V05 not certified.
 
 ## Validation gates
