@@ -94,11 +94,13 @@ The permanent scratch table is intentionally not dropped by the instructional SQ
 Any recovery claiming production readiness must have demonstrated restore tests and data-owner sign-off.
 
 ## Knowledge check (with answers)
-1. **What is RPO?** Maximum acceptable data loss window.
-2. **What is RTO?** Maximum acceptable restoration time.
-3. **Can Time Travel always restore data indefinitely?** No, it is retention-bound.
-4. **Is Fail-safe routine self-service backup?** No.
-5. **Is an untested clone the same as disaster recovery?** No.
+1. **What is RPO?** **Recovery Point Objective is the maximum acceptable amount of data loss expressed as time** (e.g. an RPO of 15 minutes means losing more than 15 minutes of committed changes breaches the objective). It is a business-approved target, not a recovery measurement.
+2. **What is RTO?** **Recovery Time Objective is the maximum acceptable time to restore a usable service after disruption.** Measure actual restoration including access, warehouse/pipeline dependencies and data verification; RTO is not merely the SQL restore command duration.
+3. **Can Time Travel always restore data indefinitely?** **No.** Historical access is bounded by effective retention, object type, edition, permissions and a point after object creation. Account minimum retention may affect permanent tables; a parameter row alone cannot prove an actual historical version exists.
+4. **Is Fail-safe routine self-service backup?** **No.** Fail-safe is a Snowflake-operated, best-effort last-resort recovery mechanism for qualifying historical data, not a user-driven backup or ordinary incident restore. Use approved Time Travel/UNDROP/replication options first where available.
+5. **Is an untested clone the same as disaster recovery?** **No.** A clone can help test an isolated data state, but an actual DR plan needs recovery dependencies, replication/failover design, authorization, data integrity checks and measured business RPO/RTO.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
