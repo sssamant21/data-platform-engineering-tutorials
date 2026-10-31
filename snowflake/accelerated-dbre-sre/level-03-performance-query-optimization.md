@@ -73,10 +73,10 @@ Expected: the broad count is **1,000** with SUM(AMOUNT) = **54,110**; filtering 
 ~~~sql
 SELECT QUERY_ID, TOTAL_ELAPSED_TIME, EXECUTION_TIME,
        QUEUED_OVERLOAD_TIME, BYTES_SCANNED
-FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_USER(RESULT_LIMIT => 20))
+FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
 ORDER BY START_TIME DESC;
 ~~~
-Expected: measurable query statistics; zero queue time is normal in a lightly loaded lab. The current-session `QUERY_HISTORY_BY_SESSION` function is preferable for isolating this lab. If using user history, remember the function's RESULT_LIMIT is applied before external filtering. See [Level 3 QA smoke script](validation/runtime/level-03-smoke.sql) for deterministic assertions and a session-isolated history query.
+Expected: recent queries from **this session**, with actual execution metrics when available; zero queue time is normal in a lightly loaded lab. `RESULT_LIMIT` is applied by the table function before any outer SQL filters, and the function has a seven-day history window. The lesson and the [Level 3 QA smoke script](validation/runtime/level-03-smoke.sql) now both use session isolation. The two files use different scratch-table identifiers deliberately; do not mix their table names within one session.
 
 ### Step 4 — Open Query Profile in Snowsight
 Find the query by QUERY_ID; inspect Scan and Aggregate operators. Document partitions scanned, time, rows and spills when reported.
