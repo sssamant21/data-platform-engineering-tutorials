@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - "snowflake/accelerated-dbre-sre/**"
+      - "snowflake/learning-path/**"
       - "snowflake/README.md"
       - ".github/workflows/snowflake-accelerated-static.yml"
   push:
     paths:
       - "snowflake/accelerated-dbre-sre/**"
+      - "snowflake/learning-path/**"
       - ".github/workflows/snowflake-accelerated-static.yml"
   workflow_dispatch:
 
@@ -26,6 +28,8 @@ jobs:
         run: python3 snowflake/accelerated-dbre-sre/validation/validate_courses.py
       - name: Run SQL safety and V03 evidence regression tests
         run: python3 -m unittest discover -s snowflake/accelerated-dbre-sre/validation -p 'test_*.py' -v
+      - name: Validate the seven Snowflake Learning Path chapters (offline only)
+        run: python3 -m unittest discover -s snowflake/learning-path/validation -p 'test_*.py' -v
       - name: Parse V03 PowerShell launcher without running it
         shell: pwsh
         run: ./snowflake/accelerated-dbre-sre/validation/check-powershell-syntax.ps1
