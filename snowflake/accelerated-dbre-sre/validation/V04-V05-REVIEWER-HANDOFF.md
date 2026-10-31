@@ -13,7 +13,7 @@
 | Access and data safety | Security/IAM and data owner | Validate least privilege, synthetic data boundaries, aggregation/redaction and identity protection | PENDING |
 | Performance and observability | Application/data engineering owner | Verify metrics definitions, queue semantics, historical latency, cost and coverage of critical use cases | PENDING |
 | Time Travel/DR | Snowflake administrator and DR lead | Verify retention by edition/object type, tested rollback, RPO/RTO, recoverability and downstream dependencies | PENDING |
-| Curriculum usability | Trainer plus a novice learner | Check navigation, exercises, answer keys and that seven independent 60-minute sessions fit the stated audience | PENDING |
+| Curriculum usability | Trainer plus a novice learner | Use the [35-question answer key and rubrics](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) to independently check conceptual explanations, 2/1/0 scoring, safety overrides and that seven 60-minute sessions fit the audience | PENDING |
 
 **Review decision (to be completed by real reviewer):** `APPROVED / CHANGES_REQUESTED / BLOCKED`  
 **Reviewer reference:** `[not provided]`  
