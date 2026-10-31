@@ -20,7 +20,7 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 
 ## How to teach each course
 
-**Offline mode (default — no account or CLI):** All seven 60-minute courses can be taught using the Markdown lessons, [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md), synthetic/fictional data and tabletop exercises. Do **not** execute Snowflake SQL, request credentials or present any expected result as observed output.
+**Offline mode (default — no account or CLI):** No Snowflake account is required for offline teaching. All seven 60-minute courses can be taught using the Markdown lessons, [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md), synthetic/fictional data and tabletop exercises. Do **not** execute Snowflake SQL, request credentials or present any expected result as observed output.
 
 1. Present architecture and core concepts for the stated module time.
 2. Explain the sample SQL, required privileges and potential credit costs **without executing it**.
