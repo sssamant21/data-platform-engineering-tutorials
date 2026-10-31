@@ -14,7 +14,7 @@
 | SF-032 | P1 | Assessment score could be mistaken for proof of SQL/runtime competence or production approval | Explicitly split **10-point per-level quiz** (provisional **8/10**) from **14-point seven-case tabletop** (provisional **12/14**); both are instructional only | Authored |
 | SF-033 | P1 | Unsafe operations could receive a passing score when mixed with correct facts | Added **critical safety override:** unapproved privilege escalation, real patient data, raw credential/identity export, destructive production action or fabricated live evidence requires remediation regardless of score | Authored |
 | SF-034 | P2 | Some key terms were not sufficiently precise for newer DBRE/SRE staff | Defined query load as a time ratio; separated gross from billed credits; clarified serverless budget vs resource monitors; RPO vs RTO, standard vs materialized view, Fail-safe and role boundaries | Authored |
-| SF-035 | P2 | CI did not assert that every lesson had five explained keys and matching scoring coverage | Added offline regression tests for all 35 answers, seven rubrics, safety gates, blank scoring sheet and explicit V03 deferral | Automated gate to verify |
+| SF-035 | P2 | CI did not assert that every lesson had five explained keys and matching scoring coverage | Added 10 offline regression tests for all 35 answers, seven rubrics, safety gates, blank scoring sheet and explicit V03 deferral | **Automated PASS — CI #244** |
 
 ## Technical review notes by level
 
@@ -47,4 +47,4 @@ The [blank instructor scoring sheet](INSTRUCTOR-SCORING-SHEET.md) contains separ
 - https://docs.snowflake.com/en/user-guide/data-time-travel
 - https://docs.snowflake.com/en/user-guide/data-failsafe
 
-**Automated CI:** Pending final branch-head execution as of initial authoring. Do not mark this gate PASS until GitHub Actions confirms.
+**Authoring QA CI:** [Run #244 — SUCCESS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171730068) on the revision preceding this report status update: **70 Python regression tests PASS**, PowerShell syntax and mock-only preflight checks PASS. This validates source contracts, not learner outcomes, live Snowflake queries or independent approval.
