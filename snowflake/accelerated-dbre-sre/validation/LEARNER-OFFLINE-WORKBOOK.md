@@ -6,6 +6,8 @@ Use this workbook alongside the [seven-lesson course index](../README.md). It is
 
 **Assessment boundary:** Any notes below are learner responses, not actual Snowflake query evidence. No runtime validation has been performed (V03 **USER-DEFERRED / NOT RUN, 0/7**). Independent review V04 **SKIPPED BY OWNER / NOT APPROVED**; production certification V05 **NOT CERTIFIED**. Keep private learner responses out of public GitHub commits.
 
+**Optional study support:** The separate [beginner Snowflake glossary](BEGINNER-SNOWFLAKE-GLOSSARY.md) explains terminology used in all seven courses. If completing the workbook as an independent or closed-answer assessment, consult the glossary **after submitting** your responses, according to your instructor's directions.
+
 ## Learner instructions
 
 Read the specified lesson and complete each section by explaining **why**, not just writing a Snowflake keyword. Mark uncertainty plainly. Use fictional object names and sanitized examples. An instructor may discuss model answers *after* completing the exercise. Treat account- and edition-dependent questions as design hypotheses until authorized runtime verification. Store completed worksheets in an approved private location.
