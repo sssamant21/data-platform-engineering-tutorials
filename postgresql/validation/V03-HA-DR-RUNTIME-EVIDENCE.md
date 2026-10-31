@@ -32,12 +32,12 @@ This evidence records verified GitHub Actions runs against fresh, non-root, **ne
 - `pg_rewind --dry-run`: **PASS**; preserved old primary PGDATA; **actual rewind NOT EXECUTED**.
 - Fresh `pg_basebackup -R` to a separate empty directory, `standby.signal` / `primary_conninfo`, and catch-up as standby on old loopback port **55432**: **PASS**. This is a rebuild demonstration, **not** an in-place former-primary rewind.
 
-## New isolated actual-rewind test — pending final runtime evidence
+## New isolated actual-rewind test — verified lab PASS (run #41171155567)
 
 - Harness: [v03_rewind_disposable.py](v03_rewind_disposable.py).
 - Workflow: [PostgreSQL V03 Disposable Actual Rewind Acceptance](../../.github/workflows/postgresql-v03-actual-rewind-disposable.yml).
 - This newly added test is not equivalent to the already verified dry-run and fresh-backup rebuild. It checks a bounded in-place rewind only on a newly generated, identified Chapter 004 data directory with a preserved copy of the original.
-- **Current status in this evidence document:** **PENDING confirmation of the actual job's outcome**. A green result must additionally show safe standby startup, post-promotion marker replay and exactly one writable node.
+- **Current status in this evidence document:** **PASS on [run #41171155567](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171155567)**. A green result must additionally show safe standby startup, post-promotion marker replay and exactly one writable node.
 - Independently proven production fencing, real application failover and business RPO/RTO must not be inferred from successful CI.
 
 ## Safety constraints and explicit exclusions
@@ -47,7 +47,8 @@ This evidence records verified GitHub Actions runs against fresh, non-root, **ne
 | PostgreSQL 18 isolated PITR backed by physically verified backup and WAL replay | LAB PASS |
 | PostgreSQL 18 controlled planned switchover with local stop/port refusal | LAB PASS |
 | Old primary independently fenced across host, storage, orchestration, network, and client access paths | **NOT PROVEN** |
-| Actual `pg_rewind` of former primary and rollback/failure behavior | **NOT EXECUTED** |
+| Actual `pg_rewind` of former primary in fresh disposable PG18 lab | **LAB PASS** — run #41171155567 |
+| Failure recovery after interrupted rewind | **PENDING** |
 | Real application DNS/proxy routing and read/write smoke-test cutover | **NOT EXECUTED** |
 | Enterprise HA RPO/RTO against approved SLO thresholds | **NOT MEASURED** |
 | Enterprise PITR RPO/RTO and durable remote WAL archive | **NOT MEASURED / NOT PROVEN** |
