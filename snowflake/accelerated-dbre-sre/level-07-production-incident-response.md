@@ -44,6 +44,8 @@ Mitigations should restore business functionality with minimum risk. Candidate a
 A good postmortem distinguishes trigger, contributing conditions, detection gap, user impact, mitigation and measurable preventive actions; it avoids blaming individual operators.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Step 1 — Read active context
 ~~~sql
 SELECT CURRENT_USER(), CURRENT_ROLE(), CURRENT_WAREHOUSE();
