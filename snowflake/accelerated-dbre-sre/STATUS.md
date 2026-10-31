@@ -47,6 +47,22 @@
 - **No live Snowflake access:** No connected Snowflake plugin or local workstation/CLI session was available to this chat. All V03 SQL smoke scripts remain **NOT RUN**. No actual query IDs or outputs have been captured; V04/V05 remain pending.
 - **Next actionable dependency:** An approved nonproduction Snowflake connection plus verified scratch namespace, budget and independent reviewer. Run Level 1, retain actual sanitized results/query IDs, obtain acceptance, and only then run Level 2.
 
+## Curriculum completion without Snowflake connectivity — 2026-10-30
+
+**User-directed sequencing:** Defer V03 live Snowflake account configuration and execution. Finish the remaining offline authoring and assessment deliverables now; return to runtime validation only when requested and an approved nonproduction account is available.
+
+| Curriculum deliverable | Status |
+|---|---|
+| Levels 1–7 lesson manuscripts, including each 60-minute agenda | **7/7 AUTHORED** |
+| Lesson navigation, source references, SQL safety guards | **Automated V01/V02 PASS**, independent correctness review pending |
+| Offline lecture/tabletop activities and expected reasoning | **PREPARED** — [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md) |
+| Independent review acceptance and enterprise-release requirements | **CHECKLIST PREPARED** — [V04/V05 handoff](validation/V04-V05-REVIEWER-HANDOFF.md); approvals NOT obtained |
+| V03 actual Snowflake runtime labs | **DEFERRED — 0/7 RUN**; no verified query IDs |
+| V04 formal independent acceptance | **PENDING** |
+| V05 production certification | **NOT CERTIFIED** |
+
+**Resume later:** [nonproduction V03 runbook](validation/V03-EXECUTION-RUNBOOK.md) and [readiness tracker](validation/V03-PREFLIGHT-STATUS.md). No more CLI/account configuration is needed for the **offline curriculum**.
+
 ## Validation gates
 - **V01 Structure:** headings, all seven agenda totals = 60 minutes, README navigation, cross-links and status labels.
 - **V02 Safety:** SQL syntax and least privilege; no live secrets, no destructive production operations, training account requirements explicit.
