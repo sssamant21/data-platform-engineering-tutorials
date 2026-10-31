@@ -77,6 +77,23 @@ Do not equate database SQL readiness with application service restoration. Measu
 
 **Do not fabricate numerical objectives.** Record the actual approved SLA/SLO thresholds and compare measured evidence with those thresholds. If no approved threshold is available, the objective gate is **NOT ASSESSED**, never a pass.
 
+
+## Offline evidence preflight — V04-A
+
+Before the staging change review, complete the [evidence capture template](v04_staging_evidence.template.json) with **actual, independently retained evidence references** and run the [non-operational checker](v04_staging_readiness.py). It uses only the Python standard library, opens no network connections and **never executes PostgreSQL, cloud, fencing or promotion commands**.
+
+```bash
+python3 postgresql/validation/v04_staging_readiness.py \
+  --evidence /secure/staging-evidence-review.json \
+  --json-out /secure/staging-no-go-screen.json
+```
+
+Copy the template to an approved private evidence location; do not check completed change tickets, operator identities, screenshots, secrets or credentials into a public Git repository. This checker is for **metadata and freshness screening only**, not evidence authenticity. Replace placeholders with real staging evidence; the provided template is deliberately incomplete and must yield exit code **2**, `NO_GO`.
+
+A fully populated *self-attested* packet returns exit code **0** and `EVIDENCE_COMPLETE_FOR_INDEPENDENT_REVIEW`. That means only that required metadata fields, timestamp windows, four distinct approvals, objectives, observed replay, reported independent fencing controls, archived backup/restore evidence, application routing, and rollback references are present. It **does not** authenticate those records, prove real fencing, authorize staging changes, or certify RPO/RTO. The output always states `authorization=NONE` and `execution=NEVER`.
+
+The [dedicated V04 CI job](../../.github/workflows/postgresql-v04-staging-readiness.yml) executes synthetic regression cases only; its green status establishes that the checker refuses incomplete evidence, **not** that any actual staging environment is safe. An independent change authority must still verify the source evidence and approve every live step, with a hard NO-GO on ambiguous fencing or unverified rollback.
+
 ## Final decision
 
 All mandatory Chapter 050 rows must be independently signed and reference immutable evidence (commit/SHA, job/workflow ID, UTC logs, system ID, approver), including rollback readiness, alerting and runbook correctness. A green V03 disposable result **cannot waive** a V04 gate.
