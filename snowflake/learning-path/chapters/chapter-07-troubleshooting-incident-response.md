@@ -1,6 +1,6 @@
 # Chapter 07 — Troubleshooting and Incident Response
 
-**Learning path navigation:** [Previous: Chapter 06](./chapter-06-data-recovery-disaster-recovery.md) | [All chapters](../README.md)  
+**Learning path navigation:** [Previous: Chapter 06](./chapter-06-data-recovery-disaster-recovery.md) | [All chapters](../README.md) | [Next: Chapter 08](chapter-08-data-loading-and-ingestion.md)  
 **Content source:** This chapter is organized from [the accelerated course](../../accelerated-dbre-sre/level-07-production-incident-response.md). Its example SQL is **offline review only**; actual Snowflake runtime tests remain deferred.  
 
 **Track:** Snowflake Learning Path — DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent review SKIPPED BY OWNER / NOT APPROVED; Snowflake runtime validation NOT RUN (deferred)  
