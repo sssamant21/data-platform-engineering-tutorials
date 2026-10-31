@@ -31,6 +31,12 @@ python3 snowflake/accelerated-dbre-sre/validation/validate_courses.py
 ~~~
 A PASS proves only the checks implemented in the static script; it does **not** parse or execute SQL. CI lives in .github/workflows/snowflake-accelerated-static.yml.
 
+## Sequencing update — runtime deferred by request
+
+The seven curriculum lessons and [offline instructor assessment](INSTRUCTOR-OFFLINE-ACCEPTANCE.md) can be taught, reviewed for consistency, and completed as **draft instructional content** without a Snowflake account. Do not imply that offline quiz/tabletop exercises satisfy runtime V03 or human approval V04. The [V04/V05 independent-review handoff](V04-V05-REVIEWER-HANDOFF.md) is **prepared** but not signed.
+
+**Resume V03 only later** with a separately verified nonproduction account, appropriate test approvals and a secure evidence store. All seven SQL lab statuses remain NOT RUN, and the PR remains draft.
+
 ## V03 detailed acceptance for Level 1
 
 - Use a designated training Snowflake account, a small permitted warehouse and a scratch schema.
@@ -88,4 +94,4 @@ A PASS proves only the checks implemented in the static script; it does **not** 
 - [Blank NOT_RUN template](V03-NOT-RUN-TEMPLATE.json) must remain empty in Git. Real query outputs and evidence must be kept in an approved secure repository outside GitHub.
 - [Evidence regression tests](test_runtime_evidence.py) are synthetic unit tests, not live Snowflake execution.
 
-**Next review target:** obtain an authorized training Snowflake connection, approval and independent reviewer; execute Level 1 then Level 2, collect actual query IDs/results and continue through Levels 3–7.
+**Deferred validation backlog:** obtain an approved nonproduction Snowflake connection and reviewer; when resumed, execute Level 1 then Level 2, collect actual query IDs/results and continue through Levels 3–7. Do not treat this as a prerequisite for offline teaching.
