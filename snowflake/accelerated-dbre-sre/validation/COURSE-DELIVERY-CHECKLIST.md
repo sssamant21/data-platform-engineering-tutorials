@@ -5,6 +5,8 @@
 **Total time:** **7 sessions × 60 minutes = 420 minutes**. Use the time breakdown in the source lessons; this checklist follows each lesson's exact agenda.  
 **Account requirements:** **No Snowflake account, CLI, warehouse, password, production access or special permission is needed for the offline course.**
 
+**Do not execute live SQL during offline teaching.** Explain example statements on paper or screen without connecting to Snowflake.
+
 **Approval and evidence boundary:** V03 live SQL **USER-DEFERRED / NOT RUN (0/7)**. V04 independent review **SKIPPED BY OWNER / NOT APPROVED**. V05 production **NOT CERTIFIED**. Teaching completion is different from tested operations or production change authorization. No session, grading, or human sign-off is being claimed by this blank checklist.
 
 ## Before the course series — facilitator setup
