@@ -54,6 +54,12 @@ The [isolated switchover test](../validation/v03_ha_disposable.py) uses the exac
 
 A green CI run is **not** evidence of independent old-primary fencing, real application cutover, verified archived WAL or PITR, a complete HA/DR operational runbook, business RPO/RTO compliance, or authorized production deployment. Mark those mandatory acceptance rows **PENDING** until separate live exercises and independent sign-off.
 
+## Separate actual-rewind acceptance gate
+
+The [V03 actual-rewind runner](../validation/v03_rewind_disposable.py) is a *new disposable-only* acceptance scenario. It takes a preserved backup of the stopped former-primary data directory, proves a successful rewind dry-run, attempts an actual `pg_rewind --no-ensure-shutdown`, and permits restart **only after** the former primary has been configured as a standby. It then checks replay of a post-promotion marker and one writable primary. This is distinct from the already successful [fresh-directory rebuild](../validation/v03_ha_disposable.py).
+
+This gate is **pending a confirmed green workflow** at the relevant commit. Even if it passes, Chapter 050's production-like fencing, application traffic and independent RPO/RTO gates remain **PENDING**.
+
 ## 6. Acceptance worksheet
 
 | Gate | Pass/Fail | Evidence reference | Operator |
