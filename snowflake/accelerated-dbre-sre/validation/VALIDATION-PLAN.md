@@ -37,6 +37,12 @@ The seven curriculum lessons and [offline instructor assessment](INSTRUCTOR-OFFL
 
 **Resume V03 only later** with a separately verified nonproduction account, appropriate test approvals and a secure evidence store. All seven SQL lab statuses remain NOT RUN, and the PR remains draft.
 
+## Offline answer-key acceptance (authoring gate only)
+
+- [Instructor answer key and grading rubric](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) covers all 35 knowledge questions and seven tabletop scenarios. Require a correct answer with reasoning for 2 points; keywords alone receive at most 1; unsafe reasoning is 0 and a mandatory remediation.
+- Suggested offline comprehension checks: **8/10 per lesson** and **12/14 across the separate tabletop**, with **no critical safety errors**. Never combine these into a production certification score.
+- [Offline answer-key regressions](test_instructor_answer_keys.py) check per-level counts, beginner explanations, rubric coverage and V03 deferral. Automated checks cannot replace an independent instructor, security or Snowflake administrator review.
+
 ## V03 detailed acceptance for Level 1
 
 - Use a designated training Snowflake account, a small permitted warehouse and a scratch schema.
