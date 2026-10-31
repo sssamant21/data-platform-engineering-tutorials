@@ -6,7 +6,7 @@
 
 ## Deduplication record
 
-The previously authored **eight copied tutorial files** in `learning-path/chapters/` are being removed from the draft feature branch. The same instructional topics continue to be available in the original canonical and accelerated teaching sources. No canonical 90-chapter file or accelerated lesson is deleted by this cleanup.
+The previously authored **eight copied tutorial files** in `learning-path/chapters/` have been deleted from the draft feature branch. The same instructional topics continue to be available in the original canonical and accelerated teaching sources. No canonical 90-chapter file or accelerated lesson is deleted by this cleanup.
 
 | Area | Authoritative source | Learning-path action |
 |---|---|---|
