@@ -10,9 +10,9 @@ The curriculum contains Chapters **01–90**, progressing from Snowflake fundame
 - [Completion status](STATUS.md)
 - Final chapter: [90 — Snowflake Production Pipeline Reliability & Recovery Project](90-snowflake-production-pipeline-reliability-recovery-project.md)
 
-## Snowflake Learning Path — Seven Chapters
+## Snowflake Learning Path — Eight Chapters
 
-Start with the [Snowflake Learning Path](learning-path/README.md), a chapter-organized **seven-chapter, 420-minute** beginner-to-DBRE/SRE sequence. Chapters 01–07 have their own Markdown pages covering fundamentals, administration, query performance, observability, security, recovery and incident troubleshooting.
+Start with the [Snowflake Learning Path](learning-path/README.md), a chapter-organized **eight-chapter, 480-minute** beginner-to-DBRE/SRE sequence. Chapters 01–08 have full Markdown tutorials on fundamentals, administration, performance, observability, security, recovery, incident troubleshooting, **and data loading/ingestion**.
 
 The chapters are prepared for **offline learning**; live SQL tests remain deferred, independent review is skipped by owner (not approved), and production certification has not occurred. The **90/90** canonical Snowflake curriculum above is unchanged.
 
