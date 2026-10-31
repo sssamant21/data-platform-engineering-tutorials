@@ -100,6 +100,12 @@ The [V04-B private review process](V04B-INDEPENDENT-STAGING-REVIEW.md) adds four
 
 **No genuine staging records, external evidence, operator approvals, or independently observed fencing have been supplied. V04-B remains NO_GO for operations; an evidence-complete packet is not a change authorization.**
 
+## V04-C — Staging rehearsal authorization preflight (offline only)
+
+The [V04-C staging preflight protocol](V04C-STAGING-REHEARSAL-PREFLIGHT.md) adds a [third, deliberately incomplete request](v04c_rehearsal_request.template.json) and an [offline checker](v04c_rehearsal_preflight.py), tested by [its workflow](../../.github/workflows/postgresql-v04c-rehearsal-preflight.yml). The request must exactly match the V04-A/V04-B change ticket, system ID and change window and contain SHA-256 bindings to both prior metadata packets. It requires two more independent named authorities and five recent reported observations: fencing, replay, app health, backup/WAL, and rollback.
+
+**Even a fully complete V04-C metadata packet cannot issue a GO.** The only positive code result is REQUIRES_LIVE_CHANGE_AUTHORITY_GO, still with authorization=NONE and execution=NEVER. Independent humans must authenticate real artifacts and grant any staging authorization in their approved change-management process. Current actual staging status remains NO_GO, with no live fencing or failover performed.
+
 ## Final decision
 
 All mandatory Chapter 050 rows must be independently signed and reference immutable evidence (commit/SHA, job/workflow ID, UTC logs, system ID, approver), including rollback readiness, alerting and runbook correctness. A green V03 disposable result **cannot waive** a V04 gate.
