@@ -94,6 +94,12 @@ A fully populated *self-attested* packet returns exit code **0** and `EVIDENCE_C
 
 The [dedicated V04 CI job](../../.github/workflows/postgresql-v04-staging-readiness.yml) executes synthetic regression cases only; its green status establishes that the checker refuses incomplete evidence, **not** that any actual staging environment is safe. An independent change authority must still verify the source evidence and approve every live step, with a hard NO-GO on ambiguous fencing or unverified rollback.
 
+## Independent evidence review — V04-B
+
+The [V04-B private review process](V04B-INDEPENDENT-STAGING-REVIEW.md) adds four separate independent reviewer attestations and six evidence domains to the existing V04-A staging packet. The [offline checker](v04_independent_review.py) binds the review to the exact V04-A metadata digest, change ticket, cluster identity, and time window. The [public review template](v04_independent_review.template.json) is deliberately incomplete and yields **NO_GO**. The [synthetic CI workflow](../../.github/workflows/postgresql-v04-independent-review.yml) tests program behavior only.
+
+**No genuine staging records, external evidence, operator approvals, or independently observed fencing have been supplied. V04-B remains NO_GO for operations; an evidence-complete packet is not a change authorization.**
+
 ## Final decision
 
 All mandatory Chapter 050 rows must be independently signed and reference immutable evidence (commit/SHA, job/workflow ID, UTC logs, system ID, approver), including rollback readiness, alerting and runbook correctness. A green V03 disposable result **cannot waive** a V04 gate.
