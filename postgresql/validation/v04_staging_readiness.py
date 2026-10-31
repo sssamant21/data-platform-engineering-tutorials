@@ -176,9 +176,11 @@ def screen(document: Any, *, now: datetime | None = None) -> dict[str, Any]:
         if fence.get(check) is not True:
             fail(f"fence_{check}_unproven")
     observer = fence.get("observer")
+    dbre = approvals.get("dbre")
+    dbre = dbre if isinstance(dbre, dict) else {}
     if not good_text(observer) or (
-            good_text(approvals.get("dbre", {}).get("name"))
-            and observer.casefold() == approvals["dbre"]["name"].casefold()):
+            good_text(dbre.get("name"))
+            and observer.casefold() == dbre["name"].casefold()):
         fail("independent_fencing_observer_missing")
 
     for section in ("backup", "application", "rollback"):
