@@ -1,0 +1,10 @@
+{
+  "schema": "pg-ha-dr-v04e-1",
+  "mode": "local_byte_integrity_only",
+  "environment": "staging",
+  "environment_id": "<REPLACE-EXACT-STAGING-ID>",
+  "change_ticket": "<REPLACE-CHANGE-TICKET>",
+  "system_identifier": "<REPLACE-POSTGRES-SYSTEM-ID>",
+  "v04d_manifest_sha256": "<REPLACE-CANONICAL-V04D-SHA256>",
+  "artifacts": {}
+}

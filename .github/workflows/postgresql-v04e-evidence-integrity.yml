@@ -1,0 +1,64 @@
+name: PostgreSQL V04-E Local Evidence Integrity (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v03-slot-preflight-20261030]
+    paths:
+      - "postgresql/validation/v04e_artifact_integrity.py"
+      - "postgresql/validation/v04e_evidence_inventory.template.json"
+      - "postgresql/validation/test_v04e_artifact_integrity.py"
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - ".github/workflows/postgresql-v04e-evidence-integrity.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v04e_artifact_integrity.py"
+      - "postgresql/validation/v04e_evidence_inventory.template.json"
+      - "postgresql/validation/test_v04e_artifact_integrity.py"
+      - "postgresql/validation/v04d_ch050_acceptance.py"
+      - ".github/workflows/postgresql-v04e-evidence-integrity.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-local-hash-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Syntax check, no databases or network operations
+        run: |
+          python3 -m py_compile postgresql/validation/v04e_artifact_integrity.py
+          python3 -m py_compile postgresql/validation/test_v04e_artifact_integrity.py
+      - name: Verify synthetic local file hash and path safety scenarios
+        run: python3 -m unittest -v postgresql/validation/test_v04e_artifact_integrity.py
+      - name: Public evidence templates must be NO_GO
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/v04e_artifact_integrity.py \
+               --acceptance postgresql/validation/v04d_ch050_acceptance.template.json \
+               --inventory postgresql/validation/v04e_evidence_inventory.template.json \
+               --evidence-root postgresql/validation \
+               --json-out v04e-public-no-go.json; then
+            echo "FAIL: no public template can authenticate real evidence" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          obj=json.load(open("v04e-public-no-go.json",encoding="utf-8"))
+          assert obj["result"]=="NO_GO"
+          assert obj["certification"]=="NOT_CERTIFIED"
+          assert obj["authorization"]=="NONE"
+          assert obj["execution"]=="NEVER"
+          assert obj["checked_required_artifact_count"]==0
+          print("PASS: public templates are NO_GO and contain no real evidence")
+          PY
+      - name: Retain only synthetic NO_GO metadata
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v04e-synthetic-no-go
+          path: v04e-public-no-go.json
+          if-no-files-found: warn

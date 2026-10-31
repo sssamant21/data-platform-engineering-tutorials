@@ -61,6 +61,10 @@ Exit 2 means NO_GO; exit 0 means the **untrusted metadata packet is complete for
 
 The [V04-D offline CI workflow](../../.github/workflows/postgresql-v04d-final-acceptance.yml) runs synthetic regression scenarios and rejects the incomplete checked-in template with nonzero NO_GO. A green workflow tests validator behavior, not real HA/DR readiness.
 
+## V04-E — Private artifact byte-integrity intake
+
+The [V04-E evidence-intake guide](V04E-EVIDENCE-INTEGRITY-INTAKE.md) and [offline local SHA-256 checker](v04e_artifact_integrity.py) verify the 11 acceptance artifacts, five failure scenarios and four HA/PITR measurement records against locally supplied redacted file bytes. This improves confidence that submitted hashes match the local review copies, **not** that the original logs or reviewer attestations are authentic. The checker remains non-operational and never certifies a cluster. A complete V04-D record without validated source artifacts is not sufficient for independent certification review.
+
 ## Release decision
 
 **As of 2026-10-31, no actual staging packets or independent source evidence have been supplied.** V03 isolated CI is successful, but no real independent fence, live business RPO/RTO or approved staging rehearsal has been authenticated. Chapter 050 remains **staging NOT_EXECUTED / enterprise NOT_CERTIFIED**; PR #44 must remain draft and unmerged pending authorized review.

@@ -66,6 +66,10 @@ The [V04-D Chapter 050 acceptance register](../validation/V04D-FINAL-CH050-ACCEP
 
 **Current result: NO_GO / NOT_CERTIFIED**: no authenticated independent staging evidence or authorized live rehearsal has been provided. A green disposable CI workflow or completed metadata worksheet cannot authorize staging failover or certify an enterprise system. Keep PR #44 draft until source records and independent approvals are reviewed.
 
+## V04-E private evidence integrity intake
+
+Use the [V04-E private evidence intake guide](../validation/V04E-EVIDENCE-INTEGRITY-INTAKE.md) after the independently authorized staging test to verify that retained local redacted copies of the eleven Chapter 050 acceptance artifacts, five negative scenarios and four HA/PITR measurements match the recorded SHA-256 values. The offline checker is **not** an evidence-authentication service or certification authority. No real staging evidence has been provided; status remains NO_GO / NOT_CERTIFIED.
+
 ## 6. Acceptance worksheet
 
 | Gate | Pass/Fail | Evidence reference | Operator |
