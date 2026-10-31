@@ -7,15 +7,15 @@
 
 | Chapter | Topic | Markdown published | Offline automated QA | Actual Snowflake execution | Independent review |
 |---|---|---|---|---|---|
-| [01](chapters/chapter-01-snowflake-fundamentals.md) | Fundamentals | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [02](chapters/chapter-02-snowflake-administration.md) | Administration | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [03](chapters/chapter-03-performance-query-optimization.md) | Performance and Query Optimization | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [04](chapters/chapter-04-monitoring-observability-cost.md) | Monitoring and Cost | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [05](chapters/chapter-05-security-rbac-governance.md) | Security and Governance | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [06](chapters/chapter-06-data-recovery-disaster-recovery.md) | Data Recovery and DR | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
-| [07](chapters/chapter-07-troubleshooting-incident-response.md) | Incident Response | Yes | Pending latest CI | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [01](chapters/chapter-01-snowflake-fundamentals.md) | Fundamentals | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [02](chapters/chapter-02-snowflake-administration.md) | Administration | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [03](chapters/chapter-03-performance-query-optimization.md) | Performance and Query Optimization | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [04](chapters/chapter-04-monitoring-observability-cost.md) | Monitoring and Cost | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [05](chapters/chapter-05-security-rbac-governance.md) | Security and Governance | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [06](chapters/chapter-06-data-recovery-disaster-recovery.md) | Data Recovery and DR | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
+| [07](chapters/chapter-07-troubleshooting-incident-response.md) | Incident Response | Yes | [PASS — GitHub Actions #360](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41214151309) | NOT RUN | SKIPPED BY OWNER / NOT APPROVED |
 
-**Progress:** **7/7 chapters authored**, each 60 minutes, **420 minutes total**.
+**Progress:** **7/7 chapters authored**, each 60 minutes, **420 minutes total**. **Offline CI PASS: 104 accelerated-track Python tests + 8 learning-path tests, with PowerShell syntax and mocked preflight checks.**
 
 ## Acceptance boundaries
 
