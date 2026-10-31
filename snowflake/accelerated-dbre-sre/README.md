@@ -42,6 +42,8 @@ You can complete **all seven lecture and tabletop courses** using the [offline i
 
 Each lesson now includes five explained beginner knowledge-check answers (**35 in total**). The [instructor answer-key and grading guide](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) supplies question-specific criteria for 2/1/0 points, a suggested offline comprehension threshold of 8/10 per level, and a separate 12/14 tabletop goal. Both scores are *instructional*; critical safety errors require remediation regardless of score, and neither score satisfies V03 live SQL validation.
 
+A blank [instructor scoring worksheet](validation/INSTRUCTOR-SCORING-SHEET.md) is available for private offline learner assessment. It contains no actual learner evaluations, runtime evidence or approvals.
+
 ## Cross-level technical consistency
 
 The lessons and independent manual QA SQL are checked for key teaching contracts (L1 expected totals, L2 query tags, L3 deterministic arithmetic and session history, L4 monitoring/billing, L5 audit visibility, L6 retention prerequisites and L7 incident history scope). See the [SF-025–SF-029 review](validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) and [offline consistency tests](validation/test_curriculum_consistency.py). These tests examine source files and synthetic examples; they cannot prove live SQL correctness.
