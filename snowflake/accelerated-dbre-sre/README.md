@@ -38,6 +38,10 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 
 You can complete **all seven lecture and tabletop courses** using the [offline instructor and assessment pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md). Each level has a fictional-data activity, learner deliverable, expected reasoning and safe scoring rubric. These activities **do not count as live SQL runtime testing**. Independent reviewers can use the [V04/V05 reviewer handoff](validation/V04-V05-REVIEWER-HANDOFF.md) when available.
 
+## Knowledge checks and instructor scoring
+
+Each lesson now includes five explained beginner knowledge-check answers (**35 in total**). The [instructor answer-key and grading guide](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) supplies question-specific criteria for 2/1/0 points, a suggested offline comprehension threshold of 8/10 per level, and a separate 12/14 tabletop goal. Both scores are *instructional*; critical safety errors require remediation regardless of score, and neither score satisfies V03 live SQL validation.
+
 ## Cross-level technical consistency
 
 The lessons and independent manual QA SQL are checked for key teaching contracts (L1 expected totals, L2 query tags, L3 deterministic arithmetic and session history, L4 monitoring/billing, L5 audit visibility, L6 retention prerequisites and L7 incident history scope). See the [SF-025–SF-029 review](validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) and [offline consistency tests](validation/test_curriculum_consistency.py). These tests examine source files and synthetic examples; they cannot prove live SQL correctness.
