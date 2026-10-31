@@ -1,6 +1,6 @@
 # Chapter 050 — High Availability and Disaster Recovery Acceptance Lab
 
-**PostgreSQL 18 · Disposable primary/standby + isolated restore target · Runtime validation pending.**
+**PostgreSQL 18 · Disposable V03 runtime acceptance PASS · independent staging/enterprise acceptance PENDING.**
 
 ## 1. Preconditions
 
@@ -60,6 +60,12 @@ The [V03 actual-rewind runner](../validation/v03_rewind_disposable.py) is a *new
 
 The disposable actual-rewind gate passed on [run #41171155567](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171155567): in-place PGDATA rewind, safe read-only rejoin and post-promotion marker replay. Independent production-like fencing, application traffic and business RPO/RTO gates remain **PENDING**.
 
+## V04-D final independent acceptance: certification not granted
+
+The [V04-D Chapter 050 acceptance register](../validation/V04D-FINAL-CH050-ACCEPTANCE.md) and [offline checker](../validation/v04d_ch050_acceptance.py) require exact binding to approved V04-A/B/C evidence, an actual operator-authorized staging rehearsal, independent old-primary restart/write fencing, client-level service recovery, all eleven mandatory rows below, five failure-mode checks, and four measured HA/PITR business objectives within approved limits. Four independent post-exercise sign-offs are also required.
+
+**Current result: NO_GO / NOT_CERTIFIED**: no authenticated independent staging evidence or authorized live rehearsal has been provided. A green disposable CI workflow or completed metadata worksheet cannot authorize staging failover or certify an enterprise system. Keep PR #44 draft until source records and independent approvals are reviewed.
+
 ## 6. Acceptance worksheet
 
 | Gate | Pass/Fail | Evidence reference | Operator |
@@ -90,4 +96,4 @@ The disposable actual-rewind gate passed on [run #41171155567](https://github.co
 
 Discuss archive gap, stale standby, orphaned slot, replication conflict, failed fencing and rewind failure. For each, state the signal, stop condition, business impact, recovery path and owner.
 
-**Acceptance:** every mandatory gate passes with reproducible evidence and actual objectives meet approved thresholds. **Runtime:** pending.
+**Acceptance:** every mandatory staging gate passes with independently authenticated evidence and observed objectives meet the approved business thresholds. **Actual staging runtime:** NOT_EXECUTED; enterprise NOT_CERTIFIED.

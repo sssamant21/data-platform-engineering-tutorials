@@ -106,6 +106,10 @@ The [V04-C staging preflight protocol](V04C-STAGING-REHEARSAL-PREFLIGHT.md) adds
 
 **Even a fully complete V04-C metadata packet cannot issue a GO.** The only positive code result is REQUIRES_LIVE_CHANGE_AUTHORITY_GO, still with authorization=NONE and execution=NEVER. Independent humans must authenticate real artifacts and grant any staging authorization in their approved change-management process. Current actual staging status remains NO_GO, with no live fencing or failover performed.
 
+## V04-D — Final Chapter 050 certification review (no automated certification)
+
+The [V04-D final review matrix](V04D-FINAL-CH050-ACCEPTANCE.md) extends V04-A/B/C with independently observed client RPO/RTO, all eleven mandatory Chapter 050 gates, five negative scenarios and four post-rehearsal independent sign-offs. The [offline checker](v04d_ch050_acceptance.py) may indicate that untrusted metadata are ready for review, but it **always** emits NOT_CERTIFIED and never authorizes an operational GO. With no actual authenticated staging exercise, the status remains **NO_GO / NOT_EXECUTED**.
+
 ## Final decision
 
 All mandatory Chapter 050 rows must be independently signed and reference immutable evidence (commit/SHA, job/workflow ID, UTC logs, system ID, approver), including rollback readiness, alerting and runbook correctness. A green V03 disposable result **cannot waive** a V04 gate.

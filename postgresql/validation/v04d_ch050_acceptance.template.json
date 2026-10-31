@@ -1,0 +1,193 @@
+{
+  "schema": "pg-ha-dr-v04d-1",
+  "mode": "offline_certification_review_only",
+  "requested_disposition": "submit_for_external_certification_review",
+  "environment": "staging",
+  "environment_id": "<REPLACE-EXACT-ENV-ID>",
+  "change_ticket": "<REPLACE-EXACT-CHANGE-ID>",
+  "window_start_utc": "<REPLACE-EXACT-WINDOW-START-UTC>",
+  "window_end_utc": "<REPLACE-EXACT-WINDOW-END-UTC>",
+  "system_identifier": "<REPLACE-CLUSTER-SYSTEM-ID>",
+  "v04a_sha256": "<REPLACE-CANONICAL-V04A-SHA256>",
+  "v04b_sha256": "<REPLACE-CANONICAL-V04B-SHA256>",
+  "v04c_sha256": "<REPLACE-CANONICAL-V04C-SHA256>",
+  "v04c_preflight_screen_ref": "evidence://REPLACE/ORIGINAL-V04C-SCREEN",
+  "manual_change_authority_go_ref": "evidence://REPLACE/SIGNED-LIVE-CHANGE-GO",
+  "manual_change_authority_go_at_utc": "<REPLACE-MANUAL-GO-TIME-UTC>",
+  "independent_fencing_recheck_ref": "evidence://REPLACE/EXTERNAL-FENCE-RECHECK",
+  "rehearsal": {
+    "executed": false,
+    "outcome": "PENDING",
+    "operator": "<REPLACE-APPROVED-STAGING-OPERATOR>",
+    "started_at_utc": "<REPLACE-EXERCISE-START-UTC>",
+    "ended_at_utc": "<REPLACE-EXERCISE-END-UTC>",
+    "fence_survived_restart_attempt": false,
+    "one_writer_observed": false,
+    "client_transactions_restored": false,
+    "former_primary_rejoined_readonly": false,
+    "no_unapproved_promotion": false,
+    "abort_controls_observed": false,
+    "client_probe_evidence_ref": "evidence://REPLACE/CLIENT-PROBES",
+    "old_primary_fence_evidence_ref": "evidence://REPLACE/FENCING",
+    "rejoin_evidence_ref": "evidence://REPLACE/REJOIN",
+    "timeline_evidence_ref": "evidence://REPLACE/TIMELINES"
+  },
+  "measured_objectives": {
+    "ha_rpo_seconds": {
+      "observed_seconds": null,
+      "start_utc": "<REPLACE-START-UTC>",
+      "end_utc": "<REPLACE-END-UTC>",
+      "evidence_ref": "evidence://REPLACE/ha_rpo_seconds",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>",
+      "acknowledged_commit_boundary_ref": "evidence://REPLACE/ACKNOWLEDGED-TRANSACTION-BOUNDARY"
+    },
+    "ha_rto_seconds": {
+      "observed_seconds": null,
+      "start_utc": "<REPLACE-START-UTC>",
+      "end_utc": "<REPLACE-END-UTC>",
+      "evidence_ref": "evidence://REPLACE/ha_rto_seconds",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "pitr_rpo_seconds": {
+      "observed_seconds": null,
+      "start_utc": "<REPLACE-START-UTC>",
+      "end_utc": "<REPLACE-END-UTC>",
+      "evidence_ref": "evidence://REPLACE/pitr_rpo_seconds",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>",
+      "acknowledged_commit_boundary_ref": "evidence://REPLACE/ACKNOWLEDGED-TRANSACTION-BOUNDARY"
+    },
+    "pitr_rto_seconds": {
+      "observed_seconds": null,
+      "start_utc": "<REPLACE-START-UTC>",
+      "end_utc": "<REPLACE-END-UTC>",
+      "evidence_ref": "evidence://REPLACE/pitr_rto_seconds",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    }
+  },
+  "acceptance_gates": {
+    "base_backup_verified": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/base_backup_verified",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "wal_archive_continuous": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/wal_archive_continuous",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "isolated_pitr_valid_rows": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/isolated_pitr_valid_rows",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "old_primary_independently_fenced": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/old_primary_independently_fenced",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "candidate_freshness_approved": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/candidate_freshness_approved",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "exactly_one_writable_primary": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/exactly_one_writable_primary",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "application_smoke_passed": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/application_smoke_passed",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "former_primary_rejoined_safely": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/former_primary_rejoined_safely",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "ha_rpo_rto_within_approved_limits": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/ha_rpo_rto_within_approved_limits",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "pitr_rpo_rto_within_approved_limits": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/pitr_rpo_rto_within_approved_limits",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "alerts_runbooks_reviewed": {
+      "status": "PENDING",
+      "observer": "<REPLACE-INDEPENDENT-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/alerts_runbooks_reviewed",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    }
+  },
+  "negative_path_scenarios": {
+    "fence_failure_no_promotion": {
+      "status": "PENDING",
+      "observer": "<REPLACE-SCENARIO-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/fence_failure_no_promotion",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "stale_standby_no_promotion": {
+      "status": "PENDING",
+      "observer": "<REPLACE-SCENARIO-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/stale_standby_no_promotion",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "archive_gap_restore_refused": {
+      "status": "PENDING",
+      "observer": "<REPLACE-SCENARIO-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/archive_gap_restore_refused",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "failed_rewind_rebuild_fallback": {
+      "status": "PENDING",
+      "observer": "<REPLACE-SCENARIO-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/failed_rewind_rebuild_fallback",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    },
+    "application_route_rollback": {
+      "status": "PENDING",
+      "observer": "<REPLACE-SCENARIO-OBSERVER>",
+      "evidence_ref": "evidence://REPLACE/application_route_rollback",
+      "evidence_sha256": "<REPLACE-64-HEX-SHA256>"
+    }
+  },
+  "independent_final_signoffs": {
+    "dbre": {
+      "name": "<REPLACE-INDEPENDENT-REVIEWER>",
+      "disposition": "PENDING",
+      "reviewed_at_utc": "<REPLACE-SIGNOFF-UTC>",
+      "attestation_ref": "evidence://REPLACE/dbre-SIGNED-REVIEW"
+    },
+    "application": {
+      "name": "<REPLACE-INDEPENDENT-REVIEWER>",
+      "disposition": "PENDING",
+      "reviewed_at_utc": "<REPLACE-SIGNOFF-UTC>",
+      "attestation_ref": "evidence://REPLACE/application-SIGNED-REVIEW"
+    },
+    "security_fencing": {
+      "name": "<REPLACE-INDEPENDENT-REVIEWER>",
+      "disposition": "PENDING",
+      "reviewed_at_utc": "<REPLACE-SIGNOFF-UTC>",
+      "attestation_ref": "evidence://REPLACE/security_fencing-SIGNED-REVIEW"
+    },
+    "change_management": {
+      "name": "<REPLACE-INDEPENDENT-REVIEWER>",
+      "disposition": "PENDING",
+      "reviewed_at_utc": "<REPLACE-SIGNOFF-UTC>",
+      "attestation_ref": "evidence://REPLACE/change_management-SIGNED-REVIEW"
+    }
+  }
+}
