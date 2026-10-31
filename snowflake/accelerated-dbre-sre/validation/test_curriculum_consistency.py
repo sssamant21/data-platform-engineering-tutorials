@@ -128,7 +128,8 @@ class CurriculumParityTests(unittest.TestCase):
                      "QUEUED_OVERLOAD_TIME"):
             self.assertIn(term, l7)
             self.assertIn(term, s7)
-        self.assertIn("'fail'", l7)
+        self.assertIn("`fail`", l7)
+        self.assertIn("EXECUTION_STATUS = 'fail'", s7)
         self.assertIn("NOT RUN", l7)
 
     def test_no_runtime_acceptance_in_offline_curriculum(self):
