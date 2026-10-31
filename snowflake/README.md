@@ -9,3 +9,7 @@ The curriculum contains Chapters **01–90**, progressing from Snowflake fundame
 - [Master curriculum](MASTER-LAYOUT.md)
 - [Completion status](STATUS.md)
 - Final chapter: [90 — Snowflake Production Pipeline Reliability & Recovery Project](90-snowflake-production-pipeline-reliability-recovery-project.md)
+
+## DBRE Responsibilities — Enterprise Operational Standards
+
+The separate [DBRE Responsibility for Snowflake](dbre-responsibility-for-snowflake/README.md) track contains seven Confluence-ready operational guides covering RACI, operating cadence, monitoring/SLOs, incident runbooks, capacity/FinOps, recovery/DR and safe lifecycle governance. **Documentation is published as draft; production validation and stakeholder approval are pending.**
