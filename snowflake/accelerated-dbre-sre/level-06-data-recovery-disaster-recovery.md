@@ -44,7 +44,7 @@ In a designated training database:
 SHOW PARAMETERS LIKE 'DATA_RETENTION_TIME_IN_DAYS'
 IN DATABASE DBRE_SRE_LAB;
 ~~~
-Replace DBRE_SRE_LAB with your existing authorized lab database. Expected: effective retention parameter rows, subject to permissions.
+Replace DBRE_SRE_LAB with your existing authorized lab database. Expected: **configured/inherited** retention parameter rows, subject to permissions—not proof of effective historical recoverability. Check the account minimum, object type, privilege visibility, and the actual historical time point before making any recovery claim.
 
 ### Step 2 — Create an approved lab table (optional writable branch)
 In a dedicated scratch schema only:
