@@ -65,7 +65,7 @@ Expected: grants or roles visible to the current user; do not share identifying 
 
 ### Step 3 — Tag and run a tiny training query
 ~~~sql
-ALTER SESSION SET QUERY_TAG = 'snowflake_dbre_sre_level_02';
+ALTER SESSION SET QUERY_TAG = 'snowflake_dbre_sre_l2_runtime_smoke';
 SELECT COUNT(*) AS N FROM TABLE(GENERATOR(ROWCOUNT => 100));
 ~~~
 Expected: N = 100. QUERY_TAG identifies the training activity.
@@ -76,10 +76,10 @@ With an accessible database selected:
 SELECT QUERY_ID, QUERY_TAG, EXECUTION_STATUS,
        TOTAL_ELAPSED_TIME, START_TIME
 FROM TABLE(INFORMATION_SCHEMA.QUERY_HISTORY_BY_SESSION(RESULT_LIMIT => 1000))
-WHERE QUERY_TAG = 'snowflake_dbre_sre_level_02'
+WHERE QUERY_TAG = 'snowflake_dbre_sre_l2_runtime_smoke'
 ORDER BY START_TIME DESC;
 ~~~
-Expected: recent tagged queries from this worksheet session, subject to the function's retrieval limit. Confirm a completed training query and its actual status. Query-history functions select the newest results up to RESULT_LIMIT **before** applying the outer WHERE filter; they cover up to seven days and are not equivalent to Account Usage.
+Expected: recent tagged queries from this worksheet session, subject to the function's retrieval limit. Confirm a completed training query and its actual status. This training tag intentionally matches the [Level 2 validation script](validation/runtime/level-02-smoke.sql); the value is not a production convention. Query-history functions select the newest results up to RESULT_LIMIT **before** applying the outer WHERE filter; they cover up to seven days and are not equivalent to Account Usage.
 
 ### Step 5 — Clean up session state
 ~~~sql
