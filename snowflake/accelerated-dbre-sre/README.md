@@ -8,7 +8,7 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 
 ## Chapter-organized Snowflake Learning Path
 
-For readers who prefer a traditional chapter-by-chapter tutorial instead of seven course sessions, the complete lessons are also organized as [**Snowflake Learning Path — Chapters 01–07**](../learning-path/README.md). This is a second navigation format for the same material, not a claim of further runtime validation. When editing content, keep both versions synchronized.
+For readers who prefer a traditional chapter-by-chapter tutorial instead of seven course sessions, the complete lessons are also organized as [**Snowflake Learning Path — Chapters 01–08**](../learning-path/README.md). Chapters 01–07 mirror the existing courses; Chapter 08 adds a separate introductory ingestion tutorial. None of this represents live runtime validation. When editing content, keep both versions synchronized.
 
 ## Seven-course path
 | Level | Tutorial | Duration | Status |
