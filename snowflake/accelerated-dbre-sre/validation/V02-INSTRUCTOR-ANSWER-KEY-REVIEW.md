@@ -14,7 +14,7 @@
 | SF-032 | P1 | Assessment score could be mistaken for proof of SQL/runtime competence or production approval | Explicitly split **10-point per-level quiz** (provisional **8/10**) from **14-point seven-case tabletop** (provisional **12/14**); both are instructional only | Authored |
 | SF-033 | P1 | Unsafe operations could receive a passing score when mixed with correct facts | Added **critical safety override:** unapproved privilege escalation, real patient data, raw credential/identity export, destructive production action or fabricated live evidence requires remediation regardless of score | Authored |
 | SF-034 | P2 | Some key terms were not sufficiently precise for newer DBRE/SRE staff | Defined query load as a time ratio; separated gross from billed credits; clarified serverless budget vs resource monitors; RPO vs RTO, standard vs materialized view, Fail-safe and role boundaries | Authored |
-| SF-035 | P2 | CI did not assert that every lesson had five explained keys and matching scoring coverage | Added [nine offline regression checks](test_instructor_answer_keys.py) across 35 questions, seven rubrics, safety gates and explicit V03 deferral | Automated gate to verify |
+| SF-035 | P2 | CI did not assert that every lesson had five explained keys and matching scoring coverage | Added offline regression tests for all 35 answers, seven rubrics, safety gates, blank scoring sheet and explicit V03 deferral | Automated gate to verify |
 
 ## Technical review notes by level
 
@@ -25,6 +25,10 @@
 - **L5 security:** Parent USAGE/SELECT and warehouse permissions, masking vs row access policies and restrictions on raw identity data. Avoid grants in teaching labs.
 - **L6 recovery:** RPO = acceptable lost-data interval; RTO = time to usable service. Time Travel has effective retention/creation-time limits; Fail-safe is best-effort Snowflake-operated fallback, not customer self-service.
 - **L7 incidents:** Assess impact and assign owner before mitigation. Separate facts from hypotheses, avoid cancelling unknown queries, and require blameless RCA actions with owners and deadlines.
+
+## Grader worksheet
+
+The [blank instructor scoring sheet](INSTRUCTOR-SCORING-SHEET.md) contains separate per-level and tabletop score grids, safety-remediation fields and reviewer placeholders. It is a template only; **no learner results or approvals have been collected**.
 
 ## Instructor scoring and approval boundary
 
