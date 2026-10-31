@@ -164,5 +164,26 @@ class UnsafeSQLTest(unittest.TestCase):
         self.assertIn('if ($Mode -eq "Level2" -and -not $Level1Accepted)', script)
 
 
+    def test_all_seven_lessons_disclose_deferred_live_validation(self):
+        for lesson in validator.LESSONS:
+            content = (validator.TRACK / lesson).read_text(encoding="utf-8")
+            self.assertIn("V01/V02 automated static QA PASS", content, lesson)
+            self.assertIn("Snowflake runtime validation NOT RUN (deferred)", content, lesson)
+            self.assertIn("independent content review PENDING", content, lesson)
+
+    def test_offline_training_pack_separates_teaching_from_runtime(self):
+        pack = (validator.TRACK / "validation" / "INSTRUCTOR-OFFLINE-ACCEPTANCE.md").read_text(encoding="utf-8")
+        for level in range(1, 8):
+            self.assertIn(f"| {level} |", pack)
+        self.assertIn("NO live Snowflake labs have been executed", pack)
+        self.assertIn("do not", pack.lower())
+
+    def test_handoff_disallows_certification_without_signoff(self):
+        handoff = (validator.TRACK / "validation" / "V04-V05-REVIEWER-HANDOFF.md").read_text(encoding="utf-8")
+        self.assertIn("NO INDEPENDENT SIGN-OFF", handoff)
+        self.assertIn("NOT CERTIFIED", handoff)
+        self.assertIn("NOT RUN", handoff)
+
+
 if __name__ == "__main__":
     unittest.main()
