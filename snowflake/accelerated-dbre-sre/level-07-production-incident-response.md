@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** Production DBRE/SRE engineers, incident commanders, developers and data owners  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account and least-privilege training role with current-session query-history visibility. Optional account-wide history requires a separately approved read-only monitoring role; production changes and cancellations are out of scope. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Run a structured, blameless Snowflake incident from detection through validation and prevention.
@@ -107,6 +108,6 @@ Include: impact, severity, UTC start/end, incident commander, two query IDs or s
 - https://docs.snowflake.com/en/sql-reference/functions/query_history
 - https://docs.snowflake.com/en/sql-reference/account-usage/query_history
 - https://docs.snowflake.com/en/sql-reference/account-usage
-- https://docs.snowflake.com/en/user-guide/ui-query-profile
+- https://docs.snowflake.com/en/user-guide/ui-snowsight-activity
 
 [Back to accelerated track index](README.md) | [Validation tracker](STATUS.md)
