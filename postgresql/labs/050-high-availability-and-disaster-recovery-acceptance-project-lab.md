@@ -42,6 +42,12 @@ Collect cluster identity, roles, replication LSNs, slot health, archiver status,
 4. Before restart, verify rejoined A has `standby.signal` and correct `primary_conninfo`/archive settings; rewind can copy source configuration. Rejoin A as standby of B and verify receiver state and catch-up.
 5. Confirm no dual-writer state and check backup/archive configuration on B.
 
+## V03 lab-only HA evidence (not enterprise acceptance)
+
+The [isolated switchover test](../validation/v03_ha_disposable.py) uses the exact Chapter 004 three-node topology and records a local shutdown fence, witnessed marker replay, controlled promotion, timeline change, one reachable writer, local SQL-service recovery time, `pg_rewind --dry-run`, and **fresh-base-backup** standby rejoin. The source old-primary PGDATA is preserved, and no actual rewind or production fencing is attempted.
+
+A green CI run is **not** evidence of independent old-primary fencing, real application cutover, verified archived WAL or PITR, a complete HA/DR operational runbook, business RPO/RTO compliance, or authorized production deployment. Mark those mandatory acceptance rows **PENDING** until separate live exercises and independent sign-off.
+
 ## 6. Acceptance worksheet
 
 | Gate | Pass/Fail | Evidence reference | Operator |
