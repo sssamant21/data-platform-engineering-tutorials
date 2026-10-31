@@ -185,6 +185,8 @@ def main() -> int:
                  "validation/V03-PREFLIGHT-STATUS.md",
                  "validation/V03-EXECUTION-RUNBOOK.md",
                  "validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md",
+                 "validation/LEARNER-OFFLINE-WORKBOOK.md",
+                 "validation/test_learner_workbook.py",
                  "validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md",
                  "validation/INSTRUCTOR-SCORING-SHEET.md",
                  "validation/V02-INSTRUCTOR-ANSWER-KEY-REVIEW.md",
