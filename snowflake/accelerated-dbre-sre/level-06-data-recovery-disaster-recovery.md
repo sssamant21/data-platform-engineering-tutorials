@@ -39,6 +39,8 @@ A region or account outage requires an approved replication/failover architectur
 Never treat Fail-safe as a guaranteed point-in-time backup service.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Step 1 — Inspect retention without changing data
 In a designated training database:
 ~~~sql
