@@ -57,6 +57,10 @@ The lessons and independent manual QA SQL are checked for key teaching contracts
 
 The [final offline release-package inventory](validation/OFFLINE-RELEASE-INVENTORY.md) lists all seven lessons, instructor deliverables, SQL files that remain NOT RUN, audit reports, tests and outstanding human approvals. The [documentation/prerequisites audit](validation/V02-DOCS-PREREQUISITES-REVIEW.md) separates prerequisites for offline instruction from future live execution and records selected official Snowflake URL checks.
 
+## Independent review handoff — awaiting human reviewers
+
+The [V04 independent review packet](validation/V04-INDEPENDENT-REVIEW-PACKET.md) provides role-specific review questions for an instructor/novice learner, Snowflake DBRE, Security/IAM and data owner, Application/FinOps, and DR/incident operations. A draft reviewer decision and defect register deliberately contains **no approvals or named reviewers**. The curriculum owner must identify eligible people and request reviews; an offline documentation review is **not** live Snowflake runtime acceptance.
+
 ## V03 controlled runtime validation
 
 The lessons and seven manual SQL smoke tests are published as drafts only. For authorized training-account execution, follow the [V03 execution runbook](validation/V03-EXECUTION-RUNBOOK.md), [readiness status](validation/V03-PREFLIGHT-STATUS.md), and [offline evidence validator](validation/validate_runtime_evidence.py). **The evidence tool only checks record completeness; it never connects to Snowflake or certifies results.** An independent Snowflake administrator/DBRE reviewer must check actual query IDs, permissions, cleanup, costs and results before recording runtime acceptance.
