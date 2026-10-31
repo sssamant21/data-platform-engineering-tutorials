@@ -38,6 +38,10 @@ These courses are a **short onboarding track** and do **not** replace or renumbe
 
 You can complete **all seven lecture and tabletop courses** using the [offline instructor and assessment pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md). Each level has a fictional-data activity, learner deliverable, expected reasoning and safe scoring rubric. These activities **do not count as live SQL runtime testing**. Independent reviewers can use the [V04/V05 reviewer handoff](validation/V04-V05-REVIEWER-HANDOFF.md) when available.
 
+## Cross-level technical consistency
+
+The lessons and independent manual QA SQL are checked for key teaching contracts (L1 expected totals, L2 query tags, L3 deterministic arithmetic and session history, L4 monitoring/billing, L5 audit visibility, L6 retention prerequisites and L7 incident history scope). See the [SF-025–SF-029 review](validation/V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md) and [offline consistency tests](validation/test_curriculum_consistency.py). These tests examine source files and synthetic examples; they cannot prove live SQL correctness.
+
 ## V03 controlled runtime validation
 
 The lessons and seven manual SQL smoke tests are published as drafts only. For authorized training-account execution, follow the [V03 execution runbook](validation/V03-EXECUTION-RUNBOOK.md), [readiness status](validation/V03-PREFLIGHT-STATUS.md), and [offline evidence validator](validation/validate_runtime_evidence.py). **The evidence tool only checks record completeness; it never connects to Snowflake or certifies results.** An independent Snowflake administrator/DBRE reviewer must check actual query IDs, permissions, cleanup, costs and results before recording runtime acceptance.
