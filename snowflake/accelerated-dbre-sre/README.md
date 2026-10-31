@@ -6,6 +6,10 @@
 
 These courses are a **short onboarding track** and do **not** replace or renumber the parent [90-chapter canonical Snowflake curriculum](../MASTER-LAYOUT.md). Use the 90 chapters for deeper study.
 
+## Chapter-organized Snowflake Learning Path
+
+For readers who prefer a traditional chapter-by-chapter tutorial instead of seven course sessions, the complete lessons are also organized as [**Snowflake Learning Path — Chapters 01–07**](../learning-path/README.md). This is a second navigation format for the same material, not a claim of further runtime validation. When editing content, keep both versions synchronized.
+
 ## Seven-course path
 | Level | Tutorial | Duration | Status |
 |---|---|---:|---|
