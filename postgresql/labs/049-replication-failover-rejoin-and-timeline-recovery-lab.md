@@ -57,6 +57,14 @@ Reconfigure the former primary as a standby only after successful rewind/rebuild
 
 **Use only the CI workflow or an equally isolated approved lab.** Do not copy its stop/promote actions into a shared, staging or production system. Failed fencing or inconsistent identity blocks promotion; all live enterprise fencing, actual rewind, application routing, PITR and business RPO/RTO acceptance remain mandatory, independent gates.
 
+## Separate CI-only actual pg_rewind rehearsal (V03)
+
+The [actual-rewind runner](../validation/v03_rewind_disposable.py) and [isolated CI job](../../.github/workflows/postgresql-v03-actual-rewind-disposable.yml) are strictly limited to a **new, isolated PostgreSQL 18 Chapter 004 test cluster** inside a network-disabled, unprivileged container. The runner validates the exact local cluster, primary/standby identities, and recovery prerequisites; witnesses a committed transaction on both standbys; cleanly stops/fences the original primary; then promotes the candidate. It independently verifies that the old writer stays stopped and preserves an original-PGDATA backup **before any mutating rewind**.
+
+The runner executes `pg_rewind --dry-run --no-ensure-shutdown` before the **actual** rewind. If the target is not cleanly shut down, checksums are unavailable, the backup is missing, or the source is not the expected promoted node, the test must refuse. A successful rewind alone is **not sufficient**: `standby.signal`, corrected `primary_conninfo`, the original-primary read-only role, and replay of a new-timeline marker are mandatory validation gates.
+
+Unlike the earlier fresh-base-backup rebuild, this workflow attempts in-place reuse of the stopped old-primary PGDATA, but **only on disposable CI data**. Record the exact workflow SHA, PASS/FAIL status and logs before declaring this specific lab acceptance complete. Production restart fencing, application routing, rollback, real RPO/RTO and independent review remain untested and unapproved.
+
 ## 6. Acceptance
 
 **Pass:** single-writer fencing demonstrated, candidate selection evidence recorded, promotion verified, timeline divergence explained, rejoin approach justified, and RPO/RTO measured. **Runtime:** pending.
