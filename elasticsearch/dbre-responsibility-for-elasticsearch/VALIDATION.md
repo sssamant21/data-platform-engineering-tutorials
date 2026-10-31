@@ -11,7 +11,7 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | 03 Monitoring, alerts, SLO | Drafted | Exporter/Prometheus/APM dashboard tests pending | Pending |
 | 04 Incident troubleshooting | Drafted | Runbook staging/tabletop exercises pending | Pending |
 | 05 Capacity, growth and costs | Drafted | Per-index collection, forecast validation and node-role staging load tests pending | Pending |
-| 06 DR, backup, restore | Planned | Not started | Pending |
+| 06 DR, backup, restore | Drafted | SLM scope, repository permissions, isolated restore, DR exercise and RPO/RTO verification pending | Pending |
 | 07 Index lifecycle and cleanup | Planned | Not started | Pending |
 
 ## QA checklist
@@ -31,6 +31,11 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 - [ ] Review 30/60/90-day forecasts against actual node disk, watermarks and failure-domain reserve.
 - [ ] Confirm representative peak-workload data and data/coordinator right-sizing test criteria.
 - [ ] Record pre/post node specs, benchmark evidence, rollback exercise and cost outcomes.
+- [ ] Verify snapshot SUCCESS state, shard/index/feature coverage and SLM completion.
+- [ ] Verify one-writer/read-only DR repository, encryption and audited cloud IAM.
+- [ ] Perform approved staging isolated restore and APP/DATA reconciliation.
+- [ ] Measure business recovery data watermark, observed RPO and end-to-end RTO.
+- [ ] Run controlled regional/full-cluster DR exercise including secure config/secret recovery.
 - [ ] Verify Confluence Markdown rendering, internal links and navigation.
 - [ ] Record exact version-specific caveats and unsupported lifecycle risk.
 
@@ -47,6 +52,9 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | Per-index growth history and forecast | TBD | TBD | TBD | TBD | Pending |
 | Right-sizing / failure test | TBD | TBD | TBD | TBD | Pending |
 | Cost realization review | TBD | TBD | TBD | TBD | Pending |
+| Snapshot policy, repository and retention coverage | TBD | TBD | TBD | TBD | Pending |
+| Isolated restore and APP/DATA checks | TBD | TBD | TBD | TBD | Pending |
+| Timed RPO/RTO/DR exercise | TBD | TBD | TBD | TBD | Pending |
 
 ## Definition of done
 
