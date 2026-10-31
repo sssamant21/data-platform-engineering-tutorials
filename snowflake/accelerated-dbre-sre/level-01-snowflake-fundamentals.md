@@ -51,6 +51,8 @@ A source exports data or streams changes to Snowflake; ingestion loads it into t
 - Warehouses are compute and incur usage charges while running; set a small approved training warehouse before running SQL.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Prerequisites
 Use Snowsight and a designated **training** warehouse. For the temporary-table exercise, use a **dedicated, instructor-controlled scratch schema** with USAGE and a unique object name. Snowflake does not require schema-level CREATE TABLE privilege to create a TEMP table. Verify the scratch schema does not contain another temporary or permanent table of the same name: a temporary table can shadow a permanent table in the session. Do not create tables in production schemas.
 
