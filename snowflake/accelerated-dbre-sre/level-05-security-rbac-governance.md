@@ -41,6 +41,8 @@ Healthcare-style examples must use **synthetic data**. Never put actual patient 
 Application owner requests SELECT → data owner approves → security reviews access and masking → administrator grants to a role in a change window → validation confirms effective rights → access is periodically recertified.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Step 1 — Confirm active principal
 ~~~sql
 SELECT CURRENT_USER(), CURRENT_ROLE(), CURRENT_SECONDARY_ROLES();
