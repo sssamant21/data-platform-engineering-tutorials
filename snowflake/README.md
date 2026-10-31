@@ -10,12 +10,12 @@ The curriculum contains Chapters **01–90**, progressing from Snowflake fundame
 - [Completion status](STATUS.md)
 - Final chapter: [90 — Snowflake Production Pipeline Reliability & Recovery Project](90-snowflake-production-pipeline-reliability-recovery-project.md)
 
-## Snowflake Learning Path — Eight Chapters
+## Snowflake Learning Path — Links, Not Duplicate Chapters
 
-Start with the [Snowflake Learning Path](learning-path/README.md), a chapter-organized **eight-chapter, 480-minute** beginner-to-DBRE/SRE sequence. Chapters 01–08 have full Markdown tutorials on fundamentals, administration, performance, observability, security, recovery, incident troubleshooting, **and data loading/ingestion**.
+Use the [Snowflake Learning Path](learning-path/README.md) as a **reading sequence**: its steps link directly to the existing seven accelerated onboarding lessons and to canonical ingestion/CDC chapters. There are **no extra copies of tutorials** in the learning-path folder. The 90/90 canonical curriculum and accelerated seven-session course below remain intact.
 
-The chapters are prepared for **offline learning**; live SQL tests remain deferred, independent review is skipped by owner (not approved), and production certification has not occurred. The **90/90** canonical Snowflake curriculum above is unchanged.
+The offline source material is a draft: live Snowflake runtime tests deferred; independent review skipped by owner (not approved); not production certified.
 
 ## Accelerated 60-Minute DBRE/SRE Training
 
-For onboarding and stakeholder training, see the separate [7-level Snowflake accelerated course series](accelerated-dbre-sre/README.md) (**7 × 60 minutes**), including labs, expected results, troubleshooting and a [validation tracker](accelerated-dbre-sre/STATUS.md). The accelerated lessons are drafts pending Snowflake runtime and independent review; the canonical 90-chapter status above is unchanged.
+For onboarding and stakeholder training, see the separate [7-level Snowflake accelerated course series](accelerated-dbre-sre/README.md) (**7 × 60 minutes**), including labs, expected results, troubleshooting and a [validation tracker](accelerated-dbre-sre/STATUS.md). The accelerated lessons are draft teaching resources: runtime tests deferred and independent review skipped by owner (not approved); the canonical 90-chapter status above is unchanged.
