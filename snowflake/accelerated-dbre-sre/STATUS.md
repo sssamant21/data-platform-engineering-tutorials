@@ -88,7 +88,7 @@
 ## Independent reviewer handoff prepared — 2026-10-31
 
 - [V04 independent review packet and blank decision register](validation/V04-INDEPENDENT-REVIEW-PACKET.md) prepared for five review workstreams: instructor/novice learner, Snowflake DBRE, Security/IAM and data owner, Application/FinOps, and DR/incident operations.
-- [Reviewer handoff regression checks](validation/test_independent_review_packet.py) added to guard reviewer/decision placeholders and distinguish documentation review from deferred live tests. Final GitHub Actions CI result is tracked separately.
+- [Reviewer handoff regression checks](validation/test_independent_review_packet.py) cover reviewer/decision placeholders, review-area coverage, defect schema and deferred-runtime boundaries. **[CI run #303 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41207513968): 85 Python tests PASS; PowerShell parser and mocked CLI checks PASS.** These are offline checks, not human reviews.
 - **GitHub review check at authoring:** PR #43 had **zero submitted reviews and zero inline review threads**; reviewers had not been requested by name. **V04 is NOT APPROVED**. The owner must identify appropriate independent reviewers before review requests can be assigned.
 - Any offline-only human decision must be recorded as `OFFLINE_DOCS_APPROVED_ONLY`, **not** V03 runtime acceptance. The PR stays **DRAFT**; V03 0/7 NOT RUN and V05 NOT CERTIFIED.
 
