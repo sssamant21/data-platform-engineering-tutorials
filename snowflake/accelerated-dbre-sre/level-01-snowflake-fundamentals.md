@@ -1,6 +1,6 @@
 # Level 1 — Snowflake Fundamentals
 
-**Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — static review pending; live Snowflake validation NOT RUN  
+**Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** All stakeholders, new DBRE/SRE engineers, analysts, developers, and data engineers  
 **Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
 
