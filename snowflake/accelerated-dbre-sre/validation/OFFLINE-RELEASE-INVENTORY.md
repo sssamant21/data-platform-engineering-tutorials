@@ -17,6 +17,7 @@
 | L5 | [Security & Governance](../level-05-security-rbac-governance.md) | RBAC, access reviews, synthetic-only data | Authored; offline teaching |
 | L6 | [Recovery & DR](../level-06-data-recovery-disaster-recovery.md) | Retention, RPO/RTO and recovery tabletop | Authored; offline teaching |
 | L7 | [Incident Response](../level-07-production-incident-response.md) | SLO triage, safety, blameless RCA | Authored; offline teaching |
+| Learner-only workbook | [Offline learner workbook](LEARNER-OFFLINE-WORKBOOK.md) | 35 answer-free questions, seven exercises, seven safety checks and seven tabletop scenarios | Prepared; no learner has been assessed |
 | Instructor activities | [Offline instructor pack](INSTRUCTOR-OFFLINE-ACCEPTANCE.md) | Seven tabletop cases and learner deliverables | Prepared, not yet delivered to learners |
 | Teaching answers | [35-question answer key and rubric](INSTRUCTOR-ANSWER-KEY-RUBRICS.md) | Five explained answers per level and per-question 2/1/0 guidance | Author QA complete; independent review pending |
 | Assessment record | [Blank scoring sheet](INSTRUCTOR-SCORING-SHEET.md) | Private grading and safety-remediation log | Template only; no learner scores entered |
@@ -31,7 +32,7 @@
 | Validation plan | [VALIDATION-PLAN.md](VALIDATION-PLAN.md) | Safety, structural, independent review and runtime acceptance criteria |
 | Technical reviews | [Initial V01/V02 review](V01-V02-INITIAL-AUDIT.md), [second pass](V02-SECOND-PASS-REVIEW.md), [L3–L4 review](V02-LEVELS-03-04-REVIEW.md), [L5–L7 review](V02-LEVELS-05-07-REVIEW.md) | Author technical audits; no independent sign-off |
 | Parity and teaching reviews | [Cross-level consistency](V02-CROSS-LEVEL-CONSISTENCY-REVIEW.md), [answer-key review](V02-INSTRUCTOR-ANSWER-KEY-REVIEW.md), [documentation/prerequisite review](V02-DOCS-PREREQUISITES-REVIEW.md) | Author QA |
-| Static gate and regression tests | [validate_courses.py](validate_courses.py), [test_validator.py](test_validator.py), [test_curriculum_consistency.py](test_curriculum_consistency.py), [test_instructor_answer_keys.py](test_instructor_answer_keys.py), [test_docs_prerequisites.py](test_docs_prerequisites.py) | CI checks for structural/content contracts, not Snowflake execution |
+| Static gate and regression tests | [validate_courses.py](validate_courses.py), [test_validator.py](test_validator.py), [test_curriculum_consistency.py](test_curriculum_consistency.py), [test_instructor_answer_keys.py](test_instructor_answer_keys.py), [test_docs_prerequisites.py](test_docs_prerequisites.py), [test_learner_workbook.py](test_learner_workbook.py) | CI checks for structural/content contracts and answer separation, not Snowflake execution |
 | Seven manual SQL smoke files | [runtime scripts and scope](runtime/README.md) | **Authored, 0/7 executed. Do not run for offline training.** |
 | V03 safety/connection handoff | [V03 runbook](V03-EXECUTION-RUNBOOK.md), [preflight readiness](V03-PREFLIGHT-STATUS.md), [PowerShell preflight](run-training-preflight.ps1) | Deferred until owner explicitly resumes V03 in an authorized account |
 | V03 evidence templates/checker | [evidence template](RUNTIME-EVIDENCE-TEMPLATE.md), [offline evidence checker](validate_runtime_evidence.py), [blank NOT_RUN example](V03-NOT-RUN-TEMPLATE.json) | Template and static schema only; no real query IDs/results |
