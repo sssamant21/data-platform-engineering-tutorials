@@ -49,6 +49,10 @@ python3 postgresql/validation/v04e_artifact_integrity.py \
 
 The built-in [V04-E CI workflow](../../.github/workflows/postgresql-v04e-evidence-integrity.yml) uses **synthetic files only**. It must pass positive byte-integrity tests and demonstrate that the deliberately incomplete public templates exit 2 with NO_GO and NOT_CERTIFIED. **Do not pass private staging content into that CI workflow.**
 
+## V04-F source-system and custody handoff
+
+After local SHA-256 verification, the [V04-F secure handoff guide](V04F-SECURE-EVIDENCE-HANDOFF.md) and [offline handoff checker](v04f_secure_evidence_handoff.py) document export, receipt, independent original-source comparison and redaction sign-off for each of the 20 Chapter 050 evidence items. The output does **not** independently authenticate any source system, and never authorizes or certifies an environment. Real source review remains pending.
+
 ## Final status
 
 V04-D's external final certification remains blocked. Genuine staging evidence, infrastructure fencing, separately signed change approval, real client RPO/RTO, all eleven mandatory results and independent acceptance reviews are **still pending**.

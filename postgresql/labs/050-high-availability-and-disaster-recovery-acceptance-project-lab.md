@@ -70,6 +70,10 @@ The [V04-D Chapter 050 acceptance register](../validation/V04D-FINAL-CH050-ACCEP
 
 Use the [V04-E private evidence intake guide](../validation/V04E-EVIDENCE-INTEGRITY-INTAKE.md) after the independently authorized staging test to verify that retained local redacted copies of the eleven Chapter 050 acceptance artifacts, five negative scenarios and four HA/PITR measurements match the recorded SHA-256 values. The offline checker is **not** an evidence-authentication service or certification authority. No real staging evidence has been provided; status remains NO_GO / NOT_CERTIFIED.
 
+## V04-F private custody and original-source evidence review
+
+The [V04-F private source handoff guide](../validation/V04F-SECURE-EVIDENCE-HANDOFF.md) requires distinct artifact collectors, exporters, receivers and independent source reviewers, chronological receipts and original-record provenance for the twenty required staging evidence artifacts. No real staging source records or approvals have been supplied; this does not change the Chapter 050 NO_GO / NOT_CERTIFIED decision.
+
 ## 6. Acceptance worksheet
 
 | Gate | Pass/Fail | Evidence reference | Operator |

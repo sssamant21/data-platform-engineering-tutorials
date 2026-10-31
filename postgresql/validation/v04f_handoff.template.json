@@ -1,0 +1,14 @@
+{
+  "schema": "pg-ha-dr-v04f-1",
+  "mode": "offline_handoff_review_only",
+  "requested_disposition": "request_independent_source_review",
+  "environment": "staging",
+  "environment_id": "<REPLACE-STAGING-ID>",
+  "change_ticket": "<REPLACE-CHANGE-TICKET>",
+  "system_identifier": "<REPLACE-CLUSTER-SYSTEM-ID>",
+  "v04d_manifest_sha256": "<REPLACE-APPROVED-V04D-SHA256>",
+  "v04e_inventory_sha256": "<REPLACE-V04E-INVENTORY-SHA256>",
+  "approved_private_transfer_policy_ref": "evidence://REPLACE/SECURE-TRANSFER-POLICY",
+  "retention_and_access_policy_ref": "evidence://REPLACE/ACCESS-RETENTION-POLICY",
+  "records": {}
+}

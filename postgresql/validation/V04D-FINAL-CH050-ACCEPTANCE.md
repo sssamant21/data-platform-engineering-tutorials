@@ -65,6 +65,10 @@ The [V04-D offline CI workflow](../../.github/workflows/postgresql-v04d-final-ac
 
 The [V04-E evidence-intake guide](V04E-EVIDENCE-INTEGRITY-INTAKE.md) and [offline local SHA-256 checker](v04e_artifact_integrity.py) verify the 11 acceptance artifacts, five failure scenarios and four HA/PITR measurement records against locally supplied redacted file bytes. This improves confidence that submitted hashes match the local review copies, **not** that the original logs or reviewer attestations are authentic. The checker remains non-operational and never certifies a cluster. A complete V04-D record without validated source artifacts is not sufficient for independent certification review.
 
+## V04-F independent source-verification handoff
+
+The [V04-F secure handoff process](V04F-SECURE-EVIDENCE-HANDOFF.md) collects provenance and private chain-of-custody receipts for the twenty V04-E local evidence copies. It records who exported, received and independently compared each source original. A green V04-F metadata check is not cryptographic attestation, external source verification or final enterprise certification; authentic original records must be independently reviewed.
+
 ## Release decision
 
 **As of 2026-10-31, no actual staging packets or independent source evidence have been supplied.** V03 isolated CI is successful, but no real independent fence, live business RPO/RTO or approved staging rehearsal has been authenticated. Chapter 050 remains **staging NOT_EXECUTED / enterprise NOT_CERTIFIED**; PR #44 must remain draft and unmerged pending authorized review.
