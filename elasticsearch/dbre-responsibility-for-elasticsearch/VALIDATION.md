@@ -12,7 +12,7 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | 04 Incident troubleshooting | Drafted | Runbook staging/tabletop exercises pending | Pending |
 | 05 Capacity, growth and costs | Drafted | Per-index collection, forecast validation and node-role staging load tests pending | Pending |
 | 06 DR, backup, restore | Drafted | SLM scope, repository permissions, isolated restore, DR exercise and RPO/RTO verification pending | Pending |
-| 07 Index lifecycle and cleanup | Planned | Not started | Pending |
+| 07 Index lifecycle and cleanup | Drafted | Read-only discovery, owner mapping, ILM staging exercises and deletion-safety test suite pending | Pending |
 
 ## QA checklist
 
@@ -36,6 +36,11 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 - [ ] Perform approved staging isolated restore and APP/DATA reconciliation.
 - [ ] Measure business recovery data watermark, observed RPO and end-to-end RTO.
 - [ ] Run controlled regional/full-cluster DR exercise including secure config/secret recovery.
+- [ ] Classify all production index families by owner, app dependency, retention and legal holds.
+- [ ] Confirm data-stream/alias write-index and feature/system index exclusions.
+- [ ] Validate read-only weekly discovery report and telemetry coverage (no deletion API).
+- [ ] Test dual-owner approval, changed index UUID, expired sign-off and wildcard rejection.
+- [ ] Stage-test rollover and any separately approved ILM retention policies with recovery evidence.
 - [ ] Verify Confluence Markdown rendering, internal links and navigation.
 - [ ] Record exact version-specific caveats and unsupported lifecycle risk.
 
@@ -55,6 +60,8 @@ These pages are Confluence-ready drafts; they are not a record of live Elasticse
 | Snapshot policy, repository and retention coverage | TBD | TBD | TBD | TBD | Pending |
 | Isolated restore and APP/DATA checks | TBD | TBD | TBD | TBD | Pending |
 | Timed RPO/RTO/DR exercise | TBD | TBD | TBD | TBD | Pending |
+| ILM/ownership and candidate discovery pilot | TBD | TBD | TBD | TBD | Pending |
+| Retention approval and 15 deletion-safety tests | TBD | TBD | TBD | TBD | Pending |
 
 ## Definition of done
 

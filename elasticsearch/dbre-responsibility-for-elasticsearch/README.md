@@ -2,7 +2,7 @@
 
 **Enterprise DBRE/SRE operating model** | Elasticsearch 7.17.x reference | Confluence-ready Markdown
 
-This track documents Elasticsearch platform ownership, operational cadence, monitoring and SLOs, incident response, capacity planning, cost optimization, backup and disaster recovery. It is intended for teams supporting production search workloads with Elasticsearch, Prometheus, and Grafana.
+This track documents Elasticsearch platform ownership, operational cadence, monitoring and SLOs, incident response, capacity planning, cost optimization, backup and disaster recovery, and index lifecycle governance. It is intended for teams supporting production search workloads with Elasticsearch, Prometheus, and Grafana.
 
 > **Status: DRAFT.** These documents are proposed team standards. They have not been validated against live clusters or approved by DBRE, application, platform, security, data ownership, or change-management teams.
 
@@ -16,6 +16,7 @@ This track documents Elasticsearch platform ownership, operational cadence, moni
 | 04 | [Incident Response & Troubleshooting](04-incident-response-troubleshooting.md) | Triage, escalation, 12 diagnostic runbooks, RCA and change safety |
 | 05 | [Capacity, Index Growth & Cost Optimization](05-capacity-index-growth-cost-optimization.md) | Per-index growth, shard/capacity forecasts, node-role right-sizing, testing and cost validation |
 | 06 | [Backup, Disaster Recovery & Restore Testing](06-backup-disaster-recovery-restore-testing.md) | Snapshot scope/SLM, repository safeguards, isolated restore, RPO/RTO exercises and DR controls |
+| 07 | [Index Lifecycle & Safe Maintenance](07-index-lifecycle-safe-maintenance.md) | ILM governance, weekly unused-index candidate detection, dual approval, read-only automation and safety validation |
 | QA | [Validation & Acceptance Register](VALIDATION.md) | Tasks that must pass before teams adopt these standards |
 
 ## Recommended Confluence hierarchy
@@ -27,7 +28,7 @@ This track documents Elasticsearch platform ownership, operational cadence, moni
   - 04 — Incident Response & Troubleshooting
   - 05 — Capacity, Index Growth & Cost Optimization
   - 06 — Backup, Disaster Recovery & Restore Testing
-  - 07 — Index Lifecycle & Safe Maintenance (**planned**)
+  - 07 — Index Lifecycle & Safe Maintenance
 
 ## Usage and guardrails
 
