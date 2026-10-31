@@ -63,7 +63,7 @@ The [actual-rewind runner](../validation/v03_rewind_disposable.py) and [isolated
 
 The runner executes `pg_rewind --dry-run --no-ensure-shutdown` before the **actual** rewind. If the target is not cleanly shut down, checksums are unavailable, the backup is missing, or the source is not the expected promoted node, the test must refuse. A successful rewind alone is **not sufficient**: `standby.signal`, corrected `primary_conninfo`, the original-primary read-only role, and replay of a new-timeline marker are mandatory validation gates.
 
-Unlike the earlier fresh-base-backup rebuild, this workflow attempts in-place reuse of the stopped old-primary PGDATA, but **only on disposable CI data**. Record the exact workflow SHA, PASS/FAIL status and logs before declaring this specific lab acceptance complete. Production restart fencing, application routing, rollback, real RPO/RTO and independent review remain untested and unapproved.
+Unlike the earlier fresh-base-backup rebuild, this workflow attempts in-place reuse of the stopped old-primary PGDATA, but **only on disposable CI data**. The actual-rewind drill passed on [workflow #41171155567](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41171155567), verifying that the rewound former primary started as a read-only standby and replayed the new timeline. The result applies only to the isolated PG18 container. Production restart fencing, application routing, rollback, real RPO/RTO and independent review remain untested and unapproved.
 
 ## 6. Acceptance
 
