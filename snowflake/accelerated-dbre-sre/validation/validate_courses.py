@@ -193,6 +193,8 @@ def main() -> int:
                  "validation/test_docs_prerequisites.py",
                  "validation/test_instructor_answer_keys.py",
                  "validation/V04-V05-REVIEWER-HANDOFF.md",
+                 "validation/V04-INDEPENDENT-REVIEW-PACKET.md",
+                 "validation/test_independent_review_packet.py",
                  "validation/run-training-preflight.ps1",
                  "validation/check-powershell-syntax.ps1",
                  "validation/test-training-preflight.ps1",
