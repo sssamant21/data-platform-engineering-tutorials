@@ -45,6 +45,8 @@ Table data is organized into micro-partitions. Snowflake uses micro-partition me
 Always record baseline, intervention, elapsed/exec time, workload and cost before declaring success.
 
 ## Hands-on lab and expected results
+
+**Offline teaching only:** Walk through the SQL and expected synthetic, hypothetical or historical-view outcomes **without executing any statement**. Discuss permissions, cost, data sensitivity and what might be unavailable. Any 'Expected' or 'Pass' description is an **instructional target, not an observed result**. The SQL may be run only later under the separate, owner-authorized V03 nonproduction procedure, which remains **NOT RUN**.
 ### Step 1 — Generate a small reproducible dataset in a scratch schema
 Run only against your dedicated training scratch schema and small warehouse. Before the CREATE, confirm there is no other table of this name (including permanent tables): a temporary table may shadow another table with the same name.
 ~~~sql
