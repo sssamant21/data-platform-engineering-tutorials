@@ -2,7 +2,8 @@
 
 **Track:** Snowflake Accelerated DBRE/SRE | **Duration:** 60 minutes | **Status:** DRAFT — V01/V02 automated static QA PASS; independent content review PENDING; Snowflake runtime validation NOT RUN (deferred)  
 **Audience:** DBRE/SRE, data engineering and reporting teams  
-**Prerequisites:** Authorized Snowflake training account; basic SQL recommended for Levels 2–7.
+**Offline prerequisites:** This lesson and the [instructor pack](validation/INSTRUCTOR-OFFLINE-ACCEPTANCE.md); no Snowflake account, CLI, credentials or live database access is required. Basic SQL is recommended for Levels 2–7.  
+**Deferred V03 live-lab prerequisites:** Approved nonproduction account, small training warehouse, verified empty scratch schema with an unused TEMP-table name and authorized Query Profile/history visibility. The synthetic 1,000-row sample is not a performance benchmark. **Do not execute SQL for the offline course.**
 
 ## Learning objectives
 Differentiate execution, queueing and provisioning delays; inspect Query Profile and propose measured SQL/warehouse tuning.
@@ -120,6 +121,6 @@ Run the [Level 3 SQL smoke](validation/runtime/level-03-smoke.sql) in a dedicate
 
 ## Official documentation
 - https://docs.snowflake.com/en/sql-reference/functions/query_history
-- https://docs.snowflake.com/en/user-guide/ui-query-profile
+- https://docs.snowflake.com/en/user-guide/ui-snowsight-activity
 
 [Back to accelerated track index](README.md) | [Validation tracker](STATUS.md)
