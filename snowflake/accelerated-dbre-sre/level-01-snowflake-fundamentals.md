@@ -94,11 +94,13 @@ Identify the database, schema, table, three columns, three rows, and the warehou
 Do not attempt to fix lab permissions by switching to ACCOUNTADMIN. Use the approved training role.
 
 ## Knowledge check (with answers)
-1. **What are Snowflake's three main layers?** Storage, compute, cloud services.
-2. **What is a schema?** A logical container inside a database.
-3. **What runs SQL?** A virtual warehouse.
-4. **Does a view normally store separate rows?** No, it stores a query definition.
-5. **What does GROUP BY do?** Aggregates records by grouping keys.
+1. **What are Snowflake's three main layers?** **Managed storage, virtual-warehouse compute, and cloud services.** Storage holds table data; warehouses run warehouse-backed SQL; cloud services coordinate authentication, metadata and query optimization. These layers can be scaled and managed separately.
+2. **What is a schema?** **A namespace inside a database that organizes objects** such as tables and views. In `DBRE_SRE_LAB.TRAINING.ORDERS`, `TRAINING` is the schema; it is not a database server or a row.
+3. **What runs SQL?** **For normal warehouse-backed queries, a virtual warehouse provides the execution compute.** Snowflake also operates serverless features, so 'every Snowflake operation always uses my selected warehouse' would be too broad.
+4. **Does a view normally store separate rows?** **A standard view saves a query definition rather than a separate copy of the result rows.** The view reads underlying data when queried. Do not confuse this with a materialized view, which stores maintained results.
+5. **What does GROUP BY do?** **It groups rows sharing selected values so an aggregate can be calculated per group.** In the three fictional sales rows, grouping by region yields EAST: two orders/170 and WEST: one order/80; these are hand-calculated expectations, not observed Snowflake output.
+
+**Instructor grading (offline):** Each answer earns **2 points** for the correct concept **and** its explanation/safety distinction; **1 point** for a correct keyword with incomplete reasoning; **0 points** for an incorrect or unsafe answer. Maximum **10 points** per level. See the [instructor answer key and grading rubric](validation/INSTRUCTOR-ANSWER-KEY-RUBRICS.md) for question-by-question anchors. This is a knowledge check, **not V03 runtime acceptance**.
 
 ## Operational safety and validation
 - Use a **designated lab account/warehouse** and synthetic data. Protect query-history text and any personal or customer information.
