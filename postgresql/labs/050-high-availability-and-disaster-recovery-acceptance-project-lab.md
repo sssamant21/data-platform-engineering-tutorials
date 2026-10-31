@@ -42,6 +42,12 @@ Collect cluster identity, roles, replication LSNs, slot health, archiver status,
 4. Before restart, verify rejoined A has `standby.signal` and correct `primary_conninfo`/archive settings; rewind can copy source configuration. Rejoin A as standby of B and verify receiver state and catch-up.
 5. Confirm no dual-writer state and check backup/archive configuration on B.
 
+## V03 isolated PITR evidence (requires successful CI)
+
+[Chapter 045 PITR runner](../validation/v03_pitr_disposable.py) and [CI workflow](../../.github/workflows/postgresql-v03-pitr-disposable.yml) demonstrate a **separate** PostgreSQL 18 source and recovery endpoint in a network-disabled disposable container. The runner executes the existing guarded Chapter 045 fixture, creates a verified physical backup, writes the good marker, creates a *named WAL restore point*, performs the isolated bad update, confirms WAL archival and restores the base backup into an **empty new** PGDATA. Recovery pauses at the named restore point; Chapter 045's real verification SQL must exit zero for 1,000 valid rows, the known-good marker and zero corrupted rows. Incorrect recovered-PGDATA verification must exit nonzero.
+
+This proves only lab data invariants and that one WAL replay target can be reached. It does **not** certify archive retention, multi-host durability, application cutover, independent fencing, business RPO/RTO or production readiness.
+
 ## V03 lab-only HA evidence (not enterprise acceptance)
 
 The [isolated switchover test](../validation/v03_ha_disposable.py) uses the exact Chapter 004 three-node topology and records a local shutdown fence, witnessed marker replay, controlled promotion, timeline change, one reachable writer, local SQL-service recovery time, `pg_rewind --dry-run`, and **fresh-base-backup** standby rejoin. The source old-primary PGDATA is preserved, and no actual rewind or production fencing is attempted.
