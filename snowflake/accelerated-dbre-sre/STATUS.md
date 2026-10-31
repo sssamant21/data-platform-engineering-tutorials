@@ -109,7 +109,7 @@ The curriculum owner requested **skip the independent-review step for now** rath
 
 - Added [beginner terminology glossary](validation/BEGINNER-SNOWFLAKE-GLOSSARY.md) with level-by-level Snowflake concepts, plain-language explanations, common pitfalls and links to official Snowflake references.
 - Added [seven-session offline delivery checklist](validation/COURSE-DELIVERY-CHECKLIST.md) preserving the five agenda blocks for each 60-minute lesson (**420 minutes total**). Instructor preparation, synthetic exercises, safety prompts and blank private teaching records are included.
-- Added [glossary/delivery source regression checks](validation/test_glossary_delivery.py) for all seven levels, concept coverage, exact 60-minute timing, Markdown links, absence of false training results and truthful validation status. **Current branch CI verification pending.**
+- Added [10 glossary/delivery source regression tests](validation/test_glossary_delivery.py) for all seven levels, 70 vocabulary terms, exact 60-minute timing, Markdown links and truthful validation boundaries. **[CI #347 — PASS](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41213458848): 104 Python tests passed, plus PowerShell syntax and mock-only preflight checks.**
 - **Teaching delivery has NOT occurred; no learner scores have been collected.** V03 real Snowflake tests remain **USER-DEFERRED / NOT RUN (0/7)**; V04 independent review **SKIPPED BY OWNER / NOT APPROVED**; V05 **NOT CERTIFIED**. PR #43 stays draft.
 
 ## Validation gates
