@@ -82,7 +82,7 @@ for triple in "standby_a:$A:$P2" "standby_b:$B:$P3"; do
   }
   docker exec -u postgres "$NAME" pg_basebackup \
     -d "host=127.0.0.1 port=$P1 user=lab_admin application_name=$app" \
-    -D "$dir" -Fp -X stream -R > "$WORK/backup-$app.log" 2>&1
+    -D "$dir" -Fp -X stream -R -c fast > "$WORK/backup-$app.log" 2>&1
   docker exec -u postgres "$NAME" test -e "$dir/standby.signal" || {
     echo "FAIL standby.signal absent for $app" >&2; exit 1;
   }
