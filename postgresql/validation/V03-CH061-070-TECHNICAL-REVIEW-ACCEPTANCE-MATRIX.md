@@ -10,7 +10,7 @@ Use the following GitHub Actions as **disposable laboratory evidence only**. A g
 
 | Evidence | GitHub Actions run | Observed coverage |
 |---|---|---|
-| One-time fixture and slot guard tests | [#41312015668](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41312015668) | Chapter 064, 066 and 070 fixture safety, Chapter 068 1,000-row WAL/slot create/cleanup; 51 checks |
+| One-time fixture and slot guard tests | [#41312831290](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41312831290) | Chapter 064, 066 and 070 fixture safety; Chapter 068 1,000-row WAL, active `pg_receivewal` slot-drop refusal, verified intact slot, inactive cleanup; **55 checks PASS** |
 | Logical backup and restore | [#41312015742](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41312015742) | Chapter 061/062/065 backup, restore, constraints and overwrite refusal; 29 runtime + 9 offline retention checks |
 | Physical backup, corrupted-copy refusal and historical PITR | [#41307579380](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41307579380) | Chapter 063/064/066 physical backup and separate paused historical recovery; 21 checks; successful older head (latest-head PITR rerun should be checked separately) |
 | Streaming and synchronous commit | [#41312015791](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41312015791) | Chapter 067/069 shared-host physical streaming, FIRST 1 / ANY 2 / remote_apply / external client deadline and unique-ID reconciliation; 42 checks |
@@ -29,7 +29,7 @@ Use the following GitHub Actions as **disposable laboratory evidence only**. A g
 | **065 — Retention/automation** | Isolated logical restore; backup filename overwrite refusal; self-attested CSV rejection tests | Real immutable storage, legal hold authority, dependency graph/WAL retention provenance, authorized deletion policy | DISPOSABLE_RUNTIME_PARTIAL / DELETE_NO_GO |
 | **066 — DR acceptance** | Restored deleted reference row and excluded later writes; local PITR fixture | Business RPO/RTO thresholds, independent DR environment, application access, negative-path acceptance, reviewer signatures | DISPOSABLE_RUNTIME_PARTIAL / DR_NO_GO |
 | **067 — Physical replication** | Two named physical standbys, active WAL receivers, 201-row propagation, replay LSN observations | Independent hosts/failure domains, network/security, lag SLO under sustained load, DCS and routing | DISPOSABLE_RUNTIME_PARTIAL |
-| **068 — Slots/WAL retention** | Guarded physical slot creation, 1,000-row WAL workload, inactive-slot cleanup and refusal checks | **Active consumer slot cannot be dropped** test, ownership/CDC isolation, prolonged WAL growth and safe-size alerts | DISPOSABLE_RUNTIME_PARTIAL |
+| **068 — Slots/WAL retention** | Guarded slot creation, 1,000-row WAL, **active WAL receiver and cleanup refusal**, intact slot, inactive-slot cleanup | Real CDC ownership/isolation, sustained WAL growth, `safe_wal_size` alerting and independent owner confirmation | DISPOSABLE_RUNTIME_PARTIAL |
 | **069 — Synchronous durability** | FIRST 1/ANY 2, remote_apply, observed SyncRep wait, external deadline, commit reconciliation, default-setting rollback | remote_write/on latency distributions, service availability impact, nondefault prior config restoration, independent reviewer | DISPOSABLE_RUNTIME_PARTIAL |
 | **070 — HA/failover** | One-time marker guard, standby read-only state and streaming observations only | **Independent old-primary fencing, quorum/HA manager, failover, application routing, rejoin, RPO/RTO and negative safety scenarios** | **NO_GO / HA_NOT_VERIFIED** |
 
@@ -43,9 +43,9 @@ A blocked `COMMIT` waiting for synchronous acknowledgement may outlive an assume
 
 Official PostgreSQL 18 references: [synchronous_standby_names FIRST/ANY](https://www.postgresql.org/docs/18/runtime-config-replication.html), [statement_timeout](https://www.postgresql.org/docs/18/runtime-config-client.html), [SyncRep wait event](https://www.postgresql.org/docs/18/monitoring-stats.html).
 
-### PG-REV-068 — MEDIUM: inactive-slot lifecycle is not active-owner acceptance
+### PG-REV-068 — MEDIUM: active-slot cleanup refusal verified; real CDC ownership remains pending
 
-The Chapter 068 disposable test shows safe refusal of invalid states and cleanup of a known inactive slot. It does **not** exercise a slot held active by a replication consumer; the risk of affecting CDC and WAL retention at real scale remains unvalidated. **No active slot should be dropped** to complete this curriculum. Add only a disposable, independent active-consumer refusal experiment, not a general-purpose cleanup script.
+The new [disposable PG18 run #41312831290](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41312831290) now demonstrates that the guarded SQL **refuses slot cleanup while a live `pg_receivewal` client owns the slot**. It verifies the active slot remains intact and permits cleanup only after the known synthetic receiver exits. This closes the *active-slot refusal test* gap, but the risk of removing a real CDC or standby slot and sustained WAL pressure remain **unvalidated**. Never delete an active or unowned replication slot; require independent workload ownership, WAL dependency and approved retention evidence in actual operations.
 
 ### PG-REV-066 — HIGH: a historical PITR PASS is not a business DR PASS
 

@@ -74,4 +74,6 @@ The cleanup intentionally does **not** use `DROP TABLE IF EXISTS`, `DROP SCHEMA 
 | Alert thresholds defined | | Pending |
 | Only lab-owned slot removed | | Pending |
 
+**Disposable runtime subset:** [55/55 guarded PG18 checks PASS](../validation/V03-CH061-070-DISPOSABLE-GUARD-EVIDENCE.md), including a real `pg_receivewal` client holding the slot, an explicit cleanup refusal while active, and cleanup only after that client exits. **Full Chapter 068 operational acceptance remains PENDING** because ownership, CDC dependencies, retention growth and alerting have not been independently validated.
+
 **Runtime:** pending.
