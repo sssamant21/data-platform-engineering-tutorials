@@ -127,7 +127,7 @@ assert_query "068-slot-still-present" postgres "SELECT count(*) FROM pg_replicat
 # Use a real disposable physical WAL streaming consumer to prove that an
 # ACTIVE slot cannot be removed by the guarded cleanup command.
 docker exec -u postgres "$NAME" mkdir -p /tmp/ch068receiver
-docker exec -d -u postgres "$NAME" sh -c 'echo $ > /tmp/ch068receiver.pid; exec pg_receivewal -h 127.0.0.1 -p 55432 -U lab_admin -w -n -S ch068_lab_slot --synchronous -D /tmp/ch068receiver'
+docker exec -d -u postgres "$NAME" sh -c 'pg_receivewal -h 127.0.0.1 -p 55432 -U lab_admin -w -n -S ch068_lab_slot --synchronous -D /tmp/ch068receiver > /tmp/ch068receiver.log 2>&1 & child=$!; echo "$child" > /tmp/ch068receiver.pid; wait "$child"'
 ACTIVE=0
 for attempt in $(seq 1 20); do
   ACTIVE="$(query postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND active")"
