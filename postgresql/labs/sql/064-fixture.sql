@@ -3,22 +3,22 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id required'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 \if :{?expected_lab_data_directory}
 \else
  \echo 'REFUSED: expected_lab_data_directory required'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 \if :{?expected_lab_role}
 \else
  \echo 'REFUSED: expected_lab_role required'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage required'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 SELECT CASE WHEN current_database()='ch064_lab'
  AND current_user=:'expected_lab_role'
@@ -35,7 +35,7 @@ SELECT CASE WHEN current_database()='ch064_lab'
  \echo 'Verified disposable lab cluster and unused one-time fixture.'
 \else
  \echo 'REFUSED: wrong role, system ID, PGDATA, stage or preexisting lab schema'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 BEGIN;
 SET LOCAL lock_timeout='1s';

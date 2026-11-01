@@ -71,7 +71,12 @@ run_case() {
   if [[ -n "$stage" ]]; then opts+=(-v "confirm_stage=$stage"); fi
   if docker exec -i "$NAME" psql "${opts[@]}" -f - < "$SQL/$file" > "$WORK/$label.log" 2>&1; then code=0; else code=$?; fi
   CASES=$((CASES+1))
-  if [[ "$expectation" == yes && "$code" == 0 ]] || [[ "$expectation" == no && "$code" != 0 ]]; then
+  # A syntax error is not evidence that a deliberate guard refused a change.
+  local has_bad_syntax=false
+  if grep -Eqi 'syntax error|invalid command|unterminated dollar-quoted' "$WORK/$label.log"; then
+    has_bad_syntax=true
+  fi
+  if [[ "$has_bad_syntax" == false ]] && ( [[ "$expectation" == yes && "$code" == 0 ]] || [[ "$expectation" == no && "$code" != 0 ]] ); then
     PASSES=$((PASSES+1)); printf '%s\tPASS\t%s\n' "$label" "$code" >> "$WORK/cases.tsv"
     echo "PASS $label (expected $expectation, exit $code)"
   else

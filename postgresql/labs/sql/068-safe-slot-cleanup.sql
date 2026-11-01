@@ -2,12 +2,12 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id is mandatory'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage is mandatory'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 SELECT CASE WHEN current_database()='ch068_lab'
  AND current_user='lab_admin'
@@ -27,7 +27,7 @@ SELECT CASE WHEN current_database()='ch068_lab'
 \if :allowed
 \else
  \echo 'REFUSED: incorrect cluster, slot state, fixture or cleanup token'
- DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
+ DO $$ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $$;
 \endif
 -- Only the dedicated, inactive, lab-created slot may be dropped.
 SELECT pg_drop_replication_slot('ch068_lab_slot');
