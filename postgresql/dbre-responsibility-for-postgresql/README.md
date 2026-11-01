@@ -67,7 +67,9 @@ All guides are intended to be version-aware. Do not assume PostgreSQL 18-only st
 | V05 — Capacity, growth, FinOps | Static review and synthetic offline model tests PASS; real data/billing pending | [Audit](qa/V05-capacity-growth-finops-review.md) |
 | V06 — Backups, PITR, HA/DR | Source review, read-only SQL and 12-scenario acceptance matrix; staged restore/fencing pending | [Audit](qa/V06-backup-HA-DR-review.md) |
 
-**Next operational phase:** Gather authorized evidence from the exact deployed PostgreSQL versions and managed providers. Prioritize isolated PITR restores, independent fencing, RPO/RTO acceptance, exporter alerts, security review, growth/billing, and business stakeholder signatures. No user data deletion, production failover, backend termination or production right-sizing is authorized by these drafts.
+**V07 independent certification process:** [Evidence collection and approval workflow](qa/V07-staging-evidence-and-certification.md) · [Offline evidence validator](qa/V07-evidence-gate.mjs) · [Unfilled template](qa/V07-evidence-template.json). The offline metadata gate has synthetic checks only and **cannot certify production**.
+
+**Next operational phase:** Gather authorized evidence from the exact deployed PostgreSQL versions and providers: isolated PITR, independent fencing where HA is in scope, measured APP/DATA RPO/RTO, exporter alert tests, security review, capacity/billing and signed stakeholder acceptance. No data deletion, production failover, backend termination or production right-sizing is authorized by these drafts.
 
 ## References
 

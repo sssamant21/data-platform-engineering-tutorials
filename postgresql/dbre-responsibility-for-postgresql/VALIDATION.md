@@ -29,6 +29,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | V04 | Incident and vacuum/replication | [V04 source review](qa/V04-incident-runtime-safety-review.md), [read-only staging pack](qa/V04-readonly-staging-triage.sql) and mitigation gates | **Static review complete; staging tests PENDING** |
 | V05 | Capacity/growth/FinOps | [V05 review incl. offline synthetic tests](qa/V05-capacity-growth-finops-review.md), [read-only SQL](qa/V05-readonly-capacity-inventory.sql), [offline model](qa/V05-capacity-forecast.py) | **Static QA and local synthetic Python tests PASS; real telemetry/billing PENDING** |
 | V06 | Backup/PITR/HA/DR | [V06 source review](qa/V06-backup-HA-DR-review.md), [staging SQL preflight](qa/V06-readonly-recovery-preflight.sql), [12-case exercise acceptance register](qa/V06-DR-exercise-acceptance.md) | **Static review complete; staged restore/fencing and APP sign-off PENDING** |
+| V07 | Independent certification evidence | [V07 acceptance process](qa/V07-staging-evidence-and-certification.md), [evidence gate](qa/V07-evidence-gate.mjs), [template](qa/V07-evidence-template.json) | **Gate/14 synthetic test cases documented; real evidence/approvals NOT_RUN** |
 
 ## Document QA evidence
 
@@ -45,7 +46,9 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [x] V06 source reviewed: PostgreSQL base backup/WAL chain, pg_verifybackup limits, primary fencing, rewind, managed-cloud PITR and app/data recovery gates.
 - [x] V06 read-only preflight pack, 12-case exercise matrix and stop/no-go checklist published.
 - [ ] V06 independent staging restore/PITR/DR, fenced single-writer failover, RPO/RTO and stakeholder sign-offs pending.
-- [ ] All six V01–V06 workstreams have now received a documentation/static-review pass, but the outstanding runtime/security/business approvals remain open.
+- [x] All six V01–V06 workstreams received a documentation/static-review pass; V05 included synthetic offline forecasting checks.
+- [x] V07 offline evidence gate logic tested with 14 artificial cases; blank certification template correctly BLOCKED. [Synthetic test record](qa/V07-offline-synthetic-test-evidence.md).
+- [ ] V07 actual staging tests, verified independent evidence and security/business approvals NOT_RUN; production certification NOT GRANTED.
 
 ## Technical validation checklist
 
@@ -84,7 +87,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | Isolated backup/PITR restore | TBD | TBD | TBD | [V06 source review](qa/V06-backup-HA-DR-review.md) | **Staging restore pending** |
 | Independent fencing / HA drill | TBD | TBD | TBD | [V06 acceptance matrix](qa/V06-DR-exercise-acceptance.md) | **Fencing demonstration pending** |
 | Lifecycle safety tests | TBD | TBD | TBD | TBD | Pending |
-| Stakeholder sign-offs | TBD | TBD | TBD | TBD | Pending |
+| Stakeholder sign-offs | TBD | TBD | TBD | [V07 evidence register](qa/V07-staging-evidence-and-certification.md) | **None collected; NOT_RUN** |
 
 ## Certification rule
 

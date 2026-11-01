@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "context": {
+    "environment_id": "",
+    "source_instance_id": "",
+    "target_instance_id": "",
+    "provider": "",
+    "postgresql_version": "",
+    "executor_id": "",
+    "change_ticket": "",
+    "repository_commit": "",
+    "recovery_mode": "ha-failover",
+    "isolated_test_environment": false
+  },
+  "tests": [
+    {
+      "id": "V01_STRUCTURE",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V02_SQL",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V03_ALERTING",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V04_INCIDENT_SAFETY",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V05_CAPACITY_FINOPS",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V06_PITR",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V06_APP_ACCEPTANCE",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V07_SECURITY",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    },
+    {
+      "id": "V06_FENCING",
+      "status": "NOT_RUN",
+      "proof_url": "",
+      "executed_at_utc": "",
+      "executor_id": ""
+    }
+  ],
+  "recovery": {
+    "backup_id": "",
+    "wal_or_provider_restore_point": "",
+    "business_watermark_id": "",
+    "restore_target_isolated": false,
+    "wal_chain_or_provider_point_proven": false,
+    "app_read_write_verified": false,
+    "data_reconciled": false,
+    "proof_url": ""
+  },
+  "fencing": {
+    "old_primary_fenced": false,
+    "single_writer_verified": false,
+    "proof_url": ""
+  },
+  "objectives": {
+    "rpo_target_seconds": null,
+    "rto_target_seconds": null,
+    "failure_at_utc": "",
+    "last_recoverable_commit_at_utc": "",
+    "service_accepted_at_utc": ""
+  },
+  "reviewers": {
+    "DBRE": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    },
+    "APP": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    },
+    "DATA": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    },
+    "PLT": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    },
+    "SEC": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    },
+    "SM": {
+      "reviewer_id": "",
+      "decision": "PENDING",
+      "proof_url": "",
+      "reviewed_at_utc": ""
+    }
+  }
+}
