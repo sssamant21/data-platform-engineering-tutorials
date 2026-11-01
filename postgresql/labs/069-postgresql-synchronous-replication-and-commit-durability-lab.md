@@ -12,7 +12,16 @@ On the primary run:
 psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -f postgresql/labs/sql/069-synchronous-replication-inspect.sql
 ```
 
-Record `pg_stat_replication` and `pg_stat_activity` baseline. Confirm both standbys are streaming.
+Record `pg_stat_replication` and `pg_stat_activity` baseline. Confirm both standbys are streaming. **Before any ALTER SYSTEM**, capture the original effective value, its configuration source and all rows for `synchronous_standby_names` in `pg_file_settings` (including whether `postgresql.auto.conf` currently sets it):
+
+~~~sql
+SELECT name,setting,source,sourcefile,sourceline
+FROM pg_settings WHERE name='synchronous_standby_names';
+SELECT sourcefile,name,setting,applied,error
+FROM pg_file_settings WHERE name='synchronous_standby_names';
+~~~
+
+Store the original exact value and ownership in the private lab log. If a configuration manager owns it, use that manager for any lab configuration changes.
 
 ## 2. Fixture and baseline
 
@@ -77,14 +86,13 @@ Observe `SyncRep` waits from another session. After the timeout, **do not blindl
 
 With both standbys healthy, set `synchronous_standby_names='ANY 2 (standby_a, standby_b)'` in the lab and verify `sync_state='quorum'`. Stop one standby and observe the impact using a bounded timeout. Restore both standbys.
 
-## 7. Rollback
+## 7. Rollback — restore the exact previous configuration
 
-```sql
-ALTER SYSTEM RESET synchronous_standby_names;
-SELECT pg_reload_conf();
-```
+**Do not run an unconditional `ALTER SYSTEM RESET synchronous_standby_names`.** If a value existed in `postgresql.auto.conf` before the exercise, RESET discards it rather than restoring it. Likewise, a config manager can override what ALTER SYSTEM changes.
 
-Confirm the prior effective value is restored (configuration precedence can override ALTER SYSTEM). Reset session-level `synchronous_commit` and verify writes and both standbys. Do not leave lab clients blocked.
+Using the snapshot captured in Step 1, have the authorized lab administrator restore **the original exact configuration in the same owning layer**. If the parameter was absent from `postgresql.auto.conf` before the lab, the administrator may remove only the temporary lab override; if it was already present, restore its exact original value. If managed externally, revert through the configuration manager. Reload and recheck the effective setting, its `source`, `sourcefile`, `sourceline`, and all relevant `pg_file_settings` records. Document successful restoration and compare against the snapshot; a missing snapshot means **NO_GO**, not assumed success.
+
+Reset the client session-level `synchronous_commit`, confirm writes and both standby connections, and check for blocked sessions. **Do not leave lab clients blocked.**
 
 ## 8. Acceptance
 

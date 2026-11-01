@@ -4,7 +4,7 @@
 
 ## 1. Safety
 
-Use a dedicated disposable PostgreSQL 18 cluster with enough free disk and a backup. Do not use a production slot, CDC connector or live standby. Establish a small WAL budget and stop immediately if pg_wal disk usage or other workload health deteriorates.
+Use the isolated Chapter 004 PostgreSQL 18 primary (127.0.0.1:55432) with its verified system identifier, a new dedicated `ch068_lab` database, the `lab_admin` role, sufficient free disk and a tested backup. Verify that neither `ch068` schema nor `ch068_lab_slot` exists. All writes are forbidden on any production, shared, CDC or active-standby cluster. Establish a small WAL budget and stop immediately if WAL disk usage rises unexpectedly.
 
 ## 2. Read-only baseline
 
@@ -16,28 +16,27 @@ Record wal_level, max_replication_slots, max_slot_wal_keep_size, wal_keep_size, 
 
 ## 3. Create a uniquely named LAB slot
 
-On the disposable primary only:
+On the verified Chapter 004 primary, have the operator create a new **empty** `ch068_lab` database after checking that it does not already exist. Capture the actual cluster system identifier in the private lab log; do not guess it. Then execute only the gated setup script:
 
-```sql
-SELECT * FROM pg_create_physical_replication_slot('ch068_lab_slot', true);
-```
+~~~bash
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch068_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_stage=068-CREATE-SLOT \
+  -f postgresql/labs/sql/068-safe-slot-setup.sql
+~~~
 
-This creates a physical slot and reserves WAL immediately. Verify the slot name is unused and belongs only to this lab. Do not create a slot on a shared cluster.
+The guard refuses wrong cluster, role, IP, port, data directory, PostgreSQL major, existing schema or slot, or missing approval token. A physical slot is cluster-scoped and retains WAL immediately. **Never create it on a shared cluster.** No cleanup has been run by this tutorial.
 
 ## 4. Generate bounded WAL and measure
 
-Create a disposable table and generate a **small** bounded workload:
+Generate a single bounded 1,000-row fixture **only on the dedicated lab database**; `CREATE IF NOT EXISTS` and `ON CONFLICT DO NOTHING` have deliberately been removed to refuse reuse of a preexisting table or rows:
 
-```sql
-CREATE TABLE IF NOT EXISTS public.ch068_wal_probe(id integer PRIMARY KEY, payload text NOT NULL);
-INSERT INTO public.ch068_wal_probe
-SELECT g, repeat('x',100) FROM generate_series(1,1000) AS g
-ON CONFLICT (id) DO NOTHING;
-SELECT pg_current_wal_lsn();
-SELECT slot_name,active,restart_lsn,wal_status,safe_wal_size,
-       pg_wal_lsn_diff(pg_current_wal_lsn(),restart_lsn) AS retained_bytes
-FROM pg_replication_slots WHERE slot_name='ch068_lab_slot';
-```
+~~~bash
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch068_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_stage=068-GENERATE-WAL \
+  -f postgresql/labs/sql/068-safe-wal-workload.sql
+~~~
 
 Run only on a dedicated lab primary. The slot has no consumer, so retained bytes may grow. Record WAL generation rate from pg_stat_wal over an interval and calculate time-to-risk using the worksheet.
 
@@ -52,14 +51,16 @@ SELECT slot_name,slot_type,active FROM pg_replication_slots
 WHERE slot_name='ch068_lab_slot';
 ```
 
-If and only if the slot is the inactive physical slot created in this lab, run:
+If, and only if, the disposable cluster identity, dedicated database, `ch068.wal_probe` fixture, inactive physical slot, and explicit cleanup approval have been independently checked, execute the **separate guarded** cleanup:
 
-```sql
-SELECT pg_drop_replication_slot('ch068_lab_slot');
-DROP TABLE IF EXISTS public.ch068_wal_probe;
-```
+~~~bash
+psql -X -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d ch068_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v confirm_stage=068-DROP-LAB-SLOT \
+  -f postgresql/labs/sql/068-safe-slot-cleanup.sql
+~~~
 
-Dropping a slot removes its WAL retention protection. Never use this cleanup against a production or CDC slot.
+The cleanup intentionally does **not** use `DROP TABLE IF EXISTS`, `DROP SCHEMA CASCADE`, or automatic database deletion. A failure can leave a partial lab fixture; preserve evidence and review manually instead of blindly retrying. Dropping a slot permanently removes its WAL retention protection—never run this on a production, CDC or shared slot.
 
 ## 7. Acceptance
 
