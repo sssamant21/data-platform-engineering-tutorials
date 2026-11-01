@@ -48,7 +48,7 @@ check() {
   local name="$1" got="$2" want="$3"
   CASES=$((CASES+1))
   if [[ "$got" == "$want" ]]; then PASS=$((PASS+1)); echo "PASS $name"
-  else FAIL=$((FAIL+1)); echo "FAIL $name expected=$want observed=$got" >&2; fi
+  else FAIL=$((FAIL+1)); echo "FAIL $name expected=$want observed=$got" >&2; exit 1; fi
 }
 poll() {
   local label="$1" port="$2" db="$3" sql="$4" want="$5" observed=""
@@ -119,7 +119,7 @@ check first1_reload "$(q "$P1" postgres 'SELECT pg_reload_conf()')" t
 poll first1_candidate "$P1" postgres \
   "SELECT count(*) FROM pg_stat_replication WHERE application_name='standby_a' AND sync_state='sync'" 1
 check first1_primary_setting "$(q "$P1" postgres 'SHOW synchronous_standby_names')" "FIRST 1 (standby_a, standby_b)"
-q "$P1" ch067_lab "BEGIN; SET LOCAL synchronous_commit=remote_apply; INSERT INTO public.replication_marker VALUES('sync-first','remote_apply'); COMMIT" >/dev/null
+q "$P1" ch067_lab "BEGIN; SET LOCAL synchronous_commit=remote_apply; SET LOCAL statement_timeout='10s'; INSERT INTO public.replication_marker VALUES('sync-first','remote_apply'); COMMIT" >/dev/null
 check sync_first_applied_a "$(q "$P2" ch067_lab "SELECT count(*) FROM public.replication_marker WHERE event_id='sync-first'")" 1
 poll sync_first_applied_b "$P3" ch067_lab "SELECT count(*) FROM public.replication_marker WHERE event_id='sync-first'" 1
 
@@ -127,7 +127,7 @@ poll sync_first_applied_b "$P3" ch067_lab "SELECT count(*) FROM public.replicati
 q "$P1" postgres "ALTER SYSTEM SET synchronous_standby_names = 'ANY 2 (standby_a, standby_b)'" >/dev/null
 check quorum_reload "$(q "$P1" postgres 'SELECT pg_reload_conf()')" t
 poll both_quorum "$P1" postgres "SELECT count(*) FROM pg_stat_replication WHERE sync_state='quorum'" 2
-q "$P1" ch067_lab "BEGIN; SET LOCAL synchronous_commit=remote_apply; INSERT INTO public.replication_marker VALUES('quorum-ok','two-standbys'); COMMIT" >/dev/null
+q "$P1" ch067_lab "BEGIN; SET LOCAL synchronous_commit=remote_apply; SET LOCAL statement_timeout='10s'; INSERT INTO public.replication_marker VALUES('quorum-ok','two-standbys'); COMMIT" >/dev/null
 check quorum_applied_a "$(q "$P2" ch067_lab "SELECT count(*) FROM public.replication_marker WHERE event_id='quorum-ok'")" 1
 check quorum_applied_b "$(q "$P3" ch067_lab "SELECT count(*) FROM public.replication_marker WHERE event_id='quorum-ok'")" 1
 
