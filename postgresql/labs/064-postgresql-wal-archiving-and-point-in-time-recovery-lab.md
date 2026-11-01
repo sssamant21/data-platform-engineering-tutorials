@@ -24,15 +24,22 @@ Create the disposable database and schema first:
 
 ```bash
 createdb -U postgres ch064_lab
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch064_lab -f postgresql/labs/sql/064-fixture.sql
+psql -X -v ON_ERROR_STOP=1 -h VERIFIED_LAB_HOST -U VERIFIED_LAB_ROLE -d ch064_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v expected_lab_data_directory=REPLACE_WITH_OBSERVED_LAB_PGDATA \
+  -v expected_lab_role=REPLACE_WITH_OBSERVED_LAB_ROLE \
+  -v confirm_stage=064-ONE-TIME-FIXTURE \
+  -f postgresql/labs/sql/064-fixture.sql
 ```
 
-Do not insert the before-target or after-target events until after the base backup is complete. This ensures both events can be replayed from archived WAL and the recovered schema exists.
+Before running the fixture, independently confirm the PostgreSQL 18 **disposable** primary's system ID, PGDATA path, role and endpoint. The script requires those exact values, an unused schema and a one-time stage token. Do not use production-derived credentials or endpoint values. A failed or partially completed fixture must be investigated, not silently reused. Do not insert the before-target or after-target events until after the base backup is complete. This ensures both events can be replayed from archived WAL and the recovered schema exists.
 
 ## 5. Establish base backup
 
 ```bash
+set -euo pipefail
 mkdir -p /backups/ch064
+test ! -e /backups/ch064/base001 || { echo 'REFUSED: base001 exists' >&2; exit 3; }
 pg_basebackup -h 127.0.0.1 -U backup_repl -D /backups/ch064/base001 -Fp -X stream -P --manifest-checksums=SHA256
 pg_verifybackup /backups/ch064/base001
 ```
@@ -47,22 +54,22 @@ In the source database:
 
 ```sql
 INSERT INTO ch064.events(event_key,phase) VALUES ('before-target','keep');
-SELECT clock_timestamp() AT TIME ZONE 'UTC' AS after_first_commit_utc;
+SELECT clock_timestamp() AS after_first_commit_utc_with_offset;
 ```
 
 Wait several seconds, record a UTC target between commits, then:
 
 ```sql
 INSERT INTO ch064.events(event_key,phase) VALUES ('after-target','exclude');
-SELECT clock_timestamp() AT TIME ZONE 'UTC' AS after_second_commit_utc;
+SELECT clock_timestamp() AS after_second_commit_utc_with_offset;
 SELECT pg_switch_wal();
 ```
 
-The INSERTs run as separate autocommit statements. Verify the target timestamp is after the first commit and before the second; record exact server timestamps. Wait for archiver success and verify all required WAL files are available.
+The INSERTs run as separate autocommit statements. PostgreSQL `clock_timestamp()` returns a timezone-aware `timestamptz`; preserve the full UTC offset (for example `+00`), not a timezone-stripped display. Capture a target strictly **after the first committed INSERT and before the second INSERT starts**, and verify those ordering boundaries against transaction/log evidence; a display timestamp alone is not proof of a commit boundary. Use the exact timezone-aware target in `recovery_target_time`; if the target cannot be demonstrated, mark **NO_GO**. Wait for archiver success and verify all required WAL files are present, including timeline history where applicable. A switch request alone does not establish durable archive completion. Cite the official PostgreSQL 18 PITR documentation during review.
 
 ## 7. Recover in isolation
 
-Copy the verified base backup to a new isolated PGDATA; adjust permissions, tablespaces and copied configuration. Configure restore_command for the lab archive, recovery_target_time with the actual UTC target, recovery_target_action='pause', recovery_target_inclusive=false, and a unique port. Create recovery.signal and start only the isolated server. Observe recovery logs. If WAL is missing or the target is not reached, stop and mark FAIL; do not claim success.
+Copy the verified base backup to a new isolated PGDATA; adjust permissions, tablespaces and copied configuration. Configure restore_command for the lab archive, recovery_target_time with the **full explicit UTC offset** and independently recorded target, recovery_target_action='pause', recovery_target_inclusive=false, and a unique port. Verify the source backup finished before the requested recovery point. Create recovery.signal and start only the isolated server. Observe recovery logs. If WAL is missing or the target is not reached, stop and mark FAIL; do not claim success.
 
 While paused, use read-only queries to confirm `before-target` exists and `after-target` does not. Preserve the logs and recovery timeline. Promote/resume only according to the isolated lab plan.
 

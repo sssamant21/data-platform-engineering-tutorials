@@ -30,6 +30,7 @@ $stamp = (Get-Date).ToUniversalTime().ToString('yyyyMMddTHHmmssZ')
 $dir = Join-Path (Get-Location) 'backups\ch065'
 New-Item -ItemType Directory -Force -Path $dir | Out-Null
 $out = Join-Path $dir ("ch065_$stamp.dump")
+if (Test-Path $out) { throw 'REFUSED: matching backup already exists' }
 pg_dump -U postgres -d ch065_lab -Fc -f $out
 if ($LASTEXITCODE -ne 0) { throw 'Backup failed' }
 pg_restore -l $out | Out-Null

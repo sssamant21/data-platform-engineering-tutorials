@@ -1,0 +1,39 @@
+name: PostgreSQL V02-D Chapters 061-070 Phase Two (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/labs/06[1-7]-*-lab.md"
+      - "postgresql/labs/070-*-lab.md"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - "postgresql/labs/sql/070-one-time-marker-fixture.sql"
+      - "postgresql/validation/test_v02d_ch061_070_phase2.py"
+      - ".github/workflows/postgresql-v02d-ch061-070-phase2.yml"
+  pull_request:
+    paths:
+      - "postgresql/labs/06[1-7]-*-lab.md"
+      - "postgresql/labs/070-*-lab.md"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - "postgresql/labs/sql/070-one-time-marker-fixture.sql"
+      - "postgresql/validation/test_v02d_ch061_070_phase2.py"
+      - ".github/workflows/postgresql-v02d-ch061-070-phase2.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  phase-two-static-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile Python test suite
+        run: python3 -m py_compile postgresql/validation/test_v02d_ch061_070_phase2.py
+      - name: Check phase-two safety contracts
+        run: python3 -m unittest -v postgresql/validation/test_v02d_ch061_070_phase2.py
+      - name: Confirm no disposable database actions were run
+        run: echo "Only static source reading and Python unittest; no PostgreSQL binaries or credentials used."
