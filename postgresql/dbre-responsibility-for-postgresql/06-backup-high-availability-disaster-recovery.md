@@ -10,7 +10,9 @@
 
 ## 1. Purpose and objectives
 
-**RPO** is the maximum acceptable loss of committed business data, measured from the incident boundary to a demonstrated recoverable commit/watermark. **RTO** is time from an agreed outage start to full, business-accepted read/write functionality. A successful backup, enabled HA, or read replica alone does not prove these objectives.
+**RPO** is the maximum acceptable loss of committed business data, measured from the incident boundary to a **demonstrated recoverable business commit/watermark**. **RTO** is time from an agreed outage start to full, business-accepted read/write functionality, including provisioning, application routing and data reconciliation. A successful backup, enabled HA, last archived WAL filename or read replica alone does not prove these objectives.
+
+**Recovery-time caution:** On self-managed systems, the archiver normally processes **completed** WAL segments; low-write traffic can delay archival of a recent commit. The archive_timeout setting can bound segment-switch waiting at the cost of additional full-size WAL archive segments, but it does not alone guarantee a business RPO. Record actual latest restorable point and completed WAL/timeline coverage. Async replica receive/replay lag, especially on an idle source, cannot be interpreted directly as minutes of data loss.
 
 | Service tier | Candidate RPO | Candidate RTO | Evidence |
 |---|---|---|---|
@@ -41,9 +43,9 @@ An approved HA topology register must list the authoritative primary, standbys, 
 | Method | Purpose | Limit |
 |---|---|---|
 | pg_dump/pg_dumpall | Logical database/roles/data restoration | Not a physical base backup; cannot participate in WAL replay for cluster PITR |
-| pg_basebackup | Physical base backup | Must preserve all needed WAL, supported exact major-version restore |
+| pg_basebackup | Physical base backup | Must preserve all required WAL and compatible tablespaces/config; restore must match the source PostgreSQL major version |
 | Base backup + continuous WAL archive | Cluster point-in-time recovery | Continuous WAL/timeline chain; validate restore from actual archive |
-| PostgreSQL 17+ incremental physical backup | More efficient changed-block backup | Requires backup manifest/WAL summaries and pg_combinebackup dependencies |
+| PostgreSQL 17+ incremental physical backup | More efficient changed-block backup | Requires dependent full/incremental chain, WAL summaries and pg_combinebackup reconstruction plus required WAL/history; back up and test the entire chain |
 | Read replica / standby | Read scale or HA | Does not prevent bad writes/deletes from propagating; not a backup |
 | Managed backup/PITR | Provider-supported service recovery | Retention, latest restorable point, new instance/network permissions differ |
 | Filesystem snapshot | Component of supported backup design | Do not assume a live filesystem copy without WAL consistency is restorable |
@@ -84,15 +86,28 @@ SELECT application_name, state, sync_state,
 FROM pg_stat_replication;
 
 SELECT slot_name, slot_type, active, restart_lsn,
-       confirmed_flush_lsn
+       confirmed_flush_lsn, wal_status, safe_wal_size,
+       xmin, catalog_xmin
 FROM pg_replication_slots;
+
+-- On a standby, WAL receiver metadata without conninfo or credentials.
+SELECT status, flushed_lsn, received_tli,
+       latest_end_lsn, latest_end_time, slot_name
+FROM pg_stat_wal_receiver;
+
+-- On a standby; timestamps can remain old when no new commits occur.
+SELECT pg_last_wal_receive_lsn() AS received_lsn,
+       pg_last_wal_replay_lsn() AS replayed_lsn,
+       pg_last_xact_replay_timestamp() AS latest_replayed_commit_time;
 ~~~~
 
-Use authorized monitoring permissions. pg_stat_archiver may be irrelevant to cloud-managed backup/PITR; counters can reset and cannot prove WAL chain integrity. On standby, primary-only replication sender stats may be empty. Large lag intervals can mislead on idle systems.
+Use authorized monitoring permissions and the correct primary/standby connection context. A single SQL connection can show a primary-only view as empty on a standby (and vice versa), which is not a complete health verdict. The wal_status of a replication slot and safe_wal_size indicate WAL-replay risk, but do not prove an intact offsite archive. Avoid SELECT * on pg_stat_wal_receiver: conninfo is unnecessary and may expose endpoint information. pg_stat_archiver may be irrelevant to cloud-managed backup/PITR, counters can reset and cannot prove a continuous WAL/timeline chain. A standby's latest replayed commit timestamp can be stale simply because the primary is idle. See [V06 read-only preflight](qa/V06-readonly-recovery-preflight.sql) for a bounded staging-first diagnostic pack.
 
 ### Backup integrity and restore requirements
 
-A successful pg_verifybackup manifest check is a useful integrity step for compatible physical backups but cannot prove WAL replay or APP restore success. External tools (pgBackRest, Barman) require their own chain validation and retention controls. Record last successful backup **completion**, latest recoverable point and failed/missing WAL segments.
+A successful pg_verifybackup manifest check is a useful integrity step for compatible physical backups, but **even a PASS does not prove the PostgreSQL server can start, WAL will replay to target, or APP data will be correct**. The tool's WAL parsing support differs by backup format (for example, tar-format backup requires no-parse-wal mode); use exact supported tool/backup formats and capture evidence. External tools (pgBackRest, Barman) require their own chain validation and retention controls. For PostgreSQL 17+ incremental backups, preserve the full dependency chain and check pg_combinebackup output and follow-on recovery.
+
+Record **successful backup completion**, object-storage integrity, timeline history, a verified reachable recovery target and missing/failed WAL segments. A manifest or backup dashboard green status is not a substitute for isolated restore and business reconciliation.
 
 ## 6. Self-managed physical backup and PITR process — staging only
 
@@ -142,19 +157,21 @@ psql --version
 - Backup/WAL archive coverage resumed and p95/p99 application SLO restored.
 - RTO and conservative RPO window measured with UTC evidence.
 
-**pg_rewind** can require data checksums or wal_log_hints and sufficient WAL. Never run against a running/incorrect target or assume diverged timelines can be merged without data loss. Promotion and failback are not single-step reversible actions.
+**pg_rewind** requires either enabled data checksums or wal_log_hints on the target, full_page_writes enabled, and enough target-side WAL to locate divergence. The rewind target must be safely shut down; replay and recovery configuration are still necessary before rejoining. If pg_rewind fails partway through, treat that target's data directory as potentially unrecoverable and plan a clean rebuild rather than trying an unreviewed restart. Rewind may copy source configuration: validate secrets, replication settings, archive and recovery configuration again. Never rewind an active/wrong target. Promotion and failback are not one-step reversible changes.
+
+**Extra gate for logical replication/CDC:** With PG17+ slot synchronization where configured, verify required synchronized logical slots are actually failover-ready before client or subscriber cutover. Otherwise, plan a controlled resubscription/rebootstrap, no missed or duplicated data. This is a version- and topology-dependent feature, not an assumed default.
 
 ## 8. Managed-cloud backup/PITR/HA matrix
 
 | Service | Supported pattern | Critical distinction |
 |---|---|---|
-| AWS RDS PostgreSQL | Automated backups and transaction logs for PITR | Check LatestRestorableTime and backup retention; PITR creates a **new DB instance** |
-| Amazon Aurora PostgreSQL | Cluster-native backup/restore, writer/reader instance topology | Aurora cluster storage, endpoints and failover differ from regular RDS |
-| Azure PostgreSQL Flexible Server | Managed server backups/logs and PITR | Restore creates **new server**; restored server may need HA and firewall/network reconfiguration |
-| Google Cloud SQL for PostgreSQL | Automated backup and PITR when enabled; HA option | PITR creates a **new instance**; enablement/default depends on edition and provisioning mode |
+| AWS RDS PostgreSQL | Automated backups + transaction logs | PITR creates a **new DB instance**; verify LatestRestorableTime, backup retention, resulting subnet/security/parameter groups, encryption and HA before client cutover |
+| Amazon Aurora PostgreSQL | Cluster storage/backups, writer/reader endpoints | PITR creates a **new DB cluster**; inspect its instances, endpoint, parameter/security groups, restore window and failover/read-replica design separately |
+| Azure PostgreSQL Flexible Server | Managed server backup/logs | PITR creates a **new server**; HA is **not automatically restored**; verify parameters, firewall/private network, client endpoint, role/grants and alerts |
+| Google Cloud SQL for PostgreSQL | Managed backup/PITR when enabled | PITR **always creates a new instance**, not an in-place overwrite; edition/creation method can change default PITR enablement; verify connectivity, IAM, data and HA |
 | Self-managed | Physical base/WAL and/or approved operator tooling | DBRE/PLT responsible for OS/filesystem, backups, WAL and fencing |
 
-Managed services are not full OS/root environments. Do not reuse self-managed file-level restore commands in RDS/Aurora/Azure/Cloud SQL. Provider restrictions on cross-region backups, private-network restore, extensions and HA settings must be tested.
+Managed services are not full OS/root environments. Do not reuse self-managed file-level restore commands in RDS/Aurora/Azure/Cloud SQL. **PITR is not identical to an ordinary backup-snapshot restore:** Cloud SQL can restore an ordinary backup to an existing instance in some workflows, but Cloud SQL PITR creates a new instance. For managed services, get the provider's actual earliest/latest restorable point and document time zone/clock skew. Network identity, private endpoints, DNS, secrets, extensions, server settings, read replicas and HA often need post-restore work. Region/network permissions and service tier eligibility must be tested before claiming DR capability.
 
 ## 9. Disaster recovery test matrix
 
@@ -173,14 +190,16 @@ Managed services are not full OS/root environments. Do not reuse self-managed fi
 | DR11 | Large workload restore | Disk, IO, provisioning and RTO |
 | DR12 | Failback | Single writer, APP success and DATA reconciliation |
 
-Use sanitized staging data and independent observers. Do not simulate destructive failure in production without a separately approved exercise.
+Use sanitized staging data and independent observers. Do not simulate destructive failure in production without a separately approved exercise. Each DR01–DR12 scenario maps to a negative test and pass/no-go criteria in the [V06 acceptance matrix](qa/V06-DR-exercise-acceptance.md). Tabletop evidence is not equivalent to actually observed recovery times or fencing; mark each scenario as TABLETOP, EXECUTED, BLOCKED or NOT_RUN.
 
 ## 10. Measure RPO and RTO
 
 **T_failure:** approved outage start. **T_recovered_commit:** latest verified business commit/watermark surviving recovery (not a lag interval alone). **T_business_accept:** when APP and DATA confirm correct, usable business service.
 
-- **Observed RPO window:** T_failure minus T_recovered_commit, accounting for uncertainty.
-- **Observed RTO:** T_business_accept minus T_failure, including provisioning, cutover, authentication and replay.
+- **Observed potential data-loss window:** T_failure minus T_recovered_commit, conservatively accounting for missing/wrong clock source, unknown commits and uncertainty. Require a validated APP/DATA commit marker or business-source watermark, not just replay_lag or a replica timestamp.
+- **Observed RTO:** T_business_accept minus T_failure, including provisioning, replay, credentials, cutover, application functional/data reconciliation, and dependent pipelines.
+- **Separate technical database-ready from business-service accepted:** a database accepting psql connections is NOT proof that business service has recovered.
+- Record authoritative clock source/time zone (UTC), failover authorization and test dataset with no PHI. If a watermark cannot be substantiated, report RPO UNKNOWN / NO-GO, not zero.
 
 Example only: RPO target 15 minutes, RTO target 2 hours, outage at 12:00 UTC, proven recovered commit 11:52 UTC and APP acceptance 13:35 UTC → 8 minutes data-loss window, 1 hour 35 minutes RTO. Pass only if data checks, single-writer and app SLO all pass.
 
@@ -209,7 +228,32 @@ Example only: RPO target 15 minutes, RTO target 2 hours, outage at 12:00 UTC, pr
 | RTO target vs observed | |
 | Approvers, evidence link and remediation actions | |
 
-## 12. Acceptance criteria
+## 12. V06 acceptance, rollback and no-go controls
+
+**Independent recovery certification gate:** Technical DR operator, APP service owner, DATA owner and PLT/SEC as applicable must sign the evidence. An incident commander authorizes production changes and documented potential data loss.
+
+| Gate | Must be independently verified | Result if missing |
+|---|---|---|
+| G01 — Recovery scope | Exact primary, standby, instance/cluster, major version, backup and restore destination | NO-GO |
+| G02 — Backup + WAL | Successful complete backup, full WAL segment/history chain or provider latest restorable point | NO-GO |
+| G03 — Identity/network | Secure connection, credentials, TLS, roles, DNS/endpoint and client routing | NO-GO |
+| G04 — Single writer | Independently fenced old primary; approved new primary; no hidden write paths | NO-GO for promotion/cutover |
+| G05 — RPO | Demonstrated business commit/replay watermark and acknowledged lost-data estimate | UNKNOWN/NO-GO without DATA approval |
+| G06 — RTO | UTC incident-to-business-acceptance timing; APP validates functionality and throughput | NO PASS without APP |
+| G07 — CDC/subscribers | WAL slots, replication, subscribers, replay idempotency and data reconciliation | NO-GO if unowned |
+| G08 — Fallback | Tested stop/rollback/rebuild/failback authority and capacity | NO-GO |
+| G09 — Isolation | DR exercise target cannot accept production writes inadvertently | NO-GO |
+| G10 — Evidence | Signed technical + APP/DATA + change tickets, sanitized logs and retention | NOT_CERTIFIED |
+
+**Abort triggers:** fencing failure, stale identity/timeline, missing WAL, unexpected source writes, unapproved data-loss estimate, target restoration onto existing production data, unexpected security-policy change, untested client reroute, or inability to preserve recovery evidence.
+
+## 13. Staging-readiness artifacts and review
+
+- [V06 source/compatibility review](qa/V06-backup-HA-DR-review.md): verified backup, WAL, rewind, managed-provider restore distinctions and known gaps.
+- [V06 read-only SQL preflight](qa/V06-readonly-recovery-preflight.sql): diagnostics for PostgreSQL 14–18, with explicit primary/standby interpretations, no mutation.
+- [V06 DR exercise acceptance register](qa/V06-DR-exercise-acceptance.md): 12 cases, fail/no-go criteria, exact evidence and independently signed recovery gate. No exercises performed by publication.
+
+## 14. Acceptance criteria
 
 - [ ] Every production service has approved RPO/RTO, owner, method and backup coverage.
 - [ ] Physical, logical, managed and replica capabilities distinguished.
@@ -220,13 +264,22 @@ Example only: RPO target 15 minutes, RTO target 2 hours, outage at 12:00 UTC, pr
 - [ ] Independent fencing and only-one-writer demonstrated.
 - [ ] Failover/failback/rewind dependencies and slots/CDC reviewed.
 - [ ] Timed recovery includes service validation and end-to-end RTO.
+- [ ] G01–G10 recovery, fencing, RPO/RTO and post-restore authorization gates assessed and signed.
+- [ ] DR01–DR12 staged cases marked EXECUTED PASS or appropriate BLOCKED; tabletop does not substitute for runtime proof.
+- [ ] No executable promotion, destructive restore, backup deletion or role bypass was introduced through V06.
 - [ ] All major stakeholders sign off; evidence retained.
 
 **Completion:** Documentation plus a successful backup alone are insufficient. Approved, timed, witnessed restore and HA/DR exercises are mandatory.
 
 ## References
 
-- [PostgreSQL continuous archiving/PITR](https://www.postgresql.org/docs/current/continuous-archiving.html)
+- [PostgreSQL continuous archiving/PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
+- [PostgreSQL standby failover / former primary isolation](https://www.postgresql.org/docs/18/warm-standby-failover.html)
+- [PostgreSQL 14 and 18 WAL receiver view](https://www.postgresql.org/docs/14/monitoring-stats.html)
+- [Incremental backup combination PG17+](https://www.postgresql.org/docs/18/app-pgcombinebackup.html)
+- [Aurora restore to PITR creates new cluster](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-pitr.html)
+- [AWS RDS restore to PITR creates new instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
+- [Cloud SQL PostgreSQL PITR creates new instance](https://docs.cloud.google.com/sql/docs/postgres/backup-recovery/pitr)
 - [pg_basebackup](https://www.postgresql.org/docs/current/app-pgbasebackup.html)
 - [pg_verifybackup](https://www.postgresql.org/docs/current/app-pgverifybackup.html)
 - [pg_rewind](https://www.postgresql.org/docs/current/app-pgrewind.html)

@@ -1,7 +1,7 @@
 # PostgreSQL DBRE Responsibility — Validation & Certification Register
 
 **Status:** Seven documentation milestones drafted and published; V01 static structural audit PASSED — **NOT CERTIFIED FOR PRODUCTION**  
-**Last documentation update:** 2026-10-31  
+**Last documentation update:** 2026-11-01  
 **Owner:** PostgreSQL DBRE  
 **Scope:** Self-managed PostgreSQL, AWS RDS/Aurora PostgreSQL, Azure Flexible Server and Google Cloud SQL
 
@@ -28,7 +28,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | V03 | Monitoring and security | [V03 source/metric/security report](qa/V03-monitoring-alerting-security-review.md) and [sample alerts](qa/V03-prometheus-alerts.example.yml) | **Source review complete; live validation pending** |
 | V04 | Incident and vacuum/replication | [V04 source review](qa/V04-incident-runtime-safety-review.md), [read-only staging pack](qa/V04-readonly-staging-triage.sql) and mitigation gates | **Static review complete; staging tests PENDING** |
 | V05 | Capacity/growth/FinOps | [V05 review incl. offline synthetic tests](qa/V05-capacity-growth-finops-review.md), [read-only SQL](qa/V05-readonly-capacity-inventory.sql), [offline model](qa/V05-capacity-forecast.py) | **Static QA and local synthetic Python tests PASS; real telemetry/billing PENDING** |
-| V06 | Backup/PITR/HA/DR | Timed isolated restore, fencing, one writer, failback and RPO/RTO | Pending |
+| V06 | Backup/PITR/HA/DR | [V06 source review](qa/V06-backup-HA-DR-review.md), [staging SQL preflight](qa/V06-readonly-recovery-preflight.sql), [12-case exercise acceptance register](qa/V06-DR-exercise-acceptance.md) | **Static review complete; staged restore/fencing and APP sign-off PENDING** |
 
 ## Document QA evidence
 
@@ -42,7 +42,10 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [x] V05 source-reviewed capacity model: no table/index/TOAST double counts, physical used/free separation, WAL counter reset awareness and provider-specific monitoring.
 - [x] V05 locally executed offline forecast: Python compilation, built-in synthetic self-test, CSV acceptance and negative-data rejection PASS (Git blob SHA verified).
 - [ ] V05 staging capacity SQL, physical-disk time series, peak forecasts and FIN invoice reconciliation pending.
-- [ ] V06 real environment, staging and business recovery acceptance pending.
+- [x] V06 source reviewed: PostgreSQL base backup/WAL chain, pg_verifybackup limits, primary fencing, rewind, managed-cloud PITR and app/data recovery gates.
+- [x] V06 read-only preflight pack, 12-case exercise matrix and stop/no-go checklist published.
+- [ ] V06 independent staging restore/PITR/DR, fenced single-writer failover, RPO/RTO and stakeholder sign-offs pending.
+- [ ] All six V01–V06 workstreams have now received a documentation/static-review pass, but the outstanding runtime/security/business approvals remain open.
 
 ## Technical validation checklist
 
@@ -78,8 +81,8 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | Monitoring/exporter and APP SLO | TBD | TBD | TBD | TBD | Pending |
 | Blocking, autovacuum, WAL and slot exercise | TBD | TBD | TBD | [V04 static report](qa/V04-incident-runtime-safety-review.md) | **Staging exercise pending** |
 | Capacity and bill review | TBD | TBD | TBD | [V05 static report](qa/V05-capacity-growth-finops-review.md) | **Staging metrics and billing pending** |
-| Isolated backup/PITR restore | TBD | TBD | TBD | TBD | Pending |
-| Independent fencing / HA drill | TBD | TBD | TBD | TBD | Pending |
+| Isolated backup/PITR restore | TBD | TBD | TBD | [V06 source review](qa/V06-backup-HA-DR-review.md) | **Staging restore pending** |
+| Independent fencing / HA drill | TBD | TBD | TBD | [V06 acceptance matrix](qa/V06-DR-exercise-acceptance.md) | **Fencing demonstration pending** |
 | Lifecycle safety tests | TBD | TBD | TBD | TBD | Pending |
 | Stakeholder sign-offs | TBD | TBD | TBD | TBD | Pending |
 
