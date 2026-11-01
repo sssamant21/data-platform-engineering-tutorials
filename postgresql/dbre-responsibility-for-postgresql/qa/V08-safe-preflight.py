@@ -35,6 +35,10 @@ def restricted_file(path_string, max_mode=0o600):
     return file_path
 
 def main():
+    if os.name != "posix":
+        fail("this launcher requires Linux/WSL POSIX file permissions; do not run natively on Windows")
+    if any(os.environ.get(name) for name in ("PGSERVICE", "PGSERVICEFILE", "PGHOSTADDR")):
+        fail("PGSERVICE/PGSERVICEFILE/PGHOSTADDR overrides are not allowed; use explicit approved PGHOST")
     if os.environ.get("V08_EXECUTION_APPROVED") != "YES":
         fail("explicit V08_EXECUTION_APPROVED=YES required after change approval")
     ticket = required("V08_CHANGE_TICKET")

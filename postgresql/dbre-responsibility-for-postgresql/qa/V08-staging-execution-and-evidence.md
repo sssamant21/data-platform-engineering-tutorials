@@ -53,7 +53,7 @@ python3 postgresql/dbre-responsibility-for-postgresql/qa/V08-safe-preflight.py
 
 These are **placeholders**, not valid real approvals. Expectation variables must agree with the actual approved connection identity. Configure protected allowlist (0600), protected password file (0600), and pre-existing evidence directory (0700). Outside the Chapter 004 loopback-only lab, enforce verified TLS using PGSSLMODE=verify-full. The local lab explicitly disables TLS and needs a separate narrow opt-in; results are LAB_PASS only.
 
-The tool performs one identity query, confirms observed database/role/version/primary-vs-standby role, then a bounded READ ONLY SQL pack. It does not connect to cloud APIs, run backups, restore, promote, change grants or approve tests. Results are written in the **operator's private directory**, not to GitHub. Even read-only SQL can cause load, so stop if the staging owner identifies adverse impact.
+The launcher requires Linux or WSL for POSIX file-permission enforcement (do not use native Windows for this script). It rejects PGHOSTADDR/PGSERVICE overrides so the reviewed PGHOST tuple remains meaningful. The tool performs one identity query, confirms observed database/role/version/primary-vs-standby role, then a bounded READ ONLY SQL pack. It does not connect to cloud APIs, run backups, restore, promote, change grants or approve tests. Results are written in the **operator's private directory**, not to GitHub. Even read-only SQL can cause load, so stop if the staging owner identifies adverse impact.
 
 ## 4. Phase B — Test plan and ownership
 
