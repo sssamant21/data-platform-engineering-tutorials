@@ -18,9 +18,9 @@
 
 | ID | Severity | Guide | Defect | Remediation |
 |---|---|---|---|---|
-| V02-F01 | High — query would fail | 05 Capacity and FinOps | Query selected \`tablename\` and \`indexname\` from \`pg_stat_user_indexes\`; that view instead exposes \`relname\` and \`indexrelname\`. | Replace with \`relname AS table_name\`, \`indexrelname AS index_name\`. |
-| V02-F02 | Low — misleading label | 02 Operations | \`now() AS sampled_at_utc\` renders using the SQL session time zone, not necessarily UTC. | Explicit \`now() AT TIME ZONE 'UTC'\` (a UTC wall-clock timestamp without time-zone designation). |
-| V02-F03 | Medium — misleading diagnostic identity | 04 Incident response | \`relid::regclass\` for \`pg_stat_progress_vacuum\` can resolve an OID against the current database when a row describes another database. OIDs for relations are database-local. | Show \`relid AS relation_oid\` and \`datname\`; resolve the OID in the matching database only. |
+| V02-F01 | High — query would fail | 05 Capacity and FinOps | Query selected `tablename` and `indexname` from `pg_stat_user_indexes`; that view instead exposes `relname` and `indexrelname`. | Replace with `relname AS table_name`, `indexrelname AS index_name`. |
+| V02-F02 | Low — misleading label | 02 Operations | `now() AS sampled_at_utc` renders using the SQL session time zone, not necessarily UTC. | Explicit `now() AT TIME ZONE 'UTC'` (a UTC wall-clock timestamp without time-zone designation). |
+| V02-F03 | Medium — misleading diagnostic identity | 04 Incident response | `relid::regclass` for `pg_stat_progress_vacuum` can resolve an OID against the current database when a row describes another database. OIDs for relations are database-local. | Show `relid AS relation_oid` and `datname`; resolve the OID in the matching database only. |
 
 **Fix verification criteria:** Confirm corrected query text, that old invalid column names are absent in the affected relation query, and that changes remain read-only. Actual SQL run/results are still required for final pass.
 
@@ -28,20 +28,20 @@
 
 | View/function/feature in the guides | PG14 | PG15 | PG16 | PG17 | PG18 | Restriction and interpretation |
 |---|---|---|---|---|---|---|
-| \`pg_stat_activity\` incl. \`backend_type\`, wait events | Reference | Reference | Reference | Reference | Reference | Visibility of other sessions requires appropriate roles; query text is sensitive |
-| \`pg_stat_database\`, \`stats_reset\` | Reference | Reference | Reference | Reference | Reference | Counters reset; not comparable without reset-aware sampling |
-| \`pg_stat_user_tables\`, \`pg_stat_user_indexes\` | Reference | Reference | Reference | Reference | Reference | Estimates and counts; no complete business usage audit |
-| \`pg_class\`, \`pg_database\`, \`pg_inherits\`, \`pg_namespace\` | Reference | Reference | Reference | Reference | Reference | Relation OIDs valid only in their database; privileges may restrict visibility |
-| \`pg_stat_replication\`, \`pg_replication_slots\` | Reference | Reference | Reference | Reference | Reference | Primary/replication topology; empty output may be expected |
-| \`pg_stat_archiver\` | Reference | Reference | Reference | Reference | Reference | Does not certify a complete WAL archive or cloud-provider PITR |
-| \`pg_last_wal_receive_lsn\`, \`pg_last_wal_replay_lsn\` | Reference | Reference | Reference | Reference | Reference | Standby-side assessment; not direct business RPO |
-| \`pg_current_wal_lsn\`, \`pg_wal_lsn_diff\` | Reference | Reference | Reference | Reference | Reference | Primary-only in the slot-retention calculation |
-| \`pg_stat_progress_vacuum\` | Reference | Reference | Reference | Reference | Reference | Captured OID + database; do not resolve against unrelated database |
-| \`pg_blocking_pids\`, \`cardinality\` | Reference | Reference | Reference | Reference | Reference | Monitoring role should have sufficient activity visibility |
-| \`pg_stat_io\` | Not available | Not available | Available | Available | Available | PG16+; only mentioned as version-gated extension to dashboards |
-| \`pg_stat_checkpointer\` | Not available | Not available | Not available | Available | Available | PG17+; only mentioned as version-gated extension to dashboards |
-| Incremental physical backup/\`pg_combinebackup\` | Not available | Not available | Not available | Available | Available | PG17+; not a runnable procedure in this guide |
-| \`pg_stat_statements\` | Optional | Optional | Optional | Optional | Optional | Requires extension availability/configuration; never assume installed |
+| `pg_stat_activity` incl. `backend_type`, wait events | Reference | Reference | Reference | Reference | Reference | Visibility of other sessions requires appropriate roles; query text is sensitive |
+| `pg_stat_database`, `stats_reset` | Reference | Reference | Reference | Reference | Reference | Counters reset; not comparable without reset-aware sampling |
+| `pg_stat_user_tables`, `pg_stat_user_indexes` | Reference | Reference | Reference | Reference | Reference | Estimates and counts; no complete business usage audit |
+| `pg_class`, `pg_database`, `pg_inherits`, `pg_namespace` | Reference | Reference | Reference | Reference | Reference | Relation OIDs valid only in their database; privileges may restrict visibility |
+| `pg_stat_replication`, `pg_replication_slots` | Reference | Reference | Reference | Reference | Reference | Primary/replication topology; empty output may be expected |
+| `pg_stat_archiver` | Reference | Reference | Reference | Reference | Reference | Does not certify a complete WAL archive or cloud-provider PITR |
+| `pg_last_wal_receive_lsn`, `pg_last_wal_replay_lsn` | Reference | Reference | Reference | Reference | Reference | Standby-side assessment; not direct business RPO |
+| `pg_current_wal_lsn`, `pg_wal_lsn_diff` | Reference | Reference | Reference | Reference | Reference | Primary-only in the slot-retention calculation |
+| `pg_stat_progress_vacuum` | Reference | Reference | Reference | Reference | Reference | Captured OID + database; do not resolve against unrelated database |
+| `pg_blocking_pids`, `cardinality` | Reference | Reference | Reference | Reference | Reference | Monitoring role should have sufficient activity visibility |
+| `pg_stat_io` | Not available | Not available | Available | Available | Available | PG16+; only mentioned as version-gated extension to dashboards |
+| `pg_stat_checkpointer` | Not available | Not available | Not available | Available | Available | PG17+; only mentioned as version-gated extension to dashboards |
+| Incremental physical backup/`pg_combinebackup` | Not available | Not available | Not available | Available | Available | PG17+; not a runnable procedure in this guide |
+| `pg_stat_statements` | Optional | Optional | Optional | Optional | Optional | Requires extension availability/configuration; never assume installed |
 
 **Reference** means the documented upstream interface was reviewed, **not** that the actual SQL/role was executed on that release. Feature flags/parameter availability and exact provider restrictions still require empirical checks.
 
@@ -51,11 +51,11 @@
 
 | Environment | SQL monitoring expectation | Restriction / qualification | PITR / HA difference |
 |---|---|---|---|
-| Self-managed PG14–18 | Standard catalogs, statistics, WAL and activity views | Monitoring role needs \`pg_read_all_stats\` or carefully scoped equivalent where sensitive activity is involved; host storage/OS is DBRE/PLT responsibility | Physical base+WAL or approved backup manager and independently fenced HA |
-| AWS RDS PostgreSQL | SQL metadata generally available per engine version/role | No unrestricted PostgreSQL superuser or OS access; \`rds_superuser\` is an administrative role with restricted scope | Provider-controlled backups, RDS instance restore, Multi-AZ/replicas depend on selected features |
+| Self-managed PG14–18 | Standard catalogs, statistics, WAL and activity views | Monitoring role needs `pg_read_all_stats` or carefully scoped equivalent where sensitive activity is involved; host storage/OS is DBRE/PLT responsibility | Physical base+WAL or approved backup manager and independently fenced HA |
+| AWS RDS PostgreSQL | SQL metadata generally available per engine version/role | No unrestricted PostgreSQL superuser or OS access; `rds_superuser` is an administrative role with restricted scope | Provider-controlled backups, RDS instance restore, Multi-AZ/replicas depend on selected features |
 | Amazon Aurora PostgreSQL | PG-compatible SQL subset and Aurora-specific monitoring | Version/cluster-writer versus reader semantics and restricted features must be tested separately from plain RDS | Aurora cluster storage, endpoints, backups and failover are not identical to RDS PostgreSQL |
-| Azure PostgreSQL Flexible Server | Standard supported PostgreSQL SQL with role limits | Administrator is member of \`azure_pg_admin\` but cannot become true superuser; managed parameters/HA/backup via Azure control plane | Server PITR produces a new server and networking/HA state must be validated |
-| Google Cloud SQL PostgreSQL | Standard supported PostgreSQL SQL with role limits | No customer superuser; \`cloudsqlsuperuser\` is restricted, service-control functions limited | PITR creates a new instance; enabled-by-default behavior varies by edition/creation path |
+| Azure PostgreSQL Flexible Server | Standard supported PostgreSQL SQL with role limits | Administrator is member of `azure_pg_admin` but cannot become true superuser; managed parameters/HA/backup via Azure control plane | Server PITR produces a new server and networking/HA state must be validated |
+| Google Cloud SQL PostgreSQL | Standard supported PostgreSQL SQL with role limits | No customer superuser; `cloudsqlsuperuser` is restricted, service-control functions limited | PITR creates a new instance; enabled-by-default behavior varies by edition/creation path |
 
 **Privilege rule:** A command that is *read-only* may still return incomplete/redacted activity data or fail without privileges. An empty replication query is not necessarily a broken standby; verify role and intended target.
 
@@ -63,12 +63,12 @@
 
 | Class | Examples | Required context |
 |---|---|---|
-| Any properly authorized connection | \`current_setting\`, \`pg_is_in_recovery\`, \`pg_stat_database\`, size/catalog view inspection | Correct database for per-relation results |
-| Primary only | \`pg_current_wal_lsn\` plus \`pg_replication_slots.restart_lsn\`, primary \`pg_stat_replication\` | Confirm \`pg_is_in_recovery() = false\`; absent replicas may legitimately yield no rows |
-| Standby only to assess replay | \`pg_last_wal_receive_lsn\`, \`pg_last_wal_replay_lsn\`, \`pg_last_xact_replay_timestamp\` | Confirm \`pg_is_in_recovery() = true\`; latest replay timestamp can be old when idle |
-| Requires monitoring privilege and privacy restrictions | \`pg_stat_activity\` queries inspecting users/processes, \`pg_blocking_pids\`, \`pg_stat_progress_vacuum\` | Least-privilege approved role, redact usernames/queries as policy requires |
+| Any properly authorized connection | `current_setting`, `pg_is_in_recovery`, `pg_stat_database`, size/catalog view inspection | Correct database for per-relation results |
+| Primary only | `pg_current_wal_lsn` plus `pg_replication_slots.restart_lsn`, primary `pg_stat_replication` | Confirm `pg_is_in_recovery() = false`; absent replicas may legitimately yield no rows |
+| Standby only to assess replay | `pg_last_wal_receive_lsn`, `pg_last_wal_replay_lsn`, `pg_last_xact_replay_timestamp` | Confirm `pg_is_in_recovery() = true`; latest replay timestamp can be old when idle |
+| Requires monitoring privilege and privacy restrictions | `pg_stat_activity` queries inspecting users/processes, `pg_blocking_pids`, `pg_stat_progress_vacuum` | Least-privilege approved role, redact usernames/queries as policy requires |
 | Requires provider metrics / control plane | Actual free disk, CPU, cloud backup coverage, latest restorable time, managed failover state | Cloud monitoring/IAM separate from PostgreSQL SQL privileges |
-| Requires installed extension | \`pg_stat_statements\` workload history | Check installed extension and preload, supported version and access role |
+| Requires installed extension | `pg_stat_statements` workload history | Check installed extension and preload, supported version and access role |
 
 ## 6. Recommended non-destructive staging preflight pack
 
@@ -107,7 +107,7 @@ WHERE a.attrelid = 'pg_catalog.pg_stat_user_indexes'::regclass
 ORDER BY a.attnum;
 ~~~~
 
-**Note:** Privilege checks alone cannot prove the role can see all needed sessions or execute every function. Test the actual read-only statements with \`psql -X -v ON_ERROR_STOP=1\` and logging in **authorized staging**, with real provider/role credentials supplied securely. Do not collect full business query text or patient records.
+**Note:** Privilege checks alone cannot prove the role can see all needed sessions or execute every function. Test the actual read-only statements with `psql -X -v ON_ERROR_STOP=1` and logging in **authorized staging**, with real provider/role credentials supplied securely. Do not collect full business query text or patient records.
 
 ### Mandatory test evidence per guide and platform
 
