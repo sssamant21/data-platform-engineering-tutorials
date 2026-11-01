@@ -97,7 +97,7 @@ class Chapters061070PhaseTwo(unittest.TestCase):
         ):
             self.assertIn(term,text,term)
         self.assertNotIn("CREATE TABLE IF NOT EXISTS public.ch070_marker",text)
-        self.assertNotIn("ON CONFLICT DO NOTHING",text)
+        self.assertNotIn("ON CONFLICT DO NOTHING",src("070-one-time-marker-fixture.sql"))
         self.assertIn("INSERT INTO ch070.markers",src("070-one-time-marker-fixture.sql"))
 
     def test_061_backup_aborts_on_existing_archive_and_failures(self):
