@@ -46,7 +46,9 @@ WHERE c.relkind='r'
 ORDER BY total_bytes DESC LIMIT 50;
 
 -- Relation index inventory
-SELECT schemaname, tablename, indexname,
+SELECT schemaname,
+       relname AS table_name,
+       indexrelname AS index_name,
        pg_relation_size(indexrelid) AS index_bytes,
        idx_scan
 FROM pg_stat_user_indexes

@@ -170,9 +170,13 @@ SELECT schemaname, relname, n_live_tup, n_dead_tup,
 FROM pg_stat_user_tables
 ORDER BY n_dead_tup DESC LIMIT 50;
 
-SELECT pid, datname, relid::regclass AS relation,
+SELECT pid, datname, relid AS relation_oid,
        phase, heap_blks_total, heap_blks_scanned
 FROM pg_stat_progress_vacuum;
+
+-- Relation OIDs are database-local. Resolve relation_oid to a name only
+-- while connected to the matching datname; do not cast a foreign
+-- database's relation OID to regclass in your current database.
 ~~~~
 
 Inspect long-running snapshots, replication feedback, vacuum cost delay, insert/update/delete churn, disk IO and table-level thresholds. Dead tuple estimates are approximate; do not automatically VACUUM FULL (exclusive lock and disk). Ordinary autovacuum/VACUUM can run without blocking normal reads/writes generally, though workloads and certain operations can still be impacted. Tune with controlled staging evidence.

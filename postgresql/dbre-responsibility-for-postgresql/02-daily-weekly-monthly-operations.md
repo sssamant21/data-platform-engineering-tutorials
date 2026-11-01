@@ -29,7 +29,7 @@ SELECT current_database() AS database_name,
        current_user AS monitor_role,
        current_setting('server_version') AS version,
        pg_is_in_recovery() AS is_standby,
-       now() AS sampled_at_utc;
+       (now() AT TIME ZONE 'UTC') AS sampled_at_utc;
 
 SELECT datname, numbackends, xact_commit, xact_rollback,
        blks_read, blks_hit, deadlocks, stats_reset

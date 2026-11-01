@@ -24,7 +24,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | ID | Workstream | Evidence requirement | State |
 |---|---|---|---|
 | V01 | Structure and source links | 9 files, 28 fences, 13 local links, headings and table columns checked | **PASS (static only)** — [V01 report](qa/V01-structure-link-safety-audit.md) |
-| V02 | SQL and version compatibility | PostgreSQL versions and cloud managed permissions validated | Pending |
+| V02 | SQL and version compatibility | [V02 catalog/version/provider review](qa/V02-sql-version-provider-compatibility.md), 3 guide corrections | **Static review completed; staging execution PENDING** |
 | V03 | Monitoring and security | Actual exporter series, alert routing, least privilege and PHI checks | Pending |
 | V04 | Incident and vacuum/replication | Staging lock/WAL/slot/XID pressure exercises and RCA reviews | Pending |
 | V05 | Capacity/growth/FinOps | Database/table/index/WAL snapshots and forecasts, billing comparison | Pending |
@@ -40,7 +40,8 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 ## Technical validation checklist
 
 - [ ] Inventory every production primary/standby provider, major/minor version, extension list and service owner.
-- [ ] Confirm all SQL and function/view columns across each supported PostgreSQL version and managed-provider privilege mode.
+- [x] V02 source-based review documented for 20 SQL blocks; corrected index-view columns, UTC time label and database-scoped vacuum OID. [Details](qa/V02-sql-version-provider-compatibility.md).
+- [ ] Execute all SQL and verify function/view columns across supported deployed PostgreSQL versions and managed-provider monitoring roles.
 - [ ] Validate psql monitoring session and read-only privileges; do not use SUPERUSER unnecessarily.
 - [ ] Confirm pg_stat_statements presence, correct preload/extension and queryid behavior where used.
 - [ ] Check version-gated pg_stat_io (PG16+), pg_stat_checkpointer (PG17+) and any other feature differences.
