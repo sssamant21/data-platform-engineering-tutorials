@@ -1,0 +1,54 @@
+name: PostgreSQL V03 Chapters 061-066 Isolated Base Backup and PITR
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/validation/v03_ch061_066_pitr_disposable.sh"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - ".github/workflows/postgresql-v03-ch061-066-backup-pitr.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v03_ch061_066_pitr_disposable.sh"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - ".github/workflows/postgresql-v03-ch061-066-backup-pitr.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-backup-and-pitr:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bash syntax verification
+        run: bash -n postgresql/validation/v03_ch061_066_pitr_disposable.sh
+      - name: Real pg_basebackup, pg_verifybackup and paused PostgreSQL 18 PITR
+        shell: bash
+        run: bash postgresql/validation/v03_ch061_066_pitr_disposable.sh
+      - name: Assert disposable-only evidence and non-certification
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("postgresql/validation/evidence-v03-ch061066-pitr.json").read_text())
+          assert j["real_pg18_sql_executed"] is True
+          assert j["passed"]==j["checks"] and j["checks"]>=12
+          assert j["failed"]==0
+          assert j["staging_or_production_changed"] is False
+          assert j["business_rpo_rto_verified"] is False
+          assert j["external_fencing_verified"] is False
+          assert j["enterprise_certification"]=="NOT_CERTIFIED"
+          print("PASS disposable-only isolated physical PITR evidence")
+          PY
+      - name: Upload sanitized disposable PITR evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-ch061066-disposable-pitr
+          path: postgresql/validation/evidence-v03-ch061066-pitr.json
+          if-no-files-found: warn
