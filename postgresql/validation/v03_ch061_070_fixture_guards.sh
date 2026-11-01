@@ -25,8 +25,8 @@ docker run -d --name "$NAME" --network none --tmpfs /tmp:rw,size=512m,mode=1777 
   -c max_replication_slots=5 -c max_slot_wal_keep_size=64MB > "$WORK/id"
 NET="$(docker inspect -f '{{.HostConfig.NetworkMode}}' "$NAME")"
 [[ "$NET" == none ]] || { echo "REFUSED: unsafe Docker network" >&2; exit 3; }
-[[ "$(docker inspect -f '{{json .HostConfig.PortBindings}}' "$NAME")" == null ]] || {
-  echo "REFUSED: published container ports" >&2; exit 3;
+[[ -z "$(docker port "$NAME")" ]] || {
+  echo "REFUSED: published host port mapping" >&2; exit 3;
 }
 for i in $(seq 1 60); do
   if docker exec "$NAME" pg_isready -h 127.0.0.1 -p 55432 -U lab_admin -d postgres >/dev/null 2>&1; then break; fi
