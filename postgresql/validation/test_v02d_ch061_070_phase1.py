@@ -40,7 +40,7 @@ class Review061070PhaseOne(unittest.TestCase):
                       "NOT pg_is_in_recovery()",
                       "to_regnamespace('ch068') IS NULL",
                       "slot_name='ch068_lab_slot'",
-                      "068-CREATE-SLOT",r"\quit 3",r"\if :allowed",
+                      "068-CREATE-SLOT","RAISE EXCEPTION",r"\if :allowed",
                       "CREATE TABLE ch068.wal_probe","CREATE SCHEMA ch068",
                       "pg_create_physical_replication_slot"):
             self.assertIn(token,s,token)
@@ -52,7 +52,7 @@ class Review061070PhaseOne(unittest.TestCase):
         for required in ("068-GENERATE-WAL","expected_system_id",
                          "current_database()='ch068_lab'","pg_control_system()",
                          "slot_type='physical'","NOT active","statement_timeout",
-                         "lock_timeout","generate_series(1,1000)",r"\quit 3"):
+                         "lock_timeout","generate_series(1,1000)","RAISE EXCEPTION"):
             self.assertIn(required,s,required)
         self.assertNotIn("ON CONFLICT",s)
         self.assertNotIn("IF NOT EXISTS",s)
@@ -64,7 +64,7 @@ class Review061070PhaseOne(unittest.TestCase):
         for required in ("068-DROP-LAB-SLOT","current_database()='ch068_lab'",
                          "pg_control_system()","expected_system_id",
                          "slot_type='physical'","NOT active",r"\if :allowed",
-                         r"\quit 3","SELECT pg_drop_replication_slot('ch068_lab_slot')",
+                         "RAISE EXCEPTION","SELECT pg_drop_replication_slot('ch068_lab_slot')",
                          "DROP TABLE ch068.wal_probe","DROP SCHEMA ch068"):
             self.assertIn(required,s,required)
         self.assertNotIn("CASCADE",s)

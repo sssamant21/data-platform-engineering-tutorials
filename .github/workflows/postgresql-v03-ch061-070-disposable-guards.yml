@@ -1,0 +1,60 @@
+name: PostgreSQL V03 Chapters 061-070 Disposable PG18 Guard Runtime
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/validation/v03_ch061_070_fixture_guards.sh"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - "postgresql/labs/sql/068-safe-slot-setup.sql"
+      - "postgresql/labs/sql/068-safe-wal-workload.sql"
+      - "postgresql/labs/sql/068-safe-slot-cleanup.sql"
+      - "postgresql/labs/sql/070-one-time-marker-fixture.sql"
+      - ".github/workflows/postgresql-v03-ch061-070-disposable-guards.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v03_ch061_070_fixture_guards.sh"
+      - "postgresql/labs/sql/064-fixture.sql"
+      - "postgresql/labs/sql/066-dr-fixture.sql"
+      - "postgresql/labs/sql/068-safe-slot-setup.sql"
+      - "postgresql/labs/sql/068-safe-wal-workload.sql"
+      - "postgresql/labs/sql/068-safe-slot-cleanup.sql"
+      - "postgresql/labs/sql/070-one-time-marker-fixture.sql"
+      - ".github/workflows/postgresql-v03-ch061-070-disposable-guards.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-postgresql-18-fixture-guard-runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bash syntax validation
+        run: bash -n postgresql/validation/v03_ch061_070_fixture_guards.sh
+      - name: Real PG18 psql guard tests against single isolated Docker container
+        shell: bash
+        run: bash postgresql/validation/v03_ch061_070_fixture_guards.sh
+      - name: Check disposable evidence (not staging certification)
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("postgresql/validation/evidence-v03-ch061070.json").read_text())
+          assert j["network_mode"]=="none"
+          assert j["enterprise_certification"]=="NOT_CERTIFIED"
+          assert j["staging_rehearsal_executed"] is False
+          assert j["test_count"]>=40
+          assert j["passed"]==j["test_count"] and j["failed"]==0
+          print("DISPOSABLE RUNTIME PASS",j["passed"],"checks")
+          PY
+      - name: Preserve synthetic disposable acceptance record
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-ch061070-fixture-guard-runtime
+          path: postgresql/validation/evidence-v03-ch061070.json
+          if-no-files-found: warn

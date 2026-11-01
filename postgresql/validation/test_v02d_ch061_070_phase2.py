@@ -37,7 +37,7 @@ class Chapters061070PhaseTwo(unittest.TestCase):
                     "NOT pg_is_in_recovery()",
                     "pg_control_system()","c.system_identifier::text=:'expected_system_id'",
                     "to_regnamespace('"+namespace+"') IS NULL",
-                    token,r"\gset",r"\if :allowed",r"\quit 3",
+                    token,r"\gset",r"\if :allowed","RAISE EXCEPTION",
                     "BEGIN;","COMMIT;","SET LOCAL lock_timeout",
                 ):
                     self.assertIn(requirement,script,requirement)

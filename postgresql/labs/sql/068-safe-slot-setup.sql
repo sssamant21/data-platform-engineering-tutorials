@@ -3,12 +3,12 @@
 \if :{?expected_system_id}
 \else
  \echo 'REFUSED: expected_system_id is mandatory'
- \quit 3
+ DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
 \endif
 \if :{?confirm_stage}
 \else
  \echo 'REFUSED: confirm_stage is mandatory'
- \quit 3
+ DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
 \endif
 SELECT CASE WHEN current_database()='ch068_lab'
   AND current_user='lab_admin'
@@ -29,7 +29,7 @@ SELECT CASE WHEN current_database()='ch068_lab'
  \echo 'Verified Chapter 004 disposable PG18 target, empty fixture and stage token.'
 \else
  \echo 'REFUSED: unsafe database/identity or existing schema/slot'
- \quit 3
+ DO $ BEGIN RAISE EXCEPTION 'REFUSED: PostgreSQL lab safety guard'; END $;
 \endif
 
 BEGIN;
