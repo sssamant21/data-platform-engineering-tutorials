@@ -27,7 +27,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | V02 | SQL and version compatibility | [V02 catalog/version/provider review](qa/V02-sql-version-provider-compatibility.md), 3 guide corrections | **Static review completed; staging execution PENDING** |
 | V03 | Monitoring and security | [V03 source/metric/security report](qa/V03-monitoring-alerting-security-review.md) and [sample alerts](qa/V03-prometheus-alerts.example.yml) | **Source review complete; live validation pending** |
 | V04 | Incident and vacuum/replication | [V04 source review](qa/V04-incident-runtime-safety-review.md), [read-only staging pack](qa/V04-readonly-staging-triage.sql) and mitigation gates | **Static review complete; staging tests PENDING** |
-| V05 | Capacity/growth/FinOps | [V05 source/forecast review](qa/V05-capacity-growth-finops-review.md), [read-only SQL](qa/V05-readonly-capacity-inventory.sql), [offline model](qa/V05-capacity-forecast.py) | **Static review and offline model delivered; real telemetry/billing PENDING** |
+| V05 | Capacity/growth/FinOps | [V05 review incl. offline synthetic tests](qa/V05-capacity-growth-finops-review.md), [read-only SQL](qa/V05-readonly-capacity-inventory.sql), [offline model](qa/V05-capacity-forecast.py) | **Static QA and local synthetic Python tests PASS; real telemetry/billing PENDING** |
 | V06 | Backup/PITR/HA/DR | Timed isolated restore, fencing, one writer, failback and RPO/RTO | Pending |
 
 ## Document QA evidence
@@ -40,6 +40,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [x] V04 incident runbook source audit covers 13 scenarios, connection reserve, blocking, WAL/slots, replica lag, XID/MXID age and mitigation gates.
 - [ ] V04 isolated staging exercises V04-T01–T13, evidence collection and DBRE/APP/DATA peer review pending.
 - [x] V05 source-reviewed capacity model: no table/index/TOAST double counts, physical used/free separation, WAL counter reset awareness and provider-specific monitoring.
+- [x] V05 locally executed offline forecast: Python compilation, built-in synthetic self-test, CSV acceptance and negative-data rejection PASS (Git blob SHA verified).
 - [ ] V05 staging capacity SQL, physical-disk time series, peak forecasts and FIN invoice reconciliation pending.
 - [ ] V06 real environment, staging and business recovery acceptance pending.
 

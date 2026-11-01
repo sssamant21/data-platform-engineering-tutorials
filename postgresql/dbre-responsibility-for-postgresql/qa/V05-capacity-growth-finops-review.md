@@ -86,7 +86,8 @@ All V05-T01–T14 require explicit test result/evidence before declaring V05 run
 - [x] Reference read-only SQL pack and offline physical forecast supplied.
 - [ ] Run SQL with approved staging monitoring roles on deployed PG versions.
 - [ ] Obtain at least 14 COMPLETE daily physical capacity samples for each relevant instance/volume; longer peak/weekend samples required for right-sizing.
-- [ ] Run script self-test and offline sample validation with a Python 3.10+ runtime, store console evidence.
+- [x] Offline reference script passed Python compilation and the built-in synthetic self-test in a local Python runtime; additional CSV quality checks passed (details below).
+- [ ] Re-run the script under the DBRE team's approved Python runtime, record exact version/environment and independent reviewer.
 - [ ] Validate physical metrics/cloud permissions, reset/failover, seasonal peaks and Aurora aggregation.
 - [ ] Test right-sized instance performance/replica recovery/failover and independent APP SLO.
 - [ ] Review invoice, discount and provider storage bills with FIN; document savings.
@@ -94,7 +95,27 @@ All V05-T01–T14 require explicit test result/evidence before declaring V05 run
 
 **V05 result: static QA and model design complete, production validation NOT CERTIFIED.**
 
-## 7. Authoritative sources
+## 7. Locally executed offline reference-model checks
+
+**Execution scope:** only the Python standard library and artificial data on the assistant's isolated working container; **no** PostgreSQL, cloud provider, invoice, Grafana or real user file was accessed.
+
+**Published-source verification:** the local tested Python file has Git blob SHA `08dfec451866cf7fece20075b86bbe7714780d6b`, matching the published repository's V05-capacity-forecast.py blob SHA.
+
+| Check | Observed output | Result |
+|---|---|---|
+| `python -m py_compile V05-capacity-forecast.py` | No compilation error | PASS |
+| `python V05-capacity-forecast.py --self-test` | `PASS: offline V05 forecast deterministic self-tests (synthetic data)` | PASS |
+| 14 synthetic daily CSV samples, +20 GiB/day | Latest used 1,260 GiB; free 940 GiB; reserve 100 GiB; 30-day free 340 GiB; runway 42 days | PASS |
+| Partial quality row | Rejected: non-COMPLETE sample | PASS |
+| Negative used_bytes | Rejected: negative byte measurement | PASS |
+| Missing day | Rejected: fewer than 14 complete daily rows | PASS |
+| Duplicate date | Rejected: duplicate sample dates | PASS |
+| Changed reserve_bytes within series | Rejected: reserve policy changed | PASS |
+| Flat used bytes / no growth | Runway reported UNKNOWN, not infinity | PASS (self-test) |
+
+**Important limits:** The output projects physical free space under constant reported capacity and uses median/p90 net *observed physical used* daily changes. It is not a guarantee of future exhaustion, managed storage auto-grow behavior or an approved right-sizing decision. No real billing or utilization test was run.
+
+## 8. Authoritative sources
 
 - [PostgreSQL 18 object size functions](https://www.postgresql.org/docs/18/functions-admin.html)
 - [PostgreSQL 14 WAL statistics](https://www.postgresql.org/docs/14/monitoring-stats.html)
