@@ -102,7 +102,7 @@ class Review061070PhaseOne(unittest.TestCase):
             self.assertIn("pending",doc.lower())
             self.assertIn("RPO",doc)
             self.assertIn("RTO",doc)
-        self.assertIn("do not promote",lab("070").lower())
+        self.assertIn("do not claim runtime acceptance",lab("070").lower())
         self.assertIn("production",lab("066").lower())
 
 
