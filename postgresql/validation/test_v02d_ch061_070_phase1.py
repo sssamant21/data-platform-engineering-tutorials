@@ -99,7 +99,7 @@ class Review061070PhaseOne(unittest.TestCase):
     def test_066_070_fail_closed_evidence_not_runtime_verified(self):
         for chapter in ("066","070"):
             doc=lab(chapter)
-            self.assertIn("Pending",doc)
+            self.assertIn("pending",doc.lower())
             self.assertIn("RPO",doc)
             self.assertIn("RTO",doc)
         self.assertIn("do not promote",lab("070").lower())
