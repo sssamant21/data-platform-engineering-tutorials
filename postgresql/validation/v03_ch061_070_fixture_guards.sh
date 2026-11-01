@@ -124,6 +124,28 @@ run_case "068-workload-rerun" no 068-safe-wal-workload.sql ch068_lab 068-GENERAT
 assert_query "068-no-duplicate-rows" ch068_lab "SELECT count(*) FROM ch068.wal_probe" 1000
 run_case "068-cleanup-bad-stage" no 068-safe-slot-cleanup.sql ch068_lab 068-DROP-LAB-SLOT bad_stage
 assert_query "068-slot-still-present" postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot'" 1
+# Use a real disposable physical WAL streaming consumer to prove that an
+# ACTIVE slot cannot be removed by the guarded cleanup command.
+docker exec -u postgres "$NAME" mkdir -p /tmp/ch068receiver
+docker exec -d -u postgres "$NAME" sh -c 'echo $ > /tmp/ch068receiver.pid; exec pg_receivewal -h 127.0.0.1 -p 55432 -U lab_admin -w -n -S ch068_lab_slot --synchronous -D /tmp/ch068receiver'
+ACTIVE=0
+for attempt in $(seq 1 20); do
+  ACTIVE="$(query postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND active")"
+  if [[ "$ACTIVE" == 1 ]]; then break; fi
+  sleep 1
+done
+assert_query "068-live-receiver-active" postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND active" 1
+run_case "068-active-slot-cleanup-refused" no 068-safe-slot-cleanup.sql ch068_lab 068-DROP-LAB-SLOT normal
+assert_query "068-active-slot-still-intact" postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND active" 1
+# Stop only this known disposable receiver PID, not generic/production services.
+docker exec -u postgres "$NAME" sh -c 'kill -TERM "$(cat /tmp/ch068receiver.pid)"'
+INACTIVE=0
+for attempt in $(seq 1 20); do
+  INACTIVE="$(query postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND NOT active")"
+  if [[ "$INACTIVE" == 1 ]]; then break; fi
+  sleep 1
+done
+assert_query "068-receiver-released-slot" postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot' AND NOT active" 1
 run_case "068-cleanup" yes 068-safe-slot-cleanup.sql ch068_lab 068-DROP-LAB-SLOT normal
 assert_query "068-slot-gone" postgres "SELECT count(*) FROM pg_replication_slots WHERE slot_name='ch068_lab_slot'" 0
 assert_query "068-schema-gone" ch068_lab "SELECT to_regnamespace('ch068') IS NULL" t
