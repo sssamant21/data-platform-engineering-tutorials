@@ -107,4 +107,6 @@ Reset the client session-level `synchronous_commit`, confirm writes and both sta
 | Rollback | Original effective configuration restored | Pending |
 | Production isolation | No production endpoints changed | Pending |
 
+**Disposable runtime evidence:** The [streaming and synchronous-commit runtime test](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) passed **42/42 checks** in an isolated PostgreSQL 18 container, including FIRST 1, ANY 2, a `SyncRep` wait, separate client deadline, transaction reconciliation and exact default-configuration restoration. This is not an independent-host HA test, a business latency/SLO benchmark or enterprise certification; full acceptance remains **PENDING**.
+
 **Runtime:** pending.

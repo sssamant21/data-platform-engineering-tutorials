@@ -58,4 +58,6 @@ Restore lab writer routing, confirm old/new roles, WAL archiving, replication sl
 
 Complete [070-ha-failover-scorecard.csv](../labs/acceptance/070-ha-failover-scorecard.csv). Mandatory gates include old-primary fencing, single writer, healthy promotion, application endpoint switch, commit reconciliation, measured RPO/RTO, rejoin and backup continuity.
 
+**Bounded runtime evidence only:** The [Chapters 067–070 streaming/synchronous validation](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) passed **42/42 disposable tests** with one primary and two read-only standbys on the **same host**. No promotion, actual HA manager, separate fencing control plane or application cutover was performed. Chapter 070 fencing/failover acceptance remains **NOT VERIFIED / NO_GO**.
+
 **Runtime:** pending.

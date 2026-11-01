@@ -1,13 +1,13 @@
 # PostgreSQL V03 — Chapters 067–070 Streaming and Synchronous Commit Runtime
 
-**State:** Runtime workflow under validation. Certification remains **NOT_CERTIFIED**.  
+**State:** **42/42 real PostgreSQL 18 disposable runtime checks PASS**, [successful CI #41311860442](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41311860442). Certification remains **NOT_CERTIFIED**.  
 **Exercise:** Actual PostgreSQL 18 **three-process** (one primary, two physical standbys) streaming and synchronous-commit operations in a single GitHub Actions Docker container with network mode `none` and no published ports. This is NOT three independent hosts or availability zones.
 
 ## Acceptance intent
 
 The [disposable streaming/sync runner](v03_ch067_070_streaming_sync_disposable.sh) uses actual `pg_basebackup -R` operations to initialize two physical standby directories, starts each standby on a separate localhost-only port, and checks `pg_stat_replication`, `pg_stat_wal_receiver`, `pg_is_in_recovery()` and data/WAL replay correctness. A bounded batch of 200 inserts demonstrates WAL movement, not a performance or SLO benchmark.
 
-The synchronous-commit exercise captures the original configuration and its owner **before any ALTER SYSTEM**. It enables `FIRST 1 (standby_a, standby_b)`, checks sync-state selection and a `remote_apply` commit; then uses `ANY 2 (...)` to require both standbys. It intentionally stops only one disposable standby to cause a commit to wait with `statement_timeout='2000ms'`. A timeout is **not interpreted as a rollback**. The harness does not blindly retry; it restarts the standby and inspects the original primary and standby for the unique transaction ID. An outcome of 0 or 1 must be explicitly reconciled. The original configuration is restored to the recorded **default/absent auto.conf state** only after proving that state was the baseline in this fresh disposable cluster.
+The synchronous-commit exercise captures the original configuration and its owner **before any ALTER SYSTEM**. It enables `FIRST 1 (standby_a, standby_b)`, checks sync-state selection and a `remote_apply` commit; then uses `ANY 2 (...)` to require both standbys. It intentionally stops only one disposable standby to cause a commit to wait with `statement_timeout='2000ms'`. A timeout is **not interpreted as a rollback**. The original test relied on a PostgreSQL statement timeout and stalled until CI cancellation; the corrected test directly observes the primary backend's `SyncRep` wait and applies a separate **9-second client deadline**. It then restarts the second standby and reconciles the unique transaction ID against primary and standby data without blindly retrying. The harness does not blindly retry; it restarts the standby and inspects the original primary and standby for the unique transaction ID. An outcome of 0 or 1 must be explicitly reconciled. The original configuration is restored to the recorded **default/absent auto.conf state** only after proving that state was the baseline in this fresh disposable cluster.
 
 | Gate | Expected proof | Limits |
 |---|---|---|
@@ -29,7 +29,7 @@ This runner deliberately does not measure business RPO/RTO, p95 latency, WAL cos
 
 ## Evidence and next gate
 
-The [V03 streaming/sync CI workflow](../../.github/workflows/postgresql-v03-ch067-070-streaming-sync.yml) publishes **only sanitized synthetic outcome data**, not source databases or WAL files. A green workflow verifies this limited disposable lab, not the production HA requirements.
+The [V03 streaming/sync CI workflow](../../.github/workflows/postgresql-v03-ch067-070-streaming-sync.yml) publishes **only sanitized synthetic outcome data**, not source databases or WAL files. The corrected-head [GitHub Actions workflow #41311860442](https://github.com/sssamant21/data-platform-engineering-tutorials/actions/runs/41311860442) **completed successfully with 42/42 actual SQL and infrastructure checks**. Its evidence includes an observed `SyncRep` wait, enforced client deadline, return of both quorum standbys, transaction reconciliation and exact original setting restoration. A green workflow verifies this limited disposable lab, not production HA requirements.
 
 **Next required work:** independent PostgreSQL review of synchronous-commit timeout semantics and real independent control-plane fencing, then a distinct staging exercise authorized through change management. Until independent fencing, application traffic routing, recovery objectives and negative-path evidence are demonstrated, leave Chapter 070 and enterprise certification as **NO_GO / NOT_CERTIFIED**.
 

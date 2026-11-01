@@ -63,4 +63,6 @@ Document the required DCS/quorum, fencing, promotion, routing, old-primary rejoi
 | HA fencing plan | Documented and reviewed | Pending |
 | Backup/PITR independence | Verified policy | Pending |
 
+**Disposable runtime evidence:** The [Chapter 067–070 streaming/synchronous CI test](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) passed **42/42 checks** on a single isolated PostgreSQL 18 Docker host. This confirms the streaming, marker and WAL replay portions of this lab only; independent multi-host HA, fencing, routing, and enterprise certification remain **PENDING**.
+
 **Runtime:** pending.
