@@ -85,12 +85,12 @@ check ch062_source_sum "$(psqlc ch062_source 'SELECT sum(amount)::text FROM ch06
 # Refuse existing output files/dirs rather than silently overwriting them.
 dump_custom() {
   local db="$1" target="$2"
-  [[ ! -e "$DUMPS/$target" ]] || { echo "REFUSED: archive already exists" >&2; return 3; }
+  docker exec -u postgres "$NAME" test ! -e "$DUMPS/$target" || { echo "REFUSED: archive already exists" >&2; return 3; }
   pgcmd pg_dump -d "$db" -Fc -f "$DUMPS/$target"
 }
 dump_directory() {
   local db="$1" target="$2"
-  [[ ! -e "$DUMPS/$target" ]] || { echo "REFUSED: directory archive exists" >&2; return 3; }
+  docker exec -u postgres "$NAME" test ! -e "$DUMPS/$target" || { echo "REFUSED: directory archive exists" >&2; return 3; }
   pgcmd pg_dump -d "$db" -Fd -j 2 -f "$DUMPS/$target"
 }
 # Note: pgcmd appends connection flags; -j and -f are supported with -Fd.
@@ -131,7 +131,8 @@ check ch062_directory_count "$(psqlc ch062_directory_restore 'SELECT count(*) FR
 check ch062_directory_total "$(psqlc ch062_directory_restore 'SELECT sum(amount)::text FROM ch062.orders')" 61.50
 check ch062_pk_exists "$(psqlc ch062_restored "SELECT count(*) FROM pg_constraint WHERE conrelid='ch062.orders'::regclass AND contype='p'")" 1
 check ch062_unique_constraint_exists "$(psqlc ch062_restored "SELECT count(*) FROM pg_constraint WHERE conrelid='ch062.orders'::regclass AND contype='u'")" 1
-check ch062_identity_next_id "$(psqlc ch062_restored "INSERT INTO ch062.orders(order_ref,amount) VALUES('ORD-004',40.00) RETURNING order_id")" 4
+psqlc ch062_restored "INSERT INTO ch062.orders(order_ref,amount) VALUES('ORD-004',40.00)" >/dev/null
+check ch062_identity_next_id "$(psqlc ch062_restored "SELECT order_id FROM ch062.orders WHERE order_ref='ORD-004'")" 4
 expected_failure ch062_duplicate_unique psqlc ch062_restored "INSERT INTO ch062.orders(order_ref,amount) VALUES('ORD-004',99.00)"
 check ch062_duplicate_no_mutation "$(psqlc ch062_restored 'SELECT count(*) FROM ch062.orders')" 4
 # Globals are inventory only. Never execute global role/tablespace SQL.
