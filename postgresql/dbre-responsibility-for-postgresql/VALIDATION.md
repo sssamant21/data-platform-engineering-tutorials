@@ -30,6 +30,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | V05 | Capacity/growth/FinOps | [V05 review incl. offline synthetic tests](qa/V05-capacity-growth-finops-review.md), [read-only SQL](qa/V05-readonly-capacity-inventory.sql), [offline model](qa/V05-capacity-forecast.py) | **Static QA and local synthetic Python tests PASS; real telemetry/billing PENDING** |
 | V06 | Backup/PITR/HA/DR | [V06 source review](qa/V06-backup-HA-DR-review.md), [staging SQL preflight](qa/V06-readonly-recovery-preflight.sql), [12-case exercise acceptance register](qa/V06-DR-exercise-acceptance.md) | **Static review complete; staged restore/fencing and APP sign-off PENDING** |
 | V07 | Independent certification evidence | [V07 acceptance process](qa/V07-staging-evidence-and-certification.md), [evidence gate](qa/V07-evidence-gate.mjs), [template](qa/V07-evidence-template.json) | **Gate/14 synthetic test cases documented; real evidence/approvals NOT_RUN** |
+| V08 | Staging execution and evidence | [V08 execution plan](qa/V08-staging-execution-and-evidence.md), [read-only SQL](qa/V08-readonly-staging-preflight.sql), [identity-gated runner](qa/V08-safe-preflight.py), [register](qa/V08-execution-register.csv) | **Execution materials authored; runtime/approval NOT_RUN** |
 
 ## Document QA evidence
 
@@ -49,6 +50,8 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [x] All six V01–V06 workstreams received a documentation/static-review pass; V05 included synthetic offline forecasting checks.
 - [x] V07 offline evidence gate logic tested with 14 artificial cases; blank certification template correctly BLOCKED. [Synthetic test record](qa/V07-offline-synthetic-test-evidence.md).
 - [ ] V07 actual staging tests, verified independent evidence and security/business approvals NOT_RUN; production certification NOT GRANTED.
+- [x] V08 staged execution guide, restricted read-only preflight launcher, sample SQL, NOT_RUN register and independent review handoff authored.
+- [ ] V08 real staging SQL, PITR, HA fencing (if applicable), application RPO/RTO and independent approvals NOT_RUN.
 
 ## Technical validation checklist
 

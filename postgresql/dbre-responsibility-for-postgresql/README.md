@@ -69,6 +69,8 @@ All guides are intended to be version-aware. Do not assume PostgreSQL 18-only st
 
 **V07 independent certification process:** [Evidence collection and approval workflow](qa/V07-staging-evidence-and-certification.md) · [Offline evidence validator](qa/V07-evidence-gate.mjs) · [Unfilled template](qa/V07-evidence-template.json). The offline metadata gate has synthetic checks only and **cannot certify production**.
 
+**V08 staging execution handoff:** [Operator plan](qa/V08-staging-execution-and-evidence.md) · [guarded read-only Python runner](qa/V08-safe-preflight.py) · [SQL pack](qa/V08-readonly-staging-preflight.sql) · [NOT_RUN evidence register](qa/V08-execution-register.csv) · [independent reviewer handoff](qa/V08-independent-review-handoff.md). A Chapter 004 single-host lab pass is not HA certification.
+
 **Next operational phase:** Gather authorized evidence from the exact deployed PostgreSQL versions and providers: isolated PITR, independent fencing where HA is in scope, measured APP/DATA RPO/RTO, exporter alert tests, security review, capacity/billing and signed stakeholder acceptance. No data deletion, production failover, backend termination or production right-sizing is authorized by these drafts.
 
 ## References
