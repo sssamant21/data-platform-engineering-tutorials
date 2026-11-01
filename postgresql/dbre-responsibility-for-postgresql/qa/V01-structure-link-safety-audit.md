@@ -39,7 +39,7 @@
 
 ## Validations performed
 
-1. GitHub repository \`main\` contains all seven numbered guide files, a track-level README and the validation register.
+1. GitHub repository `main` contains all seven numbered guide files, a track-level README and the validation register.
 2. All guides include document identification, draft status, ordered numbered sections, reference sections and acceptance discussion/checklist.
 3. Markdown code-block delimiters are paired; no unclosed fences were observed.
 4. Pipe-separated Markdown tables were checked for consistent column counts within each contiguous table.
@@ -73,8 +73,8 @@ Prioritize:
 
 From the repository root, with Node.js 18+:
 
-\`\`\`bash
+```bash
 node postgresql/dbre-responsibility-for-postgresql/qa/validate-docs.mjs
-\`\`\`
+```
 
 The script checks local Markdown files and fails on discovered structural, local-link, or simple hazardous-command issues. The V01 audit figures above were computed from the GitHub documents on the audit date; this script has not been run by GitHub Actions in this audit.
