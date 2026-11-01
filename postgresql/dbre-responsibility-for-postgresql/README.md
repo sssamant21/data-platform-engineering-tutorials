@@ -54,14 +54,20 @@ All guides are intended to be version-aware. Do not assume PostgreSQL 18-only st
 9. Self-managed and provider-managed PostgreSQL have different restrictions, backup controls and recovery methods.
 10. No milestone is production-certified until its validation/acceptance items have been evidenced and signed off.
 
-## Next phase — V01 through V06
+## QA progress — V01 through V06
 
-- V01: Markdown structure, references, navigation and no dangerous executable snippets.
-- V02: PostgreSQL SQL syntax/version and provider compatibility.
-- V03: Monitoring roles, exporter metric labels, security and sensitive logging.
-- V04: Replication/WAL, vacuum/freeze and incident runbook staging exercises.
-- V05: Database growth forecast, storage/IO/compute baseline and FinOps.
-- V06: Backup/PITR, independent fencing, failover/single-writer and DR application acceptance.
+**Static/documentation workstreams are all documented; production validation is not complete.** See the [live validation register](VALIDATION.md) for the exact pending evidence and acceptance gates.
+
+| QA milestone | Current disposition | Evidence |
+|---|---|---|
+| V01 — Markdown/navigation/safety | Static PASS; external link reachability still pending | [Audit](qa/V01-structure-link-safety-audit.md) |
+| V02 — SQL/catalog and provider compatibility | Source review completed; live SQL still pending | [Audit](qa/V02-sql-version-provider-compatibility.md) |
+| V03 — Monitoring/alerting and security | Source review + sample alerts; live collector and SEC approval pending | [Audit](qa/V03-monitoring-alerting-security-review.md) |
+| V04 — Incident and runtime safety | Source review and read-only SQL; 13 staging scenarios pending | [Audit](qa/V04-incident-runtime-safety-review.md) |
+| V05 — Capacity, growth, FinOps | Static review and synthetic offline model tests PASS; real data/billing pending | [Audit](qa/V05-capacity-growth-finops-review.md) |
+| V06 — Backups, PITR, HA/DR | Source review, read-only SQL and 12-scenario acceptance matrix; staged restore/fencing pending | [Audit](qa/V06-backup-HA-DR-review.md) |
+
+**Next operational phase:** Gather authorized evidence from the exact deployed PostgreSQL versions and managed providers. Prioritize isolated PITR restores, independent fencing, RPO/RTO acceptance, exporter alerts, security review, growth/billing, and business stakeholder signatures. No user data deletion, production failover, backend termination or production right-sizing is authorized by these drafts.
 
 ## References
 
