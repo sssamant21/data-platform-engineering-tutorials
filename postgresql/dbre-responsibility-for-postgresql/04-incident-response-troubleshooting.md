@@ -18,6 +18,8 @@
 
 Record UTC timestamps, instance and region, engine version, endpoint, primary/standby role, affected applications, known changes, incident lead and vendor case.
 
+**V04 first-response guardrails:** confirm the target cluster and monitoring role before SQL; use a read-only transaction and bounded statement_timeout for the separate [staging-only SQL pack](qa/V04-readonly-staging-triage.sql). Protect the remaining administrative connection reserve. If authentication/connections are exhausted, use approved provider/OS/pooler telemetry rather than opening many more SQL sessions. Do not run destructive load/failover simulations outside an isolated, explicitly approved staging environment.
+
 ### Read-only first-response SQL
 
 ~~~~sql
@@ -65,16 +67,20 @@ SELECT archived_count, last_archived_time, failed_count,
 **Symptoms:** "too many clients already", pool waiting, application timeouts, many idle sessions.
 
 ~~~~sql
-SELECT datname, usename, state, COUNT(*) AS sessions
+SELECT datname, usename, state, COUNT(*) AS client_sessions
 FROM pg_stat_activity
+WHERE backend_type = 'client backend'
 GROUP BY datname, usename, state
-ORDER BY sessions DESC;
+ORDER BY client_sessions DESC;
 
-SHOW max_connections;
-SHOW superuser_reserved_connections;
+SELECT current_setting('max_connections')::int AS max_connections,
+       current_setting('superuser_reserved_connections')::int
+         AS superuser_reserved_connections,
+       current_setting('reserved_connections', true)
+         AS reserved_connections_if_supported;
 ~~~~
 
-Inspect APP pool size versus actual DB configured max, transaction pooling limitations, idle-in-transaction sessions, connection churn and authentication errors. Do not blindly increase max_connections: each connection consumes resources. APP owns pool/concurrency changes; DBRE governs database slots and capacity. Do not kill sessions as a routine shortcut.
+Inspect APP pool size versus actual DB configured max, transaction pooling limitations, idle-in-transaction sessions, connection churn and authentication errors. The client-backend count intentionally excludes other backend types; it is not an exact count of all connection-slot consumers. PostgreSQL 16+ adds reserved_connections for roles with pg_use_reserved_connections, besides the superuser emergency reserve. current_setting(..., true) returns NULL when the parameter does not exist (e.g., earlier versions). Verify provider limits and PgBouncer pool stats. Do not blindly increase max_connections: each connection consumes resources and may need restart. APP owns pool/concurrency changes; DBRE governs database connection headroom. Preserve emergency access. Do not kill sessions as a routine shortcut.
 
 ## 4. PG-INC-003 — Slow queries / high CPU / I/O
 
@@ -109,7 +115,7 @@ SELECT datname, deadlocks, stats_reset
 FROM pg_stat_database WHERE datname IS NOT NULL;
 ~~~~
 
-Correlate blocker PID, transaction owner, statement class, migration/DML, timeouts and app deadlock retry semantics. Differentiate idle-in-transaction and active long transaction. Cancel versus terminate is not equivalent; neither is safe without business impact review. Document APP-approved victim selection, evidence and transaction correctness after mitigation.
+Correlate blocker PID, transaction owner, statement class, migration/DML, timeouts and app deadlock retry semantics. Differentiate idle-in-transaction and active long transaction. Capture waiters and actual blocking PIDs, then ask APP whether the blocker is holding an uncommitted transaction. A backend PID can be reused: never treat a stale PID from a report as sufficient identity to terminate a live process. pg_cancel_backend requests cancellation of the current query; pg_terminate_backend ends the session and may roll back uncommitted work. Neither is safe without APP/business-impact review. Document independent incident authorization, fresh identity recheck, victim selection, outcome and transaction/data correctness after mitigation. No cancellation/termination commands are provided.
 
 ## 6. PG-INC-005 — Replication lag / standby not receiving WAL
 
@@ -136,8 +142,9 @@ Intervals may be NULL or misleading on an idle primary. Confirm WAL LSN progress
 **Symptoms:** pg_wal disk fills despite ordinary table/storage growth, replication consumers down.
 
 ~~~~sql
--- On primary
+-- On an authorized primary ONLY: LSN delta is a planning signal
 SELECT slot_name, slot_type, active, restart_lsn,
+       wal_status, safe_wal_size, xmin, catalog_xmin,
        CASE WHEN restart_lsn IS NOT NULL
             THEN pg_wal_lsn_diff(pg_current_wal_lsn(), restart_lsn)
        END AS approx_retained_wal_bytes
@@ -147,7 +154,7 @@ SELECT current_setting('max_slot_wal_keep_size') AS max_slot_wal_keep_size,
        current_setting('wal_keep_size') AS wal_keep_size;
 ~~~~
 
-Replicas, logical subscribers and CDC tools may depend on each slot. Default max_slot_wal_keep_size=-1 can allow unbounded WAL retained by a slot. Restoring a disconnected consumer may require WAL from archive or a full resnapshot. Never drop a slot solely to free disk; DATA/APP must approve lost replay/resync risks. Check provider slots and storage limits.
+Replicas, logical subscribers and CDC tools may depend on each slot. The computed LSN delta is a WAL production distance, not exact disk bytes held exclusively by that slot. A status of unreserved means WAL may become unavailable at a checkpoint; lost means the slot is unusable. safe_wal_size is NULL for unlimited max_slot_wal_keep_size (-1) or an unusable slot; it is NOT zero and must not be interpreted as all clear. A slot's xmin/catalog_xmin can also retain row versions and obstruct vacuum. Default max_slot_wal_keep_size=-1 can allow unbounded WAL retention. Never drop a slot solely to free disk; DATA/APP must approve affected physical replicas or logical/CDC consumers, resynchronization and recovery risk. Check provider slots and actual storage headroom.
 
 ## 8. PG-INC-007 — WAL archiving failure / PITR exposure
 
@@ -179,24 +186,31 @@ FROM pg_stat_progress_vacuum;
 -- database's relation OID to regclass in your current database.
 ~~~~
 
-Inspect long-running snapshots, replication feedback, vacuum cost delay, insert/update/delete churn, disk IO and table-level thresholds. Dead tuple estimates are approximate; do not automatically VACUUM FULL (exclusive lock and disk). Ordinary autovacuum/VACUUM can run without blocking normal reads/writes generally, though workloads and certain operations can still be impacted. Tune with controlled staging evidence.
+Inspect long-running snapshots, replication feedback (hot_standby_feedback), xmin/catalog_xmin retained by slots, vacuum cost delay, write churn, disk I/O and table-level thresholds. Dead tuple estimates are approximate; do not automatically VACUUM FULL (ACCESS EXCLUSIVE lock, extra disk and possible outage). Autovacuum can be delayed by conflicting locks or aggressive workload pressure; anti-wraparound autovacuum is particularly critical and may not be automatically cancelled by conflicting locks. Do not disable autovacuum or cancel anti-wraparound work without a separate expert-approved recovery procedure. Tune with controlled staging evidence.
 
 ## 10. PG-INC-009 — Transaction ID / multixact wraparound risk
 
 ~~~~sql
-SELECT datname, age(datfrozenxid) AS database_xid_age,
-       current_setting('autovacuum_freeze_max_age')::bigint AS freeze_max_age
-FROM pg_database ORDER BY database_xid_age DESC;
+SELECT datname,
+       age(datfrozenxid) AS database_xid_age,
+       mxid_age(datminmxid) AS database_multixact_age,
+       current_setting('autovacuum_freeze_max_age')::bigint AS freeze_max_age,
+       current_setting('autovacuum_multixact_freeze_max_age')::bigint
+         AS multixact_freeze_max_age
+FROM pg_database
+ORDER BY database_xid_age DESC;
 
-SELECT n.nspname, c.relname,
-       age(c.relfrozenxid) AS relation_xid_age
+-- Per-relation query runs in each database, includes TOAST relations.
+SELECT n.nspname, c.relname, c.relkind,
+       age(c.relfrozenxid) AS relation_xid_age,
+       mxid_age(c.relminmxid) AS relation_multixact_age
 FROM pg_class c
 JOIN pg_namespace n ON n.oid=c.relnamespace
-WHERE c.relkind IN ('r','m') AND n.nspname NOT IN ('pg_catalog','information_schema')
+WHERE c.relkind IN ('r','m','t')
 ORDER BY relation_xid_age DESC LIMIT 50;
 ~~~~
 
-Also assess multixact age, active and idle-in-transaction blockers, autovacuum workers and XID burn rate. Wraparound is a **data availability/correctness emergency**; do not disable autovacuum or defer anti-wraparound VACUUM. Escalate promptly, obtain qualified DBRE peer review and a recovery plan before heavy maintenance.
+Database-level XID and multixact ages are both essential; inspect each database and separately sort relation_multixact_age if it is the leading risk. Include system/TOAST objects when investigating freeze protection. Assess autovacuum_xid/multixact limits, long transactions, old replication slot xmin/catalog_xmin, autovacuum workers, transaction rate and future time to safety boundaries. The configured autovacuum_freeze_max_age is a forced-vacuum threshold, not the 2-billion-XID system-wide wraparound limit nor a guarantee that vacuum finishes in time. Wraparound is a data availability/correctness emergency: prioritize specialist review, prevent unnecessary transactions, and never disable autovacuum or run VACUUM FULL as a naive anti-wraparound fix. Use an approved emergency runbook; do not manufacture wraparound pressure on production.
 
 ## 11. PG-INC-010 — Disk exhausted, WAL growth, temp-file explosion
 
@@ -221,7 +235,25 @@ Assess last successful **complete** base backup, archived WAL chain, manifest ve
 
 Investigate pg_hba.conf rules (self-managed), SSL mode/cert chain, expired secrets, managed identity/IAM, service role grants, endpoint changes and failed schema migrations. SEC/PLT and APP own their respective parts. Never disable TLS/authentication or grant SUPERUSER broadly to resolve an incident. A migration lock or long DDL may impact live traffic; ensure rollback and migration-owner sign-off.
 
-## 15. Mandatory evidence and communication template
+## 15. V04 incident mitigation decision gates
+
+| Action under consideration | Authorized prerequisites | Stop / no-go condition |
+|---|---|---|
+| Terminate or cancel query/backend | APP owns transaction; fresh session identity, blockers, business effects and change/incident authority documented | Unknown owner, uncommitted critical work, stale PID, anti-wraparound/autovacuum process |
+| Increase connection or pool capacity | Peak load, reserved slots, memory, restart needs and pool limits assessed | Risk of losing emergency connections or adding OOM pressure |
+| Change WAL retention or replication slot | DATA/APP approve consumer rebootstrap; replay/resync plan and storage runway | Unknown subscriber, CDC backlog, PITR dependency or current slot state uncertain |
+| Force replica catch-up, remove standby, promote | Measured replay LSN, data-loss estimate, independent fencing and incident approval | Unable to prove single writer or accept RPO exposure |
+| Vacuum/REINDEX/large table rewrite | Lock/IO space budget, freeze-risk priority, APP maintenance window | Freeze emergency, insufficient disk, unknown long-running snapshot |
+| Storage or managed instance changes | PLT provider-specific plan, backup and rollback capacity | No recoverable backup or expected write disruption unacceptable |
+| Recovery/DR | Confirm complete backup/PITR and APP/DATA correctness validation | Missing WAL/restore window, no independent approval, unsafe cutover |
+
+**Default behavior:** collect evidence, escalate and stop any mutation until its guardrail passes. Emergency change control may be expedited under the approved incident policy; it is not eliminated.
+
+### V04 source review and staging exercise
+
+The [V04 source-based safety review](qa/V04-incident-runtime-safety-review.md) maps PG-INC-001–013 to risks, SQL placement and test cases. A separate [read-only staging diagnostic pack](qa/V04-readonly-staging-triage.sql) is prepared for review, not executed. It excludes query cancellation, session termination, slot deletion, promotion, forced vacuum and intentional exhaustion.
+
+## 16. Mandatory evidence and communication template
 
 | Field | Entry |
 |---|---|
@@ -239,12 +271,12 @@ Investigate pg_hba.conf rules (self-managed), SSL mode/cert chain, expired secre
 
 Treat query text, user IDs, credentials and patient data as restricted. Prefer sanitized query IDs, time windows and trend charts. Declare recovery **only** after APP and DATA validate business workflows.
 
-## 16. Staging/tabletop acceptance
+## 17. Staging/tabletop acceptance
 
 - [ ] All 13 incident scenarios reviewed with named DBRE and partner owners.
 - [ ] Read-only commands validated with intended PostgreSQL version and managed-service privileges.
-- [ ] Lock/blocker, connection exhaustion, replica lag and WAL retention simulations conducted safely.
-- [ ] Vacuum/freeze and storage pressure playbooks reviewed for data safety.
+- [ ] V04-T01–T13 matrix reviewed; authorized staging tests for lock/blocker, connection reserve, replica lag and WAL status conducted safely.
+- [ ] Vacuum/XID and multixact freeze ages and slot xmin/catalog_xmin impact reviewed for data safety.
 - [ ] Fencing/single-writer, promotion/rebuild/rewind and rollback rehearsal approved.
 - [ ] PITR and full service recovery exercise produces measured RPO/RTO.
 - [ ] APP query and DATA record checks pass after recovery.
@@ -252,6 +284,9 @@ Treat query text, user IDs, credentials and patient data as restricted. Prefer s
 
 ## References
 - [PostgreSQL monitoring](https://www.postgresql.org/docs/current/monitoring-stats.html)
+- [PostgreSQL 14 replication slot status/metadata](https://www.postgresql.org/docs/14/view-pg-replication-slots.html)
+- [PostgreSQL connection reserves and reserved_connections](https://www.postgresql.org/docs/16/runtime-config-connection.html)
+- [PostgreSQL vacuum configuration and multixact freezes](https://www.postgresql.org/docs/18/runtime-config-vacuum.html)
 - [Replication](https://www.postgresql.org/docs/current/warm-standby.html)
 - [Vacuum and wraparound](https://www.postgresql.org/docs/current/routine-vacuuming.html)
 - [WAL and archive](https://www.postgresql.org/docs/current/continuous-archiving.html)

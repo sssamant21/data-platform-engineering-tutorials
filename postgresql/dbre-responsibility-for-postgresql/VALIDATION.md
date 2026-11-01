@@ -26,7 +26,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 | V01 | Structure and source links | 9 files, 28 fences, 13 local links, headings and table columns checked | **PASS (static only)** — [V01 report](qa/V01-structure-link-safety-audit.md) |
 | V02 | SQL and version compatibility | [V02 catalog/version/provider review](qa/V02-sql-version-provider-compatibility.md), 3 guide corrections | **Static review completed; staging execution PENDING** |
 | V03 | Monitoring and security | [V03 source/metric/security report](qa/V03-monitoring-alerting-security-review.md) and [sample alerts](qa/V03-prometheus-alerts.example.yml) | **Source review complete; live validation pending** |
-| V04 | Incident and vacuum/replication | Staging lock/WAL/slot/XID pressure exercises and RCA reviews | Pending |
+| V04 | Incident and vacuum/replication | [V04 source review](qa/V04-incident-runtime-safety-review.md), [read-only staging pack](qa/V04-readonly-staging-triage.sql) and mitigation gates | **Static review complete; staging tests PENDING** |
 | V05 | Capacity/growth/FinOps | Database/table/index/WAL snapshots and forecasts, billing comparison | Pending |
 | V06 | Backup/PITR/HA/DR | Timed isolated restore, fencing, one writer, failback and RPO/RTO | Pending |
 
@@ -37,7 +37,9 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [ ] V02 SQL/API syntax, privileges, engine versions and managed provider restrictions independently validated.
 - [x] V03 exporter source/role/alert design review and sample rules published.
 - [ ] V03 live series, monitoring role, promtool rules, on-call routing and Security approval pending.
-- [ ] V04–V06 real environment, staging and business recovery acceptance pending.
+- [x] V04 incident runbook source audit covers 13 scenarios, connection reserve, blocking, WAL/slots, replica lag, XID/MXID age and mitigation gates.
+- [ ] V04 isolated staging exercises V04-T01–T13, evidence collection and DBRE/APP/DATA peer review pending.
+- [ ] V05–V06 real environment, staging and business recovery acceptance pending.
 
 ## Technical validation checklist
 
@@ -50,7 +52,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [ ] Verify PgBouncer/connection pool, APP p95/p99 and DB synthetic availability SLIs.
 - [ ] Verify actual postgres_exporter metric names/labels, target disappearance, counter reset and no-data behavior.
 - [ ] Monitor replication lag, slots/retained WAL, archive failures, restore point and disk headroom.
-- [ ] Test wraparound/freeze warning and emergency response with safe staging scenario.
+- [ ] Test XID and multixact freeze warning and emergency response with SAFE staging/tabletop scenario; do not manufacture critical wraparound on production.
 - [ ] Validate locks/deadlocks and session cancellation/termination decision gates.
 - [ ] Collect primary/replica disk usage separately from logical database/table/index bytes, WAL and backup storage.
 - [ ] Persist daily measurements for weekly/monthly/quarterly/semiannual/yearly growth reports.
@@ -71,7 +73,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 |---|---|---|---|---|---|
 | SQL and extension compatibility | TBD | TBD | TBD | TBD | Pending |
 | Monitoring/exporter and APP SLO | TBD | TBD | TBD | TBD | Pending |
-| Blocking, autovacuum, WAL and slot exercise | TBD | TBD | TBD | TBD | Pending |
+| Blocking, autovacuum, WAL and slot exercise | TBD | TBD | TBD | [V04 static report](qa/V04-incident-runtime-safety-review.md) | **Staging exercise pending** |
 | Capacity and bill review | TBD | TBD | TBD | TBD | Pending |
 | Isolated backup/PITR restore | TBD | TBD | TBD | TBD | Pending |
 | Independent fencing / HA drill | TBD | TBD | TBD | TBD | Pending |
