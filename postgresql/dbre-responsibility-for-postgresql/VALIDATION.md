@@ -25,7 +25,7 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 |---|---|---|---|
 | V01 | Structure and source links | 9 files, 28 fences, 13 local links, headings and table columns checked | **PASS (static only)** — [V01 report](qa/V01-structure-link-safety-audit.md) |
 | V02 | SQL and version compatibility | [V02 catalog/version/provider review](qa/V02-sql-version-provider-compatibility.md), 3 guide corrections | **Static review completed; staging execution PENDING** |
-| V03 | Monitoring and security | Actual exporter series, alert routing, least privilege and PHI checks | Pending |
+| V03 | Monitoring and security | [V03 source/metric/security report](qa/V03-monitoring-alerting-security-review.md) and [sample alerts](qa/V03-prometheus-alerts.example.yml) | **Source review complete; live validation pending** |
 | V04 | Incident and vacuum/replication | Staging lock/WAL/slot/XID pressure exercises and RCA reviews | Pending |
 | V05 | Capacity/growth/FinOps | Database/table/index/WAL snapshots and forecasts, billing comparison | Pending |
 | V06 | Backup/PITR/HA/DR | Timed isolated restore, fencing, one writer, failback and RPO/RTO | Pending |
@@ -35,7 +35,9 @@ GitHub publication and Markdown structure validation are not proof that SQL func
 - [x] V01 static structure, internal links, code fences, tables and limited destructive command pattern audit — [report](qa/V01-structure-link-safety-audit.md).
 - [ ] External documentation links (37) checked for reachability/version relevance.
 - [ ] V02 SQL/API syntax, privileges, engine versions and managed provider restrictions independently validated.
-- [ ] V03–V06 real environment, staging and business recovery acceptance pending.
+- [x] V03 exporter source/role/alert design review and sample rules published.
+- [ ] V03 live series, monitoring role, promtool rules, on-call routing and Security approval pending.
+- [ ] V04–V06 real environment, staging and business recovery acceptance pending.
 
 ## Technical validation checklist
 

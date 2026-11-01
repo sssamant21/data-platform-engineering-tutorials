@@ -11,7 +11,7 @@ PostgreSQL statistics/catalogs + OS/host/cloud metrics + pooler metrics + applic
 
 ### Exporter compatibility and privacy
 
-Metrics below are **illustrative only**, based on common Prometheus postgres_exporter configurations. Different versions/flags/custom collectors produce different names and labels. Check actual /metrics output and SQL privileges before creating alert expressions. Do not emit sensitive query literals, PHI or full SQL as labels. Avoid monitoring a 1000+ relation catalog at fine granularity without cardinality assessment.
+Metrics below are illustrative. Current Prometheus Community postgres_exporter source confirms the database transactions, deadlocks, size and activity metric names used below; deployed collector flags, exporter release, labels and monitoring privileges still require actual /metrics verification. Restrict collector impact and metric cardinality. The stat_activity collector may expose username and application name labels: prevent PHI, patient identifiers, credentials and full confidential SQL from appearing in scraped metrics or broadly accessible dashboards.
 
 ## 2. Required dashboard suite
 
@@ -30,11 +30,34 @@ Metrics below are **illustrative only**, based on common Prometheus postgres_exp
 
 ## 3. Example PromQL (verify actual metric names first)
 
-Prometheus exporter scrape failures:
+**Distinguish exporter reachability from PostgreSQL reachability.**
+
+Prometheus could not scrape the exporter:
 
 ~~~~promql
 up{job="postgres-exporter"} == 0
 ~~~~
+
+Exporter can be reached but reports that its DB connection/scrape failed (verify semantics with deployed version and simulated failure):
+
+~~~~promql
+pg_up{job="postgres-exporter"} == 0
+~~~~
+
+Exporter target scrapes successfully but the expected database-health metric is missing:
+
+~~~~promql
+(up{job="postgres-exporter"} == 1)
+unless on (job,instance) pg_up{job="postgres-exporter"}
+~~~~
+
+No exporter job targets have been observed for 10 minutes:
+
+~~~~promql
+absent_over_time(up{job="postgres-exporter"}[10m])
+~~~~
+
+**Limit:** The job-wide absence alert does not detect ONE instance disappearing while others remain. Maintain an independent expected-target inventory/operational service-discovery check. The exporter can also report misleading pg_up values in failure edge cases; require a separate database or application synthetic probe and explicit failure-injection validation.
 
 Database transactions/s (counter reset safe; check labels and scrape consistency):
 
@@ -51,7 +74,7 @@ Deadlocks increase (requires database metric):
 sum by (instance,datname) (increase(pg_stat_database_deadlocks[5m])) > 0
 ~~~~
 
-Database size — often provided as a custom/standard exporter gauge:
+Database size — provided by the current default database collector, provided it is enabled and permitted:
 
 ~~~~promql
 sum by (instance,datname) (pg_database_size_bytes)
@@ -60,8 +83,10 @@ sum by (instance,datname) (pg_database_size_bytes)
 Active connections (verify column/labels in exporter version):
 
 ~~~~promql
-sum by (instance,datname) (pg_stat_activity_count{state="active"})
+sum by (instance,datname) (pg_stat_activity_count{state="active",backend_type="client backend"})
 ~~~~
+
+The current exporter also defines pg_exporter_last_scrape_error, an independent exporter-side error indicator (confirm behavior in the installed version). Combine it with up, pg_up and application probes rather than using a single metric as proof of availability.
 
 **Replication/slot metrics** vary widely. Prefer validated, version-specific exporter queries or custom SQL with stable identity labels and a corresponding lag/wal-retention SLI; never invent a hard-coded exporter metric name.
 
@@ -143,22 +168,56 @@ SELECT schemaname, relname, n_dead_tup, last_autovacuum,
 FROM pg_stat_user_tables ORDER BY n_dead_tup DESC LIMIT 25;
 ~~~~
 
-Use pg_read_all_stats or a narrower authorized monitoring scheme, rather than granting blanket superuser. Current-query text may be sensitive. pg_stat_io only exists in PostgreSQL 16+, and pg_stat_checkpointer in PostgreSQL 17+, so gate panels by exact version. Provider-managed services may restrict stats and WAL functions.
+Use a dedicated least-privilege exporter identity, not SUPERUSER. The built-in pg_monitor role is broader than pg_read_all_stats because it includes read-all-settings and stat-scan-table monitoring powers. Test pg_read_all_stats first and grant only the additional role privileges truly required for enabled collectors. Do not grant pg_signal_backend, broad write/DDL, file access or replication management to metrics identities. Protect TLS, credentials, Prometheus exporter port 9187, network access and endpoint authorization.
 
-## 7. Alert and monitoring validation
+Read-only authorized staging role check:
+
+~~~~sql
+SELECT current_user AS monitoring_role, current_database() AS db,
+       pg_has_role(current_user, 'pg_read_all_stats', 'MEMBER') AS stats_member,
+       pg_has_role(current_user, 'pg_monitor', 'MEMBER') AS monitor_member,
+       pg_has_role(current_user, 'pg_signal_backend', 'MEMBER') AS signal_member;
+~~~~
+
+A membership check alone is not full privilege certification. Current-query text may be sensitive. pg_stat_io exists in PostgreSQL 16+ and pg_stat_checkpointer in PostgreSQL 17+; gate panels accordingly. Provider-managed services may restrict stats and WAL functions.
+
+## 7. Sample alert rules and staging test plan
+
+A non-deployed YAML alert template is in [V03 example alerts](qa/V03-prometheus-alerts.example.yml). It covers exporter scrape failure, database scrape failure, missing pg_up, job-wide absence, and last-scrape errors. All alerts are warnings pending workload/service-impact assessment, and must be validated with promtool, real exporter labels, synthetic probes and routing before any production use. There is deliberately no automatic failover, write termination or database configuration action.
+
+| Test | Required failure-injection or inspection | Acceptance |
+|---|---|---|
+| V03-T01 | Exporter unreachable | Prometheus up=0 and routed warning |
+| V03-T02 | Database unreachable while exporter up | pg_up/collector behavior and independent probe |
+| V03-T03 | pg_up absent but up=1 | Missing-series warning |
+| V03-T04 | All exporter targets removed | Whole-job absence warning |
+| V03-T05 | One expected target removed, others remain | Independent inventory-based missing-target alarm |
+| V03-T06 | Metric collector disabled or privilege denied | Coverage/error alert, diagnosis |
+| V03-T07 | Stats counter reset/restart | Sensible rates and alert noise |
+| V03-T08 | Sensitive username/app label/SQL | No PHI/secrets distributed; SEC signs off |
+| V03-T09 | TLS/credential rotation failure | No secret disclosure; correct alert routing |
+| V03-T10 | APP client and backup/replication SLO checks | Independent service evidence, not just exporter health |
+
+## 8. Alert and monitoring validation
 
 - [ ] Prometheus targets include all primaries, replicas and poolers, with topology labels.
 - [ ] Exporter health and missing-target detection tested.
-- [ ] Real metric names, help/type and reset semantics verified.
+- [ ] Deployed metric names, labels, collector flags, HELP/TYPE, counter resets and up versus pg_up behavior verified.
 - [ ] App p95/p99 measured from actual client requests.
 - [ ] Lag/WAL/backup alerts tied to approved business objectives.
 - [ ] Version-specific stats views and cloud metrics tested.
 - [ ] Alert routing and runbook links validated in staging.
-- [ ] Security protects queries/user identifiers and non-public metrics.
+- [ ] Role grants, metric endpoint access, secret rotation, user/app labels and PHI-safe query capture approved by Security.
+- [ ] Run V03-T01–T10 in staging, validate sample alerts with promtool and confirm individual target disappearance detection.
 - [ ] On-call ownership and noise/suppression rules approved.
 
 ## References
 - [PostgreSQL monitoring views](https://www.postgresql.org/docs/current/monitoring-stats.html)
 - [pg_stat_statements](https://www.postgresql.org/docs/current/pgstatstatements.html)
 - [Prometheus postgres_exporter](https://github.com/prometheus-community/postgres_exporter)
+- [Exporter collector source](https://github.com/prometheus-community/postgres_exporter/tree/master/collector)
+- [Exporter role guidance](https://github.com/prometheus-community/postgres_exporter/blob/master/docs/database-permissions.md)
+- [PostgreSQL predefined roles](https://www.postgresql.org/docs/current/predefined-roles.html)
+- [Prometheus alert rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
+- [Grafana No Data behavior](https://grafana.com/docs/grafana/latest/alerting/guides/missing-data/)
 - [PostgreSQL WAL/replication configuration](https://www.postgresql.org/docs/current/runtime-config-replication.html)

@@ -1,0 +1,50 @@
+# V03 EXAMPLE ONLY — DO NOT DEPLOY TO PRODUCTION WITHOUT APPROVED TESTS
+# Requires scrape job name postgres-exporter; adjust labels and route.
+# Expected-target inventory is required to catch one removed target.
+groups:
+  - name: postgresql_dbre_v03_examples
+    interval: 1m
+    rules:
+      - alert: PostgreSQLExporterScrapeDown
+        expr: up{job="postgres-exporter"} == 0
+        for: 3m
+        labels:
+          severity: warning
+          team: dbre
+        annotations:
+          summary: "Prometheus cannot scrape PostgreSQL exporter"
+          description: "Exporter scrape failed on {{ $labels.instance }}; confirm application impact separately."
+      - alert: PostgreSQLDatabaseExporterScrapeFailed
+        expr: pg_up{job="postgres-exporter"} == 0
+        for: 3m
+        labels:
+          severity: warning
+          team: dbre
+        annotations:
+          summary: "Exporter reports PostgreSQL connection or scrape failure"
+          description: "Check DB connection, TLS, monitoring role and independent probes on {{ $labels.instance }}."
+      - alert: PostgreSQLExporterPgUpMissing
+        expr: (up{job="postgres-exporter"} == 1) unless on(job,instance) pg_up{job="postgres-exporter"}
+        for: 5m
+        labels:
+          severity: warning
+          team: dbre
+        annotations:
+          summary: "Exporter scrape works but pg_up metric is missing"
+      - alert: PostgreSQLExporterJobAbsent
+        expr: absent_over_time(up{job="postgres-exporter"}[10m])
+        for: 1m
+        labels:
+          severity: warning
+          team: dbre
+        annotations:
+          summary: "No postgres-exporter job targets observed for 10 minutes"
+          description: "Job-wide only; additional target inventory needed for one missing instance."
+      - alert: PostgreSQLExporterLastScrapeError
+        expr: pg_exporter_last_scrape_error{job="postgres-exporter"} > 0
+        for: 3m
+        labels:
+          severity: warning
+          team: dbre
+        annotations:
+          summary: "PostgreSQL exporter reports collection error"
