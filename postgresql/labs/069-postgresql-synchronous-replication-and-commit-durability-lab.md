@@ -12,7 +12,16 @@ On the primary run:
 psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -f postgresql/labs/sql/069-synchronous-replication-inspect.sql
 ```
 
-Record `pg_stat_replication` and `pg_stat_activity` baseline. Confirm both standbys are streaming.
+Record `pg_stat_replication` and `pg_stat_activity` baseline. Confirm both standbys are streaming. **Before any ALTER SYSTEM**, capture the original effective value, its configuration source and all rows for `synchronous_standby_names` in `pg_file_settings` (including whether `postgresql.auto.conf` currently sets it):
+
+~~~sql
+SELECT name,setting,source,sourcefile,sourceline
+FROM pg_settings WHERE name='synchronous_standby_names';
+SELECT sourcefile,name,setting,applied,error
+FROM pg_file_settings WHERE name='synchronous_standby_names';
+~~~
+
+Store the original exact value and ownership in the private lab log. If a configuration manager owns it, use that manager for any lab configuration changes.
 
 ## 2. Fixture and baseline
 
@@ -63,28 +72,32 @@ Repeat with unique IDs to build useful latency samples. Capture standby `write_l
 
 ## 5. Controlled standby outage
 
-**Lab only:** stop the selected synchronous standby using the lab's normal service manager. Verify whether the remaining eligible standby takes over under FIRST 1. To demonstrate a blocked commit, ensure no eligible synchronous standby is available, then in a dedicated session:
+**Lab only:** stop the selected synchronous standby using the lab's normal service manager. Verify whether the remaining eligible standby takes over under FIRST 1. To demonstrate a blocked commit, ensure no eligible synchronous standby is available. Use the **single, bounded client invocation below**, not an unbounded stand-alone `psql` session.
 
-```sql
-SET synchronous_commit = on;
-SET statement_timeout = '5s';
-INSERT INTO public.commit_probe(event_id) VALUES ('outage-test-001');
-```
+Observe `SyncRep` waits from another session, but **do not rely on `statement_timeout` as a guaranteed client deadline for a synchronous-commit acknowledgement wait**. In the isolated Linux lab, separately bound the entire `psql` process with an operating-system client deadline, for example:
 
-Observe `SyncRep` waits from another session. After the timeout, **do not blindly retry**: inspect whether the transaction committed locally. Restart a standby and confirm replication catches up. A canceled or timed-out synchronous commit can have an ambiguous client-visible outcome.
+~~~bash
+# Verified disposable PostgreSQL 18 endpoint only. Do not use in staging/production.
+timeout --signal=TERM --kill-after=3s 9s \
+  psql -X -v ON_ERROR_STOP=1 -h VERIFIED_LAB_PRIMARY -p VERIFIED_LAB_PORT \
+    -U VERIFIED_LAB_ROLE -d ch069_lab \
+    -c "SET statement_timeout='2000ms'" \
+    -c "BEGIN; SET LOCAL synchronous_commit=on; INSERT INTO public.commit_probe(event_id) VALUES ('outage-test-unique-001'); COMMIT"
+~~~
+
+The timeout/termination is a **client-observed failure, not proof of transaction rollback**: PostgreSQL may already have committed locally while waiting for synchronous acknowledgement. In a separate observer session, verify `pg_stat_activity.wait_event='SyncRep'`, capture the client exit code, restore the disconnected standby, and reconcile the **unique event ID** on the primary and recovered standbys before deciding whether any idempotent retry is safe. A missing acknowledgement must not be interpreted as a missing row. The [actual disposable PG18 V03 test](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) confirmed this behavior with a separately bounded client and independently observed `SyncRep` wait. Do not run this test without a controlled disposable environment, validated rollback, and an authorized lab operator.
 
 ## 6. Quorum experiment
 
 With both standbys healthy, set `synchronous_standby_names='ANY 2 (standby_a, standby_b)'` in the lab and verify `sync_state='quorum'`. Stop one standby and observe the impact using a bounded timeout. Restore both standbys.
 
-## 7. Rollback
+## 7. Rollback — restore the exact previous configuration
 
-```sql
-ALTER SYSTEM RESET synchronous_standby_names;
-SELECT pg_reload_conf();
-```
+**Do not run an unconditional `ALTER SYSTEM RESET synchronous_standby_names`.** If a value existed in `postgresql.auto.conf` before the exercise, RESET discards it rather than restoring it. Likewise, a config manager can override what ALTER SYSTEM changes.
 
-Confirm the prior effective value is restored (configuration precedence can override ALTER SYSTEM). Reset session-level `synchronous_commit` and verify writes and both standbys. Do not leave lab clients blocked.
+Using the snapshot captured in Step 1, have the authorized lab administrator restore **the original exact configuration in the same owning layer**. If the parameter was absent from `postgresql.auto.conf` before the lab, the administrator may remove only the temporary lab override; if it was already present, restore its exact original value. If managed externally, revert through the configuration manager. Reload and recheck the effective setting, its `source`, `sourcefile`, `sourceline`, and all relevant `pg_file_settings` records. Document successful restoration and compare against the snapshot; a missing snapshot means **NO_GO**, not assumed success.
+
+Reset the client session-level `synchronous_commit`, confirm writes and both standby connections, and check for blocked sessions. **Do not leave lab clients blocked.**
 
 ## 8. Acceptance
 
@@ -98,5 +111,7 @@ Confirm the prior effective value is restored (configuration precedence can over
 | Quorum mode | ANY 2 requires two acknowledgments | Pending |
 | Rollback | Original effective configuration restored | Pending |
 | Production isolation | No production endpoints changed | Pending |
+
+**Disposable runtime evidence:** The [streaming and synchronous-commit runtime test](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) passed **42/42 checks** in an isolated PostgreSQL 18 container, including FIRST 1, ANY 2, a `SyncRep` wait, separate client deadline, transaction reconciliation and exact default-configuration restoration. This is not an independent-host HA test, a business latency/SLO benchmark or enterprise certification; full acceptance remains **PENDING**.
 
 **Runtime:** pending.

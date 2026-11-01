@@ -18,15 +18,22 @@ Record RPO/RTO targets, PostgreSQL version, system identity, UTC clock, backup i
 
 ```bash
 createdb -U postgres ch066_lab
-psql -X -v ON_ERROR_STOP=1 -U postgres -d ch066_lab -f postgresql/labs/sql/066-dr-fixture.sql
+psql -X -v ON_ERROR_STOP=1 -h VERIFIED_LAB_HOST -U VERIFIED_LAB_ROLE -d ch066_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v expected_lab_data_directory=REPLACE_WITH_OBSERVED_LAB_PGDATA \
+  -v expected_lab_role=REPLACE_WITH_OBSERVED_LAB_ROLE \
+  -v confirm_stage=066-ONE-TIME-FIXTURE \
+  -f postgresql/labs/sql/066-dr-fixture.sql
 ```
 
-The fixture refuses execution outside ch066_lab. Keep the reference row unchanged until after backup.
+The fixture refuses execution outside ch066_lab **and** demands an exact independently observed PostgreSQL 18 system identifier, PGDATA location, role, primary state, unused schema and one-time operator stage token. Do not substitute guessed values. It deliberately refuses reuse of any existing schema or data. A partial failure requires review and an independently verified new fixture. Keep the reference row unchanged until after backup.
 
 ## 4. Backup and integrity
 
 ```bash
+set -euo pipefail
 mkdir -p /backups/ch066
+test ! -e /backups/ch066/base001 || { echo 'REFUSED: base001 exists' >&2; exit 3; }
 pg_basebackup -h 127.0.0.1 -U backup_repl -D /backups/ch066/base001 -Fp -X stream -P --manifest-checksums=SHA256
 pg_verifybackup /backups/ch066/base001
 ```
@@ -39,7 +46,7 @@ On the disposable source, issue separate autocommit statements:
 
 ```sql
 INSERT INTO ch066.events(event_key,description) VALUES ('before-target','must survive');
-SELECT clock_timestamp() AS after_first_commit;
+SELECT clock_timestamp() AS after_first_commit_with_utc_offset;
 ```
 
 Wait several seconds and record a UTC target after the first commit. Then:
@@ -50,11 +57,11 @@ DELETE FROM ch066.reference_data WHERE id=1;
 SELECT pg_switch_wal();
 ```
 
-Confirm the target lies before the second commit and deletion. Wait for archiver to store all required WAL. Do not delete data outside ch066_lab.
+Preserve the full timestamp **including UTC offset** and confirm the target lies after the first acknowledged commit and before the second transaction begins. Validate the ordering using transaction and WAL evidence, not the timestamp's label alone. Wait for archiver to durably store all required WAL; a successful `pg_switch_wal()` call does not mean the archive is complete. Do not delete data outside ch066_lab.
 
 ## 6. Isolated PITR
 
-On a separate disposable host/container, copy the verified base backup to a **new** PGDATA. Validate copied configs, filesystem ownership, tablespace paths, TLS, replication settings and unique port. Configure restore_command against a read-only lab archive, recovery_target_time with explicit UTC offset, recovery_target_action='pause', recovery_target_inclusive=false and recovery.signal. Start only on a localhost-only lab port and monitor logs until the target is reached.
+On a separate disposable host/container, copy the verified base backup to a **new** PGDATA. Validate copied configs, filesystem ownership, tablespace paths, TLS, replication settings and unique port. Configure restore_command against a read-only lab archive, recovery_target_time with explicit UTC offset, recovery_target_action='pause', recovery_target_inclusive=false and recovery.signal. Ensure the base backup ended **before** the requested target, and require explicit evidence that recovery actually reached it. Start only on a localhost-only lab port and monitor logs until the target is reached.
 
 ## 7. Acceptance SQL
 

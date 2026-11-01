@@ -1,0 +1,84 @@
+name: PostgreSQL V03 Chapters 061 062 065 Disposable Logical Restore and Retention
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/validation/v03_ch061_062_065_logical_disposable.sh"
+      - "postgresql/validation/ch065_retention_review.py"
+      - "postgresql/validation/test_ch065_retention_review.py"
+      - ".github/workflows/postgresql-v03-ch061-062-065-logical-retention.yml"
+      - "postgresql/labs/sql/062-fixture.sql"
+      - "postgresql/labs/sql/062-verify.sql"
+  pull_request:
+    paths:
+      - "postgresql/validation/v03_ch061_062_065_logical_disposable.sh"
+      - "postgresql/validation/ch065_retention_review.py"
+      - "postgresql/validation/test_ch065_retention_review.py"
+      - ".github/workflows/postgresql-v03-ch061-062-065-logical-retention.yml"
+      - "postgresql/labs/sql/062-fixture.sql"
+      - "postgresql/labs/sql/062-verify.sql"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  actual-disposable-logical-backup-and-retention-screen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python and Bash syntax
+        run: |
+          bash -n postgresql/validation/v03_ch061_062_065_logical_disposable.sh
+          python3 -m py_compile postgresql/validation/ch065_retention_review.py
+          python3 -m py_compile postgresql/validation/test_ch065_retention_review.py
+      - name: Run synthetic retention safety regressions (no delete)
+        run: python3 -m unittest -v postgresql/validation/test_ch065_retention_review.py
+      - name: Public retention sample must return NO_GO
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          if python3 postgresql/validation/ch065_retention_review.py \
+              --csv postgresql/labs/retention/065-retention-decision-template.csv \
+              --now-utc 2026-11-01T00:00:00Z \
+              --json-out retention-template-no-go.json; then
+            echo "FAIL: public template cannot authorize retention review" >&2
+            exit 1
+          fi
+          python3 - <<'PY'
+          import json
+          j=json.load(open("retention-template-no-go.json",encoding="utf-8"))
+          assert j["decision"]=="NO_GO"
+          assert j["deletion_authorized"] is False
+          assert j["deletion_performed"] is False
+          assert j["certification"]=="NOT_CERTIFIED"
+          print("PASS: public retention template NO_GO and never deletes")
+          PY
+      - name: Execute actual isolated PostgreSQL 18 dump and restore
+        shell: bash
+        run: bash postgresql/validation/v03_ch061_062_065_logical_disposable.sh
+      - name: Check sanitized runtime evidence
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          data=json.loads(Path("postgresql/validation/evidence-v03-ch061062065-logical.json").read_text())
+          assert data["checks"]>=22 and data["passed"]==data["checks"]
+          assert data["failed"]==0
+          assert data["backup_deletion_executed"] is False
+          assert data["retention_dry_run_only"] is True
+          assert data["staging_or_production_changed"] is False
+          assert data["enterprise_certification"]=="NOT_CERTIFIED"
+          print("PASS isolated disposable logical backup/restore:",data["passed"])
+          PY
+      - name: Upload sanitized disposable and NO_GO evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-ch061062065-logical-retention-evidence
+          path: |
+            postgresql/validation/evidence-v03-ch061062065-logical.json
+            retention-template-no-go.json
+          if-no-files-found: warn

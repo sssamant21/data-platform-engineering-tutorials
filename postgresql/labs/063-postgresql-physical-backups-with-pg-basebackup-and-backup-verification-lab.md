@@ -22,6 +22,7 @@ Check `pg_hba.conf` replication rules, TLS, `max_wal_senders`, role privileges a
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .\backups\ch063 | Out-Null
+if (Test-Path .\backups\ch063\base001) { throw 'REFUSED: base001 already exists' }
 pg_basebackup -h localhost -p 5432 -U backup_repl -D .\backups\ch063\base001 -Fp -X stream -P -c fast --manifest-checksums=SHA256
 if ($LASTEXITCODE -ne 0) { throw 'Backup failed; do not proceed' }
 ```
@@ -45,8 +46,11 @@ Copy the verified plain-format backup to an unused directory on an isolated Post
 ```powershell
 pg_ctl -D .\pgdata-ch063-restored -o '-p 55433 -c listen_addresses=localhost' -l .\ch063-restore.log start
 pg_isready -h localhost -p 55433
-psql -X -h localhost -p 55433 -U postgres -d postgres -c 'SELECT version(),pg_is_in_recovery();'
+if ($LASTEXITCODE -ne 0) { throw 'Isolated restored server not ready' }
+psql -X -v ON_ERROR_STOP=1 -h localhost -p 55433 -U postgres -d postgres -c 'SELECT version(),pg_is_in_recovery();'
+if ($LASTEXITCODE -ne 0) { throw 'Restored database query failed' }
 pg_ctl -D .\pgdata-ch063-restored stop -m fast
+if ($LASTEXITCODE -ne 0) { throw 'Restored database stop failed' }
 ```
 
 These commands assume the restored PGDATA is already prepared. On Windows, use the appropriate PostgreSQL service account and ACLs; do not attempt to run `pg_ctl` as an incompatible administrator identity.

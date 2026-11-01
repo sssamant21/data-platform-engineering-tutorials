@@ -1,0 +1,43 @@
+name: PostgreSQL V02-D Chapters 061-070 Phase One (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/labs/068-postgresql-replication-slots-wal-retention-and-lag-management-lab.md"
+      - "postgresql/labs/069-postgresql-synchronous-replication-and-commit-durability-lab.md"
+      - "postgresql/labs/sql/068-safe-slot-setup.sql"
+      - "postgresql/labs/sql/068-safe-wal-workload.sql"
+      - "postgresql/labs/sql/068-safe-slot-cleanup.sql"
+      - "postgresql/validation/test_v02d_ch061_070_phase1.py"
+      - ".github/workflows/postgresql-v02d-ch061-070-phase1.yml"
+  pull_request:
+    paths:
+      - "postgresql/labs/068-postgresql-replication-slots-wal-retention-and-lag-management-lab.md"
+      - "postgresql/labs/069-postgresql-synchronous-replication-and-commit-durability-lab.md"
+      - "postgresql/labs/sql/068-safe-slot-setup.sql"
+      - "postgresql/labs/sql/068-safe-wal-workload.sql"
+      - "postgresql/labs/sql/068-safe-slot-cleanup.sql"
+      - "postgresql/validation/test_v02d_ch061_070_phase1.py"
+      - ".github/workflows/postgresql-v02d-ch061-070-phase1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  guarded-backup-ha-lab-examples:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python syntax and offline static safety tests
+        run: |
+          python3 -m py_compile postgresql/validation/test_v02d_ch061_070_phase1.py
+          python3 -m unittest -v postgresql/validation/test_v02d_ch061_070_phase1.py
+      - name: Verify 068 lab scripts are available and no unsafe direct reset remains
+        run: |
+          test -f postgresql/labs/sql/068-safe-slot-setup.sql
+          test -f postgresql/labs/sql/068-safe-wal-workload.sql
+          test -f postgresql/labs/sql/068-safe-slot-cleanup.sql
+          ! grep -F 'ALTER SYSTEM RESET synchronous_standby_names;' postgresql/labs/069-postgresql-synchronous-replication-and-commit-durability-lab.md

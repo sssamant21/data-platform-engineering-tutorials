@@ -1,0 +1,53 @@
+name: PostgreSQL V03 Chapters 067-070 Streaming and Synchronous Durability (Disposable)
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch061-070-20261031]
+    paths:
+      - "postgresql/validation/v03_ch067_070_streaming_sync_disposable.sh"
+      - ".github/workflows/postgresql-v03-ch067-070-streaming-sync.yml"
+  pull_request:
+    paths:
+      - "postgresql/validation/v03_ch067_070_streaming_sync_disposable.sh"
+      - ".github/workflows/postgresql-v03-ch067-070-streaming-sync.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disposable-three-postgresql-processes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify shell syntax
+        run: bash -n postgresql/validation/v03_ch067_070_streaming_sync_disposable.sh
+      - name: Execute actual streaming and synchronous-commit scenarios
+        shell: bash
+        run: bash postgresql/validation/v03_ch067_070_streaming_sync_disposable.sh
+      - name: Validate safe, limited runtime evidence
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("postgresql/validation/evidence-v03-ch067070-streaming.json")
+          x=json.loads(p.read_text())
+          assert x["real_postgresql_execution"] is True
+          assert x["tests"]>=35 and x["passed"]==x["tests"] and x["failed"]==0
+          assert x["source_systems_isolated"] is False
+          assert x["independent_failure_domains"] is False
+          assert x["independent_fencing_proven"] is False
+          assert x["ha_promotion_executed"] is False
+          assert x["business_rpo_rto_verified"] is False
+          assert x["production_or_staging_touched"] is False
+          assert x["enterprise_certification"]=="NOT_CERTIFIED"
+          print("PASS: disposable replication only, no HA certification")
+          PY
+      - name: Upload synthetic disposable evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-ch067070-streaming-sync
+          path: postgresql/validation/evidence-v03-ch067070-streaming.json
+          if-no-files-found: warn

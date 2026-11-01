@@ -19,12 +19,17 @@ The fixture refuses to run outside `ch062_source`.
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .\backups\ch062 | Out-Null
+if (Test-Path .\backups\ch062\source.dump) { throw 'REFUSED: source.dump already exists' }
+if (Test-Path .\backups\ch062\source.dir) { throw 'REFUSED: source.dir already exists' }
 pg_dump -U postgres -d ch062_source -Fc -f .\backups\ch062\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Custom archive backup failed' }
 pg_restore -l .\backups\ch062\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Custom archive TOC verification failed' }
 Get-FileHash .\backups\ch062\source.dump -Algorithm SHA256
 
 # Parallel dump needs DIRECTORY format.
 pg_dump -U postgres -d ch062_source -Fd -j 2 -f .\backups\ch062\source.dir
+if ($LASTEXITCODE -ne 0) { throw 'Directory archive backup failed' }
 ```
 
 Do not rerun directory dump against an existing nonempty output directory without removing only the **lab-owned** archive first.
@@ -34,6 +39,7 @@ Do not rerun directory dump against an existing nonempty output directory withou
 ```powershell
 createdb -U postgres ch062_restored
 pg_restore -U postgres -d ch062_restored --exit-on-error --verbose .\backups\ch062\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Isolated restore failed' }
 psql -X -v ON_ERROR_STOP=1 -U postgres -d ch062_restored -f postgresql/labs/sql/062-verify.sql
 ```
 

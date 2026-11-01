@@ -30,10 +30,14 @@ Use unique database names and verify they do not already exist before creation.
 
 ```powershell
 New-Item -ItemType Directory -Force -Path .\backups\ch061 | Out-Null
+if (Test-Path .\backups\ch061\source.dump) { throw 'REFUSED: source.dump already exists' }
 pg_dump -U postgres -d ch061_source -Fc -f .\backups\ch061\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Backup failed' }
 pg_restore -l .\backups\ch061\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Archive inspection failed' }
 createdb -U postgres ch061_restored
 pg_restore -U postgres -d ch061_restored --exit-on-error .\backups\ch061\source.dump
+if ($LASTEXITCODE -ne 0) { throw 'Isolated restore failed' }
 psql -X -v ON_ERROR_STOP=1 -U postgres -d ch061_restored -c "SELECT count(*) AS restored_rows FROM public.backup_probe"
 ```
 

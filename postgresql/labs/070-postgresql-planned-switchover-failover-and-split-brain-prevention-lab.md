@@ -12,18 +12,18 @@ Provision at least two disposable PostgreSQL 18 nodes, a tested HA manager with 
 
 Run [070-ha-preflight.sql](../labs/sql/070-ha-preflight.sql) against both nodes, labeling each result with node identity. Capture HA manager leader state, DCS quorum, replication LSNs, timeline, backup health, WAL archiving, replication slots, writer routing, and client sessions.
 
-Create a lab-only database and a marker table on the current primary:
+Have the authorized lab operator verify that a **new, exclusively lab-owned** `ch070_lab` database exists on the current primary; create it only through the approved lab provisioning process if absent, and refuse existing/unowned database reuse. Capture the actual PostgreSQL 18 system identifier, PGDATA path and role from the independently verified lab primary. Run the one-time, fail-closed marker fixture on **the current primary only**:
 
-```sql
-CREATE TABLE IF NOT EXISTS public.ch070_marker (
-  id text PRIMARY KEY,
-  created_at timestamptz NOT NULL DEFAULT clock_timestamp()
-);
-INSERT INTO public.ch070_marker(id) VALUES ('before-switchover')
-ON CONFLICT DO NOTHING;
-```
+~~~bash
+psql -X -v ON_ERROR_STOP=1 -h VERIFIED_LAB_PRIMARY -U VERIFIED_LAB_ROLE -d ch070_lab \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_LAB_SYSTEM_ID \
+  -v expected_lab_data_directory=REPLACE_WITH_OBSERVED_LAB_PGDATA \
+  -v expected_lab_role=REPLACE_WITH_OBSERVED_LAB_ROLE \
+  -v confirm_stage=070-ONE-TIME-MARKER \
+  -f postgresql/labs/sql/070-one-time-marker-fixture.sql
+~~~
 
-Verify marker replication to standby before proceeding.
+The fixture rejects wrong database, system ID, data directory, role, standby mode, stage token and existing `ch070` schema. It uses `CREATE` and a single INSERT, **never** `IF NOT EXISTS` or `ON CONFLICT DO NOTHING`. If the fixture fails, treat the state as unverified instead of silently adopting old objects. After the commit, verify the marker replicated to the standby by a read-only query and record both node identities and the observed WAL positions. Do not start a switchover if the marker is missing.
 
 ## 3. Planned switchover
 
@@ -44,7 +44,7 @@ Verify marker replication to standby before proceeding.
 5. Validate writer routing, test marker and transaction idempotency; record RPO/RTO.
 6. Restore the old node **only after fencing and reconciliation**. Use pg_rewind or fresh base backup as required by the documented HA workflow.
 
-**If no quorum/fencing implementation is available:** perform a tabletop exercise only, mark failover/fencing NOT VERIFIED, and do not claim runtime acceptance.
+**If no independently verified quorum and fencing implementation is available:** perform a tabletop exercise only, mark failover/fencing NOT VERIFIED, and do not claim runtime acceptance. A health check or simple service stop is not proof of an external old-primary fence. Test bypasses and potential restart/rescheduling paths using the independently approved lab control plane before any standby promotion.
 
 ## 5. Split-brain prevention exercise
 
@@ -57,5 +57,7 @@ Restore lab writer routing, confirm old/new roles, WAL archiving, replication sl
 ## 7. Acceptance
 
 Complete [070-ha-failover-scorecard.csv](../labs/acceptance/070-ha-failover-scorecard.csv). Mandatory gates include old-primary fencing, single writer, healthy promotion, application endpoint switch, commit reconciliation, measured RPO/RTO, rejoin and backup continuity.
+
+**Bounded runtime evidence only:** The [Chapters 067–070 streaming/synchronous validation](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) passed **42/42 disposable tests** with one primary and two read-only standbys on the **same host**. No promotion, actual HA manager, separate fencing control plane or application cutover was performed. Chapter 070 fencing/failover acceptance remains **NOT VERIFIED / NO_GO**.
 
 **Runtime:** pending.
