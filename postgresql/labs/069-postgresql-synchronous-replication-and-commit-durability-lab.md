@@ -72,15 +72,20 @@ Repeat with unique IDs to build useful latency samples. Capture standby `write_l
 
 ## 5. Controlled standby outage
 
-**Lab only:** stop the selected synchronous standby using the lab's normal service manager. Verify whether the remaining eligible standby takes over under FIRST 1. To demonstrate a blocked commit, ensure no eligible synchronous standby is available, then in a dedicated session:
+**Lab only:** stop the selected synchronous standby using the lab's normal service manager. Verify whether the remaining eligible standby takes over under FIRST 1. To demonstrate a blocked commit, ensure no eligible synchronous standby is available. Use the **single, bounded client invocation below**, not an unbounded stand-alone `psql` session.
 
-```sql
-SET synchronous_commit = on;
-SET statement_timeout = '5s';
-INSERT INTO public.commit_probe(event_id) VALUES ('outage-test-001');
-```
+Observe `SyncRep` waits from another session, but **do not rely on `statement_timeout` as a guaranteed client deadline for a synchronous-commit acknowledgement wait**. In the isolated Linux lab, separately bound the entire `psql` process with an operating-system client deadline, for example:
 
-Observe `SyncRep` waits from another session. After the timeout, **do not blindly retry**: inspect whether the transaction committed locally. Restart a standby and confirm replication catches up. A canceled or timed-out synchronous commit can have an ambiguous client-visible outcome.
+~~~bash
+# Verified disposable PostgreSQL 18 endpoint only. Do not use in staging/production.
+timeout --signal=TERM --kill-after=3s 9s \
+  psql -X -v ON_ERROR_STOP=1 -h VERIFIED_LAB_PRIMARY -p VERIFIED_LAB_PORT \
+    -U VERIFIED_LAB_ROLE -d ch069_lab \
+    -c "SET statement_timeout='2000ms'" \
+    -c "BEGIN; SET LOCAL synchronous_commit=on; INSERT INTO public.commit_probe(event_id) VALUES ('outage-test-unique-001'); COMMIT"
+~~~
+
+The timeout/termination is a **client-observed failure, not proof of transaction rollback**: PostgreSQL may already have committed locally while waiting for synchronous acknowledgement. In a separate observer session, verify `pg_stat_activity.wait_event='SyncRep'`, capture the client exit code, restore the disconnected standby, and reconcile the **unique event ID** on the primary and recovered standbys before deciding whether any idempotent retry is safe. A missing acknowledgement must not be interpreted as a missing row. The [actual disposable PG18 V03 test](../validation/V03-CH067-070-STREAMING-SYNC-EVIDENCE.md) confirmed this behavior with a separately bounded client and independently observed `SyncRep` wait. Do not run this test without a controlled disposable environment, validated rollback, and an authorized lab operator.
 
 ## 6. Quorum experiment
 
