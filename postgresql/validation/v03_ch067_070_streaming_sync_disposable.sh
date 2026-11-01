@@ -136,19 +136,31 @@ check quorum_applied_b "$(q "$P3" ch067_lab "SELECT count(*) FROM public.replica
 docker exec -u postgres "$NAME" pg_ctl -D "$B" -m fast -w -t 25 stop >/dev/null
 poll quorum_missing_one "$P1" postgres \
   "SELECT count(*) FROM pg_stat_replication WHERE application_name='standby_b'" 0
+# The synchronous acknowledgement wait can outlive statement_timeout because
+# the transaction is already locally committed. Use a separate CLIENT deadline
+# and observe SyncRep directly. A client timeout must never be called a rollback.
 TIMEOUT_LOG="$WORK/quorum-timeout.log"
 TIMEOUT_EXIT=0
-if docker exec "$NAME" psql -X -v ON_ERROR_STOP=1 \
-   -h 127.0.0.1 -p "$P1" -U lab_admin -d ch067_lab \
-   -c "SET statement_timeout='2000ms'" \
-   -c "BEGIN; SET LOCAL synchronous_commit=on; INSERT INTO public.replication_marker VALUES('quorum-ambiguous','must-reconcile'); COMMIT" \
-   > "$TIMEOUT_LOG" 2>&1; then TIMEOUT_EXIT=0; else TIMEOUT_EXIT=$?; fi
+timeout --signal=TERM --kill-after=3s 9s docker exec "$NAME" psql -X -v ON_ERROR_STOP=1 \
+  -h 127.0.0.1 -p "$P1" -U lab_admin -d ch067_lab \
+  -c "SET statement_timeout='2000ms'" \
+  -c "BEGIN; SET LOCAL synchronous_commit=on; INSERT INTO public.replication_marker VALUES('quorum-ambiguous','must-reconcile'); COMMIT" \
+  > "$TIMEOUT_LOG" 2>&1 &
+CLIENT_PID=$!
+# This is the real wait for second standby acknowledgment, not just SQL timeout.
+poll quorum_commit_really_waiting "$P1" postgres \
+  "SELECT count(*) FROM pg_stat_activity WHERE datname='ch067_lab' AND wait_event='SyncRep'" 1
+if wait "$CLIENT_PID"; then TIMEOUT_EXIT=0; else TIMEOUT_EXIT=$?; fi
 CASES=$((CASES+1))
-if [[ "$TIMEOUT_EXIT" -ne 0 ]] && grep -Eqi 'canceling statement due to statement timeout' "$TIMEOUT_LOG"; then
-  PASS=$((PASS+1)); echo "PASS quorum_missing_second_blocks_and_times_out"
+if [[ "$TIMEOUT_EXIT" -eq 124 || "$TIMEOUT_EXIT" -eq 137 ]] ||
+   { [[ "$TIMEOUT_EXIT" -ne 0 ]] && grep -Eqi 'canceling statement due to statement timeout' "$TIMEOUT_LOG"; }; then
+  PASS=$((PASS+1)); echo "PASS quorum_client_deadline_nonzero"
 else
-  FAIL=$((FAIL+1)); echo "FAIL quorum outage did not produce bounded timeout" >&2
+  FAIL=$((FAIL+1)); echo "FAIL quorum outage did not respect external deadline: $TIMEOUT_EXIT" >&2
+  exit 1
 fi
+# The commit outcome is deliberately unknown here. We will reconcile after
+# the second standby is restarted, using the unique event_id from the primary.
 docker exec -u postgres "$NAME" pg_ctl -D "$B" -l /tmp/standby_b.log \
   -o "-c listen_addresses=127.0.0.1 -c port=$P3 -c unix_socket_directories=/tmp" \
   -w -t 35 start > "$WORK/restart-b.log" 2>&1
