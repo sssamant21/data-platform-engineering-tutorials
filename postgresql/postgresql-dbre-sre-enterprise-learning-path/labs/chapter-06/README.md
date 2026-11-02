@@ -38,7 +38,7 @@ docker run -d `
   postgres:17
 ~~~
 
-**PowerShell note:** In the preceding block, each trailing ` character is the PowerShell line-continuation backtick, with no spaces after it. The container listens only on the host's loopback interface.
+**PowerShell note:** The trailing character on each continued command line is the PowerShell backtick; ensure there are no spaces after it. The container listens only on the host's loopback interface.
 
 ~~~powershell
 docker ps --filter "name=pg-baremetal-ch06"
