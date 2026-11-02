@@ -32,17 +32,19 @@ Only perform partition/DR promotion exercises when independent fencing is implem
 
 Create a lab-only table with a unique transaction ID primary key and UTC timestamps. Write through the **application writer endpoint**, not directly to an arbitrary node. Record acknowledgment result, request ID and read-back status. When a COMMIT times out, query the authoritative writer before retrying.
 
-Example fixture (lab-only database):
+Example fixture (**newly created, exclusively lab-owned database only; verify endpoint, cluster identity and absence of objects before running**). It deliberately fails on a preexisting table or marker instead of concealing reuse. Failure is NO_GO and requires investigation:
 
 ```sql
-CREATE TABLE IF NOT EXISTS public.ch075_probe (
+-- Run only in a newly provisioned disposable Chapter 075 lab database.
+-- Confirm no preexisting ch075_probe and no reused request_id first.
+-- A collision must raise an error rather than silently reuse a previous run.
+CREATE TABLE public.ch075_probe (
   request_id text PRIMARY KEY,
   created_at timestamptz NOT NULL DEFAULT clock_timestamp(),
   note text NOT NULL
 );
 INSERT INTO public.ch075_probe(request_id,note)
-VALUES ('baseline-001','before failover')
-ON CONFLICT DO NOTHING;
+VALUES ('baseline-001','before failover');
 ```
 
 ## 5. Execution discipline

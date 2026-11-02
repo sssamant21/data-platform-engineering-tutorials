@@ -1,0 +1,37 @@
+name: PostgreSQL V02-D Chapters 071-080 Phase One (Offline)
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch071-080-20261102]
+    paths:
+      - "postgresql/labs/07[1-9]-*-lab.md"
+      - "postgresql/labs/080-*-lab.md"
+      - "postgresql/labs/sql/076-security-role-fixture.sql"
+      - "postgresql/labs/sql/078-rls-fixture.sql"
+      - "postgresql/validation/test_v02d_ch071_080_phase1.py"
+      - ".github/workflows/postgresql-v02d-ch071-080-phase1.yml"
+  pull_request:
+    paths:
+      - "postgresql/labs/07[1-9]-*-lab.md"
+      - "postgresql/labs/080-*-lab.md"
+      - "postgresql/labs/sql/076-security-role-fixture.sql"
+      - "postgresql/labs/sql/078-rls-fixture.sql"
+      - "postgresql/validation/test_v02d_ch071_080_phase1.py"
+      - ".github/workflows/postgresql-v02d-ch071-080-phase1.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-security-fencing-source-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile tests
+        run: python3 -m py_compile postgresql/validation/test_v02d_ch071_080_phase1.py
+      - name: Run offline source-only safety checks
+        run: python3 -m unittest -v postgresql/validation/test_v02d_ch071_080_phase1.py
+      - name: State non-certification
+        run: echo "Static tests only; no PostgreSQL cluster contacted and no operational HA/security controls certified."

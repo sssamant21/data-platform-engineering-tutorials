@@ -11,8 +11,17 @@ Use a disposable PostgreSQL 18 instance. The fixture creates cluster-wide LOGIN 
 As a lab administrator, run:
 
 ```bash
-psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -f postgresql/labs/sql/078-rls-fixture.sql
+# Run only after Chapter 004 lab owner verified PG_LAB_ROOT/LAB_MARKER,
+# data_directory, system_identifier, unused ch078_ roles and database.
+export PGPASSFILE="$PG_LAB_ROOT/credentials.pgpass"
+psql -X -w -v ON_ERROR_STOP=1 -h 127.0.0.1 -p 55432 -U lab_admin -d postgres \
+  -v expected_system_id=REPLACE_WITH_OBSERVED_SYSTEM_ID \
+  -v "expected_lab_pgdata=$PG_LAB_ROOT/primary" \
+  -v confirm_stage=078-CREATE-LAB-FIXTURE \
+  -f postgresql/labs/sql/078-rls-fixture.sql
 ```
+
+The fixture requires the observed PostgreSQL 18 system ID, verified Chapter 004 localhost primary and PGDATA, unused database/roles, and an explicit one-time stage token. Independently verify `PG_LAB_ROOT/LAB_MARKER` and source ownership first. Failed partial role creation requires manual investigation; do not assume rollback across `CREATE DATABASE` or rerun the fixture on an existing cluster.
 
 Inspect policies with [078 read-only SQL](../labs/sql/078-rls-and-audit-inspect.sql).
 
