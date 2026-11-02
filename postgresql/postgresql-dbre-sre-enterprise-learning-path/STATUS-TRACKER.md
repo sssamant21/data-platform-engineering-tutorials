@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 1/20 |
-| Chapter-specific labs authored | 1/20 |
+| Chapter lessons authored | 2/20 |
+| Chapter-specific labs authored | 2/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -15,7 +15,7 @@
 | Chapter | Content | Lab | Runtime evidence | Review |
 |---|---|---|---|---|
 | 01 | Authored | Written | Not executed | Pending |
-| 02 | Planned | Pending | Not executed | Pending |
+| 02 | Authored | Written | Not executed | Pending |
 | 03 | Planned | Pending | Not executed | Pending |
 | 04 | Planned | Pending | Not executed | Pending |
 | 05 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**02 — Databases, Schemas, Tables and Relationships**, including relational design, constraints, indexes, and a hands-on schema lab. Do not mark it authored until the chapter exists.
+**03 — SQL Transactions, ACID and MVCC**, including a reproducible transaction/isolation lab. Do not mark it authored until the chapter and its lab exist.
 
 ## Important
 
