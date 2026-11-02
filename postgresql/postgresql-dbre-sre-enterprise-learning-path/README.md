@@ -20,6 +20,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 2. [Progress and validation tracker](STATUS-TRACKER.md)
 3. [Chapter 01 — PostgreSQL Fundamentals and Architecture](chapters/01-postgresql-fundamentals-and-architecture.md)
 4. [Chapter 01 lab](labs/chapter-01/README.md)
+5. [Chapter 02 — Databases, Schemas, Tables and Relationships](chapters/02-databases-schemas-tables-and-relationships.md)
+6. [Chapter 02 lab](labs/chapter-02/README.md)
 
 ## Learning goals
 
