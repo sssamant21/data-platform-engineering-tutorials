@@ -4,6 +4,7 @@ import hashlib
 import importlib.util
 import io
 import os
+import shutil
 from pathlib import Path
 import stat
 import subprocess
@@ -14,16 +15,21 @@ from unittest.mock import patch
 
 HERE = Path(__file__).resolve().parent
 RUNNER = HERE / 'V08-safe-preflight.py'
-SQL = HERE / 'V08-readonly-staging-preflight.sql'
-spec = importlib.util.spec_from_file_location('v08_preflight', RUNNER)
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
 
 class StagingPreflightSecurityTest(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory()
         self.addCleanup(self.temp.cleanup)
         p = Path(self.temp.name)
+        self.runner_dir = p / 'isolated_qa_copy'
+        self.runner_dir.mkdir(mode=0o700)
+        local_runner = self.runner_dir / RUNNER.name
+        shutil.copy2(RUNNER, local_runner)
+        self.sql = self.runner_dir / 'V08-readonly-staging-preflight.sql'
+        self.sql.write_text('BEGIN READ ONLY;\nSELECT 1;\nCOMMIT;\n')
+        spec = importlib.util.spec_from_file_location('v08_preflight_isolated', local_runner)
+        self.module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(self.module)
         self.allow = p / 'targets.txt'
         self.allow.write_text('staging.example.internal|5432|testdb\n')
         self.allow.chmod(0o600)
@@ -34,7 +40,6 @@ class StagingPreflightSecurityTest(unittest.TestCase):
         self.ca.write_text('FICTIONAL CERTIFICATE; NO CONNECTION MADE\n')
         self.out = p / 'evidence'
         self.out.mkdir(mode=0o700)
-        SQL.write_text('BEGIN READ ONLY;\nSELECT 1;\nCOMMIT;\n')
         self.env = {
             'V08_EXECUTION_APPROVED': 'YES',
             'V08_CHANGE_TICKET': 'https://change.example.invalid/approved',
@@ -43,7 +48,7 @@ class StagingPreflightSecurityTest(unittest.TestCase):
             'V08_EXPECT_ROLE': 'readonly',
             'V08_EXPECT_SERVER_VERSION_NUM': '180001',
             'V08_EXPECT_IS_STANDBY': 'f',
-            'V08_EXPECT_SQL_SHA256': hashlib.sha256(SQL.read_bytes()).hexdigest(),
+            'V08_EXPECT_SQL_SHA256': hashlib.sha256(self.sql.read_bytes()).hexdigest(),
             'V08_EVIDENCE_DIR': str(self.out),
             'PGHOST': 'staging.example.internal',
             'PGPORT': '5432',
@@ -68,10 +73,10 @@ class StagingPreflightSecurityTest(unittest.TestCase):
         for k,v in (changes or {}).items():
             if v is None:env.pop(k,None)
             else:env[k]=v
-        if sql is not None: SQL.write_text(sql)
-        with patch.dict(os.environ, env, clear=True), patch.object(module.shutil,'which',return_value='/fake/psql' if psql else None), patch.object(module.subprocess,'run', side_effect=responder or self.fake_psql):
+        if sql is not None: self.sql.write_text(sql)
+        with patch.dict(os.environ, env, clear=True), patch.object(self.module.shutil,'which',return_value='/fake/psql' if psql else None), patch.object(self.module.subprocess,'run', side_effect=responder or self.fake_psql):
             with redirect_stdout(io.StringIO()) as output:
-                module.main()
+                self.module.main()
             return output.getvalue()
 
     def blocked(self, changes=None, **kw):
@@ -138,7 +143,7 @@ class StagingPreflightSecurityTest(unittest.TestCase):
             self.assertIn('-w',cmd)
             self.assertIn('default_transaction_read_only=on',kwargs['env']['PGOPTIONS'])
         self.assertIn('-f', self.calls[1][0]); self.assertEqual(self.calls[1][0][self.calls[1][0].index('-f')+1], '-')
-        self.assertEqual(self.calls[1][1]['input'],SQL.read_text())
+        self.assertEqual(self.calls[1][1]['input'],self.sql.read_text())
         written=list(self.out.iterdir())
         self.assertEqual(len(written),1)
         self.assertEqual(stat.S_IMODE(written[0].stat().st_mode),0o600)

@@ -9,7 +9,7 @@
 - Locally reconstructed the original V08 launcher from the published GitHub file and verified its Git blob SHA, **be30f9bc99e8ba1d7072c9faa4d82b68f4171b8e**.
 - Applied source-level security fixes, compiled the resulting Python source and verified the updated Git blob SHA, **ba43331de8582023e6c6744bf10f05fb843de822**.
 - Executed **22 local unittest cases on Python 3.13.5** with all database subprocess calls mocked. **22 passed; 0 failures, 0 errors.**
-- Verified the published test suite's Git blob matches the executed local suite, **c2fcdec0502bd76f29993f4c8038d3824de9f95b**.
+- Verified the published test suite's Git blob matches the executed local suite, **10f40a8bb5c23a6da99ff5d7a7ce119d5040a9b4**.
 - No real PostgreSQL or external network connection, production credentials, PITR or HA activity occurred.
 
 ### Confirmed safe behaviors
@@ -60,7 +60,7 @@ python3 postgresql/dbre-responsibility-for-postgresql/qa/V08-test-safe-preflight
 
 The unit tests create synthetic temporary files, monkeypatch subprocess calls and write only **mocked** result files. They **do not** connect to real PostgreSQL.
 
-**Important implementation concern:** The test harness writes a temporary synthetic SQL text to the adjacent V08-readonly-staging-preflight.sql file during each test. **Do not execute the suite directly inside a working repository without preserving/restoring that file**. For automation, the tests should first be isolated to a throwaway copy of the runner + SQL; until that isolation is implemented, run the tests only in a disposable directory.
+**Test isolation enforced:** Each test creates a private temporary directory and copies only V08-safe-preflight.py into it, then writes synthetic SQL beside that **temporary copy**. The repository's real V08-readonly-staging-preflight.sql is never overwritten or opened for writing by the suite. The test source with this isolation passed all 22 local cases; run it in Linux/WSL with the standard library.
 
 ## Remaining required real tests
 
