@@ -26,6 +26,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 8. [Chapter 03 lab](labs/chapter-03/README.md)
 9. [Chapter 04 — PostgreSQL Internals: WAL, Buffers and Checkpoints](chapters/04-postgresql-internals-wal-buffers-and-checkpoints.md)
 10. [Chapter 04 lab](labs/chapter-04/README.md)
+11. [Chapter 05 — Indexes, Query Plans and Performance](chapters/05-indexes-query-plans-and-performance.md)
+12. [Chapter 05 lab](labs/chapter-05/README.md)
 
 ## Learning goals
 
