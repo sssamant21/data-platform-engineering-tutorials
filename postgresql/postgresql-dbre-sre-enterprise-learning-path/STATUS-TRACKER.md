@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 10/20 |
-| Chapter-specific labs authored | 10/20 |
+| Chapter lessons authored | 11/20 |
+| Chapter-specific labs authored | 11/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -24,7 +24,7 @@
 | 08 | Authored | Written | Not executed | Pending |
 | 09 | Authored | Written | Not executed | Pending |
 | 10 | Authored | Written | Not executed | Pending |
-| 11 | Planned | Pending | Not executed | Pending |
+| 11 | Authored | Written | Not executed | Pending |
 | 12 | Planned | Pending | Not executed | Pending |
 | 13 | Planned | Pending | Not executed | Pending |
 | 14 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**11 — Backup, Restore, PITR and Disaster Recovery**, including backup verification, isolated restore, WAL archiving/PITR concepts, and measured recovery acceptance. Do not mark it authored until the lesson and lab exist.
+**12 — Monitoring, Alerting and Observability**, including PostgreSQL statistics, exporters, Prometheus/Grafana signals, SLO-based alerts, and a safe local monitoring lab. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
