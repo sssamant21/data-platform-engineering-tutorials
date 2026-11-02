@@ -1,5 +1,39 @@
 -- Chapter 078 lab fixture: ADMINISTRATOR ONLY, DISPOSABLE CLUSTER.
 \set ON_ERROR_STOP on
+-- SAFETY: these DDL operations create CLUSTER-WIDE roles. Chapter 004 disposable PG18 ONLY.
+-- Verify LAB_MARKER, host and file ownership outside SQL before this command.
+\if :{?expected_system_id}
+\else
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
+\endif
+\if :{?expected_lab_pgdata}
+\else
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
+\endif
+\if :{?confirm_stage}
+\else
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
+\endif
+SELECT CASE WHEN current_database()='postgres'
+ AND current_user='lab_admin'
+ AND inet_server_addr()=inet '127.0.0.1'
+ AND inet_server_port()=55432
+ AND current_setting('server_version_num')::integer BETWEEN 180000 AND 189999
+ AND current_setting('data_directory')=:'expected_lab_pgdata'
+ AND current_setting('data_directory') ~ '^/tmp/postgresql-dbre-lab\.[A-Za-z0-9]+/primary$'
+ AND NOT pg_is_in_recovery()
+ AND EXISTS (SELECT 1 FROM pg_control_system() WHERE system_identifier::text=:'expected_system_id')
+ AND :'confirm_stage'='078-CREATE-LAB-FIXTURE'
+ AND NOT EXISTS (SELECT 1 FROM pg_database WHERE datname='ch078_lab')
+ AND NOT EXISTS (SELECT 1 FROM pg_roles WHERE left(rolname,6)='ch078_')
+ THEN 'true' ELSE 'false' END AS allowed
+\gset
+\if :allowed
+\echo 'Verified disposable cluster and unused chapter fixture.'
+\else
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
+\endif
+
 CREATE ROLE ch078_owner NOLOGIN;
 CREATE ROLE ch078_tenant_a LOGIN;
 CREATE ROLE ch078_tenant_b LOGIN;
@@ -7,6 +41,24 @@ CREATE DATABASE ch078_lab OWNER ch078_owner;
 REVOKE ALL ON DATABASE ch078_lab FROM PUBLIC;
 GRANT CONNECT ON DATABASE ch078_lab TO ch078_tenant_a,ch078_tenant_b;
 \connect ch078_lab
+
+-- Reconfirm connection after database switch. No app objects may exist.
+SELECT CASE WHEN current_database()='ch078_lab'
+ AND current_user='lab_admin'
+ AND inet_server_addr()=inet '127.0.0.1'
+ AND inet_server_port()=55432
+ AND current_setting('data_directory')=:'expected_lab_pgdata'
+ AND EXISTS (SELECT 1 FROM pg_control_system() WHERE system_identifier::text=:'expected_system_id')
+ AND NOT pg_is_in_recovery()
+ AND to_regnamespace('app') IS NULL
+ THEN 'true' ELSE 'false' END AS scoped
+\gset
+\if :scoped
+\echo 'Verified lab database, schema absence and system identity.'
+\else
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
+\endif
+
 CREATE SCHEMA app AUTHORIZATION ch078_owner;
 SET ROLE ch078_owner;
 CREATE TABLE app.tenant_orders (

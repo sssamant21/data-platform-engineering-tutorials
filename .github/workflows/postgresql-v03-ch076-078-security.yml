@@ -1,0 +1,53 @@
+name: PostgreSQL V03 Chapters 076 and 078 Disposable Security Runtime
+
+on:
+  push:
+    branches: [qa/postgresql-v02d-ch071-080-20261102]
+    paths:
+      - "postgresql/labs/sql/076-security-role-fixture.sql"
+      - "postgresql/labs/sql/078-rls-fixture.sql"
+      - "postgresql/validation/v03_ch076_078_security_disposable.py"
+      - ".github/workflows/postgresql-v03-ch076-078-security.yml"
+  pull_request:
+    paths:
+      - "postgresql/labs/sql/076-security-role-fixture.sql"
+      - "postgresql/labs/sql/078-rls-fixture.sql"
+      - "postgresql/validation/v03_ch076_078_security_disposable.py"
+      - ".github/workflows/postgresql-v03-ch076-078-security.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  isolated-roles-and-rls:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile security runner
+        run: python3 -m py_compile postgresql/validation/v03_ch076_078_security_disposable.py
+      - name: Execute real PostgreSQL 18 fixture and access tests
+        run: python3 postgresql/validation/v03_ch076_078_security_disposable.py
+      - name: Check output limits and ensure not certified
+        run: |
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          j=json.loads(Path("postgresql/validation/evidence-v03-ch076078-security.json").read_text())
+          assert j["real_postgresql_executed"] is True
+          assert j["case_count"]>=45
+          assert j["passed"]==j["case_count"] and j["failed"]==0
+          for key in ("password_authentication_tested","tls_tested","pgaudit_tested",
+                      "external_security_signoff","ha_fencing_tested","staging_or_production_touched"):
+              assert j[key] is False
+          assert j["enterprise_certification"]=="NOT_CERTIFIED"
+          print("PASS: isolated PG18 role/RLS tests; certification remains pending.")
+          PY
+      - name: Upload only synthetic result summary
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: postgresql-v03-ch076078-security-results
+          path: postgresql/validation/evidence-v03-ch076078-security.json
+          if-no-files-found: warn
