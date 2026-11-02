@@ -36,6 +36,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 18. [Chapter 08 lab](labs/chapter-08/README.md)
 19. [Chapter 09 — Selecting the Right Enterprise PostgreSQL Architecture](chapters/09-selecting-the-right-enterprise-postgresql-architecture.md)
 20. [Chapter 09 lab](labs/chapter-09/README.md)
+21. [Chapter 10 — Streaming Replication and High Availability](chapters/10-streaming-replication-and-high-availability.md)
+22. [Chapter 10 lab](labs/chapter-10/README.md)
 
 ## Learning goals
 
