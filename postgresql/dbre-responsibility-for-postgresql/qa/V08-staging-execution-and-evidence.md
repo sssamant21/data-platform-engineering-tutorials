@@ -42,6 +42,7 @@ export V08_ALLOWLIST_FILE=/secure/approved-targets.txt
 export V08_EXPECT_DATABASE=staging_db
 export V08_EXPECT_ROLE=staging_readonly_role
 export V08_EXPECT_SERVER_VERSION_NUM=180001
+export V08_EXPECT_SQL_SHA256=<independently-reviewed-64-character-SHA256>
 export V08_EXPECT_IS_STANDBY=f
 export V08_EVIDENCE_DIR=/secure/v08-evidence
 
@@ -51,9 +52,9 @@ export V08_EVIDENCE_DIR=/secure/v08-evidence
 python3 postgresql/dbre-responsibility-for-postgresql/qa/V08-safe-preflight.py
 ~~~~
 
-These are **placeholders**, not valid real approvals. Expectation variables must agree with the actual approved connection identity. Configure protected allowlist (0600), protected password file (0600), and pre-existing evidence directory (0700). Outside the Chapter 004 loopback-only lab, enforce verified TLS using PGSSLMODE=verify-full. The local lab explicitly disables TLS and needs a separate narrow opt-in; results are LAB_PASS only.
+These are **placeholders**, not valid real approvals. Expectation variables must agree with the actual approved connection identity. Configure protected allowlist (0600), protected password file (0600), and pre-existing evidence directory (0700). The V08_EXPECT_SQL_SHA256 value must come from an **independently reviewed immutable version** of V08-readonly-staging-preflight.sql, not blindly copied from an untrusted local file. Operator may use sha256sum to confirm a local copy matches that reviewed value. Outside the Chapter 004 loopback-only lab, enforce verified TLS using PGSSLMODE=verify-full. The local lab explicitly disables TLS and needs a separate narrow opt-in; results are LAB_PASS only.
 
-The launcher requires Linux or WSL for POSIX file-permission enforcement (do not use native Windows for this script). It rejects PGHOSTADDR/PGSERVICE overrides so the reviewed PGHOST tuple remains meaningful. The tool performs one identity query, confirms observed database/role/version/primary-vs-standby role, then a bounded READ ONLY SQL pack. It does not connect to cloud APIs, run backups, restore, promote, change grants or approve tests. Results are written in the **operator's private directory**, not to GitHub. Even read-only SQL can cause load, so stop if the staging owner identifies adverse impact.
+The launcher requires Linux or WSL for POSIX file-permission enforcement (do not use native Windows for this script). It rejects PGHOSTADDR/PGSERVICE overrides so the reviewed PGHOST tuple remains meaningful. The tool performs one identity query, confirms observed database/role/version/primary-vs-standby role, then a bounded READ ONLY SQL pack. It passes explicit host/port/database/role arguments to psql, rejects libpq multi-host/socket/connection-string forms, and executes the exact SHA-256-verified SQL bytes via stdin. It does not support IPv6 literal hosts or database/role names requiring quoted special characters; those deployments need a separately reviewed launcher. It does not connect to cloud APIs, run backups, restore, promote, change grants or approve tests. Results are written in the **operator's private directory**, not to GitHub. Even read-only SQL can cause load, so stop if the staging owner identifies adverse impact.
 
 ## 4. Phase B — Test plan and ownership
 

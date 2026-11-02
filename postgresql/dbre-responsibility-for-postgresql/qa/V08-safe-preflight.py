@@ -25,7 +25,7 @@ def required(name):
         fail("missing required environment variable " + name)
     return value
 
-def restricted_file(path_string, max_mode=0o600):
+def restricted_file(path_string):
     file_path = Path(path_string)
     if file_path.is_symlink() or not file_path.is_file():
         fail("required private regular file missing")
@@ -49,6 +49,9 @@ def main():
     expected_role = required("V08_EXPECT_ROLE")
     expected_version = required("V08_EXPECT_SERVER_VERSION_NUM")
     expected_standby = required("V08_EXPECT_IS_STANDBY")
+    expected_hash = required("V08_EXPECT_SQL_SHA256").lower()
+    if not re.fullmatch(r"[a-f0-9]{64}", expected_hash):
+        fail("reviewed SHA-256 of SQL pack required")
     if not re.fullmatch(r"[0-9]{5,6}", expected_version):
         fail("exact server_version_num integer required")
     if expected_standby not in ("t", "f"):
@@ -57,6 +60,12 @@ def main():
     port = required("PGPORT")
     db = required("PGDATABASE")
     user = required("PGUSER")
+    # No libpq multi-host lists, connection strings or Unix socket fallbacks.
+    # This launcher intentionally supports DNS names and IPv4, not IPv6 literals.
+    if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9.-]{0,252}", host):
+        fail("PGHOST must be a single approved TCP DNS name or IPv4 address")
+    if not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", db) or not re.fullmatch(r"[A-Za-z_][A-Za-z0-9_]*", user):
+        fail("database/role names must be simple identifiers; libpq conninfo strings refused")
     if not port.isdecimal() or not 1 <= int(port) <= 65535:
         fail("invalid PostgreSQL port")
     if db != expected_db or user != expected_role:
@@ -81,13 +90,21 @@ def main():
         fail("private evidence directory must exist and not be symlink")
     if stat.S_IMODE(evidence_dir.stat().st_mode) & 0o077:
         fail("evidence directory too accessible (chmod 700)")
+    sql_file = Path(__file__).with_name("V08-readonly-staging-preflight.sql")
+    if sql_file.is_symlink() or not sql_file.is_file():
+        fail("reviewed SQL preflight missing or symlinked")
+    sql_bytes = sql_file.read_bytes()
+    if hashlib.sha256(sql_bytes).hexdigest() != expected_hash:
+        fail("SQL file SHA-256 does not match reviewed approved artifact")
     psql = shutil.which("psql")
     if not psql:
         fail("psql is not installed")
     environment = dict(os.environ)
     environment["PGCONNECT_TIMEOUT"] = "5"
     environment["PGOPTIONS"] = "-c default_transaction_read_only=on -c statement_timeout=5000"
-    identity_cmd = [psql, "-X", "-A", "-t", "-F", "|",
+    fixed_connection = [psql, "-X", "-w", "-h", host, "-p", port,
+                        "-d", db, "-U", user]
+    identity_cmd = fixed_connection + ["-A", "-t", "-F", "|",
                     "-v", "ON_ERROR_STOP=1",
                     "-c", "SELECT current_database(),current_user,"
                           "current_setting('server_version_num'),pg_is_in_recovery();"]
@@ -99,12 +116,10 @@ def main():
     fields = identity.stdout.strip().split("|")
     if fields != [expected_db, expected_role, expected_version, expected_standby]:
         fail("actual PostgreSQL identity/role/version/standby does not match approved target")
-    sql_file = Path(__file__).with_name("V08-readonly-staging-preflight.sql")
-    if not sql_file.is_file():
-        fail("matching SQL preflight missing")
-    command = [psql, "-X", "-v", "ON_ERROR_STOP=1", "-f", str(sql_file)]
+    command = fixed_connection + ["-v", "ON_ERROR_STOP=1", "-f", "-"]
     try:
-        result = subprocess.run(command, capture_output=True, text=True,
+        result = subprocess.run(command, input=sql_bytes.decode("utf-8"),
+                                capture_output=True, text=True,
                                 env=environment, timeout=90, check=True)
     except (subprocess.SubprocessError, OSError):
         fail("read-only preflight failed; inspect authorized PostgreSQL monitoring securely")
