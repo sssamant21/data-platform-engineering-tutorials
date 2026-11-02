@@ -9,7 +9,7 @@
 | [01](chapters/01-postgresql-fundamentals-and-architecture.md) | PostgreSQL Fundamentals and Architecture | Authored; runtime lab pending |
 | [02](chapters/02-databases-schemas-tables-and-relationships.md) | Databases, Schemas, Tables and Relationships | Authored; runtime lab pending |
 | [03](chapters/03-sql-transactions-acid-and-mvcc.md) | SQL Transactions, ACID and MVCC | Authored; runtime lab pending |
-| 04 | PostgreSQL Internals: WAL, Buffers and Checkpoints | Planned |
+| [04](chapters/04-postgresql-internals-wal-buffers-and-checkpoints.md) | PostgreSQL Internals: WAL, Buffers and Checkpoints | Authored; runtime lab pending |
 | 05 | Indexes, Query Plans and Performance | Planned |
 
 ## Part 2 — Deployment platforms
