@@ -25,7 +25,7 @@
 
 | Chapter | Topic | Status |
 |---|---|---|
-| 10 | Streaming Replication and High Availability | Planned |
+| [10](chapters/10-streaming-replication-and-high-availability.md) | Streaming Replication and High Availability | Authored; runtime lab pending |
 | 11 | Backup, Restore, PITR and Disaster Recovery | Planned |
 | 12 | Monitoring, Alerting and Observability | Planned |
 | 13 | VACUUM, Autovacuum, Bloat and Maintenance | Planned |
