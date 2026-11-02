@@ -35,7 +35,7 @@
 
 | Chapter | Topic | Status |
 |---|---|---|
-| 15 | Fleet Inventory and Governance | Planned |
+| [15](chapters/15-fleet-inventory-and-governance.md) | Fleet Inventory and Governance ([lab](labs/chapter-15/README.md)) | Authored; runtime lab pending |
 | 16 | Security, Roles, Secrets and Compliance | Planned |
 | 17 | Lifecycle, Upgrades and Automation | Planned |
 | 18 | Capacity Planning, Performance and FinOps | Planned |
