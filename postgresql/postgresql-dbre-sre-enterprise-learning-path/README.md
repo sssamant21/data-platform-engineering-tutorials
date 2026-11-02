@@ -42,6 +42,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 24. [Chapter 11 lab](labs/chapter-11/README.md)
 25. [Chapter 12 — Monitoring, Alerting and Observability](chapters/12-monitoring-alerting-and-observability.md)
 26. [Chapter 12 lab](labs/chapter-12/README.md)
+27. [Chapter 13 — VACUUM, Autovacuum, Bloat and Maintenance](chapters/13-vacuum-autovacuum-bloat-and-maintenance.md)
+28. [Chapter 13 lab](labs/chapter-13/README.md)
 
 ## Learning goals
 
