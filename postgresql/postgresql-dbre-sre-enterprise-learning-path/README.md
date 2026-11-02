@@ -38,6 +38,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 20. [Chapter 09 lab](labs/chapter-09/README.md)
 21. [Chapter 10 — Streaming Replication and High Availability](chapters/10-streaming-replication-and-high-availability.md)
 22. [Chapter 10 lab](labs/chapter-10/README.md)
+23. [Chapter 11 — Backup, Restore, PITR and Disaster Recovery](chapters/11-backup-restore-pitr-and-disaster-recovery.md)
+24. [Chapter 11 lab](labs/chapter-11/README.md)
 
 ## Learning goals
 
