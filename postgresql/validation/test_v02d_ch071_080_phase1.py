@@ -66,7 +66,7 @@ class PhaseOneSafety(unittest.TestCase):
                               "NOT EXISTS",r"\gset",r"\if :allowed",
                               "RAISE EXCEPTION",r"\if :scoped"):
                     self.assertIn(guard,s,guard)
-                self.assertGreater(s.index("CREATE ROLE "),s.index(r"\if :allowed"))
+                self.assertGreater(s.index("\nCREATE ROLE "),s.index(r"\if :allowed"))
                 self.assertGreater(s.index("CREATE SCHEMA "),s.index(r"\if :scoped"))
                 self.assertIn(f"current_database()='ch{n:03d}_lab'",s)
                 self.assertNotIn("DROP ROLE",s)
