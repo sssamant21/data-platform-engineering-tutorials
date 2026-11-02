@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 9/20 |
-| Chapter-specific labs authored | 9/20 |
+| Chapter lessons authored | 10/20 |
+| Chapter-specific labs authored | 10/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -23,7 +23,7 @@
 | 07 | Authored | Written | Not executed | Pending |
 | 08 | Authored | Written | Not executed | Pending |
 | 09 | Authored | Written | Not executed | Pending |
-| 10 | Planned | Pending | Not executed | Pending |
+| 10 | Authored | Written | Not executed | Pending |
 | 11 | Planned | Pending | Not executed | Pending |
 | 12 | Planned | Pending | Not executed | Pending |
 | 13 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**10 — Streaming Replication and High Availability**, including isolated replication topology, single-writer safety, lag diagnostics, and a non-production HA lab. Do not mark it authored until the lesson and lab exist.
+**11 — Backup, Restore, PITR and Disaster Recovery**, including backup verification, isolated restore, WAL archiving/PITR concepts, and measured recovery acceptance. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
