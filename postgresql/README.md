@@ -1,5 +1,9 @@
 # PostgreSQL — DBRE and SRE Tutorials
 
+## Dedicated Enterprise DBRE/SRE Learning Path
+
+- [PostgreSQL Database Engineering (DBRE/SRE) — Enterprise Learning Path](postgresql-dbre-sre-enterprise-learning-path/README.md) — independent 20-chapter onboarding track for bare metal, AWS RDS, Kubernetes, fleet reliability, and application architecture consulting. The 100-chapter reference curriculum below remains unchanged.
+
 [Master plan](MASTER-PLAN.md) · [Progress tracker](PROGRESS.md)
 
 Chapters 001–100 are authored and reviewed statically. Actual lab execution remains pending.
