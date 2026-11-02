@@ -28,6 +28,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 10. [Chapter 04 lab](labs/chapter-04/README.md)
 11. [Chapter 05 — Indexes, Query Plans and Performance](chapters/05-indexes-query-plans-and-performance.md)
 12. [Chapter 05 lab](labs/chapter-05/README.md)
+13. [Chapter 06 — PostgreSQL on Bare Metal](chapters/06-postgresql-on-bare-metal.md)
+14. [Chapter 06 lab](labs/chapter-06/README.md)
 
 ## Learning goals
 
