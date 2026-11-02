@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 6/20 |
-| Chapter-specific labs authored | 6/20 |
+| Chapter lessons authored | 7/20 |
+| Chapter-specific labs authored | 7/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -20,7 +20,7 @@
 | 04 | Authored | Written | Not executed | Pending |
 | 05 | Authored | Written | Not executed | Pending |
 | 06 | Authored | Written | Not executed | Pending |
-| 07 | Planned | Pending | Not executed | Pending |
+| 07 | Authored | Written | Not executed | Pending |
 | 08 | Planned | Pending | Not executed | Pending |
 | 09 | Planned | Pending | Not executed | Pending |
 | 10 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**07 — PostgreSQL on AWS RDS**, including shared-responsibility architecture, managed-service operational controls and a cost-free local comparison lab. Do not mark it authored until the lesson and lab exist.
+**08 — PostgreSQL on Kubernetes**, including operator-managed lifecycle, persistent storage, failover, backup controls and a safe optional Kubernetes comparison lab. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
