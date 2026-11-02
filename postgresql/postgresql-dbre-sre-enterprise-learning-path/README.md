@@ -22,6 +22,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 4. [Chapter 01 lab](labs/chapter-01/README.md)
 5. [Chapter 02 — Databases, Schemas, Tables and Relationships](chapters/02-databases-schemas-tables-and-relationships.md)
 6. [Chapter 02 lab](labs/chapter-02/README.md)
+7. [Chapter 03 — SQL Transactions, ACID and MVCC](chapters/03-sql-transactions-acid-and-mvcc.md)
+8. [Chapter 03 lab](labs/chapter-03/README.md)
 
 ## Learning goals
 
