@@ -27,7 +27,7 @@
 |---|---|---|
 | [10](chapters/10-streaming-replication-and-high-availability.md) | Streaming Replication and High Availability | Authored; runtime lab pending |
 | [11](chapters/11-backup-restore-pitr-and-disaster-recovery.md) | Backup, Restore, PITR and Disaster Recovery | Authored; runtime lab pending |
-| 12 | Monitoring, Alerting and Observability | Planned |
+| [12](chapters/12-monitoring-alerting-and-observability.md) | Monitoring, Alerting and Observability | Authored; runtime lab pending |
 | 13 | VACUUM, Autovacuum, Bloat and Maintenance | Planned |
 | 14 | Troubleshooting and Incident Response | Planned |
 
