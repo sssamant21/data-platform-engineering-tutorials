@@ -30,6 +30,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 12. [Chapter 05 lab](labs/chapter-05/README.md)
 13. [Chapter 06 — PostgreSQL on Bare Metal](chapters/06-postgresql-on-bare-metal.md)
 14. [Chapter 06 lab](labs/chapter-06/README.md)
+15. [Chapter 07 — PostgreSQL on AWS RDS](chapters/07-postgresql-on-aws-rds.md)
+16. [Chapter 07 lab](labs/chapter-07/README.md)
 
 ## Learning goals
 
