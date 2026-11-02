@@ -1,0 +1,274 @@
+# Chapter 02 Lab — Relational Database Design and Safe Constraints
+
+**Duration:** ~25 minutes within the 60-minute lesson · **Audience:** Beginner DBRE/SRE · **Runtime:** PostgreSQL 17  
+**Status:** Instructions written; not executed. Do not treat expected results as observed results.
+
+[Chapter 02](../../chapters/02-databases-schemas-tables-and-relationships.md) · [Course home](../../README.md)
+
+## Safety and prerequisite checks
+
+Run only against the explicitly disposable Docker container created in [Chapter 01](../chapter-01/README.md), named `pg-fleet-lab`. This lab creates a **separate** database, `training_ch02`; it does not modify the Chapter 01 `appdb` database.
+
+Use PowerShell and Docker Desktop (Linux containers). No production credentials or customer data.
+
+```powershell
+docker ps --filter "name=pg-fleet-lab"
+docker exec pg-fleet-lab pg_isready -U postgres
+docker exec pg-fleet-lab psql -U postgres -d postgres -c "SELECT version();"
+```
+
+**Expected:** container is running, database is accepting connections, PostgreSQL 17 version shown. If the container is absent, follow Chapter 01 startup, then return here. Do not use a different container until its disposable identity is confirmed.
+
+## Step 1 — Check and create the chapter database
+
+Check whether it already exists:
+
+```powershell
+docker exec pg-fleet-lab psql -U postgres -d postgres -tAc "SELECT datname FROM pg_database WHERE datname='training_ch02';"
+```
+
+**Expected for first use:** blank result. If output is `training_ch02`, the database already exists: inspect it before proceeding; do not drop it automatically.
+
+When no database exists:
+
+```powershell
+docker exec pg-fleet-lab createdb -U postgres training_ch02
+```
+
+Connect:
+
+```powershell
+docker exec -it pg-fleet-lab psql -U postgres -d training_ch02
+```
+
+Inside `psql`, verify:
+
+```sql
+SELECT current_database(), current_user;
+```
+
+Expected: `training_ch02` and `postgres`.
+
+## Step 2 — Create a namespace and four tables
+
+Paste the following into the `psql` session **once** for a clean `training_ch02` database.
+
+```sql
+CREATE SCHEMA retail_lab;
+
+CREATE TABLE retail_lab.customers (
+    customer_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    email TEXT NOT NULL UNIQUE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE retail_lab.products (
+    product_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    sku TEXT NOT NULL UNIQUE,
+    product_name TEXT NOT NULL,
+    unit_price NUMERIC(12,2) NOT NULL CHECK (unit_price >= 0)
+);
+
+CREATE TABLE retail_lab.orders (
+    order_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    customer_id BIGINT NOT NULL REFERENCES retail_lab.customers(customer_id),
+    status TEXT NOT NULL DEFAULT 'created'
+        CHECK (status IN ('created','paid','cancelled')),
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+
+CREATE TABLE retail_lab.order_items (
+    order_id BIGINT NOT NULL REFERENCES retail_lab.orders(order_id),
+    line_no INTEGER NOT NULL CHECK (line_no > 0),
+    product_id BIGINT NOT NULL REFERENCES retail_lab.products(product_id),
+    quantity INTEGER NOT NULL CHECK (quantity > 0),
+    unit_price NUMERIC(12,2) NOT NULL CHECK (unit_price >= 0),
+    PRIMARY KEY (order_id, line_no)
+);
+```
+
+**Expected:** four successful `CREATE TABLE` messages. The foreign keys use the default `NO ACTION` referential action and protect against orphan references.
+
+Inspect:
+
+```text
+\dt retail_lab.*
+\d retail_lab.orders
+\d retail_lab.order_items
+```
+
+`\dt` and `\d` are `psql` meta-commands, not SQL statements.
+
+## Step 3 — Add deterministic synthetic records
+
+```sql
+INSERT INTO retail_lab.customers (email)
+VALUES ('ana@example.test'), ('ben@example.test');
+
+INSERT INTO retail_lab.products (sku, product_name, unit_price)
+VALUES
+    ('SKU-001', 'Backpack', 49.99),
+    ('SKU-002', 'Notebook', 9.50);
+
+INSERT INTO retail_lab.orders (customer_id, status)
+SELECT customer_id, 'paid'
+FROM retail_lab.customers
+WHERE email = 'ana@example.test';
+
+INSERT INTO retail_lab.order_items
+    (order_id, line_no, product_id, quantity, unit_price)
+SELECT
+    o.order_id, 1, p.product_id, 2, p.unit_price
+FROM retail_lab.orders AS o
+JOIN retail_lab.customers AS c
+  ON c.customer_id = o.customer_id
+JOIN retail_lab.products AS p
+  ON p.sku = 'SKU-002'
+WHERE c.email = 'ana@example.test';
+```
+
+**Expected:** 2 customers, 2 products, 1 order, and 1 order item. The order-item unit price is intentionally copied at purchase time.
+
+Check counts:
+
+```sql
+SELECT
+  (SELECT count(*) FROM retail_lab.customers) AS customers,
+  (SELECT count(*) FROM retail_lab.products) AS products,
+  (SELECT count(*) FROM retail_lab.orders) AS orders,
+  (SELECT count(*) FROM retail_lab.order_items) AS order_items;
+```
+
+Expected result:
+
+```text
+ customers | products | orders | order_items
+-----------+----------+--------+------------
+         2 |        2 |      1 |          1
+```
+
+## Step 4 — Join tables and calculate an order total
+
+```sql
+SELECT c.email, o.order_id,
+       SUM(i.quantity * i.unit_price) AS order_total
+FROM retail_lab.customers AS c
+JOIN retail_lab.orders AS o ON o.customer_id = c.customer_id
+JOIN retail_lab.order_items AS i ON i.order_id = o.order_id
+GROUP BY c.email, o.order_id
+ORDER BY o.order_id;
+```
+
+**Expected:** one row for `ana@example.test`, with an order total of **19.00**. The generated order ID can vary; do not hard-code it.
+
+### Question for the learner
+
+What happens to old order totals if the catalog price of a Notebook increases tomorrow? Because `order_items.unit_price` captures the purchase-time price, existing order totals stay unchanged.
+
+## Step 5 — Observe a CHECK constraint failure safely
+
+These are **intentional errors** to demonstrate guardrails in a disposable environment. Run manually in `psql`, not as part of an automatic all-success deployment script.
+
+```sql
+BEGIN;
+SAVEPOINT before_bad_row;
+
+INSERT INTO retail_lab.order_items
+    (order_id, line_no, product_id, quantity, unit_price)
+SELECT o.order_id, 2, p.product_id, 0, p.unit_price
+FROM retail_lab.orders AS o
+JOIN retail_lab.products AS p ON p.sku = 'SKU-002'
+LIMIT 1;
+
+-- Expected ERROR: violates CHECK constraint for quantity > 0
+ROLLBACK TO SAVEPOINT before_bad_row;
+COMMIT;
+```
+
+**Expected:** insert rejected; the failed savepoint is rolled back; the transaction can commit without changes. Verify:
+
+```sql
+SELECT count(*) AS order_item_count FROM retail_lab.order_items;
+```
+
+Expected: `1`.
+
+## Step 6 — Observe a foreign-key failure safely
+
+```sql
+BEGIN;
+SAVEPOINT before_bad_customer;
+
+INSERT INTO retail_lab.orders (customer_id, status)
+VALUES (-999, 'created');
+
+-- Expected ERROR: foreign key violation, no customer -999.
+ROLLBACK TO SAVEPOINT before_bad_customer;
+COMMIT;
+```
+
+**Expected:** insert rejected; no orphan order created. Do not disable foreign-key enforcement to make the example succeed.
+
+## Step 7 — Explore indexes and statistics
+
+Primary keys and `UNIQUE` constraints create indexes, but PostgreSQL does not automatically create an index on every referencing foreign-key column.
+
+```sql
+SELECT schemaname, tablename, indexname
+FROM pg_indexes
+WHERE schemaname = 'retail_lab'
+ORDER BY tablename, indexname;
+
+-- Illustrative workload index; inspect query workload before doing this in production.
+CREATE INDEX idx_orders_customer_created
+ON retail_lab.orders(customer_id, created_at DESC);
+
+SELECT
+    relname,
+    n_live_tup,
+    n_dead_tup
+FROM pg_stat_user_tables
+WHERE schemaname = 'retail_lab'
+ORDER BY relname;
+
+SELECT
+    pg_size_pretty(pg_total_relation_size('retail_lab.orders')) AS orders_total_size,
+    pg_size_pretty(pg_total_relation_size('retail_lab.order_items')) AS order_items_total_size;
+```
+
+Table-statistics counts may not be exact or immediately refreshed. Size output is environment-dependent. With a tiny sample the planner may not choose the added index.
+
+## Step 8 — Explain database and operational design choices
+
+Write a short design review:
+
+1. Why does `orders.customer_id` require a valid customer record?
+2. Which relationship would be affected by removing a product?
+3. Where is the historical purchase price stored, and why?
+4. Which two entities might grow at different rates?
+5. How would you identify the owner of schema changes and approve DDL in a production environment?
+6. If moving to RDS or Kubernetes, which operational responsibilities shift and which remain?
+
+## Step 9 — Evidence and expected acceptance
+
+Store *sanitized* evidence outside the repository until reviewed:
+
+- version, database identity, and schema object listings;
+- four table creation confirmations and row-count output;
+- correct 19.00 order total;
+- one CHECK failure and one FK failure, with saved transaction recovery;
+- index inventory and table size queries;
+- completed design-review notes.
+
+**Not yet executed:** Evidence is still pending; this README records expected results, not successful runtime validation.
+
+## Optional cleanup — not automatic
+
+Do not drop tables or databases merely to repeat the tutorial. The disposable `training_ch02` database can be retained for later lessons. If decommissioning an isolated lab, use a separate approval/identity check before any destructive operation.
+
+## Official references
+
+- [PostgreSQL 17: Data Definition](https://www.postgresql.org/docs/17/ddl.html)
+- [PostgreSQL 17: Constraints](https://www.postgresql.org/docs/17/ddl-constraints.html)
+- [PostgreSQL 17: Information Schema](https://www.postgresql.org/docs/17/information-schema.html)
+- [PostgreSQL 17: psql](https://www.postgresql.org/docs/17/app-psql.html)
