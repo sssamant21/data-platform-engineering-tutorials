@@ -40,6 +40,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 22. [Chapter 10 lab](labs/chapter-10/README.md)
 23. [Chapter 11 — Backup, Restore, PITR and Disaster Recovery](chapters/11-backup-restore-pitr-and-disaster-recovery.md)
 24. [Chapter 11 lab](labs/chapter-11/README.md)
+25. [Chapter 12 — Monitoring, Alerting and Observability](chapters/12-monitoring-alerting-and-observability.md)
+26. [Chapter 12 lab](labs/chapter-12/README.md)
 
 ## Learning goals
 
