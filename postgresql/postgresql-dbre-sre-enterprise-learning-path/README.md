@@ -46,6 +46,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 28. [Chapter 13 lab](labs/chapter-13/README.md)
 29. [Chapter 14 — Troubleshooting and Incident Response](chapters/14-troubleshooting-and-incident-response.md)
 30. [Chapter 14 lab](labs/chapter-14/README.md)
+31. [Chapter 15 — Fleet Inventory and Governance](chapters/15-fleet-inventory-and-governance.md)
+32. [Chapter 15 lab](labs/chapter-15/README.md)
 
 ## Learning goals
 
