@@ -44,6 +44,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 26. [Chapter 12 lab](labs/chapter-12/README.md)
 27. [Chapter 13 — VACUUM, Autovacuum, Bloat and Maintenance](chapters/13-vacuum-autovacuum-bloat-and-maintenance.md)
 28. [Chapter 13 lab](labs/chapter-13/README.md)
+29. [Chapter 14 — Troubleshooting and Incident Response](chapters/14-troubleshooting-and-incident-response.md)
+30. [Chapter 14 lab](labs/chapter-14/README.md)
 
 ## Learning goals
 
