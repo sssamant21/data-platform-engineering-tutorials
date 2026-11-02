@@ -45,4 +45,6 @@ Explain why setting `app.tenant_id` from an untrusted SQL client is not a secure
 
 Complete [078 scorecard](../labs/acceptance/078-rls-audit-scorecard.csv). Preserve redacted logs and test results. Clean up only the disposable database and lab roles after reviewing dependencies; do not run blanket cleanup against shared clusters.
 
+**Disposable PostgreSQL 18 V03 evidence:** [Real runtime test](../validation/V03-CH076-078-DISPOSABLE-SECURITY-RUNTIME-EVIDENCE.md) verified Chapter 078 guarded one-time role/RLS setup, separate tenant LOGIN sessions, forced RLS, visibility isolation, cross-tenant insert/update denials, private-column denial and permitted own-row deletion as part of **69/69 checks PASS**. The harness uses a network-isolated Docker container with **trust authentication**. pgaudit, real credentials/TLS, provider key custody, transaction pool identity and independent security acceptance remain **PENDING / NOT CERTIFIED**.
+
 **Runtime:** pending.

@@ -48,4 +48,6 @@ Fill [scorecard](../labs/acceptance/076-security-access-scorecard.csv). Capture 
 
 After preserving evidence, remove the **disposable** database and roles using an explicit administrator-approved cleanup plan. Revoke memberships and clear owned objects/dependencies before DROP ROLE. Do not run broad `DROP OWNED` in shared databases.
 
+**Disposable PostgreSQL 18 V03 evidence:** [Real runtime test](../validation/V03-CH076-078-DISPOSABLE-SECURITY-RUNTIME-EVIDENCE.md) verified the Chapter 076 guarded role setup, distinct database LOGIN sessions, CRUD permissions, analyst/monitor denials, default grants and forbidden `SET ROLE` cases as part of **69/69 checks PASS**. The harness uses a network-isolated Docker container with **trust authentication**; password-based authentication, TLS, a production-like credential store, and independent security acceptance remain **PENDING / NOT CERTIFIED**.
+
 **Runtime:** pending; unexecuted permission tests are NOT VERIFIED.
