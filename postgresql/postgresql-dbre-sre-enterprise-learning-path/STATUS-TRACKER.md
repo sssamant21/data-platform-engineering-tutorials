@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 14/20 |
-| Chapter-specific labs authored | 14/20 |
+| Chapter lessons authored | 15/20 |
+| Chapter-specific labs authored | 15/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -28,7 +28,7 @@
 | 12 | Authored | Written | Not executed | Pending |
 | 13 | Authored | Written | Not executed | Pending |
 | 14 | Authored | Written | Not executed | Pending |
-| 15 | Planned | Pending | Not executed | Pending |
+| 15 | Authored | Written | Not executed | Pending |
 | 16 | Planned | Pending | Not executed | Pending |
 | 17 | Planned | Pending | Not executed | Pending |
 | 18 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**15 — Fleet Inventory and Governance**, including an isolated PostgreSQL 17 inventory and ownership lab, configuration-baseline collection, and fleet governance controls. Do not mark it authored until the lesson and lab exist.
+**16 — Security, Roles, Secrets and Compliance**, including an isolated PostgreSQL 17 roles and privileges lab, secure authentication principles, and governance controls. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
