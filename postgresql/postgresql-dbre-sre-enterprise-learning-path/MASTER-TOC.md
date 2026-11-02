@@ -7,7 +7,7 @@
 | Chapter | Topic | Status |
 |---|---|---|
 | [01](chapters/01-postgresql-fundamentals-and-architecture.md) | PostgreSQL Fundamentals and Architecture | Authored; runtime lab pending |
-| 02 | Databases, Schemas, Tables and Relationships | Planned |
+| [02](chapters/02-databases-schemas-tables-and-relationships.md) | Databases, Schemas, Tables and Relationships | Authored; runtime lab pending |
 | 03 | SQL Transactions, ACID and MVCC | Planned |
 | 04 | PostgreSQL Internals: WAL, Buffers and Checkpoints | Planned |
 | 05 | Indexes, Query Plans and Performance | Planned |
