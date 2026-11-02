@@ -17,7 +17,7 @@
 | Chapter | Topic | Status |
 |---|---|---|
 | [06](chapters/06-postgresql-on-bare-metal.md) | PostgreSQL on Bare Metal | Authored; runtime lab pending |
-| 07 | PostgreSQL on AWS RDS | Planned |
+| [07](chapters/07-postgresql-on-aws-rds.md) | PostgreSQL on AWS RDS | Authored; runtime lab pending |
 | 08 | PostgreSQL on Kubernetes | Planned |
 | 09 | Selecting the Right Enterprise PostgreSQL Architecture | Planned |
 
