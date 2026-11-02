@@ -75,8 +75,9 @@ class PhaseOneSafety(unittest.TestCase):
                 self.assertEqual(1,s.count("\nCREATE ROLE ch"+str(n).zfill(3)+"_owner"))
                 self.assertEqual(1,s.count("\nCREATE DATABASE ch"+str(n).zfill(3)+"_lab"))
                 self.assertEqual(5,s.count("RAISE EXCEPTION"))
-                self.assertEqual(5,s.count("DO $ BEGIN RAISE EXCEPTION"))
-                self.assertIn("primary
+                self.assertEqual(5,s.count("DO "+chr(36)*2+" BEGIN RAISE EXCEPTION"))
+                self.assertIn("primary"+chr(36)+"\x27",s)
+                self.assertNotIn("END "+chr(36)+";",s)
                 self.assertIn(f"current_database()='ch{n:03d}_lab'",s)
                 self.assertNotIn("DROP ROLE",s)
                 self.assertNotIn("DROP DATABASE",s)
