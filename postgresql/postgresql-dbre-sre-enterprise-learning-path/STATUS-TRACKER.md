@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 11/20 |
-| Chapter-specific labs authored | 11/20 |
+| Chapter lessons authored | 12/20 |
+| Chapter-specific labs authored | 12/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -25,7 +25,7 @@
 | 09 | Authored | Written | Not executed | Pending |
 | 10 | Authored | Written | Not executed | Pending |
 | 11 | Authored | Written | Not executed | Pending |
-| 12 | Planned | Pending | Not executed | Pending |
+| 12 | Authored | Written | Not executed | Pending |
 | 13 | Planned | Pending | Not executed | Pending |
 | 14 | Planned | Pending | Not executed | Pending |
 | 15 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**12 — Monitoring, Alerting and Observability**, including PostgreSQL statistics, exporters, Prometheus/Grafana signals, SLO-based alerts, and a safe local monitoring lab. Do not mark it authored until the lesson and lab exist.
+**13 — VACUUM, Autovacuum, Bloat and Maintenance**, including an isolated PostgreSQL 17 lab with safe monitoring of dead tuples and autovacuum behavior. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
