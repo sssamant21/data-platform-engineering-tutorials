@@ -63,7 +63,7 @@ SELECT CASE WHEN current_database()='ch076_lab'
 \if :scoped
 \echo 'Verified lab database, schema absence and system identity.'
 \else
-DO $ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $;
+DO $$ BEGIN RAISE EXCEPTION 'REFUSED: disposable PG18 lab identity or fixture is invalid'; END $$;
 \endif
 
 CREATE SCHEMA app AUTHORIZATION ch076_owner;
