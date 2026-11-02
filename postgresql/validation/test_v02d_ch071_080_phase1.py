@@ -62,12 +62,75 @@ class PhaseOneSafety(unittest.TestCase):
                               "pg_control_system()","NOT pg_is_in_recovery()",
                               f"{n:03d}-CREATE-LAB-FIXTURE",
                               f"datname='ch{n:03d}_lab'",
-                              f"rolname LIKE 'ch{n:03d}",
+                              f"left(rolname,6)='ch{n:03d}_'",
                               "NOT EXISTS",r"\gset",r"\if :allowed",
                               "RAISE EXCEPTION",r"\if :scoped"):
                     self.assertIn(guard,s,guard)
-                self.assertGreater(s.index("\nCREATE ROLE "),s.index(r"\if :allowed"))
-                self.assertGreater(s.index("CREATE SCHEMA "),s.index(r"\if :scoped"))
+                # Check executable DDL and its ORDER, not comments.
+                first_role=s.index("\nCREATE ROLE ch"+str(n).zfill(3)+"_owner")
+                first_db=s.index("\nCREATE DATABASE ch"+str(n).zfill(3)+"_lab")
+                self.assertGreater(first_role,s.index(r"\if :allowed"))
+                self.assertGreater(first_db,first_role)
+                self.assertGreater(s.index("\nCREATE SCHEMA "),s.index(r"\if :scoped"))
+                self.assertEqual(1,s.count("\nCREATE ROLE ch"+str(n).zfill(3)+"_owner"))
+                self.assertEqual(1,s.count("\nCREATE DATABASE ch"+str(n).zfill(3)+"_lab"))
+                self.assertEqual(5,s.count("RAISE EXCEPTION"))
+                self.assertEqual(5,s.count("DO $ BEGIN RAISE EXCEPTION"))
+                self.assertIn("primary
+                self.assertIn(f"current_database()='ch{n:03d}_lab'",s)
+                self.assertNotIn("DROP ROLE",s)
+                self.assertNotIn("DROP DATABASE",s)
+                self.assertNotIn("CREATE ROLE IF NOT EXISTS",s)
+
+    def test_076_078_docs_require_observed_lab_root_and_stage(self):
+        for n in (76,78):
+            l=chapter_file(n,LABS).read_text(encoding="utf-8")
+            for token in ("PG_LAB_ROOT","LAB_MARKER","127.0.0.1",
+                          "expected_system_id=REPLACE_WITH_OBSERVED_SYSTEM_ID",
+                          "expected_lab_pgdata=$PG_LAB_ROOT/primary",
+                          f"confirm_stage={n:03d}-CREATE-LAB-FIXTURE",
+                          "lab_admin","ON_ERROR_STOP=1"):
+                with self.subTest(n=n,token=token):
+                    self.assertIn(token,l)
+            self.assertNotIn(f"-U postgres -d postgres -f postgresql/labs/sql/{n:03d}",l)
+
+    def test_075_ha_marker_does_not_adopt_old_data(self):
+        l=chapter_file(75,LABS).read_text(encoding="utf-8")
+        self.assertIn("CREATE TABLE public.ch075_probe",l)
+        self.assertNotIn("CREATE TABLE IF NOT EXISTS public.ch075_probe",l)
+        self.assertNotIn("ON CONFLICT DO NOTHING",l)
+        self.assertIn("verify endpoint",l)
+        self.assertIn("NO_GO",l)
+
+    def test_071_075_failover_stays_fencing_gated(self):
+        for n in range(71,76):
+            l=chapter_file(n,LABS).read_text(encoding="utf-8").lower()
+            with self.subTest(chapter=n):
+                self.assertIn("fenc",l)
+                self.assertIn("lab",l)
+                self.assertIn("pending",l)
+        self.assertIn("not verified",chapter_file(75,LABS).read_text(encoding="utf-8").lower())
+
+    def test_077_tls_negative_paths_and_078_rls_require_live_tests(self):
+        auth=chapter_file(77,LABS).read_text(encoding="utf-8")
+        rls=chapter_file(78,LABS).read_text(encoding="utf-8")
+        for token in ("sslmode=verify-full","untrusted CA","mismatched hostname",
+                      "sslmode=disable","pg_hba"):
+            self.assertIn(token,auth)
+        for token in ("BYPASSRLS","SQLSTATE","tenant","FORCE ROW LEVEL SECURITY"):
+            self.assertIn(token,rls)
+
+    def test_security_ha_certification_remains_pending(self):
+        for n in range(71,81):
+            l=chapter_file(n,LABS).read_text(encoding="utf-8").lower()
+            self.assertIn("runtime",l)
+            self.assertIn("pending",l)
+
+
+if __name__=="__main__":
+    unittest.main()
+",s)
+                self.assertNotIn("END $;",s)
                 self.assertIn(f"current_database()='ch{n:03d}_lab'",s)
                 self.assertNotIn("DROP ROLE",s)
                 self.assertNotIn("DROP DATABASE",s)
