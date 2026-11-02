@@ -204,13 +204,13 @@ Before running these commands, **manually verify** each exact container/network 
 
 ```powershell
 docker stop prometheus-ch12 pg-exporter-ch12 pg-monitor-ch12
-docker rm prometheus-ch12 pg-exporter-ch12 pg-monitor-ch12
+docker rm -v prometheus-ch12 pg-exporter-ch12 pg-monitor-ch12
 docker network rm pg-monitor-ch12-net
 # Optional, after checking file location:
 # Remove-Item -LiteralPath .\prometheus-ch12.yml
 ```
 
-Removing `pg-monitor-ch12` destroys its container-local synthetic data. No Chapter 01–11 resources are touched.
+Removing `pg-monitor-ch12` with `docker rm -v` destroys its disposable synthetic data and any anonymous volume Docker attached to that container. It also removes anonymous volumes for the other named lab containers. No Chapter 01–11 resources are touched. Do not use `-v` unless the resource identity has been checked.
 
 ## Official references
 
