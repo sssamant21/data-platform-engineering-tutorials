@@ -29,7 +29,7 @@
 | [11](chapters/11-backup-restore-pitr-and-disaster-recovery.md) | Backup, Restore, PITR and Disaster Recovery | Authored; runtime lab pending |
 | [12](chapters/12-monitoring-alerting-and-observability.md) | Monitoring, Alerting and Observability | Authored; runtime lab pending |
 | [13](chapters/13-vacuum-autovacuum-bloat-and-maintenance.md) | VACUUM, Autovacuum, Bloat and Maintenance | Authored; runtime lab pending |
-| 14 | Troubleshooting and Incident Response | Planned |
+| [14](chapters/14-troubleshooting-and-incident-response.md) | Troubleshooting and Incident Response ([lab](labs/chapter-14/README.md)) | Authored; runtime lab pending |
 
 ## Part 4 — Enterprise fleet management
 
