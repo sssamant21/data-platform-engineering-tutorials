@@ -1,0 +1,18 @@
+# Chapter 08 — illustrative CloudNativePG Cluster CR only.
+# REVIEW ONLY: do not apply to production or an unknown cluster.
+# Requires a compatible, preinstalled CloudNativePG operator/CRD and namespace.
+# Single instance: NOT high availability. NO backup/PITR configuration.
+# PostgreSQL image/version is operator-default; confirm before use.
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: pg-training
+  namespace: dbre-training
+spec:
+  instances: 1
+  storage:
+    size: 1Gi
+  bootstrap:
+    initdb:
+      database: app
+      owner: app
