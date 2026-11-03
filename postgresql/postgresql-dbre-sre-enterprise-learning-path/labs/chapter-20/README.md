@@ -75,9 +75,9 @@ Write a one-page ADR answering: why PostgreSQL; single-writer and standby topolo
 ```sh
 docker ps --filter name=pg-dbre-capstone20
 # Only after verifying this is your own disposable training container:
-docker rm -f pg-dbre-capstone20
+docker rm -f -v pg-dbre-capstone20
 ```
-No named volume or host port was created. The container's ephemeral database is removed. Do not use broad prune commands.
+No named volume or host port was created. The verified lab container and its attached anonymous database volume are removed by `docker rm -f -v`; named volumes would not be removed. Inspect its mounts and identity before cleanup. Do not use broad prune commands.
 
 ## Troubleshooting
 - Docker daemon unavailable: start Docker Desktop/Engine; rerun `docker info`.
