@@ -38,7 +38,7 @@
 | [15](chapters/15-fleet-inventory-and-governance.md) | Fleet Inventory and Governance ([lab](labs/chapter-15/README.md)) | Authored; runtime lab pending |
 | [16](chapters/16-security-roles-secrets-and-compliance.md) | Security, Roles, Secrets and Compliance ([lab](labs/chapter-16/README.md)) | Authored; runtime lab pending |
 | [17](chapters/17-lifecycle-upgrades-and-automation.md) | Lifecycle, Upgrades and Automation ([lab](labs/chapter-17/README.md)) | Authored; runtime lab pending |
-| 18 | Capacity Planning, Performance and FinOps | Planned |
+| [18](chapters/18-capacity-planning-performance-and-finops.md) | Capacity Planning, Performance and FinOps ([lab](labs/chapter-18/README.md)) | Authored; runtime lab pending |
 
 ## Part 5 — Collaboration and capstone
 
