@@ -6,7 +6,7 @@
 |---|---|
 | Curriculum planned | 20/20 chapters |
 | Chapter lessons authored | 20/20 |
-| Chapter-specific labs authored | 19/20 |
+| Chapter-specific labs authored | 20/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
