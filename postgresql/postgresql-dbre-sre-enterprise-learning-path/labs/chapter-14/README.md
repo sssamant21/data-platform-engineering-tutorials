@@ -278,10 +278,10 @@ docker stop pg-ir-ch14
 Only after confirming the container is the disposable **pg-ir-ch14** you created and no evidence is needed, optionally remove it:
 
 ~~~powershell
-docker rm pg-ir-ch14
+docker rm -v pg-ir-ch14
 ~~~
 
-**Warning:** removing this container permanently discards its ephemeral database data. No host port or external volume was created. Do not use docker system prune, docker volume prune, or commands targeting other containers.
+**Warning:** removing this container permanently discards its ephemeral database data. No host port or named external volume was created. The PostgreSQL 17 image may create an anonymous data volume, which `docker rm -v` removes only for this verified disposable container. Do not prune unrelated volumes. Do not use docker system prune, docker volume prune, or commands targeting other containers.
 
 ## 8. Acceptance and evidence checklist
 
