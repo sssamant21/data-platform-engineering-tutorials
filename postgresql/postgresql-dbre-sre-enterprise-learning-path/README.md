@@ -59,6 +59,9 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 39. [Chapter 19 — Application Requirement Gathering and Database Design](chapters/19-application-requirement-gathering-and-database-design.md)
 40. [Chapter 19 lab](labs/chapter-19/README.md)
 
+41. [Chapter 20 — Enterprise PostgreSQL DBRE/SRE Capstone](chapters/20-enterprise-postgresql-dbre-sre-capstone.md)
+42. [Chapter 20 lab](labs/chapter-20/README.md)
+
 ## Learning goals
 
 By completion, the learner will be able to:
