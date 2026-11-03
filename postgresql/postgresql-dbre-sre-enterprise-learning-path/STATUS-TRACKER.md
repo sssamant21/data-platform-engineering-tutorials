@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 18/20 |
-| Chapter-specific labs authored | 18/20 |
+| Chapter lessons authored | 19/20 |
+| Chapter-specific labs authored | 19/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -32,7 +32,7 @@
 | 16 | Authored | Written | Not executed | Pending |
 | 17 | Authored | Written | Not executed | Pending |
 | 18 | Authored | Written | Not executed | Pending |
-| 19 | Planned | Pending | Not executed | Pending |
+| 19 | Authored | Written | Not executed | Pending |
 | 20 | Planned | Pending | Not executed | Pending |
 
 ## Quality gates
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**19 — Application Requirement Gathering and Database Design**, including workload interviews, schema design, reliability requirements and an isolated local PostgreSQL lab.
+**20 — Enterprise PostgreSQL DBRE/SRE Capstone**, integrating design, reliability, security, observability and operations with a local non-production lab.
 
 ## Important
 
