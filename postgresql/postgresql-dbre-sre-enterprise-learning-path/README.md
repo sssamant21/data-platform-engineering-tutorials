@@ -53,6 +53,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 
 35. [Chapter 17 — Lifecycle, Upgrades and Automation](chapters/17-lifecycle-upgrades-and-automation.md)
 36. [Chapter 17 lab](labs/chapter-17/README.md)
+37. [Chapter 18 — Capacity Planning, Performance and FinOps](chapters/18-capacity-planning-performance-and-finops.md)
+38. [Chapter 18 lab](labs/chapter-18/README.md)
 
 ## Learning goals
 
