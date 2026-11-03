@@ -5,7 +5,7 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 15/20 |
+| Chapter lessons authored | 16/20 |
 | Chapter-specific labs authored | 15/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
@@ -29,7 +29,7 @@
 | 13 | Authored | Written | Not executed | Pending |
 | 14 | Authored | Written | Not executed | Pending |
 | 15 | Authored | Written | Not executed | Pending |
-| 16 | Planned | Pending | Not executed | Pending |
+| 16 | Authored | Written | Not executed | Pending |
 | 17 | Planned | Pending | Not executed | Pending |
 | 18 | Planned | Pending | Not executed | Pending |
 | 19 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**16 — Security, Roles, Secrets and Compliance**, including an isolated PostgreSQL 17 roles and privileges lab, secure authentication principles, and governance controls. Do not mark it authored until the lesson and lab exist.
+**17 — Lifecycle, Upgrades and Automation**, including version inventory, staged upgrade plans, rollback decisions and a safe local PostgreSQL 17 lab. Do not mark it authored until the lesson and lab exist.
 
 ## Important
 
