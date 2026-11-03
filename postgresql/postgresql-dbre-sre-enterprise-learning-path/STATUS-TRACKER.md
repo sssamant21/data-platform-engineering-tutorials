@@ -5,8 +5,8 @@
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 16/20 |
-| Chapter-specific labs authored | 15/20 |
+| Chapter lessons authored | 17/20 |
+| Chapter-specific labs authored | 16/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -30,7 +30,7 @@
 | 14 | Authored | Written | Not executed | Pending |
 | 15 | Authored | Written | Not executed | Pending |
 | 16 | Authored | Written | Not executed | Pending |
-| 17 | Planned | Pending | Not executed | Pending |
+| 17 | Authored | Written | Not executed | Pending |
 | 18 | Planned | Pending | Not executed | Pending |
 | 19 | Planned | Pending | Not executed | Pending |
 | 20 | Planned | Pending | Not executed | Pending |
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**17 — Lifecycle, Upgrades and Automation**, including version inventory, staged upgrade plans, rollback decisions and a safe local PostgreSQL 17 lab. Do not mark it authored until the lesson and lab exist.
+**18 — Capacity Planning, Performance and FinOps**, including growth forecasting, workload capacity, cost tradeoffs and a safe local PostgreSQL lab.
 
 ## Important
 
