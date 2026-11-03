@@ -45,7 +45,7 @@
 | Chapter | Topic | Status |
 |---|---|---|
 | [19](chapters/19-application-requirement-gathering-and-database-design.md) | Application Requirement Gathering and Database Design ([lab](labs/chapter-19/README.md)) | Authored; runtime lab pending |
-| 20 | Enterprise PostgreSQL DBRE/SRE Capstone | Planned |
+| [20](chapters/20-enterprise-postgresql-dbre-sre-capstone.md) | Enterprise PostgreSQL DBRE/SRE Capstone ([lab](labs/chapter-20/README.md)) | Authored; runtime lab pending |
 
 ## Learning standards and platform boundaries
 
