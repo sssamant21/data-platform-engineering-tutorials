@@ -79,9 +79,9 @@ Record Docker image digest/version, SQL command outcomes, exact denial message, 
 Only after verifying the exact container name and that it contains no data you need:
 ```bash
 docker ps -a --filter name='^/pg-dbre-ch16$'
-docker rm -f pg-dbre-ch16
+docker rm -f -v pg-dbre-ch16
 ```
-No host bind mounts or named volumes are created by these commands; the container's anonymous volume may remain after `docker rm -f`. Inspect `docker inspect pg-dbre-ch16` **before removal** if you need to identify its mounts; remove any leftover anonymous volume only after verifying its exact ID and that it belongs exclusively to this disposable lab. Do not use global Docker prune commands.
+No host bind mounts or named volumes are created by these commands. `docker rm -f -v` also removes anonymous volumes attached to this verified lab container; it does not remove named volumes. Inspect `docker inspect pg-dbre-ch16` **before removal** to verify the mounts and ownership. Never use global Docker prune commands.
 
 ## Acceptance checklist
 - [ ] Docker context and isolation checked.
