@@ -56,6 +56,9 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 37. [Chapter 18 — Capacity Planning, Performance and FinOps](chapters/18-capacity-planning-performance-and-finops.md)
 38. [Chapter 18 lab](labs/chapter-18/README.md)
 
+39. [Chapter 19 — Application Requirement Gathering and Database Design](chapters/19-application-requirement-gathering-and-database-design.md)
+40. [Chapter 19 lab](labs/chapter-19/README.md)
+
 ## Learning goals
 
 By completion, the learner will be able to:
