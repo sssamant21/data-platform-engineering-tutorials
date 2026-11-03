@@ -48,6 +48,8 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 30. [Chapter 14 lab](labs/chapter-14/README.md)
 31. [Chapter 15 — Fleet Inventory and Governance](chapters/15-fleet-inventory-and-governance.md)
 32. [Chapter 15 lab](labs/chapter-15/README.md)
+33. [Chapter 16 — Security, Roles, Secrets and Compliance](chapters/16-security-roles-secrets-and-compliance.md)
+34. [Chapter 16 lab](labs/chapter-16/README.md)
 
 ## Learning goals
 
