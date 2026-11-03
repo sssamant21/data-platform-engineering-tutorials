@@ -53,10 +53,10 @@ docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "BEG
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT id, note FROM lifecycle_lab;"
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "DROP TABLE lifecycle_lab;"
 docker stop pg-dbre-ch17
-docker rm pg-dbre-ch17
+docker rm -v pg-dbre-ch17
 ```
 
-Expected: original two columns restored; table removed; only the specifically named lab container removed. Never use `docker system prune`, `docker volume prune` or broad deletion commands. This lab does not execute a PostgreSQL major upgrade or restore exercise.
+Expected: original two columns restored; table removed; only the specifically named lab container and its anonymous volume(s) removed. Verify container identity and mounts before cleanup; `-v` does not delete named volumes. Never use `docker system prune`, `docker volume prune` or broad deletion commands. This lab does not execute a PostgreSQL major upgrade or restore exercise.
 
 ## Troubleshooting
 - `Cannot connect to Docker daemon`: start Docker Desktop; confirm Linux engine.
