@@ -59,9 +59,9 @@ Only after verifying `docker inspect pg-dbre-ch18` identifies your lab container
 ```sh
 docker exec pg-dbre-ch18 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "DROP TABLE ch18_capacity;"
 docker stop pg-dbre-ch18
-docker rm pg-dbre-ch18
+docker rm -v pg-dbre-ch18
 ```
-Expected: table removed, only `pg-dbre-ch18` stopped and removed. Do not run `docker system prune`, `docker volume prune`, `docker rm -f` against unknown resources or any production cleanup. If interrupted, inspect the named container before deciding whether to resume or clean up.
+Expected: table removed, only `pg-dbre-ch18` stopped and removed together with its anonymous volume(s). Verify container identity and mounts first; `-v` does not remove named volumes. Do not run `docker system prune`, `docker volume prune`, `docker rm -f` against unknown resources or any production cleanup. If interrupted, inspect the named container before deciding whether to resume or clean up.
 
 ## Troubleshooting
 - Docker daemon error: start local Docker Desktop; check `docker context show`.
