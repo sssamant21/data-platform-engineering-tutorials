@@ -1,12 +1,12 @@
 # Progress and Validation Tracker
 
-**Status date:** 2026-11-02
+**Status date:** 2026-11-03
 
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
-| Chapter lessons authored | 17/20 |
-| Chapter-specific labs authored | 16/20 |
+| Chapter lessons authored | 18/20 |
+| Chapter-specific labs authored | 18/20 |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -31,7 +31,7 @@
 | 15 | Authored | Written | Not executed | Pending |
 | 16 | Authored | Written | Not executed | Pending |
 | 17 | Authored | Written | Not executed | Pending |
-| 18 | Planned | Pending | Not executed | Pending |
+| 18 | Authored | Written | Not executed | Pending |
 | 19 | Planned | Pending | Not executed | Pending |
 | 20 | Planned | Pending | Not executed | Pending |
 
@@ -45,7 +45,7 @@
 
 ## Next chapter
 
-**18 — Capacity Planning, Performance and FinOps**, including growth forecasting, workload capacity, cost tradeoffs and a safe local PostgreSQL lab.
+**19 — Application Requirement Gathering and Database Design**, including workload interviews, schema design, reliability requirements and an isolated local PostgreSQL lab.
 
 ## Important
 
