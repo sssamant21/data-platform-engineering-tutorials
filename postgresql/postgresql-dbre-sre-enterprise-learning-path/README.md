@@ -51,6 +51,9 @@ The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-
 33. [Chapter 16 — Security, Roles, Secrets and Compliance](chapters/16-security-roles-secrets-and-compliance.md)
 34. [Chapter 16 lab](labs/chapter-16/README.md)
 
+35. [Chapter 17 — Lifecycle, Upgrades and Automation](chapters/17-lifecycle-upgrades-and-automation.md)
+36. [Chapter 17 lab](labs/chapter-17/README.md)
+
 ## Learning goals
 
 By completion, the learner will be able to:
