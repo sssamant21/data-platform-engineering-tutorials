@@ -246,10 +246,10 @@ docker stop pg-maint-ch13
 To permanently remove **this dedicated lab container and all its ephemeral data**, run the following only after confirming no needed evidence remains:
 
 ```powershell
-docker rm pg-maint-ch13
+docker rm -v pg-maint-ch13
 ```
 
-This is destructive to the container's unmounted data and is **never** an instruction to remove production or another chapter's container. No volumes or host ports are created by this lab.
+This is destructive to the container's unmounted data and is **never** an instruction to remove production or another chapter's container. No host ports or named volumes are created by this lab. The official PostgreSQL 17 image declares a data volume, so Docker may create an anonymous volume; `docker rm -v` removes anonymous volumes attached to this verified disposable container. Do not prune unrelated volumes.
 
 ## Official references
 
