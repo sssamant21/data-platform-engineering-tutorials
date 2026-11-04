@@ -81,3 +81,20 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Review result:** No confirmed source-level defect in Chapter 04. **Runtime status: not executed.** Required evidence: PostgreSQL image digest, version and identity, preflight outputs, initial database-existence check, sanitized interactive `psql` transcript, 2,000-row count, both LSNs and positive byte-distance, WAL/checkpointer/bgwriter/I/O observations, configuration and slot inventory, and explicit cleanup/retention decision. No reviewer approval or production certification is inferred.
 
 **Next unreviewed milestone:** Chapter 05 — index and query-plan SQL/shell semantics; continue external-reference checks and isolated runtime preparation.
+
+## Chapter 05 — indexes, query plans and performance
+
+**Files reviewed:** [lesson](../chapters/05-indexes-query-plans-and-performance.md) and [lab](../labs/chapter-05/README.md). **Scope:** static semantic review of PostgreSQL 17 SQL, PowerShell/Docker preflight, sample arithmetic, index and EXPLAIN safety. **Not executed.**
+
+- The preflight checks Linux Docker, named container, PostgreSQL version and database absence before creating `training_ch05`; the lab does not overwrite an existing database. Interactive `psql` SQL is separated from PowerShell commands.
+- The 200,000-row `generate_series` workload produces exactly 2,000 distinct customers with 100 events each. Every tenth row is pending, yielding 20,000 pending rows. `GENERATED ALWAYS AS IDENTITY`, `TIMESTAMPTZ` arithmetic, `FILTER`, `ANALYZE`, and `EXPLAIN (ANALYZE, BUFFERS)` are PostgreSQL 17-compatible constructs.
+- The composite B-tree index on `(customer_id, created_at DESC)` can support equality-filtered ordered top-20 retrieval; it does not guarantee a specific plan or latency. The optional `WHERE status = 'pending'` partial index matches the literal query predicate. The lesson appropriately notes that `INCLUDE (amount)` does not cover `event_id` and cannot by itself guarantee an index-only scan.
+- `pg_indexes`, `pg_class`, `pg_namespace`, `pg_stat_user_indexes`, `pg_relation_size`, `pg_indexes_size` and `pg_total_relation_size` are appropriate for the stated read-only inventory. The broad predicate `customer_id BETWEEN 1 AND 2000` matches all synthetic rows, making a sequential scan plausible, not mandatory.
+- The lab correctly warns that EXPLAIN ANALYZE executes statements, limits measured statements to read-only SELECT, and avoids forcing planner settings, destructive drops, production DDL or arbitrary index removal. Repeated execution is intentionally non-idempotent and requires inspection first.
+- Relative lesson/lab navigation paths are consistent by source inspection. PostgreSQL 17 official documentation URLs are listed; external HTTP reachability is **not verified** in this review.
+
+**Result:** No confirmed source-level semantic defect in Chapter 05. **Runtime remains not executed**; independent review and certification remain pending.
+
+**Evidence needed:** disposable container identity and image digest, `SELECT version()`, database absence preflight, insert result and counts (200000/20000/2000), before/after actual EXPLAIN plans and buffer/timing measurements, index inventory and sizes, optional partial-index status, final database identity and retention/cleanup decision. Capture sanitized transcripts and timestamps; never substitute example plans for observed output.
+
+**Next unreviewed milestone:** Chapter 06 — bare-metal PostgreSQL operational semantics and safe local exercises; then continue Chapters 07–20 and external URL verification.
