@@ -142,6 +142,9 @@ Expected: target WAL segment exists. This is an archive-presence check, not a fu
 
 ~~~powershell
 docker stop pg-ch11-primary
+# Require an exact stopped source before any writable restore is started.
+$sourceState = (docker inspect --format '{{.State.Running}}' pg-ch11-primary).Trim()
+if ($LASTEXITCODE -ne 0 -or $sourceState -ne "false") { throw "Source is not confirmed stopped; abort restore." }
 docker ps -a --filter "name=pg-ch11-"
 ~~~
 
@@ -176,12 +179,12 @@ docker exec pg-ch11-restore psql -U postgres -d pitr_lab -v ON_ERROR_STOP=1 -c "
 
 $restoreEnd = Get-Date
 $elapsed = ($restoreEnd - $restoreStart).TotalSeconds
-"Restore-start-to-verified-query seconds: {0:N1}" -f $elapsed
+"Restored-container-start-to-verified-query seconds: {0:N1}" -f $elapsed
 ~~~
 
 **Expected:** `still_recovering = false`, exactly two rows `(1, baseline)` and `(2, safe_before_point)`, count 2. The post-target incorrect update and row 3 must be absent. If they appear, **fail the lab** and inspect the recovery logs/target; do not claim success.
 
-The measured interval covers only restore startup and the queries after `$restoreStart`; it is **not** an end-to-end RTO. The intentional omission of post-target writes is not measured disaster RPO.
+The measured interval covers only restored-container startup and the queries after `$restoreStart` (the base-backup copy in step 9 is excluded); it is **not** the complete restore duration or an end-to-end RTO. The intentional omission of post-target writes is not measured disaster RPO.
 
 ## 11. Recovery evidence and enterprise acceptance boundary
 
@@ -232,7 +235,7 @@ Never use broad cleanup commands such as `docker volume prune`, and never run th
 - [ ] Target WAL segment archived.
 - [ ] Source stopped before restored copy became writable.
 - [ ] Named PITR completed and recovered rows 1 and 2 only.
-- [ ] Partial restore elapsed seconds recorded and correctly labeled.
+- [ ] Restored-container startup-to-query elapsed seconds recorded and correctly labeled; base-copy time excluded.
 - [ ] Actual evidence retained and independently reviewed.
 - [ ] No enterprise RPO/RTO or production certification claimed.
 
