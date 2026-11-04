@@ -98,3 +98,21 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Evidence needed:** disposable container identity and image digest, `SELECT version()`, database absence preflight, insert result and counts (200000/20000/2000), before/after actual EXPLAIN plans and buffer/timing measurements, index inventory and sizes, optional partial-index status, final database identity and retention/cleanup decision. Capture sanitized transcripts and timestamps; never substitute example plans for observed output.
 
 **Next unreviewed milestone:** Chapter 06 — bare-metal PostgreSQL operational semantics and safe local exercises; then continue Chapters 07–20 and external URL verification.
+
+## Chapter 06 — bare-metal operations and container persistence
+
+**Files reviewed:** [lesson](../chapters/06-postgresql-on-bare-metal.md) and [lab](../labs/chapter-06/README.md). **Review type:** source-level SQL/PowerShell/Bash and operational safety inspection; **not executed**.
+
+- The lesson correctly distinguishes self-managed Linux-host ownership from the local Docker simulation; the lab does not claim to test systemd integration, physical durability, host kernel settings, independent HA or recovery.
+- The dedicated lab names (`pg-baremetal-ch06`, `pg_baremetal_ch06_data`, `training_ch06`, loopback port `55436`) are consistently used. Preflight checks for existing resources and a listening port are read-only, and the procedure explicitly stops rather than deleting unknown resources.
+- The `postgres:17` Docker invocation uses PowerShell backtick continuation and a named volume mounted at `/var/lib/postgresql/data`. The training-only `POSTGRES_PASSWORD` is disclosed as inspectable metadata, and `docker inspect` output is specifically excluded from unrestricted evidence. The image tag is mutable: record the actual image digest during execution.
+- `SELECT current_database(), current_user, version()`, `pg_is_in_recovery()`, `SHOW data_directory/config_file/hba_file/ident_file`, `pg_settings`, `pg_hba_file_rules`, `pg_stat_database`, `pg_database_size` and `pg_postmaster_start_time()` are compatible with PostgreSQL 17. The `pg_hba_file_rules` query is diagnostic only and does not alter authentication.
+- The marker DDL and insert use `ON_ERROR_STOP=1`, and the expected single `(1, 'persisted')` row follows from the clean database assumption. Re-running DDL is intentionally not idempotent and requires identity inspection. The optional `docker stop --time 60` and `docker start` apply only to the confirmed disposable container; a subsequent marker read demonstrates local persistence, not recovery certification.
+- The optional Linux-host commands (`hostnamectl`, `systemctl list-units`, `lsblk`, `df`, `ss`) are read-only, explicitly restricted to approved non-production staging. The lab avoids restarting host services or changing firewall/kernel settings. No destructive cleanup command is provided; retained volume ownership must be confirmed before any eventual deletion.
+- Internal lesson/lab navigation paths are consistent by inspection. Official PostgreSQL 17 reference URLs are listed but **external HTTP reachability has not yet been checked**.
+
+**Result:** No confirmed source-level defect found in Chapter 06 during this review. **Runtime status: not executed; independent review: pending; production certification: not established.**
+
+**Runtime evidence required:** record Docker/host versions, Linux-container mode, image digest, absence of pre-existing names/port listener, actual container and database identity, PostgreSQL version and role, configuration/HBA results, scoped storage/resource observations, marker insertion and row count, optional stop/start timestamps and persistence, sanitized logs, and a documented retention/cleanup decision. No observed outputs were fabricated.
+
+**Next unreviewed milestone:** Chapter 07 — AWS RDS architecture and optional provider steps; verify cloud actions remain explicitly optional and cost-safe. External reference checks and isolated PostgreSQL 17 runtime execution remain outstanding.
