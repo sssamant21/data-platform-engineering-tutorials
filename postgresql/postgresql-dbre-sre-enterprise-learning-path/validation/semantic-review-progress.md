@@ -65,4 +65,19 @@ Do not change the track's runtime-validation status until this evidence exists.
 
 **Runtime evidence required:** capture disposable container identity/image digest, PostgreSQL version, two distinct backend PIDs, the ordered interleaved A/B transcript, intended constraint error and recovery, transaction isolation settings, final balances, session disconnect/cleanup confirmation and sanitized timestamps. Until actual execution, Chapter 03 remains **not runtime verified**.
 
-**Next unreviewed milestone:** Chapter 04 semantic SQL/shell review, followed by remaining chapters and external-link checks. No independent sign-off or production certification is implied.
+**Chapter 04 review is recorded below.** No independent sign-off or production certification is implied.
+
+## Chapter 04 — WAL, shared buffers and checkpoints
+
+**Files reviewed:** [lesson](../chapters/04-postgresql-internals-wal-buffers-and-checkpoints.md) and [lab](../labs/chapter-04/README.md). **Review type:** source-level semantic inspection only; not a PostgreSQL execution result.
+
+- The preflight checks Docker Linux mode, the named disposable `pg-fleet-lab` container, PostgreSQL 17 and `pg_is_in_recovery() = false` before database creation. The lab checks for a pre-existing `training_ch04` database and stops rather than dropping it.
+- The SQL creates a synthetic table with a PostgreSQL 17 identity column, captures `pg_current_wal_lsn()` using interactive `psql` `\\gset`, inserts 2,000 generated rows in one transaction, then computes a WAL byte-distance with `pg_wal_lsn_diff()`. The quoted `:'start_lsn'::pg_lsn` and `:'end_lsn'::pg_lsn` substitutions require the same interactive `psql` session; the instructions state this.
+- `pg_stat_wal`, `pg_stat_checkpointer`, `pg_stat_bgwriter`, `pg_stat_io`, `pg_stat_database` and `pg_replication_slots` are used read-only. The lesson correctly distinguishes PostgreSQL 17 checkpointer statistics from older `pg_stat_bgwriter` checkpoint columns. The ratio query protects against division by zero via `NULLIF`.
+- The lab does not force `CHECKPOINT`, reset statistics, change durability settings, manipulate replication slots, or delete WAL. It correctly warns that LSN differences and cumulative WAL counters need not match and that an unchanged checkpoint counter is acceptable.
+- **Operational limitation:** the exercise uses a superuser inside a disposable local container. This is not a least-privilege monitoring-role template for production. The lab intentionally retains the separate database; eventual cleanup requires an independently confirmed disposable environment.
+- Chapter/lab relative navigation links are consistent by inspection. Official PostgreSQL 17 URLs are present but **HTTP reachability and complete external-reference validation are pending**.
+
+**Review result:** No confirmed source-level defect in Chapter 04. **Runtime status: not executed.** Required evidence: PostgreSQL image digest, version and identity, preflight outputs, initial database-existence check, sanitized interactive `psql` transcript, 2,000-row count, both LSNs and positive byte-distance, WAL/checkpointer/bgwriter/I/O observations, configuration and slot inventory, and explicit cleanup/retention decision. No reviewer approval or production certification is inferred.
+
+**Next unreviewed milestone:** Chapter 05 — index and query-plan SQL/shell semantics; continue external-reference checks and isolated runtime preparation.
