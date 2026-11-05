@@ -25,7 +25,11 @@ All values below are synthetic. The demonstration password is for this private d
 ## 1. Start PostgreSQL 17 (3 minutes)
 
 ```powershell
-docker run -d --name pg-maint-ch13 -e POSTGRES_PASSWORD=TrainingOnly_Ch13_ChangeMe postgres:17
+$labContext = docker context show
+$labContainerId = docker run -d --name pg-maint-ch13 --label training.owner=postgresql-dbre-sre-enterprise-learning-path --label training.chapter=13 -e POSTGRES_PASSWORD=TrainingOnly_Ch13_ChangeMe postgres:17
+if ($LASTEXITCODE -ne 0 -or -not $labContainerId) { throw 'Container creation failed; stop lab.' }
+$labContainerId = $labContainerId.Trim()
+Write-Host "Retain for cleanup: Docker context=$labContext; container ID=$labContainerId"
 docker exec pg-maint-ch13 pg_isready -U postgres -d postgres
 docker exec pg-maint-ch13 psql -U postgres -d postgres -c "SELECT current_database(), current_user, current_setting('server_version') AS version, pg_is_in_recovery();"
 ```
@@ -236,20 +240,39 @@ Do not terminate sessions, drop slots or change global autovacuum settings as pa
 
 ## 11. Optional cleanup — deliberate and isolated
 
-Exit `psql` with `\q`. Keep the container if you want to preserve lab evidence. **Only when finished and after confirming that the exact disposable Chapter 13 container is yours**, you may stop it:
+Exit `psql` with `\\q`. Retain the container if evidence is needed. **Cleanup is optional and destructive.** Run only in the same PowerShell session where `$labContainerId` and `$labContext` were captured during successful creation. If these values are missing, **STOP**; do not reconstruct an ID from a container name. Do not delete any resource whose ownership or mounts are uncertain.
+
+Before stopping, check the active Docker context, exact full ID, training labels, image, and mounts. The expected mount is the PostgreSQL image's isolated anonymous data volume at `/var/lib/postgresql/data`; no bind mounts or shared/named volumes are authorized for this lab.
 
 ```powershell
-docker inspect --format '{{.Name}} {{.Config.Image}}' pg-maint-ch13
-docker stop pg-maint-ch13
+if ((docker context show) -ne $labContext) { throw 'Docker context changed; stop cleanup.' }
+$labInspect = docker inspect --type container pg-maint-ch13 | ConvertFrom-Json
+if ($LASTEXITCODE -ne 0 -or @($labInspect).Count -ne 1) { throw 'Container missing or ambiguous; stop cleanup.' }
+$c = @($labInspect)[0]
+if ($c.Id -ne $labContainerId -or $c.Name -ne '/pg-maint-ch13' -or
+    $c.Config.Labels.'training.owner' -ne 'postgresql-dbre-sre-enterprise-learning-path' -or
+    $c.Config.Labels.'training.chapter' -ne '13' -or
+    $c.Config.Image -ne 'postgres:17') { throw 'Container identity mismatch; stop cleanup.' }
+$c.Mounts | Format-Table Type,Name,Source,Destination
+if (@($c.Mounts).Count -ne 1 -or $c.Mounts[0].Type -ne 'volume' -or
+    $c.Mounts[0].Destination -ne '/var/lib/postgresql/data' -or
+    $c.Mounts[0].Name -notmatch '^[a-f0-9]{64}$') {
+    throw 'Unexpected mount or shared volume; stop cleanup.'
+}
 ```
 
-To permanently remove **this dedicated lab container and all its ephemeral data**, run the following only after confirming no needed evidence remains:
+Review the printed mount details and confirm the volume is disposable and not referenced by other containers before proceeding. If uncertain, retain it and seek review. Then, after preserving sanitized evidence:
 
 ```powershell
-docker rm -v pg-maint-ch13
+docker stop $labContainerId
+if ($LASTEXITCODE -ne 0) { throw 'Stop failed; do not remove.' }
+docker rm -v $labContainerId
+if ($LASTEXITCODE -ne 0) { throw 'Removal failed; inspect manually.' }
+docker ps -a --no-trunc --filter "id=$labContainerId"
+docker volume inspect $c.Mounts[0].Name
 ```
 
-This is destructive to the container's unmounted data and is **never** an instruction to remove production or another chapter's container. No host ports or named volumes are created by this lab. The official PostgreSQL 17 image declares a data volume, so Docker may create an anonymous volume; `docker rm -v` removes anonymous volumes attached to this verified disposable container. Do not prune unrelated volumes.
+Expected cleanup proof: the filtered container list is empty, and volume inspection reports that the disposable anonymous volume no longer exists. A failed volume inspection is **expected only after** successful removal. Preserve the actual output as evidence if executed. Never run broad Docker prune commands.
 
 ## Official references
 
