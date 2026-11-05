@@ -7,12 +7,17 @@ Docker Engine/Desktop, Docker CLI, PostgreSQL 17 image, terminal (POSIX shell/Gi
 
 ## 1. Launch isolated database (10 minutes)
 ```sh
-docker info
+set -eu
+docker info >/dev/null
+docker context show
+test "$(docker info --format '{{.OSType}}')" = linux || { echo "Linux Docker engine required"; exit 1; }
+# Confirm this Docker context points to an approved disposable local engine.
+# The next command stops if the exact container name is already occupied.
 docker container inspect pg-dbre-capstone20 >/dev/null 2>&1 && { echo "Container name already exists: stop and investigate"; exit 1; }
 docker run -d --name pg-dbre-capstone20 -e POSTGRES_PASSWORD=local_training_only -e POSTGRES_DB=capstone --health-cmd='pg_isready -U postgres -d capstone' --health-interval=5s --health-retries=12 postgres:17
 docker exec pg-dbre-capstone20 pg_isready -U postgres -d capstone
 ```
-Expected: container ID, then `accepting connections` after initialization (retry the last command if needed). Password is synthetic and not suitable for a real deployment.
+Record the created container ID and mounts (`docker container inspect`) before any SQL. Expected: container ID, then `accepting connections` after initialization (retry the last command if needed). Password is synthetic and not suitable for a real deployment.
 
 ## 2. Build integrity and workload (15 minutes)
 ```sh
@@ -73,9 +78,11 @@ Write a one-page ADR answering: why PostgreSQL; single-writer and standby topolo
 
 ## 6. Cleanup / rollback (5 minutes)
 ```sh
-docker ps --filter name=pg-dbre-capstone20
-# Only after verifying this is your own disposable training container:
-docker rm -f -v pg-dbre-capstone20
+docker container inspect --format 'id={{.Id}} name={{.Name}} image={{.Image}} mounts={{json .Mounts}}' pg-dbre-capstone20
+# Compare the exact ID and mounts with your creation-time record.
+# Only after verifying this is the same disposable container you created:
+# docker rm -f -v pg-dbre-capstone20
+# Then verify absence with: docker container inspect pg-dbre-capstone20
 ```
 No named volume or host port was created. The verified lab container and its attached anonymous database volume are removed by `docker rm -f -v`; named volumes would not be removed. Inspect its mounts and identity before cleanup. Do not use broad prune commands.
 
