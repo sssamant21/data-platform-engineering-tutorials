@@ -399,3 +399,17 @@ Do not change the track's runtime-validation status until this evidence exists.
 - **Runtime evidence:** No PostgreSQL/Docker/psql commands executed; runtime status remains **0/20**. Independent review and production certification remain pending.
 
 **Next:** Continue Chapters 05–19 reference resolution and systematically verify remaining external URLs and anchors; record only confirmed failures and remediation. Preserve all track-only edit boundaries.
+
+
+## Documentation-reference audit checkpoint — 2026-11-05 — Chapters 05–08
+
+**Scope:** Eight files: chapter lessons and lab READMEs for Chapters 05, 06, 07 and 08. This is a reference-inventory and targeted HTTP verification checkpoint, **not** completion of the whole-track link audit or PostgreSQL runtime execution.
+
+- Parsed **99 inline Markdown link occurrences** (Chapter 05: 14 lesson + 9 lab; Chapter 06: 14 + 8; Chapter 07: 23 + 9; Chapter 08: 15 + 7). These counts include repeated targets, and exclude links that may be encoded as reference-style definitions, autolinks or raw HTML.
+- Track-local navigation targets match the known track inventory: README, MASTER-TOC, STATUS-TRACKER, lesson/lab counterparts and Chapter 08 `cluster-example.yaml`. This is a **path-inventory comparison**, not a fresh filesystem resolution of every target or an anchor check.
+- Targeted HTTP retrieval succeeded for PostgreSQL 17 multicolumn index documentation (`https://www.postgresql.org/docs/17/indexes-multicolumn.html`), AWS RDS `USER_PerfInsights.Overview.html`, and CloudNativePG development bootstrap documentation (`https://cloudnative-pg.io/docs/devel/bootstrap/`). Other external links in these eight files have **not** been individually HTTP-tested.
+- **Documentation maintenance finding (low):** The AWS URL now displays an **Overview of Database Insights on Amazon RDS** rather than the older Performance Insights overview. Review Chapter 07 terminology against the current AWS monitoring product and pricing/retention documentation; URL reachability alone does not establish that the original lesson wording remains current.
+- **Version-pinning finding (low):** Chapter 08 links to CloudNativePG `/docs/devel/bootstrap/`. This URL resolves, but explicitly serves a moving development-version manual. For a reproducible operator lab, choose a supported, pinned CloudNativePG release and verify the YAML against that release before any Kubernetes execution. Do not silently replace the URL until the lesson's operator version is established.
+- No broken URL is confirmed in the three targeted HTTP checks. No provider, Kubernetes, Docker or PostgreSQL runtime tests were executed.
+
+**Remaining:** Check every remaining URL in Chapters 05–08; scan Chapters 09–20 and all supporting files for inline, reference-style, HTML and anchor links; validate case-sensitive paths and redirects; remediate confirmed errors without editing the separate 100-chapter curriculum. Runtime status remains **0/20**, independent review pending, production certification not established.
