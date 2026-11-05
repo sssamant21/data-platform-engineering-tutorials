@@ -12,11 +12,13 @@ Use a disposable local Docker environment, not production. This lab creates a de
 
 ```powershell
 docker version
+docker context show
 docker info --format '{{.OSType}}'
 docker ps -a --filter "name=pg-monitor-ch12"
 docker ps -a --filter "name=pg-exporter-ch12"
 docker ps -a --filter "name=prometheus-ch12"
 docker network ls --filter "name=pg-monitor-ch12-net"
+Get-NetTCPConnection -State Listen -ErrorAction SilentlyContinue | Where-Object { $_.LocalPort -in 55434,9188,9099 }
 ```
 
 Expected on first use: Linux Docker daemon, no existing Chapter 12 resources. **If any name collides, stop and inspect; do not overwrite or delete it.** Passwords shown below are disposable demo values only; never reuse them in production.
@@ -24,8 +26,14 @@ Expected on first use: Linux Docker daemon, no existing Chapter 12 resources. **
 ## 1. Start PostgreSQL (3 minutes)
 
 ```powershell
-docker network create pg-monitor-ch12-net
-docker run -d --name pg-monitor-ch12 --network pg-monitor-ch12-net -p 127.0.0.1:55434:5432 -e POSTGRES_PASSWORD=TrainingOnly_Ch12_ChangeMe postgres:17
+$labContext = docker context show
+$labNetworkId = docker network create --label training.owner=postgresql-dbre-sre-enterprise-learning-path --label training.chapter=12 pg-monitor-ch12-net
+if ($LASTEXITCODE -ne 0 -or -not $labNetworkId) { throw 'Network creation failed; stop lab.' }
+$labNetworkId = $labNetworkId.Trim()
+$pgContainerId = docker run -d --name pg-monitor-ch12 --label training.owner=postgresql-dbre-sre-enterprise-learning-path --label training.chapter=12 --network pg-monitor-ch12-net -p 127.0.0.1:55434:5432 -e POSTGRES_PASSWORD=TrainingOnly_Ch12_ChangeMe postgres:17
+if ($LASTEXITCODE -ne 0 -or -not $pgContainerId) { throw 'PostgreSQL creation failed; stop lab.' }
+$pgContainerId = $pgContainerId.Trim()
+Write-Host "Retain privately for cleanup: context=$labContext network ID=$labNetworkId PostgreSQL ID=$pgContainerId"
 docker exec pg-monitor-ch12 pg_isready -U postgres -d postgres
 docker exec pg-monitor-ch12 psql -U postgres -d postgres -c "SELECT version(), current_database(), pg_is_in_recovery();"
 ```
@@ -128,7 +136,10 @@ docker exec pg-monitor-ch12 psql -U postgres -d postgres -c "CREATE ROLE monitor
 docker exec pg-monitor-ch12 psql -U postgres -d postgres -c "GRANT pg_monitor TO monitor_ch12;"
 docker exec pg-monitor-ch12 psql -U postgres -d postgres -c "GRANT CONNECT ON DATABASE postgres TO monitor_ch12;"
 
-docker run -d --name pg-exporter-ch12 --network pg-monitor-ch12-net -p 127.0.0.1:9188:9187 -e DATA_SOURCE_USER=monitor_ch12 -e DATA_SOURCE_PASS=TrainingOnly_Monitor_Ch12 quay.io/prometheuscommunity/postgres-exporter:v0.20.1 --datasource.uri="pg-monitor-ch12:5432/postgres?sslmode=disable"
+$exporterContainerId = docker run -d --name pg-exporter-ch12 --label training.owner=postgresql-dbre-sre-enterprise-learning-path --label training.chapter=12 --network pg-monitor-ch12-net -p 127.0.0.1:9188:9187 -e DATA_SOURCE_USER=monitor_ch12 -e DATA_SOURCE_PASS=TrainingOnly_Monitor_Ch12 quay.io/prometheuscommunity/postgres-exporter:v0.20.1 --datasource.uri="pg-monitor-ch12:5432/postgres?sslmode=disable"
+if ($LASTEXITCODE -ne 0 -or -not $exporterContainerId) { throw 'Exporter creation failed; stop lab.' }
+$exporterContainerId = $exporterContainerId.Trim()
+Write-Host "Retain privately for cleanup: exporter ID=$exporterContainerId"
 
 docker logs --tail 25 pg-exporter-ch12
 ```
@@ -153,7 +164,10 @@ scrape_configs:
 Start Prometheus:
 
 ```powershell
-docker run -d --name prometheus-ch12 --network pg-monitor-ch12-net -p 127.0.0.1:9099:9090 -v "$($PWD.Path)\prometheus-ch12.yml:/etc/prometheus/prometheus.yml:ro" prom/prometheus:v3.7.3
+$promContainerId = docker run -d --name prometheus-ch12 --label training.owner=postgresql-dbre-sre-enterprise-learning-path --label training.chapter=12 --network pg-monitor-ch12-net -p 127.0.0.1:9099:9090 -v "$($PWD.Path)\prometheus-ch12.yml:/etc/prometheus/prometheus.yml:ro" prom/prometheus:v3.7.3
+if ($LASTEXITCODE -ne 0 -or -not $promContainerId) { throw 'Prometheus creation failed; stop lab.' }
+$promContainerId = $promContainerId.Trim()
+Write-Host "Retain privately for cleanup: Prometheus ID=$promContainerId"
 docker logs --tail 25 prometheus-ch12
 ```
 
@@ -200,17 +214,53 @@ Acceptance checklist:
 
 ## 9. Optional cleanup (destructive to disposable lab only)
 
-Before running these commands, **manually verify** each exact container/network name belongs to this lab. Never use this cleanup on shared or production resources. Skip optional containers that were not created.
+Before cleanup, retain the **full** container IDs and network ID printed during creation, plus the original Docker context. If those values are lost, **stop** rather than guessing by name. Confirm no other containers or users depend on this network or any mounted volume. Never use these commands on shared or production resources.
+
+Run the following in the **same PowerShell session** that created the resources (or restore the recorded IDs and context explicitly). Optional container IDs may be absent when those steps were skipped. Inspect each mount and network attachment before removal; a bind mount must point only to the disposable configuration file, and unexpected volumes or connections are a stop condition.
 
 ```powershell
-docker stop prometheus-ch12 pg-exporter-ch12 pg-monitor-ch12
-docker rm -v prometheus-ch12 pg-exporter-ch12 pg-monitor-ch12
-docker network rm pg-monitor-ch12-net
-# Optional, after checking file location:
-# Remove-Item -LiteralPath .\prometheus-ch12.yml
+if (-not $labContext -or -not $labNetworkId -or -not $pgContainerId) { throw 'Missing creation evidence; do not clean up.' }
+if ((docker context show) -ne $labContext) { throw 'Docker context changed; stop.' }
+$expected = @(
+    @{ Name='pg-monitor-ch12'; Id=$pgContainerId },
+    @{ Name='pg-exporter-ch12'; Id=$exporterContainerId },
+    @{ Name='prometheus-ch12'; Id=$promContainerId }
+)
+foreach ($item in $expected) {
+    if (-not $item.Id) { continue } # Optional service was not created
+    $actual = docker inspect --format '{{.Id}}' $item.Name
+    if ($LASTEXITCODE -ne 0 -or $actual.Trim() -cne $item.Id) { throw "Container ID mismatch: $($item.Name)" }
+    $owner = docker inspect --format '{{index .Config.Labels "training.owner"}}' $item.Name
+    $chapter = docker inspect --format '{{index .Config.Labels "training.chapter"}}' $item.Name
+    if ($owner -cne 'postgresql-dbre-sre-enterprise-learning-path' -or $chapter -cne '12') { throw "Ownership mismatch: $($item.Name)" }
+    docker inspect --format '{{json .Mounts}}' $item.Name
+    docker inspect --format '{{json .NetworkSettings.Networks}}' $item.Name
+}
+$actualNetwork = docker network inspect --format '{{.Id}}' pg-monitor-ch12-net
+if ($LASTEXITCODE -ne 0 -or $actualNetwork.Trim() -cne $labNetworkId) { throw 'Network ID mismatch; stop.' }
+docker network inspect --format '{{json .Containers}}' pg-monitor-ch12-net
 ```
 
-Removing `pg-monitor-ch12` with `docker rm -v` destroys its disposable synthetic data and any anonymous volume Docker attached to that container. It also removes anonymous volumes for the other named lab containers. No Chapter 01–11 resources are touched. Do not use `-v` unless the resource identity has been checked.
+**Manual approval gate:** Inspect the displayed mounts and network members. Confirm every connected container is one of the captured lab IDs, the Prometheus bind source is the intended disposable file, and PostgreSQL's anonymous data volume belongs only to this lab. Do not proceed on any mismatch. The commands below intentionally omit `docker rm -v`; anonymous volumes may remain and require a separate identity-checked disposal procedure. Never prune volumes globally.
+
+```powershell
+foreach ($item in $expected) {
+    if (-not $item.Id) { continue }
+    docker stop $item.Id
+    if ($LASTEXITCODE -ne 0) { throw "Stop failed: $($item.Name)" }
+    docker rm $item.Id
+    if ($LASTEXITCODE -ne 0) { throw "Remove failed: $($item.Name)" }
+    docker inspect $item.Id 2>$null
+    if ($LASTEXITCODE -eq 0) { throw "Container still exists: $($item.Name)" }
+}
+docker network rm $labNetworkId
+if ($LASTEXITCODE -ne 0) { throw 'Network removal failed; inspect remaining connections.' }
+docker network inspect $labNetworkId 2>$null
+if ($LASTEXITCODE -eq 0) { throw 'Network still exists.' }
+# Optional: remove the local YAML only after verifying its absolute path and contents.
+```
+
+Record sanitized evidence of the context, IDs, ownership labels, mount review, network membership, cleanup result and absence checks. Do not publish `docker inspect` environment variables or credentials. If any command fails, stop and investigate rather than force-removing resources.
 
 ## Official references
 
