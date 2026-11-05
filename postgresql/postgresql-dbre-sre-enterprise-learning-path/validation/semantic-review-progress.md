@@ -352,3 +352,20 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Runtime acceptance evidence required:** approved disposable Docker context, daemon/engine mode, absent-name preflight, image ID/digest, container ID and mounts, PostgreSQL 17 patch version, transaction exit code, actual 1000/5000 counts, orphan count 0, SQLSTATE 23503 with unchanged appointment count, actual before/after plans, completed ADR with unapproved targets marked, sanitized timestamps/transcripts, and verified cleanup or retention record.
 
 **Next unreviewed milestone:** Chapter 20 — enterprise capstone; then systematic internal/external reference verification and isolated PostgreSQL 17 runtime validation.
+
+
+## Chapter 20 — enterprise DBRE/SRE capstone
+
+**Review date:** 2026-11-05. **Files inspected:** [lesson](../chapters/20-enterprise-postgresql-dbre-sre-capstone.md), [lab](../labs/chapter-20/README.md), track README, MASTER-TOC, STATUS-TRACKER, prior semantic evidence. **Method:** source inspection only; no Docker/psql execution.
+
+- **PostgreSQL 17 syntax:** identity PKs, foreign key, CHECK, `generate_series`, `now() + (n || ' hours')::interval`, transaction ROLLBACK, `EXPLAIN (ANALYZE, BUFFERS)` on SELECT, `pg_stat_database`, `pg_stat_user_tables`, `pg_constraint` and `regnamespace` cast are plausible for PostgreSQL 17. No parser/runtime test occurred.
+- **Expected results:** clean initialization yields 1,000 synthetic patients, 5,000 appointments (five per patient), one FK, and appointment 1 remains `scheduled` after rollback. Actual plans, timing, DB size and cumulative statistics are nondeterministic and must be captured rather than assumed. Heredoc requires a POSIX shell (Git Bash/WSL on Windows); PowerShell is not an equivalent interpreter for this snippet.
+- **Confirmed safety weakness corrected:** previously, a failed `docker run` could be followed manually by `docker exec` against an existing named container; the lab now uses `set -eu` for fail-fast shell sequencing, displays Docker context and requires Linux engine mode. Cleanup is commented out by default and requires inspection of exact container ID, image and mounts before manual removal. These safeguards do **not** prove context ownership; human verification against the creation record remains mandatory. No destructive command was executed.
+- **Other limitations:** `POSTGRES_PASSWORD` in Docker environment is inspectable and must be redacted; container health may require retries. A single unexposed container does not validate TLS, authentication hardening, HA, PITR, SLO or RPO/RTO. The design tabletop and rubric are educational review artifacts, not certification.
+- **References:** chapter-to-lab link resolves by fetched source inspection. Official PostgreSQL 17, AWS, CloudNativePG and Docker URLs are present; systematic external HTTP and whole-track internal-link verification remain **pending**.
+
+**Result:** Chapter 20 semantic source review recorded; **19/20** chapters have semantic review evidence in this report (Chapter 01 is not recorded here and must be checked against the original static audit before claiming 20/20). **Runtime: 0/20; independent review: pending; production certification: not established.**
+
+**Runtime evidence required:** approved disposable Docker context, Docker/Linux engine version, image ID and digest, exact created container ID/mounts, PostgreSQL 17 patch version, sanitized command/exit-code transcript, observed 1000/5000 counts, rollback status, one FK, actual EXPLAIN and stats, ADR and risk register, and verified cleanup/retention evidence. Never infer executed status from this review.
+
+**Next:** Reconcile Chapter 01 semantic coverage against original static audit, then systematically verify internal and external references and outstanding safety findings. Execute disposable PostgreSQL 17 labs only when runtime tooling is genuinely available.
