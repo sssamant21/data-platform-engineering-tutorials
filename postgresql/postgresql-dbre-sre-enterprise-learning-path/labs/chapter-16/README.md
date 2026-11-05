@@ -46,7 +46,12 @@ docker exec -i pg-dbre-ch16 psql -U postgres -v ON_ERROR_STOP=1 -d postgres <<'S
 SET ROLE ch16_login;
 INSERT INTO ch16_demo.tickets(title) VALUES ('must be denied');
 SQL
-echo "Previous INSERT should have failed with permission denied for table tickets"
+negative_status=$?
+if [ "$negative_status" -eq 0 ]; then
+  echo "FAIL: reader INSERT unexpectedly succeeded" >&2
+  exit 1
+fi
+echo "Reader INSERT exited $negative_status; verify stderr says permission denied for table tickets before marking PASS"
 ```
 Expected: reader sees one row; INSERT fails with permission denied. A negative test is **successful only when the intended statement is rejected**; do not treat a zero exit status as passing.
 
