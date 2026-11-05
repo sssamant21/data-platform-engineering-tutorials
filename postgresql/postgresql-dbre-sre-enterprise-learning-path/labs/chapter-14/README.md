@@ -49,7 +49,10 @@ docker ps -a --filter "name=pg-ir-ch14"
 ## 1. Start the isolated PostgreSQL 17 container (5 minutes)
 
 ~~~powershell
-docker run -d --name pg-ir-ch14 -e POSTGRES_PASSWORD=TrainingOnly_Ch14_ChangeMe postgres:17
+docker run -d --name pg-ir-ch14 --label dbre.training.owner=chapter-14 -e POSTGRES_PASSWORD=TrainingOnly_Ch14_ChangeMe postgres:17
+$LabContainerId = (docker inspect --format '{{.Id}}' pg-ir-ch14).Trim()
+$LabDockerContext = (docker context show).Trim()
+Write-Output "Record privately: context=$LabDockerContext container_id=$LabContainerId"
 docker exec pg-ir-ch14 pg_isready -U postgres -d postgres
 docker exec pg-ir-ch14 psql -X -U postgres -d postgres -c "SELECT current_database(), current_user, current_setting('server_version') AS version, pg_is_in_recovery();"
 ~~~
@@ -271,15 +274,29 @@ First verify terminal A and B each completed **ROLLBACK**, and terminal C sees b
 To preserve evidence, leave the container stopped rather than deleting it. From PowerShell:
 
 ~~~powershell
-docker inspect --format '{{.Name}} {{.Config.Image}}' pg-ir-ch14
-docker stop pg-ir-ch14
+$CurrentContext = (docker context show).Trim()
+$CurrentId = (docker inspect --format '{{.Id}}' pg-ir-ch14).Trim()
+$Ownership = (docker inspect --format '{{index .Config.Labels "dbre.training.owner"}}' pg-ir-ch14).Trim()
+docker inspect --format '{{json .Mounts}}' pg-ir-ch14
+if (-not $LabContainerId -or -not $LabDockerContext -or
+    $CurrentContext -ne $LabDockerContext -or
+    $CurrentId -ne $LabContainerId -or
+    $Ownership -ne 'chapter-14') {
+    throw 'STOP: Docker context, full container ID, or training ownership does not match creation evidence.'
+}
+docker stop $LabContainerId
 ~~~
 
 Only after confirming the container is the disposable **pg-ir-ch14** you created and no evidence is needed, optionally remove it:
 
 ~~~powershell
-docker rm -v pg-ir-ch14
+# Recheck context, full ID, ownership label and mounts as above immediately before removal.
+# Do not run in a fresh shell without the original recorded creation values.
+docker rm -v $LabContainerId
+docker ps -a --no-trunc --filter "id=$LabContainerId"
 ~~~
+
+**Important:** The PowerShell variables must come from the original creation session or securely retained creation record. If missing, do not reconstruct them from the current container and do not remove it. Inspect mounts and stop if any mount is shared or ownership uncertain. Record absence of the container after removal as cleanup evidence.
 
 **Warning:** removing this container permanently discards its ephemeral database data. No host port or named external volume was created. The PostgreSQL 17 image may create an anonymous data volume, which `docker rm -v` removes only for this verified disposable container. Do not prune unrelated volumes. Do not use docker system prune, docker volume prune, or commands targeting other containers.
 
