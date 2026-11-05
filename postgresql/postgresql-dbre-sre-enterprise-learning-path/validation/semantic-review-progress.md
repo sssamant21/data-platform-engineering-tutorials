@@ -413,3 +413,16 @@ Do not change the track's runtime-validation status until this evidence exists.
 - No broken URL is confirmed in the three targeted HTTP checks. No provider, Kubernetes, Docker or PostgreSQL runtime tests were executed.
 
 **Remaining:** Check every remaining URL in Chapters 05–08; scan Chapters 09–20 and all supporting files for inline, reference-style, HTML and anchor links; validate case-sensitive paths and redirects; remediate confirmed errors without editing the separate 100-chapter curriculum. Runtime status remains **0/20**, independent review pending, production certification not established.
+
+
+## Documentation-reference audit checkpoint — 2026-11-05 — Chapters 09–12
+
+**Scope:** Fetched current `main` README, MASTER-TOC, STATUS-TRACKER, existing semantic-review evidence and eight chapter/lab files (Chapters 09–12). This is a **partial inline-link inventory and targeted external verification**, not a full anchor/reference-style audit. No lessons were changed.
+
+- **82 inline Markdown link occurrences inventoried:** Chapter 09 lesson 14 + lab 10; Chapter 10 lesson 12 + lab 7; Chapter 11 lesson 13 + lab 6; Chapter 12 lesson 13 + lab 7. Repeated navigation and duplicate URLs count separately. Regex extraction does not cover reference definitions, autolinks, raw HTML or links embedded in unusual Markdown syntax.
+- **Track-local destinations observed:** README, MASTER-TOC, STATUS-TRACKER, lesson/lab counterpart paths and Chapter 09's Chapter 01 lab prerequisite. Their relative path forms match the known track inventory by inspection; full filesystem/anchor resolution is still outstanding.
+- **External references inventoried:** PostgreSQL 17 replication, base backup, WAL recovery, monitoring, and roles; AWS RDS Multi-AZ; CloudNativePG pinned 1.28 documentation; Kubernetes persistent volumes; postgres_exporter, Prometheus, and Grafana. The PostgreSQL 17 WAL configuration page (`https://www.postgresql.org/docs/17/runtime-config-wal.html`) was retrieved successfully and its Recovery Target section was visible in the page TOC. The exact fragment `#RUNTIME-CONFIG-WAL-RECOVERY-TARGET` was **not** independently browser-resolved. Other external URLs remain unverified by HTTP in this checkpoint.
+- **No confirmed broken reference** in the individually fetched files and targeted page. Do not infer all 82 links are valid; links with anchors, cross-repository targets and all other HTTP URLs still require systematic checking.
+- **Safety/validation boundaries:** No Docker, PostgreSQL, cloud, failover or Kubernetes runtime operations executed. All 20 semantic reviews remain recorded; **runtime-validated 0/20**, independent review pending, production certification not established.
+
+**Next:** Continue the reference inventory with Chapters 13–16, then 17–20 and supporting scripts/YAML; perform exhaustive external reachability, case-sensitive path, reference-style and anchor resolution before closing this gate. Afterwards triage previously recorded Docker ownership and negative-test assertion findings before any disposable PostgreSQL 17 runtime testing.
