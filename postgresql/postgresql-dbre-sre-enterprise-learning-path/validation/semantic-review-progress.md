@@ -385,3 +385,17 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Runtime evidence gate:** Capture approved local Docker context and endpoint, image digest, container and volume IDs/mounts, PostgreSQL version, fresh database identity, SQL transcript, 100/50000 row counts, both actual EXPLAIN plans, rollback/commit outputs, backup archive metadata, `pg_restore` exit status and restored count, plus explicit retention or cleanup proof. **Chapter 01 remains NOT EXECUTED; track runtime validation 0/20.** Independent review and production certification remain pending.
 
 **Next:** systematically verify track-only relative links and external official documentation URLs; triage remaining Docker ownership and negative-test assertions before disposable PostgreSQL 17 runtime execution. The earlier `Remaining work` and `Next unreviewed milestone` notes in this append-only historical log describe past states and should not be interpreted as current progress.
+
+
+## Reference verification checkpoint — 2026-11-05 (Chapters 02–04)
+
+**Scope and method:** Read the current `main` README, MASTER-TOC, STATUS-TRACKER, prior semantic evidence, and all six Chapter 02–04 lesson/lab Markdown files. Extracted inline Markdown link destinations from these six files. This is a targeted reference checkpoint, **not** a whole-track reference or anchor audit.
+
+- **Inline references inventoried:** 56 occurrences across six files (including repeated navigation links): Chapter 02 lesson 12, lab 7; Chapter 03 lesson 12, lab 6; Chapter 04 lesson 12, lab 7. 
+- **Track-local relative destinations:** Navigation paths resolve lexically to the existing track structure (README, MASTER-TOC, STATUS-TRACKER, the chapter/lab pairs, and preceding lab prerequisites). These were inspected against the fetched file paths; this does not certify anchors or reference-style links.
+- **Cross-curriculum references:** The Chapter 02 reference to `postgresql/chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md` and Chapter 03 reference to `postgresql/chapters/016-mvcc-snapshots-and-tuple-visibility.md` were individually fetched from GitHub `main` and confirmed to exist. Neither file was modified.
+- **External URLs:** HTTP retrieval succeeded for PostgreSQL 17 `ddl-identity-columns.html`, `mvcc-intro.html`, and `wal-reliability.html`; each returned the matching versioned documentation title. Other external destinations in Chapters 02–04 were inventoried but **not** HTTP-tested in this checkpoint.
+- **Confirmed broken links:** None among the individually fetched destinations and HTTP-tested URLs. **Unverified:** other external URLs, anchors, reference-style links, and full-track coverage. No corrective edit justified from this sample.
+- **Runtime evidence:** No PostgreSQL/Docker/psql commands executed; runtime status remains **0/20**. Independent review and production certification remain pending.
+
+**Next:** Continue Chapters 05–19 reference resolution and systematically verify remaining external URLs and anchors; record only confirmed failures and remediation. Preserve all track-only edit boundaries.
