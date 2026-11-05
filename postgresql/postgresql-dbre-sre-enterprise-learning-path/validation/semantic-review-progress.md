@@ -426,3 +426,16 @@ Do not change the track's runtime-validation status until this evidence exists.
 - **Safety/validation boundaries:** No Docker, PostgreSQL, cloud, failover or Kubernetes runtime operations executed. All 20 semantic reviews remain recorded; **runtime-validated 0/20**, independent review pending, production certification not established.
 
 **Next:** Continue the reference inventory with Chapters 13–16, then 17–20 and supporting scripts/YAML; perform exhaustive external reachability, case-sensitive path, reference-style and anchor resolution before closing this gate. Afterwards triage previously recorded Docker ownership and negative-test assertion findings before any disposable PostgreSQL 17 runtime testing.
+
+
+## Documentation-reference audit checkpoint — 2026-11-05 — Chapters 13–16
+
+**Scope:** Re-read current `main` README, MASTER-TOC, STATUS-TRACKER and this semantic evidence log; fetched eight Chapter 13–16 lesson/lab Markdown files. This checkpoint inventories inline links and highlights safety follow-ups; it is **not** full HTTP, fragment, or runtime validation.
+
+- **78 inline Markdown link occurrences:** Chapter 13 lesson 12 + lab 7; Chapter 14 lesson 14 + lab 9; Chapter 15 lesson 11 + lab 10; Chapter 16 lesson 10 + lab 5. Counts include repeated navigation destinations. No reference-style link definitions were detected by a line-anchored definition scan in these eight files; raw HTML, autolinks and anchors are not exhaustively parsed.
+- **Local targets observed:** lesson/lab counterparts, track README, MASTER-TOC, STATUS-TRACKER, and Chapter 15 `inventory.sql` and `drift.sql`. Relative paths were compared lexically with the established track inventory, **not** all fetched individually. No confirmed broken local link in this sample.
+- **External targets inventoried:** PostgreSQL 17 vacuuming, monitoring, locking, security and catalog documentation; AWS CLI RDS instance listing; CloudNativePG; Kubernetes RBAC; Docker Hub Postgres. **None were HTTP-retrieved in this checkpoint.** Thus no claim of verified external reachability or fragments is made.
+- **Safety follow-up (medium, not a confirmed defect):** Chapter 15 lab contains `docker rm -f pg-fleet-ch15` and Chapter 16 lab contains `docker rm -f -v pg-dbre-ch16`. Their surrounding text warns about destructive cleanup, but runtime execution must enforce container identity/context/mount ownership and verify disposable resources before invoking these commands. Chapter 13 and 14 use `docker rm -v` with similar ownership requirements. Do not execute these cleanup steps against unverified containers.
+- **No SQL, Docker, psql, Kubernetes or cloud execution** was performed. All 20 semantic reviews remain recorded; **runtime-validated 0/20**. Independent review and production certification are still outstanding.
+
+**Next:** Inventory Chapters 17–20 and supporting files; complete exhaustive HTTP, reference-style, case-sensitive path and anchor checks for all chapters. Then remediate confirmed safety/test-harness defects before isolated PostgreSQL 17 runtime testing.
