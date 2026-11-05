@@ -16,7 +16,7 @@ The second command **should fail with "No such container"** before proceeding. I
 ## 1. Launch disposable PostgreSQL
 
 ~~~sh
-docker run --name pg-dbre-ch19 -e POSTGRES_PASSWORD=ch19-local-only -e POSTGRES_DB=design_lab -d postgres:17
+docker run --name pg-dbre-ch19 --label training.postgresql.chapter=19 -e POSTGRES_PASSWORD=ch19-local-only -e POSTGRES_DB=design_lab -d postgres:17
 docker exec pg-dbre-ch19 pg_isready -U postgres -d design_lab
 docker exec pg-dbre-ch19 psql -U postgres -d design_lab -c "SELECT current_setting('server_version') AS version, current_database() AS db;"
 ~~~
@@ -93,10 +93,10 @@ Complete a short ADR: top three application queries; write frequency and burst a
 Verify target identity before deleting anything:
 
 ~~~sh
-docker inspect --format '{{.Name}} {{.Config.Image}}' pg-dbre-ch19
+docker inspect --format '{{.Name}} {{.Config.Image}} {{index .Config.Labels "training.postgresql.chapter"}} {{.Id}}' pg-dbre-ch19
 ~~~
 
-Expected: `/pg-dbre-ch19 postgres:17`. **Only if this is the disposable lab you created**, remove it and its anonymous data volume:
+Expected: `/pg-dbre-ch19 postgres:17 19 <container-ID>`. Before cleanup, compare the full container ID with the ID returned by your own `docker run`, verify the chapter label is `19`, and confirm there are no unexpected mounts or resources attached (`docker inspect pg-dbre-ch19`; redact secrets from any retained output). **Name, image tag and label alone do not prove ownership.** If the ID is unavailable or differs, stop and retain the container for investigation. **Only after verifying this is the exact disposable container created for this run**, remove it and its anonymous data volume:
 
 ~~~sh
 docker rm -f -v pg-dbre-ch19
