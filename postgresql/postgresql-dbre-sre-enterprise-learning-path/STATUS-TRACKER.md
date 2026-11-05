@@ -1,12 +1,14 @@
 # Progress and Validation Tracker
 
-**Status date:** 2026-11-03
+**Status date:** 2026-11-05
 
 | Metric | Current state |
 |---|---|
 | Curriculum planned | 20/20 chapters |
 | Chapter lessons authored | 20/20 |
 | Chapter-specific labs authored | 20/20 |
+| Semantic source reviews | 20/20 documented (not independently approved) |
+| Chapter inline-link inventories | 20/20 documented; exhaustive resolution pending |
 | Runtime validation | 0/20 completed |
 | Enterprise / production certification | Not assessed |
 
@@ -45,7 +47,7 @@
 
 ## Next chapter
 
-**All 20 chapters authored.** Next: track-only static audit of links, SQL, shell and lab coverage, followed by separate runtime execution and independent review.
+**All 20 chapters authored; semantic source reviews recorded for all 20.** The existing [semantic review progress log](validation/semantic-review-progress.md) inventories inline Markdown links across Chapters 02–20, with partial targeted external checks. The Chapter 01 and supporting-file links, reference-style definitions, anchors, raw HTML/autolinks, redirects and remaining external URLs still need exhaustive verification. Next: complete this reference gate and address recorded Docker ownership/cleanup and negative-test assertion safeguards. Only then execute approved, isolated PostgreSQL 17 labs and obtain independent review. Do not interpret link inventory or semantic review as runtime validation.
 
 ## Important
 
