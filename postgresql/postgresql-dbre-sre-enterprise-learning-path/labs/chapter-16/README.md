@@ -10,7 +10,8 @@ Use an isolated workstation with Docker running. The lab uses a disposable conta
 docker context show
 docker ps -a --filter name='^/pg-dbre-ch16$'
 # Continue only if no container with this name exists.
-docker run -d --name pg-dbre-ch16 -e POSTGRES_PASSWORD=local_lab_only_change_me postgres:17
+docker run -d --name pg-dbre-ch16 --label training.postgresql.chapter=16 -e POSTGRES_PASSWORD=local_lab_only_change_me postgres:17
+# Record the full container ID returned by docker run in your lab notes; do not infer ownership from the name alone.
 docker exec pg-dbre-ch16 pg_isready -U postgres
 docker exec -i pg-dbre-ch16 psql -U postgres -v ON_ERROR_STOP=1 -d postgres <<'SQL'
 CREATE ROLE ch16_owner NOLOGIN;
@@ -52,6 +53,9 @@ if [ "$negative_status" -eq 0 ]; then
   exit 1
 fi
 echo "Reader INSERT exited $negative_status; verify stderr says permission denied for table tickets before marking PASS"
+# A nonzero exit by itself is NOT a passing negative test (connection, SQL syntax,
+# or SET ROLE errors also exit nonzero). Retain sanitized stderr and confirm the
+# denial targets the INSERT privilege on ch16_demo.tickets.
 ```
 Expected: reader sees one row; INSERT fails with permission denied. A negative test is **successful only when the intended statement is rejected**; do not treat a zero exit status as passing.
 
@@ -81,12 +85,33 @@ Record Docker image digest/version, SQL command outcomes, exact denial message, 
 - `SET ROLE` fails: confirm initial connection uses local lab admin and `ch16_login` was created.
 
 ## Rollback and cleanup
-Only after verifying the exact container name and that it contains no data you need:
+Only after verifying that this is the exact disposable container created in step 1, and that it contains no data you need, inspect the Docker context, full container ID, ownership label and all mounts:
 ```bash
-docker ps -a --filter name='^/pg-dbre-ch16$'
-docker rm -f -v pg-dbre-ch16
+docker context show
+docker inspect --format '{{.Id}}' pg-dbre-ch16
+docker inspect --format '{{index .Config.Labels "training.postgresql.chapter"}}' pg-dbre-ch16
+docker inspect --format '{{json .Mounts}}' pg-dbre-ch16
 ```
-No host bind mounts or named volumes are created by these commands. `docker rm -f -v` also removes anonymous volumes attached to this verified lab container; it does not remove named volumes. Inspect `docker inspect pg-dbre-ch16` **before removal** to verify the mounts and ownership. Never use global Docker prune commands.
+**Stop unless** the full ID matches the one recorded from `docker run`, the label is exactly `16`, the context is the expected isolated lab context, and the mounts contain no unexpected host bind or named volumes. If any value is missing or unfamiliar, do not remove anything. After these checks only:
+```bash
+docker rm -f -v pg-dbre-ch16
+docker ps -a --filter name='^/pg-dbre-ch16
+
+## Acceptance checklist
+- [ ] Docker context and isolation checked.
+- [ ] Initial SELECT returns one synthetic row.
+- [ ] Reader INSERT rejected (nonzero exit).
+- [ ] Writer INSERT succeeds and count becomes two.
+- [ ] Role flags show no elevated runtime privileges.
+- [ ] Privilege and membership evidence recorded.
+- [ ] Full container ID, training label, Docker context and mounts verified before cleanup; post-cleanup listing captured if actually executed.
+- [ ] Negative-test stderr confirms the intended table privilege denial, not merely a nonzero exit; runtime evidence and independent review tracked separately.
+
+## Official references
+[PostgreSQL 17 roles](https://www.postgresql.org/docs/17/user-manag.html) · [GRANT](https://www.postgresql.org/docs/17/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/17/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/17/client-authentication.html) · [TLS](https://www.postgresql.org/docs/17/ssl-tcp.html)
+
+```
+`docker rm -f -v` deletes the verified container and its anonymous volumes; the final listing should be empty. Never use global Docker prune commands. These are documented safeguards, **not executed cleanup evidence**.
 
 ## Acceptance checklist
 - [ ] Docker context and isolation checked.
