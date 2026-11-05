@@ -439,3 +439,16 @@ Do not change the track's runtime-validation status until this evidence exists.
 - **No SQL, Docker, psql, Kubernetes or cloud execution** was performed. All 20 semantic reviews remain recorded; **runtime-validated 0/20**. Independent review and production certification are still outstanding.
 
 **Next:** Inventory Chapters 17–20 and supporting files; complete exhaustive HTTP, reference-style, case-sensitive path and anchor checks for all chapters. Then remediate confirmed safety/test-harness defects before isolated PostgreSQL 17 runtime testing.
+
+
+## Documentation-reference audit checkpoint — 2026-11-05 — Chapters 17–20
+
+**Scope and method:** Re-read track README, MASTER-TOC, STATUS-TRACKER and the existing semantic audit; fetched the four Chapter 17–20 lessons and four lab READMEs from GitHub main. Extracted inline Markdown link destinations and line-anchored reference definitions. This is a **source inventory**, not an exhaustive HTTP/anchor audit or runtime validation.
+
+- **54 inline Markdown link occurrences across eight files:** Chapter 17 lesson 8 + lab 4; Chapter 18 lesson 8 + lab 5; Chapter 19 lesson 8 + lab 5; Chapter 20 lesson 10 + lab 6. The lesson-to-lab targets for all four chapters and Chapter 20 lab-to-lesson target match the known repository paths. No reference-style definitions were found by a line-anchored scan in these eight files. Autolinks, HTML and fragment resolution still need comprehensive checking.
+- **External destinations inventoried but not HTTP-verified in this checkpoint:** PostgreSQL 17 upgrade, ALTER TABLE, size functions, statistics, EXPLAIN, DDL, security, backup and HA manuals; AWS RDS upgrade docs; CloudNativePG; Docker documentation. URL presence does **not** imply reachability or current version correctness.
+- **Safety follow-up:** Chapter 17 uses `docker rm -v pg-dbre-ch17`; Chapter 18 uses `docker rm -v pg-dbre-ch18`; Chapter 19 uses `docker rm -f -v pg-dbre-ch19`; Chapter 20 cleanup is commented out. Confirm Docker context, resource ownership, exact container ID, mounts and disposable nature before executing any cleanup. This is an outstanding safety gate, not evidence that a destructive command was executed.
+- **No confirmed broken link** in the lexical path sample. **Not verified:** all external URLs, anchors, reference-style/HTML/autolinks in the rest of the track, redirects and case-sensitive resolution. Previous Chapters 02–16 checkpoint counts are inventories, not exhaustive pass results. The whole-track reference gate therefore remains **open**.
+- **Execution:** No Docker, PostgreSQL, Kubernetes or cloud workloads were run; **0/20 labs runtime validated**. Independent review and production certification remain pending.
+
+**Next:** Audit supporting files and complete exhaustive internal path, reference-style, fragment and HTTP checks across the entire track; resolve confirmed errors and safety/test-harness weaknesses before isolated PostgreSQL 17 runtime tests. Do not modify the separate 100-chapter curriculum.
