@@ -452,3 +452,15 @@ Do not change the track's runtime-validation status until this evidence exists.
 - **Execution:** No Docker, PostgreSQL, Kubernetes or cloud workloads were run; **0/20 labs runtime validated**. Independent review and production certification remain pending.
 
 **Next:** Audit supporting files and complete exhaustive internal path, reference-style, fragment and HTTP checks across the entire track; resolve confirmed errors and safety/test-harness weaknesses before isolated PostgreSQL 17 runtime tests. Do not modify the separate 100-chapter curriculum.
+
+
+## 2026-11-06 — Relative-link resolution, Chapters 14–20
+
+**Scope:** The seven chapter lessons (14–20) and their seven matching lab READMEs on GitHub `main`. Reviewed against the complete, non-truncated recursive repository tree (73 entries within this independent track). This is **static link-target resolution only**, not HTTP verification, anchor checking, runtime execution or independent approval.
+
+- **14 Markdown files inspected** (7 lessons and 7 lab READMEs).
+- **21 ordinary inline relative Markdown links** checked by normalizing each destination relative to its source file and resolving it against the GitHub repository tree. **0 missing file targets found.** This includes any cross-track destinations as read-only checks; no other curriculum files were modified.
+- **51 distinct external URLs inventoried** in this batch. HTTP response status, redirects, fragment identifiers, and PostgreSQL 18 semantic correctness are **not verified**. Reference-style links, raw HTML links and autolinks were **not exhaustively parsed** in this batch.
+- Earlier run notes reported 18 Markdown files checked, but without a committed, reproducible per-file result. This batch is a separate explicitly bounded check, **not a claim that all track links are validated**.
+
+**Next:** Complete remaining unverified link forms and external endpoint/anchor checks across the entire track; then address confirmed safety findings and begin version-specific PostgreSQL 18 lab migration. The official PostgreSQL 18 documentation remains authoritative; historical PostgreSQL 17 audit sections above are preserved. **PostgreSQL 18 runtime acceptance: 0/20.** No Docker, psql, cloud, Kubernetes, destructive operations, or independent certification were performed in this check.
