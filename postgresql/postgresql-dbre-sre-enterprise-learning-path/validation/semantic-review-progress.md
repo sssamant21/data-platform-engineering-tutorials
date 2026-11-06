@@ -464,3 +464,21 @@ Do not change the track's runtime-validation status until this evidence exists.
 - Earlier run notes reported 18 Markdown files checked, but without a committed, reproducible per-file result. This batch is a separate explicitly bounded check, **not a claim that all track links are validated**.
 
 **Next:** Complete remaining unverified link forms and external endpoint/anchor checks across the entire track; then address confirmed safety findings and begin version-specific PostgreSQL 18 lab migration. The official PostgreSQL 18 documentation remains authoritative; historical PostgreSQL 17 audit sections above are preserved. **PostgreSQL 18 runtime acceptance: 0/20.** No Docker, psql, cloud, Kubernetes, destructive operations, or independent certification were performed in this check.
+
+
+## PostgreSQL 18 external-reference checkpoint — 2026-11-06 — Chapter 01 lesson
+
+**Scope and method:** Re-read the current track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy and historical semantic evidence. Fetched Chapter 01 lesson and lab from GitHub main. Individually retrieved all six distinct external links in the Chapter 01 lesson against the official PostgreSQL 18 documentation, and checked the returned page titles and version labels. This is a bounded HTTP/page-identity check, not a whole-track anchor or semantic certification.
+
+| Chapter 01 lesson URL | Observed PostgreSQL 18 page | Result |
+|---|---|---|
+| https://www.postgresql.org/docs/18/tutorial.html | Part I — Tutorial | Retrieved; correct version |
+| https://www.postgresql.org/docs/18/mvcc.html | Chapter 13 — Concurrency Control | Retrieved; correct version |
+| https://www.postgresql.org/docs/18/wal.html | Chapter 28 — Reliability and the Write-Ahead Log | Retrieved; correct version |
+| https://www.postgresql.org/docs/18/monitoring-stats.html | 27.2 — The Cumulative Statistics System | Retrieved; correct version |
+| https://www.postgresql.org/docs/18/app-pgdump.html | pg_dump | Retrieved; correct version |
+| https://www.postgresql.org/docs/18/app-pgrestore.html | pg_restore | Retrieved; correct version |
+
+**Result:** Six of six checked Chapter 01 lesson documentation endpoints resolved to the expected PostgreSQL 18 manual pages; no confirmed broken endpoint in this subset. No URL fragments were present in this six-URL subset. Other track links, redirect chains, reference-style definitions, HTML/autolinks and external anchors remain outside this checkpoint. HTTP retrieval alone does not establish SQL/runtime correctness. The Chapter 01 lab still explicitly uses `postgres:17` and `pg_fleet_data:/var/lib/postgresql/data`; do not change its image tag without a separate PostgreSQL 18 volume and identity/mount migration. No Docker/psql execution, cloud charges, or cleanup operations occurred. **PostgreSQL 18 runtime validated: 0/20; independent review and production certification pending.**
+
+**Next:** Continue PostgreSQL 18 external documentation endpoint/fragment checks from Chapter 02 onward; address outstanding container ownership safeguards before a separately evidenced, isolated PostgreSQL 18 Chapter 01 migration.
