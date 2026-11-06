@@ -11,13 +11,37 @@ Run only against the explicitly disposable Docker container created in [Chapter 
 
 Use PowerShell and Docker Desktop (Linux containers). No production credentials or customer data.
 
+Before running any SQL, retrieve the **full container ID and Docker context recorded during Chapter 01 creation**. Do not infer ownership from the container name, a successful readiness check, or the training label alone. Replace the two placeholders below with the retained values; never copy an ID from the current lookup into the expected-ID variable.
+
 ```powershell
-docker ps --filter "name=pg-fleet-lab"
-docker exec pg-fleet-lab pg_isready -U postgres
-docker exec pg-fleet-lab psql -U postgres -d postgres -c "SELECT version();"
+$ErrorActionPreference = 'Stop'
+$expectedContext = '<recorded Chapter 01 Docker context>'
+$expectedId = '<recorded Chapter 01 full container ID>'
+if ($expectedContext -like '<*' -or $expectedId -like '<*') { throw 'Supply retained Chapter 01 creation evidence first' }
+$context = docker context show
+if ($LASTEXITCODE -ne 0 -or $context -ne $expectedContext) { throw 'Docker context differs from Chapter 01 evidence' }
+docker context inspect $context
+if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect Docker endpoint' }
+# Manually confirm this endpoint is the approved, local, disposable Docker engine.
+$engine = docker info --format '{{.OSType}}'
+if ($LASTEXITCODE -ne 0 -or $engine -ne 'linux') { throw 'Linux Docker engine required' }
+$id = docker inspect --type container --format '{{.Id}}' pg-fleet-lab
+if ($LASTEXITCODE -ne 0 -or $id -ne $expectedId) { throw 'Container identity mismatch' }
+$label = docker inspect --type container --format '{{index .Config.Labels "dbre.training"}}' $id
+if ($LASTEXITCODE -ne 0 -or $label -ne 'postgresql-enterprise-ch01') { throw 'Training label mismatch' }
+$image = docker inspect --type container --format '{{.Config.Image}}' $id
+if ($LASTEXITCODE -ne 0 -or $image -ne 'postgres:17') { throw 'Unexpected PostgreSQL image' }
+$volume = docker inspect --type container --format '{{range .Mounts}}{{if eq .Destination "/var/lib/postgresql/data"}}{{.Name}}{{end}}{{end}}' $id
+if ($LASTEXITCODE -ne 0 -or $volume -ne 'pg_fleet_data') { throw 'Unexpected PostgreSQL data mount' }
+$state = docker inspect --type container --format '{{.State.Running}}' $id
+if ($LASTEXITCODE -ne 0 -or $state -ne 'true') { throw 'Lab container not running' }
+docker exec $id pg_isready -U postgres
+if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL is not ready' }
+docker exec $id psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tAc "SELECT current_setting('server_version_num')::int / 10000, pg_is_in_recovery();"
+if ($LASTEXITCODE -ne 0) { throw 'Cannot verify PostgreSQL version and role' }
 ```
 
-**Expected:** container is running, database is accepting connections, PostgreSQL 17 version shown. If the container is absent, follow Chapter 01 startup, then return here. Do not use a different container until its disposable identity is confirmed.
+**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. Inspect the query output and stop unless both values match. If the container is absent, return to Chapter 01's setup; never adopt or delete an existing container to proceed. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
 
 ## Step 1 — Check and create the chapter database
 
