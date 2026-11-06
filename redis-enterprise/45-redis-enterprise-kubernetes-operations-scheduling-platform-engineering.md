@@ -708,9 +708,9 @@ Understand Redis Enterprise maintenance guidance first.
 kubectl cordon <node>
 ```
 
-prevents new scheduling on a node.
+prevents new scheduling on a node. **This is an explanation of a cluster-scoped operation, not a safe copy-and-paste instruction for an arbitrary node.** A cordon can prevent replacement pods from scheduling, creating availability risk if placement/headroom is inadequate.
 
-Cordon does not evict existing pods.
+Cordon does not evict existing pods. Before any real cordon/uncordon change, confirm the approved cluster/context, node ownership, remaining Redis failure tolerance, workload/PDB placement, monitoring, and maintenance/rollback plan. Treat this as **NOT EXECUTED** until an authorized Kubernetes owner approves it.
 
 ------------------------------------------------------------------------
 
@@ -1618,19 +1618,40 @@ This isolates failures quickly.
 
 ## 99. Disposable Node
 
-In a lab only:
+This rehearsal is **not a routine inspection command**. Use a dedicated **nonproduction, disposable node with no critical workloads**, only after approval from the Kubernetes/Redis platform owner. First record your `kubectl config current-context`, the full node name, existing pod placement, PDB state and recovery/uncordon owner. Never use a production node as a shortcut.
+
+**Preflight (read-only):**
+
+``` bash
+kubectl config current-context
+kubectl get node <lab-node> -o wide
+kubectl get pods -A --field-selector spec.nodeName=<lab-node>
+kubectl get node <lab-node> -o jsonpath='{.spec.unschedulable}'
+```
+
+**Expected:** Context identifies the approved test cluster; the selected node exists and is reserved for this exercise. The final field is blank or `false` when schedulable. If it already reports `true`, stop and investigate ownership rather than changing it.
+
+**Only after separate approval**, cordon the exact lab node and inspect its scheduling state:
 
 ``` bash
 kubectl cordon <lab-node>
+kubectl get node <lab-node> -o jsonpath='{.spec.unschedulable}'
 ```
 
-Verify no new pods schedule there.
+**Expected:** The cordon command confirms the selected node is marked unschedulable; the JSONPath query returns `true`. This **does not evict existing pods** and does **not** prove failover, pod recovery or N-1 capacity.
 
-Then:
+In the same approved change, restore scheduling:
 
 ``` bash
 kubectl uncordon <lab-node>
+kubectl get node <lab-node> -o jsonpath='{.spec.unschedulable}'
 ```
+
+**Expected:** The exact node is reported uncordoned and the JSONPath field is absent or `false`. Recheck scheduling, Redis redundancy and application metrics. If the postcondition fails, stop and follow the owner-approved recovery procedure; do not move on to a drain or failover exercise.
+
+**Evidence:** Context, node, owner/ticket, PDB and remaining headroom, before/after unschedulable field, active workload inventory, rollback decision, and `PASS / FAIL / NOT EXECUTED`. Any unperformed step is `NOT EXECUTED`; documentation alone is not runtime validation.
+
+References: [kubectl cordon](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_cordon/), [kubectl uncordon](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_uncordon/).
 
 ------------------------------------------------------------------------
 

@@ -300,11 +300,13 @@ Conceptually:
   "category": "support",
   "tenant": "acme",
   "embedding_model": "model-v1",
-  "embedding": [ ... ]
+  "embedding": [0.12, -0.34, 0.56]
 }
 ```
 
 The vector is only one part of the retrieval object.
+
+The three numeric values are illustrative only. Actual embedding dimensions, normalization, and index configuration must match the selected model and retrieval design.
 
 ------------------------------------------------------------------------
 

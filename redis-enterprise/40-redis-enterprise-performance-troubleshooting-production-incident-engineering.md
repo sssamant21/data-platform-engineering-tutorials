@@ -293,13 +293,13 @@ KEYS *
 
 on a large production database.
 
-Prefer:
+For a separately authorized nonproduction investigation only, a scoped example is:
 
 ``` redis
-SCAN
+SCAN 0 MATCH 'tutorial:chapter40:*' COUNT 100
 ```
 
-with bounded analysis.
+**Expected:** A cursor and zero or more matching keys. Repeat with the returned cursor until `0`, including empty intermediate batches. `COUNT` is a hint, and a scan is not a consistent snapshot. During real incidents, prefer approved telemetry or bounded sampling; do not launch a full production keyspace scan without impact/ownership review.
 
 Also avoid unbounded diagnostics that materially increase production
 load.

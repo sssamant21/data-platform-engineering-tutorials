@@ -407,10 +407,14 @@ Do not enable/disable production capabilities for a tutorial lab.
 
 ## 19. Example
 
-``` bash
-redis-cli SET tutorial:chapter59:core "ok"
-redis-cli GET tutorial:chapter59:core
+For an approved isolated **nonproduction** database, these are **interactive Redis commands** executed only after an authorized certificate-validated TLS/ACL Redis CLI connection has been established:
+
+``` redis
+SET tutorial:chapter59:core "ok" EX 300
+GET tutorial:chapter59:core
 ```
+
+**Expected:** `SET` returns `OK` and `GET` returns `ok`; connection/authentication errors are **FAIL**, not evidence of the module state. The key is a disposable, expiring lab key.
 
 This verifies basic connectivity only.
 
@@ -422,10 +426,14 @@ It does not prove advanced capability compatibility.
 
 ## 20. Where Supported
 
-``` bash
-redis-cli JSON.SET tutorial:chapter59:json '$' '{"status":"ok"}'
-redis-cli JSON.GET tutorial:chapter59:json
+**Prerequisite:** Verify RedisJSON is actually enabled and the deployed engine/module supports JSONPath (`$`, RedisJSON v2), and that the authorized lab identity has the needed `@json` permissions. The commands below run in the **same authenticated, CA-verified TLS Redis CLI session** as the core test, not from an unconfigured local shell:
+
+``` redis
+JSON.SET tutorial:chapter59:json '$' '{"status":"ok"}'
+JSON.GET tutorial:chapter59:json '$.status'
 ```
+
+**Expected:** `JSON.SET` returns `OK`; a RedisJSON v2 `JSON.GET` using JSONPath returns an array of matched values (schematically `["ok"]` when parsed from the RESP2 JSON-encoded bulk-string reply). RESP3/client display can differ. This is only a module-capability smoke test, not an index, search, or production certification. A failure can indicate capability/version, ACL, or endpoint problems; log the exact error **without** automatically enabling modules, bypassing TLS, or escalating production permissions. Use only these isolated tutorial keys and leave cleanup ownership explicit.
 
 A failure here can expose capability/version mismatch even when
 `GET`/`SET` works.

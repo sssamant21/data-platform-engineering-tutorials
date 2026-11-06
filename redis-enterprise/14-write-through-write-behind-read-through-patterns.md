@@ -846,6 +846,8 @@ Do not assume "stream" automatically means zero data loss.
 XGROUP CREATE tutorial:chapter14:writes writers $ MKSTREAM
 ```
 
+**Conceptual behavior (not a second lab setup):** The first successful create returns `OK`, but another create of the same stream/group returns `BUSYGROUP`. The `$` offset points to the current tail, so `XREADGROUP ... >` gets only messages added after group creation; earlier entries are not returned as new. Never reset a live consumer group just to make the tutorial pass. Verify Redis 5.0+ support and permitted ACLs.
+
 Consumer:
 
 ``` redis
@@ -1578,12 +1580,10 @@ Add an idempotency record for non-idempotent operations.
 ## 71. Create Event
 
 ``` redis
-XADD tutorial:chapter14:writes * \
-  operation_id op-1001 \
-  entity_id 1001 \
-  version 5 \
-  status inactive
+XADD tutorial:chapter14:writes '*' operation_id op-1001 entity_id 1001 version 5 status inactive
 ```
+
+**Expected:** `XADD` returns a generated Stream ID, which will vary by execution. In the same isolated lab database, `XRANGE tutorial:chapter14:writes - +` should include the new ID and the four field/value pairs. Do not assume the stream was empty or that its total length is fixed. The example uses a **single interactive Redis command**; Bash-style backslash continuation is not valid when the lines are pasted independently into an interactive `redis-cli` prompt.
 
 ------------------------------------------------------------------------
 
@@ -1602,20 +1602,28 @@ Use bounded ranges in large production streams.
 In a dedicated lab:
 
 ``` redis
-XGROUP CREATE tutorial:chapter14:writes writers 0 MKSTREAM
+XGROUP CREATE tutorial:chapter14:writes writers-lab 0 MKSTREAM
 ```
+
+**Expected:** `OK` on the first creation of this distinct, disposable lab group, or `BUSYGROUP` if the group already exists. Start ID `0` allows previously added lab entries to be delivered, unlike `$`, which starts at the current tail. For an uncontaminated lab, use a new owner-approved disposable database; do not delete a production group to reset it.
 
 Read:
 
 ``` redis
-XREADGROUP GROUP writers worker1 COUNT 10 STREAMS tutorial:chapter14:writes >
+XREADGROUP GROUP writers-lab worker1 COUNT 10 STREAMS tutorial:chapter14:writes >
 ```
 
-After successful simulated source write:
+**Expected:** A nested reply containing the stream name, generated ID and fields of the earlier lab event, provided that event was not already delivered to this group. The ID becomes **pending**. Repeating `>` without new entries may return nil; it does not replay pending entries. Record the actual event ID and only acknowledge it **after** successful simulated source persistence.
+
+After successful simulated source write, replace the placeholder with the actual generated message ID:
 
 ``` redis
-XACK tutorial:chapter14:writes writers <message-id>
+XACK tutorial:chapter14:writes writers-lab <actual-lab-message-id>
 ```
+
+**Expected:** Integer `1` if that message was pending in the group, or `0` if no matching pending message exists. `XACK` does not remove the stream entry. Never acknowledge a production message for this exercise.
+
+References: [XGROUP CREATE](https://redis.io/docs/latest/commands/xgroup-create/) and [XREADGROUP](https://redis.io/docs/latest/commands/xreadgroup/).
 
 ------------------------------------------------------------------------
 

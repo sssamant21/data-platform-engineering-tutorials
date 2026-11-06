@@ -740,6 +740,8 @@ The second delete simply finds the key absent.
 This makes deletion naturally convenient for idempotent event
 processing.
 
+**Safety/expected result:** `cache:profile:1001:v1` is an illustrative application key, not a lab-owned namespace. Never paste it into an unapproved shared environment. In a dedicated synthetic test, the first `UNLINK` returns `1` if present and the second normally returns `0`; the example explains the keyspace effect, not memory-reclamation timing.
+
 ------------------------------------------------------------------------
 
 # Part 16 --- Out-of-Order Events

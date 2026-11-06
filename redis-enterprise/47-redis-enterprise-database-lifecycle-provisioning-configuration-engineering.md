@@ -216,9 +216,105 @@ Never delete solely because a ticket says unused. Verify application traffic, de
 
 # Part 25 --- Hands-On Lab
 
-## 27. Lifecycle Exercise
+## 27. Lifecycle Exercise — Reproducible Nonproduction Acceptance
 
-Provision a nonproduction database using approved tooling. Apply baseline configuration, create a disposable key, validate TLS/auth/metrics, perform a controlled resize/configuration change, compare actual vs desired state, then decommission the lab service safely.
+**Scope:** An approved DBRE/platform owner must provision a *disposable staging database* using release-supported Redis Software/Enterprise UI, Operator or approved IaC. Commands below check the *database endpoint* after provisioning; they do not create, resize or delete any Redis Enterprise database.
+
+### 27.1 Prerequisites and version record
+
+Record product version, deployment mode (VM or Kubernetes Operator), endpoint/port, TLS trust settings, scoped test identity, change ID, baseline, rollback plan and service owner. This lab is for **isolated staging/test only**, with synthetic data. Never target production or shared databases. Keep credentials outside source control; never place passwords in command-line arguments or bypass TLS verification.
+
+The lab requires Redis CLI with --tls and --cacert, and permission to run PING, SET, GET, TTL, EXISTS and UNLINK on its lab keys. If mutual TLS is required, use approved --cert and --key values. The Bash sample can be run from an approved WSL/Bash environment on Windows.
+
+### 27.2 TLS/auth and disposable-key smoke
+
+Replace example endpoint and CA path with approved staging values. Input the password interactively; do not log it.
+
+~~~bash
+set -euo pipefail
+export REDIS_HOST="lab-redis.example.test"   # approved staging endpoint
+export REDIS_PORT="10000"                    # approved staging port
+export REDIS_CA="/secure/path/proxy_cert.pem"
+test -r "$REDIS_CA"
+read -r -s -p "Staging Redis password: " REDISCLI_AUTH
+echo
+export REDISCLI_AUTH
+rcli() {
+  redis-cli --raw --tls --cacert "$REDIS_CA" -h "$REDIS_HOST" -p "$REDIS_PORT" "$@"
+}
+RUN_ID="$(date -u +%Y%m%dT%H%M%SZ)-$"
+LAB_KEY="tutorial:chapter47:$RUN_ID:smoke"
+test "$(rcli PING)" = "PONG"
+test "$(rcli SET "$LAB_KEY" lifecycle-smoke EX 300 NX)" = "OK"
+test "$(rcli GET "$LAB_KEY")" = "lifecycle-smoke"
+TTL_VALUE="$(rcli TTL "$LAB_KEY")"
+test "$TTL_VALUE" -gt 0 && test "$TTL_VALUE" -le 300
+printf 'PASS: PING, SET NX EX, GET, TTL (TTL=%s)\n' "$TTL_VALUE"
+~~~
+
+**Expected:** PING replies PONG; first SET NX EX 300 replies OK; GET returns lifecycle-smoke; TTL is an integer between 1 and 300. The PASS line is printed only if all assertions succeed. Record FAIL and stop on any unexpected result; never retry against another database.
+
+### 27.3 Scoped cleanup
+
+Run the following **in the same shell session** while LAB_KEY refers to the key created above. Never run FLUSHDB, FLUSHALL or wildcard deletion.
+
+~~~bash
+test -n "$LAB_KEY"
+rcli UNLINK "$LAB_KEY"
+test "$(rcli EXISTS "$LAB_KEY")" = "0"
+echo "PASS: exact disposable key removed"
+unset REDISCLI_AUTH
+~~~
+
+**Expected:** UNLINK returns integer 1 if the key is still present (0 if expired); EXISTS returns 0. If cleanup fails, record the exact key and involve the lab owner; do not broaden deletion. Memory reclamation after UNLINK may be asynchronous.
+
+### 27.4 Lifecycle workflow and expected evidence
+
+| Stage | Approved operator action | Expected observation | Gate |
+|---|---|---|---|
+| Provision | Create disposable DB with version-supported tooling | Endpoint, owner, memory, replication, persistence, eviction, TLS and backup align with request | Actual = approved baseline |
+| Connectivity | Execute smoke above | PONG, OK, GET value, bounded TTL | All assertions PASS |
+| Observability | Review metrics/alerts and runbooks | Fresh database metrics and correctly routed test alert | Missing samples = FAIL |
+| Drift | Read actual configuration via approved UI/API and compare with desired | Differences in memory, shards, replication, persistence, eviction, backup, TLS | Unexplained differences = FAIL |
+| Resize | **Only after separate approval** and demonstrated N-1 capacity | Before/after resource, client, latency and recovery evidence | Without authorization = NOT EXECUTED |
+| Retirement | Verify owner, traffic/dependency inventory, retention and written approval | Disposable database retired through approved procedure; inventory/secrets reconciled | Without authorization = NOT EXECUTED |
+
+### 27.5 Offline-only drift simulation (does not contact Redis)
+
+~~~python
+desired = {"memory_mb": 256, "replication": True, "eviction": "noeviction"}
+observed = {"memory_mb": 256, "replication": True, "eviction": "allkeys-lru"}
+differences = {
+    field: {"expected": desired[field], "observed": observed.get(field)}
+    for field in desired if desired[field] != observed.get(field)
+}
+assert differences == {
+    "eviction": {"expected": "noeviction", "observed": "allkeys-lru"}
+}
+print("DRIFT DETECTED: eviction")
+~~~
+
+**Expected:** DRIFT DETECTED: eviction. Values are synthetic and must not be represented as real Redis evidence; do not auto-remediate operational drift.
+
+### 27.6 Evidence and acceptance record
+
+~~~text
+Run ID / staging Redis release / deployment mode:
+DB endpoint and CA reference (no secrets):
+Owner / approved change:
+Desired vs actual settings evidence:
+PING / SET / GET / TTL observed:
+Cleanup: exact key / EXISTS=0:
+Metrics, alert and runbook evidence:
+Resize: PASS / FAIL / NOT EXECUTED, approval reference:
+Retirement: PASS / FAIL / NOT EXECUTED, approval reference:
+Reviewer / timestamp / remaining risks:
+~~~
+
+A step not performed is **NOT EXECUTED**, never PASS; repeating the lab requires a new run ID. Production certification is out of scope.
+
+Official references: [Redis CLI TLS](https://redis.io/docs/latest/operate/rs/references/cli-utilities/redis-cli/), [SET](https://redis.io/docs/latest/commands/set/), [UNLINK](https://redis.io/docs/latest/commands/unlink/).
+
 
 # Part 26 --- Failure Injection
 
