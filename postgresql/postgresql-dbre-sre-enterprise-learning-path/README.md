@@ -4,6 +4,12 @@
 
 > Inspired by publicly described responsibilities for an enterprise Postgres Database Team working across bare metal, AWS, and Kubernetes. This is an independent educational project, not Apple internal documentation or an official Apple course.
 
+## Documentation version policy — PostgreSQL 18
+
+**PostgreSQL 18 is the official documentation baseline for this learning path, effective 2026-11-06.** Use the version-pinned [PostgreSQL 18 manual](https://www.postgresql.org/docs/18/index.html) for new or revised technical guidance. Read the [PostgreSQL 18 baseline and lab migration policy](POSTGRESQL-18-BASELINE.md) before reviewing version-specific commands.
+
+**Runtime distinction:** The 20 existing labs were originally authored for PostgreSQL 17 and are **not** thereby validated on PostgreSQL 18. The official PostgreSQL 18 Docker image has a different persistent-volume/PGDATA layout; lab commands, image tags, mounts, and expected outputs must be migrated and tested safely before the runtime target changes. Runtime verification remains 0/20.
+
 ## What makes this track different?
 
 The existing [PostgreSQL DBRE/SRE curriculum](../README.md) is an extensive 100-chapter operational reference. **This track is a focused 20-chapter onboarding journey** specifically structured around application consulting, multi-platform PostgreSQL architecture, database fleet operations, and reliability ownership. It does not replace or rename the existing curriculum.
@@ -82,6 +88,7 @@ The enterprise learning path lives entirely under `postgresql/postgresql-dbre-sr
 
 ## Official references
 
-- [PostgreSQL documentation](https://www.postgresql.org/docs/)
+- [PostgreSQL 18 documentation (course baseline)](https://www.postgresql.org/docs/18/index.html)
+- [Version baseline and migration policy](POSTGRESQL-18-BASELINE.md)
 - [Amazon RDS for PostgreSQL documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html)
 - [CloudNativePG documentation](https://cloudnative-pg.io/docs/)
