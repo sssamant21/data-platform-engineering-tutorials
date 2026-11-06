@@ -31,9 +31,9 @@ docker network ls --filter "name=pg-ha10-"
 ## 1. Create isolated network and volumes
 
 ~~~powershell
-docker network create --internal pg-ha10-net
-docker volume create pg-ha10-primary-data
-docker volume create pg-ha10-standby-data
+docker network create --internal --label training.track=pg-enterprise-ch10 pg-ha10-net
+docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-primary-data
+docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-standby-data
 ~~~
 
 Expected: network and volumes created. The internal network prevents normal external routing for the lab containers. It is not a production network security control.
@@ -41,7 +41,7 @@ Expected: network and volumes created. The internal network prevents normal exte
 ## 2. Start primary with WAL streaming settings
 
 ~~~powershell
-docker run -d --name pg-ha10-primary --network pg-ha10-net -e POSTGRES_PASSWORD=TrainingOnly_HA10_123 -e POSTGRES_DB=ha10_lab -v pg-ha10-primary-data:/var/lib/postgresql/data postgres:17 -c wal_level=replica -c max_wal_senders=5 -c max_replication_slots=5 -c wal_keep_size=64MB -c max_slot_wal_keep_size=256MB
+docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-primary --network pg-ha10-net -e POSTGRES_PASSWORD=TrainingOnly_HA10_123 -e POSTGRES_DB=ha10_lab -v pg-ha10-primary-data:/var/lib/postgresql/data postgres:17 -c wal_level=replica -c max_wal_senders=5 -c max_replication_slots=5 -c wal_keep_size=64MB -c max_slot_wal_keep_size=256MB
 
 docker exec pg-ha10-primary pg_isready -U postgres -d ha10_lab
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT version(), pg_is_in_recovery();"
@@ -88,7 +88,7 @@ Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The p
 ## 5. Start standby and verify primary/standby roles
 
 ~~~powershell
-docker run -d --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
+docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
 docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
@@ -185,7 +185,23 @@ Never "repair" the topology by skipping WAL consistency checks, deleting active 
 
 ## 11. Optional cleanup — destructive, never automatic
 
-Only an authorized lab owner, **after verifying the exact names and no data retention need**, may manually remove these dedicated resources. These commands irreversibly delete the two lab volumes and all lab data. **Never run on a shared/production host without change approval.**
+Only an authorized lab owner may remove these resources, and only after recording the **full container IDs, volume names/IDs, network ID, Docker context, labels and mount/consumer inventory at creation time**. The resource names alone are insufficient proof of ownership. These commands permanently destroy lab data; never use them on production or shared resources. **If creation-time identity evidence is missing, stop: do not perform cleanup.** Do not remove resources still used by another container.
+
+First inspect without changing anything:
+
+~~~powershell
+docker context show
+docker inspect pg-ha10-primary pg-ha10-standby --format '{{.Id}} {{json .Config.Labels}} {{json .Mounts}} {{json .NetworkSettings.Networks}}'
+docker volume inspect pg-ha10-primary-data pg-ha10-standby-data
+docker network inspect pg-ha10-net
+docker ps -a --filter volume=pg-ha10-primary-data
+docker ps -a --filter volume=pg-ha10-standby-data
+docker ps -a --filter network=pg-ha10-net
+~~~
+
+Compare the current Docker context and **full** container IDs against the saved creation records; verify each resource has `training.track=pg-enterprise-ch10`, that the mounts match the expected lab volumes, and that no unexpected containers use either volume or the network. The lab owner must explicitly approve deletion and confirm there is no retention requirement. **Stop if any check fails, an unexpected consumer appears, or ownership is ambiguous.** Labels can be spoofed and do not replace ID/provenance checks.
+
+Only after all checks pass, manually execute the following **one command at a time**, inspecting exit codes. Do not add `--force`, `-v`, or automated name-based deletion:
 
 ~~~powershell
 docker stop pg-ha10-standby pg-ha10-primary
@@ -193,6 +209,8 @@ docker rm pg-ha10-standby pg-ha10-primary
 docker volume rm pg-ha10-standby-data pg-ha10-primary-data
 docker network rm pg-ha10-net
 ~~~
+
+Record post-cleanup absence using `docker ps -a`, `docker volume ls` and `docker network ls` with exact-name comparisons, plus sanitized output and timestamps. A failed removal is **not** proof of cleanup; investigate without deleting other resources.
 
 No cleanup is required to pass the lab.
 
