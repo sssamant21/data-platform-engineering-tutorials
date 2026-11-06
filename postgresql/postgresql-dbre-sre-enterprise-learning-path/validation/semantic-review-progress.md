@@ -547,3 +547,23 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Limits:** Static source repair only; no PowerShell parser, Docker, psql, SQL or destructive test executed. The lab remains PostgreSQL 17-targeted, with legacy volume layout, and must not be represented as PostgreSQL 18 runtime-validated. PostgreSQL 18 runtime evidence remains **0/20**; independent review and production certification pending. The separate 100-chapter curriculum was not changed.
 
 **Next:** Check Chapter 04's six distinct official PostgreSQL 18 documentation endpoints and any anchors, then continue the track-wide reference audit. Address the recorded container identity/ownership guardrails before migrating Chapter 01 to a fresh isolated PostgreSQL 18 volume mounted at `/var/lib/postgresql`.
+
+
+## 2026-11-06 — Chapter 04 PostgreSQL 18 official-reference endpoint checkpoint
+
+**Scope and method:** Re-read track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy, prior static/semantic audit progress, and the current Chapter 04 lesson and repaired lab on `main`. Extracted version-pinned PostgreSQL documentation URLs from both Chapter 04 sources and retrieved each distinct URL directly from the official PostgreSQL 18 manual. This is an endpoint/version/topic check, not a fragment, command-execution, or whole-track certification.
+
+| PostgreSQL 18 URL suffix | Official page topic | Endpoint/topic result |
+|---|---|---|
+| `wal-intro.html` | 28.3 Write-Ahead Logging (WAL) | Pass |
+| `wal-configuration.html` | 28.5 WAL Configuration | Pass |
+| `monitoring-stats.html` | 27.2 The Cumulative Statistics System | Pass |
+| `continuous-archiving.html` | 25.3 Continuous Archiving and PITR | Pass |
+| `wal-reliability.html` | 28.1 Reliability | Pass |
+| `functions-admin.html` | 9.28 System Administration Functions | Pass |
+
+**Result:** 6/6 distinct official PostgreSQL 18 endpoints returned PostgreSQL 18 pages with matching topics. The lesson contains six occurrences and the lab five, for eleven occurrences. No fragment anchors were present in these extracted official-manual URLs. This does not establish that SQL examples or expected values are correct under PostgreSQL 18.
+
+**Outstanding:** Verify Chapter 05 onward and remaining external/reference-style links, redirects, raw HTML, and anchors; address recorded ownership/cleanup and fail-closed identity checks before unattended execution. Chapter 04's repaired lab remains PostgreSQL 17-targeted, not migrated. No Docker, PowerShell, psql, destructive, cloud or Kubernetes tests executed. PostgreSQL 18 runtime-validated: **0/20**. Independent review and production certification pending. Historical PostgreSQL 17 evidence retained unchanged.
+
+**Next:** Chapter 05 official PostgreSQL 18 documentation endpoint audit, then continue the reference gate before safe PG18 lab migration using fresh volumes mounted at `/var/lib/postgresql` and verified `PGDATA=/var/lib/postgresql/18/docker`.
