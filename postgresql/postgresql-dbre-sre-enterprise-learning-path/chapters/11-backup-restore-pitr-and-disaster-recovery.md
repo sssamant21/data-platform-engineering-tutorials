@@ -196,10 +196,10 @@ Follow the [Chapter 11 lab](../labs/chapter-11/README.md). It creates dedicated 
 
 ## 10. Official references
 
-- [PostgreSQL 17 — Backup and Restore](https://www.postgresql.org/docs/17/backup.html)
-- [PostgreSQL 17 — Continuous Archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
-- [PostgreSQL 17 — pg_basebackup](https://www.postgresql.org/docs/17/app-pgbasebackup.html)
-- [PostgreSQL 17 — pg_verifybackup](https://www.postgresql.org/docs/17/app-pgverifybackup.html)
-- [PostgreSQL 17 — Recovery Target Settings](https://www.postgresql.org/docs/17/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET)
+- [PostgreSQL 18 — Backup and Restore](https://www.postgresql.org/docs/18/backup.html)
+- [PostgreSQL 18 — Continuous Archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
+- [PostgreSQL 18 — pg_basebackup](https://www.postgresql.org/docs/18/app-pgbasebackup.html)
+- [PostgreSQL 18 — pg_verifybackup](https://www.postgresql.org/docs/18/app-pgverifybackup.html)
+- [PostgreSQL 18 — Recovery Target Settings](https://www.postgresql.org/docs/18/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET)
 - [Amazon RDS for PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html)
 - [CloudNativePG backup and recovery documentation](https://cloudnative-pg.io/docs/)

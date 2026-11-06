@@ -185,9 +185,9 @@ A healthcare application requires 99.95% availability and a business-approved RP
 
 ## 11. Official references (PostgreSQL 17)
 
-- [Warm standby and streaming replication](https://www.postgresql.org/docs/17/warm-standby.html)
-- [pg_basebackup](https://www.postgresql.org/docs/17/app-pgbasebackup.html)
-- [Replication configuration](https://www.postgresql.org/docs/17/runtime-config-replication.html)
-- [Monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [Replication slots view](https://www.postgresql.org/docs/17/view-pg-replication-slots.html)
-- [High availability, load balancing and replication](https://www.postgresql.org/docs/17/high-availability.html)
+- [Warm standby and streaming replication](https://www.postgresql.org/docs/18/warm-standby.html)
+- [pg_basebackup](https://www.postgresql.org/docs/18/app-pgbasebackup.html)
+- [Replication configuration](https://www.postgresql.org/docs/18/runtime-config-replication.html)
+- [Monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [Replication slots view](https://www.postgresql.org/docs/18/view-pg-replication-slots.html)
+- [High availability, load balancing and replication](https://www.postgresql.org/docs/18/high-availability.html)

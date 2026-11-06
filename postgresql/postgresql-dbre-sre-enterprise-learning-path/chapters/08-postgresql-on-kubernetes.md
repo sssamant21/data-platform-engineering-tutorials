@@ -242,7 +242,7 @@ Write a short incident plan:
 - [Kubernetes Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 - [Kubernetes Disruptions and PDBs](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
 - [Kubernetes RBAC](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)
-- [PostgreSQL 17: Monitoring Database Activity](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17: Continuous Archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
+- [PostgreSQL 18: Monitoring Database Activity](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18: Continuous Archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
 
 **Documentation note (2026-11-02):** Review the installed CloudNativePG release's versioned documentation rather than assuming that a development-branch example matches a deployed operator.

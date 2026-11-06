@@ -229,10 +229,10 @@ Rollback is limited to stopping the **optional, disposable** monitoring containe
 
 ## 11. Official references
 
-- [PostgreSQL 17 — Monitoring Database Activity](https://www.postgresql.org/docs/17/monitoring.html)
-- [PostgreSQL 17 — Statistics Views](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 — Monitoring Disk Usage](https://www.postgresql.org/docs/17/diskusage.html)
-- [PostgreSQL 17 — Monitoring Roles](https://www.postgresql.org/docs/17/predefined-roles.html)
+- [PostgreSQL 18 — Monitoring Database Activity](https://www.postgresql.org/docs/18/monitoring.html)
+- [PostgreSQL 18 — Statistics Views](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 — Monitoring Disk Usage](https://www.postgresql.org/docs/18/diskusage.html)
+- [PostgreSQL 18 — Monitoring Roles](https://www.postgresql.org/docs/18/predefined-roles.html)
 - [Prometheus Community PostgreSQL Exporter](https://github.com/prometheus-community/postgres_exporter)
 - [Prometheus — Alerting Rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)
 - [Grafana — PostgreSQL Monitoring](https://grafana.com/docs/grafana/latest/datasources/postgres/)

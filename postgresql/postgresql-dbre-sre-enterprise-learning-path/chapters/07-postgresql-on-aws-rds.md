@@ -195,4 +195,4 @@ An **optional, explicitly authorized, read-only** AWS CLI section demonstrates `
 - [Point-in-time restore](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
 - [Parameter-group association](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.Associating.html)
 - [CloudWatch Database Insights / Performance Insights transition](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PerfInsights.Overview.html)
-- [PostgreSQL 17: pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
+- [PostgreSQL 18: pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)

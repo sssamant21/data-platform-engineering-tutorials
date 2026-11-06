@@ -217,8 +217,8 @@ In [Chapter 09 lab](../labs/chapter-09/README.md), use a **local PostgreSQL 17**
 
 ## 11. Official references (reviewed 2026-11-02)
 
-- [PostgreSQL 17: Continuous Archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Continuous Archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
 - [AWS: RDS Multi-AZ DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html)
 - [AWS: RDS Multi-AZ DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html)
 - [AWS: Supported RDS Multi-AZ cluster engines and regions](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RDS_Fea_Regions_DB-eng.Feature.MultiAZDBClusters.html)
