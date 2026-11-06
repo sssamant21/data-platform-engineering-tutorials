@@ -118,8 +118,8 @@ The container removal is destructive to its lab data. If you need evidence, capt
 
 ## Official references
 
-- [PostgreSQL 17 — CREATE TABLE](https://www.postgresql.org/docs/17/sql-createtable.html)
-- [PostgreSQL 17 — Constraints](https://www.postgresql.org/docs/17/ddl-constraints.html)
-- [PostgreSQL 17 — EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html)
-- [PostgreSQL 17 — CREATE INDEX](https://www.postgresql.org/docs/17/sql-createindex.html)
+- [PostgreSQL 18 — CREATE TABLE](https://www.postgresql.org/docs/18/sql-createtable.html)
+- [PostgreSQL 18 — Constraints](https://www.postgresql.org/docs/18/ddl-constraints.html)
+- [PostgreSQL 18 — EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
+- [PostgreSQL 18 — CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html)
 - [Docker — docker container run](https://docs.docker.com/reference/cli/docker/container/run/)

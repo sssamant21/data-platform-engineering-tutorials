@@ -94,4 +94,4 @@ No named volume or host port was created. The verified lab container and its att
 - Plan differs: planner choices depend on row counts/statistics; capture the observation rather than forcing a claim.
 
 ## References
-[PostgreSQL 17 SQL](https://www.postgresql.org/docs/17/sql.html) · [EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html) · [Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html) · [Backup](https://www.postgresql.org/docs/17/backup.html) · [Docker official postgres image](https://hub.docker.com/_/postgres)
+[PostgreSQL 18 SQL](https://www.postgresql.org/docs/18/sql.html) · [EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html) · [Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html) · [Backup](https://www.postgresql.org/docs/18/backup.html) · [Docker official postgres image](https://hub.docker.com/_/postgres)

@@ -76,4 +76,4 @@ Expected: original two columns restored; table removed; only the specifically na
 - [ ] Record runtime status as **not executed** until actual evidence exists.
 
 ## Official references
-[Versioning](https://www.postgresql.org/support/versioning/) · [Upgrading](https://www.postgresql.org/docs/17/upgrading.html) · [ALTER TABLE](https://www.postgresql.org/docs/17/sql-altertable.html) · [Docker official PostgreSQL image](https://hub.docker.com/_/postgres)
+[Versioning](https://www.postgresql.org/support/versioning/) · [Upgrading](https://www.postgresql.org/docs/18/upgrading.html) · [ALTER TABLE](https://www.postgresql.org/docs/18/sql-altertable.html) · [Docker official PostgreSQL image](https://hub.docker.com/_/postgres)

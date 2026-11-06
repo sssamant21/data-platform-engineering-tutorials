@@ -82,8 +82,8 @@ Expected: table removed, only `pg-dbre-ch18` stopped and removed together with i
 - [ ] Runtime marked **not executed** until evidence exists; independent review remains separate.
 
 ## Official references
-- [PostgreSQL 17 size functions](https://www.postgresql.org/docs/17/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE)
-- [PostgreSQL 17 monitoring](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html)
-- [PostgreSQL 17 ANALYZE](https://www.postgresql.org/docs/17/sql-analyze.html)
+- [PostgreSQL 18 size functions](https://www.postgresql.org/docs/18/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE)
+- [PostgreSQL 18 monitoring](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
+- [PostgreSQL 18 ANALYZE](https://www.postgresql.org/docs/18/sql-analyze.html)
 - [Docker official PostgreSQL image](https://hub.docker.com/_/postgres)
