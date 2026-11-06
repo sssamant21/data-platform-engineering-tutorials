@@ -17,13 +17,31 @@
 **PowerShell preflight:**
 
 ```powershell
+$ErrorActionPreference = 'Stop'
 docker version
-docker ps --filter "name=pg-fleet-lab"
+if ($LASTEXITCODE -ne 0) { throw 'Docker client/server unavailable' }
+$context = docker context show
+if ($LASTEXITCODE -ne 0) { throw 'Cannot determine Docker context' }
+docker context inspect $context
+if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect Docker endpoint' }
+# Confirm manually that this endpoint is the approved local disposable engine.
+# Compare the context and full ID with the Chapter 01 creation record.
+$containerId = docker inspect --type container --format '{{.Id}}' pg-fleet-lab
+if ($LASTEXITCODE -ne 0 -or -not $containerId) { throw 'Chapter 01 lab container missing' }
+$owner = docker inspect --type container --format '{{index .Config.Labels "dbre.training"}}' pg-fleet-lab
+if ($LASTEXITCODE -ne 0 -or $owner -ne 'postgresql-enterprise-ch01') { throw 'Unexpected lab ownership label' }
+$image = docker inspect --type container --format '{{.Config.Image}}' pg-fleet-lab
+if ($LASTEXITCODE -ne 0 -or $image -ne 'postgres:17') { throw 'Unexpected image; inspect before proceeding' }
+$mount = docker inspect --type container --format '{{range .Mounts}}{{if eq .Destination "/var/lib/postgresql/data"}}{{.Name}}{{end}}{{end}}' pg-fleet-lab
+if ($LASTEXITCODE -ne 0 -or $mount -ne 'pg_fleet_data') { throw 'Unexpected data mount' }
+Write-Host "Verify against Chapter 01 record: context=$context id=$containerId"
 docker exec pg-fleet-lab pg_isready -U postgres
-docker exec pg-fleet-lab psql -U postgres -d postgres -c "SELECT version();"
+if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL not ready' }
+docker exec pg-fleet-lab psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -Atc 'SHOW server_version_num;'
+if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL version query failed' }
 ```
 
-Expected: Docker server available, named container running, `pg_isready` reports accepting connections, and a PostgreSQL 17 version string. The lab is blocked until the disposable target is confirmed.
+Expected: Docker server available on the **manually verified local disposable context**, exact full container ID matching the Chapter 01 creation record, expected ownership label/image/data mount, successful readiness check, and PostgreSQL 17 server version number in the `170000`–`179999` range. **Stop** on any mismatch; a matching name or image tag alone does not prove ownership. The SQL exercises must not run until this preflight passes.
 
 ## 1. Connect and collect read-only baseline facts (3 minutes)
 
