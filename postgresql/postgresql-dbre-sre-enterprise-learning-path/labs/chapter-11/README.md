@@ -26,10 +26,20 @@ docker image inspect postgres:17 --format '{{index .RepoDigests 0}}'
 ## 1. Create four isolated volumes and set permissions
 
 ~~~powershell
-docker volume create pg-ch11-primary-data
-docker volume create pg-ch11-archive
-docker volume create pg-ch11-base
-docker volume create pg-ch11-restore-data
+$labLabel = 'org.postgresql.dbre.training=chapter-11'
+$dockerContext = (docker context show).Trim()
+if ($LASTEXITCODE -ne 0 -or -not $dockerContext) { throw 'Cannot establish Docker context; stop.' }
+docker volume create --label $labLabel pg-ch11-primary-data
+docker volume create --label $labLabel pg-ch11-archive
+docker volume create --label $labLabel pg-ch11-base
+docker volume create --label $labLabel pg-ch11-restore-data
+if ($LASTEXITCODE -ne 0) { throw 'Volume creation failed; stop and inspect.' }
+$volumeIds = @{}
+foreach ($v in @('pg-ch11-primary-data','pg-ch11-archive','pg-ch11-base','pg-ch11-restore-data')) {
+    $volumeIds[$v] = (docker volume inspect $v --format '{{.Name}}').Trim()
+    if ($LASTEXITCODE -ne 0 -or $volumeIds[$v] -ne $v) { throw "Volume identity mismatch: $v" }
+}
+# Retain the context and names in the sanitized run record. Do not reuse prior-run identities.
 
 docker run --rm --user root -v pg-ch11-archive:/wal-archive -v pg-ch11-base:/backup -v pg-ch11-restore-data:/restore-data postgres:17 sh -c 'chown postgres:postgres /wal-archive /backup /restore-data && chmod 700 /wal-archive /backup /restore-data'
 ~~~
@@ -39,8 +49,10 @@ Expected: four new volumes; helper exits 0. Ownership changes are safe only for 
 ## 2. Start the source with a local WAL archive
 
 ~~~powershell
-docker run -d --name pg-ch11-primary -e POSTGRES_PASSWORD=TrainingOnly_PITR11_123 -e POSTGRES_DB=pitr_lab -v pg-ch11-primary-data:/var/lib/postgresql/data -v pg-ch11-archive:/wal-archive -v pg-ch11-base:/backup postgres:17 -c wal_level=replica -c archive_mode=on -c "archive_command=test ! -f /wal-archive/%f && cp %p /wal-archive/%f" -c archive_timeout=60s
+docker run -d --label org.postgresql.dbre.training=chapter-11 --name pg-ch11-primary -e POSTGRES_PASSWORD=TrainingOnly_PITR11_123 -e POSTGRES_DB=pitr_lab -v pg-ch11-primary-data:/var/lib/postgresql/data -v pg-ch11-archive:/wal-archive -v pg-ch11-base:/backup postgres:17 -c wal_level=replica -c archive_mode=on -c "archive_command=test ! -f /wal-archive/%f && cp %p /wal-archive/%f" -c archive_timeout=60s
 
+$primaryId = (docker inspect pg-ch11-primary --format '{{.Id}}').Trim()
+if ($LASTEXITCODE -ne 0 -or $primaryId.Length -ne 64) { throw 'Primary container identity missing; stop.' }
 docker exec pg-ch11-primary pg_isready -U postgres -d pitr_lab
 docker exec pg-ch11-primary psql -U postgres -d pitr_lab -c "SELECT version(), pg_is_in_recovery();"
 docker exec pg-ch11-primary psql -U postgres -d pitr_lab -c "SHOW archive_mode; SHOW wal_level; SHOW archive_command;"
@@ -164,8 +176,10 @@ Mount the WAL archive read-only. Recovery is configured to stop at `ch11_safe_po
 
 ~~~powershell
 $restoreStart = Get-Date
-docker run -d --name pg-ch11-restore -v pg-ch11-restore-data:/var/lib/postgresql/data -v pg-ch11-archive:/wal-archive:ro postgres:17 -c archive_mode=off -c "restore_command=cp /wal-archive/%f %p" -c recovery_target_name=ch11_safe_point -c recovery_target_action=promote
+docker run -d --label org.postgresql.dbre.training=chapter-11 --name pg-ch11-restore -v pg-ch11-restore-data:/var/lib/postgresql/data -v pg-ch11-archive:/wal-archive:ro postgres:17 -c archive_mode=off -c "restore_command=cp /wal-archive/%f %p" -c recovery_target_name=ch11_safe_point -c recovery_target_action=promote
 
+$restoreId = (docker inspect pg-ch11-restore --format '{{.Id}}').Trim()
+if ($LASTEXITCODE -ne 0 -or $restoreId.Length -ne 64) { throw 'Restore container identity missing; stop.' }
 docker logs --tail 80 pg-ch11-restore
 docker exec pg-ch11-restore pg_isready -U postgres -d pitr_lab
 ~~~
@@ -212,19 +226,59 @@ A real DR test additionally needs a declared failure event, last business-acknow
 
 ## 13. Optional manual cleanup — destructive to lab volumes
 
-First retain evidence. **Only after independently confirming these exact names belong to this disposable exercise:**
+First retain sanitized evidence. Cleanup is **optional** and must run in the same PowerShell session that captured `$dockerContext`, `$primaryId`, `$restoreId`, and `$volumeIds`. If that session or any identifier is lost, **stop and perform a separate manual provenance review**; never reconstruct ownership from names alone. Do not run against real database storage.
 
 ~~~powershell
+if ((docker context show).Trim() -ne $dockerContext -or $LASTEXITCODE -ne 0) { throw 'Docker context changed; abort cleanup.' }
+$expected = @{ 'pg-ch11-primary' = $primaryId; 'pg-ch11-restore' = $restoreId }
+foreach ($name in $expected.Keys) {
+    if (-not $expected[$name] -or $expected[$name].Length -ne 64) { throw "Missing original ID: $name" }
+    $actual = (docker inspect $name --format '{{.Id}}').Trim()
+    if ($LASTEXITCODE -ne 0 -or $actual -ne $expected[$name]) { throw "Container ID mismatch: $name" }
+    $label = (docker inspect $name --format '{{index .Config.Labels "org.postgresql.dbre.training"}}').Trim()
+    if ($LASTEXITCODE -ne 0 -or $label -ne 'chapter-11') { throw "Ownership label mismatch: $name" }
+    docker inspect $name --format '{{json .Mounts}}'
+    if ($LASTEXITCODE -ne 0) { throw "Cannot inspect mounts: $name" }
+}
+foreach ($name in $volumeIds.Keys) {
+    if ($volumeIds[$name] -ne $name) { throw "Missing original volume identity: $name" }
+    $label = (docker volume inspect $name --format '{{index .Labels "org.postgresql.dbre.training"}}').Trim()
+    if ($LASTEXITCODE -ne 0 -or $label -ne 'chapter-11') { throw "Volume ownership mismatch: $name" }
+    $users = @(docker ps -a --filter "volume=$name" --format '{{.ID}}')
+    if ($LASTEXITCODE -ne 0) { throw "Cannot inspect volume consumers: $name" }
+    foreach ($id in $users) {
+        if ($id -and -not (@($primaryId, $restoreId) | Where-Object { $_.StartsWith($id) })) {
+            throw "Unexpected container uses volume $name; abort cleanup."
+        }
+    }
+}
+# Review the mount JSON above: only the four chapter-11 volumes at the documented paths are permitted.
+# If any unexpected bind mount, volume, or container appears, STOP; do not run the commands below.
 docker stop pg-ch11-restore
+if ($LASTEXITCODE -ne 0) { throw 'Stop failed; abort cleanup.' }
 docker rm pg-ch11-restore
+if ($LASTEXITCODE -ne 0) { throw 'Restore removal failed; abort cleanup.' }
+docker stop pg-ch11-primary
+# The source is normally already stopped. A nonzero stop status is acceptable only after inspecting State.Running=false.
+$running = (docker inspect pg-ch11-primary --format '{{.State.Running}}').Trim()
+if ($LASTEXITCODE -ne 0 -or $running -ne 'false') { throw 'Source not confirmed stopped; abort cleanup.' }
 docker rm pg-ch11-primary
-docker volume rm pg-ch11-restore-data
-docker volume rm pg-ch11-base
-docker volume rm pg-ch11-archive
-docker volume rm pg-ch11-primary-data
+if ($LASTEXITCODE -ne 0) { throw 'Source removal failed; abort volume cleanup.' }
+foreach ($name in @('pg-ch11-restore-data','pg-ch11-base','pg-ch11-archive','pg-ch11-primary-data')) {
+    docker volume rm $name
+    if ($LASTEXITCODE -ne 0) { throw "Volume removal failed: $name" }
+}
+foreach ($name in $expected.Keys) {
+    docker inspect $name *> $null
+    if ($LASTEXITCODE -eq 0) { throw "Container still exists: $name" }
+}
+foreach ($name in $volumeIds.Keys) {
+    docker volume inspect $name *> $null
+    if ($LASTEXITCODE -eq 0) { throw "Volume still exists: $name" }
+}
 ~~~
 
-Never use broad cleanup commands such as `docker volume prune`, and never run this against real database storage.
+The helper containers used for permissions and file copy are ephemeral (`--rm`), but verify that none remain and that no unexpected volume consumers exist. Never use broad cleanup commands such as `docker volume prune`. Record sanitized inspection and post-cleanup results; this is an **unexecuted procedure** until independently tested.
 
 ## 14. Acceptance checklist
 
