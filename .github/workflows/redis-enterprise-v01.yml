@@ -1,0 +1,37 @@
+name: Redis Enterprise V01 static audit
+
+on:
+  pull_request:
+    paths:
+      - "redis-enterprise/**"
+      - ".github/workflows/redis-enterprise-v01.yml"
+  push:
+    branches: [main]
+    paths:
+      - "redis-enterprise/**"
+      - ".github/workflows/redis-enterprise-v01.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  static-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Validator unit tests
+        run: python -m unittest discover -s redis-enterprise/tools -p "test_*.py" -v
+      - name: Audit all 80 Redis Enterprise chapters
+        run: python redis-enterprise/tools/validate_tutorials.py --json-file redis-enterprise/validation/v01-ci-result.json
+      - name: Preserve static audit evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: redis-enterprise-v01-audit
+          path: redis-enterprise/validation/v01-ci-result.json
+          if-no-files-found: warn
