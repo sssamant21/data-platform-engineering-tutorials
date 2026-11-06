@@ -536,3 +536,14 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Limitations and gates:** Chapter 03's lab still targets PostgreSQL 17; the earlier static repair does not prove PowerShell syntax execution or transaction ordering on a running database. No Docker, psql, cloud, failover, or destructive cleanup operation was executed. PostgreSQL 18 runtime-validated labs remain **0/20**. Independent review and production certification remain pending.
 
 **Next:** Continue official PostgreSQL 18 documentation endpoint/anchor verification with Chapter 04, then reconcile known container ownership/identity checks and safely migrate individual labs using fresh isolated PostgreSQL 18 volumes mounted at `/var/lib/postgresql` (not the PostgreSQL 17 data mount).
+
+
+## 2026-11-06 — Chapter 04 lab source-integrity repair
+
+**Confirmed high-priority defect:** The Chapter 04 lab README had a truncated PowerShell major-version preflight expression and unclosed code fence before Step 1. A second copy of the lab was appended after its official references. The malformed preflight was not safely executable as written.
+
+**Scoped fix:** Restored the PostgreSQL 17 version check with a fail-closed `^17[0-9]{4}$` assertion and an explicit `pg_is_in_recovery() = false` check, closed the PowerShell fence, retained one copy of the existing Step 1–8 SQL sequence, and removed the duplicated tail (~9.7 KB). Fetched the repaired file from `main`: exactly one Step 1 heading and 28 Markdown fence delimiters (14 pairs). Commit: `95a21cbc185dd9065e89cac8734fcb51ca947db1`.
+
+**Limits:** Static source repair only; no PowerShell parser, Docker, psql, SQL or destructive test executed. The lab remains PostgreSQL 17-targeted, with legacy volume layout, and must not be represented as PostgreSQL 18 runtime-validated. PostgreSQL 18 runtime evidence remains **0/20**; independent review and production certification pending. The separate 100-chapter curriculum was not changed.
+
+**Next:** Check Chapter 04's six distinct official PostgreSQL 18 documentation endpoints and any anchors, then continue the track-wide reference audit. Address the recorded container identity/ownership guardrails before migrating Chapter 01 to a fresh isolated PostgreSQL 18 volume mounted at `/var/lib/postgresql`.
