@@ -166,12 +166,22 @@ These are starting points, not a complete health certification. Statistics may l
 Exit `psql` using `\q`. Run in PowerShell:
 
 ```powershell
-docker exec pg-fleet-lab sh -c 'pg_dump -U postgres -Fc appdb > /tmp/appdb.dump'
-docker cp pg-fleet-lab:/tmp/appdb.dump .\appdb.dump
-docker exec pg-fleet-lab createdb -U postgres appdb_restore
-docker exec pg-fleet-lab pg_restore --exit-on-error -U postgres -d appdb_restore /tmp/appdb.dump
+docker exec $labId sh -c 'pg_dump -U postgres -Fc appdb > /tmp/appdb.dump'
+if ($LASTEXITCODE -ne 0) { throw 'Backup failed; stop before restore' }
+docker exec $labId sh -c 'test -s /tmp/appdb.dump'
+if ($LASTEXITCODE -ne 0) { throw 'Backup file is absent or empty' }
+docker cp "${labId}:/tmp/appdb.dump" .\appdb.dump
+if ($LASTEXITCODE -ne 0 -or -not (Test-Path .\appdb.dump)) { throw 'Backup copy failed' }
+# Use a new, empty restore database. Stop if it already exists; never drop it automatically.
+$restoreExists = docker exec $labId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='appdb_restore';"
+if ($LASTEXITCODE -ne 0 -or $restoreExists.Trim() -ne '') { throw 'Cannot verify a fresh appdb_restore database' }
+docker exec $labId createdb -U postgres appdb_restore
+if ($LASTEXITCODE -ne 0) { throw 'Restore database creation failed' }
+docker exec $labId pg_restore --exit-on-error -U postgres -d appdb_restore /tmp/appdb.dump
 if ($LASTEXITCODE -ne 0) { throw 'Restore failed; do not report success' }
-docker exec pg-fleet-lab psql -U postgres -d appdb_restore -c "SELECT count(*) FROM orders;"
+$restoredCount = docker exec $labId psql -X -v ON_ERROR_STOP=1 -U postgres -d appdb_restore -tAc 'SELECT count(*) FROM orders;'
+if ($LASTEXITCODE -ne 0 -or $restoredCount.Trim() -ne '50000') { throw 'Restore row-count acceptance failed' }
+Write-Host "Restore verified: $restoredCount orders"
 ```
 
 Expected: 50,000 restored orders. For a repeated run, choose a new restore database name or deliberately remove the previous disposable restore database first. This test demonstrates logical restore, not WAL archiving, PITR or an independent-node disaster recovery scenario.
@@ -182,7 +192,7 @@ Record PostgreSQL version, image tag, check outputs, plan comparisons, rollback 
 
 ## Step 9 — Optional cleanup (destructive to this lab only)
 
-**Only after independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg-fleet-lab`, `docker volume inspect pg_fleet_data`, and `docker ps -a --filter volume=pg_fleet_data`. If identity is uncertain, stop and retain resources. If identity is uncertain, retain the resources and stop. The commands below are deliberately commented out to prevent accidental copy/paste deletion:
+**Only after independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg-fleet-lab`, `docker volume inspect pg_fleet_data`, and `docker ps -a --filter volume=pg_fleet_data`. If identity is uncertain, stop and retain resources. The commands below are deliberately commented out to prevent accidental copy/paste deletion:
 
 ```powershell
 # docker stop pg-fleet-lab
