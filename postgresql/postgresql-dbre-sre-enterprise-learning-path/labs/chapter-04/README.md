@@ -43,7 +43,7 @@ if ($LASTEXITCODE -ne 0 -or $running -ne 'true') { throw 'Container is not runni
 docker exec $id pg_isready -U postgres
 if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL is not ready' }
 $version = docker exec $id psql -U postgres -d postgres -tAc 'SHOW server_version_num;'
-if ($LASTEXITCODE -ne 0 -or $version.Trim() -notmatch '^17[0-9]{4}) { throw 'Expected PostgreSQL 17' }
+if ($LASTEXITCODE -ne 0 -or $version.Trim() -notmatch '^17[0-9]{4}$') { throw 'Expected PostgreSQL 17' }
 $recovery = docker exec $id psql -U postgres -d postgres -tAc 'SELECT pg_is_in_recovery();'
 if ($LASTEXITCODE -ne 0 -or $recovery.Trim() -ne 'f') { throw 'Expected writable primary' }
 ```
