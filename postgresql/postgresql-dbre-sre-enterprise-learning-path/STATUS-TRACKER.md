@@ -9,6 +9,7 @@
 | Chapter-specific labs authored | 20/20 |
 | Semantic source reviews | 20/20 documented (not independently approved) |
 | Documentation baseline | PostgreSQL 18 (effective 2026-11-06) — [policy](POSTGRESQL-18-BASELINE.md) |
+| Version-pinned lesson/lab documentation links | Migrated to PostgreSQL 18 where present; exhaustive endpoint/anchor and semantic verification pending |
 | Existing lab target | PostgreSQL 17; migration to 18 pending per lab |
 | PostgreSQL 18 runtime-validated labs | 0/20 |
 | Chapter inline-link inventories | 20/20 documented; exhaustive resolution pending |
