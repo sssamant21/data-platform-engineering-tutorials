@@ -2,6 +2,11 @@
 
 **20 chapters · 5 parts · approximately 20 hours of guided learning (excluding additional practice).** Each chapter targets a 60-minute training session; duration varies with lab prerequisites.
 
+## Documentation and runtime versions
+
+- **Documentation baseline: PostgreSQL 18**, effective 2026-11-06. See the [baseline and migration policy](POSTGRESQL-18-BASELINE.md).
+- **Legacy lab runtime assumptions: PostgreSQL 17** until each lab is explicitly migrated to, and execution-verified on, PostgreSQL 18. This table's “Authored” status does not imply PostgreSQL 18 runtime acceptance.
+
 ## Part 1 — PostgreSQL foundations
 
 | Chapter | Topic | Status |
