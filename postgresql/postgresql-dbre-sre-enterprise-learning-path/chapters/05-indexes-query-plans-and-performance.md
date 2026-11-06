@@ -223,15 +223,15 @@ The lab deliberately avoids changing server-wide planner parameters or dropping 
 - [ ] Provide a staged production change proposal with monitoring and rollback.
 - [ ] Keep actual runtime verification and independent approval explicitly pending until evidence exists.
 
-## 11. Official PostgreSQL 17 references
+## 11. Official PostgreSQL 18 references
 
-- [Using EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html)
-- [Indexes](https://www.postgresql.org/docs/17/indexes.html)
-- [Multicolumn Indexes](https://www.postgresql.org/docs/17/indexes-multicolumn.html)
-- [Partial Indexes](https://www.postgresql.org/docs/17/indexes-partial.html)
-- [Index-Only Scans and Covering Indexes](https://www.postgresql.org/docs/17/indexes-index-only-scans.html)
-- [Examining Index Usage](https://www.postgresql.org/docs/17/indexes-examine.html)
-- [ANALYZE](https://www.postgresql.org/docs/17/sql-analyze.html)
-- [CREATE INDEX](https://www.postgresql.org/docs/17/sql-createindex.html)
+- [Using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [Indexes](https://www.postgresql.org/docs/18/indexes.html)
+- [Multicolumn Indexes](https://www.postgresql.org/docs/18/indexes-multicolumn.html)
+- [Partial Indexes](https://www.postgresql.org/docs/18/indexes-partial.html)
+- [Index-Only Scans and Covering Indexes](https://www.postgresql.org/docs/18/indexes-index-only-scans.html)
+- [Examining Index Usage](https://www.postgresql.org/docs/18/indexes-examine.html)
+- [ANALYZE](https://www.postgresql.org/docs/18/sql-analyze.html)
+- [CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html)
 
 **Next:** Chapter 06 — PostgreSQL on Bare Metal.

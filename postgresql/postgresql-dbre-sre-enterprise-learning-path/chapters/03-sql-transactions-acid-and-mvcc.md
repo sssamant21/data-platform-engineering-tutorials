@@ -193,9 +193,9 @@ No isolation setting can make a poor transaction design safe by itself.
 
 ## 10. References and deeper reading
 
-- [PostgreSQL 17: Transaction Isolation](https://www.postgresql.org/docs/17/transaction-iso.html)
-- [PostgreSQL 17: MVCC](https://www.postgresql.org/docs/17/mvcc.html)
-- [PostgreSQL 17: Explicit Locking](https://www.postgresql.org/docs/17/explicit-locking.html)
-- [PostgreSQL 17: Monitoring Database Activity](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17: ROLLBACK TO SAVEPOINT](https://www.postgresql.org/docs/17/sql-rollback-to.html)
+- [PostgreSQL 18: Transaction Isolation](https://www.postgresql.org/docs/18/transaction-iso.html)
+- [PostgreSQL 18: MVCC](https://www.postgresql.org/docs/18/mvcc.html)
+- [PostgreSQL 18: Explicit Locking](https://www.postgresql.org/docs/18/explicit-locking.html)
+- [PostgreSQL 18: Monitoring Database Activity](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18: ROLLBACK TO SAVEPOINT](https://www.postgresql.org/docs/18/sql-rollback-to.html)
 - [Existing advanced PostgreSQL MVCC tutorial](../../chapters/016-mvcc-snapshots-and-tuple-visibility.md)

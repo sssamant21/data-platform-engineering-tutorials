@@ -169,9 +169,9 @@ The lab uses a **separate database** and does not delete existing databases.
 
 ## 11. References and deeper reading
 
-- [PostgreSQL 17: Creating a Database](https://www.postgresql.org/docs/17/manage-ag-createdb.html)
-- [PostgreSQL 17: Schemas](https://www.postgresql.org/docs/17/ddl-schemas.html)
-- [PostgreSQL 17: Constraints](https://www.postgresql.org/docs/17/ddl-constraints.html)
-- [PostgreSQL 17: Identity Columns](https://www.postgresql.org/docs/17/ddl-identity-columns.html)
-- [PostgreSQL 17: Data Types](https://www.postgresql.org/docs/17/datatype.html)
+- [PostgreSQL 18: Creating a Database](https://www.postgresql.org/docs/18/manage-ag-createdb.html)
+- [PostgreSQL 18: Schemas](https://www.postgresql.org/docs/18/ddl-schemas.html)
+- [PostgreSQL 18: Constraints](https://www.postgresql.org/docs/18/ddl-constraints.html)
+- [PostgreSQL 18: Identity Columns](https://www.postgresql.org/docs/18/ddl-identity-columns.html)
+- [PostgreSQL 18: Data Types](https://www.postgresql.org/docs/18/datatype.html)
 - [Existing extended PostgreSQL index track](../../chapters/031-b-tree-and-other-index-types-operational-tradeoffs.md)

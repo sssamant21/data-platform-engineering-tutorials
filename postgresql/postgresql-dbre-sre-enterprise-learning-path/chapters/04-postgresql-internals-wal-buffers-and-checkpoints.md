@@ -55,7 +55,7 @@ PostgreSQL backend (SQL parsing, plan, execution)
 
 *The exact commit acknowledgement and durability semantics depend on settings such as `synchronous_commit` and `fsync`, storage behavior and replication configuration. The diagram describes the conventional local-durability path with safe defaults, not every possible configuration.*
 
-**WAL-before-data rule:** relevant WAL records must reach durable storage before changed data pages can be written to permanent storage. That lets crash recovery redo committed changes that had not yet reached data files. WAL is primarily sequential I/O; dirty data-page writes can be scattered across table and index files. <https://www.postgresql.org/docs/17/wal-intro.html>
+**WAL-before-data rule:** relevant WAL records must reach durable storage before changed data pages can be written to permanent storage. That lets crash recovery redo committed changes that had not yet reached data files. WAL is primarily sequential I/O; dirty data-page writes can be scattered across table and index files. <https://www.postgresql.org/docs/18/wal-intro.html>
 
 ### Components and responsibilities
 
@@ -209,11 +209,11 @@ Recommended investigation order:
 
 ## 11. Official references (PostgreSQL 17)
 
-- [Write-Ahead Logging overview](https://www.postgresql.org/docs/17/wal-intro.html)
-- [WAL configuration and checkpoint tradeoffs](https://www.postgresql.org/docs/17/wal-configuration.html)
-- [Monitoring statistics: WAL, checkpointer, background writer and I/O](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [Continuous archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
-- [Reliability and the WAL](https://www.postgresql.org/docs/17/wal-reliability.html)
-- [System administration functions (WAL LSN)](https://www.postgresql.org/docs/17/functions-admin.html)
+- [Write-Ahead Logging overview](https://www.postgresql.org/docs/18/wal-intro.html)
+- [WAL configuration and checkpoint tradeoffs](https://www.postgresql.org/docs/18/wal-configuration.html)
+- [Monitoring statistics: WAL, checkpointer, background writer and I/O](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [Continuous archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
+- [Reliability and the WAL](https://www.postgresql.org/docs/18/wal-reliability.html)
+- [System administration functions (WAL LSN)](https://www.postgresql.org/docs/18/functions-admin.html)
 
 **Next:** Chapter 05 — Indexes, Query Plans and Performance.

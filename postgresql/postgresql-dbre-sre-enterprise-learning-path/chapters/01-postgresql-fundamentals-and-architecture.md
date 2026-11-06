@@ -142,10 +142,10 @@ A successful `pg_dump` is **not** proof of disaster-recovery readiness or point-
 
 ## 9. Official references and further reading
 
-- [PostgreSQL tutorial](https://www.postgresql.org/docs/17/tutorial.html)
-- [PostgreSQL MVCC](https://www.postgresql.org/docs/17/mvcc.html)
-- [PostgreSQL WAL](https://www.postgresql.org/docs/17/wal.html)
-- [PostgreSQL statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [pg_dump](https://www.postgresql.org/docs/17/app-pgdump.html)
-- [pg_restore](https://www.postgresql.org/docs/17/app-pgrestore.html)
+- [PostgreSQL tutorial](https://www.postgresql.org/docs/18/tutorial.html)
+- [PostgreSQL MVCC](https://www.postgresql.org/docs/18/mvcc.html)
+- [PostgreSQL WAL](https://www.postgresql.org/docs/18/wal.html)
+- [PostgreSQL statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [pg_dump](https://www.postgresql.org/docs/18/app-pgdump.html)
+- [pg_restore](https://www.postgresql.org/docs/18/app-pgrestore.html)
 - Deeper existing chapters: [PostgreSQL architecture](../../chapters/002-architecture-processes-memory-storage-and-wal.md), [operations lab](../../chapters/004-build-a-reproducible-postgresql-operations-lab.md).

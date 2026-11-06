@@ -164,11 +164,11 @@ Learners will:
 
 ## 12. Official references
 
-- [PostgreSQL 17: Server Setup and Operation](https://www.postgresql.org/docs/17/runtime.html)
-- [PostgreSQL 17: Starting the Database Server](https://www.postgresql.org/docs/17/server-start.html)
-- [PostgreSQL 17: File Locations](https://www.postgresql.org/docs/17/runtime-config-file-locations.html)
-- [PostgreSQL 17: Database File Layout](https://www.postgresql.org/docs/17/storage-file-layout.html)
-- [PostgreSQL 17: pg_hba.conf](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)
-- [PostgreSQL 17: pg_ctl](https://www.postgresql.org/docs/17/app-pg-ctl.html)
-- [PostgreSQL 17: pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Server Setup and Operation](https://www.postgresql.org/docs/18/runtime.html)
+- [PostgreSQL 18: Starting the Database Server](https://www.postgresql.org/docs/18/server-start.html)
+- [PostgreSQL 18: File Locations](https://www.postgresql.org/docs/18/runtime-config-file-locations.html)
+- [PostgreSQL 18: Database File Layout](https://www.postgresql.org/docs/18/storage-file-layout.html)
+- [PostgreSQL 18: pg_hba.conf](https://www.postgresql.org/docs/18/auth-pg-hba-conf.html)
+- [PostgreSQL 18: pg_ctl](https://www.postgresql.org/docs/18/app-pg-ctl.html)
+- [PostgreSQL 18: pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
