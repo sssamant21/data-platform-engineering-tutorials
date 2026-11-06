@@ -253,9 +253,9 @@ Keep `training_ch07`, `training_ch07_restore` and `ch07_reader` for review if us
 - [AWS RDS roles and `rds_superuser`](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Roles.rds_superuser.html)
 - [AWS RDS PITR](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
 - [AWS RDS automated backup retention](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html)
-- [PostgreSQL 17 pg_dump](https://www.postgresql.org/docs/17/app-pgdump.html)
-- [PostgreSQL 17 pg_restore](https://www.postgresql.org/docs/17/app-pgrestore.html)
-- [PostgreSQL 17 pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
+- [PostgreSQL 18 pg_dump](https://www.postgresql.org/docs/18/app-pgdump.html)
+- [PostgreSQL 18 pg_restore](https://www.postgresql.org/docs/18/app-pgrestore.html)
+- [PostgreSQL 18 pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)
  --format '{{.ID}}')
 if ($LASTEXITCODE -ne 0 -or $ids.Count -ne 1) { throw 'Missing or ambiguous lab container' }
 $actualId = docker inspect --format '{{.Id}}' pg-fleet-lab
@@ -500,9 +500,9 @@ Keep `training_ch07`, `training_ch07_restore` and `ch07_reader` for review if us
 - [AWS RDS roles and `rds_superuser`](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Roles.rds_superuser.html)
 - [AWS RDS PITR](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
 - [AWS RDS automated backup retention](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html)
-- [PostgreSQL 17 pg_dump](https://www.postgresql.org/docs/17/app-pgdump.html)
-- [PostgreSQL 17 pg_restore](https://www.postgresql.org/docs/17/app-pgrestore.html)
-- [PostgreSQL 17 pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
+- [PostgreSQL 18 pg_dump](https://www.postgresql.org/docs/18/app-pgdump.html)
+- [PostgreSQL 18 pg_restore](https://www.postgresql.org/docs/18/app-pgrestore.html)
+- [PostgreSQL 18 pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)
 
 docker exec pg-fleet-lab pg_isready -U postgres
 if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL not ready' }
@@ -741,6 +741,6 @@ Keep `training_ch07`, `training_ch07_restore` and `ch07_reader` for review if us
 - [AWS RDS roles and `rds_superuser`](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Appendix.PostgreSQL.CommonDBATasks.Roles.rds_superuser.html)
 - [AWS RDS PITR](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_PIT.html)
 - [AWS RDS automated backup retention](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.BackupRetention.html)
-- [PostgreSQL 17 pg_dump](https://www.postgresql.org/docs/17/app-pgdump.html)
-- [PostgreSQL 17 pg_restore](https://www.postgresql.org/docs/17/app-pgrestore.html)
-- [PostgreSQL 17 pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
+- [PostgreSQL 18 pg_dump](https://www.postgresql.org/docs/18/app-pgdump.html)
+- [PostgreSQL 18 pg_restore](https://www.postgresql.org/docs/18/app-pgrestore.html)
+- [PostgreSQL 18 pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)

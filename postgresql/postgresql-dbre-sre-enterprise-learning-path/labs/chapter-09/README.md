@@ -312,9 +312,9 @@ The session-scoped temporary tables and view are removed automatically when the 
 
 ## 11. Official documentation (checked 2026-11-02)
 
-- [PostgreSQL 17: Temporary Tables](https://www.postgresql.org/docs/17/sql-createtable.html)
-- [PostgreSQL 17: CREATE VIEW](https://www.postgresql.org/docs/17/sql-createview.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Temporary Tables](https://www.postgresql.org/docs/18/sql-createtable.html)
+- [PostgreSQL 18: CREATE VIEW](https://www.postgresql.org/docs/18/sql-createview.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
 - [Amazon RDS Multi-AZ DB instance](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html)
 - [Amazon RDS Multi-AZ DB cluster](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html)
 - [CloudNativePG 1.28](https://cloudnative-pg.io/docs/1.28/)

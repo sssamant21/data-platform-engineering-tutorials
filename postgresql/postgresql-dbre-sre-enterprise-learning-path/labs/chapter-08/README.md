@@ -266,8 +266,8 @@ Retain sanitized evidence of original identity, context, mount, consumer check a
 - [Kubernetes Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 - [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 - [Kubernetes Pod Disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
-- [PostgreSQL 17 Monitoring](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 Continuous Archiving](https://www.postgresql.org/docs/17/continuous-archiving.html)
+- [PostgreSQL 18 Monitoring](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 Continuous Archiving](https://www.postgresql.org/docs/18/continuous-archiving.html)
 ) { throw 'Container creation failed' }
 # Retain $labContext and $labContainerId as original creation evidence.
 ```
@@ -466,5 +466,5 @@ Do not automate these commands against unknown resources. There is no Kubernetes
 - [Kubernetes Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 - [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 - [Kubernetes Pod Disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
-- [PostgreSQL 17 Monitoring](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 Continuous Archiving](https://www.postgresql.org/docs/17/continuous-archiving.html)
+- [PostgreSQL 18 Monitoring](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 Continuous Archiving](https://www.postgresql.org/docs/18/continuous-archiving.html)

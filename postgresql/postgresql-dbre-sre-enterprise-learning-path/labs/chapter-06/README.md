@@ -196,12 +196,12 @@ Retain the disposable container and volume for review. Preserve the original con
 
 ## 11. Official references
 
-- [PostgreSQL 17: Starting the Database Server](https://www.postgresql.org/docs/17/server-start.html)
-- [PostgreSQL 17: Configuration File Locations](https://www.postgresql.org/docs/17/runtime-config-file-locations.html)
-- [PostgreSQL 17: pg_hba.conf](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)
-- [PostgreSQL 17: pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
-- [PostgreSQL 17: Database File Layout](https://www.postgresql.org/docs/17/storage-file-layout.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Starting the Database Server](https://www.postgresql.org/docs/18/server-start.html)
+- [PostgreSQL 18: Configuration File Locations](https://www.postgresql.org/docs/18/runtime-config-file-locations.html)
+- [PostgreSQL 18: pg_hba.conf](https://www.postgresql.org/docs/18/auth-pg-hba-conf.html)
+- [PostgreSQL 18: pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)
+- [PostgreSQL 18: Database File Layout](https://www.postgresql.org/docs/18/storage-file-layout.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
 ) { throw 'Chapter 06 container identity capture failed' }
 docker inspect --format '{{.Config.Image}} {{index .Config.Labels "dbre.training.track"}} {{index .Config.Labels "dbre.training.lab"}} {{range .Mounts}}{{.Name}}:{{.Destination}} {{end}}' pg-baremetal-ch06
 if ($LASTEXITCODE -ne 0) { throw 'Chapter 06 container inspection failed' }
@@ -342,9 +342,9 @@ Retain the disposable container and volume for review. This lab intentionally in
 
 ## 11. Official references
 
-- [PostgreSQL 17: Starting the Database Server](https://www.postgresql.org/docs/17/server-start.html)
-- [PostgreSQL 17: Configuration File Locations](https://www.postgresql.org/docs/17/runtime-config-file-locations.html)
-- [PostgreSQL 17: pg_hba.conf](https://www.postgresql.org/docs/17/auth-pg-hba-conf.html)
-- [PostgreSQL 17: pg_settings](https://www.postgresql.org/docs/17/view-pg-settings.html)
-- [PostgreSQL 17: Database File Layout](https://www.postgresql.org/docs/17/storage-file-layout.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Starting the Database Server](https://www.postgresql.org/docs/18/server-start.html)
+- [PostgreSQL 18: Configuration File Locations](https://www.postgresql.org/docs/18/runtime-config-file-locations.html)
+- [PostgreSQL 18: pg_hba.conf](https://www.postgresql.org/docs/18/auth-pg-hba-conf.html)
+- [PostgreSQL 18: pg_settings](https://www.postgresql.org/docs/18/view-pg-settings.html)
+- [PostgreSQL 18: Database File Layout](https://www.postgresql.org/docs/18/storage-file-layout.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)

@@ -216,8 +216,8 @@ No cleanup is required to pass the lab.
 
 ## Official PostgreSQL 17 references
 
-- [Streaming replication and standby setup](https://www.postgresql.org/docs/17/warm-standby.html)
-- [pg_basebackup](https://www.postgresql.org/docs/17/app-pgbasebackup.html)
-- [Replication configuration](https://www.postgresql.org/docs/17/runtime-config-replication.html)
-- [Statistics and replication views](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [Replication slot view](https://www.postgresql.org/docs/17/view-pg-replication-slots.html)
+- [Streaming replication and standby setup](https://www.postgresql.org/docs/18/warm-standby.html)
+- [pg_basebackup](https://www.postgresql.org/docs/18/app-pgbasebackup.html)
+- [Replication configuration](https://www.postgresql.org/docs/18/runtime-config-replication.html)
+- [Statistics and replication views](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [Replication slot view](https://www.postgresql.org/docs/18/view-pg-replication-slots.html)

@@ -288,13 +288,13 @@ Do not delete the `training_ch05` database as part of the lab; retain it for fol
 
 ## Official PostgreSQL 17 references
 
-- [EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html)
-- [Using EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html)
-- [Index Types](https://www.postgresql.org/docs/17/indexes-types.html)
-- [Multicolumn Indexes](https://www.postgresql.org/docs/17/indexes-multicolumn.html)
-- [Partial Indexes](https://www.postgresql.org/docs/17/indexes-partial.html)
-- [CREATE INDEX](https://www.postgresql.org/docs/17/sql-createindex.html)
-- [Examining Index Usage](https://www.postgresql.org/docs/17/indexes-examine.html)
+- [EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
+- [Using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [Index Types](https://www.postgresql.org/docs/18/indexes-types.html)
+- [Multicolumn Indexes](https://www.postgresql.org/docs/18/indexes-multicolumn.html)
+- [Partial Indexes](https://www.postgresql.org/docs/18/indexes-partial.html)
+- [CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html)
+- [Examining Index Usage](https://www.postgresql.org/docs/18/indexes-examine.html)
  --format '{{.Names}}')
 if ($LASTEXITCODE -ne 0 -or $names.Count -ne 1 -or $names[0] -ne 'pg-fleet-lab') {
     throw 'Expected disposable container is not uniquely running'
@@ -574,10 +574,10 @@ Do not delete the `training_ch05` database as part of the lab; retain it for fol
 
 ## Official PostgreSQL 17 references
 
-- [EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html)
-- [Using EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html)
-- [Index Types](https://www.postgresql.org/docs/17/indexes-types.html)
-- [Multicolumn Indexes](https://www.postgresql.org/docs/17/indexes-multicolumn.html)
-- [Partial Indexes](https://www.postgresql.org/docs/17/indexes-partial.html)
-- [CREATE INDEX](https://www.postgresql.org/docs/17/sql-createindex.html)
-- [Examining Index Usage](https://www.postgresql.org/docs/17/indexes-examine.html)
+- [EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
+- [Using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [Index Types](https://www.postgresql.org/docs/18/indexes-types.html)
+- [Multicolumn Indexes](https://www.postgresql.org/docs/18/indexes-multicolumn.html)
+- [Partial Indexes](https://www.postgresql.org/docs/18/indexes-partial.html)
+- [CREATE INDEX](https://www.postgresql.org/docs/18/sql-createindex.html)
+- [Examining Index Usage](https://www.postgresql.org/docs/18/indexes-examine.html)
