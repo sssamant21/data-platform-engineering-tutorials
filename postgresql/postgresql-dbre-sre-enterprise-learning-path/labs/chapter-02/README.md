@@ -292,7 +292,7 @@ Do not drop tables or databases merely to repeat the tutorial. The disposable `t
 
 ## Official references
 
-- [PostgreSQL 17: Data Definition](https://www.postgresql.org/docs/17/ddl.html)
-- [PostgreSQL 17: Constraints](https://www.postgresql.org/docs/17/ddl-constraints.html)
-- [PostgreSQL 17: Information Schema](https://www.postgresql.org/docs/17/information-schema.html)
-- [PostgreSQL 17: psql](https://www.postgresql.org/docs/17/app-psql.html)
+- [PostgreSQL 18: Data Definition](https://www.postgresql.org/docs/18/ddl.html)
+- [PostgreSQL 18: Constraints](https://www.postgresql.org/docs/18/ddl-constraints.html)
+- [PostgreSQL 18: Information Schema](https://www.postgresql.org/docs/18/information-schema.html)
+- [PostgreSQL 18: psql](https://www.postgresql.org/docs/18/app-psql.html)

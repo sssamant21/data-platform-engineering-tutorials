@@ -95,10 +95,10 @@ Use disposable local containers and fake data only. Never apply this schema, mig
 
 ## Official references
 
-- [PostgreSQL 17 — Data Definition](https://www.postgresql.org/docs/17/ddl.html)
-- [PostgreSQL 17 — Constraints](https://www.postgresql.org/docs/17/ddl-constraints.html)
-- [PostgreSQL 17 — Indexes](https://www.postgresql.org/docs/17/indexes.html)
-- [PostgreSQL 17 — Using EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html)
-- [PostgreSQL 17 — Transaction Isolation](https://www.postgresql.org/docs/17/transaction-iso.html)
-- [PostgreSQL 17 — Backup and Restore](https://www.postgresql.org/docs/17/backup.html)
-- [PostgreSQL 17 — Client Authentication](https://www.postgresql.org/docs/17/client-authentication.html)
+- [PostgreSQL 18 — Data Definition](https://www.postgresql.org/docs/18/ddl.html)
+- [PostgreSQL 18 — Constraints](https://www.postgresql.org/docs/18/ddl-constraints.html)
+- [PostgreSQL 18 — Indexes](https://www.postgresql.org/docs/18/indexes.html)
+- [PostgreSQL 18 — Using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [PostgreSQL 18 — Transaction Isolation](https://www.postgresql.org/docs/18/transaction-iso.html)
+- [PostgreSQL 18 — Backup and Restore](https://www.postgresql.org/docs/18/backup.html)
+- [PostgreSQL 18 — Client Authentication](https://www.postgresql.org/docs/18/client-authentication.html)

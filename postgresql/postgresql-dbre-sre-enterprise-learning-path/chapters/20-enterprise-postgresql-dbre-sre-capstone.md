@@ -58,12 +58,12 @@ Follow [Chapter 20 lab](../labs/chapter-20/README.md) for copy/paste commands an
 All SQL writes are confined to a named lab schema in a disposable container. No failover, promotion, restore, network exposure, role escalation or production configuration changes. Rollback means dropping the lab container/volume after confirming its name; see lab cleanup. If Docker fails, inspect `docker info`; if SQL fails, check `docker logs pg-dbre-capstone20` and the expected database. A failed exercise is evidence of a failed exercise, not proof of PostgreSQL product failure.
 
 ## Official references
-- [PostgreSQL 17 documentation](https://www.postgresql.org/docs/17/)
-- [Transactions](https://www.postgresql.org/docs/17/tutorial-transactions.html)
-- [Indexes and EXPLAIN](https://www.postgresql.org/docs/17/using-explain.html)
-- [Monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [Backup and restore](https://www.postgresql.org/docs/17/backup.html)
-- [High availability](https://www.postgresql.org/docs/17/high-availability.html)
-- [Client authentication](https://www.postgresql.org/docs/17/client-authentication.html)
+- [PostgreSQL 18 documentation](https://www.postgresql.org/docs/18/)
+- [Transactions](https://www.postgresql.org/docs/18/tutorial-transactions.html)
+- [Indexes and EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
+- [Monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [Backup and restore](https://www.postgresql.org/docs/18/backup.html)
+- [High availability](https://www.postgresql.org/docs/18/high-availability.html)
+- [Client authentication](https://www.postgresql.org/docs/18/client-authentication.html)
 - [Amazon RDS PostgreSQL](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/CHAP_PostgreSQL.html)
 - [CloudNativePG documentation](https://cloudnative-pg.io/docs/)

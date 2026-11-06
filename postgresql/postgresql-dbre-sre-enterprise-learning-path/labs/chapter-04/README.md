@@ -276,11 +276,11 @@ Exit the client:
 
 ## Official references
 
-- [PostgreSQL 17 WAL introduction](https://www.postgresql.org/docs/17/wal-intro.html)
-- [PostgreSQL 17 WAL configuration](https://www.postgresql.org/docs/17/wal-configuration.html)
-- [PostgreSQL 17 monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 system administration functions](https://www.postgresql.org/docs/17/functions-admin.html)
-- [PostgreSQL 17 archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
+- [PostgreSQL 18 WAL introduction](https://www.postgresql.org/docs/18/wal-intro.html)
+- [PostgreSQL 18 WAL configuration](https://www.postgresql.org/docs/18/wal-configuration.html)
+- [PostgreSQL 18 monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 system administration functions](https://www.postgresql.org/docs/18/functions-admin.html)
+- [PostgreSQL 18 archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
 ) { throw 'Expected PostgreSQL 17' }
 $recovery = docker exec $id psql -U postgres -d postgres -tAc 'SELECT pg_is_in_recovery();'
 if ($LASTEXITCODE -ne 0 -or $recovery.Trim() -ne 'f') { throw 'Expected writable primary' }
@@ -519,8 +519,8 @@ Exit the client:
 
 ## Official references
 
-- [PostgreSQL 17 WAL introduction](https://www.postgresql.org/docs/17/wal-intro.html)
-- [PostgreSQL 17 WAL configuration](https://www.postgresql.org/docs/17/wal-configuration.html)
-- [PostgreSQL 17 monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 system administration functions](https://www.postgresql.org/docs/17/functions-admin.html)
-- [PostgreSQL 17 archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
+- [PostgreSQL 18 WAL introduction](https://www.postgresql.org/docs/18/wal-intro.html)
+- [PostgreSQL 18 WAL configuration](https://www.postgresql.org/docs/18/wal-configuration.html)
+- [PostgreSQL 18 monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 system administration functions](https://www.postgresql.org/docs/18/functions-admin.html)
+- [PostgreSQL 18 archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)

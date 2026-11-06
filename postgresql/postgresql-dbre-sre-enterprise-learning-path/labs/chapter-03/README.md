@@ -297,10 +297,10 @@ Do not delete the database as part of ordinary lab cleanup.
 
 ## Official documentation
 
-- [PostgreSQL 17: Transaction Isolation](https://www.postgresql.org/docs/17/transaction-iso.html)
-- [PostgreSQL 17: MVCC Introduction](https://www.postgresql.org/docs/17/mvcc-intro.html)
-- [PostgreSQL 17: SAVEPOINT](https://www.postgresql.org/docs/17/sql-savepoint.html)
-- [PostgreSQL 17: Statistics Views](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Transaction Isolation](https://www.postgresql.org/docs/18/transaction-iso.html)
+- [PostgreSQL 18: MVCC Introduction](https://www.postgresql.org/docs/18/mvcc-intro.html)
+- [PostgreSQL 18: SAVEPOINT](https://www.postgresql.org/docs/18/sql-savepoint.html)
+- [PostgreSQL 18: Statistics Views](https://www.postgresql.org/docs/18/monitoring-stats.html)
  -or $expectedVolume -ne 'pg_fleet_data') {
     throw 'Missing or invalid independent Chapter 01 identity record'
 }
@@ -606,7 +606,7 @@ Do not delete the database as part of ordinary lab cleanup.
 
 ## Official documentation
 
-- [PostgreSQL 17: Transaction Isolation](https://www.postgresql.org/docs/17/transaction-iso.html)
-- [PostgreSQL 17: MVCC Introduction](https://www.postgresql.org/docs/17/mvcc-intro.html)
-- [PostgreSQL 17: SAVEPOINT](https://www.postgresql.org/docs/17/sql-savepoint.html)
-- [PostgreSQL 17: Statistics Views](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18: Transaction Isolation](https://www.postgresql.org/docs/18/transaction-iso.html)
+- [PostgreSQL 18: MVCC Introduction](https://www.postgresql.org/docs/18/mvcc-intro.html)
+- [PostgreSQL 18: SAVEPOINT](https://www.postgresql.org/docs/18/sql-savepoint.html)
+- [PostgreSQL 18: Statistics Views](https://www.postgresql.org/docs/18/monitoring-stats.html)
