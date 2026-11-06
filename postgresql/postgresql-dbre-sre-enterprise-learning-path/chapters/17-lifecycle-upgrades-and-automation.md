@@ -61,9 +61,9 @@ Follow [Chapter 17 lab](../labs/chapter-17/README.md). Inventory with `SHOW serv
 
 ## Official references
 - [PostgreSQL versioning policy](https://www.postgresql.org/support/versioning/)
-- [PostgreSQL 17 upgrading](https://www.postgresql.org/docs/17/upgrading.html)
-- [PostgreSQL 17 pg_upgrade](https://www.postgresql.org/docs/17/pgupgrade.html)
-- [PostgreSQL 17 backup and restore](https://www.postgresql.org/docs/17/backup.html)
-- [PostgreSQL 17 ALTER TABLE](https://www.postgresql.org/docs/17/sql-altertable.html)
+- [PostgreSQL 18 upgrading](https://www.postgresql.org/docs/18/upgrading.html)
+- [PostgreSQL 18 pg_upgrade](https://www.postgresql.org/docs/18/pgupgrade.html)
+- [PostgreSQL 18 backup and restore](https://www.postgresql.org/docs/18/backup.html)
+- [PostgreSQL 18 ALTER TABLE](https://www.postgresql.org/docs/18/sql-altertable.html)
 - [Amazon RDS PostgreSQL upgrades](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_UpgradeDBInstance.PostgreSQL.html)
 - [CloudNativePG documentation](https://cloudnative-pg.io/docs/)

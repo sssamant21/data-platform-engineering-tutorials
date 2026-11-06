@@ -76,10 +76,10 @@ Use an isolated container with **no published host port**. Confirm container ide
 - [ ] Keep authored, runtime-tested, independently reviewed and production-certified statuses separate.
 
 ## Official references
-- [PostgreSQL 17 database object size functions](https://www.postgresql.org/docs/17/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE)
-- [PostgreSQL 17 monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 EXPLAIN](https://www.postgresql.org/docs/17/sql-explain.html)
-- [PostgreSQL 17 routine vacuuming](https://www.postgresql.org/docs/17/routine-vacuuming.html)
-- [PostgreSQL 17 resource consumption](https://www.postgresql.org/docs/17/runtime-config-resource.html)
-- [PostgreSQL 17 WAL configuration](https://www.postgresql.org/docs/17/wal-configuration.html)
+- [PostgreSQL 18 database object size functions](https://www.postgresql.org/docs/18/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE)
+- [PostgreSQL 18 monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
+- [PostgreSQL 18 routine vacuuming](https://www.postgresql.org/docs/18/routine-vacuuming.html)
+- [PostgreSQL 18 resource consumption](https://www.postgresql.org/docs/18/runtime-config-resource.html)
+- [PostgreSQL 18 WAL configuration](https://www.postgresql.org/docs/18/wal-configuration.html)
 - [Official PostgreSQL Docker image](https://hub.docker.com/_/postgres)

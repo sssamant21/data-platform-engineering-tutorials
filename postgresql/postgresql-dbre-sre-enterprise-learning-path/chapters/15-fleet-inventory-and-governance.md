@@ -177,11 +177,11 @@ All chapter SQL is read-only. The lab setup creates only disposable synthetic ro
 
 ## Official references (checked 2026-11-02)
 
-- [PostgreSQL 17 — System catalogs](https://www.postgresql.org/docs/17/catalogs.html)
-- [PostgreSQL 17 — `pg_database`](https://www.postgresql.org/docs/17/catalog-pg-database.html)
-- [PostgreSQL 17 — `pg_roles`](https://www.postgresql.org/docs/17/view-pg-roles.html)
-- [PostgreSQL 17 — `pg_settings`](https://www.postgresql.org/docs/17/view-pg-settings.html)
-- [PostgreSQL 17 — Monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
+- [PostgreSQL 18 — System catalogs](https://www.postgresql.org/docs/18/catalogs.html)
+- [PostgreSQL 18 — `pg_database`](https://www.postgresql.org/docs/18/catalog-pg-database.html)
+- [PostgreSQL 18 — `pg_roles`](https://www.postgresql.org/docs/18/view-pg-roles.html)
+- [PostgreSQL 18 — `pg_settings`](https://www.postgresql.org/docs/18/view-pg-settings.html)
+- [PostgreSQL 18 — Monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
 - [AWS CLI v2 — describe-db-instances](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html)
 - [CloudNativePG documentation](https://cloudnative-pg.io/docs/)
 - [Kubernetes API access controls](https://kubernetes.io/docs/reference/access-authn-authz/rbac/)

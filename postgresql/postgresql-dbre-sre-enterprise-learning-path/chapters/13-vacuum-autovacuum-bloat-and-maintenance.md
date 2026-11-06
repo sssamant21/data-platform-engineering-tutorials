@@ -180,9 +180,9 @@ Complete [Chapter 13 lab](../labs/chapter-13/README.md) in a dedicated PostgreSQ
 
 ## Official PostgreSQL 17 references
 
-- [Routine Vacuuming](https://www.postgresql.org/docs/17/routine-vacuuming.html)
-- [VACUUM command](https://www.postgresql.org/docs/17/sql-vacuum.html)
-- [Autovacuum configuration](https://www.postgresql.org/docs/17/runtime-config-autovacuum.html)
-- [Cumulative statistics views](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [Progress reporting](https://www.postgresql.org/docs/17/progress-reporting.html)
-- [Storage parameters](https://www.postgresql.org/docs/17/sql-createtable.html#SQL-CREATETABLE-STORAGE-PARAMETERS)
+- [Routine Vacuuming](https://www.postgresql.org/docs/18/routine-vacuuming.html)
+- [VACUUM command](https://www.postgresql.org/docs/18/sql-vacuum.html)
+- [Autovacuum configuration](https://www.postgresql.org/docs/18/runtime-config-autovacuum.html)
+- [Cumulative statistics views](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [Progress reporting](https://www.postgresql.org/docs/18/progress-reporting.html)
+- [Storage parameters](https://www.postgresql.org/docs/18/sql-createtable.html#SQL-CREATETABLE-STORAGE-PARAMETERS)
