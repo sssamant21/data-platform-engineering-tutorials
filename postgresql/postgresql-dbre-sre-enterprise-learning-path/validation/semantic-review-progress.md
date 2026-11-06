@@ -482,3 +482,25 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Result:** Six of six checked Chapter 01 lesson documentation endpoints resolved to the expected PostgreSQL 18 manual pages; no confirmed broken endpoint in this subset. No URL fragments were present in this six-URL subset. Other track links, redirect chains, reference-style definitions, HTML/autolinks and external anchors remain outside this checkpoint. HTTP retrieval alone does not establish SQL/runtime correctness. The Chapter 01 lab still explicitly uses `postgres:17` and `pg_fleet_data:/var/lib/postgresql/data`; do not change its image tag without a separate PostgreSQL 18 volume and identity/mount migration. No Docker/psql execution, cloud charges, or cleanup operations occurred. **PostgreSQL 18 runtime validated: 0/20; independent review and production certification pending.**
 
 **Next:** Continue PostgreSQL 18 external documentation endpoint/fragment checks from Chapter 02 onward; address outstanding container ownership safeguards before a separately evidenced, isolated PostgreSQL 18 Chapter 01 migration.
+
+
+## PostgreSQL 18 external-reference checkpoint — 2026-11-06 — Chapter 02 lesson and lab
+
+**Scope and method:** Re-read current main README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-18-BASELINE, and historical semantic evidence; fetched Chapter 02 lesson and lab. Individually retrieved the eight distinct PostgreSQL 18 manual endpoints referenced by these two files and checked version and page topic. This is a bounded HTTP/page-identity audit, not comprehensive anchor or runtime validation.
+
+| Source | PostgreSQL 18 documentation page | HTTP/page identity |
+|---|---|---|
+| Lesson | `manage-ag-createdb.html` — Creating a Database | Retrieved; version/topic correct |
+| Lesson | `ddl-schemas.html` — Schemas | Retrieved; version/topic correct |
+| Lesson and lab | `ddl-constraints.html` — Constraints | Retrieved; version/topic correct |
+| Lesson | `ddl-identity-columns.html` — Identity Columns | Retrieved; version/topic correct |
+| Lesson | `datatype.html` — Data Types | Retrieved; version/topic correct |
+| Lab | `ddl.html` — Data Definition | Retrieved; version/topic correct |
+| Lab | `information-schema.html` — Information Schema | Retrieved; version/topic correct |
+| Lab | `app-psql.html` — psql | Retrieved; version/topic correct |
+
+**Result:** 8/8 distinct PostgreSQL 18 manual URLs resolved to the intended page/topic; none has a fragment in this subset. Chapter 02 lesson also links to a separate curriculum index chapter; this cross-track link was not HTTP-verified here and no file outside this independent track was edited. Remaining HTML/autolinks, reference-style links, all other track external endpoints and anchor resolution remain pending.
+
+**Actionable safety finding (medium; existing issue, now pinpointed):** Chapter 02 lab's PowerShell prerequisite executes a version/role query but checks only `$LASTEXITCODE`, then asks the learner to visually inspect `17|f`. A successful SQL exit code alone does not enforce the required major-version and primary-role identity. Before any unattended execution, capture the result and assert exact parsed major and `pg_is_in_recovery() = false`; keep the independently recorded Docker context/full ID, image, mount and label checks. Do not reuse this PostgreSQL 17 mount for 18. This checkpoint records the issue rather than changing a historical 17-targeted lab during the pending version migration.
+
+**Execution and gates:** No Docker, psql, AWS, Kubernetes or destructive operations executed. Existing Chapter 02 lab remains PostgreSQL 17-targeted; PostgreSQL 18 runtime validation **0/20**, independent review and production certification pending. Next: Chapter 03 external-reference checks, then address safety assertions and migrate Chapter 01 to a fresh PostgreSQL 18 volume under the baseline policy.
