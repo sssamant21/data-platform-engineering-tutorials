@@ -264,8 +264,8 @@ Record sanitized evidence of the context, IDs, ownership labels, mount review, n
 
 ## Official references
 
-- [PostgreSQL 17 statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL predefined roles](https://www.postgresql.org/docs/17/predefined-roles.html)
+- [PostgreSQL 18 statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL predefined roles](https://www.postgresql.org/docs/18/predefined-roles.html)
 - [Prometheus postgres_exporter](https://github.com/prometheus-community/postgres_exporter)
 - [Prometheus Docker installation](https://prometheus.io/docs/prometheus/latest/installation/)
 - [Prometheus alerting rules](https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/)

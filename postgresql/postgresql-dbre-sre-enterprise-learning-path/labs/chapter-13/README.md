@@ -276,8 +276,8 @@ Expected cleanup proof: the filtered container list is empty, and volume inspect
 
 ## Official references
 
-- [PostgreSQL 17: Routine Vacuuming](https://www.postgresql.org/docs/17/routine-vacuuming.html)
-- [PostgreSQL 17: VACUUM](https://www.postgresql.org/docs/17/sql-vacuum.html)
-- [PostgreSQL 17: Autovacuum Configuration](https://www.postgresql.org/docs/17/runtime-config-autovacuum.html)
-- [PostgreSQL 17: Monitoring Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17: Progress Reporting](https://www.postgresql.org/docs/17/progress-reporting.html)
+- [PostgreSQL 18: Routine Vacuuming](https://www.postgresql.org/docs/18/routine-vacuuming.html)
+- [PostgreSQL 18: VACUUM](https://www.postgresql.org/docs/18/sql-vacuum.html)
+- [PostgreSQL 18: Autovacuum Configuration](https://www.postgresql.org/docs/18/runtime-config-autovacuum.html)
+- [PostgreSQL 18: Monitoring Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18: Progress Reporting](https://www.postgresql.org/docs/18/progress-reporting.html)

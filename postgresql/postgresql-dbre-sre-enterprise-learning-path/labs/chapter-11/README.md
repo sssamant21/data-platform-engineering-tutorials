@@ -297,7 +297,7 @@ The helper containers used for permissions and file copy are ephemeral (`--rm`),
 
 ## 15. Official documentation
 
-- [PostgreSQL 17 — Continuous Archiving and PITR](https://www.postgresql.org/docs/17/continuous-archiving.html)
-- [PostgreSQL 17 — pg_basebackup](https://www.postgresql.org/docs/17/app-pgbasebackup.html)
-- [PostgreSQL 17 — pg_verifybackup](https://www.postgresql.org/docs/17/app-pgverifybackup.html)
-- [PostgreSQL 17 — Recovery Target Settings](https://www.postgresql.org/docs/17/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET)
+- [PostgreSQL 18 — Continuous Archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
+- [PostgreSQL 18 — pg_basebackup](https://www.postgresql.org/docs/18/app-pgbasebackup.html)
+- [PostgreSQL 18 — pg_verifybackup](https://www.postgresql.org/docs/18/app-pgverifybackup.html)
+- [PostgreSQL 18 — Recovery Target Settings](https://www.postgresql.org/docs/18/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET)

@@ -108,7 +108,7 @@ docker ps -a --filter name='^/pg-dbre-ch16
 - [ ] Negative-test stderr confirms the intended table privilege denial, not merely a nonzero exit; runtime evidence and independent review tracked separately.
 
 ## Official references
-[PostgreSQL 17 roles](https://www.postgresql.org/docs/17/user-manag.html) · [GRANT](https://www.postgresql.org/docs/17/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/17/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/17/client-authentication.html) · [TLS](https://www.postgresql.org/docs/17/ssl-tcp.html)
+[PostgreSQL 18 roles](https://www.postgresql.org/docs/18/user-manag.html) · [GRANT](https://www.postgresql.org/docs/18/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/18/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/18/client-authentication.html) · [TLS](https://www.postgresql.org/docs/18/ssl-tcp.html)
 
 ```
 `docker rm -f -v` deletes the verified container and its anonymous volumes; the final listing should be empty. Never use global Docker prune commands. These are documented safeguards, **not executed cleanup evidence**.
@@ -123,4 +123,4 @@ docker ps -a --filter name='^/pg-dbre-ch16
 - [ ] Cleanup verified; runtime evidence and independent review tracked separately.
 
 ## Official references
-[PostgreSQL 17 roles](https://www.postgresql.org/docs/17/user-manag.html) · [GRANT](https://www.postgresql.org/docs/17/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/17/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/17/client-authentication.html) · [TLS](https://www.postgresql.org/docs/17/ssl-tcp.html)
+[PostgreSQL 18 roles](https://www.postgresql.org/docs/18/user-manag.html) · [GRANT](https://www.postgresql.org/docs/18/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/18/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/18/client-authentication.html) · [TLS](https://www.postgresql.org/docs/18/ssl-tcp.html)

@@ -318,9 +318,9 @@ docker ps -a --no-trunc --filter "id=$LabContainerId"
 
 ## Official references
 
-- [PostgreSQL 17 monitoring statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 viewing locks](https://www.postgresql.org/docs/17/monitoring-locks.html)
-- [PostgreSQL 17 explicit locking and deadlocks](https://www.postgresql.org/docs/17/explicit-locking.html)
-- [PostgreSQL 17 connection settings](https://www.postgresql.org/docs/17/runtime-config-connection.html)
-- [PostgreSQL 17 client timeouts](https://www.postgresql.org/docs/17/runtime-config-client.html)
-- [PostgreSQL 17 replication](https://www.postgresql.org/docs/17/runtime-config-replication.html)
+- [PostgreSQL 18 monitoring statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 viewing locks](https://www.postgresql.org/docs/18/monitoring-locks.html)
+- [PostgreSQL 18 explicit locking and deadlocks](https://www.postgresql.org/docs/18/explicit-locking.html)
+- [PostgreSQL 18 connection settings](https://www.postgresql.org/docs/18/runtime-config-connection.html)
+- [PostgreSQL 18 client timeouts](https://www.postgresql.org/docs/18/runtime-config-client.html)
+- [PostgreSQL 18 replication](https://www.postgresql.org/docs/18/runtime-config-replication.html)

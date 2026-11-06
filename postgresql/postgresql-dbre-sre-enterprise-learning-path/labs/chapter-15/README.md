@@ -632,12 +632,12 @@ If provenance differs or either name is unfamiliar, **stop and investigate**. Th
 
 ## Official references (checked 2026-11-02)
 
-- [PostgreSQL 17 — System catalogs](https://www.postgresql.org/docs/17/catalogs.html)
-- [PostgreSQL 17 — `pg_database`](https://www.postgresql.org/docs/17/catalog-pg-database.html)
-- [PostgreSQL 17 — `pg_roles`](https://www.postgresql.org/docs/17/view-pg-roles.html)
-- [PostgreSQL 17 — `pg_settings`](https://www.postgresql.org/docs/17/view-pg-settings.html)
-- [PostgreSQL 17 — Statistics](https://www.postgresql.org/docs/17/monitoring-stats.html)
-- [PostgreSQL 17 — `pg_control_system`](https://www.postgresql.org/docs/17/functions-info.html)
+- [PostgreSQL 18 — System catalogs](https://www.postgresql.org/docs/18/catalogs.html)
+- [PostgreSQL 18 — `pg_database`](https://www.postgresql.org/docs/18/catalog-pg-database.html)
+- [PostgreSQL 18 — `pg_roles`](https://www.postgresql.org/docs/18/view-pg-roles.html)
+- [PostgreSQL 18 — `pg_settings`](https://www.postgresql.org/docs/18/view-pg-settings.html)
+- [PostgreSQL 18 — Statistics](https://www.postgresql.org/docs/18/monitoring-stats.html)
+- [PostgreSQL 18 — `pg_control_system`](https://www.postgresql.org/docs/18/functions-info.html)
 - [Docker Official PostgreSQL image](https://hub.docker.com/_/postgres)
 - [AWS CLI v2 — RDS describe-db-instances](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-instances.html)
 - [CloudNativePG](https://cloudnative-pg.io/docs/)
