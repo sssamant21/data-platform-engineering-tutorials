@@ -515,3 +515,24 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Version boundary:** The Chapter 03 lab remains deliberately `postgres:17` with the 17 data mount; PostgreSQL 18 is the documentation baseline, not a runtime certification. No Docker/psql test, external URL endpoint check, or destructive cleanup was executed. **Runtime validated: 0/20.** Independent review and production certification remain pending.
 
 **Next:** Verify Chapter 03 PostgreSQL 18 external documentation endpoints/anchors and continue the outstanding track-wide reference audit; then migrate labs to isolated PostgreSQL 18 containers using fresh volumes mounted at `/var/lib/postgresql`, never reusing the 17 volume.
+
+
+## 2026-11-06 — Chapter 03 PostgreSQL 18 documentation endpoint checkpoint
+
+**Scope:** Inspected the current `main` Chapter 03 lesson and lab after the earlier source-integrity repair. Enumerated all PostgreSQL manual links in those two files and retrieved each unique endpoint from the official PostgreSQL 18 manual. This is a documentation endpoint/page-topic check only; it is not an executable SQL, PowerShell, runtime, full-fragment, or whole-track link certification.
+
+| PostgreSQL 18 URL suffix | Source | Retrieved page/topic | Result |
+|---|---|---|---|
+| `transaction-iso.html` | Lesson + lab | 13.2 Transaction Isolation | Pass: endpoint and topic |
+| `mvcc.html` | Lesson | Chapter 13 Concurrency Control | Pass: endpoint and topic |
+| `explicit-locking.html` | Lesson | 13.3 Explicit Locking | Pass: endpoint and topic |
+| `monitoring-stats.html` | Lesson + lab | 27.2 Cumulative Statistics System | Pass: endpoint and topic |
+| `sql-rollback-to.html` | Lesson | ROLLBACK TO SAVEPOINT | Pass: endpoint and topic |
+| `mvcc-intro.html` | Lab | 13.1 Introduction | Pass: endpoint and topic |
+| `sql-savepoint.html` | Lab | SAVEPOINT | Pass: endpoint and topic |
+
+**Result:** 7/7 distinct official PostgreSQL 18 URLs retrieved with matching version and subject; 9 URL occurrences across lesson and lab. No fragment identifiers in this subset. No broken PostgreSQL manual endpoint confirmed here. Cross-curriculum relative link and unexamined HTML/reference-style links are not covered by this endpoint checkpoint.
+
+**Limitations and gates:** Chapter 03's lab still targets PostgreSQL 17; the earlier static repair does not prove PowerShell syntax execution or transaction ordering on a running database. No Docker, psql, cloud, failover, or destructive cleanup operation was executed. PostgreSQL 18 runtime-validated labs remain **0/20**. Independent review and production certification remain pending.
+
+**Next:** Continue official PostgreSQL 18 documentation endpoint/anchor verification with Chapter 04, then reconcile known container ownership/identity checks and safely migrate individual labs using fresh isolated PostgreSQL 18 volumes mounted at `/var/lib/postgresql` (not the PostgreSQL 17 data mount).
