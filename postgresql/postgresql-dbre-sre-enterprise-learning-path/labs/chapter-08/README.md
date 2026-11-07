@@ -59,6 +59,7 @@ $chapterLabel = docker inspect pg-k8s-lab --format '{{index .Config.Labels "dbre
 $trackLabel = docker inspect pg-k8s-lab --format '{{index .Config.Labels "dbre.training.track"}}'
 $image = docker inspect pg-k8s-lab --format '{{.Config.Image}}'
 if ($LASTEXITCODE -ne 0 -or $actualId -ne $labContainerId -or $mount -ne 'pg_k8s_ch08_data' -or $chapterLabel -ne '08' -or $trackLabel -ne 'postgresql-enterprise' -or $image -ne 'postgres:17') { throw 'Container identity, image or volume mismatch; STOP' }
+```
 
 ```powershell
 docker ps --filter "name=pg-k8s-lab"
@@ -276,18 +277,3 @@ Retain sanitized evidence of original identity, context, mount, consumer check a
 - [Kubernetes Pod Disruptions](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
 - [PostgreSQL 18 Monitoring](https://www.postgresql.org/docs/18/monitoring-stats.html)
 - [PostgreSQL 18 Continuous Archiving](https://www.postgresql.org/docs/18/continuous-archiving.html)
-) { throw 'Container creation failed' }
-# Retain $labContext and $labContainerId as original creation evidence.
-```
-
-This intentionally weak demonstration password is **not suitable for any real environment**. Port binding is limited to local loopback.
-
-```powershell
-docker ps --filter "name=pg-k8s-lab"
-docker exec pg-k8s-lab pg_isready -U postgres -d appdb
-docker inspect pg-k8s-lab --format '{{range .Mounts}}{{println .Name .Destination}}{{end}}'
-```
-
-Expected: running container, database accepting connections, and `pg_k8s_ch08_data` mounted at `/var/lib/postgresql/data`. First initialization may take a few seconds; check logs and retry readiness if necessary.
-
-**Interpretation:** A Docker named volume is a *persistence analogy*, not a Kubernetes PVC or an independent backup.
