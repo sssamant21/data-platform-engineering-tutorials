@@ -237,7 +237,7 @@ Write a short incident plan:
 ## 10. Official references
 
 - [CloudNativePG documentation](https://cloudnative-pg.io/docs/)
-- [CloudNativePG bootstrap concepts](https://cloudnative-pg.io/docs/devel/bootstrap/)
+- [CloudNativePG bootstrap concepts](https://cloudnative-pg.io/docs/1.28/bootstrap/)
 - [Kubernetes StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/)
 - [Kubernetes Persistent Volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
 - [Kubernetes Disruptions and PDBs](https://kubernetes.io/docs/concepts/workloads/pods/disruptions/)
@@ -245,4 +245,4 @@ Write a short incident plan:
 - [PostgreSQL 18: Monitoring Database Activity](https://www.postgresql.org/docs/18/monitoring-stats.html)
 - [PostgreSQL 18: Continuous Archiving and PITR](https://www.postgresql.org/docs/18/continuous-archiving.html)
 
-**Documentation note (2026-11-02):** Review the installed CloudNativePG release's versioned documentation rather than assuming that a development-branch example matches a deployed operator.
+**Documentation note (2026-11-07):** The bootstrap reference above is pinned to CloudNativePG 1.28 as an illustrative documentation snapshot, **not** evidence that version 1.28 is installed or approved. Before any deployment, verify the installed operator version, supported Kubernetes and PostgreSQL versions, CRD schema, image digest, storage class, namespace, RBAC and cluster ownership. This single-instance example is review-only and does not establish HA, backup or production readiness. CloudNativePG directly manages Pods/PVCs rather than using Kubernetes StatefulSets for its database instances; the StatefulSet link below is general Kubernetes background only.
