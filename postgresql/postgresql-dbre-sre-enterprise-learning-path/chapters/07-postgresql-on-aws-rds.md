@@ -2,7 +2,7 @@
 
 **Track:** PostgreSQL Database Engineering (DBRE/SRE) — Enterprise Learning Path  
 **Audience:** DBRE/SRE, database/platform engineers, application architects  
-**Duration:** 60 minutes · **Local reference:** PostgreSQL 17 via Docker · **Cloud:** Amazon RDS for PostgreSQL (not Aurora)  
+**Duration:** 60 minutes · **Documentation baseline:** PostgreSQL 18 · **Legacy local lab runtime:** PostgreSQL 17 via Docker (not PostgreSQL 18 runtime-validated) · **Cloud:** Amazon RDS for PostgreSQL (not Aurora)  
 **Publication state:** Authored; no AWS resources created; local/AWS runtime evidence and independent review pending  
 **Last reviewed against AWS documentation:** 2026-11-02
 
