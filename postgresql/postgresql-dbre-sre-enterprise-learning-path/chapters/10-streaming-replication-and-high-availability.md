@@ -1,7 +1,7 @@
 # Chapter 10 — Streaming Replication and High Availability
 
 **Audience:** PostgreSQL DBRE/SRE, database and platform engineers  
-**Level:** Intermediate · **Session:** 60 minutes · **Reference:** PostgreSQL 17  
+**Level:** Intermediate · **Session:** 60 minutes · **Documentation baseline:** PostgreSQL 18 ([version policy](../POSTGRESQL-18-BASELINE.md)); accompanying lab remains PostgreSQL 17-targeted and is not PostgreSQL 18 runtime-validated  
 **Status:** Authored; runtime exercise and independent review **not yet executed**
 
 [Course home](../README.md) · [Master TOC](../MASTER-TOC.md) · [Chapter 10 lab](../labs/chapter-10/README.md) · [Progress tracker](../STATUS-TRACKER.md)
