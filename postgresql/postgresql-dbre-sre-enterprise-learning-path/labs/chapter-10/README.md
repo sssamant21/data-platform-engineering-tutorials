@@ -1,6 +1,6 @@
 # Chapter 10 Lab — Isolated PostgreSQL Physical Streaming Replication
 
-**Audience:** DBRE/SRE · **Lab:** ~23 minutes of a 60-minute lesson · **Version:** PostgreSQL 17  
+**Audience:** DBRE/SRE · **Lab:** ~23 minutes of a 60-minute lesson · **Legacy runtime target:** PostgreSQL 17 · **Documentation baseline:** PostgreSQL 18 ([version policy](../../POSTGRESQL-18-BASELINE.md))  
 **Runtime state:** Authored, **not executed** or independently reviewed
 
 [Chapter 10](../../chapters/10-streaming-replication-and-high-availability.md) · [Course home](../../README.md)
@@ -214,7 +214,7 @@ Record post-cleanup absence using `docker ps -a`, `docker volume ls` and `docker
 
 No cleanup is required to pass the lab.
 
-## Official PostgreSQL 17 references
+## Official PostgreSQL 18 references (documentation only; lab still targets PostgreSQL 17)
 
 - [Streaming replication and standby setup](https://www.postgresql.org/docs/18/warm-standby.html)
 - [pg_basebackup](https://www.postgresql.org/docs/18/app-pgbasebackup.html)
