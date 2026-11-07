@@ -38,8 +38,7 @@ Write-Host "Verify against Chapter 01 record: context=$context id=$containerId"
 docker exec pg-fleet-lab pg_isready -U postgres
 if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL not ready' }
 $serverVersion = docker exec $containerId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -Atc 'SHOW server_version_num;'
-if ($LASTEXITCODE -ne 0 -or -not ($serverVersion -match '^17[0-9]{4}
-```
+if ($LASTEXITCODE -ne 0 -or $serverVersion -notmatch '^17[0-9]{4}
 
 Expected: Docker server available on the **manually verified local disposable context**, exact full container ID matching the Chapter 01 creation record, expected ownership label/image/data mount, successful readiness check, and PostgreSQL 17 server version number in the `170000`–`179999` range. **Stop** on any mismatch; a matching name or image tag alone does not prove ownership. The SQL exercises must not run until this preflight passes.
 
@@ -320,7 +319,7 @@ The session-scoped temporary tables and view are removed automatically when the 
 - [CloudNativePG 1.28](https://cloudnative-pg.io/docs/1.28/)
 - [CloudNativePG backup](https://cloudnative-pg.io/docs/1.28/backup/)
 - [Kubernetes persistent volumes](https://kubernetes.io/docs/concepts/storage/persistent-volumes/)
-)) { throw "Expected PostgreSQL 17, got: $serverVersion; STOP" }
+) { throw "Expected PostgreSQL 17, got: $serverVersion; STOP" }
 $recoveryState = docker exec $containerId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -Atc 'SELECT pg_is_in_recovery();'
 if ($LASTEXITCODE -ne 0 -or $recoveryState -ne 'f') { throw 'Expected a standalone writable primary; STOP' }
 ```
@@ -330,7 +329,7 @@ Expected: Docker server available on the **manually verified local disposable co
 ## 1. Connect and collect read-only baseline facts (3 minutes)
 
 ```powershell
-docker exec -it pg-fleet-lab psql -U postgres -d postgres
+docker exec -it $containerId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres
 ```
 
 Inside the interactive `psql` session:
