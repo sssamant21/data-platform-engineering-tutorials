@@ -39,12 +39,34 @@ if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($labContext)) { throw '
 $osType = (docker info --format '{{.OSType}}')
 if ($LASTEXITCODE -ne 0 -or $osType.Trim() -ne 'linux') { throw 'Docker Linux engine required' }
 $imageId = (docker image inspect postgres:17 --format '{{.Id}}')
-if ($LASTEXITCODE -ne 0 -or $imageId -notmatch '^sha256:[0-9a-f]{64}
+if ($LASTEXITCODE -ne 0 -or $imageId -notmatch '^sha256:[0-9a-f]{64}$') { throw 'Invalid postgres:17 image ID' }
+foreach ($name in @('pg-ha10-primary','pg-ha10-standby')) {
+  $existing = @(docker ps -a --format '{{.Names}}')
+  if ($LASTEXITCODE -ne 0) { throw 'Container inventory failed' }
+  if ($existing -contains $name) { throw "Existing container: $name" }
+}
+foreach ($name in @('pg-ha10-primary-data','pg-ha10-standby-data')) {
+  $existing = @(docker volume ls --format '{{.Name}}')
+  if ($LASTEXITCODE -ne 0) { throw 'Volume inventory failed' }
+  if ($existing -contains $name) { throw "Existing volume: $name" }
+}
+$existing = @(docker network ls --format '{{.Name}}')
+if ($LASTEXITCODE -ne 0) { throw 'Network inventory failed' }
+if ($existing -contains 'pg-ha10-net') { throw 'Existing network: pg-ha10-net' }
+"Preflight passed: $labContext $imageId"
+~~~
+
+## 1. Create isolated network and volumes
+
+Run once after the approved preflight. Stop after any failed creation; do not reuse an existing resource.
 
 ~~~powershell
 docker network create --internal --label training.track=pg-enterprise-ch10 pg-ha10-net
+if ($LASTEXITCODE -ne 0) { throw 'Network creation failed' }
 docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-primary-data
+if ($LASTEXITCODE -ne 0) { throw 'Primary volume creation failed' }
 docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-standby-data
+if ($LASTEXITCODE -ne 0) { throw 'Standby volume creation failed' }
 ~~~
 
 **Immediately after creation, before starting a container, capture provenance** in the private lab record:
@@ -56,27 +78,15 @@ docker network inspect pg-ha10-net --format '{{.Id}} {{json .Labels}} {{json .Co
 docker volume inspect pg-ha10-primary-data pg-ha10-standby-data --format '{{.Name}} {{json .Labels}} {{.Mountpoint}}'
 ~~~
 
-Confirm that the Docker context and image ID match Section 0a, both volumes are newly created, and the network has no consumers. **If any creation or inspection command fails, stop.** Never continue with an existing resource just because its name matches. Capture the **full** primary container ID and its mounts/labels immediately after the Section 2 `docker run`, and the full standby container ID immediately after Section 5 `docker run`:
+Confirm Docker context and image ID match Section 0a, both volumes are new, and the network has no consumers. **If any creation or inspection command fails, stop.** Never continue with an existing resource just because its name matches. Capture full container IDs and mounts/labels immediately after the corresponding Section 2 and Section 5 creation commands:
 
 ~~~powershell
 docker inspect pg-ha10-primary --format '{{.Id}} {{json .Config.Labels}} {{json .Mounts}}'
-# Run the following only after the standby is created in Section 5:
+# Run only after standby creation:
 docker inspect pg-ha10-standby --format '{{.Id}} {{json .Config.Labels}} {{json .Mounts}}'
 ~~~
 
-A Docker volume has a name rather than a portable immutable volume ID; retain its creation record, driver, mountpoint, labels, and context. Never treat a later same-name volume as the original. If any identity or creation-time evidence is missing, cleanup is blocked pending manual review.
-
-Expected: network and volumes created. The internal network prevents normal external routing for the lab containers. It is not a production network security control.
-
-## 1. Create isolated network and volumes
-
-~~~powershell
-docker network create --internal --label training.track=pg-enterprise-ch10 pg-ha10-net
-docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-primary-data
-docker volume create --label training.track=pg-enterprise-ch10 pg-ha10-standby-data
-~~~
-
-Expected: network and volumes created. The internal network prevents normal external routing for the lab containers. It is not a production network security control.
+A Docker volume has a name rather than a portable immutable ID. Retain its creation record, driver, mountpoint, labels, and context. If creation-time evidence is missing, cleanup is blocked pending manual review. The internal network limits external routing but is not a production security boundary.
 
 ## 2. Start primary with WAL streaming settings
 
