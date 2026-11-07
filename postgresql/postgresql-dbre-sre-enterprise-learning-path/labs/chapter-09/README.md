@@ -223,6 +223,49 @@ SET extension_ok = TRUE
 WHERE platform = 'Kubernetes CNPG';
 ```
 
+### Fail-closed negative assertions (static-reviewed; not yet executed)
+
+After restoring `extension_ok = TRUE` above, run these **read-only assertions** in the same interactive `psql` session. Each statement returns one row with `pass = true` when the intended gate behavior is present. A false result is a failed acceptance check, not an approved architecture. With `ON_ERROR_STOP=1`, a SQL error stops further processing, but an ordinary `false` result must still be treated as a failure by the learner.
+
+```sql
+-- Scenario B must exclude both RDS candidates despite their higher scores.
+SELECT
+    COUNT(*) = 2
+    AND COUNT(*) FILTER (WHERE gate_status = 'BLOCKED_OR_UNVERIFIED') = 2
+    AS pass
+FROM architecture_assessment
+WHERE platform IN ('RDS Multi-AZ instance', 'RDS Multi-AZ cluster');
+
+-- A known failed gate must block Kubernetes, even when all other gates pass.
+UPDATE architecture_candidates
+SET team_ready = FALSE
+WHERE platform = 'Kubernetes CNPG';
+
+SELECT gate_status = 'BLOCKED_OR_UNVERIFIED' AS pass
+FROM architecture_assessment
+WHERE platform = 'Kubernetes CNPG';
+
+-- An unknown mandatory gate must also block Kubernetes.
+UPDATE architecture_candidates
+SET team_ready = TRUE, extension_ok = NULL
+WHERE platform = 'Kubernetes CNPG';
+
+SELECT gate_status = 'BLOCKED_OR_UNVERIFIED' AS pass
+FROM architecture_assessment
+WHERE platform = 'Kubernetes CNPG';
+
+-- Restore the fictional Scenario B state for the ADR discussion.
+UPDATE architecture_candidates
+SET extension_ok = TRUE
+WHERE platform = 'Kubernetes CNPG';
+
+SELECT gate_status = 'ELIGIBLE' AS pass
+FROM architecture_assessment
+WHERE platform = 'Kubernetes CNPG';
+```
+
+**Expected:** the four assertion queries each return `t` for `pass`; UPDATE statements affect exactly one temporary row. The checks do not create persistent objects or touch cloud resources. Record observed results only when actually executed. These checks validate gate classification, **not** the adequacy of real-world security or recovery requirements.
+
 ## 6. Produce a one-page architecture decision record (7 minutes)
 
 Create a Markdown note locally (do **not** upload secrets, customer data, or confidential network information). Include:
