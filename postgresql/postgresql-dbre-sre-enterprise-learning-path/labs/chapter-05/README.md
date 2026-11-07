@@ -286,7 +286,7 @@ Do not delete the `training_ch05` database as part of the lab; retain it for fol
 | Plan shows many `shared hit` buffers | Shared-memory activity is not necessarily a storage problem |
 | SQL output differs from examples | Treat examples as illustrative; record actual observations and version |
 
-## Official PostgreSQL 17 references
+## Official PostgreSQL 18 documentation references (lab runtime remains PostgreSQL 17)
 
 - [EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
 - [Using EXPLAIN](https://www.postgresql.org/docs/18/using-explain.html)
