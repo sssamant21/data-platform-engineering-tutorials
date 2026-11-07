@@ -2,7 +2,7 @@
 
 **Learning path:** PostgreSQL Database Engineering (DBRE/SRE) — Enterprise Learning Path  
 **Level:** Beginner to intermediate · **Time:** 60 minutes · **Publication status:** Authored, not runtime-verified or independently reviewed  
-**Reference versions:** PostgreSQL 17 for the local lab; consult current AWS RDS and CloudNativePG compatibility documentation before selecting a production release.
+**Documentation baseline:** PostgreSQL 18 (see [version policy](../POSTGRESQL-18-BASELINE.md)). **Legacy lab runtime target:** PostgreSQL 17, not PostgreSQL 18-validated. Check actual AWS RDS and CloudNativePG compatibility before deployment.
 
 [Course home](../README.md) · [Master TOC](../MASTER-TOC.md) · [Chapter 09 lab](../labs/chapter-09/README.md) · [Progress tracker](../STATUS-TRACKER.md)
 
