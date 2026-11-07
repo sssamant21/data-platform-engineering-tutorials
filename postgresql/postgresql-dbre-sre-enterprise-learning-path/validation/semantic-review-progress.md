@@ -608,3 +608,16 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Safety/status:** The lab remains `postgres:17` with `/var/lib/postgresql/data` and has not been migrated to PostgreSQL 18. A future migration requires a new volume mounted at `/var/lib/postgresql`, verified `PGDATA=/var/lib/postgresql/18/docker`, exact version/image identity and cleanup proof. No Docker, PowerShell, psql, destructive, cloud or Kubernetes operations were executed. PostgreSQL 18 runtime validation: **0/20**. Independent review and production certification remain pending. The separate 100-chapter curriculum was not changed.
 
 **Next:** Verify Chapter 06 PostgreSQL 18 documentation endpoints and resolve remaining identity/cleanup safeguards, then resume Chapter 07 without repeating completed chapters.
+
+
+## 2026-11-07 — Chapter 06 PostgreSQL 18 documentation endpoint checkpoint
+
+**Scope:** Re-read the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy, prior semantic-review evidence, and Chapter 06 lesson/lab on main. Retrieved the eight distinct official PostgreSQL 18 manual URLs in Chapter 06 (eight lesson references, six lab references; six shared). Each resolved to a PostgreSQL 18 page with the intended topic: `runtime.html` (server setup), `server-start.html` (startup), `runtime-config-file-locations.html` (file locations), `storage-file-layout.html` (database file layout), `auth-pg-hba-conf.html` (HBA), `app-pg-ctl.html` (pg_ctl), `view-pg-settings.html` (pg_settings), and `monitoring-stats.html` (statistics). **Endpoint/version/topic: 8/8 pass.** These direct reference URLs have no fragments. No exhaustive inline-anchor, raw HTML, redirect or non-manual reference audit is implied.
+
+**Confirmed metadata fix:** Chapter 06 lesson previously labeled its reference version PostgreSQL 17 despite linking to the PostgreSQL 18 manual. Updated only its header to distinguish **documentation baseline PostgreSQL 18** from **legacy lab runtime PostgreSQL 17 (not PG18-validated)**. Commit `67a3789135912151123c4e764c59f1d76424abc0`; fetched the changed file from main and verified exact content.
+
+**Actionable safety finding (not yet fixed):** The Chapter 06 optional stop/start guard checks the saved Docker context *name*, container ID, image tag, labels and mount, but does not independently pin and compare the Docker daemon endpoint or immutable image digest. Require independent creation-time daemon/endpoint evidence and digest checks before any unattended disruptive action. Some read-only and SQL commands still use the mutable container name rather than the captured ID. Do not execute optional stop/start until ownership is independently established. No Docker, PowerShell, psql, SQL, destructive, AWS or Kubernetes exercise was executed.
+
+**Gates:** Chapter 06 remains postgres:17 using /var/lib/postgresql/data; PostgreSQL 18 migration must use a fresh volume at /var/lib/postgresql with verified PGDATA=/var/lib/postgresql/18/docker. PG18 runtime-validated **0/20**; independent review and production certification pending. Historical PG17 audit retained. Separate 100-chapter curriculum unchanged.
+
+**Next:** Chapter 07 source-integrity and official-reference audit, then complete outstanding track-wide anchors/external links and safety controls before isolated PG18 runtime migration.
