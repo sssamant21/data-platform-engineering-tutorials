@@ -41,6 +41,12 @@ $serverVersion = docker exec $containerId psql -X -v ON_ERROR_STOP=1 -U postgres
 if ($LASTEXITCODE -ne 0 -or $serverVersion -notmatch '^17[0-9]{4}$') { throw "Expected PostgreSQL 17, got: $serverVersion; STOP" }
 $recoveryState = docker exec $containerId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -Atc 'SELECT pg_is_in_recovery();'
 if ($LASTEXITCODE -ne 0 -or $recoveryState -ne 'f') { throw 'Expected a standalone writable primary; STOP' }
+```
+
+Expected: approved disposable Docker context and full container identity match Chapter 01 creation evidence, ownership label/image/mount match, PostgreSQL 17 server version, and a writable primary. Stop on any mismatch; labels and names alone do not prove ownership.
+
+## 1. Connect and collect read-only baseline facts (3 minutes)
+
 ```powershell
 docker exec -it $containerId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres
 ```
