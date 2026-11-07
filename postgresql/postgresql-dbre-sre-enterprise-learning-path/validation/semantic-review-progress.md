@@ -765,3 +765,16 @@ Re-read track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline and pre
 - **Version boundary:** SQL syntax reviewed against the PostgreSQL 18 documentation baseline; the lab itself remains PostgreSQL 17-targeted and unexecuted. This is **static review only**, not PostgreSQL 17 or 18 runtime evidence.
 - **Safety:** No persistent SQL objects, production databases, Kubernetes, AWS resources, Docker restart, or destructive cleanup authorized. Temporary objects vanish when the session exits. Docker ownership still depends on independent Chapter 01 creation evidence.
 - **Next:** Verify Chapter 09 official URLs/anchors and internal links; then start Chapter 10 source-integrity and replication/fencing semantic review. Isolated runtime evidence and independent certification remain outstanding.
+
+
+## 2026-11-07 — Chapter 09 internal-link resolution and targeted external reference verification
+
+**Prerequisites inspected:** README.md, MASTER-TOC.md, STATUS-TRACKER.md, POSTGRESQL-18-BASELINE.md, prior static/semantic evidence, Chapter 09 lesson and lab on main. Earlier structural and negative-gate repairs were not repeated. Documentation baseline is PostgreSQL 18; the lab remains PostgreSQL 17-targeted.
+
+**Internal relative links:** All 10 Markdown relative-link occurrences in the Chapter 09 lesson and lab were resolved to existing files on GitHub main (eight occurrences in the lesson, two in the lab; repeated targets included). Verified destinations include the version policy, track README, TOC, tracker, Chapter 09 lesson/lab cross-links and Chapter 01 prerequisite lab. This is file-existence verification, not an exhaustive heading-anchor/reference-definition audit.
+
+**Targeted live external checks:** PostgreSQL 18 CREATE TABLE reference (`https://www.postgresql.org/docs/18/sql-createtable.html`) resolves and documents temporary tables; AWS Multi-AZ DB instance reference (`https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.MultiAZSingleStandby.html`) resolves and explicitly states its standby cannot serve read traffic. Both align with the chapter's intended topics. Remaining distinct external URLs (including CREATE VIEW, PostgreSQL monitoring/archiving, AWS Multi-AZ DB cluster/region support, CloudNativePG 1.28 and Kubernetes PV) have **not** been independently checked in this checkpoint; do not close the external-link gate or assert installed-operator compatibility.
+
+**Execution/approval boundary:** Read-only repository/documentation checks only. No PostgreSQL, Docker, PowerShell, Kubernetes or AWS runtime commands executed. No PostgreSQL 18 lab migration or runtime validation claimed (0/20); independent review and production certification remain pending. No files outside the independent 20-chapter track modified.
+
+**Next:** Resolve Chapter 09's remaining external destinations/anchors, then review Chapter 10's PostgreSQL 17 replication setup, physical slot/basebackup ordering, fail-closed assertions and PG18 documentation/mount migration risks before isolated execution.
