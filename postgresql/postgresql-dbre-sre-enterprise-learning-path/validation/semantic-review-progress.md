@@ -778,3 +778,21 @@ Re-read track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline and pre
 **Execution/approval boundary:** Read-only repository/documentation checks only. No PostgreSQL, Docker, PowerShell, Kubernetes or AWS runtime commands executed. No PostgreSQL 18 lab migration or runtime validation claimed (0/20); independent review and production certification remain pending. No files outside the independent 20-chapter track modified.
 
 **Next:** Resolve Chapter 09's remaining external destinations/anchors, then review Chapter 10's PostgreSQL 17 replication setup, physical slot/basebackup ordering, fail-closed assertions and PG18 documentation/mount migration risks before isolated execution.
+
+
+## 2026-11-07 — Chapter 10 replication safety review: version boundary and open defects
+
+**Inputs inspected:** track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-18-BASELINE, existing semantic evidence, Chapter 09 lesson/lab, Chapter 10 lesson/lab on main. Earlier Chapter 09 work was not repeated. PostgreSQL 18 official documentation is the technical reference baseline; the existing Chapter 10 lab still targets PostgreSQL 17.
+
+**Confirmed documentation inconsistency fixed:** Chapter 10 lesson metadata still called PostgreSQL 17 its reference version, while the lab's heading said 'Official PostgreSQL 17 references' but linked to /docs/18/ URLs. Updated both to identify the PostgreSQL 18 documentation baseline explicitly while preserving the historical PostgreSQL 17 lab target and evidence boundary. No image, volume, PGDATA, command, or expected-output migration was attempted.
+
+**Open safety/semantic findings (not yet corrected or executed):**
+1. Chapter 10 setup performs Docker creation and role/HBA/slot changes without a fail-closed PowerShell wrapper or independently captured creation-time IDs. The later cleanup instructions demand those records, so a learner following the lab verbatim cannot meet its own cleanup evidence gate. Add creation-time Docker daemon/context, immutable image ID, full container/network/volume IDs, labels and mount evidence before any later deletion; stop on unexpected pre-existing resources or failed commands.
+2. The `pg_basebackup -R -C -S ha10_standby_slot` step can leave a created replication slot or partially populated standby volume on failure. The lab warns against reruns, but needs explicit read-only failure inspection, safe stop conditions, and an approved isolated reset procedure; never drop a slot or delete a volume merely by name.
+3. The example places a fixed plaintext replication password in shell arguments and `.pgpass` in the data volume. It is training-only but may appear in shell history/process metadata. Require sanitized evidence, avoid copying credential-bearing `primary_conninfo` or `.pgpass`, and verify mode/ownership without printing secrets.
+4. The standby insert is an intentional error and must be checked for nonzero exit code plus expected recovery/read-only SQLSTATE/message, not just visually observed. The asynchronous replay check must wait for a specific synthetic marker with bounded retries; do not count a transient missing table/row as success.
+5. For PostgreSQL 18 migration, `postgres:17` and `/var/lib/postgresql/data` must not be blindly replaced. Use a new isolated PG18 volume mounted at `/var/lib/postgresql`, default PGDATA `/var/lib/postgresql/18/docker`, and verify image digest, identity, permissions, actual server version and cleanup independently. Keep PG17 historical records intact.
+
+**Verification scope:** Two track-only documentation corrections committed and fetched back from main. Static inspection only; no Docker, psql, PowerShell, Kubernetes, AWS, replication, promotion, cleanup or destructive execution. No PostgreSQL 17/18 runtime validation, independent approval or production certification claimed. Status remains 0/20 runtime-validated.
+
+**Next:** Address the Chapter 10 first-run provenance/partial-failure guards in a small reviewed change, verify remaining Chapter 09 external references and Chapter 10 PG18 official reference destinations, then pursue isolated runtime evidence when prerequisites are available.
