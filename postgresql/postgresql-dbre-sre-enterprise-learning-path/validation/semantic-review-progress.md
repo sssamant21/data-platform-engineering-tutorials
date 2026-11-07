@@ -593,3 +593,18 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Gates:** Chapter 05 remains intentionally PostgreSQL 17-targeted with the legacy volume mount; do not substitute `postgres:18` without a fresh volume at `/var/lib/postgresql` and verified `PGDATA=/var/lib/postgresql/18/docker`. No Docker, psql, PowerShell, cloud, or destructive test was executed. PostgreSQL 18 runtime-validated labs: **0/20**. Independent review and production certification: pending. The separate 100-chapter curriculum was not modified.
 
 **Next:** Resume official PostgreSQL 18 reference and source-integrity audit at Chapter 06; complete remaining track-wide links, anchors and safeguards before isolated PostgreSQL 18 runtime migration.
+
+
+## 2026-11-06 — Chapter 06 lab source-integrity checkpoint
+
+**Scope:** Re-read the track README, master TOC, status tracker, PostgreSQL 18 baseline policy and existing semantic-review evidence, then inspected Chapter 06 lesson and lab on GitHub main.
+
+**Confirmed high-priority defect:** The Chapter 06 lab Step 1 PowerShell preflight was truncated inside the 64-character container-ID regex, leaving an unterminated fence and an embedded duplicate of Steps 2–11 after the first reference section. This made the safety checks unreliable and could expose learners to an unsafe stop/start sequence.
+
+**Scoped repair:** Commit `c73435ac81a4183b7e397fd863ab8ede5e191a97` restores the full container-ID assertion, checks image, track/lab labels and named volume at the PostgreSQL 17 mount target, and closes the PowerShell fence. Preserved the original full Step 2–11 sequence, including the optional restart identity checks, and removed the duplicated tail. GitHub re-fetch matched the replacement file exactly. Static checks: 22,201 → 13,790 characters; one ordered Step 0–11 sequence; 26 balanced tilde-fence delimiters. This is **source-integrity review only**; PowerShell parsing and SQL execution were not performed.
+
+**Remaining Chapter 06 findings:** The lesson's header still says “Reference version: PostgreSQL 17” despite the PostgreSQL 18 documentation baseline; distinguish documentation baseline from legacy lab runtime in a separate careful revision. The Step 1 container preflight checks only the captured container metadata, not a saved independent Docker daemon endpoint; the optional restart must remain blocked unless identity and context are independently established. Review all eight lesson and six lab PostgreSQL 18 manual URLs for endpoint, topic and anchor correctness, then continue track-wide external reference checks. Check actual SQL and PowerShell output in an isolated disposable environment before claiming runtime validation.
+
+**Safety/status:** The lab remains `postgres:17` with `/var/lib/postgresql/data` and has not been migrated to PostgreSQL 18. A future migration requires a new volume mounted at `/var/lib/postgresql`, verified `PGDATA=/var/lib/postgresql/18/docker`, exact version/image identity and cleanup proof. No Docker, PowerShell, psql, destructive, cloud or Kubernetes operations were executed. PostgreSQL 18 runtime validation: **0/20**. Independent review and production certification remain pending. The separate 100-chapter curriculum was not changed.
+
+**Next:** Verify Chapter 06 PostgreSQL 18 documentation endpoints and resolve remaining identity/cleanup safeguards, then resume Chapter 07 without repeating completed chapters.
