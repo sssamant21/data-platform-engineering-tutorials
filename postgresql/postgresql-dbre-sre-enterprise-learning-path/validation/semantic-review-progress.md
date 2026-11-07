@@ -643,3 +643,14 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Safety/status:** The lab remains `postgres:17` with `/var/lib/postgresql/data`. Docker daemon endpoint and full container identity still require independent comparison with Chapter 01 creation evidence. No Docker, PowerShell, psql, AWS, destructive or cloud commands were executed; the five endpoint checks were documentation retrieval only. PostgreSQL 18 runtime validation **0/20**. Independent review and production certification pending. Do not touch the separate 100-chapter curriculum.
 
 **Next:** Repair Chapter 07 backup/restore fail-closed assertions in a scoped commit, finish its remaining AWS links/internal anchors, then proceed to Chapter 08 source integrity and documentation references.
+
+
+## 2026-11-07 — Chapter 07 fail-closed backup/restore repair
+
+**Scope and prior state:** Inspected the track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-18-BASELINE, prior semantic audit and Chapter 07 lab on GitHub main. Resumed the recorded outstanding Chapter 07 restore-safety finding; did not repeat earlier chapter reviews.
+
+**Confirmed repair:** Commit `709e9e7e2d553a274eeb2808dc45e65e48c2002d` replaces the permissive five-command dump/restore example with explicit exit-status checks, an exact source count of three, preexisting restore-database and archive collision checks, nonempty archive assertion, `pg_restore --exit-on-error --single-transaction`, and an exact restored row-count assertion. Docker commands use the captured full container ID rather than a mutable name. On failure the sequence stops without automatically dropping any object. Re-fetched the changed lab from GitHub main and confirmed exact content, 26 balanced Markdown fence delimiters, and presence of both count assertions.
+
+**Remaining limitations and gates:** These are source-level PowerShell and SQL checks only; no PowerShell parser, Docker, PostgreSQL, psql, AWS, or destructive execution occurred. The independent Docker daemon endpoint/container identity comparison is still a manual prerequisite. The expected negative INSERT error is not yet asserted programmatically; it remains a guided interactive exercise. PostgreSQL 18 runtime evidence remains **0/20**, and Chapter 07 remains PostgreSQL 17-targeted with its original mount. Any PG18 migration must use a fresh isolated volume mounted at `/var/lib/postgresql` with verified `PGDATA=/var/lib/postgresql/18/docker`; never repurpose the PG17 volume. Independent review and production certification pending. No changes outside the independent learning path.
+
+**Next:** Complete outstanding Chapter 07 AWS references/internal anchors and negative-test safeguards, then Chapter 08 source integrity and documentation references.
