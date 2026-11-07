@@ -2,7 +2,7 @@
 
 **Track:** PostgreSQL Database Engineering (DBRE/SRE) — Enterprise Learning Path  
 **Audience:** DBRE/SRE beginners progressing to host-level PostgreSQL ownership  
-**Duration:** 60 minutes · **Reference version:** PostgreSQL 17 · **State:** Authored; runtime and independent review pending
+**Duration:** 60 minutes · **Documentation baseline:** PostgreSQL 18 · **Legacy lab runtime:** PostgreSQL 17 (not PG18-validated) · **State:** Authored; runtime and independent review pending
 
 [Course home](../README.md) · [Master TOC](../MASTER-TOC.md) · [Chapter 06 lab](../labs/chapter-06/README.md) · [Tracker](../STATUS-TRACKER.md)
 
