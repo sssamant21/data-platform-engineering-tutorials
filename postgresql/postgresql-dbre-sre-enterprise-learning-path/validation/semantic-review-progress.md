@@ -567,3 +567,18 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Outstanding:** Verify Chapter 05 onward and remaining external/reference-style links, redirects, raw HTML, and anchors; address recorded ownership/cleanup and fail-closed identity checks before unattended execution. Chapter 04's repaired lab remains PostgreSQL 17-targeted, not migrated. No Docker, PowerShell, psql, destructive, cloud or Kubernetes tests executed. PostgreSQL 18 runtime-validated: **0/20**. Independent review and production certification pending. Historical PostgreSQL 17 evidence retained unchanged.
 
 **Next:** Chapter 05 official PostgreSQL 18 documentation endpoint audit, then continue the reference gate before safe PG18 lab migration using fresh volumes mounted at `/var/lib/postgresql` and verified `PGDATA=/var/lib/postgresql/18/docker`.
+
+
+## 2026-11-06 — Chapter 05 PostgreSQL 18 reference audit (partial) and duplicate-section finding
+
+**Scope:** Re-read track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-18-BASELINE, and the prior semantic-review report. Inspected Chapter 05 lesson and lab on main. Extracted 10 distinct official PostgreSQL 18 documentation URLs across the two files (8 lesson, 7 lab; 5 shared).
+
+**Verified official endpoints and topics (5/10):** `using-explain.html` (Using EXPLAIN), `indexes-multicolumn.html` (Multicolumn Indexes, including PostgreSQL 18 skip scan), `indexes-partial.html` (Partial Indexes), `indexes-examine.html` (Examining Index Usage), and `sql-createindex.html` (CREATE INDEX). All five returned PostgreSQL 18 manual pages matching the referenced topic. No URL fragments in this verified subset. **Not yet verified:** `indexes.html`, `indexes-index-only-scans.html`, `sql-analyze.html`, `sql-explain.html`, `indexes-types.html`. No claim is made for their endpoint/anchor status.
+
+**Confirmed documentation mismatch fixed:** Chapter 05 lab labeled its official references “PostgreSQL 17” even though the URLs point to PostgreSQL 18. Both occurrences of that heading now explicitly state the PostgreSQL 18 documentation baseline while preserving the PostgreSQL 17 lab runtime status. Verified the published file after the commits `bf8b41cdaf094b50529b515624051bb91411aa0a` and `9af926c5dba2a7f9c971e3b77a3b75f4164f7dd4`.
+
+**New actionable source-integrity finding:** The Chapter 05 lab has **two copies of the official-reference heading**, indicating a possible duplicated tail. Do not delete the second section blindly: inspect and diff all repeated lab sections, preserve any unique steps or expected results, and repair in a separate scoped commit with a fence/step-count check. Review PostgreSQL 18 planner skip-scan behavior before asserting leftmost-column rules or deterministic EXPLAIN plans. These are source-level findings, not executed tests.
+
+**Status and limitations:** Historical PostgreSQL 17 semantic reviews remain recorded; this pass checked only five official endpoints and did not execute Docker, PowerShell, psql, SQL, destructive, cloud or Kubernetes commands. PostgreSQL 18 runtime-validated remains **0/20**; independent review and production certification remain pending. The separate 100-chapter curriculum was not modified.
+
+**Next:** Inspect Chapter 05 duplicated sections and reconcile without losing unique lab content; finish its five outstanding official endpoints and other reference/anchor checks; then continue Chapter 06 and the remaining reference gate before isolated PostgreSQL 18 lab migration using new version-appropriate volumes.
