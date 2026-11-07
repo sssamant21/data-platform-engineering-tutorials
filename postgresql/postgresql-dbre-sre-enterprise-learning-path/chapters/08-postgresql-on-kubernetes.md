@@ -2,7 +2,7 @@
 
 **Track:** PostgreSQL Database Engineering (DBRE/SRE) — Enterprise Learning Path  
 **Audience:** DBRE/SRE and platform engineers · **Duration:** 60 minutes  
-**Reference:** PostgreSQL 17 for local exercises; Kubernetes and operator APIs must be checked against the installed versions.  
+**Documentation baseline:** PostgreSQL 18 official manual. **Legacy local lab runtime:** PostgreSQL 17, not migrated or runtime-validated on 18. Kubernetes and operator APIs must be checked against the installed versions.  
 **Publication status:** Authored; no Kubernetes cluster, PostgreSQL runtime, failover or restore exercise has been executed for this chapter.
 
 [Course home](../README.md) · [Master TOC](../MASTER-TOC.md) · [Chapter 08 lab](../labs/chapter-08/README.md) · [Progress](../STATUS-TRACKER.md)
