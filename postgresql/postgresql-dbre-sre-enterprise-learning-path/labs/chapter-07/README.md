@@ -175,14 +175,34 @@ Leave `psql`:
 In **PowerShell**:
 
 ```powershell
-docker exec pg-fleet-lab pg_dump -U postgres -Fc -f /tmp/training_ch07.dump training_ch07
-docker exec pg-fleet-lab ls -lh /tmp/training_ch07.dump
-docker exec pg-fleet-lab createdb -U postgres training_ch07_restore
-docker exec pg-fleet-lab pg_restore -U postgres -d training_ch07_restore /tmp/training_ch07.dump
-docker exec pg-fleet-lab psql -U postgres -d training_ch07_restore -c "SELECT count(*) AS restored_events FROM rds_compare.order_events;"
+# Re-run the independent container/daemon ownership comparison from Step 0.
+# Do not proceed if the exact container identity has changed.
+$existingRestore = docker exec $actualId psql -U postgres -d postgres -X -v ON_ERROR_STOP=1 -tAc "SELECT 1 FROM pg_database WHERE datname = 'training_ch07_restore';"
+if ($LASTEXITCODE -ne 0) { throw 'Cannot verify restore database name availability' }
+if ($existingRestore.Trim() -ne '') { throw 'Restore database already exists; stop and inspect, do not overwrite' }
+
+# Require the expected source data before making a new archive.
+$sourceCount = docker exec $actualId psql -U postgres -d training_ch07 -X -v ON_ERROR_STOP=1 -tAc "SELECT count(*) FROM rds_compare.order_events;"
+if ($LASTEXITCODE -ne 0 -or $sourceCount.Trim() -ne '3') { throw "Unexpected source row count: $sourceCount" }
+
+# Do not overwrite an archive left by another attempt.
+docker exec $actualId test ! -e /tmp/training_ch07.dump
+if ($LASTEXITCODE -ne 0) { throw 'Archive path already exists; inspect before retrying' }
+docker exec $actualId pg_dump -U postgres -Fc -f /tmp/training_ch07.dump training_ch07
+if ($LASTEXITCODE -ne 0) { throw 'pg_dump failed; restore must not proceed' }
+docker exec $actualId test -s /tmp/training_ch07.dump
+if ($LASTEXITCODE -ne 0) { throw 'Archive missing or empty' }
+
+docker exec $actualId createdb -U postgres training_ch07_restore
+if ($LASTEXITCODE -ne 0) { throw 'createdb failed; restore must not proceed' }
+docker exec $actualId pg_restore --exit-on-error --single-transaction -U postgres -d training_ch07_restore /tmp/training_ch07.dump
+if ($LASTEXITCODE -ne 0) { throw 'pg_restore failed; inspect disposable target, do not claim success' }
+$restoredCount = docker exec $actualId psql -U postgres -d training_ch07_restore -X -v ON_ERROR_STOP=1 -tAc "SELECT count(*) FROM rds_compare.order_events;"
+if ($LASTEXITCODE -ne 0 -or $restoredCount.Trim() -ne '3') { throw "Restore verification failed: $restoredCount" }
+Write-Host "Verified three restored events in disposable training_ch07_restore"
 ```
 
-**Expected:** `pg_dump` and `pg_restore` return without errors; restored row count `3`. The archive is stored **inside the disposable container**; copy it out and protect it appropriately only if your training workflow requires it.
+**Expected (not yet observed):** Every command exits successfully, the source contains three events, the archive is nonempty, and the restored count is exactly `3`. Any failure stops the sequence. If a failure leaves a partial disposable restore database or archive, inspect it manually; do not delete or overwrite it automatically. The archive is stored **inside the disposable container**; copy it out and protect it appropriately only if your training workflow requires it.
 
 **Important limitations:** this is a PostgreSQL **logical backup** restored to another database on the **same host/container**. It does **not** prove independent-node recovery, AWS automated backups, RDS snapshots, PITR, RPO/RTO, encryption policy or cross-region DR. Those require separate approved tests and evidence.
 
