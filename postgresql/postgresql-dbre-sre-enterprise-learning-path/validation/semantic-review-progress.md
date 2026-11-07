@@ -796,3 +796,16 @@ Re-read track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline and pre
 **Verification scope:** Two track-only documentation corrections committed and fetched back from main. Static inspection only; no Docker, psql, PowerShell, Kubernetes, AWS, replication, promotion, cleanup or destructive execution. No PostgreSQL 17/18 runtime validation, independent approval or production certification claimed. Status remains 0/20 runtime-validated.
 
 **Next:** Address the Chapter 10 first-run provenance/partial-failure guards in a small reviewed change, verify remaining Chapter 09 external references and Chapter 10 PG18 official reference destinations, then pursue isolated runtime evidence when prerequisites are available.
+
+
+## 2026-11-07 — Chapter 10 first-run provenance and partial-backup safety checkpoint
+
+Inspected track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline, prior semantic report and Chapter 10 lab on main. The earliest unresolved Chapter 10 provenance/partial-failure gate was addressed without modifying the separate PostgreSQL curriculum.
+
+**Source correction:** Added a PowerShell guided preflight that checks Docker context, Linux engine, exact-name resource collisions and immutable local postgres:17 image ID. Added creation-time network/volume/image inspection and full container-ID/mount capture instructions. Added explicit pg_basebackup nonzero-exit stop gate with read-only replication-slot and standby-volume inspection; prohibits automatic rerun, slot drop or volume deletion. These are source-level safeguards, not proof of dedicated Docker ownership or a concurrency-safe resource reservation.
+
+**Publication integrity:** Initial commit `146032b27f937d8f6575cbb8e5d4713aa39dcffe` inadvertently duplicated later lab sections. Follow-up corrective commit `f3411d1420ee2df7f3d855cd30b423918cd7050c` restored the original single-copy sections while retaining the intended safeguards. Treat the first commit as superseded. Final source has one numbered Section 1 through 11 sequence, plus Section 0a. No test execution claimed.
+
+**Open:** The PowerShell example is a guided preflight and needs PowerShell parser/runtime verification; further fail-closed command checking, secret handling, standby write-rejection assertion, bounded replay polling and external link verification remain pending. The legacy lab still targets PostgreSQL 17; PostgreSQL 18 is documentation-only. No Docker, psql, PowerShell, failover, cloud or cleanup execution. Runtime 0/20; independent review and certification pending.
+
+**Next:** Complete Chapter 10 credential and replication assertions, then verify documentation endpoints; execute only in approved disposable Docker environments with genuine evidence.
