@@ -684,3 +684,14 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Version/status:** Lab remains `postgres:17` with `/var/lib/postgresql/data`; no PostgreSQL 18 migration or runtime test occurred. PG18 migration requires a fresh disposable volume mounted at `/var/lib/postgresql` and verification of `PGDATA=/var/lib/postgresql/18/docker`. PostgreSQL 18 runtime-validated 0/20. Independent review and production certification pending. No files outside this independent track changed.
 
 **Next:** Reconcile Chapter 08 version metadata, verify its documentation endpoints and strengthen restart/persistence checks before Chapter 09. Do not repeat completed Chapter 01–07 reviews.
+
+
+## 2026-11-07 — Chapter 08 Markdown integrity follow-up
+
+**Scope:** Re-read README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline, and prior semantic progress before inspecting Chapter 08 lesson/lab. Source-only checks; no Docker, PowerShell, psql, Kubernetes or cloud execution.
+
+**Confirmed defects:** Despite the earlier deduplication checkpoint, Chapter 08 lab still had an opening PowerShell fence inside an unclosed PowerShell block in Step 1, and a trailing orphan fragment after Official references (including a stray failed-container assertion and repeated preflight text). These were removed/repaired in commit `3424612405d997819eccb5e7bd2e85e8dc52b69c`. The resulting source has 24 balanced Markdown fence delimiters; this is a structural source check, not a PowerShell parser result.
+
+**Version metadata:** Chapter 08 lesson now explicitly distinguishes the PostgreSQL 18 documentation baseline from the legacy PostgreSQL 17 lab target (commit `5993dc2aeb3f45bb4531d4df40ba7e59d0faac49`). No PostgreSQL 18 image, PGDATA, mount, runtime status or historical PostgreSQL 17 evidence was changed.
+
+**Outstanding:** Verify official PostgreSQL 18, Kubernetes and CloudNativePG reference destinations and anchors; review operator-version pinning and the optional restart's independent daemon/image identity, fail-closed exit/readiness checks and marker assertions. Do not execute restart or destructive cleanup without independently recorded creation identity and explicit disposable-resource approval. PostgreSQL 18 runtime validation remains 0/20; independent review and production certification remain pending. Continue Chapter 08 safety and link checks, then Chapter 09. No edits outside the independent track.
