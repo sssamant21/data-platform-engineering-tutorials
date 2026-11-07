@@ -621,3 +621,12 @@ Do not change the track's runtime-validation status until this evidence exists.
 **Gates:** Chapter 06 remains postgres:17 using /var/lib/postgresql/data; PostgreSQL 18 migration must use a fresh volume at /var/lib/postgresql with verified PGDATA=/var/lib/postgresql/18/docker. PG18 runtime-validated **0/20**; independent review and production certification pending. Historical PG17 audit retained. Separate 100-chapter curriculum unchanged.
 
 **Next:** Chapter 07 source-integrity and official-reference audit, then complete outstanding track-wide anchors/external links and safety controls before isolated PG18 runtime migration.
+
+
+## 2026-11-07 — Chapter 07 source-integrity repair
+
+**Scope:** Re-read track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-18-BASELINE and existing semantic audit, then compared Chapter 07 lesson and lab. The lab had a truncated PowerShell Docker name filter in Step 0, an unclosed code fence and two duplicate tails of Steps 1–11/reference material. The three Step 1–11 bodies matched exactly; preserved the first full sequence and reference block. Commit `cb224444ef3666731251a98fa5a4e444ed179c55` restored the preflight and removed duplicate tails. GitHub main re-fetch confirmed 38,391 → 14,580 characters, 26 balanced Markdown fences and one Step 1 heading.
+
+**Safety:** Preflight now asserts unique container, full ID shape, expected label/image/volume, PostgreSQL 17 major version and writable primary. Human comparison with independently retained Chapter 01 Docker daemon endpoint, container ID and volume remains mandatory; it is not programmatically enforced. The legacy PostgreSQL 17 mount remains `/var/lib/postgresql/data`. No Docker, psql, PowerShell, AWS or destructive operations executed. PostgreSQL 18 runtime-validated: **0/20**. No independent review or production certification.
+
+**Outstanding:** Verify Chapter 07 PostgreSQL 18 documentation endpoints and AWS external references, validate negative-test sequencing and `pg_dump`/`pg_restore` outputs in an isolated runtime, and reconcile future PostgreSQL 18 migration using a new volume at `/var/lib/postgresql` with verified `PGDATA=/var/lib/postgresql/18/docker`. Do not modify the separate 100-chapter curriculum.
