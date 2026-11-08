@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 6 |
-| Remaining to draft | 114 |
+| Authored and published chapters | 7 |
+| Remaining to draft | 113 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 6 | 4 |
+| 01 — Fundamentals | 001–010 | 7 | 3 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -38,7 +38,8 @@
 | [004](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) | Databases, schemas, tables, rows, and columns | Published | Pending | Pending |
 | [005](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md) | Records, relationships, keys, and relational terminology | Published | Pending | Pending |
 | [006](part-01-fundamentals/006-anatomy-of-sql-statement-and-logical-query-processing.md) | Anatomy of a SQL statement and logical query processing | Published | Pending | Pending |
-| 007–120 | See Master TOC | Planned | — | — |
+| [007](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md) | SELECT fundamentals — retrieve rows and columns | Published | Pending | Pending |
+| 008–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -72,9 +73,15 @@
 - Lab: [006 SQL](labs/006-statement-anatomy-logical-processing.sql); commit `ce6d2247b8c6db8d23d8185e39a26c4fd5c204cf`.
 - Both artifacts fetched and verified on `main`; read-only transaction, synthetic dataset, environment guards and deterministic expected-result assertions checked statically. **Independent editorial review and PostgreSQL 18 runtime execution remain pending.**
 
+## Chapter 007 publication evidence
+
+- Chapter: [007](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md); commit `fdb84ad882d409c3465b2a11eda2d08f9bca07d6`.
+- Lab: [007 SQL](labs/007-select-fundamentals.sql); commit `224e32e508fa0db6fb8f87d08e3cda581b919f6d`.
+- Both files re-fetched and verified on `main`. Read-only transaction, synthetic CTE data, environment assertion, and expected-results acceptance checks reviewed statically. **Independent editorial review and PostgreSQL 18 runtime execution remain pending.**
+
 ## Next work item
 
-**007 — SELECT fundamentals: retrieve rows and columns.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**008 — Aliases, expressions, literals, and calculated columns.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
