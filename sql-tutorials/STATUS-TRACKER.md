@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 9 |
-| Remaining to draft | 111 |
+| Authored and published chapters | 10 |
+| Remaining to draft | 110 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 9 | 1 |
+| 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -41,7 +41,8 @@
 | [007](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md) | SELECT fundamentals — retrieve rows and columns | Published | Pending | Pending |
 | [008](part-01-fundamentals/008-aliases-expressions-literals-and-calculated-columns.md) | Aliases, expressions, literals, and calculated columns | Published | Pending | Pending |
 | [009](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md) | Data types, NULL, and explicit type conversion | Published | Pending | Pending |
-| 010–120 | See Master TOC | Planned | — | — |
+| [010](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md) | Lab 01 — explore the sample database and write first queries | Published | Pending | Pending |
+| 011–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -95,9 +96,16 @@
 - Both chapter and lab re-fetched from GitHub `main`. Targeted static inspection confirmed the SQL lab's PostgreSQL 18/database guard, read-only transaction, synthetic data, deterministic checks, and rollback. Expected results reviewed against literal inputs; full independent editorial review and automated SQL syntax verification remain pending.
 - **No isolated PostgreSQL 18 runtime execution or reproducible runtime evidence was obtained; runtime validation remains pending.**
 
+## Chapter 010 publication evidence
+
+- Chapter: [010](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md); commit `0d19c77c02a777aca3a030486247ed58603e31af`.
+- Lab: [010 SQL](labs/010-lab-01-explore-sample-database.sql); commit `1231f6269e01c8313ca7168064db6afe06e4a6fe`.
+- Both files were re-fetched and verified on GitHub main. Static inspection checked synthetic CTE datasets, read-only transaction, PostgreSQL 18/database assertion, deterministic expected counts/totals and rollback. Independent editorial review and actual isolated PostgreSQL 18 execution with retained evidence are **pending**.
+- Part 01 authored/published: **10/10**. This is not a runtime certification.
+
 ## Next work item
 
-**010 — Lab 01: Explore the sample database and write first queries.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**011 — WHERE and comparison operators.** Begin Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
