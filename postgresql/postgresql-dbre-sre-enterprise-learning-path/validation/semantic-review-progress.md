@@ -909,3 +909,14 @@ Inspected the independent track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-1
 **Limitations:** This is a static control-flow review; PowerShell formatting and Docker behavior have **not** been executed. The block does not prove exclusive ownership or authorize cleanup. The lab still exposes disposable hard-coded credentials, and comprehensive internal/external reference checks remain incomplete. PG18 migration must use a **new** volume mounted at `/var/lib/postgresql`, not the legacy PG17 mount. Runtime evidence remains **0/20**; independent review and production certification remain pending. No cloud, Docker, psql or destructive operations were performed. No changes to the separate 100-chapter curriculum.
 
 **Next:** Resolve Chapter 10 PowerShell native-command and Docker-format behavior in an isolated environment, strengthen secret handling and cleanup evidence, and finish outstanding reference verification before runtime status advances.
+
+
+## 2026-11-08 — Chapter 10 corrupted source recovery and provenance sequencing (static only)
+
+**Confirmed critical source defect:** The Chapter 10 README on main contained a truncated PowerShell regular expression in the new container-provenance block, followed by a duplicated tail of the lab after the first official-reference section. The malformed fence left later headings inside a code block, and the assertion could not execute. This was discovered by checking actual source continuity rather than trusting the previously recorded balanced-fence claim.
+
+**Correction:** Replaced the broken combined loop with a PowerShell function checking exact container ID, image ID, ownership label, and one expected named PG17 data-volume mount. Added explicit calls immediately after each corresponding container creation; removed the duplicate corrupted tail. [Assertion repair](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/9afdeccb5d0e0dea8a094d948a024c7459b4b83b) and [duplicate-tail cleanup](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/3f155e3241d9eaab5286a9a7b0df94ea791cac9b).
+
+**Verification:** GitHub main re-fetch after cleanup; one Chapter 2 heading, one official-reference section and **50 balanced tilde fence delimiters**. This is static source verification only; no PowerShell parser, Docker, PostgreSQL or cleanup commands were executed. The function requires the approved preflight session and is **not** PG18 mount compatible. Existing PG17 historical evidence remains intact. Runtime status stays **0/20**; independent review and production certification pending.
+
+**Next:** Verify PowerShell/Docker formatting and the negative-test SQLSTATE behavior in an approved disposable runtime; review credential exposure and remaining links. Migrate PG18 only with a fresh volume mounted at `/var/lib/postgresql` and verified `PGDATA=/var/lib/postgresql/18/docker`. No separate 100-chapter curriculum edits.
