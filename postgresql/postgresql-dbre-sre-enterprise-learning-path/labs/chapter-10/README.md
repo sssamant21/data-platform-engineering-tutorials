@@ -455,13 +455,23 @@ docker ps -a --filter network=pg-ha10-net
 
 Compare the current Docker context and **full** container IDs against the saved creation records; verify each resource has `training.track=pg-enterprise-ch10`, that the mounts match the expected lab volumes, and that no unexpected containers use either volume or the network. The lab owner must explicitly approve deletion and confirm there is no retention requirement. **Stop if any check fails, an unexpected consumer appears, or ownership is ambiguous.** Labels can be spoofed and do not replace ID/provenance checks.
 
-Only after all checks pass, manually execute the following **one command at a time**, inspecting exit codes. Do not add `--force`, `-v`, or automated name-based deletion:
+Only after all checks pass, manually execute the following **one command at a time** in the approved preflight PowerShell session. Each command has an immediate native exit-code gate; stop at the first failure and re-establish identity and consumer evidence before any further removal. These checks do not substitute for the preceding manual approval. Do not add `--force`, `-v`, or automated name-based deletion:
 
 ~~~powershell
-docker stop pg-ha10-standby pg-ha10-primary
-docker rm pg-ha10-standby pg-ha10-primary
-docker volume rm pg-ha10-standby-data pg-ha10-primary-data
+docker stop pg-ha10-standby
+if ($LASTEXITCODE -ne 0) { throw 'Standby stop failed; halt cleanup and inspect' }
+docker stop pg-ha10-primary
+if ($LASTEXITCODE -ne 0) { throw 'Primary stop failed; halt cleanup and inspect' }
+docker rm pg-ha10-standby
+if ($LASTEXITCODE -ne 0) { throw 'Standby removal failed; halt cleanup and inspect' }
+docker rm pg-ha10-primary
+if ($LASTEXITCODE -ne 0) { throw 'Primary removal failed; halt cleanup and inspect' }
+docker volume rm pg-ha10-standby-data
+if ($LASTEXITCODE -ne 0) { throw 'Standby volume removal failed; halt cleanup and inspect' }
+docker volume rm pg-ha10-primary-data
+if ($LASTEXITCODE -ne 0) { throw 'Primary volume removal failed; halt cleanup and inspect' }
 docker network rm pg-ha10-net
+if ($LASTEXITCODE -ne 0) { throw 'Lab network removal failed; halt cleanup and inspect' }
 ~~~
 
 Record post-cleanup absence using `docker ps -a`, `docker volume ls` and `docker network ls` with exact-name comparisons, plus sanitized output and timestamps. A failed removal is **not** proof of cleanup; investigate without deleting other resources.
