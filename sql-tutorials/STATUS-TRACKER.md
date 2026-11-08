@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 5 |
-| Remaining to draft | 115 |
+| Authored and published chapters | 6 |
+| Remaining to draft | 114 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 5 | 5 |
+| 01 — Fundamentals | 001–010 | 6 | 4 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -37,7 +37,8 @@
 | [003](part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md) | Set up the SQL lab — PostgreSQL 18, Docker, and SQL clients | Published | Pending | Pending |
 | [004](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) | Databases, schemas, tables, rows, and columns | Published | Pending | Pending |
 | [005](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md) | Records, relationships, keys, and relational terminology | Published | Pending | Pending |
-| 006–120 | See Master TOC | Planned | — | — |
+| [006](part-01-fundamentals/006-anatomy-of-sql-statement-and-logical-query-processing.md) | Anatomy of a SQL statement and logical query processing | Published | Pending | Pending |
+| 007–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -65,9 +66,15 @@
 - Lab: [005 SQL](labs/005-records-relationships-keys.sql); commit `d4b165fb857fc714207bf238df3fd94227b48673`.
 - GitHub fetch verified both files on `main`. Static review found a read-only transaction, environment checks, synthetic data and expected-output assertions. **Independent editorial review and actual PostgreSQL 18 execution are pending**.
 
+## Chapter 006 publication evidence
+
+- Chapter: [006](part-01-fundamentals/006-anatomy-of-sql-statement-and-logical-query-processing.md); commit `565e76ee88ea194bc13438f9224341a62af69ffc`.
+- Lab: [006 SQL](labs/006-statement-anatomy-logical-processing.sql); commit `ce6d2247b8c6db8d23d8185e39a26c4fd5c204cf`.
+- Both artifacts fetched and verified on `main`; read-only transaction, synthetic dataset, environment guards and deterministic expected-result assertions checked statically. **Independent editorial review and PostgreSQL 18 runtime execution remain pending.**
+
 ## Next work item
 
-**006 — Anatomy of a SQL statement and logical query processing.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**007 — SELECT fundamentals: retrieve rows and columns.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
