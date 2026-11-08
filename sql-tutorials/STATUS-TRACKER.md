@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 1 |
-| Remaining to draft | 119 |
+| Authored and published chapters | 2 |
+| Remaining to draft | 118 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 1 | 9 |
+| 01 — Fundamentals | 001–010 | 2 | 8 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -33,12 +33,18 @@
 | Chapter | Title | Content | Review | Runtime |
 |---|---|---|---|---|
 | [001](part-01-fundamentals/001-introduction-to-sql.md) | Introduction to SQL — purpose, use cases, and stakeholder roles | Published | Pending | Pending |
-| 002 | Relational databases and DBMS architecture | Planned | — | — |
+| [002](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md) | Relational databases and DBMS architecture | Published | Pending | Pending |
 | 003–120 | See Master TOC | Planned | — | — |
+
+## Chapter 002 publication evidence
+
+- Chapter: [002](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md); commit `bb9c5761befd5ef469e0fdc10f12968c49dddd2f`.
+- Lab: [002 SQL](labs/002-relational-architecture.sql); commit `3381fbee46c8199797ecd0a8c029749e00afc893`.
+- GitHub fetch verified both files on `main`; read-only static check completed. Independent review and PostgreSQL 18 runtime execution remain pending.
 
 ## Next work item
 
-**002 — Relational databases and DBMS architecture.** Preserve consistent 60-minute lessons and use read-only examples when no isolated lab is required. Chapter 003 establishes reproducible PostgreSQL 18 lab setup. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**003 — Set up the SQL lab: PostgreSQL 18, Docker, and SQL clients.** Preserve consistent 60-minute lessons and use read-only examples when no isolated lab is required. Chapter 003 establishes reproducible PostgreSQL 18 lab setup. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
