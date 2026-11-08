@@ -181,6 +181,41 @@ if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop an
 
 **Expected:** primary sees one `streaming` sender with `sync_state = async`; standby sees one `streaming` receiver with slot `ha10_standby_slot`. Allow brief connection startup time before retrying read-only queries.
 
+### 5a. Assert roles and streaming state (bounded, read-only)
+
+The preceding formatted queries are observations, not acceptance assertions. Run this in the same PowerShell session after both servers are ready. The exact-value checks reject empty output and unexpected roles; the 15-attempt window permits normal asynchronous startup without hiding a persistent failure. Do not promote or reinitialize either server to force a PASS.
+
+~~~powershell
+function Assert-Ha10Scalar([string]$container, [string]$sql, [string]$expected) {
+  $lines = @(docker exec $container psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c $sql)
+  $exitCode = $LASTEXITCODE
+  if ($exitCode -ne 0 -or $lines.Count -ne 1 -or $lines[0].Trim() -cne $expected) {
+    throw "Chapter 10 assertion failed for $container (exit=$exitCode); expected $expected; inspect locally"
+  }
+}
+Assert-Ha10Scalar 'pg-ha10-primary' 'SELECT pg_is_in_recovery();' 'f'
+Assert-Ha10Scalar 'pg-ha10-standby' 'SELECT pg_is_in_recovery();' 't'
+$streaming = $false
+for ($attempt = 1; $attempt -le 15; $attempt++) {
+  $sender = @(docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT state || '|' || sync_state FROM pg_stat_replication WHERE application_name = 'ha10_standby';")
+  $senderExit = $LASTEXITCODE
+  $receiver = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT status || '|' || slot_name FROM pg_stat_wal_receiver;")
+  $receiverExit = $LASTEXITCODE
+  if ($senderExit -ne 0 -or $receiverExit -ne 0) { throw 'Replication state query failed; stop' }
+  if ($sender.Count -eq 1 -and $sender[0].Trim() -ceq 'streaming|async' -and
+      $receiver.Count -eq 1 -and $receiver[0].Trim() -ceq 'streaming|ha10_standby_slot') {
+    $streaming = $true
+    break
+  }
+  Start-Sleep -Seconds 2
+}
+if (-not $streaming) { throw 'Replication did not reach expected streaming state within 30 seconds' }
+'PASS: primary/standby roles and asynchronous streaming state asserted'
+~~~
+
+**Expected:** exactly one sender for the lab application and exactly one receiver, with the expected state and slot. Record only sanitized scalar results and PASS/FAIL; this is not a failover, fencing, or RPO/RTO test. **Static review only:** PowerShell behavior and PostgreSQL output have not yet been executed in an isolated runtime.
+
+
 ## 6. Insert on primary, read on standby — bounded acceptance
 
 Run this in the same PowerShell session as the approved preflight. Stop on every unexpected exit code. The marker is unique to this disposable lab, and the polling loop is bounded to 30 seconds. A timeout is a **failed acceptance check**, not a reason to promote the standby or recreate resources.
