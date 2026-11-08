@@ -72,18 +72,28 @@ if ($LASTEXITCODE -ne 0) { throw 'Standby volume creation failed' }
 **Immediately after creation, before starting a container, capture provenance** in the private lab record:
 
 ~~~powershell
-docker context show
+$creationContext = (docker context show)
+if ($LASTEXITCODE -ne 0 -or $creationContext.Trim() -cne $labContext.Trim()) { throw 'Docker context changed since preflight; stop' }
+$creationImageId = (docker image inspect postgres:17 --format '{{.Id}}')
+if ($LASTEXITCODE -ne 0 -or $creationImageId.Trim() -cne $imageId.Trim()) { throw 'Image identity changed since preflight; stop' }
 docker image inspect postgres:17 --format '{{.Id}} {{json .RepoDigests}}'
+if ($LASTEXITCODE -ne 0) { throw 'Image digest inventory failed; stop' }
+$networkId = (docker network inspect pg-ha10-net --format '{{.Id}}')
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace($networkId)) { throw 'Network identity inspection failed; stop' }
 docker network inspect pg-ha10-net --format '{{.Id}} {{json .Labels}} {{json .Containers}}'
+if ($LASTEXITCODE -ne 0) { throw 'Network provenance inspection failed; stop' }
 docker volume inspect pg-ha10-primary-data pg-ha10-standby-data --format '{{.Name}} {{json .Labels}} {{.Mountpoint}}'
+if ($LASTEXITCODE -ne 0) { throw 'Volume provenance inspection failed; stop' }
 ~~~
 
 Confirm Docker context and image ID match Section 0a, both volumes are new, and the network has no consumers. **If any creation or inspection command fails, stop.** Never continue with an existing resource just because its name matches. Capture full container IDs and mounts/labels immediately after the corresponding Section 2 and Section 5 creation commands:
 
 ~~~powershell
 docker inspect pg-ha10-primary --format '{{.Id}} {{json .Config.Labels}} {{json .Mounts}}'
+if ($LASTEXITCODE -ne 0) { throw 'Primary provenance inspection failed; stop' }
 # Run only after standby creation:
 docker inspect pg-ha10-standby --format '{{.Id}} {{json .Config.Labels}} {{json .Mounts}}'
+if ($LASTEXITCODE -ne 0) { throw 'Standby provenance inspection failed; stop' }
 ~~~
 
 A Docker volume has a name rather than a portable immutable ID. Retain its creation record, driver, mountpoint, labels, and context. If creation-time evidence is missing, cleanup is blocked pending manual review. The internal network limits external routing but is not a production security boundary.
