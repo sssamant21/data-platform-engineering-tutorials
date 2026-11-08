@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 10 |
-| Remaining to draft | 110 |
+| Authored and published chapters | 11 |
+| Remaining to draft | 109 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 0 | 10 |
+| 02 — Filtering and sorting | 011–020 | 1 | 9 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -103,9 +103,16 @@
 - Both files were re-fetched and verified on GitHub main. Static inspection checked synthetic CTE datasets, read-only transaction, PostgreSQL 18/database assertion, deterministic expected counts/totals and rollback. Independent editorial review and actual isolated PostgreSQL 18 execution with retained evidence are **pending**.
 - Part 01 authored/published: **10/10**. This is not a runtime certification.
 
+## Chapter 011 publication evidence
+
+- Chapter: [011](part-02-filtering/011-where-and-comparison-operators.md); commit `a408496b1310e033d91a28b04685d2b2ed07165d`.
+- Lab: [011 SQL](labs/011-where-comparison-operators.sql); commit `e1c0c0398966635f2bc1f763f8fac0da448dcebb`.
+- README navigation: commit `a25de1adde8c6f7acd7cf83192b223c21aca333e`.
+- Chapter and lab re-fetched from GitHub main. Targeted static review: lab uses synthetic VALUES, read-only transaction, PostgreSQL 18/database guard, six expected ID-set checks, fail-closed assertion and ROLLBACK. Link paths inspected. **Independent editorial review, comprehensive SQL syntax validation, and actual isolated PostgreSQL 18 execution are pending**; no runtime evidence obtained.
+
 ## Next work item
 
-**011 — WHERE and comparison operators.** Begin Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**012 — AND, OR, NOT, and Boolean precedence.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
