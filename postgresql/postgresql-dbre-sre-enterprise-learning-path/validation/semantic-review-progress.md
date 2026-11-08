@@ -888,3 +888,14 @@ Inspected the independent track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-1
 **Static verification:** Source edit scoped to [Chapter 10 lab](../labs/chapter-10/README.md); Markdown fences remained balanced. The source was fetched again from GitHub main after publication. **Runtime:** not executed; 0/20 runtime-validated. No PG18 migration, independent sign-off, or production certification is implied.
 
 **Next:** Strengthen expected-value checks on the creation-time resource metadata, address plaintext training credentials, finish external-reference verification, and execute only on an approved isolated disposable Docker context with actual version, image, command, outcome and cleanup evidence.
+
+## 2026-11-08 — Chapter 10 creation-time resource metadata assertion gate
+
+**Baseline:** PostgreSQL 18 documentation; **lab runtime target:** historical PostgreSQL 17. **Review:** source-level only, no Docker, PowerShell or PostgreSQL execution.
+
+- Continued from the recorded Chapter 10 provenance follow-up rather than repeating earlier semantic reviews. Confirmed that successful Docker inspection alone did not enforce the intended resource label values or empty-network condition.
+- Added a pre-start, read-only PowerShell assertion for exact `training.track=pg-enterprise-ch10` labels on both named volumes and the named network, and for zero network consumers. Each command's exit code, output cardinality and expected value are checked. An unexpected result stops the lab without cleanup or mutation.
+- The gate runs **after** network/volume creation and **before** primary startup. Existing container identity and mount provenance must still be recorded at creation time. Labels can be spoofed; they do not establish exclusive ownership or authorize deletion.
+- **Limitations:** PowerShell and Docker CLI behavior is unexecuted. Creation-time identity assertions for container mounts/consumers, credential handling, documentation endpoint verification and PostgreSQL 18 image/mount migration remain open. Historical PostgreSQL 17 evidence is preserved.
+- **Next:** Verify the label/consumer checks in an approved disposable Docker context, then add fail-closed post-creation container image/mount assertions and audit external references. Keep PostgreSQL 18 runtime status at 0/20 until genuine execution and cleanup evidence exists.
+
