@@ -95,8 +95,11 @@ docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-primary -
 if ($LASTEXITCODE -ne 0) { throw 'Primary container creation failed; stop and inspect resource provenance' }
 
 docker exec pg-ha10-primary pg_isready -U postgres -d ha10_lab
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT version(), pg_is_in_recovery();"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SHOW wal_level; SHOW max_wal_senders; SHOW max_replication_slots;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
 Expected: primary ready, `pg_is_in_recovery() = false`, `wal_level = replica`. If not ready, allow initialization to finish and check logs. The retention cap is applied at checkpoints; it does **not** guarantee WAL disk cannot fill, and a lagging slot can eventually become unusable.
@@ -160,15 +163,20 @@ Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The p
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
 if ($LASTEXITCODE -ne 0) { throw 'Standby container creation failed; stop and inspect provenance' }
 docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
 **Expected:** primary false, standby true. If the standby is not ready, inspect `docker logs --tail 80 pg-ha10-standby`, then recheck.
 
 ~~~powershell
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT application_name, state, sync_state, sent_lsn, write_lsn, flush_lsn, replay_lsn FROM pg_stat_replication;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT status, sender_host, slot_name, latest_end_lsn FROM pg_stat_wal_receiver;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
 **Expected:** primary sees one `streaming` sender with `sync_state = async`; standby sees one `streaming` receiver with slot `ha10_standby_slot`. Allow brief connection startup time before retrying read-only queries.
@@ -222,15 +230,20 @@ Primary-side read-only queries:
 
 ~~~powershell
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT application_name, state, sync_state, write_lag, flush_lag, replay_lag FROM pg_stat_replication;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT slot_name, slot_type, active, restart_lsn, wal_status FROM pg_replication_slots;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT pg_current_wal_lsn() AS primary_lsn;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
 Standby-side read-only queries:
 
 ~~~powershell
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT pg_last_wal_receive_lsn() AS received, pg_last_wal_replay_lsn() AS replayed, pg_last_xact_replay_timestamp() AS last_replayed_commit;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT status, latest_end_lsn, last_msg_receipt_time FROM pg_stat_wal_receiver;"
+if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
 Optional primary `psql` query to estimate the **WAL position gap**, not actual disk consumption:
