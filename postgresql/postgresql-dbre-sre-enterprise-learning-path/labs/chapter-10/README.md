@@ -96,32 +96,6 @@ docker inspect pg-ha10-standby --format '{{.Id}} {{json .Config.Labels}} {{json 
 if ($LASTEXITCODE -ne 0) { throw 'Standby provenance inspection failed; stop' }
 ~~~
 
-### 1b. Assert container image and mounted volume after creation (read-only)
-
-Define this function in the same PowerShell session before Section 2. Invoke `Assert-Ha10Container 'pg-ha10-primary' 'pg-ha10-primary-data'` **immediately after the primary `docker run` succeeds**, and invoke `Assert-Ha10Container 'pg-ha10-standby' 'pg-ha10-standby-data'` **immediately after the standby `docker run` succeeds**. Never inspect a container that has not yet been created. A mismatch stops the lab; it does not authorize deletion.
-
-~~~powershell
-function Assert-Ha10Container([string]$containerName, [string]$expectedVolume) {
-  $rows = @(docker inspect $containerName --format '{{.Id}}|{{.Image}}|{{index .Config.Labels "training.track"}}')
-  $inspectExit = $LASTEXITCODE
-  if ($inspectExit -ne 0 -or $rows.Count -ne 1) { throw "Container identity unavailable: $containerName" }
-  $parts = $rows[0].Trim().Split('|')
-  if ($parts.Count -ne 3 -or $parts[0] -notmatch '^[0-9a-f]{64}$' -or
-      $parts[1] -cne $imageId.Trim() -or $parts[2] -cne 'pg-enterprise-ch10') {
-    throw "Container image, ID or label mismatch: $containerName"
-  }
-  $mountRows = @(docker inspect $containerName --format '{{range .Mounts}}{{.Type}}|{{.Name}}|{{.Destination}}{{println}}{{end}}')
-  $mountExit = $LASTEXITCODE
-  if ($mountExit -ne 0 -or $mountRows.Count -ne 1 -or
-      $mountRows[0].Trim() -cne "volume|$expectedVolume|/var/lib/postgresql/data") {
-    throw "Unexpected container mount configuration: $containerName"
-  }
-  "PASS: verified $containerName image, label and data mount"
-}
-~~~
-
-This verifies the PostgreSQL **17** mount only. PostgreSQL 18 migration requires a new volume mounted at `/var/lib/postgresql`, and separately verified PGDATA `/var/lib/postgresql/18/docker`. Preserve container IDs and creation records; labels alone do not prove ownership or permit cleanup. **Source-only assertion: not executed.**
-
 ### 1a. Assert new resource labels and empty network (read-only)
 
 Run immediately after Section 1 creation and before Section 2. A successful `docker inspect` exit code is not sufficient: validate the exact resource labels and absence of unexpected network consumers. This is an additional gate, not a substitute for the creation-time identity record. Do not proceed if any assertion fails; investigate without deleting resources.
@@ -148,6 +122,32 @@ if ($consumerExit -ne 0 -or $networkConsumers.Count -ne 1 -or $networkConsumers[
 ~~~
 
 **Expected:** all three resources have the exact `training.track=pg-enterprise-ch10` label and the new network has zero consumers. The label is only a consistency check; the approved Docker context and recorded resource IDs remain required. These PowerShell assertions have **not** been executed.
+
+### 1b. Assert container image and mounted volume after creation (read-only)
+
+Define this function in the same PowerShell session before Section 2. Invoke `Assert-Ha10Container 'pg-ha10-primary' 'pg-ha10-primary-data'` **immediately after the primary `docker run` succeeds**, and invoke `Assert-Ha10Container 'pg-ha10-standby' 'pg-ha10-standby-data'` **immediately after the standby `docker run` succeeds**. Never inspect a container that has not yet been created. A mismatch stops the lab; it does not authorize deletion.
+
+~~~powershell
+function Assert-Ha10Container([string]$containerName, [string]$expectedVolume) {
+  $rows = @(docker inspect $containerName --format '{{.Id}}|{{.Image}}|{{index .Config.Labels "training.track"}}')
+  $inspectExit = $LASTEXITCODE
+  if ($inspectExit -ne 0 -or $rows.Count -ne 1) { throw "Container identity unavailable: $containerName" }
+  $parts = $rows[0].Trim().Split('|')
+  if ($parts.Count -ne 3 -or $parts[0] -notmatch '^[0-9a-f]{64}$' -or
+      $parts[1] -cne $imageId.Trim() -or $parts[2] -cne 'pg-enterprise-ch10') {
+    throw "Container image, ID or label mismatch: $containerName"
+  }
+  $mountRows = @(docker inspect $containerName --format '{{range .Mounts}}{{.Type}}|{{.Name}}|{{.Destination}}{{println}}{{end}}')
+  $mountExit = $LASTEXITCODE
+  if ($mountExit -ne 0 -or $mountRows.Count -ne 1 -or
+      $mountRows[0].Trim() -cne "volume|$expectedVolume|/var/lib/postgresql/data") {
+    throw "Unexpected container mount configuration: $containerName"
+  }
+  "PASS: verified $containerName image, label and data mount"
+}
+~~~
+
+This verifies the PostgreSQL **17** mount only. PostgreSQL 18 migration requires a new volume mounted at `/var/lib/postgresql`, and separately verified PGDATA `/var/lib/postgresql/18/docker`. Preserve container IDs and creation records; labels alone do not prove ownership or permit cleanup. **Source-only assertion: not executed.**
 
 ## 2. Start primary with WAL streaming settings
 
