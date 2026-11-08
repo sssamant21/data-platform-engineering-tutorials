@@ -50,9 +50,22 @@ Write-Host "Retain for cleanup verification: context=$labContext container_id=$l
 ```
 
 ```powershell
-docker ps --filter "name=pg-fleet-lab"
-docker exec pg-fleet-lab pg_isready -U postgres
-docker logs --tail 20 pg-fleet-lab
+docker ps --filter "name=^/pg-fleet-lab$"
+if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect lab container state' }
+# PostgreSQL initialization can take time; bounded readiness is not a substitute for identity checks.
+$ready = $false
+for ($attempt = 1; $attempt -le 30; $attempt++) {
+  docker exec $labId pg_isready -U postgres
+  $probeExit = $LASTEXITCODE
+  if ($probeExit -eq 0) { $ready = $true; break }
+  if ($probeExit -ne 1 -and $probeExit -ne 2) {
+    throw "Unexpected pg_isready/Docker exit code $probeExit; stop and inspect"
+  }
+  Start-Sleep -Seconds 2
+}
+if (-not $ready) { throw 'PostgreSQL not ready after 30 probes; stop and inspect logs' }
+docker logs --tail 20 $labId
+if ($LASTEXITCODE -ne 0) { throw 'Cannot read lab logs' }
 ```
 
 Expected: container running and PostgreSQL accepting connections.
