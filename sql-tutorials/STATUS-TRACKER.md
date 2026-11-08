@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 4 |
-| Remaining to draft | 116 |
+| Authored and published chapters | 5 |
+| Remaining to draft | 115 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 4 | 6 |
+| 01 — Fundamentals | 001–010 | 5 | 5 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -36,7 +36,8 @@
 | [002](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md) | Relational databases and DBMS architecture | Published | Pending | Pending |
 | [003](part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md) | Set up the SQL lab — PostgreSQL 18, Docker, and SQL clients | Published | Pending | Pending |
 | [004](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) | Databases, schemas, tables, rows, and columns | Published | Pending | Pending |
-| 005–120 | See Master TOC | Planned | — | — |
+| [005](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md) | Records, relationships, keys, and relational terminology | Published | Pending | Pending |
+| 006–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -58,9 +59,15 @@
 - Lab: [004 SQL](labs/004-databases-schemas-tables-rows-columns.sql); commit `75d0d135f93f88e34e8baf79a8a6b25ba1194ef8`.
 - GitHub fetch verified both files on `main`. Lab uses `BEGIN READ ONLY` and synthetic in-query rows. Expected counts and sums reviewed. **No PostgreSQL 18 execution evidence**; independent review and runtime acceptance remain pending.
 
+## Chapter 005 publication evidence
+
+- Chapter: [005](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md); commit `3c136e65ae133fa5c53a806e559dcae17d8cfe10`.
+- Lab: [005 SQL](labs/005-records-relationships-keys.sql); commit `d4b165fb857fc714207bf238df3fd94227b48673`.
+- GitHub fetch verified both files on `main`. Static review found a read-only transaction, environment checks, synthetic data and expected-output assertions. **Independent editorial review and actual PostgreSQL 18 execution are pending**.
+
 ## Next work item
 
-**005 — Records, relationships, keys, and relational terminology.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**006 — Anatomy of a SQL statement and logical query processing.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
