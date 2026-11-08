@@ -42,7 +42,8 @@
 | [008](part-01-fundamentals/008-aliases-expressions-literals-and-calculated-columns.md) | Aliases, expressions, literals, and calculated columns | Published | Pending | Pending |
 | [009](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md) | Data types, NULL, and explicit type conversion | Published | Pending | Pending |
 | [010](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md) | Lab 01 — explore the sample database and write first queries | Published | Pending | Pending |
-| 011–120 | See Master TOC | Planned | — | — |
+| [011](part-02-filtering/011-where-and-comparison-operators.md) | WHERE and comparison operators | Published | Pending | Pending |
+| 012–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
