@@ -123,6 +123,8 @@ Seed standby using the physical replication protocol. The temporary `PGPASSWORD`
 
 ~~~powershell
 docker run --rm --network pg-ha10-net --user postgres -e PGPASSWORD=TrainingOnly_Repl_HA10_123 -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17 pg_basebackup -d 'host=pg-ha10-primary port=5432 user=ha10_repl passfile=/var/lib/postgresql/data/.pgpass application_name=ha10_standby' -D /var/lib/postgresql/data -Fp -Xs -P -R -C -S ha10_standby_slot
+$baseBackupExit = $LASTEXITCODE
+if ($baseBackupExit -ne 0) { throw "pg_basebackup failed (exit $baseBackupExit); STOP: inspect slot and volume read-only; do not retry, start standby or clean up automatically" }
 ~~~
 
 **Partial-failure stop gate:** Capture the actual `pg_basebackup` exit code before proceeding. If nonzero, **do not** rerun `-C`, start the standby, drop the slot, or delete the volume. Inspect only the dedicated primary's slot and the standby volume metadata, then document whether the slot exists and whether backup files were partially written. Reset is a separate owner-approved, identity-verified disposable-lab procedure; it is not an automatic recovery step.
@@ -195,11 +197,13 @@ This is an intentional error test. The SQLSTATE for a read-only SQL transaction 
 $writeOutput = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -v VERBOSITY=verbose -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('must not write on standby');" 2>&1 | ForEach-Object { $_.ToString() })
 $writeExit = $LASTEXITCODE
 if ($writeExit -eq 0) { throw 'FAIL: standby unexpectedly accepted a write' }
-if (($writeOutput -join "`n") -notmatch '(?m)ERROR:\\s+25006:') {
+if (($writeOutput -join "`n") -notmatch '(?m)ERROR:\s+25006:') {
   throw 'FAIL: write failed for a reason other than verified SQLSTATE 25006; inspect locally and redact before recording'
 }
 'PASS: standby write rejected with SQLSTATE 25006'
 ~~~
+
+The SQLSTATE matcher uses a single regex backslash in PowerShell's single-quoted string (`\s` denotes whitespace); a doubled backslash would incorrectly match a literal backslash.
 
 **Expected:** nonzero `psql` exit status and verbose PostgreSQL error containing `ERROR:  25006:`. Verify the exact error locally before recording only the SQLSTATE and PASS/FAIL. Never promote or disable standby read-only protection to make this test pass.
 
