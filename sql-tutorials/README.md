@@ -12,7 +12,8 @@
 2. [002 — Relational databases and DBMS architecture](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md) — published; runtime testing pending.
 3. [003 — Set up the SQL lab: PostgreSQL 18, Docker, and SQL clients](part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md) — published; PostgreSQL 18 runtime acceptance pending.
 4. [004 — Databases, schemas, tables, rows, and columns](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) — published; runtime testing pending.
-5. 005 — Records, relationships, keys, and relational terminology — planned.
+5. [005 — Records, relationships, keys, and relational terminology](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md) — published; runtime testing pending.
+6. 006 — Anatomy of a SQL statement and logical query processing — planned.
 
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
