@@ -162,25 +162,46 @@ docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT status, send
 
 **Expected:** primary sees one `streaming` sender with `sync_state = async`; standby sees one `streaming` receiver with slot `ha10_standby_slot`. Allow brief connection startup time before retrying read-only queries.
 
-## 6. Insert on primary, read on standby
+## 6. Insert on primary, read on standby — bounded acceptance
+
+Run this in the same PowerShell session as the approved preflight. Stop on every unexpected exit code. The marker is unique to this disposable lab, and the polling loop is bounded to 30 seconds. A timeout is a **failed acceptance check**, not a reason to promote the standby or recreate resources.
 
 ~~~powershell
-docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "CREATE TABLE public.ha10_events (event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, note TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now());"
-docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('synthetic replication check');"
-docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT event_id, note FROM public.ha10_events ORDER BY event_id;"
+docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "CREATE TABLE public.ha10_events (event_id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY, note TEXT NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT now());"
+if ($LASTEXITCODE -ne 0) { throw 'Primary table creation failed; stop' }
+docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('synthetic replication check');"
+if ($LASTEXITCODE -ne 0) { throw 'Primary insert failed; stop' }
+
+$replayed = $false
+for ($attempt = 1; $attempt -le 15; $attempt++) {
+  # -tA emits only the boolean; a missing table returns a nonzero exit code.
+  $result = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT count(*) = 1 FROM public.ha10_events WHERE note = 'synthetic replication check';")
+  $code = $LASTEXITCODE
+  if ($code -eq 0 -and $result.Count -eq 1 -and $result[0].Trim() -eq 't') { $replayed = $true; break }
+  if ($code -ne 0) { Write-Warning "Standby query not ready on attempt $attempt; inspect replication health if persistent" }
+  Start-Sleep -Seconds 2
+}
+if (-not $replayed) { throw 'Standby did not replay exact marker within bounded window; acceptance failed' }
+'PASS: exact synthetic marker observed on standby'
 ~~~
 
-**Expected:** one replicated row with note `synthetic replication check`. Because replication is asynchronous, the standby query can initially fail with "relation does not exist" or show no row. Wait briefly and retry the **SELECT only**, checking receiver/replay health if necessary.
+**Expected:** a single row with the exact note appears on the standby within the bounded window. Because streaming is asynchronous, a missing table or row can be transient; repeated failures require read-only investigation of the sender, receiver and replay state. This acceptance test does not establish a production RPO/RTO.
 
-## 7. Prove the standby rejects writes (intentional failure)
+## 7. Prove the standby rejects writes — assert expected SQLSTATE
 
-This is an expected-error test, **not** a command to put in an all-success script:
+This is an intentional error test. The SQLSTATE for a read-only SQL transaction is `25006`. Capture only sanitized error output; do not include connection strings, passwords, or environment dumps. A nonzero exit code **alone** is insufficient because authentication, connection or syntax errors could also cause failure.
 
 ~~~powershell
-docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('must not write on standby');"
+$writeOutput = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -v VERBOSITY=verbose -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('must not write on standby');" 2>&1 | ForEach-Object { $_.ToString() })
+$writeExit = $LASTEXITCODE
+if ($writeExit -eq 0) { throw 'FAIL: standby unexpectedly accepted a write' }
+if (($writeOutput -join "`n") -notmatch '(?m)ERROR:\\s+25006:') {
+  throw 'FAIL: write failed for a reason other than verified SQLSTATE 25006; inspect locally and redact before recording'
+}
+'PASS: standby write rejected with SQLSTATE 25006'
 ~~~
 
-**Expected:** read-only/recovery error and a nonzero exit code. Do not promote or bypass read-only safeguards.
+**Expected:** nonzero `psql` exit status and verbose PostgreSQL error containing `ERROR:  25006:`. Verify the exact error locally before recording only the SQLSTATE and PASS/FAIL. Never promote or disable standby read-only protection to make this test pass.
 
 ## 8. Inspect WAL, lag and retention safely
 
