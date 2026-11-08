@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 8 |
-| Remaining to draft | 112 |
+| Authored and published chapters | 9 |
+| Remaining to draft | 111 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 8 | 2 |
+| 01 — Fundamentals | 001–010 | 9 | 1 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -40,7 +40,8 @@
 | [006](part-01-fundamentals/006-anatomy-of-sql-statement-and-logical-query-processing.md) | Anatomy of a SQL statement and logical query processing | Published | Pending | Pending |
 | [007](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md) | SELECT fundamentals — retrieve rows and columns | Published | Pending | Pending |
 | [008](part-01-fundamentals/008-aliases-expressions-literals-and-calculated-columns.md) | Aliases, expressions, literals, and calculated columns | Published | Pending | Pending |
-| 009–120 | See Master TOC | Planned | — | — |
+| [009](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md) | Data types, NULL, and explicit type conversion | Published | Pending | Pending |
+| 010–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -86,9 +87,17 @@
 - Lab: [008 SQL](labs/008-aliases-expressions-calculated-columns.sql); commit `f73a41bc9f39408bf6cd4a9c756d35b89832ed15`.
 - Both files were re-fetched from `main`; basic static inspection confirmed the lab contains no persistent write/DDL commands. Expected arithmetic and results were reviewed manually. **Independent editorial review and PostgreSQL 18 runtime execution remain pending**.
 
+## Chapter 009 publication evidence
+
+- Chapter: [009](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md); commit `04db4722ca526560a32997d4ebb2f9810a5ea9b5`.
+- Lab: [009 SQL](labs/009-data-types-null-explicit-conversion.sql); commit `550f2eca4b3e453608bfecada7b50d6b287dd2f2`.
+- README navigation: commit `4f57cbb884c6e77197d4add7f3523dcb402ebccc`.
+- Both chapter and lab re-fetched from GitHub `main`. Targeted static inspection confirmed the SQL lab's PostgreSQL 18/database guard, read-only transaction, synthetic data, deterministic checks, and rollback. Expected results reviewed against literal inputs; full independent editorial review and automated SQL syntax verification remain pending.
+- **No isolated PostgreSQL 18 runtime execution or reproducible runtime evidence was obtained; runtime validation remains pending.**
+
 ## Next work item
 
-**009 — Data types, NULL, and explicit type conversion.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**010 — Lab 01: Explore the sample database and write first queries.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
