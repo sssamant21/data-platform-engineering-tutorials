@@ -94,15 +94,23 @@ A Docker volume has a name rather than a portable immutable ID. Retain its creat
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-primary --network pg-ha10-net -e POSTGRES_PASSWORD=TrainingOnly_HA10_123 -e POSTGRES_DB=ha10_lab -v pg-ha10-primary-data:/var/lib/postgresql/data postgres:17 -c wal_level=replica -c max_wal_senders=5 -c max_replication_slots=5 -c wal_keep_size=64MB -c max_slot_wal_keep_size=256MB
 if ($LASTEXITCODE -ne 0) { throw 'Primary container creation failed; stop and inspect resource provenance' }
 
-docker exec pg-ha10-primary pg_isready -U postgres -d ha10_lab
-if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
+# First startup may require initialization; bound readiness instead of failing on the first probe.
+$primaryReady = $false
+for ($attempt = 1; $attempt -le 30; $attempt++) {
+  docker exec pg-ha10-primary pg_isready -U postgres -d ha10_lab
+  $readyExit = $LASTEXITCODE
+  if ($readyExit -eq 0) { $primaryReady = $true; break }
+  if ($readyExit -ne 1 -and $readyExit -ne 2) { throw "Primary readiness probe failed unexpectedly (exit=$readyExit); stop" }
+  Start-Sleep -Seconds 2
+}
+if (-not $primaryReady) { throw 'Primary not ready after bounded polling; inspect only dedicated lab logs' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT version(), pg_is_in_recovery();"
 if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SHOW wal_level; SHOW max_wal_senders; SHOW max_replication_slots;"
 if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
-Expected: primary ready, `pg_is_in_recovery() = false`, `wal_level = replica`. If not ready, allow initialization to finish and check logs. The retention cap is applied at checkpoints; it does **not** guarantee WAL disk cannot fill, and a lagging slot can eventually become unusable.
+Expected: primary ready within 30 probes (up to approximately 60 seconds), `pg_is_in_recovery() = false`, `wal_level = replica`. If the bounded probe fails, inspect dedicated lab logs without restarting or deleting resources. The retention cap is applied at checkpoints; it does **not** guarantee WAL disk cannot fill, and a lagging slot can eventually become unusable.
 
 ## 3. Create a dedicated replication role and HBA entry
 
@@ -197,15 +205,22 @@ Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The p
 ~~~powershell
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
 if ($LASTEXITCODE -ne 0) { throw 'Standby container creation failed; stop and inspect provenance' }
-docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
-if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
+$standbyReady = $false
+for ($attempt = 1; $attempt -le 30; $attempt++) {
+  docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
+  $readyExit = $LASTEXITCODE
+  if ($readyExit -eq 0) { $standbyReady = $true; break }
+  if ($readyExit -ne 1 -and $readyExit -ne 2) { throw "Standby readiness probe failed unexpectedly (exit=$readyExit); stop" }
+  Start-Sleep -Seconds 2
+}
+if (-not $standbyReady) { throw 'Standby not ready after bounded polling; inspect only dedicated lab logs' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
 if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
 if ($LASTEXITCODE -ne 0) { throw 'Chapter 10 observation command failed; stop and inspect the named lab container' }
 ~~~
 
-**Expected:** primary false, standby true. If the standby is not ready, inspect `docker logs --tail 80 pg-ha10-standby`, then recheck.
+**Expected:** primary false, standby true. The standby readiness loop allows up to 30 probes (approximately 60 seconds). If it times out, inspect `docker logs --tail 80 pg-ha10-standby` without modifying or deleting resources.
 
 ~~~powershell
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT application_name, state, sync_state, sent_lsn, write_lsn, flush_lsn, replay_lsn FROM pg_stat_replication;"
