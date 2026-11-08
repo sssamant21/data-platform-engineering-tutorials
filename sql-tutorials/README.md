@@ -17,7 +17,7 @@
 7. [007 — SELECT fundamentals: retrieve rows and columns](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md) — published; runtime testing pending.
 8. [008 — Aliases, expressions, literals, and calculated columns](part-01-fundamentals/008-aliases-expressions-literals-and-calculated-columns.md) — published; runtime testing pending.
 9. [009 — Data types, NULL, and explicit type conversion](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md) — published; runtime testing pending.
-10. 010 — Lab 01: explore the sample database and write first queries — planned.
+10. [010 — Lab 01: explore the sample database and write first queries](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md) — published; PostgreSQL 18 runtime validation pending.
 
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
