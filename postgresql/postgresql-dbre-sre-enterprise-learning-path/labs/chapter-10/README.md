@@ -98,20 +98,29 @@ if ($LASTEXITCODE -ne 0) { throw 'Standby provenance inspection failed; stop' }
 
 ### 1b. Assert container image and mounted volume after creation (read-only)
 
-Run the primary check **immediately after Section 2 creates the primary**, and the standby check **immediately after Section 5 creates the standby**. The image ID must match the preflight image, the named container must mount exactly its own expected named data volume at the PostgreSQL 17 path, and its lab ownership label must match. A mismatch is a hard stop, **not** permission to remove or replace a container. Preserve the full IDs and creation records separately; this check alone does not establish exclusive ownership.
+Define this function in the same PowerShell session before Section 2. Invoke `Assert-Ha10Container 'pg-ha10-primary' 'pg-ha10-primary-data'` **immediately after the primary `docker run` succeeds**, and invoke `Assert-Ha10Container 'pg-ha10-standby' 'pg-ha10-standby-data'` **immediately after the standby `docker run` succeeds**. Never inspect a container that has not yet been created. A mismatch stops the lab; it does not authorize deletion.
 
 ~~~powershell
-foreach ($entry in @(
-  @{ Name = 'pg-ha10-primary'; Volume = 'pg-ha10-primary-data' },
-  @{ Name = 'pg-ha10-standby'; Volume = 'pg-ha10-standby-data' }
-)) {
-  # Run each entry only after its respective container has been created.
-  $containerName = $entry.Name
-  $containerRows = @(docker inspect $containerName --format '{{.Id}}|{{.Image}}|{{index .Config.Labels "training.track"}}')
+function Assert-Ha10Container([string]$containerName, [string]$expectedVolume) {
+  $rows = @(docker inspect $containerName --format '{{.Id}}|{{.Image}}|{{index .Config.Labels "training.track"}}')
   $inspectExit = $LASTEXITCODE
-  if ($inspectExit -ne 0 -or $containerRows.Count -ne 1) { throw "Container identity unavailable: $containerName" }
-  $parts = $containerRows[0].Trim().Split('|')
-  if ($parts.Count -ne 3 -or $parts[0] -notmatch '^[0-9a-f]{64} Retain its creation record, driver, mountpoint, labels, and context. If creation-time evidence is missing, cleanup is blocked pending manual review. The internal network limits external routing but is not a production security boundary.
+  if ($inspectExit -ne 0 -or $rows.Count -ne 1) { throw "Container identity unavailable: $containerName" }
+  $parts = $rows[0].Trim().Split('|')
+  if ($parts.Count -ne 3 -or $parts[0] -notmatch '^[0-9a-f]{64}$' -or
+      $parts[1] -cne $imageId.Trim() -or $parts[2] -cne 'pg-enterprise-ch10') {
+    throw "Container image, ID or label mismatch: $containerName"
+  }
+  $mountRows = @(docker inspect $containerName --format '{{range .Mounts}}{{.Type}}|{{.Name}}|{{.Destination}}{{println}}{{end}}')
+  $mountExit = $LASTEXITCODE
+  if ($mountExit -ne 0 -or $mountRows.Count -ne 1 -or
+      $mountRows[0].Trim() -cne "volume|$expectedVolume|/var/lib/postgresql/data") {
+    throw "Unexpected container mount configuration: $containerName"
+  }
+  "PASS: verified $containerName image, label and data mount"
+}
+~~~
+
+This verifies the PostgreSQL **17** mount only. PostgreSQL 18 migration requires a new volume mounted at `/var/lib/postgresql`, and separately verified PGDATA `/var/lib/postgresql/18/docker`. Preserve container IDs and creation records; labels alone do not prove ownership or permit cleanup. **Source-only assertion: not executed.**
 
 ### 1a. Assert new resource labels and empty network (read-only)
 
@@ -145,6 +154,7 @@ if ($consumerExit -ne 0 -or $networkConsumers.Count -ne 1 -or $networkConsumers[
 ~~~powershell
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-primary --network pg-ha10-net -e POSTGRES_PASSWORD=TrainingOnly_HA10_123 -e POSTGRES_DB=ha10_lab -v pg-ha10-primary-data:/var/lib/postgresql/data postgres:17 -c wal_level=replica -c max_wal_senders=5 -c max_replication_slots=5 -c wal_keep_size=64MB -c max_slot_wal_keep_size=256MB
 if ($LASTEXITCODE -ne 0) { throw 'Primary container creation failed; stop and inspect resource provenance' }
+Assert-Ha10Container 'pg-ha10-primary' 'pg-ha10-primary-data'
 
 # First startup may require initialization; bound readiness instead of failing on the first probe.
 $primaryReady = $false
@@ -257,6 +267,7 @@ Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The p
 ~~~powershell
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
 if ($LASTEXITCODE -ne 0) { throw 'Standby container creation failed; stop and inspect provenance' }
+Assert-Ha10Container 'pg-ha10-standby' 'pg-ha10-standby-data'
 $standbyReady = $false
 for ($attempt = 1; $attempt -le 30; $attempt++) {
   docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
