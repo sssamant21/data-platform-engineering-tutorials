@@ -9,7 +9,7 @@
 ## Start here
 
 1. [001 — Introduction to SQL: purpose, use cases, and stakeholder roles](part-01-fundamentals/001-introduction-to-sql.md) — published; runtime testing pending.
-2. 002 — Relational databases and DBMS architecture — planned.
+2. [002 — Relational databases and DBMS architecture](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md) — published; runtime testing pending.
 3. 003 — Set up the SQL lab: PostgreSQL 18, Docker, and SQL clients — planned.
 
 The introductory lab is intentionally read-only and does not require permanent database objects.
