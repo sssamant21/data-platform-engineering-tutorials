@@ -190,8 +190,12 @@ docker exec $labId sh -c 'pg_dump -U postgres -Fc appdb > /tmp/appdb.dump'
 if ($LASTEXITCODE -ne 0) { throw 'Backup failed; stop before restore' }
 docker exec $labId sh -c 'test -s /tmp/appdb.dump'
 if ($LASTEXITCODE -ne 0) { throw 'Backup file is absent or empty' }
-docker cp "${labId}:/tmp/appdb.dump" .\appdb.dump
-if ($LASTEXITCODE -ne 0 -or -not (Test-Path .\appdb.dump)) { throw 'Backup copy failed' }
+# Never overwrite an existing local backup, including one from another exercise.
+$backupPath = Join-Path (Get-Location) 'appdb.dump'
+if (Test-Path -LiteralPath $backupPath) { throw 'Local appdb.dump already exists; choose a clean directory before continuing' }
+docker cp "${labId}:/tmp/appdb.dump" $backupPath
+if ($LASTEXITCODE -ne 0 -or -not (Test-Path -LiteralPath $backupPath -PathType Leaf)) { throw 'Backup copy failed' }
+if ((Get-Item -LiteralPath $backupPath).Length -le 0) { throw 'Copied backup is empty; do not restore' }
 # Use a new, empty restore database. Stop if it already exists; never drop it automatically.
 $restoreExists = docker exec $labId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='appdb_restore';"
 if ($LASTEXITCODE -ne 0 -or $restoreExists.Trim() -ne '') { throw 'Cannot verify a fresh appdb_restore database' }
@@ -204,7 +208,7 @@ if ($LASTEXITCODE -ne 0 -or $restoredCount.Trim() -ne '50000') { throw 'Restore 
 Write-Host "Restore verified: $restoredCount orders"
 ```
 
-Expected: 50,000 restored orders. For a repeated run, choose a new restore database name or deliberately remove the previous disposable restore database first. This test demonstrates logical restore, not WAL archiving, PITR or an independent-node disaster recovery scenario.
+Expected: 50,000 restored orders. For a repeated run, choose a new restore database name or deliberately remove the previous disposable restore database first. This test demonstrates logical restore, not WAL archiving, PITR or an independent-node disaster recovery scenario. The local `appdb.dump` and container `/tmp/appdb.dump` contain actual lab data: keep them out of source control, redact evidence, and remove them only after confirming their exact identity and that they are no longer required. The lab does not automatically delete backup artifacts.
 
 ## Step 8 — Collect evidence
 
