@@ -15,7 +15,7 @@ Dedicated lab resource names:
 - Volumes: `pg-ha10-primary-data` and `pg-ha10-standby-data`
 - Database: `ha10_lab`, role: `ha10_repl`, slot: `ha10_standby_slot`
 
-The two servers share one Docker host, so this lab **does not demonstrate independent HA, RPO/RTO, fencing or failover**. The plaintext passwords are disposable lab examples visible to Docker administrators; never reuse them in real environments. Do not use customer data.
+The two servers share one Docker host, so this lab **does not demonstrate independent HA, RPO/RTO, fencing or failover**. The plaintext passwords are disposable lab examples visible in command history and Docker metadata to administrators; never reuse them in real environments. **Credential exposure remains an open security limitation**: the hard-coded values and `docker run -e`/shell arguments are unsuitable for shared hosts. Use only an approved disposable local Docker context, do not publish terminal transcripts containing commands with secrets, and rotate/destroy these credentials with the isolated lab. Do not treat this lab as a secure-secret-management demonstration. Do not use customer data.
 
 ~~~powershell
 docker version
@@ -92,6 +92,7 @@ A Docker volume has a name rather than a portable immutable ID. Retain its creat
 
 ~~~powershell
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-primary --network pg-ha10-net -e POSTGRES_PASSWORD=TrainingOnly_HA10_123 -e POSTGRES_DB=ha10_lab -v pg-ha10-primary-data:/var/lib/postgresql/data postgres:17 -c wal_level=replica -c max_wal_senders=5 -c max_replication_slots=5 -c wal_keep_size=64MB -c max_slot_wal_keep_size=256MB
+if ($LASTEXITCODE -ne 0) { throw 'Primary container creation failed; stop and inspect resource provenance' }
 
 docker exec pg-ha10-primary pg_isready -U postgres -d ha10_lab
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT version(), pg_is_in_recovery();"
@@ -103,8 +104,10 @@ Expected: primary ready, `pg_is_in_recovery() = false`, `wal_level = replica`. I
 ## 3. Create a dedicated replication role and HBA entry
 
 ~~~powershell
-docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "CREATE ROLE ha10_repl WITH REPLICATION LOGIN PASSWORD 'TrainingOnly_Repl_HA10_123';"
+docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "CREATE ROLE ha10_repl WITH REPLICATION LOGIN PASSWORD 'TrainingOnly_Repl_HA10_123';"
+if ($LASTEXITCODE -ne 0) { throw 'Replication role creation failed; stop' }
 docker exec -u postgres pg-ha10-primary sh -c 'echo host replication ha10_repl all scram-sha-256 >> /var/lib/postgresql/data/pg_hba.conf && pg_ctl reload -D /var/lib/postgresql/data'
+if ($LASTEXITCODE -ne 0) { throw 'HBA append/reload failed; stop and inspect without retrying append' }
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT rolname, rolreplication, rolsuper FROM pg_roles WHERE rolname='ha10_repl';"
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT line_number, database, user_name, auth_method, error FROM pg_hba_file_rules WHERE 'ha10_repl'=ANY(user_name);"
 ~~~
@@ -117,6 +120,7 @@ The new named volume may initially be root-owned. Set ownership **only** on the 
 
 ~~~powershell
 docker run --rm --user root -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17 sh -c 'chown postgres:postgres /var/lib/postgresql/data && chmod 700 /var/lib/postgresql/data'
+if ($LASTEXITCODE -ne 0) { throw 'Standby volume permission initialization failed; stop' }
 ~~~
 
 Seed standby using the physical replication protocol. The temporary `PGPASSWORD` is used for the base-backup process; the `passfile` connection option will be recorded by `-R` for later standby connections.
@@ -142,6 +146,10 @@ Create the standby's credential file with restricted permissions **inside the la
 
 ~~~powershell
 docker run --rm --user root -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17 sh -c 'echo pg-ha10-primary:5432:replication:ha10_repl:TrainingOnly_Repl_HA10_123 > /var/lib/postgresql/data/.pgpass && chown postgres:postgres /var/lib/postgresql/data/.pgpass && chmod 600 /var/lib/postgresql/data/.pgpass'
+if ($LASTEXITCODE -ne 0) { throw 'Standby passfile creation/permissions failed; stop' }
+# Record only metadata; never display passfile contents.
+docker run --rm --user postgres -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17 sh -c 'test "$(stat -c %a /var/lib/postgresql/data/.pgpass)" = 600 && test "$(stat -c %u /var/lib/postgresql/data/.pgpass)" = "$(id -u)"'
+if ($LASTEXITCODE -ne 0) { throw 'Standby passfile ownership/mode assertion failed; stop' }
 ~~~
 
 Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The password is intentionally static for a disposable demonstration only.
@@ -150,6 +158,7 @@ Expected: exit code 0. Never commit the `.pgpass` file or any real secret. The p
 
 ~~~powershell
 docker run -d --label training.track=pg-enterprise-ch10 --name pg-ha10-standby --network pg-ha10-net -v pg-ha10-standby-data:/var/lib/postgresql/data postgres:17
+if ($LASTEXITCODE -ne 0) { throw 'Standby container creation failed; stop and inspect provenance' }
 docker exec pg-ha10-standby pg_isready -U postgres -d ha10_lab
 docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
 docker exec pg-ha10-standby psql -U postgres -d ha10_lab -c "SELECT pg_is_in_recovery() AS is_standby;"
