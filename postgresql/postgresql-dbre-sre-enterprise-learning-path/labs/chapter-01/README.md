@@ -46,14 +46,7 @@ if ($LASTEXITCODE -ne 0) { throw 'Docker run failed; do not continue to docker e
 $labContext = docker context show
 if ($LASTEXITCODE -ne 0 -or $labContext -ne $context) { throw 'Docker context changed after preflight' }
 $labId = docker inspect --format '{{.Id}}' pg-fleet-lab
-if ($LASTEXITCODE -ne 0 -or if ($LASTEXITCODE -ne 0 -or $labId -notmatch '^[a-f0-9]{64}
-$labImage = docker inspect --format '{{.Config.Image}}' $labId
-if ($LASTEXITCODE -ne 0 -or $labImage -ne 'postgres:17') { throw 'Unexpected lab container image' }
-$labLabel = docker inspect --format '{{index .Config.Labels "dbre.training"}}' $labId
-if ($LASTEXITCODE -ne 0 -or $labLabel -ne 'postgresql-enterprise-ch01') { throw 'Unexpected lab ownership label' }
-$labVolume = docker inspect --format '{{range .Mounts}}{{if eq .Destination "/var/lib/postgresql/data"}}{{.Name}}{{end}}{{end}}' $labId
-if ($LASTEXITCODE -ne 0 -or $labVolume -ne 'pg_fleet_data') { throw 'Unexpected lab data mount' }
-Write-Host "Retain for cleanup verification: context=$labContext container_id=$labId volume=$labVolume") { throw 'Cannot verify full lab container ID' }
+if ($LASTEXITCODE -ne 0 -or if ($LASTEXITCODE -ne 0 -or if ($LASTEXITCODE -ne 0 -or $labId -notmatch '^[a-f0-9]{64}$') { throw 'Cannot verify full lab container ID' }
 $labImage = docker inspect --format '{{.Config.Image}}' $labId
 if ($LASTEXITCODE -ne 0 -or $labImage -ne 'postgres:17') { throw 'Unexpected lab container image' }
 $labLabel = docker inspect --format '{{index .Config.Labels "dbre.training"}}' $labId
