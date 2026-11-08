@@ -186,6 +186,10 @@ These are starting points, not a complete health certification. Statistics may l
 Exit `psql` using `\q`. Run in PowerShell:
 
 ```powershell
+# Prevent shell redirection from truncating an existing container-side backup.
+# Exit 0 means the destination does not exist; any other result stops this run.
+docker exec $labId test ! -e /tmp/appdb.dump
+if ($LASTEXITCODE -ne 0) { throw 'Container /tmp/appdb.dump exists or cannot be checked; stop without overwriting it' }
 docker exec $labId sh -c 'pg_dump -U postgres -Fc appdb > /tmp/appdb.dump'
 if ($LASTEXITCODE -ne 0) { throw 'Backup failed; stop before restore' }
 docker exec $labId sh -c 'test -s /tmp/appdb.dump'
