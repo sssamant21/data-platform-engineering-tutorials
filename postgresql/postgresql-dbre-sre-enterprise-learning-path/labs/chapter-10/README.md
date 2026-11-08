@@ -111,8 +111,10 @@ docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -
 if ($LASTEXITCODE -ne 0) { throw 'Replication role creation failed; stop' }
 docker exec -u postgres pg-ha10-primary sh -c 'echo host replication ha10_repl all scram-sha-256 >> /var/lib/postgresql/data/pg_hba.conf && pg_ctl reload -D /var/lib/postgresql/data'
 if ($LASTEXITCODE -ne 0) { throw 'HBA append/reload failed; stop and inspect without retrying append' }
-docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT rolname, rolreplication, rolsuper FROM pg_roles WHERE rolname='ha10_repl';"
-docker exec pg-ha10-primary psql -U postgres -d ha10_lab -c "SELECT line_number, database, user_name, auth_method, error FROM pg_hba_file_rules WHERE 'ha10_repl'=ANY(user_name);"
+docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "SELECT rolname, rolreplication, rolsuper FROM pg_roles WHERE rolname='ha10_repl';"
+if ($LASTEXITCODE -ne 0) { throw 'Replication role observation failed; stop' }
+docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "SELECT line_number, database, user_name, auth_method, error FROM pg_hba_file_rules WHERE 'ha10_repl'=ANY(user_name);"
+if ($LASTEXITCODE -ne 0) { throw 'HBA rule observation failed; stop' }
 ~~~
 
 Expected: role has replication permission but is not superuser; HBA rule uses SCRAM with no parse error. The HBA `all` address is only tolerable in this dedicated internal training network. Production requires scoped CIDRs, TLS, managed secrets, review and independent security controls. WAL can expose sensitive data.
@@ -138,7 +140,9 @@ if ($baseBackupExit -ne 0) { throw "pg_basebackup failed (exit $baseBackupExit);
 
 ~~~powershell
 docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -c "SELECT slot_name, slot_type, active, wal_status FROM pg_replication_slots WHERE slot_name='ha10_standby_slot';"
+if ($LASTEXITCODE -ne 0) { throw 'Replication slot observation failed; stop' }
 docker volume inspect pg-ha10-standby-data --format '{{.Name}} {{.Mountpoint}} {{json .Labels}}'
+if ($LASTEXITCODE -ne 0) { throw 'Standby volume metadata observation failed; stop' }
 ~~~
 
 Do not print `.pgpass`, `primary_conninfo`, or credential-bearing container environment values into evidence.
