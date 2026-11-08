@@ -976,3 +976,12 @@ After reviewing the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 base
 
 
 **Publication verification addendum (2026-11-08):** Initial replacement unexpectedly damaged the regex due to JavaScript replacement-string `$'` interpolation. Immediately corrected the complete guard line in [follow-up commit](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/5c93020bf197f5c24802f91f137a3c2528d31fdc), then re-fetched `main` and confirmed the exact line `if ($LASTEXITCODE -ne 0 -or $labId -notmatch '^[a-f0-9]{64}$') { throw 'Cannot verify full lab container ID' }`. This is source verification only, not PowerShell execution. The simple count of lines beginning with three backticks is 41, so Markdown fence balance needs a separate parser-aware check; do not claim it passed.
+
+
+## 2026-11-08 — Chapter 01 duplicated corrupt tail removed (source verification)
+
+After reviewing the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline and prior audit, re-fetched the current Chapter 01 lab. Despite earlier repair claims, the source still appended a malformed `) { throw ...` fragment, an unmatched code fence and a second copy of Steps 2–9 after the optional-cleanup warning. This is a confirmed Markdown/PowerShell publication defect, not a new runtime result.
+
+Removed only the 7,403-character corrupted duplicate tail after the first complete cleanup warning; retained the original Steps 0–9 and all lesson/SQL/backup instructions. [Scoped correction](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/9698ad57c77c0826698cad9bcb625a7bc2527b27). Re-fetched main and compared exact content. Static checks on corrected source: ten unique numbered Step headings (0–9), 22 opening/closing backtick fence lines (11 pairs), and one intact final cleanup warning. This confirms fence-line parity and section uniqueness, **not** PowerShell parsing or lab execution. Prior claims of Chapter 01 duplication removal were premature.
+
+Remaining: exhaustive internal/external link and anchor verification, PowerShell 5.1/7 parsing and Docker output behavior, disposable credential/backup safeguards, isolated runtime testing, and PG18 migration using a new volume mounted at `/var/lib/postgresql` with `PGDATA=/var/lib/postgresql/18/docker`. Existing PG17 evidence is historical only. Runtime validated 0/20; independent review and production certification pending. No other curriculum edited.
