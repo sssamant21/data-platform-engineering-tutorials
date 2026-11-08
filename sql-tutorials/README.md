@@ -19,6 +19,10 @@
 9. [009 — Data types, NULL, and explicit type conversion](part-01-fundamentals/009-data-types-null-and-explicit-type-conversion.md) — published; runtime testing pending.
 10. [010 — Lab 01: explore the sample database and write first queries](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md) — published; PostgreSQL 18 runtime validation pending.
 
+## Part 02 — Filtering, Sorting & Conditional Logic
+
+11. [011 — WHERE and comparison operators](part-02-filtering/011-where-and-comparison-operators.md) — published; [read-only SQL lab](labs/011-where-comparison-operators.sql); independent review and PostgreSQL 18 runtime testing pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
