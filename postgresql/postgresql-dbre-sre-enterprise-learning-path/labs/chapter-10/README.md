@@ -356,11 +356,20 @@ if (-not $replayed) { throw 'Standby did not replay exact marker within bounded 
 
 ## 7. Prove the standby rejects writes — assert expected SQLSTATE
 
-This is an intentional error test. The SQLSTATE for a read-only SQL transaction is `25006`. Capture only sanitized error output; do not include connection strings, passwords, or environment dumps. A nonzero exit code **alone** is insufficient because authentication, connection or syntax errors could also cause failure.
+This is an intentional error test. The snippet locally restores PowerShell's error preference even if capture fails; it must be tested on Windows PowerShell 5.1 and PowerShell 7 because native stderr behavior differs. The SQLSTATE for a read-only SQL transaction is `25006`. Capture only sanitized error output; do not include connection strings, passwords, or environment dumps. A nonzero exit code **alone** is insufficient because authentication, connection or syntax errors could also cause failure.
 
 ~~~powershell
-$writeOutput = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -v VERBOSITY=verbose -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('must not write on standby');" 2>&1 | ForEach-Object { $_.ToString() })
-$writeExit = $LASTEXITCODE
+# Windows PowerShell 5.1 can promote redirected native stderr to a terminating
+# NativeCommandError when ErrorActionPreference is Stop. This error is intentional.
+# Temporarily relax only this capture, then restore the caller's preference.
+$previousErrorActionPreference = $ErrorActionPreference
+try {
+  $ErrorActionPreference = 'Continue'
+  $writeOutput = @(docker exec pg-ha10-standby psql -X -v ON_ERROR_STOP=1 -v VERBOSITY=verbose -U postgres -d ha10_lab -c "INSERT INTO public.ha10_events (note) VALUES ('must not write on standby');" 2>&1 | ForEach-Object { $_.ToString() })
+  $writeExit = $LASTEXITCODE
+} finally {
+  $ErrorActionPreference = $previousErrorActionPreference
+}
 if ($writeExit -ne 3) { throw "FAIL: expected psql ON_ERROR_STOP SQL-error exit 3, got $writeExit; inspect locally" }
 if (($writeOutput -join "`n") -notmatch '(?m)ERROR:\s+25006:') {
   throw 'FAIL: write failed for a reason other than verified SQLSTATE 25006; inspect locally and redact before recording'
