@@ -877,3 +877,14 @@ Inspected the independent track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-1
 **Verification:** Re-fetched the committed lab from GitHub `main` and compared the entire content; 46 Markdown fence delimiters remain balanced. **Static source verification only:** no PowerShell interpreter, Docker daemon, `pg_isready`, `psql` or PostgreSQL server was executed for this checkpoint. A loop's success and timing cannot be claimed without real runtime evidence.
 
 **Remaining gates:** Validate PowerShell command/exit behavior and exact SQLSTATE capture in an approved isolated context; review replication credentials and generated `primary_conninfo`/passfile handling without exposing secrets; complete whole-track internal/external reference verification; migrate lab image, mounts and expectations separately to PostgreSQL 18 using fresh version-appropriate volumes; execute and capture sanitized runtime and cleanup/retention evidence. Existing PostgreSQL 17 historical notes are preserved. Runtime validation remains 0/20; independent review and production certification remain pending.
+
+
+## Chapter 10 — provenance inspection failure gates (2026-11-08)
+
+**Scope:** Chapter 10 replication lab, following the previously recorded bounded readiness and configuration-assertion reviews. PostgreSQL 18 remains the documentation baseline; these are PostgreSQL 17-targeted lab instructions. **Method:** source-only PowerShell control-flow inspection; no Docker, PowerShell, or PostgreSQL commands were executed.
+
+**Confirmed weakness corrected:** The creation-time provenance block previously ran Docker context, image, network and volume inspections without testing their exit codes. A failed inspection could be followed by subsequent commands, making the evidence incomplete while appearing successful. The lab now fails closed on changed Docker context/image identity and nonzero image/network/volume inspection statuses; the separate post-creation primary/standby inspection examples also stop on nonzero exit codes. This does **not** independently verify that labels, mounts or consumers match the expected values: the owner must inspect and record them before proceeding or cleanup. Resource names and labels alone are not ownership proof.
+
+**Static verification:** Source edit scoped to [Chapter 10 lab](../labs/chapter-10/README.md); Markdown fences remained balanced. The source was fetched again from GitHub main after publication. **Runtime:** not executed; 0/20 runtime-validated. No PG18 migration, independent sign-off, or production certification is implied.
+
+**Next:** Strengthen expected-value checks on the creation-time resource metadata, address plaintext training credentials, finish external-reference verification, and execute only on an approved isolated disposable Docker context with actual version, image, command, outcome and cleanup evidence.
