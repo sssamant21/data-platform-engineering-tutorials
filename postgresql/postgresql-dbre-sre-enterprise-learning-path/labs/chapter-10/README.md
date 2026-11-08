@@ -117,6 +117,24 @@ docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -U postgres -d ha10_lab -
 if ($LASTEXITCODE -ne 0) { throw 'HBA rule observation failed; stop' }
 ~~~
 
+**Configuration acceptance assertions (read-only):** The preceding formatted queries do not establish the expected values. Run these before the base backup, stopping on any mismatch.
+
+~~~powershell
+$roleRows = @(docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT rolreplication::text || '|' || rolsuper::text || '|' || rolcanlogin::text FROM pg_roles WHERE rolname = 'ha10_repl';")
+$roleExit = $LASTEXITCODE
+if ($roleExit -ne 0 -or $roleRows.Count -ne 1 -or $roleRows[0].Trim() -cne 'true|false|true') {
+  throw 'Replication role privileges do not match expected values; stop'
+}
+$hbaRows = @(docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT count(*) FROM pg_hba_file_rules WHERE type = 'host' AND database = ARRAY['replication']::text[] AND user_name = ARRAY['ha10_repl']::text[] AND address = 'all' AND auth_method = 'scram-sha-256' AND error IS NULL;")
+$hbaExit = $LASTEXITCODE
+if ($hbaExit -ne 0 -or $hbaRows.Count -ne 1 -or $hbaRows[0].Trim() -cne '1') {
+  throw 'Expected replication HBA rule not found exactly once; stop'
+}
+'PASS: replication role and HBA configuration asserted'
+~~~
+
+These checks are unexecuted static examples. The HBA address `all` is restricted to this disposable lab, not a production access policy.
+
 Expected: role has replication permission but is not superuser; HBA rule uses SCRAM with no parse error. The HBA `all` address is only tolerable in this dedicated internal training network. Production requires scoped CIDRs, TLS, managed secrets, review and independent security controls. WAL can expose sensitive data.
 
 ## 4. Prepare empty standby volume and seed with pg_basebackup
@@ -146,6 +164,19 @@ if ($LASTEXITCODE -ne 0) { throw 'Standby volume metadata observation failed; st
 ~~~
 
 Do not print `.pgpass`, `primary_conninfo`, or credential-bearing container environment values into evidence.
+
+Before creating the standby passfile, assert that the slot created by `pg_basebackup -C` is a physical, inactive slot. Do not delete or recreate a slot when this check fails.
+
+~~~powershell
+$slotRows = @(docker exec pg-ha10-primary psql -X -v ON_ERROR_STOP=1 -tA -U postgres -d ha10_lab -c "SELECT slot_type || '|' || active::text FROM pg_replication_slots WHERE slot_name = 'ha10_standby_slot';")
+$slotExit = $LASTEXITCODE
+if ($slotExit -ne 0 -or $slotRows.Count -ne 1 -or $slotRows[0].Trim() -cne 'physical|false') {
+  throw 'Expected inactive physical slot not observed; stop and inspect read-only'
+}
+'PASS: inactive physical replication slot asserted'
+~~~
+
+After standby startup, the slot should become active; do not rerun this pre-start assertion then.
 
 **Expected:** exit code 0; a physical slot named `ha10_standby_slot` exists on the primary; the standby data volume now contains `standby.signal` and generated `primary_conninfo`/`primary_slot_name` settings. Do not rerun: the slot and data directory already exist.
 
