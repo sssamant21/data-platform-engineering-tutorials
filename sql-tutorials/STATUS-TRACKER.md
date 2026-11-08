@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 3 |
-| Remaining to draft | 117 |
+| Authored and published chapters | 4 |
+| Remaining to draft | 116 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -15,7 +15,7 @@
 
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
-| 01 — Fundamentals | 001–010 | 3 | 7 |
+| 01 — Fundamentals | 001–010 | 4 | 6 |
 | 02 — Filtering and sorting | 011–020 | 0 | 10 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
@@ -35,7 +35,8 @@
 | [001](part-01-fundamentals/001-introduction-to-sql.md) | Introduction to SQL — purpose, use cases, and stakeholder roles | Published | Pending | Pending |
 | [002](part-01-fundamentals/002-relational-databases-and-dbms-architecture.md) | Relational databases and DBMS architecture | Published | Pending | Pending |
 | [003](part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md) | Set up the SQL lab — PostgreSQL 18, Docker, and SQL clients | Published | Pending | Pending |
-| 004–120 | See Master TOC | Planned | — | — |
+| [004](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) | Databases, schemas, tables, rows, and columns | Published | Pending | Pending |
+| 005–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -51,9 +52,15 @@
 - Lab guide: [Docker README](labs/docker/README.md); commit `79be3378d1dc564deec58e9673ab40756bceb94b`.
 - GitHub fetch confirmed all four artifacts on `main`. Static checks: read-only SQL, version assertion, loopback port, PostgreSQL 18 volume path. **No PostgreSQL 18 container was run**; independent review and runtime evidence remain pending.
 
+## Chapter 004 publication evidence
+
+- Chapter: [004](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md); commit `d688a90b294b0cc5de10b58be5ce2eac7d5d49f5`.
+- Lab: [004 SQL](labs/004-databases-schemas-tables-rows-columns.sql); commit `75d0d135f93f88e34e8baf79a8a6b25ba1194ef8`.
+- GitHub fetch verified both files on `main`. Lab uses `BEGIN READ ONLY` and synthetic in-query rows. Expected counts and sums reviewed. **No PostgreSQL 18 execution evidence**; independent review and runtime acceptance remain pending.
+
 ## Next work item
 
-**004 — Databases, schemas, tables, rows, and columns.** Reuse the isolated PostgreSQL 18 lab from Chapter 003, with synthetic examples, expected results, and a safe cleanup path. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
+**005 — Records, relationships, keys, and relational terminology.** Continue using synthetic, read-only examples in the Chapter 003 isolated PostgreSQL 18 lab. Avoid duplicating other established PostgreSQL DBRE/SRE learning paths; this track focuses on SQL literacy and application.
 
 ## Quality gates
 
