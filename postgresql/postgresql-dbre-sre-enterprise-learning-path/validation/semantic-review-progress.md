@@ -899,3 +899,13 @@ Inspected the independent track README, MASTER-TOC, STATUS-TRACKER, POSTGRESQL-1
 - **Limitations:** PowerShell and Docker CLI behavior is unexecuted. Creation-time identity assertions for container mounts/consumers, credential handling, documentation endpoint verification and PostgreSQL 18 image/mount migration remain open. Historical PostgreSQL 17 evidence is preserved.
 - **Next:** Verify the label/consumer checks in an approved disposable Docker context, then add fail-closed post-creation container image/mount assertions and audit external references. Keep PostgreSQL 18 runtime status at 0/20 until genuine execution and cleanup evidence exists.
 
+
+## 2026-11-08 — Chapter 10 post-creation image and mount assertions (static only)
+
+**Documentation baseline:** PostgreSQL 18; **historical lab target:** PostgreSQL 17. Inspected the independent track README, master TOC, status tracker, PG18 baseline, previous semantic audit and Chapter 10 lab. Continued the earliest recorded outstanding provenance checkpoint rather than re-reviewing all twenty chapters.
+
+**Finding and change:** Previously, successful `docker inspect` calls displayed container metadata but did not fail on a mismatched image ID, ownership label or named data-volume mount. Added a read-only PowerShell assertion block that checks full container ID shape, image ID against preflight, `training.track` label, and exactly one named volume mount at the PG17 data path. It fails closed without removing or restarting resources. Run the primary-only check after primary creation, then the combined check after standby creation. [Source commit](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/07b612e11fa5d5c4ab2a8873a4ba8adc542ac34e). Re-fetched `main` and confirmed exact updated content and balanced Markdown fences.
+
+**Limitations:** This is a static control-flow review; PowerShell formatting and Docker behavior have **not** been executed. The block does not prove exclusive ownership or authorize cleanup. The lab still exposes disposable hard-coded credentials, and comprehensive internal/external reference checks remain incomplete. PG18 migration must use a **new** volume mounted at `/var/lib/postgresql`, not the legacy PG17 mount. Runtime evidence remains **0/20**; independent review and production certification remain pending. No cloud, Docker, psql or destructive operations were performed. No changes to the separate 100-chapter curriculum.
+
+**Next:** Resolve Chapter 10 PowerShell native-command and Docker-format behavior in an isolated environment, strengthen secret handling and cleanup evidence, and finish outstanding reference verification before runtime status advances.
