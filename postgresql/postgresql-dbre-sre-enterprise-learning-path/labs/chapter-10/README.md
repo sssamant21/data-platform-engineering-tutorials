@@ -98,6 +98,33 @@ if ($LASTEXITCODE -ne 0) { throw 'Standby provenance inspection failed; stop' }
 
 A Docker volume has a name rather than a portable immutable ID. Retain its creation record, driver, mountpoint, labels, and context. If creation-time evidence is missing, cleanup is blocked pending manual review. The internal network limits external routing but is not a production security boundary.
 
+### 1a. Assert new resource labels and empty network (read-only)
+
+Run immediately after Section 1 creation and before Section 2. A successful `docker inspect` exit code is not sufficient: validate the exact resource labels and absence of unexpected network consumers. This is an additional gate, not a substitute for the creation-time identity record. Do not proceed if any assertion fails; investigate without deleting resources.
+
+~~~powershell
+foreach ($volumeName in @('pg-ha10-primary-data', 'pg-ha10-standby-data')) {
+  $label = @(docker volume inspect $volumeName --format '{{index .Labels "training.track"}}')
+  $inspectExit = $LASTEXITCODE
+  if ($inspectExit -ne 0 -or $label.Count -ne 1 -or $label[0].Trim() -cne 'pg-enterprise-ch10') {
+    throw "Unexpected ownership label for volume $volumeName; stop"
+  }
+}
+$networkLabel = @(docker network inspect pg-ha10-net --format '{{index .Labels "training.track"}}')
+$labelExit = $LASTEXITCODE
+if ($labelExit -ne 0 -or $networkLabel.Count -ne 1 -or $networkLabel[0].Trim() -cne 'pg-enterprise-ch10') {
+  throw 'Unexpected network ownership label; stop'
+}
+$networkConsumers = @(docker network inspect pg-ha10-net --format '{{len .Containers}}')
+$consumerExit = $LASTEXITCODE
+if ($consumerExit -ne 0 -or $networkConsumers.Count -ne 1 -or $networkConsumers[0].Trim() -cne '0') {
+  throw 'Network has consumers or cannot be inspected; stop'
+}
+'PASS: new lab resource labels and empty network asserted'
+~~~
+
+**Expected:** all three resources have the exact `training.track=pg-enterprise-ch10` label and the new network has zero consumers. The label is only a consistency check; the approved Docker context and recorded resource IDs remain required. These PowerShell assertions have **not** been executed.
+
 ## 2. Start primary with WAL streaming settings
 
 ~~~powershell
