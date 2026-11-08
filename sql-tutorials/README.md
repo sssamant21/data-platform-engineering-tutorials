@@ -14,7 +14,8 @@
 4. [004 — Databases, schemas, tables, rows, and columns](part-01-fundamentals/004-databases-schemas-tables-rows-columns.md) — published; runtime testing pending.
 5. [005 — Records, relationships, keys, and relational terminology](part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md) — published; runtime testing pending.
 6. [006 — Anatomy of a SQL statement and logical query processing](part-01-fundamentals/006-anatomy-of-sql-statement-and-logical-query-processing.md) — published; runtime testing pending.
-7. 007 — SELECT fundamentals: retrieve rows and columns — planned.
+7. [007 — SELECT fundamentals: retrieve rows and columns](part-01-fundamentals/007-select-fundamentals-retrieve-rows-and-columns.md) — published; runtime testing pending.
+8. 008 — Aliases, expressions, literals, and calculated columns — planned.
 
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
