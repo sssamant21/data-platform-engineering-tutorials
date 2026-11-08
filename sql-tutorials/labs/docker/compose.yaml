@@ -1,0 +1,24 @@
+# SQL Tutorials — PostgreSQL 18 local lab ONLY.
+# Start from this directory with SQL_LAB_PASSWORD set in the shell.
+# Never expose this service publicly or reuse production secrets.
+name: sql-tutorials-lab
+services:
+  postgres:
+    image: postgres:18
+    restart: "no"
+    environment:
+      POSTGRES_USER: sql_lab
+      POSTGRES_DB: sql_tutorials
+      POSTGRES_PASSWORD: ${SQL_LAB_PASSWORD:?Set a unique local SQL_LAB_PASSWORD before running Compose}
+    ports:
+      - "127.0.0.1:55432:5432"
+    volumes:
+      - sql_pg18_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sql_lab -d sql_tutorials"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+      start_period: 15s
+volumes:
+  sql_pg18_data:
