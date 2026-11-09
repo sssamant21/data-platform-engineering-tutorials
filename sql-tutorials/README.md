@@ -24,6 +24,8 @@
 11. [011 — WHERE and comparison operators](part-02-filtering/011-where-and-comparison-operators.md) — published; [read-only SQL lab](labs/011-where-comparison-operators.sql); independent review and PostgreSQL 18 runtime testing pending.
 12. [012 — AND, OR, NOT, and Boolean precedence](part-02-filtering/012-and-or-not-and-boolean-precedence.md) — published; [read-only SQL lab](labs/012-and-or-not-boolean-precedence.sql); independent review and PostgreSQL 18 runtime testing pending.
 
+13. [013 — NULL handling and SQL three-valued logic](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) — published; [read-only SQL lab](labs/013-null-three-valued-logic.sql); independent review and PostgreSQL 18 runtime testing pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
