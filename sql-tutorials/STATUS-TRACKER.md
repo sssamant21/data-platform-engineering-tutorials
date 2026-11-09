@@ -176,7 +176,7 @@
 
 ## Next work item
 
-**033 — UPDATE with safe predicates and preview queries.** Continue Part 04 with isolated, rollback-only DML examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**035 — DELETE versus TRUNCATE versus DROP.** Continue Part 04 with isolated, rollback-only demonstrations. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -327,3 +327,13 @@
 - Chapter and lab were re-fetched from GitHub `main` after publication. Targeted static reasoning reviewed four synthetic events, exact candidate key EV-102, before/after row identities, 2 pending/2 reviewed, total 44.75, version/database/standby checks, temporary objects, timeouts and ROLLBACK. Relative link targets were checked against known repository paths. This is **not** comprehensive SQL syntax verification or independent editorial review.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution evidence collected.
 - Part 04: **3/10**; total **33/120**; next unfinished chapter **034 — DELETE with safe predicates and referential implications**.
+
+
+## Chapter 034 publication evidence — 2026-11-09
+
+- [Chapter 034 — DELETE with safe predicates and referential implications](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md), commit `845ccb5a0d41e457d657a62a7e3a66f070853867`.
+- [PostgreSQL 18 rollback-only lab](labs/034-delete-safe-predicates-referential-implications.sql), commit `c5da8654414ceb2bec4e70a0d3d8a1a7e94ce82e`.
+- README navigation commit `b31600f299bfe0a49a7145a05c1bf25d0e4b1b24`.
+- Chapter and lab re-fetched from GitHub main. Targeted static inspection: synthetic temporary parent/child tables, guarded PostgreSQL 18 database/version, pre-delete exact ID assertion, DELETE RETURNING capture, expected foreign-key rejection, post-delete IDs/counts/orphan assertions, ROLLBACK. Relative paths checked against repository layout.
+- **Authored/published: 34/120 (28.3%); remaining: 86. Part 04: 4/10.** Independent editorial review: **pending**. Comprehensive SQL syntax checks: **pending**. Actual isolated PostgreSQL 18 runtime execution and reproducible evidence: **pending**. No runtime certification claimed.
+- **Next:** Chapter 035 — DELETE versus TRUNCATE versus DROP.
