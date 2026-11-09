@@ -120,3 +120,22 @@ Read the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy
 **Finding:** No broken ordinary inline relative-file references were found in this batch. Chapters 17–19 labs contain no relative navigation links; optional editorial improvement, not a missing-file defect. These counts represent occurrences, not distinct destinations. No lesson or lab was modified.
 
 **Cumulative ordinary inline-link path inventory:** 397 occurrences across all 40 chapter/lab Markdown files (69 + 103 + 86 + 85 + 54); this does **not** establish exhaustive link validity. Next: inspect reference-style definitions, escaped/multiline/HTML links, internal and external fragment anchors, supporting Markdown files, and HTTP/semantic validity of official PostgreSQL 18 documentation links. Retain the 17-only historical evidence. Runtime validation remains 0/20 for both legacy and PostgreSQL 18 targets; independent review and production certification are pending. No Docker, PostgreSQL, PowerShell, cloud or destructive commands were executed.
+
+
+## Supporting-document reference checkpoint — 2026-11-09
+
+**Method:** Re-read the current `README.md`, `MASTER-TOC.md`, `STATUS-TRACKER.md`, `POSTGRESQL-18-BASELINE.md`, historical static audit and semantic-review log. Inventoried ordinary single-line Markdown inline links in the four active navigation/policy documents; did not repeat the 40 chapter/lab link inventory. The counts below are syntactic link occurrences, not a full Markdown parse or complete target verification.
+
+| Source | Ordinary inline links inventoried | Relative destinations inventoried |
+| --- | ---: | ---: |
+| README.md | 49 | 45 |
+| MASTER-TOC.md | 29 | 29 |
+| STATUS-TRACKER.md | 4 | 4 |
+| POSTGRESQL-18-BASELINE.md | 8 | 1 |
+| **Total** | **90** | **79** |
+
+**Direct GitHub source checks:** The cross-curriculum `postgresql/README.md` and `postgresql/PROGRESS.md` files exist on `main`; both were read-only checked and left untouched. The track's baseline policy and semantic-review progress files also exist and were fetched. These checks verify those **four exact file paths only**; they do not establish that every relative link or anchor in the inventory resolves.
+
+**Finding:** The status tracker still describes Chapter 01's ordinary inline links as needing inventory, although the earlier Batch 1 audit already inventoried Chapter 01 and its lab. This is stale tracking language, not a broken link. Defer tracker wording reconciliation until the full reference gate is finished to avoid suggesting that anchors and external HTTP links were verified.
+
+**Remaining:** Parser-aware reference definitions, escaped/multiline/HTML/autolinks, relative and external fragments, full relative-target resolution for supporting documents, and HTTP/semantic checks of PostgreSQL 18 documentation URLs. The audit report's literal `[label](destination)` examples must not be counted as actual links. No server, Docker, cloud or destructive commands were executed. Runtime evidence remains 0/20; independent approval and certification are pending.
