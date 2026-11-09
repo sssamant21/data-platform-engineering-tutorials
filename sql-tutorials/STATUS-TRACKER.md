@@ -1,13 +1,13 @@
 # SQL Tutorials — Status Tracker
 
 > **Scope:** 120 planned chapters in 12 parts. Source of truth for titles and chapter order: [MASTER-TOC.md](MASTER-TOC.md).
-> **Updated:** 2026-11-08. Content publication and runtime validation are distinct milestones.
+> **Updated:** 2026-11-09. Content publication and runtime validation are distinct milestones.
 
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 16 |
-| Remaining to draft | 104 |
+| Authored and published chapters | 17 |
+| Remaining to draft | 103 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 6 | 4 |
+| 02 — Filtering and sorting | 011–020 | 7 | 3 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -48,7 +48,8 @@
 | [014](part-02-filtering/014-in-between-and-range-predicates.md) | IN, BETWEEN, and range predicates | Published | Pending | Pending |
 | [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) | LIKE, wildcard matching, and dialect-specific ILIKE | Published | Pending | Pending |
 | [016](part-02-filtering/016-distinct-and-duplicate-handling.md) | DISTINCT and duplicate handling | Published | Pending | Pending |
-| 017–120 | See Master TOC | Planned | — | — |
+| [017](part-02-filtering/017-order-by-and-deterministic-sorting.md) | ORDER BY and deterministic sorting | Published | Pending | Pending |
+| 018–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -150,9 +151,16 @@
 - README navigation: commit `cf355ae9131e1abcfd2c55bb6ff17c70c0d2f387`.
 - Chapter and lab fetched from GitHub `main` after creation. Targeted static checks: read-only transaction, inline synthetic data, PostgreSQL 18/database guard, deterministic expected counts, exact acceptance checks, rollback and relative navigation. **No independent editorial review, comprehensive SQL syntax verification, or actual isolated PostgreSQL 18 runtime execution was completed.** Runtime acceptance remains pending.
 
+## Chapter 017 publication evidence
+
+- Chapter: [017](part-02-filtering/017-order-by-and-deterministic-sorting.md); commit `96480970b248d7aa3ab7a5d30cf43a29cecc912d`.
+- Lab: [017 SQL](labs/017-order-by-deterministic-sorting.sql); commit `0e1a0edfc0fb7e1cba0871a7e15d01d0773e69c6`.
+- README navigation: commit `e1997e73b068214d730d0feb8a8808f353725ad0`.
+- Both files were fetched from GitHub `main` after publication. Targeted static inspection checked synthetic inline values, read-only transaction, database/version assertion, deterministic expected ID arrays, rollback, and chapter-relative paths. Expected arrays were manually reasoned, **not executed**. Independent editorial review, comprehensive syntax checks and actual isolated PostgreSQL 18 runtime acceptance remain **pending**; no runtime evidence collected.
+
 ## Next work item
 
-**017 — ORDER BY, ASC, DESC, and NULL ordering.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**018 — LIMIT, OFFSET, FETCH, and TOP across dialects.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
