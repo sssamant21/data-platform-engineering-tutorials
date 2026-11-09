@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 17 |
-| Remaining to draft | 103 |
+| Authored and published chapters | 18 |
+| Remaining to draft | 102 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 7 | 3 |
+| 02 — Filtering and sorting | 011–020 | 8 | 2 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -49,7 +49,8 @@
 | [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) | LIKE, wildcard matching, and dialect-specific ILIKE | Published | Pending | Pending |
 | [016](part-02-filtering/016-distinct-and-duplicate-handling.md) | DISTINCT and duplicate handling | Published | Pending | Pending |
 | [017](part-02-filtering/017-order-by-and-deterministic-sorting.md) | ORDER BY and deterministic sorting | Published | Pending | Pending |
-| 018–120 | See Master TOC | Planned | — | — |
+| [018](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md) | LIMIT, OFFSET, FETCH, and TOP across dialects | Published | Pending | Pending |
+| 019–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -170,3 +171,12 @@
 4. Run PostgreSQL 18 examples in an isolated environment when available; retain command output/evidence and label validation correctly. When unavailable, record **runtime pending**, not **passed**.
 5. Update this tracker after each confirmed GitHub publication; report exact commit and next unfinished chapter.
 6. Continue through all 120 chapters without a manual `NEXT`. Stop advancing when the curriculum is complete or if a real safety, access, or correctness blocker prevents progress.
+
+## Chapter 018 publication evidence
+
+- Chapter: [018](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md); published with commit `615cd870769c64c10170c621306c58571e4352cc`.
+- Lab: [018 SQL](labs/018-limit-offset-fetch-top.sql); same commit `615cd870769c64c10170c621306c58571e4352cc`.
+- README navigation updated in the same commit. GitHub `main` fetch verified the three files.
+- Targeted static inspection: inline synthetic data, read-only transaction, timeout, rollback, environment assertion, expected result arrays, deterministic ordering and links. This is **not** comprehensive SQL syntax verification or independent editorial review.
+- **Actual PostgreSQL 18 runtime execution: pending.** No isolated instance was run and no runtime evidence is claimed.
+- **Next unfinished chapter:** 019 — CASE, COALESCE, and NULLIF.
