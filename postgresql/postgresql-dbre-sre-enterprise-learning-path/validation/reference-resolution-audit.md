@@ -99,3 +99,24 @@ Re-read the track README, master TOC, status tracker, PostgreSQL 18 baseline pol
 **Finding:** All 24 ordinary inline relative-file link occurrences point to existing files; all 12 distinct destination paths were fetched successfully. Chapter 16's lab README has no relative inline navigation links; this is an editorial navigation opportunity, not a broken target. The Chapter 13 lesson contains an external PostgreSQL 18 storage-parameters fragment anchor, which remains unverified. External URL HTTP status, redirects, fragment anchors, reference-style/HTML links, and technical correctness remain pending. Link occurrences are not distinct URLs.
 
 **Cumulative path-inventory coverage:** Chapters 01–16 plus labs (32/40 files); this is not full reference validation. **Next:** Chapters 17–20 plus labs, then parser-aware internal fragment and external PostgreSQL 18 documentation checks. Runtime-validated labs remain 0/20; no PostgreSQL, Docker, PowerShell, destructive or cloud operations were executed. Historical PostgreSQL 17 evidence, independent-review and production-certification gates are unchanged.
+
+
+## Batch 5 — Chapters 17–20 and labs (2026-11-09)
+
+Read the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy, historical static audit, semantic-review log, and preceding reference-audit batches. Fetched the eight chapter/lab Markdown files from GitHub main. Counted ordinary inline Markdown links with the same limited extraction method used in prior batches. All five distinct relative destinations were among the eight fetched source files, confirming their existence on main; no external HTTP endpoint or anchor was tested.
+
+| File | Inline links | Relative links | External URLs | Missing relative targets |
+| --- | ---: | ---: | ---: | ---: |
+| chapters/17-lifecycle-upgrades-and-automation.md | 8 | 1 | 7 | 0 |
+| labs/chapter-17/README.md | 4 | 0 | 4 | 0 |
+| chapters/18-capacity-planning-performance-and-finops.md | 8 | 1 | 7 | 0 |
+| labs/chapter-18/README.md | 5 | 0 | 5 | 0 |
+| chapters/19-application-requirement-gathering-and-database-design.md | 8 | 1 | 7 | 0 |
+| labs/chapter-19/README.md | 5 | 0 | 5 | 0 |
+| chapters/20-enterprise-postgresql-dbre-sre-capstone.md | 10 | 1 | 9 | 0 |
+| labs/chapter-20/README.md | 6 | 1 | 5 | 0 |
+| **Batch total** | **54** | **5** | **49** | **0** |
+
+**Finding:** No broken ordinary inline relative-file references were found in this batch. Chapters 17–19 labs contain no relative navigation links; optional editorial improvement, not a missing-file defect. These counts represent occurrences, not distinct destinations. No lesson or lab was modified.
+
+**Cumulative ordinary inline-link path inventory:** 397 occurrences across all 40 chapter/lab Markdown files (69 + 103 + 86 + 85 + 54); this does **not** establish exhaustive link validity. Next: inspect reference-style definitions, escaped/multiline/HTML links, internal and external fragment anchors, supporting Markdown files, and HTTP/semantic validity of official PostgreSQL 18 documentation links. Retain the 17-only historical evidence. Runtime validation remains 0/20 for both legacy and PostgreSQL 18 targets; independent review and production certification are pending. No Docker, PostgreSQL, PowerShell, cloud or destructive commands were executed.
