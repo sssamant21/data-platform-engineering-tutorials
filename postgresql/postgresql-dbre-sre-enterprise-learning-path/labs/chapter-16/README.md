@@ -95,32 +95,20 @@ docker inspect --format '{{json .Mounts}}' pg-dbre-ch16
 **Stop unless** the full ID matches the one recorded from `docker run`, the label is exactly `16`, the context is the expected isolated lab context, and the mounts contain no unexpected host bind or named volumes. If any value is missing or unfamiliar, do not remove anything. After these checks only:
 ```bash
 docker rm -f -v pg-dbre-ch16
-docker ps -a --filter name='^/pg-dbre-ch16
-
-## Acceptance checklist
-- [ ] Docker context and isolation checked.
-- [ ] Initial SELECT returns one synthetic row.
-- [ ] Reader INSERT rejected (nonzero exit).
-- [ ] Writer INSERT succeeds and count becomes two.
-- [ ] Role flags show no elevated runtime privileges.
-- [ ] Privilege and membership evidence recorded.
-- [ ] Full container ID, training label, Docker context and mounts verified before cleanup; post-cleanup listing captured if actually executed.
-- [ ] Negative-test stderr confirms the intended table privilege denial, not merely a nonzero exit; runtime evidence and independent review tracked separately.
-
-## Official references
-[PostgreSQL 18 roles](https://www.postgresql.org/docs/18/user-manag.html) · [GRANT](https://www.postgresql.org/docs/18/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/18/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/18/client-authentication.html) · [TLS](https://www.postgresql.org/docs/18/ssl-tcp.html)
-
+docker ps -a --filter name='^/pg-dbre-ch16$'
 ```
-`docker rm -f -v` deletes the verified container and its anonymous volumes; the final listing should be empty. Never use global Docker prune commands. These are documented safeguards, **not executed cleanup evidence**.
+Expected cleanup evidence: the filtered container listing is empty. If identity or mount provenance cannot be established, retain the container and document cleanup as blocked. The `docker rm -f -v` command irreversibly deletes this verified disposable container and its anonymous volumes; never use global prune commands.
 
 ## Acceptance checklist
 - [ ] Docker context and isolation checked.
 - [ ] Initial SELECT returns one synthetic row.
-- [ ] Reader INSERT rejected (nonzero exit).
+- [ ] Reader INSERT rejected with an actual table-privilege denial, not merely any nonzero exit.
 - [ ] Writer INSERT succeeds and count becomes two.
 - [ ] Role flags show no elevated runtime privileges.
 - [ ] Privilege and membership evidence recorded.
-- [ ] Cleanup verified; runtime evidence and independent review tracked separately.
+- [ ] Full container ID, ownership label, context and mounts verified before cleanup.
+- [ ] Post-cleanup absence captured if executed; otherwise cleanup marked not executed or blocked.
+- [ ] Runtime evidence and independent review tracked separately.
 
 ## Official references
 [PostgreSQL 18 roles](https://www.postgresql.org/docs/18/user-manag.html) · [GRANT](https://www.postgresql.org/docs/18/sql-grant.html) · [Privileges](https://www.postgresql.org/docs/18/ddl-priv.html) · [Client authentication](https://www.postgresql.org/docs/18/client-authentication.html) · [TLS](https://www.postgresql.org/docs/18/ssl-tcp.html)
