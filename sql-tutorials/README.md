@@ -34,6 +34,8 @@
 
 17. [017 — ORDER BY and deterministic sorting](part-02-filtering/017-order-by-and-deterministic-sorting.md) — published; [read-only SQL lab](labs/017-order-by-deterministic-sorting.sql); targeted static inspection completed; independent editorial review and PostgreSQL 18 runtime validation pending.
 
+18. [018 — LIMIT, OFFSET, FETCH, and TOP across dialects](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md) — published; [read-only SQL lab](labs/018-limit-offset-fetch-top.sql); targeted static inspection completed; independent editorial review and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
