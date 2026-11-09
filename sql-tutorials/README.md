@@ -32,6 +32,8 @@
 
 16. [016 — DISTINCT and duplicate handling](part-02-filtering/016-distinct-and-duplicate-handling.md) — published; [read-only SQL lab](labs/016-distinct-duplicate-handling.sql); targeted static checks completed; independent editorial review and PostgreSQL 18 runtime testing pending.
 
+17. [017 — ORDER BY and deterministic sorting](part-02-filtering/017-order-by-and-deterministic-sorting.md) — published; [read-only SQL lab](labs/017-order-by-deterministic-sorting.sql); targeted static inspection completed; independent editorial review and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
