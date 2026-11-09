@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 22 |
-| Remaining to draft | 98 |
+| Authored and published chapters | 23 |
+| Remaining to draft | 97 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 2 | 8 |
+| 03 — Modeling, DDL, constraints | 021–030 | 3 | 7 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -54,7 +54,8 @@
 | [020](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md) | Lab 02 — filter and rank operational records | Published | Pending | Pending |
 | [021](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md) | Entity relationships and conceptual data modeling | Published | Pending | Pending |
 | [022](part-03-modeling/022-create-database-create-schema-and-create-table.md) | CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE | Published | Pending | Pending |
-| 023–120 | See Master TOC | Planned | — | — |
+| [023](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md) | Choosing numeric, character, Boolean, and temporal types | Published | Pending | Pending |
+| 024–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -220,3 +221,12 @@
 - Chapter and lab fetched from GitHub `main` after creation; README link verified before tracker update. Targeted static inspection reviewed version/database guard, pre-existing-schema refusal, transaction-scoped DDL, synthetic rows, count/amount assertions, foreign key metadata, ROLLBACK and post-rollback schema absence check. This is **not** independent editorial review or comprehensive syntax validation.
 - **Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution or reproducible runtime evidence was obtained.
 - **Next unfinished chapter: 023 — Choosing numeric, character, Boolean, and temporal types.**
+
+## Chapter 023 publication evidence
+
+- Chapter: [023](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md); commit `dcafd32dfac87953ed8ae711784664feea70c2ff`.
+- Lab: [023 SQL](labs/023-choosing-sql-data-types.sql); commit `2315ef338e922a7117728c812e0b230847bc0912`.
+- README navigation commit `d418f895a1b95949241b25301be5e0b0b7600e9b`.
+- All three files re-fetched from GitHub `main` before tracker update. Targeted static reasoning reviewed six synthetic records, exact amount total 91.45, NULL count 2, read-only transaction, PostgreSQL 18/database checks, timeout and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
+- **Actual isolated PostgreSQL 18 runtime validation: pending**; no execution evidence was collected.
+- **Next unfinished chapter: 024 — Primary keys, natural keys, surrogate keys, and UNIQUE.**
