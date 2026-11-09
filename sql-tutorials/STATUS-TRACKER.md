@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 33 |
-| Remaining to draft | 87 |
+| Authored and published chapters | 35 |
+| Remaining to draft | 85 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 3 | 7 |
+| 04 — Transactions and DML | 031–040 | 5 | 5 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -65,7 +65,9 @@
 | [031](part-04-data-modification/031-insert-single-row-and-multi-row-records.md) | INSERT single-row and multi-row records | Published | Pending | Pending |
 | [032](part-04-data-modification/032-insert-select-and-bulk-loading-fundamentals.md) | INSERT ... SELECT and bulk-loading fundamentals | Published | Pending | Pending |
 | [033](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md) | UPDATE with safe predicates and preview queries | Published | Pending | Pending |
-| 034–120 | See Master TOC | Planned | — | — |
+| [034](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md) | DELETE with safe predicates and referential implications | Published | Pending | Pending |
+| [035](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) | DELETE versus TRUNCATE versus DROP | Published | Pending | Pending |
+| 036–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -337,3 +339,12 @@
 - Chapter and lab re-fetched from GitHub main. Targeted static inspection: synthetic temporary parent/child tables, guarded PostgreSQL 18 database/version, pre-delete exact ID assertion, DELETE RETURNING capture, expected foreign-key rejection, post-delete IDs/counts/orphan assertions, ROLLBACK. Relative paths checked against repository layout.
 - **Authored/published: 34/120 (28.3%); remaining: 86. Part 04: 4/10.** Independent editorial review: **pending**. Comprehensive SQL syntax checks: **pending**. Actual isolated PostgreSQL 18 runtime execution and reproducible evidence: **pending**. No runtime certification claimed.
 - **Next:** Chapter 035 — DELETE versus TRUNCATE versus DROP.
+
+## Chapter 035 publication evidence — 2026-11-09
+
+- [Chapter 035 — DELETE versus TRUNCATE versus DROP](part-04-data-modification/035-delete-versus-truncate-versus-drop.md), commit `9eda0adecbd64f1c4ad298905f0375bbb9ccf258`.
+- [PostgreSQL 18 rollback-only synthetic lab](labs/035-delete-truncate-drop.sql), commit `1b7cd5f48df8f02665bf95a2595e98b07f208fe3`.
+- README navigation commit `cb13819bb943e563e6a7ab250c0e262d1aef289f`.
+- Both new files and README re-fetched from GitHub main. Targeted static inspection: database/version/standby guard, synthetic temporary data, exact DELETE candidate and affected-key checks, TRUNCATE row-count/table-presence checks, DROP absence assertion, conservative timeouts and ROLLBACK. Link paths checked against known chapter/lab locations. This does not establish comprehensive SQL syntax correctness or independent review.
+- **Authored/published: 35/120 (29.2%); remaining: 85. Part 04: 5/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime validation and reproducible evidence: **pending**; no execution performed.
+- **Next:** Chapter 036 — UPSERT and MERGE patterns across SQL dialects.
