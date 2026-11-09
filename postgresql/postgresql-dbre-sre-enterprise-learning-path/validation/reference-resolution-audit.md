@@ -195,3 +195,21 @@ Fetched all eight Markdown sources from `main` after reviewing the track README,
 **Disposition:** No new non-inline reference occurrence or confirmed defect in these eight sources. This targeted regex-based check is not a full Markdown parser: escaped/multiline constructs, inline links with fragments, generated heading anchors, HTML outside the searched `<a>` form, and external HTTP/redirect/fragment validity remain unverified. Prior ordinary-inline inventories for these files are not repeated. The historical PostgreSQL 17 semantic reviews are unchanged; PostgreSQL 18 technical/runtime migration and actual execution remain pending (0/20 labs). No Docker, PostgreSQL, cloud or destructive operation was executed.
 
 **Next:** Continue non-inline syntax checks for Chapters 09–12 and labs, then remaining chapters and supporting Markdown. Follow with parser-aware fragment resolution and external PostgreSQL 18 endpoint/semantic checks. Do not advance runtime or certification statuses without genuine evidence.
+
+
+## Non-inline syntax batch — Chapters 09–12 and labs (2026-11-09)
+
+Reviewed the current track README, master TOC, status tracker, PostgreSQL 18 policy, prior static audit, semantic-review log and preceding reference audit. Fetched the eight chapter/lab Markdown sources from GitHub `main`. Excluding fenced examples, performed targeted source scans for reference-style definitions/uses, inline destinations containing fragments, HTML anchor/link tags and angle-bracket HTTP(S) autolinks. This is a syntax-category scan, **not** a full CommonMark parse or lab execution.
+
+| Source pair | Reference definitions | Reference uses | Inline fragment URLs | HTML anchor/link tags | HTTP(S) autolinks |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Chapter 09 + lab | 0 | 0 | 0 | 0 | 0 |
+| Chapter 10 + lab | 0 | 0 | 0 | 0 | 0 |
+| Chapter 11 + lab | 0 | 0 | 2 | 0 | 0 |
+| Chapter 12 + lab | 0 | 0 | 0 | 0 | 0 |
+
+**New evidence:** The two Chapter 11 fragment occurrences both target `https://www.postgresql.org/docs/18/runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET`. The official PostgreSQL 18 page was fetched and shows the **19.5.6 Recovery Target** section. This confirms the destination page and relevant section exist; the fragment identifier itself was not independently checked against raw HTML id attributes, and no claim of complete external URL/anchor validation is made. Source: https://www.postgresql.org/docs/18/runtime-config-wal.html (checked 2026-11-09).
+
+**Disposition:** No confirmed broken references or lesson edits in this batch. Counts exclude fenced code; escaped/multiline constructs, exact anchor-id resolution, redirects, and other external destinations remain pending. Historical PostgreSQL 17 semantic reviews and lab assumptions remain intact; PostgreSQL 18 is the documentation baseline, not an executed runtime claim. **0/20 runtime-validated labs.** No Docker, psql, PowerShell, shell, cloud or destructive operation was executed. Independent review and production certification remain pending.
+
+**Next:** Continue non-inline syntax categories for Chapters 13–16 and labs, then 17–20. Complete actual fragment-id and external HTTP/semantic checks before declaring the reference gate complete; correct the status tracker's stale Chapter 01 inventory wording without overstating verification.
