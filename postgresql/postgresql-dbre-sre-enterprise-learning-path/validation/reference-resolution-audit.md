@@ -57,3 +57,24 @@ Fetched eight source files from GitHub main and compared ordinary inline Markdow
 **Finding:** No missing relative-file targets in this batch. Chapter 08's linked cluster-example.yaml exists. Exact file-path resolution does not establish YAML correctness, HTTP availability, anchor resolution, or runtime correctness. Regex extraction is not a complete Markdown parser and does not prove coverage of reference-style, escaped, or multiline links. No external HTTP checks were performed. Documentation baseline PostgreSQL 18; 0/20 runtime-validated labs.
 
 **Next:** Chapters 09–12 and labs, followed by remaining batches, parser-aware references/anchors, and official PostgreSQL 18 HTTP and semantic verification. Preserve historical PostgreSQL 17 evidence and certification gates.
+
+
+## Batch 3 — Chapters 09–12 and labs (2026-11-09)
+
+Read the current track README, master TOC, status tracker, PostgreSQL 18 baseline policy, historical static audit, and semantic-review progress. Fetched the eight chapter/lab Markdown files on `main` and compared ordinary inline Markdown relative destinations with the exact blob paths in GitHub's non-truncated recursive `main` tree.
+
+| File | Inline links | Relative links | External URLs | Missing relative targets |
+| --- | ---: | ---: | ---: | ---: |
+| chapters/09-selecting-the-right-enterprise-postgresql-architecture.md | 16 | 8 | 8 | 0 |
+| labs/chapter-09/README.md | 10 | 2 | 8 | 0 |
+| chapters/10-streaming-replication-and-high-availability.md | 13 | 7 | 6 | 0 |
+| labs/chapter-10/README.md | 8 | 3 | 5 | 0 |
+| chapters/11-backup-restore-pitr-and-disaster-recovery.md | 13 | 6 | 7 | 0 |
+| labs/chapter-11/README.md | 6 | 2 | 4 | 0 |
+| chapters/12-monitoring-alerting-and-observability.md | 13 | 6 | 7 | 0 |
+| labs/chapter-12/README.md | 7 | 2 | 5 | 0 |
+| **Batch total** | **86** | **36** | **50** | **0** |
+
+**Finding:** No missing relative-file destinations were detected. Cumulative ordinary inline-link path inventory now covers Chapters 01–12 and their labs (24 of 40 chapter/lab files). This batch inventories 50 external URL occurrences without testing HTTP status, redirects, or PostgreSQL 18 semantic correctness. The extraction does not exhaust reference-style definitions, escaped/multiline links, HTML links, or fragment anchors; these remain pending. Counts are link occurrences, not distinct URLs.
+
+**Next:** Continue Chapters 13–16 and labs; then 17–20 and labs. Complete parser-aware link/fragment checks and PostgreSQL 18 documentation endpoint and semantic verification before changing runtime claims. No Docker, PostgreSQL, PowerShell, failover, or destructive commands were executed. Historical PostgreSQL 17 evidence and the 0/20 runtime status remain unchanged; independent review and production certification are pending.
