@@ -57,6 +57,10 @@ class FragmentCheckerTests(unittest.TestCase):
         result = self.inspect_with("<p>ok</p>", "https://www.postgresql.org/docs/17/functions-admin.html")
         self.assertEqual(result["status"], "unexpected_redirect")
 
+    def test_same_version_different_page_redirect_rejected(self):
+        result = self.inspect_with("<p>ok</p>", "https://www.postgresql.org/docs/18/index.html")
+        self.assertEqual(result["status"], "unexpected_redirect")
+
     def test_unexpected_host_rejected(self):
         result = self.inspect_with("<p>ok</p>", "https://example.org/docs/18/functions-admin.html")
         self.assertEqual(result["status"], "unexpected_redirect")
