@@ -179,3 +179,19 @@ Fetched each of the six files from GitHub `main` and scanned for line-based refe
 **Limitations:** The scan is regex-based; multiline/escaped reference definitions, nested Markdown syntax, fragments in other link forms and code-fence-aware parsing are not exhaustively resolved. The absence of matches is not a complete CommonMark compliance finding. No Docker, PostgreSQL, PowerShell, shell, cloud or destructive operation was executed. Runtime acceptance remains 0/20, and independent review and certification remain pending.
 
 **Next:** Continue the same non-inline syntax scan for Chapters 05–08 and labs, then remaining chapters and supporting documents; resolve actual fragments and check external PostgreSQL 18 URLs separately. Reconcile the stale Chapter 01 inventory wording in the status tracker only with an accurate gate-status update.
+
+
+## Non-inline syntax batch — Chapters 05–08 and labs (2026-11-09)
+
+Fetched all eight Markdown sources from `main` after reviewing the track README, master TOC, status tracker, PostgreSQL 18 policy, historical static audit, semantic-review progress and prior reference-resolution results. A targeted source scan (excluding triple-backtick fenced examples) checked reference-style link definitions and uses, inline fragment-only links, raw HTML `<a>` tags carrying `href`/`id`/`name`, and angle-bracket HTTP(S) autolinks.
+
+| Source files | Reference definitions | Reference uses | Fragment-only links | HTML anchor/link tags | HTTP(S) autolinks |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Chapter 05 lesson and lab | 0 | 0 | 0 | 0 | 0 |
+| Chapter 06 lesson and lab | 0 | 0 | 0 | 0 | 0 |
+| Chapter 07 lesson and lab | 0 | 0 | 0 | 0 | 0 |
+| Chapter 08 lesson and lab | 0 | 0 | 0 | 0 | 0 |
+
+**Disposition:** No new non-inline reference occurrence or confirmed defect in these eight sources. This targeted regex-based check is not a full Markdown parser: escaped/multiline constructs, inline links with fragments, generated heading anchors, HTML outside the searched `<a>` form, and external HTTP/redirect/fragment validity remain unverified. Prior ordinary-inline inventories for these files are not repeated. The historical PostgreSQL 17 semantic reviews are unchanged; PostgreSQL 18 technical/runtime migration and actual execution remain pending (0/20 labs). No Docker, PostgreSQL, cloud or destructive operation was executed.
+
+**Next:** Continue non-inline syntax checks for Chapters 09–12 and labs, then remaining chapters and supporting Markdown. Follow with parser-aware fragment resolution and external PostgreSQL 18 endpoint/semantic checks. Do not advance runtime or certification statuses without genuine evidence.
