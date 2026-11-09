@@ -30,6 +30,8 @@
 
 15. [015 — LIKE, wildcard matching, and dialect-specific ILIKE](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) — published; [read-only SQL lab](labs/015-like-wildcards-ilike.sql); independent review and PostgreSQL 18 runtime testing pending.
 
+16. [016 — DISTINCT and duplicate handling](part-02-filtering/016-distinct-and-duplicate-handling.md) — published; [read-only SQL lab](labs/016-distinct-duplicate-handling.sql); targeted static checks completed; independent editorial review and PostgreSQL 18 runtime testing pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
