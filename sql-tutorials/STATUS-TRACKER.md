@@ -47,7 +47,7 @@
 | [013](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) | NULL handling and SQL three-valued logic | Published | Pending | Pending |
 | [014](part-02-filtering/014-in-between-and-range-predicates.md) | IN, BETWEEN, and range predicates | Published | Pending | Pending |
 | [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) | LIKE, wildcard matching, and dialect-specific ILIKE | Published | Pending | Pending |
-| 015–120 | See Master TOC | Planned | — | — |
+| 016–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
