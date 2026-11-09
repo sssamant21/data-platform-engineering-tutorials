@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 28 |
-| Remaining to draft | 92 |
+| Authored and published chapters | 29 |
+| Remaining to draft | 91 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 8 | 2 |
+| 03 — Modeling, DDL, constraints | 021–030 | 9 | 1 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -60,7 +60,8 @@
 | [026](part-03-modeling/026-not-null-check-default-and-constraint-validation.md) | NOT NULL, CHECK, DEFAULT, and constraint validation | Published | Pending | Pending |
 | [027](part-03-modeling/027-identity-columns-sequences-and-generated-values.md) | Identity columns, sequences, and generated values | Published | Pending | Pending |
 | [028](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md) | ALTER TABLE, rename operations, and safe schema changes | Published | Pending | Pending |
-| 029–120 | See Master TOC | Planned | — | — |
+| [029](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md) | Normalization (1NF–3NF) and intentional denormalization | Published | Pending | Pending |
+| 030–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -171,7 +172,7 @@
 
 ## Next work item
 
-**028 — ALTER TABLE, rename operations, and safe schema changes.** Continue Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**030 — Lab 03: design and build a normalized operational schema.** Complete Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -278,3 +279,12 @@
 - Both new files and README were fetched and verified from GitHub `main` before updating this tracker. Targeted static inspection reviewed chapter/lab paths, synthetic values (3 records, 24.75 total), default/backfill distinction, SQLSTATE classes for CHECK/UNIQUE, version/database guard, temporary objects, timeouts, and rollback. This is **not** an independent editorial review or comprehensive SQL syntax verification.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution evidence obtained.
 - Part 03: **8/10**; total **28/120**; next unfinished chapter **029 — Normalization (1NF–3NF) and intentional denormalization**.
+
+## Chapter 029 publication evidence
+
+- Chapter: [029](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md); commit `8df8ca0cb595e2bd9b87533789cd77b0755f3d76`.
+- Read-only lab: [029 SQL](labs/029-normalization-1nf-3nf-denormalization.sql); commit `ff4db34435d0d3a1a6f66a3be13064ac463f6aec`.
+- README navigation: commit `bd2770f8cb45ded6d2026a167625c4dccca07610`.
+- Chapter and lab fetched from GitHub `main` after creation; targeted static reasoning reviewed synthetic cardinalities (2 customers, 2 products, 2 orders, 3 lines), expected total 85.00, stale cache drift 5.00, PostgreSQL 18/database guards, read-only transaction, fail-closed assertions, and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution or reproducible runtime evidence obtained.
+- Part 03: **9/10**; total **29/120**; next unfinished chapter **030 — Lab 03: design and build a normalized operational schema**.
