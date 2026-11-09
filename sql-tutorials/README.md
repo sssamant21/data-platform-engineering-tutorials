@@ -26,6 +26,8 @@
 
 13. [013 — NULL handling and SQL three-valued logic](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) — published; [read-only SQL lab](labs/013-null-three-valued-logic.sql); independent review and PostgreSQL 18 runtime testing pending.
 
+14. [014 — IN, BETWEEN, and range predicates](part-02-filtering/014-in-between-and-range-predicates.md) — published; [read-only SQL lab](labs/014-in-between-range-predicates.sql); independent review and PostgreSQL 18 runtime testing pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
