@@ -52,6 +52,8 @@
 
 24. [024 — Primary keys, natural keys, surrogate keys, and UNIQUE](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/024-primary-natural-surrogate-unique.sql); targeted static inspection only; independent editorial review, comprehensive syntax checks and actual PostgreSQL 18 runtime validation pending.
 
+25. [025 — Foreign keys and referential integrity](part-03-modeling/025-foreign-keys-and-referential-integrity.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/025-foreign-keys-referential-integrity.sql); targeted static checks only; independent editorial review, comprehensive syntax checks and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
