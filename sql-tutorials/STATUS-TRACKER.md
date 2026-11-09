@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 21 |
-| Remaining to draft | 99 |
+| Authored and published chapters | 22 |
+| Remaining to draft | 98 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 1 | 9 |
+| 03 — Modeling, DDL, constraints | 021–030 | 2 | 8 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -53,7 +53,8 @@
 | [019](part-02-filtering/019-case-coalesce-and-nullif.md) | CASE, COALESCE, and NULLIF | Published | Pending | Pending |
 | [020](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md) | Lab 02 — filter and rank operational records | Published | Pending | Pending |
 | [021](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md) | Entity relationships and conceptual data modeling | Published | Pending | Pending |
-| 020–120 | See Master TOC | Planned | — | — |
+| [022](part-03-modeling/022-create-database-create-schema-and-create-table.md) | CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE | Published | Pending | Pending |
+| 023–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -164,7 +165,7 @@
 
 ## Next work item
 
-**022 — CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE.** Continue Part 03 with disposable, isolated DDL examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**023 — Choosing numeric, character, Boolean, and temporal types.** Continue Part 03 with type-selection examples and isolated PostgreSQL 18 lab. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -210,3 +211,12 @@
 - Chapter and lab fetched from GitHub `main` after creation. Targeted static inspection confirmed synthetic inline datasets, PostgreSQL 18/database guard, read-only transaction, expected results and fail-closed assertions. This is not comprehensive SQL syntax verification or independent editorial review.
 - **Actual isolated PostgreSQL 18 runtime validation pending**; no execution evidence obtained.
 - **Next unfinished chapter:** 022 — CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE.
+
+## Chapter 022 publication evidence
+
+- Chapter: [022](part-03-modeling/022-create-database-create-schema-and-create-table.md), commit `2739a5fb188f772b35d2146e9ceebe4d7542f491`.
+- Lab: [022 SQL](labs/022-create-schema-and-tables-isolated.sql), commit `570c5080dff38feb9442b42d9d2ee04c3e72fe21`.
+- README navigation commit `9b05fd209200a2697ead671e281f7032368a26f9`.
+- Chapter and lab fetched from GitHub `main` after creation; README link verified before tracker update. Targeted static inspection reviewed version/database guard, pre-existing-schema refusal, transaction-scoped DDL, synthetic rows, count/amount assertions, foreign key metadata, ROLLBACK and post-rollback schema absence check. This is **not** independent editorial review or comprehensive syntax validation.
+- **Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution or reproducible runtime evidence was obtained.
+- **Next unfinished chapter: 023 — Choosing numeric, character, Boolean, and temporal types.**
