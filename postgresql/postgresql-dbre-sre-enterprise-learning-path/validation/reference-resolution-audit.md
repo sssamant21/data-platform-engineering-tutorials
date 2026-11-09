@@ -304,3 +304,19 @@ Following the earlier unresolved Chapter 11/13/18 anchor findings, added [a read
 **Execution limitation:** This isolated review environment could not resolve `www.postgresql.org` via DNS for raw HTML retrieval. The helper was committed and fetched back from GitHub, but **not network-executed**; no fragment is newly marked valid or broken. To run in a network-enabled disposable review environment: `python validation/check_pg18_fragments.py --output validation/pg18-fragment-results.json` from the track root. Review the output before committing evidence; if a fragment is absent, verify section semantics and correct only the confirmed URL. The helper is not a substitute for exhaustive external URL checking or independent review.
 
 **Remaining gates:** Full external URL/redirect and parser-aware link validation; Chapter 15/18 independent cleanup review; PostgreSQL 18 image/mount migration and actual isolated lab execution. PG17 and PG18 runtime statuses remain 0/20; production certification is pending. No other curriculum files changed.
+
+
+## Offline regression coverage for PostgreSQL 18 fragment checker — 2026-11-09
+
+Added [test_check_pg18_fragments.py](test_check_pg18_fragments.py) as an offline, mocked regression suite for the existing [fragment verifier](check_pg18_fragments.py). Eight test cases cover exact HTML `id`, legacy named anchors, visible heading text without an anchor, unexpected host/version redirects, non-HTML content, oversized responses, and DNS/network failure classified as unverified. This adds **test definitions**, not live documentation validation. The new file was fetched from GitHub `main` after publication.
+
+Run from this track's root with Python 3:
+
+```sh
+python -m unittest discover -s validation -p 'test_check_pg18_fragments.py' -v
+python validation/check_pg18_fragments.py --output validation/pg18-fragment-results.json
+```
+
+**Execution status:** The unit suite has not been executed in this run; no passing test result is claimed. A direct outbound HTTPS attempt to `www.postgresql.org` from the current container failed DNS resolution (`URLError: [Errno -3] Temporary failure in name resolution`). Therefore exact live anchors and external endpoint status remain unverified. Review any generated JSON before committing; do not publish transient network errors as proof of invalid links.
+
+**Next:** Execute offline unit tests in a Python-enabled checkout, then run the live verifier from a network-enabled environment and inspect exact HTML fragment IDs. Resolve confirmed link defects only; proceed to independently reviewed cleanup guards and isolated PostgreSQL 18 migration before any lab runtime status changes. PostgreSQL 17 and 18 runtime validation remain 0/20, and independent review/production certification remain pending.
