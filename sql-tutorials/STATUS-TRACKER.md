@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 24 |
-| Remaining to draft | 96 |
+| Authored and published chapters | 25 |
+| Remaining to draft | 95 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 4 | 6 |
+| 03 — Modeling, DDL, constraints | 021–030 | 5 | 5 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -56,7 +56,8 @@
 | [022](part-03-modeling/022-create-database-create-schema-and-create-table.md) | CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE | Published | Pending | Pending |
 | [023](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md) | Choosing numeric, character, Boolean, and temporal types | Published | Pending | Pending |
 | [024](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) | Primary keys, natural keys, surrogate keys, and UNIQUE | Published | Pending | Pending |
-| 025–120 | See Master TOC | Planned | — | — |
+| [025](part-03-modeling/025-foreign-keys-and-referential-integrity.md) | Foreign keys and referential integrity | Published | Pending | Pending |
+| 026–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -239,3 +240,11 @@
 - README navigation commit `e84e14fdeb7da80bc978c657e1942580cad8ce2f`.
 - Both authored files were fetched from GitHub `main`; targeted static inspection covers transaction rollback, temporary synthetic tables, version/database guard, expected values, and duplicate-key assertions. Independent editorial review, comprehensive SQL syntax verification, and actual isolated PostgreSQL 18 runtime execution **remain pending**. No runtime evidence claimed.
 - **Next:** Chapter 025 — Foreign keys and referential integrity.
+
+## Chapter 025 publication evidence
+
+- Chapter: [025](part-03-modeling/025-foreign-keys-and-referential-integrity.md); commit `b5d872555cc8992f4b68715d91d47c072536190d`.
+- Isolated rollback-only lab: [025 SQL](labs/025-foreign-keys-referential-integrity.sql); commit `1b9547f597293d1447ef4769d4c49af14cce3954`.
+- README navigation: commit `c935e4a4e1350cd9356e7a3f2dce9d92e35a458f`.
+- Both authored artifacts were fetched from GitHub `main` after publication. Targeted static inspection covered synthetic data, guardrails, rollback, expected counts and foreign-key rejection handling. **Independent editorial review, comprehensive SQL syntax checks and actual PostgreSQL 18 runtime validation are pending.** No isolated PostgreSQL 18 execution evidence was obtained.
+- Part 03: **5/10**; total: **25/120**. Next: **026 — NOT NULL, CHECK, DEFAULT, and constraint validation**.
