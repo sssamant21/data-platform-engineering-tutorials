@@ -64,6 +64,10 @@
 
 30. [030 — Lab 03: design and build a normalized operational schema](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md) — published; [rollback-only PostgreSQL 18 lab](labs/030-lab-03-normalized-operational-schema.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax checks, and actual PostgreSQL 18 runtime validation pending.
 
+## Part 04 — Data Modification & Transaction Fundamentals
+
+31. [031 — INSERT single-row and multi-row records](part-04-data-modification/031-insert-single-row-and-multi-row-records.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/031-insert-single-row-and-multi-row-records.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax checks, and actual PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
