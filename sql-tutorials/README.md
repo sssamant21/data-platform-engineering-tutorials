@@ -60,6 +60,8 @@
 
 28. [028 — ALTER TABLE, rename operations, and safe schema changes](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/028-alter-table-safe-schema-changes.sql); targeted static inspection only; independent editorial review, comprehensive syntax checks and actual PostgreSQL 18 runtime validation pending.
 
+29. [029 — Normalization (1NF–3NF) and intentional denormalization](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md) — published; [read-only PostgreSQL 18 lab](labs/029-normalization-1nf-3nf-denormalization.sql); targeted static reasoning only; independent editorial review, comprehensive syntax checks, and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
