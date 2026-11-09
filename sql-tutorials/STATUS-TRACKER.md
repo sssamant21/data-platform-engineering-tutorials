@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 26 |
-| Remaining to draft | 94 |
+| Authored and published chapters | 27 |
+| Remaining to draft | 93 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 6 | 4 |
+| 03 — Modeling, DDL, constraints | 021–030 | 7 | 3 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -58,7 +58,8 @@
 | [024](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) | Primary keys, natural keys, surrogate keys, and UNIQUE | Published | Pending | Pending |
 | [025](part-03-modeling/025-foreign-keys-and-referential-integrity.md) | Foreign keys and referential integrity | Published | Pending | Pending |
 | [026](part-03-modeling/026-not-null-check-default-and-constraint-validation.md) | NOT NULL, CHECK, DEFAULT, and constraint validation | Published | Pending | Pending |
-| 026–120 | See Master TOC | Planned | — | — |
+| [027](part-03-modeling/027-identity-columns-sequences-and-generated-values.md) | Identity columns, sequences, and generated values | Published | Pending | Pending |
+| 028–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -169,7 +170,7 @@
 
 ## Next work item
 
-**027 — Identity columns, sequences, and generated values.** Continue Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**028 — ALTER TABLE, rename operations, and safe schema changes.** Continue Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -258,3 +259,12 @@
 - Chapter, SQL lab and README were fetched from GitHub `main` after publication. Targeted static inspection reviewed chapter links, synthetic row counts (3), defaulted values, expected SQLSTATEs 23502/23514, five synthetic legacy rows (3 invalid), environment guards, timeouts and rollback. These are reasoned checks, **not executed SQL**.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No runtime evidence obtained.
 - Part 03: **6/10**; total **26/120**; next unfinished chapter: **027 — Identity columns, sequences, and generated values**.
+
+## Chapter 027 publication evidence
+
+- Chapter: [027](part-03-modeling/027-identity-columns-sequences-and-generated-values.md); commit `bebac562009e524e6aae343c15d48fb511f77072`.
+- Isolated rollback-only lab: [027 SQL](labs/027-identity-sequences-generated-values.sql); commit `5d67dade4b05f05ae7c66ff96286cef6b7bf0f47`.
+- README navigation: commit `dc4847b52d4b9444e757ef06846465790ae18647`.
+- Chapter, lab, and README fetched and verified from GitHub `main` before updating this tracker. Targeted static reasoning inspected identity ALWAYS/BY DEFAULT semantics, expected IDs (100,101,102,999 and 1,500), SQLSTATE 428C9, unique violation handling, generated total 46.75, temporary sequence values 10/15, version/database guard, transaction rollback and relative links. These are **not runtime test results**.
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No execution evidence collected.
+- Part 03: **7/10**; total **27/120**; next unfinished chapter **028 — ALTER TABLE, rename operations, and safe schema changes**.
