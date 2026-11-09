@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 14 |
-| Remaining to draft | 106 |
+| Authored and published chapters | 15 |
+| Remaining to draft | 105 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 4 | 6 |
+| 02 — Filtering and sorting | 011–020 | 5 | 5 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -46,6 +46,7 @@
 | [012](part-02-filtering/012-and-or-not-and-boolean-precedence.md) | AND, OR, NOT, and Boolean precedence | Published | Pending | Pending |
 | [013](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) | NULL handling and SQL three-valued logic | Published | Pending | Pending |
 | [014](part-02-filtering/014-in-between-and-range-predicates.md) | IN, BETWEEN, and range predicates | Published | Pending | Pending |
+| [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) | LIKE, wildcard matching, and dialect-specific ILIKE | Published | Pending | Pending |
 | 015–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -135,9 +136,15 @@
 - README navigation: commit `f1ac6cc4b5808e3f4abb13345665a4c9f6c96c64`.
 - Both new files were re-fetched from GitHub `main`. Targeted static inspection confirmed synthetic inline data, a read-only transaction, PostgreSQL 18/database guard, expected-result assertions, and rollback. Relative navigation paths inspected; expected ID sets reasoned from literal rows. **Independent editorial review, comprehensive SQL syntax checks, and actual isolated PostgreSQL 18 execution remain pending.** No runtime evidence was collected.
 
+## Chapter 015 publication evidence
+
+- Chapter: [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md); commit `5a244acc78427699052f44ecbab3f58aa62169ea`.
+- Lab: [015 SQL](labs/015-like-wildcards-ilike.sql); commit `0e627742f0657fafc21a4aa085ea9b8021d6c14c`.
+- Both files re-fetched from GitHub `main`. Targeted static inspection: synthetic inline VALUES, read-only transaction, PostgreSQL 18/database guard, explicit C collation for case-sensitive examples, expected ID-set assertions, and rollback. Expected outputs manually reasoned; Markdown relative paths inspected. **Independent editorial review, comprehensive SQL syntax checks, and actual isolated PostgreSQL 18 runtime execution remain pending.** No runtime evidence collected.
+
 ## Next work item
 
-**015 — LIKE, wildcard matching, and dialect-specific ILIKE.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**016 — DISTINCT and duplicate handling.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
