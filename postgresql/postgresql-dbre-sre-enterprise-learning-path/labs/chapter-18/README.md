@@ -16,7 +16,7 @@ docker container inspect pg-dbre-ch18
 ```
 Only if the container does not exist:
 ```sh
-docker run --name pg-dbre-ch18 -e POSTGRES_PASSWORD=ch18-disposable-only -d postgres:17
+docker run --name pg-dbre-ch18 --label org.postgresql-dbre.lab=chapter-18 -e POSTGRES_PASSWORD=ch18-disposable-only -d postgres:17
 docker exec pg-dbre-ch18 pg_isready -U postgres
 docker exec pg-dbre-ch18 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT current_database(), current_user, current_setting('server_version_num') AS version_num;"
 docker inspect --format '{{.Image}}' pg-dbre-ch18
@@ -54,14 +54,29 @@ Record measured lab values and separately compute this **illustrative enterprise
 - Separately estimate WAL, archive, backups, replicas and restore staging space; never add them blindly to a database-only metric without checking where each resides.
 - Write a one-page decision: workload/SLO, forecast inputs, measured peak utilization, cost components, candidate optimization, risk, owner, evidence and rollback.
 
-## 6. Cleanup / rollback
-Only after verifying `docker inspect pg-dbre-ch18` identifies your lab container:
+## 6. Cleanup / rollback (manual, identity-gated)
+**Do not execute cleanup based only on the container name.** The commands below are a *review procedure*, not an automated cleanup script. Use only your own isolated Docker context. Before any destructive action, confirm the context is the same one used at creation and inspect the container:
+
+```sh
+docker context show
+docker container inspect --format '{{.Id}}' pg-dbre-ch18
+docker container inspect --format '{{index .Config.Labels "org.postgresql-dbre.lab"}}' pg-dbre-ch18
+docker container inspect --format '{{.Image}}' pg-dbre-ch18
+docker container inspect --format '{{json .Mounts}}' pg-dbre-ch18
+```
+
+Record the **full immutable container ID** returned by inspect in your evidence. Require the label value `chapter-18`, the expected image identity, the expected Docker context, and mounts that belong exclusively to this lab. If any check fails or any mount is shared, **STOP; do not remove anything**. If the container was created before this label safeguard was added, stop and seek manual review instead of assuming ownership.
+
+Only after those checks, substitute the **captured full container ID** for `<VERIFIED_FULL_CONTAINER_ID>` in the following commands. The placeholder is not executable as written. Immediately before stopping, re-inspect the name and verify that its full ID is still exactly the captured ID. Recheck the same ID and ownership before removal; if identity changes, stop.
+
 ```sh
 docker exec pg-dbre-ch18 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "DROP TABLE ch18_capacity;"
-docker stop pg-dbre-ch18
-docker rm -v pg-dbre-ch18
+docker stop <VERIFIED_FULL_CONTAINER_ID>
+docker rm <VERIFIED_FULL_CONTAINER_ID>
+docker container inspect pg-dbre-ch18
 ```
-Expected: table removed, only `pg-dbre-ch18` stopped and removed together with its anonymous volume(s). Verify container identity and mounts first; `-v` does not remove named volumes. Do not run `docker system prune`, `docker volume prune`, `docker rm -f` against unknown resources or any production cleanup. If interrupted, inspect the named container before deciding whether to resume or clean up.
+
+Expected: the synthetic table is dropped; the verified container is stopped and removed; the final inspect returns `No such container`. **Do not use `docker rm -v`**: this procedure intentionally does not delete anonymous volumes. Capture the mount/volume IDs in evidence and leave them for a separate, independently reviewed ownership-and-reference check before any volume deletion. Confirm any remaining lab volume is not attached to another container; never remove a shared or unknown volume. Do not run `docker system prune`, `docker volume prune`, or force-remove unknown resources. If interrupted, repeat the context, label, immutable-ID and mount checks before deciding how to proceed.
 
 ## Troubleshooting
 - Docker daemon error: start local Docker Desktop; check `docker context show`.
@@ -78,7 +93,7 @@ Expected: table removed, only `pg-dbre-ch18` stopped and removed together with i
 - [ ] WAL counter values captured with timestamps and correctly interpreted.
 - [ ] EXPLAIN output captured for bounded SELECT.
 - [ ] Low/base/high forecast, free-space headroom and cost assumptions documented.
-- [ ] Cleanup verified; no external resource touched.
+- [ ] Captured immutable container ID, owner label, Docker context and mounts; verified container removal and documented retained volume disposition; no external resource touched.
 - [ ] Runtime marked **not executed** until evidence exists; independent review remains separate.
 
 ## Official references
