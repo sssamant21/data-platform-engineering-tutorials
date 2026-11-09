@@ -62,6 +62,8 @@
 
 29. [029 — Normalization (1NF–3NF) and intentional denormalization](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md) — published; [read-only PostgreSQL 18 lab](labs/029-normalization-1nf-3nf-denormalization.sql); targeted static reasoning only; independent editorial review, comprehensive syntax checks, and PostgreSQL 18 runtime validation pending.
 
+30. [030 — Lab 03: design and build a normalized operational schema](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md) — published; [rollback-only PostgreSQL 18 lab](labs/030-lab-03-normalized-operational-schema.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax checks, and actual PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
