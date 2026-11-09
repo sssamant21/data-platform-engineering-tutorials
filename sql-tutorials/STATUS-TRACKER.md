@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 12 |
-| Remaining to draft | 108 |
+| Authored and published chapters | 13 |
+| Remaining to draft | 107 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 2 | 8 |
+| 02 — Filtering and sorting | 011–020 | 3 | 7 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -44,7 +44,8 @@
 | [010](part-01-fundamentals/010-lab-01-explore-sample-database-and-write-first-queries.md) | Lab 01 — explore the sample database and write first queries | Published | Pending | Pending |
 | [011](part-02-filtering/011-where-and-comparison-operators.md) | WHERE and comparison operators | Published | Pending | Pending |
 | [012](part-02-filtering/012-and-or-not-and-boolean-precedence.md) | AND, OR, NOT, and Boolean precedence | Published | Pending | Pending |
-| 012–120 | See Master TOC | Planned | — | — |
+| [013](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) | NULL handling and SQL three-valued logic | Published | Pending | Pending |
+| 014–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -119,9 +120,16 @@
 - README navigation commit `bd1febc26a6b54a0658db0f2bbfd44d7bb981fa3`.
 - Both chapter and lab were re-fetched from GitHub `main`. Targeted static inspection confirmed synthetic `VALUES`, read-only transaction, version/database guard, six exact ID-set acceptance checks, and rollback. Expected ID sets reviewed from literal data. **Independent editorial review, comprehensive SQL syntax checks, and actual isolated PostgreSQL 18 execution remain pending**; no runtime evidence was collected.
 
+## Chapter 013 publication evidence
+
+- Chapter: [013](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md); commit `1f2f5332773e478e99e8b6995dc24a50ab4a1acd`.
+- Lab: [013 SQL](labs/013-null-three-valued-logic.sql); commit `bdb0622d5cebb91cd42d5fc1b52e25aa75f2713a`.
+- README navigation: commit `38b64b43aea7d1482a0aa29fe187cfe34cd5b6a1`.
+- Chapter and lab fetched and verified on GitHub main. Targeted static inspection: synthetic VALUES, read-only transaction, PostgreSQL version/database assertion, exact-result acceptance checks, and ROLLBACK. Expected outputs manually reasoned from literal inputs. **Independent editorial review, full SQL syntax checks, and isolated PostgreSQL 18 runtime execution remain pending.** No runtime evidence obtained.
+
 ## Next work item
 
-**013 — NULL handling and SQL three-valued logic.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**014 — IN, BETWEEN, and range predicates.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
