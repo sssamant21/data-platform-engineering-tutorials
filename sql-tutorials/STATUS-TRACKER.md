@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 35 |
-| Remaining to draft | 85 |
+| Authored and published chapters | 36 |
+| Remaining to draft | 84 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 5 | 5 |
+| 04 — Transactions and DML | 031–040 | 6 | 4 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -67,7 +67,8 @@
 | [033](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md) | UPDATE with safe predicates and preview queries | Published | Pending | Pending |
 | [034](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md) | DELETE with safe predicates and referential implications | Published | Pending | Pending |
 | [035](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) | DELETE versus TRUNCATE versus DROP | Published | Pending | Pending |
-| 036–120 | See Master TOC | Planned | — | — |
+| [036](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md) | UPSERT and MERGE patterns across SQL dialects | Published | Pending | Pending |
+| 037–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -348,3 +349,12 @@
 - Both new files and README re-fetched from GitHub main. Targeted static inspection: database/version/standby guard, synthetic temporary data, exact DELETE candidate and affected-key checks, TRUNCATE row-count/table-presence checks, DROP absence assertion, conservative timeouts and ROLLBACK. Link paths checked against known chapter/lab locations. This does not establish comprehensive SQL syntax correctness or independent review.
 - **Authored/published: 35/120 (29.2%); remaining: 85. Part 04: 5/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime validation and reproducible evidence: **pending**; no execution performed.
 - **Next:** Chapter 036 — UPSERT and MERGE patterns across SQL dialects.
+
+## Chapter 036 publication evidence — 2026-11-09
+
+- [Chapter 036 — UPSERT and MERGE patterns across SQL dialects](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md), commit `e8e7c5a5e7a6ea694d034d2b4fe5f87dbb168db1`.
+- [PostgreSQL 18 isolated rollback-only SQL lab](labs/036-upsert-merge-patterns.sql), commit `36dc923073b8a0152d70c8047fcd456d22ed2171`.
+- README navigation commit `b682e36c9559f20267d9d84b6f24e968ac1dcdd4`.
+- All three files re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked synthetic keys and version-guarded conflict updates, MERGE reconciliation (4 SKUs, quantity sum 31), repeatability, version/database/standby guard, timeouts, temp tables, and ROLLBACK. Relative links reviewed. This is **not** comprehensive SQL syntax validation or independent editorial review.
+- **Authored/published: 36/120 (30.0%); remaining: 84; Part 04: 6/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime execution: **pending**; no runtime evidence collected.
+- **Next:** Chapter 037 — RETURNING, OUTPUT, and write verification.
