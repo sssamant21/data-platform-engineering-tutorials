@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 32 |
-| Remaining to draft | 88 |
+| Authored and published chapters | 33 |
+| Remaining to draft | 87 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 2 | 8 |
+| 04 — Transactions and DML | 031–040 | 3 | 7 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -64,7 +64,8 @@
 | [030](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md) | Lab 03 — design and build a normalized operational schema | Published | Pending | Pending |
 | [031](part-04-data-modification/031-insert-single-row-and-multi-row-records.md) | INSERT single-row and multi-row records | Published | Pending | Pending |
 | [032](part-04-data-modification/032-insert-select-and-bulk-loading-fundamentals.md) | INSERT ... SELECT and bulk-loading fundamentals | Published | Pending | Pending |
-| 033–120 | See Master TOC | Planned | — | — |
+| [033](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md) | UPDATE with safe predicates and preview queries | Published | Pending | Pending |
+| 034–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -317,3 +318,12 @@
 - Chapter and lab re-fetched from GitHub main before tracker update. Targeted static reasoning checked five synthetic source events, accepted IDs EV-101/102/104, three accepted, two rejected, total 39.75, version/database/standby guard, timeouts and ROLLBACK. This does **not** constitute comprehensive SQL syntax verification.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 instance was executed and no runtime evidence collected.
 - Part 04: **2/10**; total **32/120**; next unfinished chapter **033 — UPDATE with safe predicates and preview queries**.
+
+## Chapter 033 publication evidence
+
+- Chapter: [033](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md); commit `6623c98265a31464fa420a3a04146b2b1e6e0d93`.
+- Isolated rollback-only PostgreSQL 18 lab: [033 SQL](labs/033-update-safe-predicates-preview.sql); commit `a89a5d23f3b4e39c779c04309f8b9454cc8a0f14`.
+- README navigation commit `20e08e70f57af6b76947d095b72b65712c8de482`.
+- Chapter and lab were re-fetched from GitHub `main` after publication. Targeted static reasoning reviewed four synthetic events, exact candidate key EV-102, before/after row identities, 2 pending/2 reviewed, total 44.75, version/database/standby checks, temporary objects, timeouts and ROLLBACK. Relative link targets were checked against known repository paths. This is **not** comprehensive SQL syntax verification or independent editorial review.
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution evidence collected.
+- Part 04: **3/10**; total **33/120**; next unfinished chapter **034 — DELETE with safe predicates and referential implications**.
