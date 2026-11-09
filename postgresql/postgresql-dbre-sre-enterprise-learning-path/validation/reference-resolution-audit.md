@@ -139,3 +139,23 @@ Read the track README, MASTER-TOC, STATUS-TRACKER, PostgreSQL 18 baseline policy
 **Finding:** The status tracker still describes Chapter 01's ordinary inline links as needing inventory, although the earlier Batch 1 audit already inventoried Chapter 01 and its lab. This is stale tracking language, not a broken link. Defer tracker wording reconciliation until the full reference gate is finished to avoid suggesting that anchors and external HTTP links were verified.
 
 **Remaining:** Parser-aware reference definitions, escaped/multiline/HTML/autolinks, relative and external fragments, full relative-target resolution for supporting documents, and HTTP/semantic checks of PostgreSQL 18 documentation URLs. The audit report's literal `[label](destination)` examples must not be counted as actual links. No server, Docker, cloud or destructive commands were executed. Runtime evidence remains 0/20; independent approval and certification are pending.
+
+
+## Targeted non-inline reference syntax checkpoint — 2026-11-09
+
+**Scope (six source files):** track `README.md`, `MASTER-TOC.md`, `STATUS-TRACKER.md`, `POSTGRESQL-18-BASELINE.md`, Chapter 01 lesson, and Chapter 01 lab README. This is a **new syntax-category check**, not a repetition of the 397-link ordinary-inline inventory.
+
+Fetched each current `main` source and excluded triple-backtick fenced code before scanning for Markdown reference-definition lines (`[id]: target`), ordinary inline-link destinations containing `#`, raw HTML `<a href=...>` elements, and angle-bracket HTTP(S) autolinks. Results:
+
+| Syntax category | Matches in six files |
+| --- | ---: |
+| Reference-style definitions | 0 |
+| Inline destinations containing fragments | 0 |
+| Raw HTML anchor elements | 0 |
+| Angle-bracket HTTP(S) autolinks | 0 |
+
+**Interpretation:** No instances of these four syntactic categories were found by these targeted scans in the six named files; therefore no missing fragment or reference target was confirmed in this subset. This is **not** a complete CommonMark/GFM parse. Multiline definitions, escaped constructs, nested parentheses, indentation edge cases, and other files remain unchecked. The earlier 90-link supporting-document inventory is still only an inventory, not full target validation.
+
+**Actionable tracker discrepancy retained:** `STATUS-TRACKER.md` still says Chapter 01's inline links need inventory, although Batch 1 completed that inventory. Reconcile wording alongside the final reference-gate status update; do not misrepresent external HTTP or anchor verification as complete.
+
+**Next:** Extend syntax-aware checks to Chapters 02–20 and labs plus remaining supporting files, resolve actual fragment targets, and HTTP-check official PostgreSQL 18 documentation endpoints. Preserve 17 historical evidence. No Docker, psql, shell, PowerShell, cloud or destructive command was executed; 0/20 runtime-validated labs, independent review pending, production certification not established.
