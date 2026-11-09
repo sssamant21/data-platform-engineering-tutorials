@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 23 |
-| Remaining to draft | 97 |
+| Authored and published chapters | 24 |
+| Remaining to draft | 96 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 3 | 7 |
+| 03 — Modeling, DDL, constraints | 021–030 | 4 | 6 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -55,7 +55,8 @@
 | [021](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md) | Entity relationships and conceptual data modeling | Published | Pending | Pending |
 | [022](part-03-modeling/022-create-database-create-schema-and-create-table.md) | CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE | Published | Pending | Pending |
 | [023](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md) | Choosing numeric, character, Boolean, and temporal types | Published | Pending | Pending |
-| 024–120 | See Master TOC | Planned | — | — |
+| [024](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) | Primary keys, natural keys, surrogate keys, and UNIQUE | Published | Pending | Pending |
+| 025–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -230,3 +231,11 @@
 - All three files re-fetched from GitHub `main` before tracker update. Targeted static reasoning reviewed six synthetic records, exact amount total 91.45, NULL count 2, read-only transaction, PostgreSQL 18/database checks, timeout and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
 - **Actual isolated PostgreSQL 18 runtime validation: pending**; no execution evidence was collected.
 - **Next unfinished chapter: 024 — Primary keys, natural keys, surrogate keys, and UNIQUE.**
+
+## Chapter 024 publication evidence
+
+- Chapter: [024](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md); commit `8ad6c848298676027fbea05d7e64ab07ea57aac9`.
+- Isolated rollback-only lab: [024 SQL](labs/024-primary-natural-surrogate-unique.sql); commit `3dccc07552297f83660be16bfeb5a0513f74e711`.
+- README navigation commit `e84e14fdeb7da80bc978c657e1942580cad8ce2f`.
+- Both authored files were fetched from GitHub `main`; targeted static inspection covers transaction rollback, temporary synthetic tables, version/database guard, expected values, and duplicate-key assertions. Independent editorial review, comprehensive SQL syntax verification, and actual isolated PostgreSQL 18 runtime execution **remain pending**. No runtime evidence claimed.
+- **Next:** Chapter 025 — Foreign keys and referential integrity.
