@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 25 |
-| Remaining to draft | 95 |
+| Authored and published chapters | 26 |
+| Remaining to draft | 94 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 5 | 5 |
+| 03 — Modeling, DDL, constraints | 021–030 | 6 | 4 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -57,6 +57,7 @@
 | [023](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md) | Choosing numeric, character, Boolean, and temporal types | Published | Pending | Pending |
 | [024](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) | Primary keys, natural keys, surrogate keys, and UNIQUE | Published | Pending | Pending |
 | [025](part-03-modeling/025-foreign-keys-and-referential-integrity.md) | Foreign keys and referential integrity | Published | Pending | Pending |
+| [026](part-03-modeling/026-not-null-check-default-and-constraint-validation.md) | NOT NULL, CHECK, DEFAULT, and constraint validation | Published | Pending | Pending |
 | 026–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -168,7 +169,7 @@
 
 ## Next work item
 
-**023 — Choosing numeric, character, Boolean, and temporal types.** Continue Part 03 with type-selection examples and isolated PostgreSQL 18 lab. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**027 — Identity columns, sequences, and generated values.** Continue Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -248,3 +249,12 @@
 - README navigation: commit `c935e4a4e1350cd9356e7a3f2dce9d92e35a458f`.
 - Both authored artifacts were fetched from GitHub `main` after publication. Targeted static inspection covered synthetic data, guardrails, rollback, expected counts and foreign-key rejection handling. **Independent editorial review, comprehensive SQL syntax checks and actual PostgreSQL 18 runtime validation are pending.** No isolated PostgreSQL 18 execution evidence was obtained.
 - Part 03: **5/10**; total: **25/120**. Next: **026 — NOT NULL, CHECK, DEFAULT, and constraint validation**.
+
+## Chapter 026 publication evidence
+
+- Chapter: [026](part-03-modeling/026-not-null-check-default-and-constraint-validation.md); commit `646a93e76740415fffebc847bb0c94b79c9e863a`.
+- Isolated rollback-only lab: [026 SQL](labs/026-not-null-check-default-validation.sql); commit `315e9643e6c7bf41016e5279714cf47d1c6b80d7`.
+- README navigation: commit `d96176eb7dfaad03c8c61d708aee0eb903b42074`.
+- Chapter, SQL lab and README were fetched from GitHub `main` after publication. Targeted static inspection reviewed chapter links, synthetic row counts (3), defaulted values, expected SQLSTATEs 23502/23514, five synthetic legacy rows (3 invalid), environment guards, timeouts and rollback. These are reasoned checks, **not executed SQL**.
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No runtime evidence obtained.
+- Part 03: **6/10**; total **26/120**; next unfinished chapter: **027 — Identity columns, sequences, and generated values**.
