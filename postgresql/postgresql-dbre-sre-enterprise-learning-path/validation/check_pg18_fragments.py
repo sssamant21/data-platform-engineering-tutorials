@@ -14,7 +14,7 @@ import json
 from pathlib import Path
 import sys
 from urllib.error import HTTPError, URLError
-from urllib.parse import urldefrag, urlparse
+from urllib.parse import urldefrag
 from urllib.request import Request, urlopen
 
 TARGETS = [
@@ -43,7 +43,7 @@ def inspect(url):
             final_url = response.geturl()
             result["http_status"] = response.status
             result["final_url"] = final_url
-            if urlparse(final_url).hostname != "www.postgresql.org" or not urlparse(final_url).path.startswith("/docs/18/"):
+            if final_url != page:
                 result["status"] = "unexpected_redirect"
                 return result
             if response.status != 200:
