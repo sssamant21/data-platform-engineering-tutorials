@@ -251,3 +251,25 @@ Fetched all eight Chapter 17–20 lesson/lab Markdown files on `main` and exclud
 Both Chapter 18 links target `https://www.postgresql.org/docs/18/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE`. Exact HTML anchor, HTTP response, redirects and semantic correspondence **remain unverified**. These are targeted regex scans, not a full CommonMark parse or comprehensive link validation.
 
 **Next:** Resolve exact PostgreSQL 18 fragments identified in Chapters 11, 13 and 18; HTTP-check remaining external references; reconcile the stale status-tracker description; and independently review the Chapter 15 cleanup safety before isolated runtime use. Keep legacy PG17 commands separate from PG18 image/volume migration. No Docker, psql, SQL, shell, PowerShell, AWS or Kubernetes commands were executed. Runtime 0/20, PG18 runtime 0/20; independent review and production certification pending.
+
+
+## PostgreSQL 18 documentation section verification — 2026-11-09
+
+**Scope:** Three distinct PostgreSQL 18 external page/fragment destinations previously inventoried in Chapters 11, 13 and 18 (five occurrences total). Re-read the track README, TOC, tracker, baseline and prior validation history before this targeted follow-up. This is not a repeat of the source-link inventory.
+
+| Chapter(s) | Version-pinned destination | Evidence | Exact HTML fragment ID |
+| --- | --- | --- | --- |
+| 11 (two occurrences) | `runtime-config-wal.html#RUNTIME-CONFIG-WAL-RECOVERY-TARGET` | Official PostgreSQL 18 page loaded and includes §19.5.6 Recovery Target | **Not independently verified** |
+| 13 (one occurrence) | `sql-createtable.html#SQL-CREATETABLE-STORAGE-PARAMETERS` | Official PostgreSQL 18 CREATE TABLE page loaded and includes Storage Parameters | **Not independently verified** |
+| 18 (two occurrences) | `functions-admin.html#FUNCTIONS-ADMIN-DBSIZE` | Official PostgreSQL 18 System Administration Functions page loaded and includes §9.28.7 Database Object Management Functions and Table 9.102 Database Object Size Functions | **Not independently verified; possible legacy fragment name to investigate** |
+
+Source pages read on 2026-11-09:
+- https://www.postgresql.org/docs/18/runtime-config-wal.html
+- https://www.postgresql.org/docs/18/sql-createtable.html
+- https://www.postgresql.org/docs/18/functions-admin.html
+
+**Finding and limitation:** All three destination *pages* and relevant subject sections are present in the current official PostgreSQL 18 manual. HTTP page retrieval does not prove a fragment is a valid HTML `id`: the retrieval interface strips anchor metadata, and a separate direct raw-HTML retrieval was blocked by network DNS resolution. In particular, do not declare `FUNCTIONS-ADMIN-DBSIZE` valid solely because database-size functions appear on the page. Inspect the actual HTML IDs or use a browser DOM check before correcting any fragment; a guessed replacement risks another broken link. No lesson URL changed on insufficient evidence.
+
+**Tracker correction:** Updated `STATUS-TRACKER.md` to distinguish completed Chapter 01/supporting-document inline-link inventory and 20-pair targeted non-inline scans from unfinished exhaustive resolution. This is a tracking-only correction, not a validation status promotion.
+
+**Next:** Obtain raw HTML/DOM IDs for the three fragment destinations, correct only confirmed mismatches, then check remaining external endpoints, redirects, and semantic relevance. Complete independent Chapter 15 cleanup safety review before runtime testing. No Docker, PostgreSQL, psql, shell/PowerShell lab, cloud or destructive command executed; PG17/PG18 runtime evidence remains 0/20 and independent review/production certification remain pending.
