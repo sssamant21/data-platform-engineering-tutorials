@@ -83,3 +83,5 @@ Read the authoritative chapter title and sequence in the Master TOC; publish one
 Use disposable/sandbox databases for any mutation or DDL exercises. Never run tutorial scripts against a production environment or include sensitive records. PostgreSQL 18 is the baseline, and other vendors are treated explicitly rather than assuming identical syntax.
 
 34. [034 — DELETE with safe predicates and referential implications](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/034-delete-safe-predicates-referential-implications.sql); targeted static inspection only; independent editorial review, comprehensive syntax verification and actual PostgreSQL 18 runtime execution pending.
+
+35. [035 — DELETE versus TRUNCATE versus DROP](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/035-delete-truncate-drop.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax verification, and actual PostgreSQL 18 runtime validation pending.
