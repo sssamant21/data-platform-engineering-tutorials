@@ -54,6 +54,8 @@
 
 25. [025 — Foreign keys and referential integrity](part-03-modeling/025-foreign-keys-and-referential-integrity.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/025-foreign-keys-referential-integrity.sql); targeted static checks only; independent editorial review, comprehensive syntax checks and PostgreSQL 18 runtime validation pending.
 
+26. [026 — NOT NULL, CHECK, DEFAULT, and constraint validation](part-03-modeling/026-not-null-check-default-and-constraint-validation.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/026-not-null-check-default-validation.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax checks and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
