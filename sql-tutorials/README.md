@@ -38,6 +38,9 @@
 
 19. [019 — CASE, COALESCE, and NULLIF](part-02-filtering/019-case-coalesce-and-nullif.md) — published; [read-only PostgreSQL 18 lab](labs/019-case-coalesce-nullif.sql); targeted static reasoning completed; independent review and PostgreSQL 18 runtime validation pending.
 
+
+20. [020 — Lab 02: filter and rank operational records](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md) — published; [read-only PostgreSQL 18 lab](labs/020-lab-02-filter-and-rank-operational-records.sql); targeted static reasoning only; independent review and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
