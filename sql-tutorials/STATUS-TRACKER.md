@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 30 |
-| Remaining to draft | 90 |
+| Authored and published chapters | 31 |
+| Remaining to draft | 89 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 0 | 10 |
+| 04 — Transactions and DML | 031–040 | 1 | 9 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -62,7 +62,8 @@
 | [028](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md) | ALTER TABLE, rename operations, and safe schema changes | Published | Pending | Pending |
 | [029](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md) | Normalization (1NF–3NF) and intentional denormalization | Published | Pending | Pending |
 | [030](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md) | Lab 03 — design and build a normalized operational schema | Published | Pending | Pending |
-| 031–120 | See Master TOC | Planned | — | — |
+| [031](part-04-data-modification/031-insert-single-row-and-multi-row-records.md) | INSERT single-row and multi-row records | Published | Pending | Pending |
+| 032–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -173,7 +174,7 @@
 
 ## Next work item
 
-**031 — INSERT single-row and multi-row records.** Begin Part 04 with isolated, rollback-only DML examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**032 — INSERT ... SELECT and bulk-loading fundamentals.** Continue Part 04 with isolated, rollback-only DML examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -297,3 +298,12 @@
 - README navigation: commit `4a05b6fcd0a80052924c1a33827f04ba23f3cb15`.
 - Both new artifacts and README navigation re-fetched from GitHub `main`. Targeted static inspection: four synthetic temporary tables, PK/FK/UNIQUE/CHECK constraints, database/version/standby guard, timeouts, rollback, expected counts and revenue reconciliation (85.00). Relative paths reviewed. **Independent editorial review and comprehensive SQL syntax verification remain pending. No isolated PostgreSQL 18 instance was executed and no runtime evidence was collected.**
 - Part 03 authored/published: **10/10**; not runtime certified.
+
+## Chapter 031 publication evidence
+
+- Chapter: [031](part-04-data-modification/031-insert-single-row-and-multi-row-records.md); commit `c7d2dbd5956ba8abcb838d655ec2464c648467bf`.
+- Isolated rollback-only lab: [031 SQL](labs/031-insert-single-row-and-multi-row-records.sql); commit `2eb1b699fdbdbd4af8346a0b3e72f97b14b1a560`.
+- README navigation commit `739fe267b72fbbefca124744736280dc5d2e8a79`.
+- Both files and README navigation re-fetched from GitHub `main` after publication. Targeted static inspection covered version/database/standby guard, synthetic values, three expected constraint failures, transaction rollback, count 3 and sum 39.75, and relative links. **This is not comprehensive SQL syntax verification or independent editorial review.**
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 instance was executed or runtime evidence retained.
+- Part 04: **1/10**; total **31/120**; next unfinished chapter **032 — INSERT ... SELECT and bulk-loading fundamentals**.
