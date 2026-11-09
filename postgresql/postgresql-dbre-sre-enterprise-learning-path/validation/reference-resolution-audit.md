@@ -159,3 +159,23 @@ Fetched each current `main` source and excluded triple-backtick fenced code befo
 **Actionable tracker discrepancy retained:** `STATUS-TRACKER.md` still says Chapter 01's inline links need inventory, although Batch 1 completed that inventory. Reconcile wording alongside the final reference-gate status update; do not misrepresent external HTTP or anchor verification as complete.
 
 **Next:** Extend syntax-aware checks to Chapters 02–20 and labs plus remaining supporting files, resolve actual fragment targets, and HTTP-check official PostgreSQL 18 documentation endpoints. Preserve 17 historical evidence. No Docker, psql, shell, PowerShell, cloud or destructive command was executed; 0/20 runtime-validated labs, independent review pending, production certification not established.
+
+
+## Non-inline syntax checkpoint — Chapters 02–04 and labs (2026-11-09)
+
+**Scope:** Six files: Chapter 02, 03 and 04 lessons and their respective lab READMEs. Re-read the track README, TOC, status tracker, PostgreSQL 18 baseline, historical static audit and semantic-review evidence before resuming this unfinished syntax-category gate. This pass does not repeat the ordinary inline-link inventory.
+
+Fetched each of the six files from GitHub `main` and scanned for line-based reference-style link definitions, inline Markdown links containing fragment identifiers, raw HTML named/id anchors, and angle-bracket HTTP(S) autolinks. This is a targeted source-level scan, **not** a full Markdown parser, anchor-resolution proof or HTTP request.
+
+| Category | Chapter 02 + lab | Chapter 03 + lab | Chapter 04 + lab |
+| --- | ---: | ---: | ---: |
+| Reference-style definition matches | 0 | 0 | 0 |
+| Inline link destinations with fragments | 0 | 0 | 0 |
+| Raw HTML id/name anchor matches | 0 | 0 | 0 |
+| Angle-bracket HTTP(S) autolinks | 0 | 0 | 1 |
+
+**New finding:** Chapter 04's lesson contains one valid angle-bracket autolink, `<https://www.postgresql.org/docs/18/wal-intro.html>`, in the WAL-before-data explanation. The previous ordinary-inline-only inventories do not cover this occurrence. Its PostgreSQL 18 URL is version-pinned, but endpoint availability and semantic correspondence were **not** tested. No change to the lesson is warranted from this finding alone.
+
+**Limitations:** The scan is regex-based; multiline/escaped reference definitions, nested Markdown syntax, fragments in other link forms and code-fence-aware parsing are not exhaustively resolved. The absence of matches is not a complete CommonMark compliance finding. No Docker, PostgreSQL, PowerShell, shell, cloud or destructive operation was executed. Runtime acceptance remains 0/20, and independent review and certification remain pending.
+
+**Next:** Continue the same non-inline syntax scan for Chapters 05–08 and labs, then remaining chapters and supporting documents; resolve actual fragments and check external PostgreSQL 18 URLs separately. Reconcile the stale Chapter 01 inventory wording in the status tracker only with an accurate gate-status update.
