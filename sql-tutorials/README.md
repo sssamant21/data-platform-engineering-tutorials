@@ -49,6 +49,9 @@
 
 23. [023 — Choosing numeric, character, Boolean, and temporal types](part-03-modeling/023-choosing-numeric-character-boolean-and-temporal-types.md) — published; [read-only PostgreSQL 18 lab](labs/023-choosing-sql-data-types.sql); targeted static reasoning only; independent review, comprehensive syntax checks, and runtime validation pending.
 
+
+24. [024 — Primary keys, natural keys, surrogate keys, and UNIQUE](part-03-modeling/024-primary-keys-natural-keys-surrogate-keys-and-unique.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/024-primary-natural-surrogate-unique.sql); targeted static inspection only; independent editorial review, comprehensive syntax checks and actual PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
