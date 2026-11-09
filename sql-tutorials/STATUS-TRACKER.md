@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 18 |
-| Remaining to draft | 102 |
+| Authored and published chapters | 19 |
+| Remaining to draft | 101 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 8 | 2 |
+| 02 — Filtering and sorting | 011–020 | 9 | 1 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -50,7 +50,8 @@
 | [016](part-02-filtering/016-distinct-and-duplicate-handling.md) | DISTINCT and duplicate handling | Published | Pending | Pending |
 | [017](part-02-filtering/017-order-by-and-deterministic-sorting.md) | ORDER BY and deterministic sorting | Published | Pending | Pending |
 | [018](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md) | LIMIT, OFFSET, FETCH, and TOP across dialects | Published | Pending | Pending |
-| 019–120 | See Master TOC | Planned | — | — |
+| [019](part-02-filtering/019-case-coalesce-and-nullif.md) | CASE, COALESCE, and NULLIF | Published | Pending | Pending |
+| 020–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -161,7 +162,7 @@
 
 ## Next work item
 
-**018 — LIMIT, OFFSET, FETCH, and TOP across dialects.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**020 — Lab 02: filter and rank operational records.** Complete Part 02 with a 60-minute capstone and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
@@ -180,3 +181,12 @@
 - Targeted static inspection: inline synthetic data, read-only transaction, timeout, rollback, environment assertion, expected result arrays, deterministic ordering and links. This is **not** comprehensive SQL syntax verification or independent editorial review.
 - **Actual PostgreSQL 18 runtime execution: pending.** No isolated instance was run and no runtime evidence is claimed.
 - **Next unfinished chapter:** 019 — CASE, COALESCE, and NULLIF.
+
+## Chapter 019 publication evidence
+
+- Chapter: [019](part-02-filtering/019-case-coalesce-and-nullif.md); commit `b81971eadd78bde98cd94129207787f2fca9940b`.
+- Lab: [019 SQL](labs/019-case-coalesce-nullif.sql); commit `bf1ddd9f51ffe28fb699df654758b303726b1f6a`.
+- README navigation: commit `f11057c7c3d2d3889bc1fbd3e2d4730cb1c9c0dc`.
+- Chapter, lab, and README re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic events, NULL rate semantics, read-only transaction, version/database guard, timeout, exact assertions, and rollback. **Independent editorial review and comprehensive SQL syntax checks pending.**
+- **Actual isolated PostgreSQL 18 runtime validation pending; no execution evidence was collected.**
+- **Next unfinished chapter:** 020 — Lab 02: filter and rank operational records.
