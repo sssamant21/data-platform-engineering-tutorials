@@ -233,3 +233,21 @@ Re-read the track README, master TOC, status tracker, PostgreSQL 18 baseline pol
 **Additional high-priority finding (unresolved):** Chapter 15 lab README currently contains 71 lines beginning with Markdown code fences (odd parity) and a visibly truncated cleanup section. The file must receive a dedicated, carefully reconciled repair against its original intended steps before it can be considered safe or executable. Do **not** run its cleanup instructions in their present state. Avoid treating a fence-count heuristic as exhaustive proof of the exact corruption extent.
 
 **Next:** Repair and re-review Chapter 15's damaged cleanup instructions, continue non-inline reference scans for Chapters 17–20, and check exact PostgreSQL 18 anchor IDs and external URLs. Existing PostgreSQL 17 evidence remains historical. No Docker, PostgreSQL, PowerShell, shell, cloud, destructive or failover command was executed in this checkpoint. Runtime validation remains 0/20; independent review and production certification remain pending.
+
+
+## Chapter 15 cleanup repair and Chapters 17–20 non-inline scan (2026-11-09)
+
+Reviewed track README, master TOC, status tracker, PostgreSQL 18 policy, existing reference-resolution evidence, and semantic-review history. The previously recorded Chapter 15 defect was confirmed: the README repeated the entire lesson after a truncated `docker ps` line and contained broken cleanup fences. Restored a single coherent Section 11 with read-only context, full creation-ID, label, mount and volume-reference checks; a fail-closed stop condition; manual destructive commands only after verification; and post-cleanup absence checks. Preserved Sections 1–10 and the final acceptance/reference sections. The file shrank from 644 to 255 lines; 28 triple-backtick fence lines have even parity and the chapter title appears once. This is a **static documentation repair**, not execution or proof that deletion is race-free. Commit: https://github.com/sssamant21/data-platform-engineering-tutorials/commit/dcb70996bbfa04370c1a31c957037317207e00ce (re-fetched and byte-compared).
+
+Fetched all eight Chapter 17–20 lesson/lab Markdown files on `main` and excluded triple-backtick fenced examples before scanning for reference definitions, inline fragment destinations, raw HTML anchors and HTTP(S) autolinks.
+
+| Pair | Reference definitions | Inline fragment occurrences | HTML anchor tags | HTTP autolinks |
+| --- | ---: | ---: | ---: | ---: |
+| 17 lesson + lab | 0 | 0 | 0 | 0 |
+| 18 lesson + lab | 0 | 2 | 0 | 0 |
+| 19 lesson + lab | 0 | 0 | 0 | 0 |
+| 20 lesson + lab | 0 | 0 | 0 | 0 |
+
+Both Chapter 18 links target `https://www.postgresql.org/docs/18/functions-admin.html#FUNCTIONS-ADMIN-DBSIZE`. Exact HTML anchor, HTTP response, redirects and semantic correspondence **remain unverified**. These are targeted regex scans, not a full CommonMark parse or comprehensive link validation.
+
+**Next:** Resolve exact PostgreSQL 18 fragments identified in Chapters 11, 13 and 18; HTTP-check remaining external references; reconcile the stale status-tracker description; and independently review the Chapter 15 cleanup safety before isolated runtime use. Keep legacy PG17 commands separate from PG18 image/volume migration. No Docker, psql, SQL, shell, PowerShell, AWS or Kubernetes commands were executed. Runtime 0/20, PG18 runtime 0/20; independent review and production certification pending.
