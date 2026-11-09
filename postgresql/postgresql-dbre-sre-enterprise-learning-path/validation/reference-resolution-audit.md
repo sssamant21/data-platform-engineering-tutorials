@@ -213,3 +213,23 @@ Reviewed the current track README, master TOC, status tracker, PostgreSQL 18 pol
 **Disposition:** No confirmed broken references or lesson edits in this batch. Counts exclude fenced code; escaped/multiline constructs, exact anchor-id resolution, redirects, and other external destinations remain pending. Historical PostgreSQL 17 semantic reviews and lab assumptions remain intact; PostgreSQL 18 is the documentation baseline, not an executed runtime claim. **0/20 runtime-validated labs.** No Docker, psql, PowerShell, shell, cloud or destructive operation was executed. Independent review and production certification remain pending.
 
 **Next:** Continue non-inline syntax categories for Chapters 13–16 and labs, then 17–20. Complete actual fragment-id and external HTTP/semantic checks before declaring the reference gate complete; correct the status tracker's stale Chapter 01 inventory wording without overstating verification.
+
+
+## Non-inline syntax batch — Chapters 13–16 and labs (2026-11-09)
+
+Re-read the track README, master TOC, status tracker, PostgreSQL 18 baseline policy, prior static audit, semantic-review progress and this report. Fetched eight lesson/lab Markdown sources from GitHub `main`. Excluded triple-backtick fenced lines for a targeted scan of reference definitions, inline fragments, raw HTML anchors and angle-bracket autolinks; this is **not** a complete Markdown parser or live URL check.
+
+| Chapter and lab pair | Reference definitions | Inline fragment links | HTML anchors | HTTP autolinks |
+| --- | ---: | ---: | ---: | ---: |
+| 13 | 0 | 1 | 0 | 0 |
+| 14 | 0 | 0 | 0 | 0 |
+| 15 | 0 | 0 | 0 | 0 |
+| 16 | 0 | 0 | 0 | 0 |
+
+**Fragment requiring exact anchor verification:** Chapter 13 points to `https://www.postgresql.org/docs/18/sql-createtable.html#SQL-CREATETABLE-STORAGE-PARAMETERS`. Source scan confirms the link string, **not** the HTTP response or HTML ID.
+
+**Confirmed content defect corrected:** Chapter 16 lab's cleanup `docker ps` line was truncated, leaving an unclosed code fence, duplicated acceptance checklist and duplicate official references. Replaced the malformed tail with a complete read-only post-cleanup listing, a closed fence, one acceptance checklist and one reference section. The revised file was re-fetched byte-for-byte after commit. This is a **static source repair**, not evidence of Docker execution.
+
+**Additional high-priority finding (unresolved):** Chapter 15 lab README currently contains 71 lines beginning with Markdown code fences (odd parity) and a visibly truncated cleanup section. The file must receive a dedicated, carefully reconciled repair against its original intended steps before it can be considered safe or executable. Do **not** run its cleanup instructions in their present state. Avoid treating a fence-count heuristic as exhaustive proof of the exact corruption extent.
+
+**Next:** Repair and re-review Chapter 15's damaged cleanup instructions, continue non-inline reference scans for Chapters 17–20, and check exact PostgreSQL 18 anchor IDs and external URLs. Existing PostgreSQL 17 evidence remains historical. No Docker, PostgreSQL, PowerShell, shell, cloud, destructive or failover command was executed in this checkpoint. Runtime validation remains 0/20; independent review and production certification remain pending.
