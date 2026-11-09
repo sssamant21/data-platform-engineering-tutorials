@@ -70,6 +70,8 @@
 
 32. [032 — INSERT ... SELECT and bulk-loading fundamentals](part-04-data-modification/032-insert-select-and-bulk-loading-fundamentals.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/032-insert-select-bulk-loading.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax verification and actual PostgreSQL 18 runtime validation pending.
 
+33. [033 — UPDATE with safe predicates and preview queries](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/033-update-safe-predicates-preview.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax verification and actual PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
