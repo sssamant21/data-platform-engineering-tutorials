@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 27 |
-| Remaining to draft | 93 |
+| Authored and published chapters | 28 |
+| Remaining to draft | 92 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 7 | 3 |
+| 03 — Modeling, DDL, constraints | 021–030 | 8 | 2 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -59,7 +59,8 @@
 | [025](part-03-modeling/025-foreign-keys-and-referential-integrity.md) | Foreign keys and referential integrity | Published | Pending | Pending |
 | [026](part-03-modeling/026-not-null-check-default-and-constraint-validation.md) | NOT NULL, CHECK, DEFAULT, and constraint validation | Published | Pending | Pending |
 | [027](part-03-modeling/027-identity-columns-sequences-and-generated-values.md) | Identity columns, sequences, and generated values | Published | Pending | Pending |
-| 028–120 | See Master TOC | Planned | — | — |
+| [028](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md) | ALTER TABLE, rename operations, and safe schema changes | Published | Pending | Pending |
+| 029–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -268,3 +269,12 @@
 - Chapter, lab, and README fetched and verified from GitHub `main` before updating this tracker. Targeted static reasoning inspected identity ALWAYS/BY DEFAULT semantics, expected IDs (100,101,102,999 and 1,500), SQLSTATE 428C9, unique violation handling, generated total 46.75, temporary sequence values 10/15, version/database guard, transaction rollback and relative links. These are **not runtime test results**.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No execution evidence collected.
 - Part 03: **7/10**; total **27/120**; next unfinished chapter **028 — ALTER TABLE, rename operations, and safe schema changes**.
+
+## Chapter 028 publication evidence
+
+- Chapter: [028](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md); commit `16c4b5c8da7b6e9eec328fa5360935eab63f5b44`.
+- Isolated rollback-only lab: [028 SQL](labs/028-alter-table-safe-schema-changes.sql); commit `0744a00e4817a9d7f0a90511e68e5e7f7031eead`.
+- README navigation: commit `5b5b56013180e08ae85e652f98fff8bf781333bc`.
+- Both new files and README were fetched and verified from GitHub `main` before updating this tracker. Targeted static inspection reviewed chapter/lab paths, synthetic values (3 records, 24.75 total), default/backfill distinction, SQLSTATE classes for CHECK/UNIQUE, version/database guard, temporary objects, timeouts, and rollback. This is **not** an independent editorial review or comprehensive SQL syntax verification.
+- **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution evidence obtained.
+- Part 03: **8/10**; total **28/120**; next unfinished chapter **029 — Normalization (1NF–3NF) and intentional denormalization**.
