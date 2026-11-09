@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 19 |
-| Remaining to draft | 101 |
+| Authored and published chapters | 20 |
+| Remaining to draft | 100 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 9 | 1 |
+| 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -51,6 +51,7 @@
 | [017](part-02-filtering/017-order-by-and-deterministic-sorting.md) | ORDER BY and deterministic sorting | Published | Pending | Pending |
 | [018](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md) | LIMIT, OFFSET, FETCH, and TOP across dialects | Published | Pending | Pending |
 | [019](part-02-filtering/019-case-coalesce-and-nullif.md) | CASE, COALESCE, and NULLIF | Published | Pending | Pending |
+| [020](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md) | Lab 02 — filter and rank operational records | Published | Pending | Pending |
 | 020–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -162,7 +163,7 @@
 
 ## Next work item
 
-**020 — Lab 02: filter and rank operational records.** Complete Part 02 with a 60-minute capstone and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**021 — Entity relationships and conceptual data modeling.** Begin Part 03 with a 60-minute beginner-friendly modeling chapter and isolated synthetic examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -190,3 +191,12 @@
 - Chapter, lab, and README re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic events, NULL rate semantics, read-only transaction, version/database guard, timeout, exact assertions, and rollback. **Independent editorial review and comprehensive SQL syntax checks pending.**
 - **Actual isolated PostgreSQL 18 runtime validation pending; no execution evidence was collected.**
 - **Next unfinished chapter:** 020 — Lab 02: filter and rank operational records.
+
+## Chapter 020 publication evidence
+
+- Chapter: [020](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md), commit `945e3c0db2f6684ad54505d731c476081e96d094`.
+- Lab: [020 SQL](labs/020-lab-02-filter-and-rank-operational-records.sql), commit `e8fd8a331ca0da25f907c9d9353207da2f0f4b80`.
+- README navigation commit `85768b25fb6ba58c873ab0fe61627f919aa8f1ce`.
+- Chapter and lab were re-fetched from GitHub `main`. Targeted static reasoning reviewed six selected synthetic events, deterministic ranking, expected pagination arrays, service counts, read-only transaction, environment assertion, timeout and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
+- **PostgreSQL 18 runtime validation pending:** no isolated PostgreSQL 18 instance was executed and no reproducible runtime evidence was collected.
+- Part 02 authored/published: 10/10. Next unfinished chapter: **021 — Entity relationships and conceptual data modeling**.
