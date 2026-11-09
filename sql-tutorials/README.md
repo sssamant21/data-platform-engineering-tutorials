@@ -45,6 +45,8 @@
 
 21. [021 — Entity relationships and conceptual data modeling](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md) — published; [read-only synthetic PostgreSQL 18 lab](labs/021-entity-relationships-conceptual-modeling.sql); targeted static inspection only, independent review and actual runtime validation pending.
 
+22. [022 — CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE](part-03-modeling/022-create-database-create-schema-and-create-table.md) — published; [isolated rollback-only PostgreSQL 18 DDL lab](labs/022-create-schema-and-tables-isolated.sql); targeted static inspection only; independent review, comprehensive syntax checks, and PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
