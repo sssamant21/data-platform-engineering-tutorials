@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 15 |
-| Remaining to draft | 105 |
+| Authored and published chapters | 16 |
+| Remaining to draft | 104 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -16,7 +16,7 @@
 | Part | Chapters | Published | Remaining |
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
-| 02 — Filtering and sorting | 011–020 | 5 | 5 |
+| 02 — Filtering and sorting | 011–020 | 6 | 4 |
 | 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
@@ -47,7 +47,8 @@
 | [013](part-02-filtering/013-null-handling-and-sql-three-valued-logic.md) | NULL handling and SQL three-valued logic | Published | Pending | Pending |
 | [014](part-02-filtering/014-in-between-and-range-predicates.md) | IN, BETWEEN, and range predicates | Published | Pending | Pending |
 | [015](part-02-filtering/015-like-wildcard-matching-and-dialect-specific-ilike.md) | LIKE, wildcard matching, and dialect-specific ILIKE | Published | Pending | Pending |
-| 016–120 | See Master TOC | Planned | — | — |
+| [016](part-02-filtering/016-distinct-and-duplicate-handling.md) | DISTINCT and duplicate handling | Published | Pending | Pending |
+| 017–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -142,9 +143,16 @@
 - Lab: [015 SQL](labs/015-like-wildcards-ilike.sql); commit `0e627742f0657fafc21a4aa085ea9b8021d6c14c`.
 - Both files re-fetched from GitHub `main`. Targeted static inspection: synthetic inline VALUES, read-only transaction, PostgreSQL 18/database guard, explicit C collation for case-sensitive examples, expected ID-set assertions, and rollback. Expected outputs manually reasoned; Markdown relative paths inspected. **Independent editorial review, comprehensive SQL syntax checks, and actual isolated PostgreSQL 18 runtime execution remain pending.** No runtime evidence collected.
 
+## Chapter 016 publication evidence
+
+- Chapter: [016](part-02-filtering/016-distinct-and-duplicate-handling.md); commit `da2b5aeadb8a9949eb5e087adfba2367aed3b3a4`.
+- Lab: [016 SQL](labs/016-distinct-duplicate-handling.sql); commit `3e0adfb603108b5660bbd3fb1e8f4c86fd4518f3`.
+- README navigation: commit `cf355ae9131e1abcfd2c55bb6ff17c70c0d2f387`.
+- Chapter and lab fetched from GitHub `main` after creation. Targeted static checks: read-only transaction, inline synthetic data, PostgreSQL 18/database guard, deterministic expected counts, exact acceptance checks, rollback and relative navigation. **No independent editorial review, comprehensive SQL syntax verification, or actual isolated PostgreSQL 18 runtime execution was completed.** Runtime acceptance remains pending.
+
 ## Next work item
 
-**016 — DISTINCT and duplicate handling.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
+**017 — ORDER BY, ASC, DESC, and NULL ordering.** Continue Part 02 with a 60-minute tutorial and isolated read-only lab. Maintain the distinction between authored content and PostgreSQL 18 runtime acceptance.
 
 ## Quality gates
 
