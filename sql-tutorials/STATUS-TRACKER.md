@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 20 |
-| Remaining to draft | 100 |
+| Authored and published chapters | 21 |
+| Remaining to draft | 99 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 0 | 10 |
+| 03 — Modeling, DDL, constraints | 021–030 | 1 | 9 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -52,6 +52,7 @@
 | [018](part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md) | LIMIT, OFFSET, FETCH, and TOP across dialects | Published | Pending | Pending |
 | [019](part-02-filtering/019-case-coalesce-and-nullif.md) | CASE, COALESCE, and NULLIF | Published | Pending | Pending |
 | [020](part-02-filtering/020-lab-02-filter-and-rank-operational-records.md) | Lab 02 — filter and rank operational records | Published | Pending | Pending |
+| [021](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md) | Entity relationships and conceptual data modeling | Published | Pending | Pending |
 | 020–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -163,7 +164,7 @@
 
 ## Next work item
 
-**021 — Entity relationships and conceptual data modeling.** Begin Part 03 with a 60-minute beginner-friendly modeling chapter and isolated synthetic examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**022 — CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE.** Continue Part 03 with disposable, isolated DDL examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -200,3 +201,12 @@
 - Chapter and lab were re-fetched from GitHub `main`. Targeted static reasoning reviewed six selected synthetic events, deterministic ranking, expected pagination arrays, service counts, read-only transaction, environment assertion, timeout and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
 - **PostgreSQL 18 runtime validation pending:** no isolated PostgreSQL 18 instance was executed and no reproducible runtime evidence was collected.
 - Part 02 authored/published: 10/10. Next unfinished chapter: **021 — Entity relationships and conceptual data modeling**.
+
+## Chapter 021 publication evidence
+
+- Chapter: [021](part-03-modeling/021-entity-relationships-and-conceptual-data-modeling.md), commit `243a8fac8b11a6524585166532562638aeabdc45`.
+- Lab: [021 SQL](labs/021-entity-relationships-conceptual-modeling.sql), commit `e1b94742c7d93acbb9c3f1ac20c146d05344ffb8`.
+- README navigation commit `c6d7263cd5741e6299dca93ef335fd43ba891836`.
+- Chapter and lab fetched from GitHub `main` after creation. Targeted static inspection confirmed synthetic inline datasets, PostgreSQL 18/database guard, read-only transaction, expected results and fail-closed assertions. This is not comprehensive SQL syntax verification or independent editorial review.
+- **Actual isolated PostgreSQL 18 runtime validation pending**; no execution evidence obtained.
+- **Next unfinished chapter:** 022 — CREATE DATABASE, CREATE SCHEMA, and CREATE TABLE.
