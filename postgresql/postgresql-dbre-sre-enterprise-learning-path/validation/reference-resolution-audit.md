@@ -78,3 +78,24 @@ Read the current track README, master TOC, status tracker, PostgreSQL 18 baselin
 **Finding:** No missing relative-file destinations were detected. Cumulative ordinary inline-link path inventory now covers Chapters 01–12 and their labs (24 of 40 chapter/lab files). This batch inventories 50 external URL occurrences without testing HTTP status, redirects, or PostgreSQL 18 semantic correctness. The extraction does not exhaust reference-style definitions, escaped/multiline links, HTML links, or fragment anchors; these remain pending. Counts are link occurrences, not distinct URLs.
 
 **Next:** Continue Chapters 13–16 and labs; then 17–20 and labs. Complete parser-aware link/fragment checks and PostgreSQL 18 documentation endpoint and semantic verification before changing runtime claims. No Docker, PostgreSQL, PowerShell, failover, or destructive commands were executed. Historical PostgreSQL 17 evidence and the 0/20 runtime status remain unchanged; independent review and production certification are pending.
+
+
+## Batch 4 — Chapters 13–16 and labs (2026-11-09)
+
+Re-read the track README, master TOC, status tracker, PostgreSQL 18 baseline policy, prior reference audit and semantic-review progress. Fetched all eight Markdown files for Chapters 13–16 and their labs from `main`. Inventoried ordinary inline Markdown links and independently fetched all twelve distinct relative destination files (including Chapter 15's `inventory.sql` and `drift.sql`) using GitHub's file API. This batch uses destination-file fetches rather than a complete Markdown parser; no HTTP requests to external documentation endpoints or executable lab tests were made.
+
+| File | Inline links | Relative links | External URLs | Missing relative targets |
+| --- | ---: | ---: | ---: | ---: |
+| chapters/13-vacuum-autovacuum-bloat-and-maintenance.md | 12 | 6 | 6 | 0 |
+| labs/chapter-13/README.md | 7 | 2 | 5 | 0 |
+| chapters/14-troubleshooting-and-incident-response.md | 14 | 6 | 8 | 0 |
+| labs/chapter-14/README.md | 9 | 3 | 6 | 0 |
+| chapters/15-fleet-inventory-and-governance.md | 11 | 3 | 8 | 0 |
+| labs/chapter-15/README.md | 12 | 3 | 9 | 0 |
+| chapters/16-security-roles-secrets-and-compliance.md | 10 | 1 | 9 | 0 |
+| labs/chapter-16/README.md | 10 | 0 | 10 | 0 |
+| **Batch total** | **85** | **24** | **61** | **0** |
+
+**Finding:** All 24 ordinary inline relative-file link occurrences point to existing files; all 12 distinct destination paths were fetched successfully. Chapter 16's lab README has no relative inline navigation links; this is an editorial navigation opportunity, not a broken target. The Chapter 13 lesson contains an external PostgreSQL 18 storage-parameters fragment anchor, which remains unverified. External URL HTTP status, redirects, fragment anchors, reference-style/HTML links, and technical correctness remain pending. Link occurrences are not distinct URLs.
+
+**Cumulative path-inventory coverage:** Chapters 01–16 plus labs (32/40 files); this is not full reference validation. **Next:** Chapters 17–20 plus labs, then parser-aware internal fragment and external PostgreSQL 18 documentation checks. Runtime-validated labs remain 0/20; no PostgreSQL, Docker, PowerShell, destructive or cloud operations were executed. Historical PostgreSQL 17 evidence, independent-review and production-certification gates are unchanged.
