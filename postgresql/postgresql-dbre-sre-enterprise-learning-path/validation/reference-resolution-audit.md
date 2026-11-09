@@ -37,3 +37,23 @@ Fetched the eight Markdown sources for **Chapters 01–04 and their four labs**.
 ## Next safe action
 
 Continue the same source-tree reference check for Chapters 05–08 and their labs, then subsequent batches. Verify reference-style links, fragments and official PostgreSQL 18 destinations separately. Record only confirmed errors and make scoped fixes. Do not advance runtime statuses without isolated execution, version/image/volume identity, sanitized outputs, and cleanup proof.
+
+## Batch 2 — Chapters 05–08 and labs (2026-11-09)
+
+Fetched eight source files from GitHub main and compared ordinary inline Markdown relative destinations against exact blob paths in the non-truncated recursive repository tree. Counts are occurrences, not distinct destinations.
+
+| File | Inline links | Relative links | External URLs | Missing relative targets |
+| --- | ---: | ---: | ---: | ---: |
+| chapters/05-indexes-query-plans-and-performance.md | 14 | 6 | 8 | 0 |
+| labs/chapter-05/README.md | 9 | 2 | 7 | 0 |
+| chapters/06-postgresql-on-bare-metal.md | 14 | 6 | 8 | 0 |
+| labs/chapter-06/README.md | 8 | 2 | 6 | 0 |
+| chapters/07-postgresql-on-aws-rds.md | 24 | 6 | 18 | 0 |
+| labs/chapter-07/README.md | 9 | 2 | 7 | 0 |
+| chapters/08-postgresql-on-kubernetes.md | 15 | 7 | 8 | 0 |
+| labs/chapter-08/README.md | 10 | 4 | 6 | 0 |
+| **Batch total** | **103** | **35** | **68** | **0** |
+
+**Finding:** No missing relative-file targets in this batch. Chapter 08's linked cluster-example.yaml exists. Exact file-path resolution does not establish YAML correctness, HTTP availability, anchor resolution, or runtime correctness. Regex extraction is not a complete Markdown parser and does not prove coverage of reference-style, escaped, or multiline links. No external HTTP checks were performed. Documentation baseline PostgreSQL 18; 0/20 runtime-validated labs.
+
+**Next:** Chapters 09–12 and labs, followed by remaining batches, parser-aware references/anchors, and official PostgreSQL 18 HTTP and semantic verification. Preserve historical PostgreSQL 17 evidence and certification gates.
