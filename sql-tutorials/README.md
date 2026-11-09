@@ -68,6 +68,8 @@
 
 31. [031 — INSERT single-row and multi-row records](part-04-data-modification/031-insert-single-row-and-multi-row-records.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/031-insert-single-row-and-multi-row-records.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax checks, and actual PostgreSQL 18 runtime validation pending.
 
+32. [032 — INSERT ... SELECT and bulk-loading fundamentals](part-04-data-modification/032-insert-select-and-bulk-loading-fundamentals.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/032-insert-select-bulk-loading.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax verification and actual PostgreSQL 18 runtime validation pending.
+
 The introductory lab is intentionally read-only and does not require permanent database objects.
 
 ## How chapters are developed
