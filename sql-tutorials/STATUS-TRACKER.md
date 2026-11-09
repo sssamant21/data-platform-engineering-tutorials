@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 29 |
-| Remaining to draft | 91 |
+| Authored and published chapters | 30 |
+| Remaining to draft | 90 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -17,7 +17,7 @@
 |---|---|---:|---:|
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
-| 03 — Modeling, DDL, constraints | 021–030 | 9 | 1 |
+| 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 0 | 10 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
@@ -61,7 +61,8 @@
 | [027](part-03-modeling/027-identity-columns-sequences-and-generated-values.md) | Identity columns, sequences, and generated values | Published | Pending | Pending |
 | [028](part-03-modeling/028-alter-table-rename-operations-and-safe-schema-changes.md) | ALTER TABLE, rename operations, and safe schema changes | Published | Pending | Pending |
 | [029](part-03-modeling/029-normalization-1nf-3nf-and-intentional-denormalization.md) | Normalization (1NF–3NF) and intentional denormalization | Published | Pending | Pending |
-| 030–120 | See Master TOC | Planned | — | — |
+| [030](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md) | Lab 03 — design and build a normalized operational schema | Published | Pending | Pending |
+| 031–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -172,7 +173,7 @@
 
 ## Next work item
 
-**030 — Lab 03: design and build a normalized operational schema.** Complete Part 03 with isolated PostgreSQL 18 examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**031 — INSERT single-row and multi-row records.** Begin Part 04 with isolated, rollback-only DML examples. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -288,3 +289,11 @@
 - Chapter and lab fetched from GitHub `main` after creation; targeted static reasoning reviewed synthetic cardinalities (2 customers, 2 products, 2 orders, 3 lines), expected total 85.00, stale cache drift 5.00, PostgreSQL 18/database guards, read-only transaction, fail-closed assertions, and rollback. This is **not** independent editorial review or comprehensive SQL syntax verification.
 - **Independent editorial review: pending. Comprehensive SQL syntax verification: pending. Actual isolated PostgreSQL 18 runtime validation: pending.** No PostgreSQL 18 execution or reproducible runtime evidence obtained.
 - Part 03: **9/10**; total **29/120**; next unfinished chapter **030 — Lab 03: design and build a normalized operational schema**.
+
+## Chapter 030 publication evidence
+
+- Chapter: [030](part-03-modeling/030-lab-03-design-and-build-a-normalized-operational-schema.md); commit `4d5f411bf827ee6cb1a728cb255b97f660a9d49d`.
+- Lab: [030 SQL](labs/030-lab-03-normalized-operational-schema.sql); commit `08cfca4f45df1071e6b62c400e9807fab466dc2a`.
+- README navigation: commit `4a05b6fcd0a80052924c1a33827f04ba23f3cb15`.
+- Both new artifacts and README navigation re-fetched from GitHub `main`. Targeted static inspection: four synthetic temporary tables, PK/FK/UNIQUE/CHECK constraints, database/version/standby guard, timeouts, rollback, expected counts and revenue reconciliation (85.00). Relative paths reviewed. **Independent editorial review and comprehensive SQL syntax verification remain pending. No isolated PostgreSQL 18 instance was executed and no runtime evidence was collected.**
+- Part 03 authored/published: **10/10**; not runtime certified.
