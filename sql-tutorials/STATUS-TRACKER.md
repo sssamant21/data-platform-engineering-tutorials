@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 57 |
-| Remaining to draft | 63 |
+| Authored and published chapters | 58 |
+| Remaining to draft | 62 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 7 | 3 |
+| 06 — Aggregation and reporting | 051–060 | 8 | 2 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -89,6 +89,7 @@
 | [055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md) | Date-based grouping and time buckets | Published | Pending | Pending |
 | [056](part-06-aggregation/056-text-transformations-for-reporting.md) | Text transformations for reporting | Published | Pending | Pending |
 | [057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md) | Numeric rounding, ratios, and safe division | Published | Pending | Pending |
+| [058](part-06-aggregation/058-rollup-cube-and-grouping-sets.md) | ROLLUP, CUBE, and GROUPING SETS | Published | Pending | Pending |
 | 058–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -547,3 +548,11 @@
 - [README navigation](README.md): commit `412d4184177e1c3c754be55fd4456c87115522c7`.
 - Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked five synthetic batches, source totals (164 accepted, 36 rejected, 200 processed), claims 125/150 = 83.33%, events 39/50 = 78.00%, overall 82.00%, unweighted batch average 83.75%, NULL for zero-volume batch, exact numeric cast, temporary fixture, version/database guard, transaction-local timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no reproducible runtime evidence retained.**
 - **Published 57/120 (47.5%), 63 remaining; Part 06 7/10. Next: Chapter 058 — ROLLUP, CUBE, and GROUPING SETS.**
+
+## Chapter 058 publication evidence (2026-11-10)
+
+- [Chapter 058](part-06-aggregation/058-rollup-cube-and-grouping-sets.md): initial commit `5a8ca1ed70a3fc85a4d89e8c5bcf705c7580208a`; clarification commit `f3e531ec78ec92fa201298f9eb7a786de47a1aac`.
+- [Isolated PostgreSQL 18 lab](labs/058-rollup-cube-grouping-sets.sql): commit `d1f3c36e80da70b2f2e18f482567e961e2942543`.
+- [README navigation](README.md): commit `c0cd60ad4259748f27fbe7a835439628171eace3`.
+- Chapter, lab and README navigation re-fetched from GitHub `main`. Targeted static reasoning checked six synthetic records, 155.00 total, five detail groups, three region subtotals, two channel subtotals, 9 ROLLUP rows, 11 CUBE rows, 9 explicit grouping-set rows, real NULL region semantics, version/database guard, transaction-local timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no reproducible runtime evidence retained.**
+- **Published 58/120 (48.3%), 62 remaining; Part 06 8/10. Next: Chapter 059 — Pivoting and unpivoting — portable and vendor features.**
