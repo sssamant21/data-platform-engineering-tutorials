@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 53 |
-| Remaining to draft | 67 |
+| Authored and published chapters | 54 |
+| Remaining to draft | 66 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 3 | 7 |
+| 06 — Aggregation and reporting | 051–060 | 4 | 6 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -85,6 +85,7 @@
 | [051](part-06-aggregation/051-count-sum-avg-min-and-max.md) | COUNT, SUM, AVG, MIN, and MAX | Published | Pending | Pending |
 | [052](part-06-aggregation/052-group-by-and-aggregation-grain.md) | GROUP BY and aggregation grain | Published | Pending | Pending |
 | [053](part-06-aggregation/053-having-versus-where.md) | HAVING versus WHERE | Published | Pending | Pending |
+| [054](part-06-aggregation/054-conditional-aggregation-with-case-and-filter.md) | Conditional aggregation with CASE and FILTER | Published | Pending | Pending |
 | 054–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
