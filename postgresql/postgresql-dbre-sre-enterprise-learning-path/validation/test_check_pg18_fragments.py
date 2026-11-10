@@ -7,7 +7,7 @@ Run: python -m unittest discover -s validation -p 'test_check_pg18_fragments.py'
 import io
 import unittest
 from unittest.mock import patch
-from urllib.error import URLError
+from urllib.error import HTTPError, URLError
 
 import check_pg18_fragments as checker
 
@@ -72,6 +72,12 @@ class FragmentCheckerTests(unittest.TestCase):
     def test_oversize_rejected(self):
         result = self.inspect_with("x" * 5_000_001)
         self.assertEqual(result["status"], "oversize_response")
+
+    def test_http_404_is_explicit_failure(self):
+        with patch.object(checker, "urlopen", side_effect=HTTPError(self.PAGE, 404, "Not Found", {}, None)):
+            result = checker.inspect(self.URL)
+        self.assertEqual(result["status"], "http_error")
+        self.assertEqual(result["http_status"], 404)
 
     def test_dns_failure_is_unverified(self):
         with patch.object(checker, "urlopen", side_effect=URLError("DNS unavailable")):
