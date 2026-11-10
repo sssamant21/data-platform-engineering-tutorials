@@ -21,7 +21,7 @@ docker exec pg-dbre-ch18 pg_isready -U postgres
 docker exec pg-dbre-ch18 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT current_database(), current_user, current_setting('server_version_num') AS version_num;"
 docker inspect --format '{{.Image}}' pg-dbre-ch18
 ```
-Expected: after startup, `accepting connections`, database/user `postgres`, version number starting `17`. If readiness fails immediately, retry after startup. Password is disposable; never reuse.
+Expected: after startup, `accepting connections`, database/user `postgres`, version number starting `17`. If readiness fails immediately, retry after startup. Password is disposable; never reuse. **Immediately save the full container ID printed by `docker run` and the output of `docker context show` in private creation-time evidence.** Do not reconstruct this creation ID later from `docker inspect`; if the original ID or context record was not retained, destructive cleanup is blocked pending independent review.
 
 ## 2. Create a synthetic workload
 ```sh
@@ -65,7 +65,7 @@ docker container inspect --format '{{.Image}}' pg-dbre-ch18
 docker container inspect --format '{{json .Mounts}}' pg-dbre-ch18
 ```
 
-Record the **full immutable container ID** returned by inspect in your evidence. Require the label value `chapter-18`, the expected image identity, the expected Docker context, and mounts that belong exclusively to this lab. If any check fails or any mount is shared, **STOP; do not remove anything**. If the container was created before this label safeguard was added, stop and seek manual review instead of assuming ownership.
+Compare the **full immutable container ID** returned by inspect against the independently saved creation-time ID (not another inspect result). Require the label value `chapter-18`, the expected image identity, the original recorded Docker context, and mounts that belong exclusively to this lab. If any check fails or any mount is shared, **STOP; do not remove anything**. If the container was created before this label safeguard was added, stop and seek manual review instead of assuming ownership.
 
 Only after those checks, substitute the **captured full container ID** for `<VERIFIED_FULL_CONTAINER_ID>` in the following commands. The placeholder is not executable as written. Immediately before stopping, re-inspect the name and verify that its full ID is still exactly the captured ID. Recheck the same ID and ownership before removal; if identity changes, stop.
 
