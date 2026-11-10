@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 45 |
-| Remaining to draft | 75 |
+| Authored and published chapters | 46 |
+| Remaining to draft | 74 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 5 | 5 |
+| 05 — Joins | 041–050 | 6 | 4 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -77,7 +77,8 @@
 | [043](part-05-joins/043-left-outer-join-preserve-unmatched-left-rows.md) | LEFT OUTER JOIN — preserve unmatched left rows | Published | Pending | Pending |
 | [044](part-05-joins/044-right-and-full-outer-join-applicability-and-portability.md) | RIGHT and FULL OUTER JOIN — applicability and portability | Published | Pending | Pending |
 | [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
-| 046–120 | See Master TOC | Planned | — | — |
+| [046](part-05-joins/046-multi-table-joins-and-join-condition-design.md) | Multi-table joins and join condition design | Published | Pending | Pending |
+| 047–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -439,3 +440,11 @@
 - README navigation: commit `e66b24edbf1e9e38593be6237e68781d31171204`.
 - Chapter, lab and README fetched from GitHub main; fixture/cardinality assertions reviewed by static reasoning. **Independent editorial review pending; comprehensive static SQL/link QA pending; PostgreSQL 18 runtime execution not performed, evidence pending.**
 - **Published 45/120 (37.5%); 75 remaining; Part 05 5/10. Next: Chapter 046 — Multi-table joins and join condition design.**
+
+## Chapter 046 publication evidence (2026-11-10)
+
+- [Chapter 046](part-05-joins/046-multi-table-joins-and-join-condition-design.md): commit `f1d878b607ff05f3e04e0dd6afd51ce32f05e6a9`.
+- [Lab 046](labs/046-multi-table-joins-condition-design.sql): commit `18abddd3cfe2e4a51e30d0f9e4d906f889c35bdf`.
+- [README navigation](README.md): commit `5fa2c0b62903e5de69d7703a2e9e5dea8f0cb76d`.
+- Both new files re-fetched from GitHub `main`. Targeted static reasoning inspected joins, fixture totals, assertions, temporary-table isolation and rollback. **No independent editorial review, comprehensive syntax/link QA, or actual PostgreSQL 18 runtime execution completed.** Runtime evidence pending.
+- **Next:** Chapter 047 — One-to-many and many-to-many relationships.
