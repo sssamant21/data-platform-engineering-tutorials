@@ -510,4 +510,12 @@
 - [Isolated PostgreSQL 18 lab](labs/053-having-versus-where.sql): commit `bfb85b8efcc261efcf835100ccdb6dc05b9e5297`.
 - [README navigation](README.md): commit `fcff93c2e4d22c159d2b6bac4022131ff743a730`.
 - Chapter and lab were re-fetched from GitHub `main`; README link re-fetched. Targeted static reasoning checked 10 synthetic events, 9 non-NULL amounts, all-status net 143.00, 7 captured events totaling 143.00, qualifying North 2/60.00 and West 2/45.00, report total 105.00, excluded captured total 38.00, NULL pending behavior, PostgreSQL 18/database guard, temporary table, timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
-- **Published 53/120 (44.2%), 67 remaining; Part 06 3/10. Next: Chapter 054 — Conditional aggregation with CASE and FILTER.**
+- **Published 54/120 (45.0%), 66 remaining; Part 06 3/10. Next: Chapter 054 — Conditional aggregation with CASE and FILTER.**
+
+## Chapter 054 publication evidence (2026-11-10)
+
+- [Chapter 054](part-06-aggregation/054-conditional-aggregation-with-case-and-filter.md): commit `86779f7e61abbd403c42e26474935c94950ad42b`.
+- [Isolated PostgreSQL 18 lab](labs/054-conditional-aggregation-case-filter.sql): commit `341723b3f4c40ca68a801b4c0c6ee4e593d208d1`.
+- [README navigation](README.md): commit `c21ebad3df8b36ce3be616e62cdbfbe18c738918`.
+- Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked 12 synthetic events, 8 known amounts, 6 captured events, 2 refunds, 4 pending, captured total 125.00, refunds -15.00, pending 15.00, five region groups, missing captured amount, CASE/FILTER parity, version/database guard, temporary fixture, transaction-local timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
+- **Published 54/120 (45.0%), 66 remaining; Part 06 4/10. Next: Chapter 055 — Date-based grouping and time buckets.**
