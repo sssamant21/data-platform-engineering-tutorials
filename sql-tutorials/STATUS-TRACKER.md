@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 37 |
-| Remaining to draft | 83 |
+| Authored and published chapters | 38 |
+| Remaining to draft | 82 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 7 | 3 |
+| 04 — Transactions and DML | 031–040 | 8 | 2 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -69,7 +69,8 @@
 | [035](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) | DELETE versus TRUNCATE versus DROP | Published | Pending | Pending |
 | [036](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md) | UPSERT and MERGE patterns across SQL dialects | Published | Pending | Pending |
 | [037](part-04-data-modification/037-returning-output-and-write-verification.md) | RETURNING, OUTPUT, and write verification | Published | Pending | Pending |
-| 038–120 | See Master TOC | Planned | — | — |
+| [038](part-04-data-modification/038-begin-commit-rollback-and-savepoint.md) | BEGIN, COMMIT, ROLLBACK, and SAVEPOINT | Published | Pending | Pending |
+| 039–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -368,3 +369,12 @@
 - Chapter and lab re-fetched from GitHub main. Targeted static reasoning checked synthetic payments, expected UPDATE/INSERT/DELETE counts, reconciliation (3 rows; amount 41.75), PostgreSQL 18 guard, timeouts, temporary objects and ROLLBACK. **Not** an independent editorial review or comprehensive syntax check.
 - **Authored/published: 37/120 (30.8%); remaining: 83; Part 04: 7/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime validation: **pending**; no reproducible execution evidence collected.
 - **Next:** Chapter 038 — BEGIN, COMMIT, ROLLBACK, and SAVEPOINT.
+
+## Chapter 038 publication evidence — 2026-11-09
+
+- [Chapter 038 — BEGIN, COMMIT, ROLLBACK, and SAVEPOINT](part-04-data-modification/038-begin-commit-rollback-and-savepoint.md), authored commit `045ec248340efd9c7b5bb16186914ed3be7bfa07`; link correction commit `bdf7c8356b5dc2ad8007388779e0ff9e78e98a5c`.
+- [PostgreSQL 18 rollback-only SQL lab](labs/038-begin-commit-rollback-savepoint.sql), commit `e9aacdf8ed8f69b40f059b65a14d7d8381a46085`.
+- README navigation commit `7bbdae9d71fdf047542eefd180862a3257e87254`.
+- All three artifacts re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked the two synthetic balances, conserved total (150.00), savepoint rollback, version/database/standby guard, temporary table, timeout settings, and outer rollback. No independent editorial review or comprehensive SQL syntax verification performed.
+- **Authored/published: 38/120 (31.7%); remaining: 82; Part 04: 8/10.** Independent editorial review: **pending**. Actual isolated PostgreSQL 18 runtime execution: **pending**; no reproducible execution evidence collected.
+- **Next:** Chapter 039 — Isolation levels and common transaction anomalies.
