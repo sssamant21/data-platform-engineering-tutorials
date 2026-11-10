@@ -89,7 +89,7 @@
 | [055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md) | Date-based grouping and time buckets | Published | Pending | Pending |
 | [056](part-06-aggregation/056-text-transformations-for-reporting.md) | Text transformations for reporting | Published | Pending | Pending |
 | [057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md) | Numeric rounding, ratios, and safe division | Published | Pending | Pending |
-| 057–120 | See Master TOC | Planned | — | — |
+| 058–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
