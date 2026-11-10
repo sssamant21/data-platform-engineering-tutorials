@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 46 |
-| Remaining to draft | 74 |
+| Authored and published chapters | 47 |
+| Remaining to draft | 73 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 6 | 4 |
+| 05 — Joins | 041–050 | 7 | 3 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -78,7 +78,8 @@
 | [044](part-05-joins/044-right-and-full-outer-join-applicability-and-portability.md) | RIGHT and FULL OUTER JOIN — applicability and portability | Published | Pending | Pending |
 | [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
 | [046](part-05-joins/046-multi-table-joins-and-join-condition-design.md) | Multi-table joins and join condition design | Published | Pending | Pending |
-| 047–120 | See Master TOC | Planned | — | — |
+| [047](part-05-joins/047-one-to-many-and-many-to-many-relationships.md) | One-to-many and many-to-many relationships | Published | Pending | Pending |
+| 048–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -448,3 +449,11 @@
 - [README navigation](README.md): commit `5fa2c0b62903e5de69d7703a2e9e5dea8f0cb76d`.
 - Both new files re-fetched from GitHub `main`. Targeted static reasoning inspected joins, fixture totals, assertions, temporary-table isolation and rollback. **No independent editorial review, comprehensive syntax/link QA, or actual PostgreSQL 18 runtime execution completed.** Runtime evidence pending.
 - **Next:** Chapter 047 — One-to-many and many-to-many relationships.
+
+## Chapter 047 publication evidence (2026-11-10)
+
+- [Chapter 047](part-05-joins/047-one-to-many-and-many-to-many-relationships.md): commit `b850bafed28bc11a9a8dc390dfb6742affd43c10`.
+- [PostgreSQL 18 lab](labs/047-one-to-many-many-to-many.sql): commit `c624143b6e0fbcd496ed189052584c0ea09b8d5b`.
+- [README navigation](README.md): commit `70cb718a279e5b3a013373ded8120ad07ee5f470`.
+- Chapter and lab fetched back from GitHub main; targeted static reasoning checked fixture counts, join cardinality, customer and tag totals, uniqueness assertions, transaction guard and rollback. **No independent editorial review, comprehensive automated syntax/link QA, or isolated PostgreSQL 18 runtime execution completed.** No runtime evidence retained.
+- **Published 47/120 (39.2%), 73 remaining; Part 05 7/10. Next: Chapter 048 — Semi-joins and anti-joins using EXISTS and NOT EXISTS.**
