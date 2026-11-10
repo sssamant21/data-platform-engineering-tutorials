@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 43 |
-| Remaining to draft | 77 |
+| Authored and published chapters | 44 |
+| Remaining to draft | 76 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 3 | 7 |
+| 05 — Joins | 041–050 | 4 | 6 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -75,7 +75,8 @@
 | [041](part-05-joins/041-join-fundamentals-and-relationship-cardinality.md) | Join fundamentals and relationship cardinality | Published | Pending | Pending |
 | [042](part-05-joins/042-inner-join-matched-records.md) | INNER JOIN — matched records | Published | Pending | Pending |
 | [043](part-05-joins/043-left-outer-join-preserve-unmatched-left-rows.md) | LEFT OUTER JOIN — preserve unmatched left rows | Published | Pending | Pending |
-| 044–120 | See Master TOC | Planned | — | — |
+| [044](part-05-joins/044-right-and-full-outer-join-applicability-and-portability.md) | RIGHT and FULL OUTER JOIN — applicability and portability | Published | Pending | Pending |
+| 045–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -421,3 +422,11 @@
 - Chapter and lab fetched from GitHub main after creation; README link fetched and confirmed. Targeted static reasoning reviewed source 4/74.00, left 4/74.00, matched 3/65.00, unmatched 1/9.00, ON vs WHERE 4 vs 2, customer-left 4, synthetic temporary tables, version/database guard, transaction timeouts, assertions, and rollback. This is **not** independent editorial review or comprehensive SQL syntax/link QA.
 - **Actual PostgreSQL 18 execution: not performed; no reproducible runtime evidence.** Runtime acceptance pending.
 - **Published 43/120 (35.8%), 77 remaining, Part 05 3/10. Next: 044 — RIGHT and FULL OUTER JOIN: applicability and portability.**
+
+## Chapter 044 publication checkpoint — 2026-11-10
+
+- [Chapter 044 — RIGHT and FULL OUTER JOIN](part-05-joins/044-right-and-full-outer-join-applicability-and-portability.md): commit `70cf14948c6de803aa1d0eb77b81e86266fce60f`.
+- [Isolated PostgreSQL 18 SQL lab](labs/044-right-full-outer-join.sql): commit `5b92d218ccca49b25a7ccc0a0b89bece61938be9`.
+- README navigation: commit `8bf387464b8c1fb4760c668e6a234c644a8fed26`.
+- Chapter, lab, and README re-fetched from GitHub main. Targeted static reasoning checked fixture arithmetic (A 3/59.00, B 3/54.00, FULL 4, matched 2, A-only 1, B-only 1), RIGHT/LEFT equivalence, key uniqueness, PostgreSQL version/database/standby guard, timeouts, temporary tables and final rollback. **Not independently editorially reviewed; comprehensive syntax and link QA pending. Actual isolated PostgreSQL 18 runtime execution not performed; no retained runtime evidence.**
+- **Published 44/120 (36.7%), 76 remaining, Part 05 4/10. Next: 045 — CROSS JOIN and SELF JOIN.**
