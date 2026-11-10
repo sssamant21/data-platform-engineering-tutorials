@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 51 |
-| Remaining to draft | 69 |
+| Authored and published chapters | 52 |
+| Remaining to draft | 68 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 1 | 9 |
+| 06 — Aggregation and reporting | 051–060 | 2 | 8 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -83,6 +83,7 @@
 | [049](part-05-joins/049-diagnose-duplicate-rows-fan-out-and-null-join-pitfalls.md) | Diagnose duplicate rows, fan-out, and NULL join pitfalls | Published | Pending | Pending |
 | [050](part-05-joins/050-lab-05-consolidate-customers-orders-and-payments.md) | Lab 05 — consolidate customers, orders, and payments | Published | Pending | Pending |
 | [051](part-06-aggregation/051-count-sum-avg-min-and-max.md) | COUNT, SUM, AVG, MIN, and MAX | Published | Pending | Pending |
+| [052](part-06-aggregation/052-group-by-and-aggregation-grain.md) | GROUP BY and aggregation grain | Published | Pending | Pending |
 | 052–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -194,7 +195,7 @@
 
 ## Next work item
 
-**052 — GROUP BY and aggregation grain.** Continue Part 06; PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**053 — HAVING versus WHERE.** Continue Part 06; PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -493,3 +494,11 @@
 - [README navigation](README.md): commit `520fbe4fe34ffcd0737a7d44fec3c8b4a65caca5`.
 - Chapter, lab, and README re-fetched from GitHub `main`. Targeted static reasoning checked five synthetic payment events, four non-NULL amounts, one missing amount, four distinct orders, sum 100.00, AVG 25.00, min 10.00, max 40.00, zero-filled AVG 20.00, empty-input aggregate behavior, version/database guard, temporary table, timeouts, and rollback. This is **not** an independent editorial review or comprehensive automated SQL syntax/link QA. **Actual isolated PostgreSQL 18 runtime execution not performed; no runtime evidence retained.**
 - **Published 51/120 (42.5%), 69 remaining; Part 06 1/10. Next: Chapter 052 — GROUP BY and aggregation grain.**
+
+## Chapter 052 publication evidence (2026-11-10)
+
+- [Chapter 052](part-06-aggregation/052-group-by-and-aggregation-grain.md): commit `767655fe57400b2b9aff76903e8122fe5b7055e9`.
+- [Isolated PostgreSQL 18 lab](labs/052-group-by-aggregation-grain.sql): commit `f78e8c6d10d14020de34a8c289ee6386959ecb8b`.
+- [README navigation](README.md): commit `d42a9249f3ff80da4764511585db2b5655df69fa`.
+- Chapter and lab were re-fetched from GitHub `main`. Targeted static reasoning checked 7 synthetic events, 6 non-NULL amounts, 5 region/status groups, 3 region groups, 78.00 reconciled total, NULL grouping and aggregation behavior, version/database guard, temporary fixture, timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
+- **Published 52/120 (43.3%), 68 remaining; Part 06 2/10. Next: Chapter 053 — HAVING versus WHERE.**
