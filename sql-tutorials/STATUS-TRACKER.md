@@ -69,7 +69,7 @@
 | [035](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) | DELETE versus TRUNCATE versus DROP | Published | Pending | Pending |
 | [036](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md) | UPSERT and MERGE patterns across SQL dialects | Published | Pending | Pending |
 | [037](part-04-data-modification/037-returning-output-and-write-verification.md) | RETURNING, OUTPUT, and write verification | Published | Pending | Pending |
-| 037–120 | See Master TOC | Planned | — | — |
+| 038–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -359,3 +359,12 @@
 - All three files re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked synthetic keys and version-guarded conflict updates, MERGE reconciliation (4 SKUs, quantity sum 31), repeatability, version/database/standby guard, timeouts, temp tables, and ROLLBACK. Relative links reviewed. This is **not** comprehensive SQL syntax validation or independent editorial review.
 - **Authored/published: 36/120 (30.0%); remaining: 84; Part 04: 6/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime execution: **pending**; no runtime evidence collected.
 - **Next:** Chapter 037 — RETURNING, OUTPUT, and write verification.
+
+## Chapter 037 publication evidence — 2026-11-09
+
+- [Chapter 037 — RETURNING, OUTPUT, and write verification](part-04-data-modification/037-returning-output-and-write-verification.md), commit `f15db09a1a2a7e7b5a2b2b6d00e23d6dd72190c0`.
+- [PostgreSQL 18 rollback-only SQL lab](labs/037-returning-output-write-verification.sql), commit `cb8705f273ba302ff6a3d9bd8bb048bed65587d1`.
+- README navigation commit `5c6ccd45e8006e5f54a6bff953dec3de7a1a23e4`.
+- Chapter and lab re-fetched from GitHub main. Targeted static reasoning checked synthetic payments, expected UPDATE/INSERT/DELETE counts, reconciliation (3 rows; amount 41.75), PostgreSQL 18 guard, timeouts, temporary objects and ROLLBACK. **Not** an independent editorial review or comprehensive syntax check.
+- **Authored/published: 37/120 (30.8%); remaining: 83; Part 04: 7/10.** Independent editorial review: **pending**. Comprehensive SQL syntax verification: **pending**. Actual isolated PostgreSQL 18 runtime validation: **pending**; no reproducible execution evidence collected.
+- **Next:** Chapter 038 — BEGIN, COMMIT, ROLLBACK, and SAVEPOINT.
