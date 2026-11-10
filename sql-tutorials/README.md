@@ -107,3 +107,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 45. [045 — CROSS JOIN and SELF JOIN](part-05-joins/045-cross-join-and-self-join.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/045-cross-join-self-join.sql); targeted static reasoning only; independent editorial review, comprehensive static QA, and actual PostgreSQL 18 runtime validation pending. Part 05: 5/10.
 
 46. [046 — Multi-table joins and join condition design](part-05-joins/046-multi-table-joins-and-join-condition-design.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/046-multi-table-joins-condition-design.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA and actual PostgreSQL 18 runtime validation pending. Part 05: 6/10.
+
+47. [047 — One-to-many and many-to-many relationships](part-05-joins/047-one-to-many-and-many-to-many-relationships.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/047-one-to-many-many-to-many.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA and PostgreSQL 18 runtime execution pending. Part 05: 7/10.
