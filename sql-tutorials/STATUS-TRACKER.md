@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 44 |
-| Remaining to draft | 76 |
+| Authored and published chapters | 45 |
+| Remaining to draft | 75 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 4 | 6 |
+| 05 — Joins | 041–050 | 5 | 5 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -430,3 +430,7 @@
 - README navigation: commit `8bf387464b8c1fb4760c668e6a234c644a8fed26`.
 - Chapter, lab, and README re-fetched from GitHub main. Targeted static reasoning checked fixture arithmetic (A 3/59.00, B 3/54.00, FULL 4, matched 2, A-only 1, B-only 1), RIGHT/LEFT equivalence, key uniqueness, PostgreSQL version/database/standby guard, timeouts, temporary tables and final rollback. **Not independently editorially reviewed; comprehensive syntax and link QA pending. Actual isolated PostgreSQL 18 runtime execution not performed; no retained runtime evidence.**
 - **Published 44/120 (36.7%), 76 remaining, Part 05 4/10. Next: 045 — CROSS JOIN and SELF JOIN.**
+
+| [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
+
+**Next authoring milestone:** Chapter 046 — Multi-table joins and join condition design. Chapter 045 received targeted static reasoning only; independent editorial review, comprehensive static QA, and PostgreSQL 18 runtime acceptance remain pending.
