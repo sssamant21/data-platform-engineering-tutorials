@@ -12,7 +12,7 @@ After this lesson, you can explain atomicity, begin and finish transactions, dis
 
 ## 5–15 minutes — Core concepts
 
-A **transaction** groups statements into one logical unit. **Atomicity** means that either the whole committed unit takes effect or none of its changes do. A transaction does not automatically prevent all concurrent anomalies; isolation is covered in [Chapter 039](039-isolation-levels-and-common-transaction-anomalies.md) when published.
+A **transaction** groups statements into one logical unit. **Atomicity** means that either the whole committed unit takes effect or none of its changes do. A transaction does not automatically prevent all concurrent anomalies; isolation is covered in Chapter 039 (planned in the Master TOC).
 
 | Statement | Purpose | Operational note |
 |---|---|---|
