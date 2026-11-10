@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 41 |
-| Remaining to draft | 79 |
+| Authored and published chapters | 42 |
+| Remaining to draft | 78 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 1 | 9 |
+| 05 — Joins | 041–050 | 2 | 8 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -73,7 +73,8 @@
 | [039](part-04-data-modification/039-isolation-levels-and-common-transaction-anomalies.md) | Isolation levels and common transaction anomalies | Published | Pending | Pending |
 | [040](part-04-data-modification/040-lab-04-complete-a-safe-auditable-transaction-workflow.md) | Lab 04 — complete a safe, auditable transaction workflow | Published | Pending | Pending |
 | [041](part-05-joins/041-join-fundamentals-and-relationship-cardinality.md) | Join fundamentals and relationship cardinality | Published | Pending | Pending |
-| 042–120 | See Master TOC | Planned | — | — |
+| [042](part-05-joins/042-inner-join-matched-records.md) | INNER JOIN — matched records | Published | Pending | Pending |
+| 043–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -402,3 +403,11 @@
 - README navigation: commit `f5db77be55507d88f4cb9fd56fda799360b91c67`.
 - All three artifacts re-fetched from GitHub main before this tracker update. Targeted static inspection reviewed join keys, synthetic counts (3 customers, 3 orders, 3 inner rows, 4 left rows, 4 line-item rows), revenue 65.00, temporary tables, database/version/standby guard and rollback. **Not independently editorially reviewed; comprehensive SQL syntax and link QA pending; no actual isolated PostgreSQL 18 execution or retained runtime evidence.**
 - **Published 41/120 (34.2%), 79 remaining, Part 05 1/10. Next: 042 — INNER JOIN: matched records.**
+
+## Chapter 042 publication checkpoint — 2026-11-09
+
+- [Chapter 042 — INNER JOIN: matched records](part-05-joins/042-inner-join-matched-records.md): commit `ebf8fa8824a1e61c84af78415778d2ede2f01a5f`.
+- [PostgreSQL 18 isolated rollback-only lab](labs/042-inner-join-matched-records.sql): commit `0a0418c12c4b529b9bef7b93592f5504be0a8127`.
+- README navigation: commit `33e5a0506aab656c59e02cfcf96468aaab5174a7`.
+- Chapter and lab re-fetched from GitHub main; targeted static reasoning checked synthetic join results, count/amount conservation, version/database guard, temporary tables and rollback. **Independent editorial review pending; comprehensive static syntax and link QA pending; actual PostgreSQL 18 runtime validation not performed and no execution evidence retained.**
+- **Published 42/120 (35.0%), 78 remaining, Part 05 2/10. Next: 043 — LEFT OUTER JOIN: preserve unmatched left rows.**
