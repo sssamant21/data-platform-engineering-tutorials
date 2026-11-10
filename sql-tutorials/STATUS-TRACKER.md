@@ -76,7 +76,8 @@
 | [042](part-05-joins/042-inner-join-matched-records.md) | INNER JOIN — matched records | Published | Pending | Pending |
 | [043](part-05-joins/043-left-outer-join-preserve-unmatched-left-rows.md) | LEFT OUTER JOIN — preserve unmatched left rows | Published | Pending | Pending |
 | [044](part-05-joins/044-right-and-full-outer-join-applicability-and-portability.md) | RIGHT and FULL OUTER JOIN — applicability and portability | Published | Pending | Pending |
-| 045–120 | See Master TOC | Planned | — | — |
+| [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
+| 046–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -431,6 +432,10 @@
 - Chapter, lab, and README re-fetched from GitHub main. Targeted static reasoning checked fixture arithmetic (A 3/59.00, B 3/54.00, FULL 4, matched 2, A-only 1, B-only 1), RIGHT/LEFT equivalence, key uniqueness, PostgreSQL version/database/standby guard, timeouts, temporary tables and final rollback. **Not independently editorially reviewed; comprehensive syntax and link QA pending. Actual isolated PostgreSQL 18 runtime execution not performed; no retained runtime evidence.**
 - **Published 44/120 (36.7%), 76 remaining, Part 05 4/10. Next: 045 — CROSS JOIN and SELF JOIN.**
 
-| [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
+## Chapter 045 publication evidence
 
-**Next authoring milestone:** Chapter 046 — Multi-table joins and join condition design. Chapter 045 received targeted static reasoning only; independent editorial review, comprehensive static QA, and PostgreSQL 18 runtime acceptance remain pending.
+- [Chapter 045](part-05-joins/045-cross-join-and-self-join.md): commit `51c2828cb610bd6f2a7e93f5c010c99c92bce64f`.
+- [PostgreSQL 18 lab](labs/045-cross-join-self-join.sql): commit `ab6084efce7a98c9ce2b0cb7d4eb7a2069d9959a`.
+- README navigation: commit `e66b24edbf1e9e38593be6237e68781d31171204`.
+- Chapter, lab and README fetched from GitHub main; fixture/cardinality assertions reviewed by static reasoning. **Independent editorial review pending; comprehensive static SQL/link QA pending; PostgreSQL 18 runtime execution not performed, evidence pending.**
+- **Published 45/120 (37.5%); 75 remaining; Part 05 5/10. Next: Chapter 046 — Multi-table joins and join condition design.**
