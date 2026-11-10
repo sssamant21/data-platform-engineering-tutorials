@@ -17,6 +17,8 @@ The second command **should fail with "No such container"** before proceeding. I
 
 ~~~sh
 docker run --name pg-dbre-ch19 --label training.postgresql.chapter=19 -e POSTGRES_PASSWORD=ch19-local-only -e POSTGRES_DB=design_lab -d postgres:17
+# Save the FULL container ID printed above and `docker context show` output
+# in private lab notes now. Do not reconstruct creation identity at cleanup.
 docker exec pg-dbre-ch19 pg_isready -U postgres -d design_lab
 docker exec pg-dbre-ch19 psql -U postgres -d design_lab -c "SELECT current_setting('server_version') AS version, current_database() AS db;"
 ~~~
@@ -96,10 +98,12 @@ Verify target identity before deleting anything:
 docker inspect --format '{{.Name}} {{.Config.Image}} {{index .Config.Labels "training.postgresql.chapter"}} {{.Id}}' pg-dbre-ch19
 ~~~
 
-Expected: `/pg-dbre-ch19 postgres:17 19 <container-ID>`. Before cleanup, compare the full container ID with the ID returned by your own `docker run`, verify the chapter label is `19`, and confirm there are no unexpected mounts or resources attached (`docker inspect pg-dbre-ch19`; redact secrets from any retained output). **Name, image tag and label alone do not prove ownership.** If the ID is unavailable or differs, stop and retain the container for investigation. **Only after verifying this is the exact disposable container created for this run**, remove it and its anonymous data volume:
+Expected: `/pg-dbre-ch19 postgres:17 19 <container-ID>`. Before cleanup, compare the full container ID with the ID saved at creation time from your own `docker run`, verify the Docker context matches the saved creation-time context, verify the chapter label is `19`, and confirm there are no unexpected mounts or resources attached (`docker inspect pg-dbre-ch19`; redact secrets from any retained output). **Name, image tag and label alone do not prove ownership.** If the ID is unavailable or differs, stop and retain the container for investigation. **Only after verifying this is the exact disposable container created for this run**, remove it and its anonymous data volume:
 
 ~~~sh
-docker rm -f -v pg-dbre-ch19
+docker rm -f -v <verified-full-container-ID>
+# Substitute the full ID recorded at creation after rechecking context, label, image and mounts.
+docker container inspect pg-dbre-ch19  # Must report No such container
 ~~~
 
 The container removal is destructive to its lab data. If you need evidence, capture output first. If retaining the container, omit cleanup and document its owner.
