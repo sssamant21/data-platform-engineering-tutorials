@@ -50,7 +50,7 @@ ORDER BY GROUPING(region), region NULLS LAST,
          GROUPING(channel), channel NULLS LAST;
 ```
 
-Expected **10 rows**: five detail combinations, three region subtotals (East 60.00, West 90.00, unknown region 5.00), one additional? **Correction:** there are four detail combinations for East/West plus one unknown-region detail = **5 detail rows**; three region subtotals = **3**; grand total = **1**, so **9 rows**. The source contains five distinct dimension pairs. A subtotal for unknown region has `region_rolled_up=0`, while the grand total has `region_rolled_up=1`.
+Expected **9 rows**: five detail combinations (including one with unknown region), three region subtotals (East 60.00, West 90.00, unknown region 5.00), and one grand total. The source contains five distinct dimension pairs. A subtotal for unknown region has `region_rolled_up=0`, while the grand total has `region_rolled_up=1`.
 
 **B. All combinations:**
 
