@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 52 |
-| Remaining to draft | 68 |
+| Authored and published chapters | 53 |
+| Remaining to draft | 67 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 2 | 8 |
+| 06 — Aggregation and reporting | 051–060 | 3 | 7 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -84,6 +84,7 @@
 | [050](part-05-joins/050-lab-05-consolidate-customers-orders-and-payments.md) | Lab 05 — consolidate customers, orders, and payments | Published | Pending | Pending |
 | [051](part-06-aggregation/051-count-sum-avg-min-and-max.md) | COUNT, SUM, AVG, MIN, and MAX | Published | Pending | Pending |
 | [052](part-06-aggregation/052-group-by-and-aggregation-grain.md) | GROUP BY and aggregation grain | Published | Pending | Pending |
+| [053](part-06-aggregation/053-having-versus-where.md) | HAVING versus WHERE | Published | Pending | Pending |
 | 052–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -502,3 +503,11 @@
 - [README navigation](README.md): commit `d42a9249f3ff80da4764511585db2b5655df69fa`.
 - Chapter and lab were re-fetched from GitHub `main`. Targeted static reasoning checked 7 synthetic events, 6 non-NULL amounts, 5 region/status groups, 3 region groups, 78.00 reconciled total, NULL grouping and aggregation behavior, version/database guard, temporary fixture, timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
 - **Published 52/120 (43.3%), 68 remaining; Part 06 2/10. Next: Chapter 053 — HAVING versus WHERE.**
+
+## Chapter 053 publication evidence (2026-11-10)
+
+- [Chapter 053](part-06-aggregation/053-having-versus-where.md): commit `e268eb9980bb0be6b2b7a5c6647285055b9677a7`.
+- [Isolated PostgreSQL 18 lab](labs/053-having-versus-where.sql): commit `bfb85b8efcc261efcf835100ccdb6dc05b9e5297`.
+- [README navigation](README.md): commit `fcff93c2e4d22c159d2b6bac4022131ff743a730`.
+- Chapter and lab were re-fetched from GitHub `main`; README link re-fetched. Targeted static reasoning checked 10 synthetic events, 9 non-NULL amounts, all-status net 143.00, 7 captured events totaling 143.00, qualifying North 2/60.00 and West 2/45.00, report total 105.00, excluded captured total 38.00, NULL pending behavior, PostgreSQL 18/database guard, temporary table, timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
+- **Published 53/120 (44.2%), 67 remaining; Part 06 3/10. Next: Chapter 054 — Conditional aggregation with CASE and FILTER.**
