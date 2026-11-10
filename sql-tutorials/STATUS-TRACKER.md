@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 59 |
-| Remaining to draft | 61 |
+| Authored and published chapters | 60 |
+| Remaining to draft | 60 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 9 | 1 |
+| 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -565,3 +565,11 @@
 - [README navigation](README.md): commit `4b7f16cbac83b8e15222900f8aa3eace529a31b3`.
 - Chapter and lab fetched back from GitHub `main`; README navigation fetched back. Targeted static reasoning checked eight synthetic events totaling 180.00, three region pivot rows (East 60.00, North 25.00, West 95.00), web 85.00, store 95.00, six unpivoted region/channel rows totaling 180.00, category allowlist checks, PostgreSQL 18/database guard, temporary fixture, transaction-local timeouts, and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed, with no reproducible runtime evidence retained.**
 - **Published 59/120 (49.2%), 61 remaining; Part 06 9/10. Next: Chapter 060 — Lab 06: build a monthly KPI report.**
+
+## Chapter 060 publication evidence (2026-11-10)
+
+- [Chapter 060](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md): commit `17f41f10f40e806b129f287b6e43bb7cca42b013`.
+- [Isolated rollback-only PostgreSQL 18 lab](labs/060-lab-06-monthly-kpi-report.sql): commit `9af145de1cbc36313240808b5d95a17b22710c43`.
+- [README navigation](README.md): commit `e7ab9e761bae42ee7d1507a2dea8fbeeba26f2fe`.
+- Chapter, lab, and README were fetched back from GitHub `main`. Targeted static arithmetic and structural inspection: 8 synthetic batches, accepted 380, rejected 60, processed 440, overall acceptance 86.36%; monthly processed January 150, February 100, March 190; source breakdown API 280/file 160; zero-denominator handling, UTC boundaries, transaction-local timeouts, temporary fixture, and rollback. **No independent editorial review; comprehensive automated SQL syntax/link QA pending; no actual PostgreSQL 18 runtime execution or reproducible runtime evidence.**
+- **Published 60/120 (50.0%), 60 remaining; Part 06 complete (10/10). Next: Chapter 061 — Scalar subqueries and derived tables (Part 07).**
