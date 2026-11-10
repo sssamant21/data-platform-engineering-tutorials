@@ -85,7 +85,7 @@
 | [051](part-06-aggregation/051-count-sum-avg-min-and-max.md) | COUNT, SUM, AVG, MIN, and MAX | Published | Pending | Pending |
 | [052](part-06-aggregation/052-group-by-and-aggregation-grain.md) | GROUP BY and aggregation grain | Published | Pending | Pending |
 | [053](part-06-aggregation/053-having-versus-where.md) | HAVING versus WHERE | Published | Pending | Pending |
-| 052–120 | See Master TOC | Planned | — | — |
+| 054–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
