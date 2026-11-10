@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 36 |
-| Remaining to draft | 84 |
+| Authored and published chapters | 37 |
+| Remaining to draft | 83 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 6 | 4 |
+| 04 — Transactions and DML | 031–040 | 7 | 3 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -68,6 +68,7 @@
 | [034](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md) | DELETE with safe predicates and referential implications | Published | Pending | Pending |
 | [035](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) | DELETE versus TRUNCATE versus DROP | Published | Pending | Pending |
 | [036](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md) | UPSERT and MERGE patterns across SQL dialects | Published | Pending | Pending |
+| [037](part-04-data-modification/037-returning-output-and-write-verification.md) | RETURNING, OUTPUT, and write verification | Published | Pending | Pending |
 | 037–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
