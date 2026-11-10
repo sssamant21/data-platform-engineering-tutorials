@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 49 |
-| Remaining to draft | 71 |
+| Authored and published chapters | 50 |
+| Remaining to draft | 70 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 9 | 1 |
+| 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -81,7 +81,8 @@
 | [047](part-05-joins/047-one-to-many-and-many-to-many-relationships.md) | One-to-many and many-to-many relationships | Published | Pending | Pending |
 | [048](part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md) | Semi-joins and anti-joins using EXISTS and NOT EXISTS | Published | Pending | Pending |
 | [049](part-05-joins/049-diagnose-duplicate-rows-fan-out-and-null-join-pitfalls.md) | Diagnose duplicate rows, fan-out, and NULL join pitfalls | Published | Pending | Pending |
-| 050–120 | See Master TOC | Planned | — | — |
+| [050](part-05-joins/050-lab-05-consolidate-customers-orders-and-payments.md) | Lab 05 — consolidate customers, orders, and payments | Published | Pending | Pending |
+| 051–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -475,3 +476,11 @@
 - [README navigation](README.md): commit `25e574f2650eb547683c468b73265fcfcff64d64`.
 - Both new files were re-fetched from GitHub main. Targeted static reasoning checked three-order 90.00 source total, six-row multi-child fan-out and incorrect 210.00 sum, safe one-row-per-order preaggregation, NULL orphan detection, duplicate staging key check, PostgreSQL version/database guard, temporary objects, timeouts, and rollback. **Independent editorial review and comprehensive SQL syntax/link QA pending. Actual isolated PostgreSQL 18 execution not performed; no reproducible runtime evidence.**
 - **Published 49/120 (40.8%), 71 remaining; Part 05 9/10. Next: Chapter 050 — Lab 05: consolidate customers, orders, and payments.**
+
+## Chapter 050 publication evidence (2026-11-10)
+
+- [Chapter 050](part-05-joins/050-lab-05-consolidate-customers-orders-and-payments.md): commit `5ba65fb85aa794e4c72b97f5caeb1a26112bd127`.
+- [Isolated PostgreSQL 18 lab](labs/050-lab-05-consolidate-customers-orders-payments.sql): commit `8e238e8cb93646a4b25cb35774ab629e6f78644d`.
+- [README navigation](README.md): commit `bae99124e0cb54b76cee538ae9f86611517820e0`.
+- Both new files and README link re-fetched from GitHub main. Targeted static reasoning checked synthetic order/payment sums, 6-row fan-out, 5-row order grain, NULL customer preservation, zero-payment order, fail-closed guards and rollback. **Not independently editorially reviewed; comprehensive static SQL syntax/link QA pending; no isolated PostgreSQL 18 execution or runtime evidence.**
+- **Published 50/120 (41.7%), 70 remaining; Part 05 complete 10/10. Next: Chapter 051 — COUNT, SUM, AVG, MIN, and MAX.**
