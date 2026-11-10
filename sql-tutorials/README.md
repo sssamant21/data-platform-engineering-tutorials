@@ -119,3 +119,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 51. [051 — COUNT, SUM, AVG, MIN, and MAX](part-06-aggregation/051-count-sum-avg-min-and-max.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/051-count-sum-avg-min-max.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA, and actual PostgreSQL 18 runtime validation pending. Part 06: 1/10.
 
 52. [052 — GROUP BY and aggregation grain](part-06-aggregation/052-group-by-and-aggregation-grain.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/052-group-by-aggregation-grain.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax/link QA, and actual PostgreSQL 18 runtime execution pending. Part 06: 2/10.
+
+53. [053 — HAVING versus WHERE](part-06-aggregation/053-having-versus-where.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/053-having-versus-where.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax/link QA, and actual PostgreSQL 18 runtime execution pending. Part 06: 3/10.
