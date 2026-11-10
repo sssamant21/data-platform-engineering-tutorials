@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 48 |
-| Remaining to draft | 72 |
+| Authored and published chapters | 49 |
+| Remaining to draft | 71 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 8 | 2 |
+| 05 — Joins | 041–050 | 9 | 1 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -191,7 +191,7 @@
 
 ## Next work item
 
-**035 — DELETE versus TRUNCATE versus DROP.** Continue Part 04 with isolated, rollback-only demonstrations. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**050 — Lab 05: consolidate customers, orders, and payments.** Complete Part 05 with isolated, rollback-only reconciliation. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -466,3 +466,11 @@
 - [README navigation](README.md): commit `c9dd41006da7f54380fd03f1af4fa4a1a6611933`.
 - Chapter and lab fetched back from GitHub main, README navigation fetched and verified. Targeted static reasoning checked correlated EXISTS/NOT EXISTS, NULL-sensitive NOT IN, synthetic fixture counts, transaction guard and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and runtime evidence not retained.**
 - **Published 48/120 (40.0%), 72 remaining; Part 05 8/10. Next: Chapter 049 — Diagnose duplicate rows, fan-out, and NULL join pitfalls.**
+
+## Chapter 049 publication evidence (2026-11-10)
+
+- [Chapter 049](part-05-joins/049-diagnose-duplicate-rows-fan-out-and-null-join-pitfalls.md): commit `17f624489d3ff2758c62e898ce7bd9e8e2a4760f`.
+- [Isolated PostgreSQL 18 lab](labs/049-duplicate-rows-fanout-null-join-pitfalls.sql): commit `5a577943c0b1c9f5006a40469e805b4dd47caf91`.
+- [README navigation](README.md): commit `25e574f2650eb547683c468b73265fcfcff64d64`.
+- Both new files were re-fetched from GitHub main. Targeted static reasoning checked three-order 90.00 source total, six-row multi-child fan-out and incorrect 210.00 sum, safe one-row-per-order preaggregation, NULL orphan detection, duplicate staging key check, PostgreSQL version/database guard, temporary objects, timeouts, and rollback. **Independent editorial review and comprehensive SQL syntax/link QA pending. Actual isolated PostgreSQL 18 execution not performed; no reproducible runtime evidence.**
+- **Published 49/120 (40.8%), 71 remaining; Part 05 9/10. Next: Chapter 050 — Lab 05: consolidate customers, orders, and payments.**
