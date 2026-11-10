@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 50 |
-| Remaining to draft | 70 |
+| Authored and published chapters | 51 |
+| Remaining to draft | 69 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 0 | 10 |
+| 06 — Aggregation and reporting | 051–060 | 1 | 9 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -82,7 +82,8 @@
 | [048](part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md) | Semi-joins and anti-joins using EXISTS and NOT EXISTS | Published | Pending | Pending |
 | [049](part-05-joins/049-diagnose-duplicate-rows-fan-out-and-null-join-pitfalls.md) | Diagnose duplicate rows, fan-out, and NULL join pitfalls | Published | Pending | Pending |
 | [050](part-05-joins/050-lab-05-consolidate-customers-orders-and-payments.md) | Lab 05 — consolidate customers, orders, and payments | Published | Pending | Pending |
-| 051–120 | See Master TOC | Planned | — | — |
+| [051](part-06-aggregation/051-count-sum-avg-min-and-max.md) | COUNT, SUM, AVG, MIN, and MAX | Published | Pending | Pending |
+| 052–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -193,7 +194,7 @@
 
 ## Next work item
 
-**050 — Lab 05: consolidate customers, orders, and payments.** Complete Part 05 with isolated, rollback-only reconciliation. PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**052 — GROUP BY and aggregation grain.** Continue Part 06; PostgreSQL 18 runtime acceptance for existing chapters remains pending.
 
 ## Quality gates
 
@@ -484,3 +485,11 @@
 - [README navigation](README.md): commit `bae99124e0cb54b76cee538ae9f86611517820e0`.
 - Both new files and README link re-fetched from GitHub main. Targeted static reasoning checked synthetic order/payment sums, 6-row fan-out, 5-row order grain, NULL customer preservation, zero-payment order, fail-closed guards and rollback. **Not independently editorially reviewed; comprehensive static SQL syntax/link QA pending; no isolated PostgreSQL 18 execution or runtime evidence.**
 - **Published 50/120 (41.7%), 70 remaining; Part 05 complete 10/10. Next: Chapter 051 — COUNT, SUM, AVG, MIN, and MAX.**
+
+## Chapter 051 publication evidence (2026-11-10)
+
+- [Chapter 051](part-06-aggregation/051-count-sum-avg-min-and-max.md): commit `65d0d2dc547c865e25a5baa0ab205c50a2b36e0e`.
+- [Isolated PostgreSQL 18 lab](labs/051-count-sum-avg-min-max.sql): commit `f785880398a043b490c9f94a0195108f959e524c`.
+- [README navigation](README.md): commit `520fbe4fe34ffcd0737a7d44fec3c8b4a65caca5`.
+- Chapter, lab, and README re-fetched from GitHub `main`. Targeted static reasoning checked five synthetic payment events, four non-NULL amounts, one missing amount, four distinct orders, sum 100.00, AVG 25.00, min 10.00, max 40.00, zero-filled AVG 20.00, empty-input aggregate behavior, version/database guard, temporary table, timeouts, and rollback. This is **not** an independent editorial review or comprehensive automated SQL syntax/link QA. **Actual isolated PostgreSQL 18 runtime execution not performed; no runtime evidence retained.**
+- **Published 51/120 (42.5%), 69 remaining; Part 06 1/10. Next: Chapter 052 — GROUP BY and aggregation grain.**
