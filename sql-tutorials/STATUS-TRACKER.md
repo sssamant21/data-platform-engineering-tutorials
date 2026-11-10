@@ -1,13 +1,13 @@
 # SQL Tutorials — Status Tracker
 
 > **Scope:** 120 planned chapters in 12 parts. Source of truth for titles and chapter order: [MASTER-TOC.md](MASTER-TOC.md).
-> **Updated:** 2026-11-09. Content publication and runtime validation are distinct milestones.
+> **Updated:** 2026-11-10. Content publication and runtime validation are distinct milestones.
 
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 42 |
-| Remaining to draft | 78 |
+| Authored and published chapters | 43 |
+| Remaining to draft | 77 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 2 | 8 |
+| 05 — Joins | 041–050 | 3 | 7 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -74,7 +74,8 @@
 | [040](part-04-data-modification/040-lab-04-complete-a-safe-auditable-transaction-workflow.md) | Lab 04 — complete a safe, auditable transaction workflow | Published | Pending | Pending |
 | [041](part-05-joins/041-join-fundamentals-and-relationship-cardinality.md) | Join fundamentals and relationship cardinality | Published | Pending | Pending |
 | [042](part-05-joins/042-inner-join-matched-records.md) | INNER JOIN — matched records | Published | Pending | Pending |
-| 043–120 | See Master TOC | Planned | — | — |
+| [043](part-05-joins/043-left-outer-join-preserve-unmatched-left-rows.md) | LEFT OUTER JOIN — preserve unmatched left rows | Published | Pending | Pending |
+| 044–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -411,3 +412,12 @@
 - README navigation: commit `33e5a0506aab656c59e02cfcf96468aaab5174a7`.
 - Chapter and lab re-fetched from GitHub main; targeted static reasoning checked synthetic join results, count/amount conservation, version/database guard, temporary tables and rollback. **Independent editorial review pending; comprehensive static syntax and link QA pending; actual PostgreSQL 18 runtime validation not performed and no execution evidence retained.**
 - **Published 42/120 (35.0%), 78 remaining, Part 05 2/10. Next: 043 — LEFT OUTER JOIN: preserve unmatched left rows.**
+
+## Chapter 043 publication checkpoint — 2026-11-10
+
+- [Chapter 043 — LEFT OUTER JOIN](part-05-joins/043-left-outer-join-preserve-unmatched-left-rows.md): commit `9219c4e332bef04de436adac451e3070f613e5ec`.
+- [Isolated PostgreSQL 18 SQL lab](labs/043-left-outer-join-unmatched-rows.sql): commit `7cd9ac88e1bd2379435d1a92e706dd70fd2427fa`.
+- README navigation: commit `3d3dd3bd7d71213756c1305fa9728171ea3c3906`.
+- Chapter and lab fetched from GitHub main after creation; README link fetched and confirmed. Targeted static reasoning reviewed source 4/74.00, left 4/74.00, matched 3/65.00, unmatched 1/9.00, ON vs WHERE 4 vs 2, customer-left 4, synthetic temporary tables, version/database guard, transaction timeouts, assertions, and rollback. This is **not** independent editorial review or comprehensive SQL syntax/link QA.
+- **Actual PostgreSQL 18 execution: not performed; no reproducible runtime evidence.** Runtime acceptance pending.
+- **Published 43/120 (35.8%), 77 remaining, Part 05 3/10. Next: 044 — RIGHT and FULL OUTER JOIN: applicability and portability.**
