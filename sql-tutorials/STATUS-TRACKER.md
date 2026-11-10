@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 38 |
-| Remaining to draft | 82 |
+| Authored and published chapters | 39 |
+| Remaining to draft | 81 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 8 | 2 |
+| 04 — Transactions and DML | 031–040 | 9 | 1 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -70,6 +70,7 @@
 | [036](part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md) | UPSERT and MERGE patterns across SQL dialects | Published | Pending | Pending |
 | [037](part-04-data-modification/037-returning-output-and-write-verification.md) | RETURNING, OUTPUT, and write verification | Published | Pending | Pending |
 | [038](part-04-data-modification/038-begin-commit-rollback-and-savepoint.md) | BEGIN, COMMIT, ROLLBACK, and SAVEPOINT | Published | Pending | Pending |
+| [039](part-04-data-modification/039-isolation-levels-and-common-transaction-anomalies.md) | Isolation levels and common transaction anomalies | Published | Pending | Pending |
 | 039–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -378,3 +379,9 @@
 - All three artifacts re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked the two synthetic balances, conserved total (150.00), savepoint rollback, version/database/standby guard, temporary table, timeout settings, and outer rollback. No independent editorial review or comprehensive SQL syntax verification performed.
 - **Authored/published: 38/120 (31.7%); remaining: 82; Part 04: 8/10.** Independent editorial review: **pending**. Actual isolated PostgreSQL 18 runtime execution: **pending**; no reproducible execution evidence collected.
 - **Next:** Chapter 039 — Isolation levels and common transaction anomalies.
+
+## Chapter 039 publication checkpoint
+
+- [Chapter 039](part-04-data-modification/039-isolation-levels-and-common-transaction-anomalies.md) and [read-only lab](labs/039-isolation-levels-transaction-anomalies.sql) authored and published; targeted static reasoning only.
+- Independent editorial review: pending. Comprehensive SQL syntax/static QA: pending. Actual PostgreSQL 18 runtime validation: pending (no isolated execution evidence).
+- Next unfinished chapter: **040 — Lab 04: Complete a Safe, Auditable Transaction Workflow**.
