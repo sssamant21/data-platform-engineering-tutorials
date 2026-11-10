@@ -17,7 +17,7 @@ docker container inspect pg-dbre-capstone20 >/dev/null 2>&1 && { echo "Container
 docker run -d --name pg-dbre-capstone20 -e POSTGRES_PASSWORD=local_training_only -e POSTGRES_DB=capstone --health-cmd='pg_isready -U postgres -d capstone' --health-interval=5s --health-retries=12 postgres:17
 docker exec pg-dbre-capstone20 pg_isready -U postgres -d capstone
 ```
-Record the created container ID and mounts (`docker container inspect`) before any SQL. Expected: container ID, then `accepting connections` after initialization (retry the last command if needed). Password is synthetic and not suitable for a real deployment.
+Immediately save the **full immutable container ID** printed by `docker run`, the Docker context (`docker context show`), and the inspected image, chapter-specific name and mounts in your private lab evidence. Treat the creation-time ID as the ownership record; an ID discovered only at cleanup time is not sufficient. Expected: container ID, then `accepting connections` after initialization (retry the last command if needed). Password is synthetic and not suitable for a real deployment.
 
 ## 2. Build integrity and workload (15 minutes)
 ```sh
@@ -78,13 +78,23 @@ Write a one-page ADR answering: why PostgreSQL; single-writer and standby topolo
 
 ## 6. Cleanup / rollback (5 minutes)
 ```sh
-docker container inspect --format 'id={{.Id}} name={{.Name}} image={{.Image}} mounts={{json .Mounts}}' pg-dbre-capstone20
-# Compare the exact ID and mounts with your creation-time record.
-# Only after verifying this is the same disposable container you created:
-# docker rm -f -v pg-dbre-capstone20
-# Then verify absence with: docker container inspect pg-dbre-capstone20
+# Set this ONLY from the full container ID saved at creation, never from cleanup inspection.
+CREATED_CONTAINER_ID='REPLACE_WITH_CREATION_TIME_FULL_ID'
+CREATED_DOCKER_CONTEXT='REPLACE_WITH_CREATION_TIME_CONTEXT'
+# Stop if creation-time evidence is missing or placeholders remain.
+case "$CREATED_CONTAINER_ID" in ''|REPLACE_* ) echo 'Missing creation-time ID'; exit 1;; esac
+case "$CREATED_DOCKER_CONTEXT" in ''|REPLACE_* ) echo 'Missing creation-time context'; exit 1;; esac
+test "$(docker context show)" = "$CREATED_DOCKER_CONTEXT" || { echo 'Docker context changed'; exit 1; }
+ACTUAL_CONTAINER_ID=$(docker container inspect --format '{{.Id}}' pg-dbre-capstone20) || exit 1
+test "$ACTUAL_CONTAINER_ID" = "$CREATED_CONTAINER_ID" || { echo 'Container ID mismatch'; exit 1; }
+docker container inspect --format 'id={{.Id}} name={{.Name}} image={{.Config.Image}} mounts={{json .Mounts}}' "$CREATED_CONTAINER_ID"
+# Manually compare name, image and mounts to the creation-time record.
+# Stop if any identity, ownership or mount detail differs; never delete an unknown resource.
+# Only after the manual comparison succeeds, run these commands deliberately:
+# docker rm -f -v "$CREATED_CONTAINER_ID"
+# docker container inspect "$CREATED_CONTAINER_ID"  # must report no such container
 ```
-No named volume or host port was created. The verified lab container and its attached anonymous database volume are removed by `docker rm -f -v`; named volumes would not be removed. Inspect its mounts and identity before cleanup. Do not use broad prune commands.
+No named volume or host port was intentionally created. Removal by the verified immutable ID with `docker rm -f -v` also removes attached anonymous volumes; named volumes are not removed. Capture sanitized evidence before deletion and confirm absence afterward. If creation-time identity evidence is unavailable, retain the resource for investigation. Never use broad prune commands.
 
 ## Troubleshooting
 - Docker daemon unavailable: start Docker Desktop/Engine; rerun `docker info`.
