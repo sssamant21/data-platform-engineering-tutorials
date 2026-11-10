@@ -91,7 +91,8 @@
 | [057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md) | Numeric rounding, ratios, and safe division | Published | Pending | Pending |
 | [058](part-06-aggregation/058-rollup-cube-and-grouping-sets.md) | ROLLUP, CUBE, and GROUPING SETS | Published | Pending | Pending |
 | [059](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md) | Pivoting and unpivoting — portable and vendor features | Published | Pending | Pending |
-| 058–120 | See Master TOC | Planned | — | — |
+| [060](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md) | Lab 06 — build a monthly KPI report | Published | Pending | Pending |
+| 061–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
