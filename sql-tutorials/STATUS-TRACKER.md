@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 39 |
-| Remaining to draft | 81 |
+| Authored and published chapters | 40 |
+| Remaining to draft | 80 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -18,7 +18,7 @@
 | 01 — Fundamentals | 001–010 | 10 | 0 |
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
-| 04 — Transactions and DML | 031–040 | 9 | 1 |
+| 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 0 | 10 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
@@ -71,6 +71,7 @@
 | [037](part-04-data-modification/037-returning-output-and-write-verification.md) | RETURNING, OUTPUT, and write verification | Published | Pending | Pending |
 | [038](part-04-data-modification/038-begin-commit-rollback-and-savepoint.md) | BEGIN, COMMIT, ROLLBACK, and SAVEPOINT | Published | Pending | Pending |
 | [039](part-04-data-modification/039-isolation-levels-and-common-transaction-anomalies.md) | Isolation levels and common transaction anomalies | Published | Pending | Pending |
+| [040](part-04-data-modification/040-lab-04-complete-a-safe-auditable-transaction-workflow.md) | Lab 04 — complete a safe, auditable transaction workflow | Published | Pending | Pending |
 | 039–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -385,3 +386,10 @@
 - [Chapter 039](part-04-data-modification/039-isolation-levels-and-common-transaction-anomalies.md) and [read-only lab](labs/039-isolation-levels-transaction-anomalies.sql) authored and published; targeted static reasoning only.
 - Independent editorial review: pending. Comprehensive SQL syntax/static QA: pending. Actual PostgreSQL 18 runtime validation: pending (no isolated execution evidence).
 - Next unfinished chapter: **040 — Lab 04: Complete a Safe, Auditable Transaction Workflow**.
+
+
+## Latest milestone — Chapter 040
+
+- Chapter and isolated rollback-only SQL lab published and re-fetched on GitHub main; Part 04 complete (40/120).
+- Targeted static reasoning performed. **Independent editorial review: pending. Comprehensive static QA: pending. PostgreSQL 18 runtime execution: not performed; evidence pending.**
+- Next unfinished chapter per Master TOC: **041 — Join fundamentals and relationship cardinality** (Part 05).
