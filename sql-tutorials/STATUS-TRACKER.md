@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 58 |
-| Remaining to draft | 62 |
+| Authored and published chapters | 59 |
+| Remaining to draft | 61 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 8 | 2 |
+| 06 — Aggregation and reporting | 051–060 | 9 | 1 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -90,6 +90,7 @@
 | [056](part-06-aggregation/056-text-transformations-for-reporting.md) | Text transformations for reporting | Published | Pending | Pending |
 | [057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md) | Numeric rounding, ratios, and safe division | Published | Pending | Pending |
 | [058](part-06-aggregation/058-rollup-cube-and-grouping-sets.md) | ROLLUP, CUBE, and GROUPING SETS | Published | Pending | Pending |
+| [059](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md) | Pivoting and unpivoting — portable and vendor features | Published | Pending | Pending |
 | 058–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -556,3 +557,11 @@
 - [README navigation](README.md): commit `c0cd60ad4259748f27fbe7a835439628171eace3`.
 - Chapter, lab and README navigation re-fetched from GitHub `main`. Targeted static reasoning checked six synthetic records, 155.00 total, five detail groups, three region subtotals, two channel subtotals, 9 ROLLUP rows, 11 CUBE rows, 9 explicit grouping-set rows, real NULL region semantics, version/database guard, transaction-local timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no reproducible runtime evidence retained.**
 - **Published 58/120 (48.3%), 62 remaining; Part 06 8/10. Next: Chapter 059 — Pivoting and unpivoting — portable and vendor features.**
+
+## Chapter 059 publication evidence (2026-11-10)
+
+- [Chapter 059](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md): commit `197acfbf397fe97d0c5d0b76d5cf91bd6f6b6d48`.
+- [Isolated PostgreSQL 18 lab](labs/059-pivoting-unpivoting-portable-vendor.sql): commit `fcaa57c1e5e79eba51792a4c4aa4bbac2cac3adf`.
+- [README navigation](README.md): commit `4b7f16cbac83b8e15222900f8aa3eace529a31b3`.
+- Chapter and lab fetched back from GitHub `main`; README navigation fetched back. Targeted static reasoning checked eight synthetic events totaling 180.00, three region pivot rows (East 60.00, North 25.00, West 95.00), web 85.00, store 95.00, six unpivoted region/channel rows totaling 180.00, category allowlist checks, PostgreSQL 18/database guard, temporary fixture, transaction-local timeouts, and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed, with no reproducible runtime evidence retained.**
+- **Published 59/120 (49.2%), 61 remaining; Part 06 9/10. Next: Chapter 060 — Lab 06: build a monthly KPI report.**
