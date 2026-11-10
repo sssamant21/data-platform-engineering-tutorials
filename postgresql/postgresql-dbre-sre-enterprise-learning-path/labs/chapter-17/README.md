@@ -22,12 +22,12 @@ docker container inspect pg-dbre-ch17
 The inspect command **should fail with No such container**. If it succeeds, STOP: investigate the existing container and do not replace it.
 
 ```sh
-docker run --name pg-dbre-ch17 -e POSTGRES_PASSWORD=local-only-example -d postgres:17
+docker run --name pg-dbre-ch17 --label training.postgresql.chapter=17 -e POSTGRES_PASSWORD=local-only-example -d postgres:17
 docker exec pg-dbre-ch17 pg_isready -U postgres
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT current_database(), current_user, current_setting('server_version_num') AS version_num;"
 ```
 
-Expected: `accepting connections`, database `postgres`, user `postgres`, version number beginning with `17`. If startup is still in progress, retry readiness after a short wait. The example password is disposable and must never be reused.
+Expected: `accepting connections`, database `postgres`, user `postgres`, version number beginning with `17`. **Save the full immutable container ID printed by `docker run` and the active Docker context at creation time** in the lab evidence (not credentials). If startup is still in progress, retry readiness after a short wait. The example password is disposable and must never be reused.
 
 ## Version and extension inventory
 ```sh
@@ -52,11 +52,22 @@ Expected: one row `1 | before | new`. Record the output as evidence. The added c
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "BEGIN; SET LOCAL lock_timeout = '3s'; ALTER TABLE lifecycle_lab DROP COLUMN status; COMMIT;"
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "SELECT id, note FROM lifecycle_lab;"
 docker exec pg-dbre-ch17 psql -U postgres -d postgres -v ON_ERROR_STOP=1 -c "DROP TABLE lifecycle_lab;"
-docker stop pg-dbre-ch17
-docker rm -v pg-dbre-ch17
+docker context show
+docker inspect --format '{{.Id}} {{.Name}} {{.Config.Image}} {{index .Config.Labels "training.postgresql.chapter"}}' pg-dbre-ch17
+docker inspect --format '{{json .Mounts}}' pg-dbre-ch17
 ```
 
-Expected: original two columns restored; table removed; only the specifically named lab container and its anonymous volume(s) removed. Verify container identity and mounts before cleanup; `-v` does not delete named volumes. Never use `docker system prune`, `docker volume prune` or broad deletion commands. This lab does not execute a PostgreSQL major upgrade or restore exercise.
+**Destructive cleanup gate:** Compare the current Docker context and full immutable ID with the context and ID saved immediately after `docker run`. Confirm name `/pg-dbre-ch17`, image `postgres:17`, chapter label `17`, and expected anonymous-only mounts. Do not proceed if any evidence is missing, mismatched, or unexpected; preserve the container and escalate to its owner. Inspect output can contain sensitive metadata; redact before retaining it.
+
+Only after matching the creation-time evidence, replace `<VERIFIED_FULL_CONTAINER_ID>` below with the exact recorded full ID (not the container name or an abbreviated ID). These commands work in both PowerShell and POSIX shells:
+
+```sh
+docker stop <VERIFIED_FULL_CONTAINER_ID>
+docker rm -v <VERIFIED_FULL_CONTAINER_ID>
+docker container inspect <VERIFIED_FULL_CONTAINER_ID>
+```
+
+Expected: original two columns restored; table removed; only the independently identified disposable lab container and its anonymous volume(s) removed. The final inspect must fail with `No such container`; record the removal output and confirm no unexpected resources remain. `-v` does not delete named volumes. Never use `docker system prune`, `docker volume prune` or broad deletion commands. This lab does not execute a PostgreSQL major upgrade or restore exercise.
 
 ## Troubleshooting
 - `Cannot connect to Docker daemon`: start Docker Desktop; confirm Linux engine.
