@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 54 |
-| Remaining to draft | 66 |
+| Authored and published chapters | 55 |
+| Remaining to draft | 65 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 4 | 6 |
+| 06 — Aggregation and reporting | 051–060 | 5 | 5 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -86,7 +86,8 @@
 | [052](part-06-aggregation/052-group-by-and-aggregation-grain.md) | GROUP BY and aggregation grain | Published | Pending | Pending |
 | [053](part-06-aggregation/053-having-versus-where.md) | HAVING versus WHERE | Published | Pending | Pending |
 | [054](part-06-aggregation/054-conditional-aggregation-with-case-and-filter.md) | Conditional aggregation with CASE and FILTER | Published | Pending | Pending |
-| 054–120 | See Master TOC | Planned | — | — |
+| [055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md) | Date-based grouping and time buckets | Published | Pending | Pending |
+| 056–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -520,3 +521,11 @@
 - [README navigation](README.md): commit `c21ebad3df8b36ce3be616e62cdbfbe18c738918`.
 - Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked 12 synthetic events, 8 known amounts, 6 captured events, 2 refunds, 4 pending, captured total 125.00, refunds -15.00, pending 15.00, five region groups, missing captured amount, CASE/FILTER parity, version/database guard, temporary fixture, transaction-local timeouts, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
 - **Published 54/120 (45.0%), 66 remaining; Part 06 4/10. Next: Chapter 055 — Date-based grouping and time buckets.**
+
+## Chapter 055 publication evidence (2026-11-10)
+
+- [Chapter 055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md): commit `80f0083ee9873b0804995a4e3b49ded162954d56`.
+- [Isolated PostgreSQL 18 lab](labs/055-date-based-grouping-time-buckets.sql): commit `8c714a74d7fa4340c8d1de3b3cb9d987d7cb25ac`.
+- [README navigation](README.md): commit `201899316130f076b8b1b11c541b7dab3ef6e179`.
+- Chapter, lab, and README re-fetched from GitHub `main`. Targeted static reasoning checked six UTC events, January 1/10.00, February 3/90.00, March 2/110.00, source total 210.00, February half-open filter, New York local boundary, PostgreSQL 18/database guards, temporary fixture, transaction-local timeouts, and rollback. **Independent editorial review and comprehensive automated SQL syntax/link QA pending. Actual isolated PostgreSQL 18 execution not performed; no reproducible runtime evidence.**
+- **Published 55/120 (45.8%), 65 remaining; Part 06 5/10. Next: Chapter 056 — Text transformations for reporting.**
