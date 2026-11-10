@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 55 |
-| Remaining to draft | 65 |
+| Authored and published chapters | 56 |
+| Remaining to draft | 64 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 5 | 5 |
+| 06 — Aggregation and reporting | 051–060 | 6 | 4 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -87,7 +87,8 @@
 | [053](part-06-aggregation/053-having-versus-where.md) | HAVING versus WHERE | Published | Pending | Pending |
 | [054](part-06-aggregation/054-conditional-aggregation-with-case-and-filter.md) | Conditional aggregation with CASE and FILTER | Published | Pending | Pending |
 | [055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md) | Date-based grouping and time buckets | Published | Pending | Pending |
-| 056–120 | See Master TOC | Planned | — | — |
+| [056](part-06-aggregation/056-text-transformations-for-reporting.md) | Text transformations for reporting | Published | Pending | Pending |
+| 057–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -529,3 +530,11 @@
 - [README navigation](README.md): commit `201899316130f076b8b1b11c541b7dab3ef6e179`.
 - Chapter, lab, and README re-fetched from GitHub `main`. Targeted static reasoning checked six UTC events, January 1/10.00, February 3/90.00, March 2/110.00, source total 210.00, February half-open filter, New York local boundary, PostgreSQL 18/database guards, temporary fixture, transaction-local timeouts, and rollback. **Independent editorial review and comprehensive automated SQL syntax/link QA pending. Actual isolated PostgreSQL 18 execution not performed; no reproducible runtime evidence.**
 - **Published 55/120 (45.8%), 65 remaining; Part 06 5/10. Next: Chapter 056 — Text transformations for reporting.**
+
+## Chapter 056 publication evidence (2026-11-10)
+
+- [Chapter 056](part-06-aggregation/056-text-transformations-for-reporting.md): commit `88c95e9715953b4711fca420ce5087b4df1c6942`.
+- [Isolated PostgreSQL 18 lab](labs/056-text-transformations-for-reporting.sql): commit `c2b89adc60f4dceef4fe004fd89d18333e98ac26`.
+- [README navigation](README.md): commit `11bd48cdb83526266f7c409d7ec45e3130384736`.
+- Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked six synthetic events, normalized region counts and totals (NORTH 2/50.00, SOUTH 2/55.00, UNKNOWN 1/10.00, WEST 1/5.00), status totals (CAPTURED 4/100.00, PENDING 1/15.00, UNKNOWN 1/5.00), source reconciliation 6/120.00, NULL/blank distinction, temporary fixture, version/database guard, transaction-local timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
+- **Published 56/120 (46.7%), 64 remaining; Part 06 6/10. Next: Chapter 057 — Numeric rounding, ratios, and safe division.**
