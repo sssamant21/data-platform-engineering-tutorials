@@ -80,7 +80,8 @@
 | [046](part-05-joins/046-multi-table-joins-and-join-condition-design.md) | Multi-table joins and join condition design | Published | Pending | Pending |
 | [047](part-05-joins/047-one-to-many-and-many-to-many-relationships.md) | One-to-many and many-to-many relationships | Published | Pending | Pending |
 | [048](part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md) | Semi-joins and anti-joins using EXISTS and NOT EXISTS | Published | Pending | Pending |
-| 048–120 | See Master TOC | Planned | — | — |
+| [049](part-05-joins/049-diagnose-duplicate-rows-fan-out-and-null-join-pitfalls.md) | Diagnose duplicate rows, fan-out, and NULL join pitfalls | Published | Pending | Pending |
+| 050–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
