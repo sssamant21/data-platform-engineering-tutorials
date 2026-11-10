@@ -210,10 +210,15 @@ docker ps -a --filter volume=pg-fleet-ch15-data --format '{{.ID}} {{.Names}}'
 
 **Stop unless every check passes:** context matches the original lab context; the full container ID matches the separately saved creation ID; the label equals `15`; the container has only the named volume `pg-fleet-ch15-data` mounted at `/var/lib/postgresql/data`; the volume was created for this lab; and the volume-reference listing contains only the originally created lab container. Do not derive the saved creation ID from the current inspect output. If any proof is absent or ambiguous, retain resources and record cleanup as blocked.
 
-Only after those checks pass, manually execute these **destructive** commands for the confirmed disposable lab resources:
+Only after those checks pass, **recheck** that `docker inspect --format '{{.Id}}' pg-fleet-ch15` still equals the independently saved full creation ID. Substitute that exact ID for `<VERIFIED_FULL_CONTAINER_ID>` below; the angle-bracket token is a placeholder, **not** a command argument. Remove the verified container by its immutable ID rather than its mutable name. This remains a manual, non-atomic cleanup procedure; stop if the identity changes or any check is inconclusive.
 
 ```text
-docker rm -f pg-fleet-ch15
+docker rm -f <VERIFIED_FULL_CONTAINER_ID>
+```
+
+Before removing the named volume, repeat `docker volume inspect pg-fleet-ch15-data` and `docker ps -a --filter volume=pg-fleet-ch15-data --format '{{.ID}} {{.Names}}'`. Confirm the original volume identity/provenance and that **no** container now references it. If the volume was removed/recreated or its identity cannot be established, retain it. Only then manually run:
+
+```text
 docker volume rm pg-fleet-ch15-data
 ```
 
@@ -224,7 +229,7 @@ docker ps -a --filter name=^/pg-fleet-ch15$
 docker volume ls --filter name=^pg-fleet-ch15-data$
 ```
 
-Both filtered listings should be empty. A failed removal or a missing evidence record is **not** proof of cleanup. If a name is reused by an unrelated resource between inspection and deletion, stop; these manual checks are not an atomic identity lock. Do not automate this procedure or run it in a shared Docker context.
+Both filtered listings should be empty. A failed removal or a missing evidence record is **not** proof of cleanup. If a name is reused by an unrelated resource between inspection and deletion, stop; these manual checks are not an atomic identity lock. The container removal uses the verified full ID, while named-volume deletion still requires a fresh identity and reference check immediately beforehand. Do not automate this procedure or run it in a shared Docker context.
 
 ## 12. Acceptance checklist and evidence discipline
 
