@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 56 |
-| Remaining to draft | 64 |
+| Authored and published chapters | 57 |
+| Remaining to draft | 63 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -20,7 +20,7 @@
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
-| 06 — Aggregation and reporting | 051–060 | 6 | 4 |
+| 06 — Aggregation and reporting | 051–060 | 7 | 3 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
@@ -88,6 +88,7 @@
 | [054](part-06-aggregation/054-conditional-aggregation-with-case-and-filter.md) | Conditional aggregation with CASE and FILTER | Published | Pending | Pending |
 | [055](part-06-aggregation/055-date-based-grouping-and-time-buckets.md) | Date-based grouping and time buckets | Published | Pending | Pending |
 | [056](part-06-aggregation/056-text-transformations-for-reporting.md) | Text transformations for reporting | Published | Pending | Pending |
+| [057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md) | Numeric rounding, ratios, and safe division | Published | Pending | Pending |
 | 057–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -538,3 +539,11 @@
 - [README navigation](README.md): commit `11bd48cdb83526266f7c409d7ec45e3130384736`.
 - Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked six synthetic events, normalized region counts and totals (NORTH 2/50.00, SOUTH 2/55.00, UNKNOWN 1/10.00, WEST 1/5.00), status totals (CAPTURED 4/100.00, PENDING 1/15.00, UNKNOWN 1/5.00), source reconciliation 6/120.00, NULL/blank distinction, temporary fixture, version/database guard, transaction-local timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and no runtime evidence retained.**
 - **Published 56/120 (46.7%), 64 remaining; Part 06 6/10. Next: Chapter 057 — Numeric rounding, ratios, and safe division.**
+
+## Chapter 057 publication evidence (2026-11-10)
+
+- [Chapter 057](part-06-aggregation/057-numeric-rounding-ratios-and-safe-division.md): commit `452811babdb6e80d280b77ca7e9e63d89ffc754e`.
+- [Isolated PostgreSQL 18 lab](labs/057-numeric-rounding-ratios-safe-division.sql): commit `b231bc113fa2e7f6c89b9928f0b3967ae8119fb7`.
+- [README navigation](README.md): commit `412d4184177e1c3c754be55fd4456c87115522c7`.
+- Chapter and lab re-fetched from GitHub `main`; README navigation re-fetched. Targeted static reasoning checked five synthetic batches, source totals (164 accepted, 36 rejected, 200 processed), claims 125/150 = 83.33%, events 39/50 = 78.00%, overall 82.00%, unweighted batch average 83.75%, NULL for zero-volume batch, exact numeric cast, temporary fixture, version/database guard, transaction-local timeouts and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no reproducible runtime evidence retained.**
+- **Published 57/120 (47.5%), 63 remaining; Part 06 7/10. Next: Chapter 058 — ROLLUP, CUBE, and GROUPING SETS.**
