@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 47 |
-| Remaining to draft | 73 |
+| Authored and published chapters | 48 |
+| Remaining to draft | 72 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -19,7 +19,7 @@
 | 02 — Filtering and sorting | 011–020 | 10 | 0 |
 | 03 — Modeling, DDL, constraints | 021–030 | 10 | 0 |
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
-| 05 — Joins | 041–050 | 7 | 3 |
+| 05 — Joins | 041–050 | 8 | 2 |
 | 06 — Aggregation and reporting | 051–060 | 0 | 10 |
 | 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
 | 08 — Window functions | 071–080 | 0 | 10 |
@@ -79,6 +79,7 @@
 | [045](part-05-joins/045-cross-join-and-self-join.md) | CROSS JOIN and SELF JOIN | Published | Pending | Pending |
 | [046](part-05-joins/046-multi-table-joins-and-join-condition-design.md) | Multi-table joins and join condition design | Published | Pending | Pending |
 | [047](part-05-joins/047-one-to-many-and-many-to-many-relationships.md) | One-to-many and many-to-many relationships | Published | Pending | Pending |
+| [048](part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md) | Semi-joins and anti-joins using EXISTS and NOT EXISTS | Published | Pending | Pending |
 | 048–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
@@ -457,3 +458,11 @@
 - [README navigation](README.md): commit `70cb718a279e5b3a013373ded8120ad07ee5f470`.
 - Chapter and lab fetched back from GitHub main; targeted static reasoning checked fixture counts, join cardinality, customer and tag totals, uniqueness assertions, transaction guard and rollback. **No independent editorial review, comprehensive automated syntax/link QA, or isolated PostgreSQL 18 runtime execution completed.** No runtime evidence retained.
 - **Published 47/120 (39.2%), 73 remaining; Part 05 7/10. Next: Chapter 048 — Semi-joins and anti-joins using EXISTS and NOT EXISTS.**
+
+## Chapter 048 publication evidence (2026-11-10)
+
+- [Chapter 048](part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md): commit `3b05be658cd1bbae5c2806be47b6650a3c521858`.
+- [PostgreSQL 18 lab](labs/048-exists-not-exists-semi-anti-joins.sql): commit `23a212d5ed428be0f873b3603bbc0b5d45ab13f9`.
+- [README navigation](README.md): commit `c9dd41006da7f54380fd03f1af4fa4a1a6611933`.
+- Chapter and lab fetched back from GitHub main, README navigation fetched and verified. Targeted static reasoning checked correlated EXISTS/NOT EXISTS, NULL-sensitive NOT IN, synthetic fixture counts, transaction guard and rollback. **Independent editorial review pending; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed and runtime evidence not retained.**
+- **Published 48/120 (40.0%), 72 remaining; Part 05 8/10. Next: Chapter 049 — Diagnose duplicate rows, fan-out, and NULL join pitfalls.**
