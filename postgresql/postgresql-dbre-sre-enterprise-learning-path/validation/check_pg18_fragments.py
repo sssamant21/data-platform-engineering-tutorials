@@ -60,7 +60,11 @@ def inspect(url):
             parser.feed(html.decode("utf-8", errors="replace"))
             result["status"] = "anchor_present" if fragment in parser.ids else "anchor_missing"
             result["matching_ids"] = sorted(i for i in parser.ids if fragment.lower() in i.lower())[:20]
-    except (HTTPError, URLError, TimeoutError, OSError, ValueError) as exc:
+    except HTTPError as exc:
+        result["status"] = "http_error"
+        result["http_status"] = exc.code
+        result["error"] = type(exc).__name__ + ": " + str(exc)[:200]
+    except (URLError, TimeoutError, OSError, ValueError) as exc:
         result["error"] = type(exc).__name__ + ": " + str(exc)[:200]
     return result
 
