@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 82 |
-| Remaining to draft | 38 |
+| Authored and published chapters | 83 |
+| Remaining to draft | 37 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 2 | 8 |
+| 09 — Functions, views, JSON | 081–090 | 3 | 7 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -115,6 +115,7 @@
 
 | [081](part-09-functions-views-json/081-string-functions-and-regular-expressions.md) | String functions and regular expressions | Published | Pending | Pending |
 | [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-time-zones.md) | Dates, intervals, timestamps, and time zones | Published | Pending | Pending |
+| [083](part-09-functions-views-json/083-numeric-expressions-and-precision-considerations.md) | Numeric expressions and precision considerations | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -225,7 +226,7 @@
 
 ## Next work item
 
-**076 — FIRST_VALUE, LAST_VALUE, and window frames.** Continue Part 08; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
+**084 — JSON and semi-structured SQL queries.** Continue Part 09; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -766,3 +767,11 @@
 ## Latest milestone — Chapter 082
 
 Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-time-zones.md) and its [synthetic read-only lab](labs/082-dates-intervals-timestamps-time-zones.sql) were published and fetched back from GitHub main. Targeted static reasoning and path inspection only; independent editorial review, comprehensive static QA, and actual isolated PostgreSQL 18 runtime execution remain **pending**. Next: Chapter 083 — Numeric expressions and precision considerations. Published 82/120; remaining 38.
+
+## Chapter 083 publication evidence — 2026-11-11
+
+- [Chapter 083 — Numeric expressions and precision considerations](part-09-functions-views-json/083-numeric-expressions-and-precision-considerations.md): commit `c75c30de69ebbfbb56808b86803d3f4e614de953`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/083-numeric-expressions-precision.sql): commit `2a056464c690cc884e8a7944dc8e00619ea89123`.
+- [README navigation](README.md): commit `e6fdda19481de0042cfabe806f853500d503423e`.
+- Chapter, lab, and README were re-fetched from GitHub `main` before this tracker update. Targeted static inspection checked synthetic four-row amounts, exact decimal versus binary float, safe zero-denominator behavior, integer division, round-before/after-sum expectations (30.100 raw, 30.10 rounded total, 30.11 summed rounded lines), read-only transaction, version/database guards, timeouts, bidirectional `EXCEPT ALL` assertions and rollback. Manual expected-result reasoning is **not** PostgreSQL runtime execution or comprehensive parser-based syntax QA.
+- **Authored/published: 83/120 (69.2%), 37 remaining; Part 09: 3/10.** Independent editorial review: **pending (0 certified)**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible runtime evidence retained. **Next: Chapter 084 — JSON and semi-structured SQL queries.**
