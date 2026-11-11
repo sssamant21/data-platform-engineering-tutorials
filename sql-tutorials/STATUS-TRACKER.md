@@ -743,3 +743,11 @@
 - [README navigation](README.md): commit `029deb428591c5836f2822cf03fbb52affccfe15`.
 - Chapter and lab were fetched back from GitHub main; README navigation fetched and confirmed before tracker update. Targeted static reasoning checked six cohort-week rows, 10 synthetic events, six users, distinct user-week grain, fixed denominators, expected percentages 100/66.67/33.33 and 100/50 and 100, deterministic sequencing, read-only transaction, timeouts, version/database guards, two-way EXCEPT ALL assertions, and rollback. This is **not** comprehensive parser-based SQL syntax QA or independent editorial review.
 - **Published: 79/120 (65.8%), 41 remaining; Part 08: 9/10.** Independent editorial review: **pending (0 certified)**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible runtime evidence collected. **Next:** Chapter 080 — Lab 08: produce an analytical customer activity report.
+
+## Chapter 080 publication evidence — 2026-11-11
+
+- [Chapter 080](part-08-window-functions/080-lab-08-produce-an-analytical-customer-activity-report.md): commit `4593a0d3b603fc15e297f348a192f44f8f61f74b`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/080-lab-08-analytical-customer-activity-report.sql): commit `3ba94c0ff1a5e3b6e6e8b11e9bf14c8473b3bf68`.
+- [README navigation](README.md): commit `e6636643f5512519ec9af1f2ef89ec962e4d84aa`.
+- Both new files were fetched back from GitHub main before README update; README navigation was fetched back and verified before this tracker update. Targeted static reasoning checked seven synthetic events, four customers (three active), five purchases, spend 115, Aster/Birch tied at spend 50, Dune zero activity, deterministic window ordering, two-way `EXCEPT ALL` assertions, PostgreSQL 18/database guards, read-only transaction, timeouts and rollback. This is **not** comprehensive parser-based syntax QA or independent editorial review.
+- **Authored/published: 80/120 (66.7%), 40 remaining; Part 08 complete (10/10).** Independent editorial review: **pending**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**, no reproducible runtime evidence retained. **Next: Chapter 081 — String functions and regular expressions (Part 09).**
