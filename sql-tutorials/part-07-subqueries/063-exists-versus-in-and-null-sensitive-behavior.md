@@ -32,7 +32,7 @@ By the end, explain existence predicates, compare `EXISTS` and `IN`, implement N
 
 Alerts: `(101,1,'error'), (102,1,'warning'), (103,3,'error'), (104,NULL,'orphan'), (105,6,'warning')`.
 
-Expected: **6 batches**, **5 alerts**, **4 distinct non-NULL alert batch IDs? No: 3** (1, 3, 6), **3 batches with alerts**, **3 without** (2, 4, 5), and **280 known processed records**. The orphan alert is a deliberate data-quality exception.
+Expected: **6 batches**, **5 alerts**, **3 distinct non-NULL alert batch IDs** (1, 3, 6), **3 batches with alerts**, **3 without** (2, 4, 5), and **280 known processed records**. The orphan alert is a deliberate data-quality exception.
 
 ## 2. Concepts and portability — 10 minutes
 
