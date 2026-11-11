@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 79 |
-| Remaining to draft | 41 |
+| Authored and published chapters | 81 |
+| Remaining to draft | 39 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,8 +22,8 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 9 | 1 |
-| 09 — Functions, views, JSON | 081–090 | 0 | 10 |
+| 08 — Window functions | 071–080 | 10 | 0 |
+| 09 — Functions, views, JSON | 081–090 | 1 | 9 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 079–120 | See Master TOC | Planned | — | — |
+| 082–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -112,6 +112,8 @@
 | [077](part-08-window-functions/077-ntile-percentiles-and-distribution-analysis.md) | NTILE, percentiles, and distribution analysis | Published | Pending | Pending |
 | [078](part-08-window-functions/078-gaps-and-islands-patterns.md) | Gaps-and-islands patterns | Published | Pending | Pending |
 | [079](part-08-window-functions/079-cohort-analysis-retention-and-event-sequencing.md) | Cohort analysis, retention, and event sequencing | Published | Pending | Pending |
+
+| [081](part-09-functions-views-json/081-string-functions-and-regular-expressions.md) | String functions and regular expressions | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -751,3 +753,11 @@
 - [README navigation](README.md): commit `e6636643f5512519ec9af1f2ef89ec962e4d84aa`.
 - Both new files were fetched back from GitHub main before README update; README navigation was fetched back and verified before this tracker update. Targeted static reasoning checked seven synthetic events, four customers (three active), five purchases, spend 115, Aster/Birch tied at spend 50, Dune zero activity, deterministic window ordering, two-way `EXCEPT ALL` assertions, PostgreSQL 18/database guards, read-only transaction, timeouts and rollback. This is **not** comprehensive parser-based syntax QA or independent editorial review.
 - **Authored/published: 80/120 (66.7%), 40 remaining; Part 08 complete (10/10).** Independent editorial review: **pending**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**, no reproducible runtime evidence retained. **Next: Chapter 081 — String functions and regular expressions (Part 09).**
+
+## Chapter 081 publication evidence — 2026-11-11
+
+- [Chapter 081](part-09-functions-views-json/081-string-functions-and-regular-expressions.md): commit `8a79c911dda9144c4f74df14ee241b32a4e7fcfa`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/081-string-functions-and-regular-expressions.sql): commit `49447511c253dafa2dab947d59e0f156b0ed56b1`.
+- [README navigation](README.md): commit `b4bb460c327827e6f809f2720b4bf1b2e5bbedd0`.
+- Chapter and SQL lab fetched back from GitHub main; README navigation fetched back before tracker update. Targeted static reasoning checked synthetic five-row dataset, two valid/two invalid/one missing code statuses, deterministic ordering, null handling, two-way `EXCEPT ALL` assertions, transaction-local timeouts, read-only transaction, database/version guards, and rollback. No automated PostgreSQL parser-based SQL syntax test or independent editorial review was performed.
+- **Authored/published: 81/120 (67.5%), 39 remaining; Part 09: 1/10.** Independent editorial review: **pending**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible evidence retained. **Next: Chapter 082 — Dates, intervals, timestamps, and time zones.**
