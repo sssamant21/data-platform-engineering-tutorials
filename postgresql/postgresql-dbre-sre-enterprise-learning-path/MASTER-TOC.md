@@ -5,7 +5,7 @@
 ## Documentation and runtime versions
 
 - **Documentation baseline: PostgreSQL 18**, effective 2026-11-06. See the [baseline and migration policy](POSTGRESQL-18-BASELINE.md).
-- **Legacy lab runtime assumptions: PostgreSQL 17** until each lab is explicitly migrated to, and execution-verified on, PostgreSQL 18. This table's “Authored” status does not imply PostgreSQL 18 runtime acceptance.
+- **Lab source migration:** Chapter 01 instructions target PostgreSQL 18 but have not been executed; Chapters 02–20 still assume PostgreSQL 17. No lab has PostgreSQL 17 or 18 runtime-validation evidence. This table's “Authored” status does not imply runtime acceptance.
 
 ## Part 1 — PostgreSQL foundations
 
