@@ -88,10 +88,11 @@ Expected: container running and PostgreSQL accepting connections.
 ## Step 2 — Connect and verify
 
 ```powershell
-docker exec -it pg18-fleet-lab psql -U postgres -d appdb
+docker exec -it $labId psql -X -v ON_ERROR_STOP=1 -U postgres -d appdb
+if ($LASTEXITCODE -ne 0) { throw 'Interactive psql session failed; do not proceed to backup or report lab success' }
 ```
 
-In the `psql` session:
+In the `psql` session (with startup files disabled and SQL errors configured to stop the script):
 
 ```sql
 SELECT version();
