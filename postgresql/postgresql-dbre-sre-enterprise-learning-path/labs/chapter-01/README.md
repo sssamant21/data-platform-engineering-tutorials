@@ -59,6 +59,11 @@ $labPgdata = docker inspect --format '{{range .Config.Env}}{{println .}}{{end}}'
 if ($LASTEXITCODE -ne 0 -or @($labPgdata | Where-Object { $_ -eq 'PGDATA=/var/lib/postgresql/18/docker' }).Count -ne 1) { throw 'Unexpected PostgreSQL 18 PGDATA configuration' }
 $labImageId = docker inspect --format '{{.Image}}' $labId
 if ($LASTEXITCODE -ne 0 -or $labImageId -notmatch '^sha256:[a-f0-9]{64}$') { throw 'Cannot verify immutable image identity' }
+# Image ID identifies local image content; it is NOT a registry manifest digest.
+# RepoDigests may be empty for a locally built or otherwise untagged image.
+$repoDigests = docker image inspect --format '{{json .RepoDigests}}' $labImageId
+if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect image registry digests' }
+Write-Host "Image registry digests (record exact output, even if []): $repoDigests"
 Write-Host "Retain for cleanup verification: context=$labContext container_id=$labId volume=$labVolume image_id=$labImageId"
 ```
 
@@ -102,7 +107,7 @@ SELECT current_user;
 SELECT pg_is_in_recovery();
 ```
 
-Expected: PostgreSQL 18, data directory `/var/lib/postgresql/18/docker`, `appdb`, `postgres`, and `false` for a writable primary. Record the exact server minor version and image digest; stop if the data directory differs.
+Expected: PostgreSQL 18, data directory `/var/lib/postgresql/18/docker`, `appdb`, `postgres`, and `false` for a writable primary. Record the exact server minor version, local image ID and registry digest(s) if available; do not describe an image ID as a registry digest. Stop if the data directory differs.
 
 ## Step 3 — Create schema and generate workload
 
@@ -225,7 +230,7 @@ Expected: 50,000 restored orders. For a repeated run, choose a new restore datab
 
 ## Step 8 — Collect evidence
 
-Record PostgreSQL server/client versions, image tag and immutable image ID/digest, actual PGDATA and volume mount, check outputs, plan comparisons, rollback test, health query results, and restore row count. Redact secrets before committing logs to GitHub.
+Record PostgreSQL server/client versions, image tag, immutable local image ID, registry RepoDigests output (which may be empty), actual PGDATA and volume mount, check outputs, plan comparisons, rollback test, health query results, and restore row count. Redact secrets before committing logs to GitHub.
 
 ## Step 9 — Optional cleanup (destructive to this lab only)
 
