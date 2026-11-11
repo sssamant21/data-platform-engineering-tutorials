@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 68 |
-| Remaining to draft | 52 |
+| Authored and published chapters | 69 |
+| Remaining to draft | 51 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 8 | 2 |
+| 07 — Subqueries and CTEs | 061–070 | 9 | 1 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -100,7 +100,8 @@
 | [066](part-07-subqueries/066-recursive-ctes-and-hierarchical-queries.md) | Recursive CTEs and hierarchical queries | Published | Pending | Pending |
 | [067](part-07-subqueries/067-union-versus-union-all.md) | UNION versus UNION ALL | Published | Pending | Pending |
 | [068](part-07-subqueries/068-intersect-and-except.md) | INTERSECT and EXCEPT (MINUS in some systems) | Published | Pending | Pending |
-| 068–120 | See Master TOC | Planned | — | — |
+| [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
+| 070–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -648,3 +649,12 @@
 - [README navigation](README.md): commit `dc2d54f56c3c681289988ac97ec2f81dd12e7c08`.
 - Chapter, lab, and README fetched or published on GitHub `main`; targeted static reasoning checked 3 shared distinct rows (102,103,NULL), source-only 101/104, warehouse-only 105, and EXCEPT ALL 101/102/104 (sum 307). Read-only transaction, version/database checks, local timeouts, fail-closed assertions and ROLLBACK included. **Independent editorial review not performed; comprehensive automated syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
 - **Published 68/120 (56.7%), 52 remaining; Part 07 8/10. Next: Chapter 069 — Refactor complex SQL for readability and correctness.**
+
+
+## Chapter 069 publication evidence (2026-11-11)
+
+- [Chapter 069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md): commit `5745d6dc7f350e316b8eb1dd8a6d15ed05ec59de`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/069-refactor-complex-sql.sql): commit `9918170181c4bd16dfcf9a746233ffdc26d25568`.
+- [README navigation](README.md): commit `647d80e722e032c52447dc774819c420b6349974`.
+- Chapter, SQL lab and README fetched back from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic batches; East accepted/rejected/processed 140/30/170 (82.35%), West 100/30/130 (76.92%), overall 240/60/300 (80.00%), expected empty two-way EXCEPT ALL differences, transaction-local timeouts, read-only transaction, fail-closed assertions and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
+- **Published 69/120 (57.5%), 51 remaining; Part 07 9/10. Next: Chapter 070 — Lab 07: query a multi-level organizational hierarchy.**
