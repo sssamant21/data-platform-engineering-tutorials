@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 66 |
-| Remaining to draft | 54 |
+| Authored and published chapters | 67 |
+| Remaining to draft | 53 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 6 | 4 |
+| 07 — Subqueries and CTEs | 061–070 | 7 | 3 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -98,7 +98,8 @@
 | [064](part-07-subqueries/064-correlated-subqueries-and-performance-tradeoffs.md) | Correlated subqueries and performance tradeoffs | Published | Pending | Pending |
 | [065](part-07-subqueries/065-common-table-expressions-with.md) | Common table expressions (WITH) | Published | Pending | Pending |
 | [066](part-07-subqueries/066-recursive-ctes-and-hierarchical-queries.md) | Recursive CTEs and hierarchical queries | Published | Pending | Pending |
-| 067–120 | See Master TOC | Planned | — | — |
+| [067](part-07-subqueries/067-union-versus-union-all.md) | UNION versus UNION ALL | Published | Pending | Pending |
+| 068–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -629,3 +630,12 @@
 - [README navigation](README.md): commit `14bdf7184d7607b5e5d0fc51d1073db82d62bcec`.
 - Chapter and lab fetched back from GitHub `main`; targeted static inspection performed for six reachable employees, one orphan, manager subtree, and a three-edge cycle. Independent editorial review and comprehensive automated SQL syntax/link QA pending. **Actual isolated PostgreSQL 18 runtime execution was not performed; no runtime evidence retained.**
 - **Published 66/120 (55.0%), 54 remaining; Part 07 6/10. Next: Chapter 067 — UNION versus UNION ALL.**
+
+
+## Chapter 067 publication evidence (2026-11-11)
+
+- [Chapter 067](part-07-subqueries/067-union-versus-union-all.md): commit `6b9bbeccc54877efdbe22d62137d5cdcf665fbae`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/067-union-versus-union-all.sql): commit `043071e2071de16c168dcba7062c5d0440584a7c`.
+- [README navigation](README.md): commit `a0b1e2581929d6cb71d194897b9a8b63dd15268b`.
+- Chapter, lab, and README were fetched back from GitHub `main` before this tracker update. Targeted static reasoning: 8 UNION ALL rows, 6 distinct UNION rows, 180 versus 140 numeric sum, 6 versus 5 non-NULL measurements, and two duplicated complete-row groups. Transaction is READ ONLY with local timeouts, version/database guards, fail-closed assertions and ROLLBACK. **Independent editorial review not performed; comprehensive automated syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
+- **Published 67/120 (55.8%), 53 remaining; Part 07 7/10. Next: Chapter 068 — INTERSECT and EXCEPT (MINUS in some systems).**
