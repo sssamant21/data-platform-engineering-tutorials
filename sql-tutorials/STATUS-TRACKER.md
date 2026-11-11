@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 69 |
-| Remaining to draft | 51 |
+| Authored and published chapters | 70 |
+| Remaining to draft | 50 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 9 | 1 |
+| 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -101,7 +101,8 @@
 | [067](part-07-subqueries/067-union-versus-union-all.md) | UNION versus UNION ALL | Published | Pending | Pending |
 | [068](part-07-subqueries/068-intersect-and-except.md) | INTERSECT and EXCEPT (MINUS in some systems) | Published | Pending | Pending |
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
-| 070–120 | See Master TOC | Planned | — | — |
+| [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
+| 071–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -658,3 +659,11 @@
 - [README navigation](README.md): commit `647d80e722e032c52447dc774819c420b6349974`.
 - Chapter, SQL lab and README fetched back from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic batches; East accepted/rejected/processed 140/30/170 (82.35%), West 100/30/130 (76.92%), overall 240/60/300 (80.00%), expected empty two-way EXCEPT ALL differences, transaction-local timeouts, read-only transaction, fail-closed assertions and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
 - **Published 69/120 (57.5%), 51 remaining; Part 07 9/10. Next: Chapter 070 — Lab 07: query a multi-level organizational hierarchy.**
+
+## Chapter 070 publication evidence — 2026-11-11
+
+- Chapter: [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md), publication commit `273b64dbb1f412b64b8fcbf15a29cd8e3fd9c7e3`, navigation correction `52a65aa8e075d90945d5da02c208f95f56a24cfb`.
+- Read-only synthetic PostgreSQL 18 lab: [070 SQL](labs/070-lab-07-organizational-hierarchy.sql), publication commit `634138d57d351393b69ed11410e28b582bf0138f`.
+- README navigation commit `9211161c9ad8c12e83c495e06f02c6a72e65d680`.
+- Chapter and lab fetched back from GitHub main. Targeted static reasoning checked nine fictional employees, six reachable, Ben subtree IDs 2/4/5, orphan ID 7, unreachable IDs 7/8/9, cycle starts 8/9, bounded recursion, read-only transaction, timeout and rollback. These are reasoned expectations, **not actual SQL execution**. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime validation remain pending; no runtime evidence retained.
+- Part 07 complete by authorship: **10/10**. Overall **70/120 published**, **50 remaining**. Next: **071 — Window-function anatomy: OVER, PARTITION BY, ORDER BY**.
