@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 76 |
-| Remaining to draft | 44 |
+| Authored and published chapters | 77 |
+| Remaining to draft | 43 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 6 | 4 |
+| 08 — Window functions | 071–080 | 7 | 3 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -109,6 +109,7 @@
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
 | [075](part-08-window-functions/075-rolling-averages-and-moving-windows.md) | Rolling averages and moving windows | Published | Pending | Pending |
 | [076](part-08-window-functions/076-first-value-last-value-and-window-frames.md) | FIRST_VALUE, LAST_VALUE, and window frames | Published | Pending | Pending |
+| [077](part-08-window-functions/077-ntile-percentiles-and-distribution-analysis.md) | NTILE, percentiles, and distribution analysis | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -716,3 +717,11 @@
 - [README navigation](README.md): commit `f5581817871fdcc4e0c31af6817fff2422900bbc`.
 - Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static inspection and manually reasoned expectations: eight synthetic events; API first/final IDs 1/5, FILE 6/8, running last IDs match each event ID, API final latency NULL, FILE final latency 90. Read-only transaction, local timeouts, version/database guards, bidirectional EXCEPT ALL assertions and ROLLBACK present. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed and no execution evidence retained.**
 - **Published 76/120 (63.3%), 44 remaining; Part 08: 6/10. Next: Chapter 077 — NTILE, percentiles, and distribution analysis.**
+
+## Chapter 077 publication evidence — 2026-11-11
+
+- [Chapter 077](part-08-window-functions/077-ntile-percentiles-and-distribution-analysis.md): commit `170510106d112fbef9e6ef9bb73da0076f0cb52f`.
+- [077 synthetic read-only PostgreSQL 18 lab](labs/077-ntile-percentiles-distribution.sql): commit `b961f8ec1cd97e96528e2c8869893da775f76ae7`.
+- [README navigation](README.md): commit `ec35c0ef246fb85423577d26efbe8f8f9c858a4f`.
+- Both new artifacts fetched back from GitHub `main` before updating tracker. Targeted static inspection checked inline synthetic rows, read-only transaction, local timeouts, PostgreSQL 18/database guards, deterministic NTILE ordering, two-way EXCEPT ALL assertions, fail-closed acceptance and ROLLBACK. Manually reasoned expected p50/p95: API 20/88, FILE 20/33.5, with discrete p50 API 20 and FILE 15; 9 measured and 1 missing row. This is not a comprehensive parser or link audit.
+- **Published 77/120 (64.2%), 43 remaining; Part 08 7/10.** Independent editorial review: **pending**. Comprehensive SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**, no reproducible runtime evidence retained. **Next:** Chapter 078 — Gaps-and-islands patterns.
