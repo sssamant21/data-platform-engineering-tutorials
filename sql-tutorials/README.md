@@ -139,3 +139,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 ## Part 07 — Subqueries, CTEs & Set Operations
 
 61. [061 — Scalar subqueries and derived tables](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) — published; [read-only synthetic PostgreSQL 18 lab](labs/061-scalar-subqueries-derived-tables.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 07: 1/10.
+
+62. [062 — IN, ANY, ALL, and multi-row subqueries](part-07-subqueries/062-in-any-all-and-multi-row-subqueries.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/062-in-any-all-multi-row-subqueries.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 07: 2/10.
