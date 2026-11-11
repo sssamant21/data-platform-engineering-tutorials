@@ -1,7 +1,7 @@
 # Chapter 01 Lab — Deploy, Query, Inspect and Restore PostgreSQL
 
 **Safety:** Disposable local lab ONLY. Do not run destructive cleanup against an existing container or volume.
-**Runtime:** Docker Desktop (Windows PowerShell) or an approved local Linux Docker Engine with PostgreSQL 18. **Migration authored, not runtime validated.**
+**Runtime:** Windows PowerShell with Docker Desktop using an approved local Linux-container engine and PostgreSQL 18. **Migration authored, not runtime validated.** The PowerShell preflight uses Windows-only `Get-NetTCPConnection`; Linux-host execution requires a separately reviewed equivalent port-ownership check and is not supported by this exact command sequence.
 **Status:** Instructions authored; runtime execution not yet completed.
 
 [Chapter 01](../../chapters/01-postgresql-fundamentals-and-architecture.md)
