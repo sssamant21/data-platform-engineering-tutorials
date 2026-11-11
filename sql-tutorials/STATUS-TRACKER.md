@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 61 |
-| Remaining to draft | 59 |
+| Authored and published chapters | 62 |
+| Remaining to draft | 58 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 1 | 9 |
+| 07 — Subqueries and CTEs | 061–070 | 2 | 8 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -93,7 +93,8 @@
 | [059](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md) | Pivoting and unpivoting — portable and vendor features | Published | Pending | Pending |
 | [060](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md) | Lab 06 — build a monthly KPI report | Published | Pending | Pending |
 | [061](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) | Scalar subqueries and derived tables | Published | Pending | Pending |
-| 062–120 | See Master TOC | Planned | — | — |
+| [062](part-07-subqueries/062-in-any-all-and-multi-row-subqueries.md) | IN, ANY, ALL, and multi-row subqueries | Published | Pending | Pending |
+| 063–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -583,3 +584,11 @@
 - README navigation commit `72820a33310f19ff40a952b726942f495ba73371`.
 - Chapter, lab and README fetched from GitHub `main`; targeted static reasoning completed. **Independent editorial review, comprehensive automated syntax/link QA, and actual isolated PostgreSQL 18 runtime validation pending.** No execution evidence was collected.
 - **Next:** 062 — IN, ANY, ALL, and multi-row subqueries.
+
+## Chapter 062 publication evidence (2026-11-10)
+
+- [Chapter 062](part-07-subqueries/062-in-any-all-and-multi-row-subqueries.md): commit `a335a7cc1cb98e29814b63ee4e7d40770e7254d9`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/062-in-any-all-multi-row-subqueries.sql): commit `84962bb53f518fca1b2b80b24d70fcfdc1f634b6`.
+- README navigation: commit `60204ccb44de642ebca4666d0aa81d93f65901cb`.
+- Both new artifacts were fetched back from GitHub `main` before tracker update. Targeted static reasoning checked six batches, five known processed values totaling 290, membership IDs 1/2/5/6, ANY IDs 1/2/3, ALL ID 1, NULL-sensitive NOT IN, empty-set semantics, read-only transaction, PostgreSQL 18/database guards, timeouts, fail-closed acceptance and rollback. **No independent editorial review, no comprehensive automated SQL syntax/link QA, and no actual isolated PostgreSQL 18 execution or retained runtime evidence.**
+- **Published 62/120 (51.7%), 58 remaining; Part 07 2/10. Next: Chapter 063 — EXISTS versus IN and NULL-sensitive behavior.**
