@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 71 |
-| Remaining to draft | 49 |
+| Authored and published chapters | 72 |
+| Remaining to draft | 48 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 1 | 9 |
+| 08 — Window functions | 071–080 | 2 | 8 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -104,6 +104,7 @@
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
 | 072–120 | See Master TOC | Planned | — | — |
+| [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -676,3 +677,11 @@
 - [README navigation](README.md), commit `4b594d83ca95860d72949a8b1c26c23e82114045`.
 - All three artifacts fetched back from GitHub `main` before tracker update. Targeted static inspection and manual arithmetic checked six synthetic batches, global total 230, API 120, FILE 110, running totals by batch ID [40,100,30,100,120,110], explicit ROWS frame, read-only transaction, timeouts, version/database guards, fail-closed assertions and rollback. **No independent editorial review; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed, no runtime evidence retained.**
 - **Published 71/120 (59.2%), 49 remaining; Part 08 1/10. Next: Chapter 072 — ROW_NUMBER, RANK, and DENSE_RANK.**
+
+## Chapter 072 publication evidence — 2026-11-11
+
+- [Chapter 072](part-08-window-functions/072-row-number-rank-and-dense-rank.md): commit `8fda38ac4bb98da3cc422af8ec847cac2c094522`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/072-row-number-rank-dense-rank.sql): commit `001ac8882241c3d93a24a887d8eba3f41a4692a7`.
+- [README navigation](README.md): commit `02e89fa19fb0cf50083ef3e6189f88ee490efb06`.
+- Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static reasoning: eight batches, four per service, ranks [1,1,3,4], dense ranks [1,1,2,3], deterministic winners 1/5, tied leaders 1/3/5/6, one NULL last. Lab includes read-only transaction, local timeouts, PostgreSQL 18/database guards, exact two-way EXCEPT ALL checks and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
+- **Published 72/120 (60.0%), 48 remaining; Part 08 2/10. Next: Chapter 073 — LAG and LEAD for change analysis.**
