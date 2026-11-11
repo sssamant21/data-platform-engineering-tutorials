@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 72 |
-| Remaining to draft | 48 |
+| Authored and published chapters | 74 |
+| Remaining to draft | 46 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 2 | 8 |
+| 08 — Window functions | 071–080 | 4 | 6 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -105,6 +105,8 @@
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
 | 072–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
+| [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
+| [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -685,3 +687,12 @@
 - [README navigation](README.md): commit `02e89fa19fb0cf50083ef3e6189f88ee490efb06`.
 - Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static reasoning: eight batches, four per service, ranks [1,1,3,4], dense ranks [1,1,2,3], deterministic winners 1/5, tied leaders 1/3/5/6, one NULL last. Lab includes read-only transaction, local timeouts, PostgreSQL 18/database guards, exact two-way EXCEPT ALL checks and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
 - **Published 72/120 (60.0%), 48 remaining; Part 08 2/10. Next: Chapter 073 — LAG and LEAD for change analysis.**
+
+## Chapters 073–074 publication reconciliation — 2026-11-11
+
+- [Chapter 073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) and [073 read-only lab](labs/073-lag-lead-change-analysis.sql) were already present on GitHub `main` when this run began; README navigation already linked both. The tracker had not yet recorded them. Their prior publication commit SHAs were not independently established in this reconciliation.
+- [Chapter 074](part-08-window-functions/074-running-totals-and-cumulative-measures.md): commit `481fa59a2f06948ce0328c311b841a8a80cbec6e`.
+- [074 synthetic read-only PostgreSQL 18 lab](labs/074-running-totals-cumulative-measures.sql): commit `ea64f600187434b2d0c7ffbfa0574b6d4853fe17`.
+- [README navigation](README.md): commit `b37863cfee6585547203b3b2a0acc3d8d32a5c62`.
+- Chapter 074 and its lab were fetched back from GitHub `main` before updating this tracker. Targeted static inspection confirmed the seven-row inline dataset, read-only transaction, version/database guards, local timeouts, explicit ROWS frame, bidirectional EXCEPT ALL expected-row checks, and ROLLBACK. Manually reasoned expected results: API running totals 20/50/60/100 (total 100); FILE 15/15/40 (total 40), one NULL measurement, and 100% final cumulative percentages.
+- **Authored/published:** 74/120 (61.7%), 46 remaining; Part 08 4/10. **Independent editorial review:** pending. **Comprehensive automated SQL syntax/link QA:** pending. **Actual isolated PostgreSQL 18 runtime validation:** not performed; no execution evidence retained. **Next:** Chapter 075 — Rolling averages and moving windows.
