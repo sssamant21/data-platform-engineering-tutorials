@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 60 |
-| Remaining to draft | 60 |
+| Authored and published chapters | 61 |
+| Remaining to draft | 59 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 0 | 10 |
+| 07 — Subqueries and CTEs | 061–070 | 1 | 9 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -92,7 +92,8 @@
 | [058](part-06-aggregation/058-rollup-cube-and-grouping-sets.md) | ROLLUP, CUBE, and GROUPING SETS | Published | Pending | Pending |
 | [059](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md) | Pivoting and unpivoting — portable and vendor features | Published | Pending | Pending |
 | [060](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md) | Lab 06 — build a monthly KPI report | Published | Pending | Pending |
-| 061–120 | See Master TOC | Planned | — | — |
+| [061](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) | Scalar subqueries and derived tables | Published | Pending | Pending |
+| 062–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -574,3 +575,11 @@
 - [README navigation](README.md): commit `e7ab9e761bae42ee7d1507a2dea8fbeeba26f2fe`.
 - Chapter, lab, and README were fetched back from GitHub `main`. Targeted static arithmetic and structural inspection: 8 synthetic batches, accepted 380, rejected 60, processed 440, overall acceptance 86.36%; monthly processed January 150, February 100, March 190; source breakdown API 280/file 160; zero-denominator handling, UTC boundaries, transaction-local timeouts, temporary fixture, and rollback. **No independent editorial review; comprehensive automated SQL syntax/link QA pending; no actual PostgreSQL 18 runtime execution or reproducible runtime evidence.**
 - **Published 60/120 (50.0%), 60 remaining; Part 06 complete (10/10). Next: Chapter 061 — Scalar subqueries and derived tables (Part 07).**
+
+## Chapter 061 publication evidence
+
+- Chapter: [061](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md); commit `ca414ba59a0838e14178487155ad9c1a8827840c`.
+- Lab: [061 SQL](labs/061-scalar-subqueries-derived-tables.sql); commit `9a514a8ca3589a5576a84def6c674f80fb726bc5`.
+- README navigation commit `72820a33310f19ff40a952b726942f495ba73371`.
+- Chapter, lab and README fetched from GitHub `main`; targeted static reasoning completed. **Independent editorial review, comprehensive automated syntax/link QA, and actual isolated PostgreSQL 18 runtime validation pending.** No execution evidence was collected.
+- **Next:** 062 — IN, ANY, ALL, and multi-row subqueries.
