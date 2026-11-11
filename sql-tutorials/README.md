@@ -135,3 +135,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 59. [059 — Pivoting and unpivoting: portable and vendor features](part-06-aggregation/059-pivoting-and-unpivoting-portable-and-vendor-features.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/059-pivoting-unpivoting-portable-vendor.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax/link QA, and actual PostgreSQL 18 runtime validation pending. Part 06: 9/10.
 
 60. [060 — Lab 06: build a monthly KPI report](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/060-lab-06-monthly-kpi-report.sql); targeted static reasoning only; independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 06 complete (10/10).
+
+## Part 07 — Subqueries, CTEs & Set Operations
+
+61. [061 — Scalar subqueries and derived tables](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) — published; [read-only synthetic PostgreSQL 18 lab](labs/061-scalar-subqueries-derived-tables.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 07: 1/10.
