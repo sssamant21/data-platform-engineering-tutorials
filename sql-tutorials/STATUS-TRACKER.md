@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 74 |
-| Remaining to draft | 46 |
+| Authored and published chapters | 75 |
+| Remaining to draft | 45 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 4 | 6 |
+| 08 — Window functions | 071–080 | 5 | 5 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -107,6 +107,7 @@
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
+| [075](part-08-window-functions/075-rolling-averages-and-moving-windows.md) | Rolling averages and moving windows | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -217,7 +218,7 @@
 
 ## Next work item
 
-**072 — ROW_NUMBER, RANK, and DENSE_RANK.** Continue Part 08; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
+**076 — FIRST_VALUE, LAST_VALUE, and window frames.** Continue Part 08; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -696,3 +697,12 @@
 - [README navigation](README.md): commit `b37863cfee6585547203b3b2a0acc3d8d32a5c62`.
 - Chapter 074 and its lab were fetched back from GitHub `main` before updating this tracker. Targeted static inspection confirmed the seven-row inline dataset, read-only transaction, version/database guards, local timeouts, explicit ROWS frame, bidirectional EXCEPT ALL expected-row checks, and ROLLBACK. Manually reasoned expected results: API running totals 20/50/60/100 (total 100); FILE 15/15/40 (total 40), one NULL measurement, and 100% final cumulative percentages.
 - **Authored/published:** 74/120 (61.7%), 46 remaining; Part 08 4/10. **Independent editorial review:** pending. **Comprehensive automated SQL syntax/link QA:** pending. **Actual isolated PostgreSQL 18 runtime validation:** not performed; no execution evidence retained. **Next:** Chapter 075 — Rolling averages and moving windows.
+
+## Chapter 075 publication evidence — 2026-11-11
+
+- [Chapter 075](part-08-window-functions/075-rolling-averages-and-moving-windows.md): commit `bf802cf32d4f80747993b1c271d87c6d5b7e2326`.
+- [075 synthetic read-only PostgreSQL 18 lab](labs/075-rolling-averages-moving-windows.sql): commit `f383deeb236c56f6c7d49f80633530e4198ed909`.
+- [README navigation](README.md): commit `f10581e81f76198de7f7b187f9a0a6002368e3de`.
+- Chapter and lab were fetched back from GitHub `main` before tracker update. Targeted static reasoning checked eight synthetic rows, trailing three-row averages (API 100/150/200/250/400; FILE 40/60/80), NULL handling, strict complete windows (IDs 3/8), transaction-local timeouts, version/database guards, two-way `EXCEPT ALL` assertions, and rollback. This is **not** independent editorial review or comprehensive automated SQL syntax/link QA.
+- **Actual isolated PostgreSQL 18 runtime execution: pending.** No instance was run or runtime evidence retained.
+- **Authored/published: 75/120 (62.5%), 45 remaining; Part 08: 5/10. Next: Chapter 076 — FIRST_VALUE, LAST_VALUE, and window frames.**
