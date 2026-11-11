@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 78 |
-| Remaining to draft | 42 |
+| Authored and published chapters | 79 |
+| Remaining to draft | 41 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 8 | 2 |
+| 08 — Window functions | 071–080 | 9 | 1 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -111,6 +111,7 @@
 | [076](part-08-window-functions/076-first-value-last-value-and-window-frames.md) | FIRST_VALUE, LAST_VALUE, and window frames | Published | Pending | Pending |
 | [077](part-08-window-functions/077-ntile-percentiles-and-distribution-analysis.md) | NTILE, percentiles, and distribution analysis | Published | Pending | Pending |
 | [078](part-08-window-functions/078-gaps-and-islands-patterns.md) | Gaps-and-islands patterns | Published | Pending | Pending |
+| [079](part-08-window-functions/079-cohort-analysis-retention-and-event-sequencing.md) | Cohort analysis, retention, and event sequencing | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -734,3 +735,11 @@
 - README navigation: commit `71cc2ef3cb1eb52e569337d56a30a6ae5a1abbbd`.
 - Chapter and lab fetched back from GitHub main. Targeted static inspection: PostgreSQL 18/database guard, synthetic data, read-only transaction, transaction-local timeouts, bidirectional EXCEPT ALL acceptance, rollback, and relative links. Expected 5 islands, 3 gap ranges, and 4 missing positions reasoned manually. **No independent editorial review, comprehensive automated SQL syntax/link QA, or actual isolated PostgreSQL 18 execution was performed.** Runtime evidence pending.
 - Next: **079 — Cohort analysis, retention, and event sequencing**. Part 08: 8/10.
+
+## Chapter 079 publication evidence — 2026-11-11
+
+- Chapter: [079](part-08-window-functions/079-cohort-analysis-retention-and-event-sequencing.md); commit `96ff2b618c33b9ed0d4a377d47aa63a3b248bec3`.
+- Synthetic read-only PostgreSQL 18 lab: [079 SQL](labs/079-cohort-retention-event-sequencing.sql); commit `49dd7218136a97e4a34bc160b863f533608a6b9b`.
+- [README navigation](README.md): commit `029deb428591c5836f2822cf03fbb52affccfe15`.
+- Chapter and lab were fetched back from GitHub main; README navigation fetched and confirmed before tracker update. Targeted static reasoning checked six cohort-week rows, 10 synthetic events, six users, distinct user-week grain, fixed denominators, expected percentages 100/66.67/33.33 and 100/50 and 100, deterministic sequencing, read-only transaction, timeouts, version/database guards, two-way EXCEPT ALL assertions, and rollback. This is **not** comprehensive parser-based SQL syntax QA or independent editorial review.
+- **Published: 79/120 (65.8%), 41 remaining; Part 08: 9/10.** Independent editorial review: **pending (0 certified)**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible runtime evidence collected. **Next:** Chapter 080 — Lab 08: produce an analytical customer activity report.
