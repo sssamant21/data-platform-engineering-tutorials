@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** beginner SQL learners, data engineers, DBRE/SRE.
 
-**Prerequisites:** [066 — Recursive CTEs](066-recursive-ctes-and-hierarchical-queries.md), [068 — INTERSECT and EXCEPT](068-intersect-and-except.md), and [069 — Refactor Complex SQL](069-refactor-complex-sql-for-readability-and-correctness.md). **Next:** [Part 08 — Window Functions](../MASTER-TOC.md#part-08--window-functions--analytical-sql).
+**Prerequisites:** [066 — Recursive CTEs](066-recursive-ctes-and-hierarchical-queries.md), [068 — INTERSECT and EXCEPT](068-intersect-and-except.md), and [069 — Refactor Complex SQL](069-refactor-complex-sql-for-readability-and-correctness.md). **Next:** [Part 08 — Window Functions](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
 
 **Safety:** Fictional employees only. The [PostgreSQL 18 lab](../labs/070-lab-07-organizational-hierarchy.sql) is read-only, uses inline `VALUES`, and rolls back. Run only against an independently verified disposable `sql_tutorials` database; the name/version guard alone does **not** prove isolation. No production credentials or systems.
 
