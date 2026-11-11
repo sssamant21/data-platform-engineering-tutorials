@@ -3,7 +3,7 @@
 **Effective date:** 2026-11-06  
 **Applies only to:** `postgresql/postgresql-dbre-sre-enterprise-learning-path/`  
 **Decision:** PostgreSQL **18** is the authoritative documentation and technical reference baseline for this independent 20-chapter curriculum.  
-**Migration state:** Documentation baseline adopted; official version-pinned manual links aligned to PostgreSQL 18 across the twenty lessons and twenty lab READMEs (where such links occur). Technical and external-link verification remains pending. Existing PostgreSQL 17 labs **have not been migrated or runtime-verified on 18**.
+**Migration state:** Documentation baseline adopted; official version-pinned manual links aligned to PostgreSQL 18 across the twenty lessons and twenty lab READMEs (where such links occur). Technical and external-link verification remains pending. Chapter 01 lab instructions have been migrated to PostgreSQL 18 at source level; Chapters 02–20 retain legacy PostgreSQL 17 runtime assumptions. **No lab has been runtime-verified on PostgreSQL 18.**
 
 ## Authoritative references
 
@@ -20,7 +20,7 @@ Use version-pinned `https://www.postgresql.org/docs/18/<topic>.html` references 
 1. **Effective now:** PostgreSQL 18 is the canonical documentation version for fundamentals, administration, SQL, monitoring, performance, backup, recovery, and operations decisions.
 2. **Existing legacy material:** Chapters/labs authored for PostgreSQL 17, plus historical semantic reports, remain accurately described as 17-targeted until individually reconciled.
 3. **Completed at the URL-reference level:** Migrated version-pinned PostgreSQL manual links in the chapter and lab source files from `/docs/17/` to `/docs/18/`, preserving historical validation reports.
-4. **Not yet complete:** Verifying every migrated destination and all version-sensitive explanations; changing lab images, data-directory mounts, command expectations and recovery procedures to PostgreSQL 18; executing those labs; independent sign-off.
+4. **Not yet complete:** Verifying every migrated destination and all version-sensitive explanations; migrating and reviewing remaining lab images, data-directory mounts, command expectations and recovery procedures to PostgreSQL 18; executing all labs (including the source-migrated Chapter 01); independent sign-off.
 5. **Do not claim:** PostgreSQL 18 runtime acceptance on the basis of 17 source-level review, link migration or this policy document.
 
 Historical validation reports referencing PostgreSQL 17 should be kept intact as an audit record. New results should explicitly identify `documentation_baseline=18`, the exact server/client versions tested, and whether the test was executed or reviewed only.
