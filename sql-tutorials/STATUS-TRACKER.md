@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 77 |
-| Remaining to draft | 43 |
+| Authored and published chapters | 78 |
+| Remaining to draft | 42 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 7 | 3 |
+| 08 — Window functions | 071–080 | 8 | 2 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -103,13 +103,14 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 072–120 | See Master TOC | Planned | — | — |
+| 079–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
 | [075](part-08-window-functions/075-rolling-averages-and-moving-windows.md) | Rolling averages and moving windows | Published | Pending | Pending |
 | [076](part-08-window-functions/076-first-value-last-value-and-window-frames.md) | FIRST_VALUE, LAST_VALUE, and window frames | Published | Pending | Pending |
 | [077](part-08-window-functions/077-ntile-percentiles-and-distribution-analysis.md) | NTILE, percentiles, and distribution analysis | Published | Pending | Pending |
+| [078](part-08-window-functions/078-gaps-and-islands-patterns.md) | Gaps-and-islands patterns | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -725,3 +726,11 @@
 - [README navigation](README.md): commit `ec35c0ef246fb85423577d26efbe8f8f9c858a4f`.
 - Both new artifacts fetched back from GitHub `main` before updating tracker. Targeted static inspection checked inline synthetic rows, read-only transaction, local timeouts, PostgreSQL 18/database guards, deterministic NTILE ordering, two-way EXCEPT ALL assertions, fail-closed acceptance and ROLLBACK. Manually reasoned expected p50/p95: API 20/88, FILE 20/33.5, with discrete p50 API 20 and FILE 15; 9 measured and 1 missing row. This is not a comprehensive parser or link audit.
 - **Published 77/120 (64.2%), 43 remaining; Part 08 7/10.** Independent editorial review: **pending**. Comprehensive SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**, no reproducible runtime evidence retained. **Next:** Chapter 078 — Gaps-and-islands patterns.
+
+## Chapter 078 publication evidence
+
+- Chapter: [078](part-08-window-functions/078-gaps-and-islands-patterns.md); commit `2f53885b588a47d855825a8befe4fe1f549d7344`.
+- Lab: [078 SQL](labs/078-gaps-and-islands-patterns.sql); commit `4c3373a9cabde3e6780ca4b9f5f67691dca564d5`.
+- README navigation: commit `71cc2ef3cb1eb52e569337d56a30a6ae5a1abbbd`.
+- Chapter and lab fetched back from GitHub main. Targeted static inspection: PostgreSQL 18/database guard, synthetic data, read-only transaction, transaction-local timeouts, bidirectional EXCEPT ALL acceptance, rollback, and relative links. Expected 5 islands, 3 gap ranges, and 4 missing positions reasoned manually. **No independent editorial review, comprehensive automated SQL syntax/link QA, or actual isolated PostgreSQL 18 execution was performed.** Runtime evidence pending.
+- Next: **079 — Cohort analysis, retention, and event sequencing**. Part 08: 8/10.
