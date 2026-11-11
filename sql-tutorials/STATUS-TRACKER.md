@@ -1,13 +1,13 @@
 # SQL Tutorials — Status Tracker
 
 > **Scope:** 120 planned chapters in 12 parts. Source of truth for titles and chapter order: [MASTER-TOC.md](MASTER-TOC.md).
-> **Updated:** 2026-11-10. Content publication and runtime validation are distinct milestones.
+> **Updated:** 2026-11-11. Content publication and runtime validation are distinct milestones.
 
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 65 |
-| Remaining to draft | 55 |
+| Authored and published chapters | 66 |
+| Remaining to draft | 54 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 5 | 5 |
+| 07 — Subqueries and CTEs | 061–070 | 6 | 4 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -97,6 +97,7 @@
 | [063](part-07-subqueries/063-exists-versus-in-and-null-sensitive-behavior.md) | EXISTS versus IN and NULL-sensitive behavior | Published | Pending | Pending |
 | [064](part-07-subqueries/064-correlated-subqueries-and-performance-tradeoffs.md) | Correlated subqueries and performance tradeoffs | Published | Pending | Pending |
 | [065](part-07-subqueries/065-common-table-expressions-with.md) | Common table expressions (WITH) | Published | Pending | Pending |
+| [066](part-07-subqueries/066-recursive-ctes-and-hierarchical-queries.md) | Recursive CTEs and hierarchical queries | Published | Pending | Pending |
 | 066–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
