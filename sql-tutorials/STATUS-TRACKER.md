@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 75 |
-| Remaining to draft | 45 |
+| Authored and published chapters | 76 |
+| Remaining to draft | 44 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 5 | 5 |
+| 08 — Window functions | 071–080 | 6 | 4 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -108,6 +108,7 @@
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
 | [075](part-08-window-functions/075-rolling-averages-and-moving-windows.md) | Rolling averages and moving windows | Published | Pending | Pending |
+| [076](part-08-window-functions/076-first-value-last-value-and-window-frames.md) | FIRST_VALUE, LAST_VALUE, and window frames | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -706,3 +707,12 @@
 - Chapter and lab were fetched back from GitHub `main` before tracker update. Targeted static reasoning checked eight synthetic rows, trailing three-row averages (API 100/150/200/250/400; FILE 40/60/80), NULL handling, strict complete windows (IDs 3/8), transaction-local timeouts, version/database guards, two-way `EXCEPT ALL` assertions, and rollback. This is **not** independent editorial review or comprehensive automated SQL syntax/link QA.
 - **Actual isolated PostgreSQL 18 runtime execution: pending.** No instance was run or runtime evidence retained.
 - **Authored/published: 75/120 (62.5%), 45 remaining; Part 08: 5/10. Next: Chapter 076 — FIRST_VALUE, LAST_VALUE, and window frames.**
+
+
+## Chapter 076 publication evidence — 2026-11-11
+
+- [Chapter 076](part-08-window-functions/076-first-value-last-value-and-window-frames.md): commit `64cb01ea1b258b57a46d32ee49013be707cc3c30`.
+- [076 synthetic read-only PostgreSQL 18 lab](labs/076-first-last-value-window-frames.sql): commit `73d1f988c60a225330e47e6a9c8805bf966dbbe9`.
+- [README navigation](README.md): commit `f5581817871fdcc4e0c31af6817fff2422900bbc`.
+- Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static inspection and manually reasoned expectations: eight synthetic events; API first/final IDs 1/5, FILE 6/8, running last IDs match each event ID, API final latency NULL, FILE final latency 90. Read-only transaction, local timeouts, version/database guards, bidirectional EXCEPT ALL assertions and ROLLBACK present. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed and no execution evidence retained.**
+- **Published 76/120 (63.3%), 44 remaining; Part 08: 6/10. Next: Chapter 077 — NTILE, percentiles, and distribution analysis.**
