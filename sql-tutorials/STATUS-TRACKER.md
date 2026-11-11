@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 83 |
-| Remaining to draft | 37 |
+| Authored and published chapters | 84 |
+| Remaining to draft | 36 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 3 | 7 |
+| 09 — Functions, views, JSON | 081–090 | 4 | 6 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -116,6 +116,7 @@
 | [081](part-09-functions-views-json/081-string-functions-and-regular-expressions.md) | String functions and regular expressions | Published | Pending | Pending |
 | [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-time-zones.md) | Dates, intervals, timestamps, and time zones | Published | Pending | Pending |
 | [083](part-09-functions-views-json/083-numeric-expressions-and-precision-considerations.md) | Numeric expressions and precision considerations | Published | Pending | Pending |
+| [084](part-09-functions-views-json/084-json-and-semi-structured-sql-queries.md) | JSON and semi-structured SQL queries | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -775,3 +776,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `e6fdda19481de0042cfabe806f853500d503423e`.
 - Chapter, lab, and README were re-fetched from GitHub `main` before this tracker update. Targeted static inspection checked synthetic four-row amounts, exact decimal versus binary float, safe zero-denominator behavior, integer division, round-before/after-sum expectations (30.100 raw, 30.10 rounded total, 30.11 summed rounded lines), read-only transaction, version/database guards, timeouts, bidirectional `EXCEPT ALL` assertions and rollback. Manual expected-result reasoning is **not** PostgreSQL runtime execution or comprehensive parser-based syntax QA.
 - **Authored/published: 83/120 (69.2%), 37 remaining; Part 09: 3/10.** Independent editorial review: **pending (0 certified)**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible runtime evidence retained. **Next: Chapter 084 — JSON and semi-structured SQL queries.**
+
+## Chapter 084 publication evidence — 2026-11-11
+
+- [Chapter 084](part-09-functions-views-json/084-json-and-semi-structured-sql-queries.md): commit `c52976679897cbd24cd635acec1442a14d16564a`.
+- [Synthetic read-only SQL lab](labs/084-json-semi-structured-queries.sql): commit `63be0636906b1ff3b18f2b08aacc275418b1ced1`.
+- [README navigation](README.md): commit `5850112989fd7ca95884f2aa902f2e26d697078e`.
+- Chapter and lab fetched back from GitHub `main` before tracker update; README navigation updated. Targeted static inspection checked the four-event synthetic dataset, missing key versus JSON null versus SQL NULL, guarded array expansion, counts, read-only transaction, database/version guards, local timeouts, bidirectional `EXCEPT ALL` and rollback. **No isolated PostgreSQL 18 runtime execution was performed; no runtime evidence retained.** Comprehensive automated SQL syntax/link QA and independent editorial review remain pending.
+- **Authored/published: 84/120 (70.0%), 36 remaining; Part 09: 4/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 085 — Views and secure abstraction.**
