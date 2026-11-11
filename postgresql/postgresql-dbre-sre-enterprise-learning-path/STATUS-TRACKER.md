@@ -10,7 +10,7 @@
 | Semantic source reviews | 20/20 documented (not independently approved) |
 | Documentation baseline | PostgreSQL 18 (effective 2026-11-06) — [policy](POSTGRESQL-18-BASELINE.md) |
 | Version-pinned lesson/lab documentation links | Migrated to PostgreSQL 18 where present; exhaustive endpoint/anchor and semantic verification pending |
-| Existing lab target | PostgreSQL 17; migration to 18 pending per lab |
+| Existing lab target | Chapter 01 instructions source-migrated to PostgreSQL 18 (not executed); Chapters 02–20 retain PostgreSQL 17 assumptions |
 | PostgreSQL 18 runtime-validated labs | 0/20 |
 | Chapter inline-link inventories | 20/20 documented; exhaustive resolution pending |
 | Runtime validation | 0/20 completed |
@@ -20,7 +20,7 @@
 
 | Chapter | Content | Lab | Runtime evidence | Review |
 |---|---|---|---|---|
-| 01 | Authored | Written | Not executed | Pending |
+| 01 | Authored | PG18 source-migrated; not executed | Not executed | Pending |
 | 02 | Authored | Written | Not executed | Pending |
 | 03 | Authored | Written | Not executed | Pending |
 | 04 | Authored | Written | Not executed | Pending |
@@ -51,7 +51,7 @@
 
 ## Next chapter
 
-**All 20 chapters authored; semantic source reviews recorded for all 20.** The existing [semantic review progress log](validation/semantic-review-progress.md) inventories inline Markdown links across Chapters 02–20, with partial targeted external checks. Chapter 01 and supporting-document ordinary inline links have also been inventoried; targeted non-inline syntax scans cover all 20 chapter/lab pairs. These completed inventories are recorded in [reference-resolution-audit.md](validation/reference-resolution-audit.md), and must not be repeated as unfinished inventory work. These inventories do not establish link-target, HTTP redirect, or exact HTML-fragment validity. Full parser-aware resolution of relative paths, exact fragment IDs, redirects and remaining external URLs is still pending. Next: complete this reference gate and address recorded Docker ownership/cleanup and negative-test assertion safeguards. Use the [PostgreSQL 18 baseline and lab migration policy](POSTGRESQL-18-BASELINE.md) for future technical references, then update each legacy PostgreSQL 17 lab safely to 18 and execute it in an approved isolated runtime with genuine recorded evidence. The PostgreSQL 18 Docker PGDATA/volume layout differs from 17. Obtain independent review after testing. Do not interpret link inventory or semantic review as runtime validation.
+**All 20 chapters authored; semantic source reviews recorded for all 20.** The existing [semantic review progress log](validation/semantic-review-progress.md) inventories inline Markdown links across Chapters 02–20, with partial targeted external checks. Chapter 01 and supporting-document ordinary inline links have also been inventoried; targeted non-inline syntax scans cover all 20 chapter/lab pairs. These completed inventories are recorded in [reference-resolution-audit.md](validation/reference-resolution-audit.md), and must not be repeated as unfinished inventory work. These inventories do not establish link-target, HTTP redirect, or exact HTML-fragment validity. Full parser-aware resolution of relative paths, exact fragment IDs, redirects and remaining external URLs is still pending. Next: complete this reference gate and address recorded Docker ownership/cleanup and negative-test assertion safeguards. Use the [PostgreSQL 18 baseline and lab migration policy](POSTGRESQL-18-BASELINE.md) for future technical references, then execute the source-migrated Chapter 01 lab and migrate Chapters 02–20 safely to PostgreSQL 18 in approved isolated runtimes with genuine recorded evidence. The PostgreSQL 18 Docker PGDATA/volume layout differs from 17. Obtain independent review after testing. Do not interpret link inventory or semantic review as runtime validation.
 
 ## Important
 
