@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 62 |
-| Remaining to draft | 58 |
+| Authored and published chapters | 63 |
+| Remaining to draft | 57 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 2 | 8 |
+| 07 — Subqueries and CTEs | 061–070 | 3 | 7 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -94,7 +94,8 @@
 | [060](part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md) | Lab 06 — build a monthly KPI report | Published | Pending | Pending |
 | [061](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) | Scalar subqueries and derived tables | Published | Pending | Pending |
 | [062](part-07-subqueries/062-in-any-all-and-multi-row-subqueries.md) | IN, ANY, ALL, and multi-row subqueries | Published | Pending | Pending |
-| 063–120 | See Master TOC | Planned | — | — |
+| [063](part-07-subqueries/063-exists-versus-in-and-null-sensitive-behavior.md) | EXISTS versus IN and NULL-sensitive behavior | Published | Pending | Pending |
+| 064–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -205,7 +206,7 @@
 
 ## Next work item
 
-**053 — HAVING versus WHERE.** Continue Part 06; PostgreSQL 18 runtime acceptance for existing chapters remains pending.
+**064 — Correlated subqueries and performance tradeoffs.** Continue Part 07; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -592,3 +593,11 @@
 - README navigation: commit `60204ccb44de642ebca4666d0aa81d93f65901cb`.
 - Both new artifacts were fetched back from GitHub `main` before tracker update. Targeted static reasoning checked six batches, five known processed values totaling 290, membership IDs 1/2/5/6, ANY IDs 1/2/3, ALL ID 1, NULL-sensitive NOT IN, empty-set semantics, read-only transaction, PostgreSQL 18/database guards, timeouts, fail-closed acceptance and rollback. **No independent editorial review, no comprehensive automated SQL syntax/link QA, and no actual isolated PostgreSQL 18 execution or retained runtime evidence.**
 - **Published 62/120 (51.7%), 58 remaining; Part 07 2/10. Next: Chapter 063 — EXISTS versus IN and NULL-sensitive behavior.**
+
+## Chapter 063 publication evidence (2026-11-10)
+
+- [Chapter 063](part-07-subqueries/063-exists-versus-in-and-null-sensitive-behavior.md): initial commit `23159745efeab6a3522ad4c6fdb2490fdcc9093f`; clarification commit `03db0dee36fded7df5eb4bc95a21113c37ced8c1`.
+- [Read-only PostgreSQL 18 lab](labs/063-exists-versus-in-null-sensitive.sql): commit `6fba3ef2d4b9f942ea65915e9e041f77c712d48d`.
+- [README navigation](README.md): commit `ce06e8201a947629f9de8a6d3e848fbdde93e57a`.
+- Chapter, lab and README re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic batches, five alerts, three distinct known alert batch IDs, membership IDs 1/3/6, anti-membership IDs 2/4/5, one orphan alert, one NULL measurement, known processed total 280, NULL-bearing NOT IN returning no rows, version/database checks, read-only transaction, timeouts, fail-closed assertions, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed, no reproducible runtime evidence retained.**
+- **Published 63/120 (52.5%), 57 remaining; Part 07 3/10. Next: Chapter 064 — Correlated subqueries and performance tradeoffs.**
