@@ -98,7 +98,7 @@
 | [064](part-07-subqueries/064-correlated-subqueries-and-performance-tradeoffs.md) | Correlated subqueries and performance tradeoffs | Published | Pending | Pending |
 | [065](part-07-subqueries/065-common-table-expressions-with.md) | Common table expressions (WITH) | Published | Pending | Pending |
 | [066](part-07-subqueries/066-recursive-ctes-and-hierarchical-queries.md) | Recursive CTEs and hierarchical queries | Published | Pending | Pending |
-| 066–120 | See Master TOC | Planned | — | — |
+| 067–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -620,3 +620,12 @@
 - [README navigation](README.md): commit `6f5822f24181ca6b903023e8a0b4f44daa285324`.
 - Chapter, lab, and README fetched back from GitHub `main` before this tracker update. Targeted static inspection and arithmetic reasoning checked six synthetic batches, 240 accepted, 60 rejected, 300 processed, API 170, file 130, weighted acceptance 80.00%, transaction-local timeouts, version/database guards, fail-closed SQL acceptance and ROLLBACK. **No independent editorial review; comprehensive automated syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
 - **Published 65/120 (54.2%), 55 remaining; Part 07 5/10. Next: Chapter 066 — Recursive CTEs and hierarchical queries.**
+
+
+## Chapter 066 publication evidence (2026-11-11)
+
+- [Chapter 066](part-07-subqueries/066-recursive-ctes-and-hierarchical-queries.md): commit `af83425ba3a4078cf71f905bc051762f2b0d3d3e`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/066-recursive-ctes-hierarchical-queries.sql): commit `98c2cc72dc09655117309d868ec918e9bd078229`.
+- [README navigation](README.md): commit `14bdf7184d7607b5e5d0fc51d1073db82d62bcec`.
+- Chapter and lab fetched back from GitHub `main`; targeted static inspection performed for six reachable employees, one orphan, manager subtree, and a three-edge cycle. Independent editorial review and comprehensive automated SQL syntax/link QA pending. **Actual isolated PostgreSQL 18 runtime execution was not performed; no runtime evidence retained.**
+- **Published 66/120 (55.0%), 54 remaining; Part 07 6/10. Next: Chapter 067 — UNION versus UNION ALL.**
