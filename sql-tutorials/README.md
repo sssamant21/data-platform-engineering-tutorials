@@ -161,3 +161,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 ## Part 08 — Window Functions & Advanced Analytics
 
 71. [071 — Window-function anatomy: OVER, PARTITION BY, ORDER BY](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/071-window-function-anatomy.sql); targeted static inspection and expected-output reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime validation pending. Part 08: 1/10.
+
+72. [072 — ROW_NUMBER, RANK, and DENSE_RANK](part-08-window-functions/072-row-number-rank-and-dense-rank.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/072-row-number-rank-dense-rank.sql); targeted static reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime execution pending. Part 08: 2/10.
