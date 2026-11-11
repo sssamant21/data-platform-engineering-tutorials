@@ -206,7 +206,7 @@
 
 ## Next work item
 
-**064 — Correlated subqueries and performance tradeoffs.** Continue Part 07; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
+**065 — Common table expressions (WITH).** Continue Part 07; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -601,3 +601,11 @@
 - [README navigation](README.md): commit `ce06e8201a947629f9de8a6d3e848fbdde93e57a`.
 - Chapter, lab and README re-fetched from GitHub `main` before tracker update. Targeted static reasoning checked six synthetic batches, five alerts, three distinct known alert batch IDs, membership IDs 1/3/6, anti-membership IDs 2/4/5, one orphan alert, one NULL measurement, known processed total 280, NULL-bearing NOT IN returning no rows, version/database checks, read-only transaction, timeouts, fail-closed assertions, and rollback. **Not independently editorially reviewed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed, no reproducible runtime evidence retained.**
 - **Published 63/120 (52.5%), 57 remaining; Part 07 3/10. Next: Chapter 064 — Correlated subqueries and performance tradeoffs.**
+
+## Chapter 064 publication evidence (2026-11-10)
+
+- [Chapter 064](part-07-subqueries/064-correlated-subqueries-and-performance-tradeoffs.md): commit `bbc9d76ff90d2c8d7432284b6109a1e737e8cc8e`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/064-correlated-subqueries-performance.sql): commit `ba2c374c94cd608c2c112feffac091d4367108a5`.
+- [README navigation](README.md): commit `2fe043ac44f6ebdf6b87dd6beb2c5643bcbf7cce`.
+- All three files re-fetched from GitHub `main` before updating this tracker. Targeted static reasoning checked 6 synthetic batches, total 320, 4 alerts, above-source-average IDs 1/5, alerted IDs 1/4/6, unalerted IDs 2/3/5, per-batch alert counts 2/0/0/1/0/1, relative links, read-only transaction, version/database guards, timeouts, executable assertions and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed; no runtime evidence retained.**
+- **Published 64/120 (53.3%), 56 remaining; Part 07 4/10. Next: Chapter 065 — Common table expressions (WITH).**
