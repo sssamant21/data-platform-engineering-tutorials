@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 81 |
-| Remaining to draft | 39 |
+| Authored and published chapters | 82 |
+| Remaining to draft | 38 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 1 | 9 |
+| 09 — Functions, views, JSON | 081–090 | 2 | 8 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 082–120 | See Master TOC | Planned | — | — |
+| 083–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -114,6 +114,7 @@
 | [079](part-08-window-functions/079-cohort-analysis-retention-and-event-sequencing.md) | Cohort analysis, retention, and event sequencing | Published | Pending | Pending |
 
 | [081](part-09-functions-views-json/081-string-functions-and-regular-expressions.md) | String functions and regular expressions | Published | Pending | Pending |
+| [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-time-zones.md) | Dates, intervals, timestamps, and time zones | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -761,3 +762,7 @@
 - [README navigation](README.md): commit `b4bb460c327827e6f809f2720b4bf1b2e5bbedd0`.
 - Chapter and SQL lab fetched back from GitHub main; README navigation fetched back before tracker update. Targeted static reasoning checked synthetic five-row dataset, two valid/two invalid/one missing code statuses, deterministic ordering, null handling, two-way `EXCEPT ALL` assertions, transaction-local timeouts, read-only transaction, database/version guards, and rollback. No automated PostgreSQL parser-based SQL syntax test or independent editorial review was performed.
 - **Authored/published: 81/120 (67.5%), 39 remaining; Part 09: 1/10.** Independent editorial review: **pending**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**; no reproducible evidence retained. **Next: Chapter 082 — Dates, intervals, timestamps, and time zones.**
+
+## Latest milestone — Chapter 082
+
+Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-time-zones.md) and its [synthetic read-only lab](labs/082-dates-intervals-timestamps-time-zones.sql) were published and fetched back from GitHub main. Targeted static reasoning and path inspection only; independent editorial review, comprehensive static QA, and actual isolated PostgreSQL 18 runtime execution remain **pending**. Next: Chapter 083 — Numeric expressions and precision considerations. Published 82/120; remaining 38.
