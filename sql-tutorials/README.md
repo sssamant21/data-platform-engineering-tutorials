@@ -157,3 +157,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 69. [069 — Refactor complex SQL for readability and correctness](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/069-refactor-complex-sql.sql); targeted static reasoning only; independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 07: 9/10.
 
 70. [070 — Lab 07: query a multi-level organizational hierarchy](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/070-lab-07-organizational-hierarchy.sql); targeted static reasoning only; independent editorial review, comprehensive syntax/link QA, and isolated PostgreSQL 18 runtime validation pending. Part 07 complete (10/10).
+
+## Part 08 — Window Functions & Advanced Analytics
+
+71. [071 — Window-function anatomy: OVER, PARTITION BY, ORDER BY](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/071-window-function-anatomy.sql); targeted static inspection and expected-output reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime validation pending. Part 08: 1/10.
