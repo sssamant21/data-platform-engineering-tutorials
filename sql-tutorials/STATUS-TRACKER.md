@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 70 |
-| Remaining to draft | 50 |
+| Authored and published chapters | 71 |
+| Remaining to draft | 49 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -22,7 +22,7 @@
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
-| 08 — Window functions | 071–080 | 0 | 10 |
+| 08 — Window functions | 071–080 | 1 | 9 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
@@ -102,7 +102,8 @@
 | [068](part-07-subqueries/068-intersect-and-except.md) | INTERSECT and EXCEPT (MINUS in some systems) | Published | Pending | Pending |
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
-| 071–120 | See Master TOC | Planned | — | — |
+| [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
+| 072–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -213,7 +214,7 @@
 
 ## Next work item
 
-**069 — Refactor complex SQL for readability and correctness.** Continue Part 07; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
+**072 — ROW_NUMBER, RANK, and DENSE_RANK.** Continue Part 08; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -667,3 +668,11 @@
 - README navigation commit `9211161c9ad8c12e83c495e06f02c6a72e65d680`.
 - Chapter and lab fetched back from GitHub main. Targeted static reasoning checked nine fictional employees, six reachable, Ben subtree IDs 2/4/5, orphan ID 7, unreachable IDs 7/8/9, cycle starts 8/9, bounded recursion, read-only transaction, timeout and rollback. These are reasoned expectations, **not actual SQL execution**. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime validation remain pending; no runtime evidence retained.
 - Part 07 complete by authorship: **10/10**. Overall **70/120 published**, **50 remaining**. Next: **071 — Window-function anatomy: OVER, PARTITION BY, ORDER BY**.
+
+## Chapter 071 publication evidence — 2026-11-11
+
+- Chapter: [071 — Window-function anatomy](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md), commit `d17a133529c487ebc88e4532cee5def54424c7ec`.
+- Synthetic read-only PostgreSQL 18 lab: [071 SQL](labs/071-window-function-anatomy.sql), commit `ce6af7883e5170571b26f4b00a4a6f9592a25bd5`.
+- [README navigation](README.md), commit `4b594d83ca95860d72949a8b1c26c23e82114045`.
+- All three artifacts fetched back from GitHub `main` before tracker update. Targeted static inspection and manual arithmetic checked six synthetic batches, global total 230, API 120, FILE 110, running totals by batch ID [40,100,30,100,120,110], explicit ROWS frame, read-only transaction, timeouts, version/database guards, fail-closed assertions and rollback. **No independent editorial review; comprehensive automated SQL syntax/link QA not performed; actual isolated PostgreSQL 18 runtime execution not performed, no runtime evidence retained.**
+- **Published 71/120 (59.2%), 49 remaining; Part 08 1/10. Next: Chapter 072 — ROW_NUMBER, RANK, and DENSE_RANK.**
