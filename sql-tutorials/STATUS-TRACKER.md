@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 63 |
-| Remaining to draft | 57 |
+| Authored and published chapters | 65 |
+| Remaining to draft | 55 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -21,7 +21,7 @@
 | 04 — Transactions and DML | 031–040 | 10 | 0 |
 | 05 — Joins | 041–050 | 10 | 0 |
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
-| 07 — Subqueries and CTEs | 061–070 | 3 | 7 |
+| 07 — Subqueries and CTEs | 061–070 | 5 | 5 |
 | 08 — Window functions | 071–080 | 0 | 10 |
 | 09 — Functions, views, JSON | 081–090 | 0 | 10 |
 | 10 — Performance | 091–100 | 0 | 10 |
@@ -95,7 +95,9 @@
 | [061](part-07-subqueries/061-scalar-subqueries-and-derived-tables.md) | Scalar subqueries and derived tables | Published | Pending | Pending |
 | [062](part-07-subqueries/062-in-any-all-and-multi-row-subqueries.md) | IN, ANY, ALL, and multi-row subqueries | Published | Pending | Pending |
 | [063](part-07-subqueries/063-exists-versus-in-and-null-sensitive-behavior.md) | EXISTS versus IN and NULL-sensitive behavior | Published | Pending | Pending |
-| 064–120 | See Master TOC | Planned | — | — |
+| [064](part-07-subqueries/064-correlated-subqueries-and-performance-tradeoffs.md) | Correlated subqueries and performance tradeoffs | Published | Pending | Pending |
+| [065](part-07-subqueries/065-common-table-expressions-with.md) | Common table expressions (WITH) | Published | Pending | Pending |
+| 066–120 | See Master TOC | Planned | — | — |
 
 ## Chapter 002 publication evidence
 
@@ -609,3 +611,11 @@
 - [README navigation](README.md): commit `2fe043ac44f6ebdf6b87dd6beb2c5643bcbf7cce`.
 - All three files re-fetched from GitHub `main` before updating this tracker. Targeted static reasoning checked 6 synthetic batches, total 320, 4 alerts, above-source-average IDs 1/5, alerted IDs 1/4/6, unalerted IDs 2/3/5, per-batch alert counts 2/0/0/1/0/1, relative links, read-only transaction, version/database guards, timeouts, executable assertions and rollback. **Independent editorial review not performed; comprehensive automated SQL syntax/link QA pending; actual isolated PostgreSQL 18 execution not performed; no runtime evidence retained.**
 - **Published 64/120 (53.3%), 56 remaining; Part 07 4/10. Next: Chapter 065 — Common table expressions (WITH).**
+
+## Chapter 065 publication evidence (2026-11-10)
+
+- [Chapter 065](part-07-subqueries/065-common-table-expressions-with.md): commit `b79f59f4ac9704b602df60cebcbd6746a6aaa749`.
+- [Read-only PostgreSQL 18 lab](labs/065-common-table-expressions-with.sql): commit `447a9f111017480f523b473da9fdda9aee8fe070`.
+- [README navigation](README.md): commit `6f5822f24181ca6b903023e8a0b4f44daa285324`.
+- Chapter, lab, and README fetched back from GitHub `main` before this tracker update. Targeted static inspection and arithmetic reasoning checked six synthetic batches, 240 accepted, 60 rejected, 300 processed, API 170, file 130, weighted acceptance 80.00%, transaction-local timeouts, version/database guards, fail-closed SQL acceptance and ROLLBACK. **No independent editorial review; comprehensive automated syntax/link QA pending; actual isolated PostgreSQL 18 runtime execution not performed and no runtime evidence retained.**
+- **Published 65/120 (54.2%), 55 remaining; Part 07 5/10. Next: Chapter 066 — Recursive CTEs and hierarchical queries.**
