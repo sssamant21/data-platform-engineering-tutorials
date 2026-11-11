@@ -92,7 +92,7 @@ docker exec -it $labId psql -X -v ON_ERROR_STOP=1 -U postgres -d appdb
 if ($LASTEXITCODE -ne 0) { throw 'Interactive psql session failed; do not proceed to backup or report lab success' }
 ```
 
-In the `psql` session (with startup files disabled and SQL errors configured to stop the script):
+In the interactive `psql` session (startup files disabled): **`ON_ERROR_STOP` does not automatically terminate an interactive session after every SQL error.** If any command fails, stop the exercise, record the error, and do not report success. The PowerShell exit-code check above only confirms the eventual `psql` process exit status; it is not proof that every interactively entered SQL statement succeeded. Verify the expected outputs and counts explicitly before proceeding:
 
 ```sql
 SELECT version();
