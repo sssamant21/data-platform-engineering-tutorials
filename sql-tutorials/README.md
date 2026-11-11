@@ -179,3 +179,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 79. [079 — Cohort analysis, retention, and event sequencing](part-08-window-functions/079-cohort-analysis-retention-and-event-sequencing.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/079-cohort-retention-event-sequencing.sql); targeted static reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 08: 9/10.
 
 80. [080 — Lab 08: produce an analytical customer activity report](part-08-window-functions/080-lab-08-produce-an-analytical-customer-activity-report.md) — published; [synthetic read-only PostgreSQL 18 capstone lab](labs/080-lab-08-analytical-customer-activity-report.sql); targeted static reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime execution pending. Part 08 complete (10/10).
+
+## Part 09 — SQL Objects, Functions & Semi-Structured Data
+
+81. [081 — String functions and regular expressions](part-09-functions-views-json/081-string-functions-and-regular-expressions.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/081-string-functions-and-regular-expressions.sql); targeted static reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA, and actual PostgreSQL 18 runtime execution pending. Part 09: 1/10.
