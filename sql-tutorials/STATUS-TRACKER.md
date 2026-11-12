@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 105 |
-| Remaining to draft | 15 |
+| Authored and published chapters | 106 |
+| Remaining to draft | 14 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 5 | 5 |
+| 11 — Security and DBRE/SRE | 101–110 | 6 | 4 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -140,6 +140,8 @@
 | [103](part-11-security-operations/103-row-level-security-and-data-access-policies.md) | Row-level security and data-access policies | Published | Pending | Pending |
 | [104](part-11-security-operations/104-sensitive-data-protection-masking-and-audit-requirements.md) | Sensitive data protection, masking, and audit requirements | Published | Pending | Pending |
 | [105](part-11-security-operations/105-locks-blocking-deadlocks-and-troubleshooting.md) | Locks, blocking, deadlocks, and troubleshooting | Published | Pending | Pending |
+
+| [106](part-11-security-operations/106-backward-compatible-migrations-and-deployment-controls.md) | Backward-compatible migrations and deployment controls | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -992,3 +994,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static/manual inspection covered numbering and relative links, PostgreSQL 18/database guard, read-only transaction, local timeouts, no backend termination or induced deadlocks, five fictional graph edges, two direct-cycle participants, three noncycle waiters, two noncycle blocker IDs, bidirectional `EXCEPT ALL` assertions, and rollback. All expected counts are **reasoned, not observed PostgreSQL execution**. Actual `pg_locks` output is environment-dependent.
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Progress: 105/120 published (87.5%); 15 remaining; Part 11 5/10. Next: 106 — Backward-compatible migrations and deployment controls.**
+
+## Chapter 106 publication evidence — 2026-11-12
+
+- [Chapter 106](part-11-security-operations/106-backward-compatible-migrations-and-deployment-controls.md): initial commit `39ece264a0dabf702ce802a324ad17fc5a021b00`; prerequisite-link correction `75fb7ea2be774da44eecb99b64606e216bfe1b12`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/106-backward-compatible-migrations-deployment-controls.sql): commit `128f5aab09651dd53c74d3d1061aa568a7536ca9`.
+- [README navigation](README.md): commit `1a95f6a94fcb24e60ede18feea1001e211c52ea9`.
+- Chapter, lab, and README were fetched back from GitHub `main` before this tracker update. A broken Chapter 038 prerequisite link was detected and corrected; the corrected target was fetched successfully. Targeted static/manual inspection covered chapter numbering, links, PostgreSQL 18/database guard, read-only transaction, local timeouts, synthetic data, multiset assertions and rollback. Calculated expected results: 5 total rows, 3 copied, 2 missing, 5 compatible-visible, 2 divergent, contraction blocked. These are **not observed PostgreSQL output**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none. This is a synthetic migration-readiness model, not a live DDL or deployment test.
+- **Progress: 106/120 published (88.3%); 14 remaining; Part 11 6/10. Next: 107 — Data quality assertions and reconciliation queries.**
