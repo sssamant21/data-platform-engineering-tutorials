@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 85 |
-| Remaining to draft | 35 |
+| Authored and published chapters | 86 |
+| Remaining to draft | 34 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 5 | 5 |
+| 09 — Functions, views, JSON | 081–090 | 6 | 4 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 083–120 | See Master TOC | Planned | — | — |
+| 087–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -118,6 +118,7 @@
 | [083](part-09-functions-views-json/083-numeric-expressions-and-precision-considerations.md) | Numeric expressions and precision considerations | Published | Pending | Pending |
 | [084](part-09-functions-views-json/084-json-and-semi-structured-sql-queries.md) | JSON and semi-structured SQL queries | Published | Pending | Pending |
 | [085](part-09-functions-views-json/085-views-and-secure-abstraction.md) | Views and secure abstraction | Published | Pending | Pending |
+| [086](part-09-functions-views-json/086-materialized-views-and-refresh-strategies.md) | Materialized views and refresh strategies | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -793,3 +794,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `a408a1c03f56d2f6d2bf55f50412366d011666e0`.
 - Chapter and lab fetched back from GitHub `main`, and README navigation updated. Targeted static inspection checked four customers, six orders, four paid orders totaling 72.50, preservation of zero-activity customers, exact two-way `EXCEPT ALL` assertions, PostgreSQL 18/database guard, transaction-local timeouts, read-only transaction and rollback. The canonical lab models a view-shaped CTE without creating any persistent view or changing privileges. This is **not** a comprehensive parser-based SQL check or independent editorial review.
 - **Authored/published: 85/120 (70.8%), 35 remaining; Part 09: 5/10.** Independently reviewed: **0**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime execution: **not performed**, no runtime evidence retained. **Next: Chapter 086 — Materialized views and refresh strategies.**
+
+
+## Chapter 086 publication evidence — 2026-11-11
+
+- [Chapter 086](part-09-functions-views-json/086-materialized-views-and-refresh-strategies.md): commit `7423e7ab897591807f5cb91a0c5a3ff3f8e787cf`.
+- [Read-only PostgreSQL 18 lab](labs/086-materialized-views-refresh-strategies.sql): commit `88097f171f0cf2e6463d3bf391528ca6e8ece2ea`.
+- [README navigation](README.md): commit `d9818d6f1731613bc825a72b507f4389e921d241`.
+- Chapter, lab, and README were re-fetched from GitHub main before this tracker update. Targeted static reasoning reviewed five synthetic orders, snapshot versus live counts and revenue, one late paid event, read-only transaction, environment guards, timeouts, bidirectional EXCEPT ALL assertions and rollback. This is not independent editorial review, comprehensive parser-based syntax/link QA, or runtime execution.
+- **Published: 86/120 (71.7%), 34 remaining; Part 09: 6/10.** Independently reviewed: **0**; isolated PostgreSQL 18 runtime-validated: **0**; comprehensive automated SQL syntax/link QA: **pending**. **Next: Chapter 087 — Temporary tables and intermediate result sets.**
