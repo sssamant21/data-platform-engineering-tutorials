@@ -6,7 +6,7 @@
 
 ## 1. Learning objectives and scenario (0–5 minutes)
 
-After this lesson, explain expand–migrate–contract, identify incompatible schema changes, plan application/database rollout ordering, use migration preflight and postflight SQL, distinguish transactional DDL from nontransactional operations, and write a safe rollback/forward-recovery plan. Prerequisites: [constraints (026)](../part-03-modeling/026-not-null-check-default-and-constraint-validation.md), [transactions (038)](../part-04-transactions/038-begin-commit-rollback-and-savepoint.md), and [locks (105)](105-locks-blocking-deadlocks-and-troubleshooting.md).
+After this lesson, explain expand–migrate–contract, identify incompatible schema changes, plan application/database rollout ordering, use migration preflight and postflight SQL, distinguish transactional DDL from nontransactional operations, and write a safe rollback/forward-recovery plan. Prerequisites: [constraints (026)](../part-03-modeling/026-not-null-check-default-and-constraint-validation.md), [transactions (038)](../part-04-data-modification/038-begin-commit-rollback-and-savepoint.md), and [locks (105)](105-locks-blocking-deadlocks-and-troubleshooting.md).
 
 **Scenario:** A synthetic order-ingestion application currently stores `customer_name` in `orders`. A new application release needs `customer_display_name`. Old and new application versions may run concurrently during deployment. Renaming or dropping the original column immediately would break old instances.
 
