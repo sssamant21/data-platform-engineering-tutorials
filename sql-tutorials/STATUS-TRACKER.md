@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 88 |
-| Remaining to draft | 32 |
+| Authored and published chapters | 89 |
+| Remaining to draft | 31 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 8 | 2 |
+| 09 — Functions, views, JSON | 081–090 | 9 | 1 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -122,6 +122,7 @@
 | [087](part-09-functions-views-json/087-temporary-tables-and-intermediate-result-sets.md) | Temporary tables and intermediate result sets | Published | Pending | Pending |
 
 | [088](part-09-functions-views-json/088-stored-functions-and-procedures-dialect-specific-syntax.md) | Stored functions and procedures — dialect-specific syntax | Published | Pending | Pending |
+| [089](part-09-functions-views-json/089-triggers-dynamic-sql-and-parameterization-safeguards.md) | Triggers, dynamic SQL, and parameterization safeguards | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -822,3 +823,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `8a5274f498f992c61633dd13acef38ecab814732`.
 - Chapter and lab fetched back from GitHub `main` before README update. Targeted manual/static inspection: three synthetic invoices; fees 5.00, 4.00, 0.00; aggregate fee 9.00 and total 169.00; read-only transaction, database/version guard, local timeouts, catalog routine metadata, two-way EXCEPT ALL and rollback. **No PostgreSQL 18 instance was executed**, and no runtime evidence exists. Independent editorial review and comprehensive automated syntax/link QA pending.
 - **Published: 88/120 (73.3%), 32 remaining; Part 09: 8/10.** Independently reviewed: **0**; actual PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 089 — Triggers, dynamic SQL, and parameterization safeguards.**
+
+## Chapter 089 publication evidence — 2026-11-11
+
+- [Chapter 089](part-09-functions-views-json/089-triggers-dynamic-sql-and-parameterization-safeguards.md): commit `1946d41bd109bec7eb970133419288288c150c0c`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/089-triggers-dynamic-sql-parameterization.sql): commit `c227033bf018a9329e7cc4b1fce968f7126966ef`.
+- [README navigation](README.md): commit `4fcd921d35b4900dc96d7fd9592045c61f15e1b5`.
+- Chapter, lab and README re-fetched from GitHub `main` before tracker update. Targeted static/manual reasoning checked five synthetic transitions, four changed rows, one unchanged row, one NULL-to-value change, one paid transition, bidirectional `EXCEPT ALL` assertions, database/version guard, read-only transaction, local timeouts and rollback. The lab models trigger behavior without creating triggers or executing actual dynamic SQL. Independent editorial review and comprehensive parser-based SQL syntax/link QA remain pending. **Actual isolated PostgreSQL 18 runtime execution was not performed and no runtime evidence was retained.**
+- **Authored/published: 89/120 (74.2%), 31 remaining; Part 09: 9/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 090 — Lab 09: Build reusable reporting objects.**
