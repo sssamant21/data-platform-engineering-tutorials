@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 102 |
-| Remaining to draft | 18 |
+| Authored and published chapters | 103 |
+| Remaining to draft | 17 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 2 | 8 |
+| 11 — Security and DBRE/SRE | 101–110 | 3 | 7 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -137,6 +137,7 @@
 | [100](part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) | Lab 10 — baseline, tune, and remeasure a slow query | Published | Pending | Pending |
 | [101](part-11-security-operations/101-least-privilege-and-sql-access-control-principles.md) | Least privilege and SQL access-control principles | Published | Pending | Pending |
 | [102](part-11-security-operations/102-users-roles-grant-revoke-and-ownership.md) | Users, roles, GRANT, REVOKE, and ownership | Published | Pending | Pending |
+| [103](part-11-security-operations/103-row-level-security-and-data-access-policies.md) | Row-level security and data-access policies | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -961,3 +962,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab, and README were fetched back from GitHub main. Targeted static/manual checks reviewed chapter number, relative paths, read-only transaction, database/version guards, timeouts, synthetic model and two-way `EXCEPT ALL` assertions. Expected 3 principals, 1 membership, 2 approved grants, 1 rejected candidate, and 0 differences are **calculated, not observed PostgreSQL output**.
 - **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive automated parser-based SQL/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none. This synthetic model is not a live privilege audit.
 - **Progress: 102/120 published (85.0%); 18 remaining; Part 11 2/10. Next: 103 — Row-level security and data-access policies.**
+
+## Chapter 103 publication evidence — 2026-11-12
+
+- [Chapter 103](part-11-security-operations/103-row-level-security-and-data-access-policies.md): commit `c8492a007e9f166cebcc0f5e237a7aa0ebee85a3`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/103-row-level-security-data-access-policies.sql): commit `11a8138ca336b1021b49aab34e83ea663feb2fef`.
+- [README navigation](README.md): commit `11c2f8f73ca356e77a70a35d62525b445a122428`.
+- Chapter, lab and README were fetched back from GitHub main before this tracker update. Targeted manual/static checks: numbering and links, read-only transaction, database/version guard, local timeouts, five synthetic orders, three context groups, bidirectional EXCEPT ALL assertions, and rollback. Expected tenant 10 = 3 rows/90.00; tenant 20 = 2 rows/60.00; missing = 0; total = 5; zero mismatches. These are **calculated expected results, not observed PostgreSQL output**. The lab models tenant filtering and does not execute actual RLS policy enforcement.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated parser-based SQL/link QA no; isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Progress: 103/120 published (85.8%); 17 remaining; Part 11 3/10. Next: 104 — Sensitive data protection, masking, and audit requirements.**
