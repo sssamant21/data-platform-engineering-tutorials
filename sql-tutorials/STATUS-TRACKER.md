@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 87 |
-| Remaining to draft | 33 |
+| Authored and published chapters | 88 |
+| Remaining to draft | 32 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 7 | 3 |
+| 09 — Functions, views, JSON | 081–090 | 8 | 2 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 087–120 | See Master TOC | Planned | — | — |
+| 089–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -120,6 +120,8 @@
 | [085](part-09-functions-views-json/085-views-and-secure-abstraction.md) | Views and secure abstraction | Published | Pending | Pending |
 | [086](part-09-functions-views-json/086-materialized-views-and-refresh-strategies.md) | Materialized views and refresh strategies | Published | Pending | Pending |
 | [087](part-09-functions-views-json/087-temporary-tables-and-intermediate-result-sets.md) | Temporary tables and intermediate result sets | Published | Pending | Pending |
+
+| [088](part-09-functions-views-json/088-stored-functions-and-procedures-dialect-specific-syntax.md) | Stored functions and procedures — dialect-specific syntax | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -812,3 +814,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `7abd002584b770d816f27d6f5ec5840574be74d8`.
 - Both new files fetched back from GitHub `main`; README navigation re-fetched before tracker update. Targeted static/manual checks: synthetic six-order source, four paid rows, two customer groups (101: 3/30.00; 102: 1/20.00), total paid 50.00, read-only transaction, database/major-version guard, local timeouts, bidirectional `EXCEPT ALL`, and rollback. No isolated PostgreSQL 18 execution or independent editorial review occurred; comprehensive automated SQL syntax/link QA pending.
 - **Published: 87/120 (72.5%), 33 remaining; Part 09: 7/10.** Independently reviewed: **0**; actual PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 088 — Stored functions and procedures — dialect-specific syntax.**
+
+## Chapter 088 publication evidence — 2026-11-11
+
+- [Chapter 088](part-09-functions-views-json/088-stored-functions-and-procedures-dialect-specific-syntax.md): commit `d90844c3425ec857373ad9d2270db8ea460979bb`.
+- [Read-only PostgreSQL 18 lab](labs/088-stored-functions-and-procedures.sql): commit `674941e351ca5ce60829ccd08a815ca8cd562577`.
+- [README navigation](README.md): commit `8a5274f498f992c61633dd13acef38ecab814732`.
+- Chapter and lab fetched back from GitHub `main` before README update. Targeted manual/static inspection: three synthetic invoices; fees 5.00, 4.00, 0.00; aggregate fee 9.00 and total 169.00; read-only transaction, database/version guard, local timeouts, catalog routine metadata, two-way EXCEPT ALL and rollback. **No PostgreSQL 18 instance was executed**, and no runtime evidence exists. Independent editorial review and comprehensive automated syntax/link QA pending.
+- **Published: 88/120 (73.3%), 32 remaining; Part 09: 8/10.** Independently reviewed: **0**; actual PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 089 — Triggers, dynamic SQL, and parameterization safeguards.**
