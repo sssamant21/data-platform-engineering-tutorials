@@ -39,9 +39,12 @@ docker version
 docker info --format '{{.OSType}}'
 docker ps -a --filter "name=pg-k8s-lab"
 docker volume ls --filter "name=pg_k8s_ch08_data"
+# Windows PowerShell host check; an occupied port is a stop condition, not permission to stop a service.
+$portListener = Get-NetTCPConnection -LocalPort 55438 -State Listen -ErrorAction SilentlyContinue
+if ($portListener) { throw 'Host port 55438 is already listening; STOP' }
 ```
 
-Expected: Docker server available and `linux` container mode. Container/volume queries should be empty for a first run.
+Expected: Docker server available and `linux` container mode. Container/volume queries should be empty for a first run, and port `55438` must have no Windows TCP listener. The listener check is Windows-specific; on other hosts use an independently reviewed equivalent. Recheck Docker context and port ownership immediately before creation if the environment changes.
 
 **STOP if either lab name already exists:** inspect ownership and contents first. Never delete, overwrite or attach an unidentified volume. Choose alternate names and update every subsequent command consistently if necessary.
 
@@ -277,7 +280,7 @@ $chapterLabel = docker inspect pg-k8s-lab --format '{{index .Config.Labels "dbre
 $trackLabel = docker inspect pg-k8s-lab --format '{{index .Config.Labels "dbre.training.track"}}'
 $mount = docker inspect pg-k8s-lab --format '{{range .Mounts}}{{if eq .Destination "/var/lib/postgresql/data"}}{{.Name}}{{end}}{{end}}'
 if ($LASTEXITCODE -ne 0 -or $actualId -ne $labContainerId -or $chapterLabel -ne '08' -or $trackLabel -ne 'postgresql-enterprise' -or $mount -ne 'pg_k8s_ch08_data') { throw 'Ownership mismatch; no cleanup' }
-$consumers = @(docker ps -aq --filter 'volume=pg_k8s_ch08_data')
+$consumers = @(docker ps -aq --no-trunc --filter 'volume=pg_k8s_ch08_data')
 if ($LASTEXITCODE -ne 0 -or $consumers.Count -ne 1 -or $consumers[0] -ne $labContainerId) { throw 'Unexpected volume consumers; no cleanup' }
 # DESTRUCTIVE: execute only after explicit approval for this disposable lab.
 docker stop $labContainerId
