@@ -201,3 +201,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 89. [089 — Triggers, dynamic SQL, and parameterization safeguards](part-09-functions-views-json/089-triggers-dynamic-sql-and-parameterization-safeguards.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/089-triggers-dynamic-sql-parameterization.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA and actual isolated PostgreSQL 18 runtime execution pending. Part 09: 9/10.
 
 90. [090 — Lab 09: build reusable reporting objects](part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/090-lab-09-reusable-reporting-objects.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 09 complete (10/10).
+
+## Part 10 — SQL Performance & Query Optimization
+
+91. [091 — Read execution plans with EXPLAIN](part-10-performance/091-read-execution-plans-with-explain.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/091-read-execution-plans-with-explain.sql); targeted static reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 10: 1/10.
