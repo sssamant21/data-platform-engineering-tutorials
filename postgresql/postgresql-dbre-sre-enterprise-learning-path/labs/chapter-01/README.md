@@ -234,13 +234,25 @@ Record PostgreSQL server/client versions, image tag, immutable local image ID, r
 
 ## Step 9 — Optional cleanup (destructive to this lab only)
 
-**Only after independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg18_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg18-fleet-lab`, `docker volume inspect pg18_fleet_data`, and `docker ps -a --filter volume=pg18_fleet_data`. If identity is uncertain, stop and retain resources. The commands below are deliberately commented out to prevent accidental copy/paste deletion:
+**Only after independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg18_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg18-fleet-lab`, `docker volume inspect pg18_fleet_data`, and `docker ps -a --filter volume=pg18_fleet_data`. If identity is uncertain, stop and retain resources. The example below is deliberately commented out. Run it **only after** the recorded full ID and context have been independently checked, and re-check the identity immediately before each operation. A container name can be reassigned; use the recorded immutable full ID instead. Never run this against an unverified context or volume.
 
 ```powershell
-# docker stop pg18-fleet-lab
-# docker rm pg18-fleet-lab
-# This irreversibly removes all lab data if the volume is not in use:
-# docker volume rm pg18_fleet_data
+# if ((docker context show) -ne $labContext -or $LASTEXITCODE -ne 0) { throw 'Docker context changed' }
+# $currentId = docker inspect --format '{{.Id}}' pg18-fleet-lab
+# if ($LASTEXITCODE -ne 0 -or $currentId -ne $labId) { throw 'Container identity changed' }
+# $currentLabel = docker inspect --format '{{index .Config.Labels "dbre.training"}}' $labId
+# if ($LASTEXITCODE -ne 0 -or $currentLabel -ne 'postgresql-enterprise-ch01') { throw 'Ownership label mismatch' }
+# $currentMount = docker inspect --format '{{range .Mounts}}{{if eq .Destination "/var/lib/postgresql"}}{{.Name}}{{end}}{{end}}' $labId
+# if ($LASTEXITCODE -ne 0 -or $currentMount -ne 'pg18_fleet_data') { throw 'Mount mismatch' }
+# docker stop $labId
+# if ($LASTEXITCODE -ne 0) { throw 'Stop failed; do not remove' }
+# if ((docker context show) -ne $labContext -or $LASTEXITCODE -ne 0) { throw 'Context changed; do not remove' }
+# $stoppedId = docker inspect --format '{{.Id}}' $labId
+# if ($LASTEXITCODE -ne 0 -or $stoppedId -ne $labId) { throw 'Stopped container identity mismatch' }
+# docker rm $labId
+# if ($LASTEXITCODE -ne 0) { throw 'Container removal failed; retain volume' }
 ```
+
+**Volume removal is a separate, irreversible decision.** First verify the same local Docker context, the exact volume identity and ownership, and that `docker ps -a --filter volume=pg18_fleet_data` returns no containers. Obtain explicit approval before manually running `docker volume rm pg18_fleet_data`. Do not infer that an unused volume is safe to delete merely because the lab container was removed.
 
 Do not automate this cleanup as part of routine production housekeeping.
