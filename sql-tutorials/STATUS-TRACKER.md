@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 86 |
-| Remaining to draft | 34 |
+| Authored and published chapters | 87 |
+| Remaining to draft | 33 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 6 | 4 |
+| 09 — Functions, views, JSON | 081–090 | 7 | 3 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -119,6 +119,7 @@
 | [084](part-09-functions-views-json/084-json-and-semi-structured-sql-queries.md) | JSON and semi-structured SQL queries | Published | Pending | Pending |
 | [085](part-09-functions-views-json/085-views-and-secure-abstraction.md) | Views and secure abstraction | Published | Pending | Pending |
 | [086](part-09-functions-views-json/086-materialized-views-and-refresh-strategies.md) | Materialized views and refresh strategies | Published | Pending | Pending |
+| [087](part-09-functions-views-json/087-temporary-tables-and-intermediate-result-sets.md) | Temporary tables and intermediate result sets | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -803,3 +804,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `d9818d6f1731613bc825a72b507f4389e921d241`.
 - Chapter, lab, and README were re-fetched from GitHub main before this tracker update. Targeted static reasoning reviewed five synthetic orders, snapshot versus live counts and revenue, one late paid event, read-only transaction, environment guards, timeouts, bidirectional EXCEPT ALL assertions and rollback. This is not independent editorial review, comprehensive parser-based syntax/link QA, or runtime execution.
 - **Published: 86/120 (71.7%), 34 remaining; Part 09: 6/10.** Independently reviewed: **0**; isolated PostgreSQL 18 runtime-validated: **0**; comprehensive automated SQL syntax/link QA: **pending**. **Next: Chapter 087 — Temporary tables and intermediate result sets.**
+
+## Chapter 087 publication evidence — 2026-11-11
+
+- [Chapter 087](part-09-functions-views-json/087-temporary-tables-and-intermediate-result-sets.md): commit `ee9af104f82eeab429e4d08f9046b00163e91306`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/087-temporary-tables-intermediate-results.sql): commit `b8a2de723090b3b043d39b83d580dc74a04f4af5`.
+- [README navigation](README.md): commit `7abd002584b770d816f27d6f5ec5840574be74d8`.
+- Both new files fetched back from GitHub `main`; README navigation re-fetched before tracker update. Targeted static/manual checks: synthetic six-order source, four paid rows, two customer groups (101: 3/30.00; 102: 1/20.00), total paid 50.00, read-only transaction, database/major-version guard, local timeouts, bidirectional `EXCEPT ALL`, and rollback. No isolated PostgreSQL 18 execution or independent editorial review occurred; comprehensive automated SQL syntax/link QA pending.
+- **Published: 87/120 (72.5%), 33 remaining; Part 09: 7/10.** Independently reviewed: **0**; actual PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 088 — Stored functions and procedures — dialect-specific syntax.**
