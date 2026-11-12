@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 106 |
-| Remaining to draft | 14 |
+| Authored and published chapters | 107 |
+| Remaining to draft | 13 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 6 | 4 |
+| 11 — Security and DBRE/SRE | 101–110 | 7 | 3 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -142,6 +142,7 @@
 | [105](part-11-security-operations/105-locks-blocking-deadlocks-and-troubleshooting.md) | Locks, blocking, deadlocks, and troubleshooting | Published | Pending | Pending |
 
 | [106](part-11-security-operations/106-backward-compatible-migrations-and-deployment-controls.md) | Backward-compatible migrations and deployment controls | Published | Pending | Pending |
+| [107](part-11-security-operations/107-data-quality-assertions-and-reconciliation-queries.md) | Data quality assertions and reconciliation queries | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1003,3 +1004,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab, and README were fetched back from GitHub `main` before this tracker update. A broken Chapter 038 prerequisite link was detected and corrected; the corrected target was fetched successfully. Targeted static/manual inspection covered chapter numbering, links, PostgreSQL 18/database guard, read-only transaction, local timeouts, synthetic data, multiset assertions and rollback. Calculated expected results: 5 total rows, 3 copied, 2 missing, 5 compatible-visible, 2 divergent, contraction blocked. These are **not observed PostgreSQL output**.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none. This is a synthetic migration-readiness model, not a live DDL or deployment test.
 - **Progress: 106/120 published (88.3%); 14 remaining; Part 11 6/10. Next: 107 — Data quality assertions and reconciliation queries.**
+
+## Chapter 107 publication evidence — 2026-11-12
+
+- [Chapter 107](part-11-security-operations/107-data-quality-assertions-and-reconciliation-queries.md): commit `30dcdb2e713d12681d0c82cdf4f294e3e7aa3689`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/107-data-quality-assertions-reconciliation.sql): commit `159824cfb10ea471b361a04416315731cb3de050`.
+- [README navigation](README.md): commit `3a5ab3976f88c97653490119eb57da1a91577fa6`.
+- Chapter, lab, and README were fetched from GitHub `main` before tracker update. Targeted manual/static checks covered numbering, prerequisite links, synthetic-only values, database/version guard, read-only transaction, transaction-local timeouts, two-way `EXCEPT ALL` assertions, and rollback. Calculated expectations: 6 candidate rows, 1 duplicate-key group, 2 invalid rows, 1 orphan, 4 rows and 100.00 on each snapshot, 2 source-only and 2 target-only rows, promotion blocked. The lab assertion intentionally passes when it detects the expected **failed** quality gate. Expected values are reasoned, **not observed PostgreSQL output**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Progress: 107/120 published (89.2%); 13 remaining; Part 11 7/10. Next: 108 — Backup, recovery, and restore-validation concepts.**
