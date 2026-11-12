@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 101 |
-| Remaining to draft | 19 |
+| Authored and published chapters | 102 |
+| Remaining to draft | 18 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 1 | 9 |
+| 11 — Security and DBRE/SRE | 101–110 | 2 | 8 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -136,6 +136,7 @@
 | [099](part-10-performance/099-keyset-pagination-benchmarking-and-regression-tests.md) | Keyset pagination, benchmarking, and regression tests | Published | Pending | Pending |
 | [100](part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) | Lab 10 — baseline, tune, and remeasure a slow query | Published | Pending | Pending |
 | [101](part-11-security-operations/101-least-privilege-and-sql-access-control-principles.md) | Least privilege and SQL access-control principles | Published | Pending | Pending |
+| [102](part-11-security-operations/102-users-roles-grant-revoke-and-ownership.md) | Users, roles, GRANT, REVOKE, and ownership | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -950,3 +951,13 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub main; README link confirmed. Targeted static/manual reasoning checked numbering, relative paths, synthetic 9-row policy, 4 allowed grants, 0 forbidden and 0 missing, PostgreSQL 18/database guards, read-only transaction, local timeouts, introspection-only catalog functions and ROLLBACK. Expected values are calculated, **not observed PostgreSQL results**.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Progress: 101/120 published (84.2%), 19 remaining; Part 11 1/10. Next: 102 — Users, roles, GRANT, REVOKE, and ownership.**
+
+
+## Chapter 102 publication evidence — 2026-11-12
+
+- [Chapter 102](part-11-security-operations/102-users-roles-grant-revoke-and-ownership.md): commit `0b7eba8a0298a147967506bf738fa7f5b14c5d89`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/102-users-roles-grant-revoke-ownership.sql): commit `5792a500c0a0dacd14dfc8559bf6b062329a0813`.
+- [README navigation](README.md): commit `4050c61232a1bd7317a523333977efc8857d0253`.
+- Chapter, lab, and README were fetched back from GitHub main. Targeted static/manual checks reviewed chapter number, relative paths, read-only transaction, database/version guards, timeouts, synthetic model and two-way `EXCEPT ALL` assertions. Expected 3 principals, 1 membership, 2 approved grants, 1 rejected candidate, and 0 differences are **calculated, not observed PostgreSQL output**.
+- **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive automated parser-based SQL/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none. This synthetic model is not a live privilege audit.
+- **Progress: 102/120 published (85.0%); 18 remaining; Part 11 2/10. Next: 103 — Row-level security and data-access policies.**
