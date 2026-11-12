@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 99 |
-| Remaining to draft | 21 |
+| Authored and published chapters | 100 |
+| Remaining to draft | 20 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 9 | 1 |
+| 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -134,6 +134,7 @@
 | [097](part-10-performance/097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) | Make predicates index-friendly and rewrite expensive SQL | Published | Pending | Pending |
 | [098](part-10-performance/098-optimize-joins-aggregations-and-subqueries.md) | Optimize joins, aggregations, and subqueries | Published | Pending | Pending |
 | [099](part-10-performance/099-keyset-pagination-benchmarking-and-regression-tests.md) | Keyset pagination, benchmarking, and regression tests | Published | Pending | Pending |
+| [100](part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) | Lab 10 — baseline, tune, and remeasure a slow query | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -929,3 +930,13 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab and README link re-fetched on GitHub main before this tracker update. Targeted static/manual review covered numbering, relative links, database/version guard, read-only transaction, local timeouts, inline synthetic data, estimated EXPLAIN, multiset assertions and rollback. Calculated expectation: pages (109,108,107), (106,105,104), (103,102,101), 9 unique rows, zero mismatches with fixed-data OFFSET pages. These are **reasoned expected values, not observed execution output**.
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Progress: 99/120 published (82.5%), 21 remaining; Part 10: 9/10. Next: 100 — Lab 10: baseline, tune, and remeasure a slow query.**
+
+
+## Chapter 100 publication evidence — 2026-11-12
+
+- [Chapter 100](part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md): commit `785231f9cb41619e911e00ca0f402e935949fb35`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/100-lab-10-baseline-tune-remeasure.sql): commit `ee7ac56ec10c452df8c43e46a48855777e2d8237`.
+- [README navigation](README.md): commit `5e3c505c90142b9c945c1a9b29b6b5f531a322c5`.
+- Chapter, lab, and README links fetched back from GitHub main before tracker update. Targeted static/manual checks covered numbering, file presence, relative links, synthetic 12-row fixture, PostgreSQL 18/database guard, read-only transaction, local timeouts, estimated EXPLAIN only, two-way EXCEPT ALL assertions and rollback. Expected values reasoned manually: 12 orders; 4 paid orders for tenant 10 on Nov 1; revenue 100.00; zero multiset differences. These are calculated expectations, **not observed execution results**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL syntax/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none. No measured query speedup is claimed.
+- **Progress: 100/120 published (83.3%), 20 remaining; Part 10 complete (10/10). Next: 101 — Least privilege and SQL access-control principles.**
