@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 90 |
-| Remaining to draft | 30 |
+| Authored and published chapters | 91 |
+| Remaining to draft | 29 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 0 | 10 |
+| 10 — Performance | 091–100 | 1 | 9 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 091–120 | See Master TOC | Planned | — | — |
+| 092–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -124,6 +124,8 @@
 | [088](part-09-functions-views-json/088-stored-functions-and-procedures-dialect-specific-syntax.md) | Stored functions and procedures — dialect-specific syntax | Published | Pending | Pending |
 | [089](part-09-functions-views-json/089-triggers-dynamic-sql-and-parameterization-safeguards.md) | Triggers, dynamic SQL, and parameterization safeguards | Published | Pending | Pending |
 | [090](part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md) | Lab 09 — build reusable reporting objects | Published | Pending | Pending |
+
+| [091](part-10-performance/091-read-execution-plans-with-explain.md) | Read execution plans with EXPLAIN | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -840,3 +842,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Both files fetched from GitHub `main` after creation. Targeted manual checks: one-row-per-customer contract, exact multiset comparison, paid total 85.00, stale snapshot 75.00, read-only transaction, version/database guard and rollback. **Not independently reviewed or comprehensively syntax-checked.**
 - **Actual isolated PostgreSQL 18 runtime validation pending**: no PostgreSQL 18 instance was executed and no runtime evidence retained.
 - Part 09 complete (10/10). **Next: 091 — Read execution plans with EXPLAIN.**
+
+## Chapter 091 publication evidence — 2026-11-12
+
+- Chapter: [091 — Read execution plans with EXPLAIN](part-10-performance/091-read-execution-plans-with-explain.md); commit `9af3e1a3200da19eecd22392830312693a7dd08a`.
+- Lab: [091 synthetic read-only SQL](labs/091-read-execution-plans-with-explain.sql); commit `652f4607b01eb44b4bbb409ae968db6ce29bf027`.
+- README navigation commit `54f7a94a1489fef44d765dc6e0bc74a0916a7919`.
+- Chapter and lab fetched from GitHub `main` after publication. Targeted static/manual inspection checked relative links, read-only transaction, PostgreSQL 18/database guard, timeout limits, estimated EXPLAIN without ANALYZE, synthetic counts (four orders, three paid, 45.00 paid total), and exact multiset assertion. These are reasoned expectations, **not executed results**.
+- **Authored/published: 91/120; remaining: 29; Part 10: 1/10.** Independent editorial review: **pending**. Comprehensive automated SQL syntax/link QA: **pending**. Actual isolated PostgreSQL 18 runtime validation with reproducible evidence: **pending**. No PostgreSQL 18 execution performed or runtime certification claimed.
+- **Next unfinished chapter: 092 — Table scans, index scans, row estimates, and selectivity.**
