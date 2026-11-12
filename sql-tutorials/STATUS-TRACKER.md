@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 93 |
-| Remaining to draft | 27 |
+| Authored and published chapters | 94 |
+| Remaining to draft | 26 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 3 | 7 |
+| 10 — Performance | 091–100 | 4 | 6 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -128,6 +128,7 @@
 | [091](part-10-performance/091-read-execution-plans-with-explain.md) | Read execution plans with EXPLAIN | Published | Pending | Pending |
 | [092](part-10-performance/092-table-scans-index-scans-row-estimates-and-selectivity.md) | Table scans, index scans, row estimates, and selectivity | Published | Pending | Pending |
 | [093](part-10-performance/093-btree-indexes-and-common-index-access-patterns.md) | B-tree indexes and common index access patterns | Published | Pending | Pending |
+| [094](part-10-performance/094-composite-indexes-and-column-order.md) | Composite indexes and column order | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -870,3 +871,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Both new files and README navigation re-fetched and verified on GitHub `main` before updating this tracker. Targeted static/manual checks: chapter numbering, relative links, read-only transaction, synthetic five-order dataset, database/version guards, local timeouts, estimated EXPLAIN without ANALYZE, exact two-way multiset assertions, and rollback. Reasoned results: point order 103 = 8.00; range orders 102–104 sum 73.00; all five total 100.00.
 - **Validation distinctions:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
 - **Published: 93/120 (77.5%), remaining: 27; Part 10: 3/10.** Independently reviewed: **0**. PostgreSQL 18 runtime-validated: **0**. **Next: 094 — Composite indexes and column order.**
+
+## Chapter 094 publication evidence — 2026-11-12
+
+- [Chapter 094](part-10-performance/094-composite-indexes-and-column-order.md): commit `dfeb18735283fb69b265229d1d1a8957d7d5ccaf`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/094-composite-indexes-column-order.sql): commit `1bd78df9dbbb89898941201010b2cde47deb32c5`.
+- [README navigation](README.md): commit `8082c6320b2d14eb63d89bf0a7ceaf76553fae47`.
+- Chapter and lab re-fetched from GitHub main after creation. Targeted static/manual checks: expected chapter numbering and relative paths, PostgreSQL 18/database guard, read-only transaction, transaction-local timeouts, synthetic six-order data, estimated EXPLAIN without ANALYZE, two-way EXCEPT ALL assertions, and rollback. Manually reasoned expectations: tenant-10 paid range IDs 103 and 101, range revenue 50.00, tenant-10 paid total 100.00, six orders overall.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
+- **Published: 94/120 (78.3%), remaining: 26; Part 10: 4/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 095 — Partial, expression, and covering indexes.**
