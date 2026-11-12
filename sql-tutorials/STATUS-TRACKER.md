@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 94 |
-| Remaining to draft | 26 |
+| Authored and published chapters | 95 |
+| Remaining to draft | 25 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 4 | 6 |
+| 10 — Performance | 091–100 | 5 | 5 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -129,6 +129,7 @@
 | [092](part-10-performance/092-table-scans-index-scans-row-estimates-and-selectivity.md) | Table scans, index scans, row estimates, and selectivity | Published | Pending | Pending |
 | [093](part-10-performance/093-btree-indexes-and-common-index-access-patterns.md) | B-tree indexes and common index access patterns | Published | Pending | Pending |
 | [094](part-10-performance/094-composite-indexes-and-column-order.md) | Composite indexes and column order | Published | Pending | Pending |
+| [095](part-10-performance/095-partial-expression-and-covering-indexes.md) | Partial, expression, and covering indexes | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -880,3 +881,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab re-fetched from GitHub main after creation. Targeted static/manual checks: expected chapter numbering and relative paths, PostgreSQL 18/database guard, read-only transaction, transaction-local timeouts, synthetic six-order data, estimated EXPLAIN without ANALYZE, two-way EXCEPT ALL assertions, and rollback. Manually reasoned expectations: tenant-10 paid range IDs 103 and 101, range revenue 50.00, tenant-10 paid total 100.00, six orders overall.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
 - **Published: 94/120 (78.3%), remaining: 26; Part 10: 4/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 095 — Partial, expression, and covering indexes.**
+
+## Chapter 095 publication evidence — 2026-11-12
+
+- [Chapter 095](part-10-performance/095-partial-expression-and-covering-indexes.md): commit `fe4dbf6c0978b5fde5a02ed24e94ed0bae6ce9aa`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/095-partial-expression-covering-indexes.sql): commit `1196f4cf3f5646bb19ea5014b400f677d3e9762a`.
+- [README navigation](README.md): commit `262b77abbf97d16d2016b9065c62e7765a618d4b`.
+- Chapter and lab fetched back from GitHub `main` after creation. Targeted static/manual reasoning checked chapter number, paths, PostgreSQL 18/database guards, read-only transaction, timeouts, estimated EXPLAIN (no ANALYZE), exact bidirectional EXCEPT ALL checks and ROLLBACK. Static expectations: six orders; four open amount 100.00; three tenant-10 open amount 60.00; newest IDs 105, 103, 101; two matching normalized email records. No actual query execution was performed.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Published: 95/120 (79.2%), remaining: 25; Part 10: 5/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 096 — Optimizer statistics and PostgreSQL maintenance basics.**
