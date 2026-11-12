@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 92 |
-| Remaining to draft | 28 |
+| Authored and published chapters | 93 |
+| Remaining to draft | 27 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 2 | 8 |
+| 10 — Performance | 091–100 | 3 | 7 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -127,6 +127,7 @@
 
 | [091](part-10-performance/091-read-execution-plans-with-explain.md) | Read execution plans with EXPLAIN | Published | Pending | Pending |
 | [092](part-10-performance/092-table-scans-index-scans-row-estimates-and-selectivity.md) | Table scans, index scans, row estimates, and selectivity | Published | Pending | Pending |
+| [093](part-10-performance/093-btree-indexes-and-common-index-access-patterns.md) | B-tree indexes and common index access patterns | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -860,3 +861,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `e61684ccb496ec7913b6bc4381789d36c06e2755`.
 - Chapter, lab, and README fetched from GitHub `main` after publication. Targeted static/manual reasoning: 10 synthetic events; failed 2/0.20, paid 7/0.70, pending 1/0.10; two-way `EXCEPT ALL` assertion, database/version guard, read-only transaction, transaction-local timeouts, and rollback. Exact plan nodes intentionally not asserted. No independent editorial review or comprehensive parser-based SQL/link QA completed. **No isolated PostgreSQL 18 runtime execution performed; no runtime evidence retained.**
 - **Published 92/120 (76.7%), remaining 28; Part 10 2/10.** Independent review: **0**. PostgreSQL 18 runtime-validated: **0**. **Next: 093 — B-tree indexes and common index access patterns.**
+
+## Chapter 093 publication evidence — 2026-11-12
+
+- [Chapter 093](part-10-performance/093-btree-indexes-and-common-index-access-patterns.md): commit `f7ea1fb0d02c3b1ca7c8f394a09b27402dd71f18`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/093-btree-index-access-patterns.sql): commit `0007a50df14d3c2fdbda7346de44a9d7c7d8a39f`.
+- [README navigation](README.md): commit `9dc9f176c17bf9405ef41ad5a29f9db77b70d3fb`.
+- Both new files and README navigation re-fetched and verified on GitHub `main` before updating this tracker. Targeted static/manual checks: chapter numbering, relative links, read-only transaction, synthetic five-order dataset, database/version guards, local timeouts, estimated EXPLAIN without ANALYZE, exact two-way multiset assertions, and rollback. Reasoned results: point order 103 = 8.00; range orders 102–104 sum 73.00; all five total 100.00.
+- **Validation distinctions:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
+- **Published: 93/120 (77.5%), remaining: 27; Part 10: 3/10.** Independently reviewed: **0**. PostgreSQL 18 runtime-validated: **0**. **Next: 094 — Composite indexes and column order.**
