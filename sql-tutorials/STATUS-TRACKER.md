@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 95 |
-| Remaining to draft | 25 |
+| Authored and published chapters | 96 |
+| Remaining to draft | 24 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 5 | 5 |
+| 10 — Performance | 091–100 | 6 | 4 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -130,6 +130,7 @@
 | [093](part-10-performance/093-btree-indexes-and-common-index-access-patterns.md) | B-tree indexes and common index access patterns | Published | Pending | Pending |
 | [094](part-10-performance/094-composite-indexes-and-column-order.md) | Composite indexes and column order | Published | Pending | Pending |
 | [095](part-10-performance/095-partial-expression-and-covering-indexes.md) | Partial, expression, and covering indexes | Published | Pending | Pending |
+| [096](part-10-performance/096-optimizer-statistics-and-postgresql-maintenance-basics.md) | Optimizer statistics and PostgreSQL maintenance basics | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -890,3 +891,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub `main` after creation. Targeted static/manual reasoning checked chapter number, paths, PostgreSQL 18/database guards, read-only transaction, timeouts, estimated EXPLAIN (no ANALYZE), exact bidirectional EXCEPT ALL checks and ROLLBACK. Static expectations: six orders; four open amount 100.00; three tenant-10 open amount 60.00; newest IDs 105, 103, 101; two matching normalized email records. No actual query execution was performed.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Published: 95/120 (79.2%), remaining: 25; Part 10: 5/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 096 — Optimizer statistics and PostgreSQL maintenance basics.**
+
+## Chapter 096 publication evidence — 2026-11-12
+
+- [Chapter 096](part-10-performance/096-optimizer-statistics-and-postgresql-maintenance-basics.md): commit `f857f971b4fbebcd6bf583ad779454edcc24cc80`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/096-optimizer-statistics-maintenance.sql): commit `91a46d6d708bec33cca3e0e047acde58ce00e420`.
+- [README navigation](README.md): commit `1845d75cc56fb2735720a2c435c1bad1440480c6`.
+- Both new files and README links re-fetched from GitHub `main` before tracker update. Targeted static/manual inspection checked chapter numbering, relative links, PostgreSQL 18/database guard, read-only transaction, timeouts, synthetic eight-row data, estimated EXPLAIN without ANALYZE, catalog-only inspection, bidirectional EXCEPT ALL assertions, and ROLLBACK. Reasoned values: 8 total, 4 tenant 10, 4 paid, 3 joint, 3 tenant-20 pending, 37.5% joint; independence approximation 2 versus actual 3. No SQL execution was performed.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Published: 96/120 (80.0%), remaining: 24; Part 10: 6/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 097 — Make predicates index-friendly and rewrite expensive SQL.**
