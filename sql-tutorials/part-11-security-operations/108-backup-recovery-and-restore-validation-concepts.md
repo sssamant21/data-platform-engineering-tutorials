@@ -6,7 +6,7 @@
 
 ## 1. Outcomes and operational scenario (0–5 minutes)
 
-After this chapter, you can distinguish backups from recovery, explain RPO and RTO, select a backup strategy, identify prerequisites for point-in-time recovery (PITR), define restore acceptance checks, and produce an evidence-based recovery go/no-go decision. Prerequisites: [transactions (038)](../part-04-transactions/038-begin-commit-rollback-and-savepoint.md), [data-quality reconciliation (107)](107-data-quality-assertions-and-reconciliation-queries.md).
+After this chapter, you can distinguish backups from recovery, explain RPO and RTO, select a backup strategy, identify prerequisites for point-in-time recovery (PITR), define restore acceptance checks, and produce an evidence-based recovery go/no-go decision. Prerequisites: transaction fundamentals (Chapter 038), [data-quality reconciliation (107)](107-data-quality-assertions-and-reconciliation-queries.md).
 
 **Scenario:** A fictional retail order service suffers a storage failure at 10:30 UTC. A backup finished at 09:00, WAL archiving covers subsequent changes, and the business requests recovery to 10:25. Can we claim the service is recoverable? **No**—backup existence and WAL coverage alone do not establish a successfully restored, usable service.
 
