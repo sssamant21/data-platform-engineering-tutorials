@@ -84,7 +84,7 @@ psql -X -v ON_ERROR_STOP=1 -d sql_tutorials \
 
 **Exercises:** (A) classify each synthetic session as waiting, blocking, or neither; (B) find the A↔B cycle; (C) explain why C→D is not a deadlock; (D) decide what additional evidence to capture before intervention; (E) explain the difference between `lock_timeout` and `statement_timeout`.
 
-**Calculated expected results:** five fictional edges: 101→102, 102→101, 103→104, 105→104, 106→107; two cycle participants (101 and 102); three distinct noncycle waiters (103, 105, 106); one additional terminal blocker (107); zero multiset assertion mismatches. Actual current-session `pg_locks` row counts vary by environment. The lab assertion checks the cycle and graph summary using bidirectional `EXCEPT ALL`; these values are reasoned, **not observed runtime output**.
+**Calculated expected results:** five fictional edges: 101→102, 102→101, 103→104, 105→104, 106→107; two cycle participants (101 and 102); three distinct noncycle waiters (103, 105, 106); two distinct noncycle blockers (104 and 107); zero multiset assertion mismatches. Actual current-session `pg_locks` row counts vary by environment. The lab assertion checks the cycle and graph summary using bidirectional `EXCEPT ALL`; these values are reasoned, **not observed runtime output**.
 
 ## 5. Troubleshooting, safety, and validation (50–55 min)
 
