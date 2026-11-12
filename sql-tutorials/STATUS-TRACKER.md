@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 89 |
-| Remaining to draft | 31 |
+| Authored and published chapters | 90 |
+| Remaining to draft | 30 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -23,7 +23,7 @@
 | 06 — Aggregation and reporting | 051–060 | 10 | 0 |
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
-| 09 — Functions, views, JSON | 081–090 | 9 | 1 |
+| 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 0 | 10 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 089–120 | See Master TOC | Planned | — | — |
+| 091–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -123,6 +123,7 @@
 
 | [088](part-09-functions-views-json/088-stored-functions-and-procedures-dialect-specific-syntax.md) | Stored functions and procedures — dialect-specific syntax | Published | Pending | Pending |
 | [089](part-09-functions-views-json/089-triggers-dynamic-sql-and-parameterization-safeguards.md) | Triggers, dynamic SQL, and parameterization safeguards | Published | Pending | Pending |
+| [090](part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md) | Lab 09 — build reusable reporting objects | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -233,7 +234,7 @@
 
 ## Next work item
 
-**086 — Materialized views and refresh strategies.** Continue Part 09; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
+**091 — Read execution plans with EXPLAIN.** Begin Part 10; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending.
 
 ## Quality gates
 
@@ -831,3 +832,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - [README navigation](README.md): commit `4fcd921d35b4900dc96d7fd9592045c61f15e1b5`.
 - Chapter, lab and README re-fetched from GitHub `main` before tracker update. Targeted static/manual reasoning checked five synthetic transitions, four changed rows, one unchanged row, one NULL-to-value change, one paid transition, bidirectional `EXCEPT ALL` assertions, database/version guard, read-only transaction, local timeouts and rollback. The lab models trigger behavior without creating triggers or executing actual dynamic SQL. Independent editorial review and comprehensive parser-based SQL syntax/link QA remain pending. **Actual isolated PostgreSQL 18 runtime execution was not performed and no runtime evidence was retained.**
 - **Authored/published: 89/120 (74.2%), 31 remaining; Part 09: 9/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: Chapter 090 — Lab 09: Build reusable reporting objects.**
+
+## Chapter 090 publication evidence
+
+- Chapter: [090](part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md); commit `dbbf608d4cbca77a6172cb91e823e5dd148177f0`.
+- Lab: [090 SQL](labs/090-lab-09-reusable-reporting-objects.sql); commit `be309a44e3b866c61bf7ab5c992faec1092c31e6`.
+- Both files fetched from GitHub `main` after creation. Targeted manual checks: one-row-per-customer contract, exact multiset comparison, paid total 85.00, stale snapshot 75.00, read-only transaction, version/database guard and rollback. **Not independently reviewed or comprehensively syntax-checked.**
+- **Actual isolated PostgreSQL 18 runtime validation pending**: no PostgreSQL 18 instance was executed and no runtime evidence retained.
+- Part 09 complete (10/10). **Next: 091 — Read execution plans with EXPLAIN.**
