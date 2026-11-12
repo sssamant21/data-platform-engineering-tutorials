@@ -1023,3 +1023,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab, and README were fetched from GitHub `main` before this tracker update. Targeted static/manual inspection checked chapter numbering, prerequisite navigation (and corrected a missing Chapter 038 file link), synthetic-only data, PostgreSQL 18/database guard, read-only transaction, local timeouts, expected classification (one accepted, two blocked), and rollback. These results are calculated, not observed execution.
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none; actual backup/restore rehearsal not performed.
 - **Progress: 108/120 published (90.0%); 12 remaining; Part 11 8/10. Next: 109 — Slow-query investigation, monitoring, and incident runbooks.**
+
+## Chapter 109 publication evidence — 2026-11-12
+
+- [Chapter 109](part-11-security-operations/109-slow-query-investigation-monitoring-and-incident-runbooks.md): commit `246e16d840f472f64daa7aa9cf691bdaec573b96`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/109-slow-query-monitoring-incident-runbook.sql): commit `76f3e573501699fd91698664f5995709222526cd`.
+- [README navigation](README.md): commit `4f76b3510097a18f930bf2f4b6b63cb836485692`.
+- Chapter and lab fetched back from GitHub main; prerequisite links to Chapters 091, 105, 108 and lab target checked; README navigation re-fetched before tracker update. Targeted static/manual inspection covered chapter numbering, read-only transaction, PostgreSQL 18/database guard, local timeouts, synthetic samples, exact bidirectional `EXCEPT ALL` assertions, and rollback. Expected six samples, three slow, two blocking, one plan-review and zero mismatches are **calculated, not observed PostgreSQL output**. No production telemetry or actual performance benchmark was collected.
+- **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Progress: 109/120 published (90.8%); 11 remaining; Part 11 9/10. Next: 110 — Lab 11: operational SQL incident and recovery exercise.**
