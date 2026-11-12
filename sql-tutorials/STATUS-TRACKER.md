@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 104 |
-| Remaining to draft | 16 |
+| Authored and published chapters | 105 |
+| Remaining to draft | 15 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 4 | 6 |
+| 11 — Security and DBRE/SRE | 101–110 | 5 | 5 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -139,6 +139,7 @@
 | [102](part-11-security-operations/102-users-roles-grant-revoke-and-ownership.md) | Users, roles, GRANT, REVOKE, and ownership | Published | Pending | Pending |
 | [103](part-11-security-operations/103-row-level-security-and-data-access-policies.md) | Row-level security and data-access policies | Published | Pending | Pending |
 | [104](part-11-security-operations/104-sensitive-data-protection-masking-and-audit-requirements.md) | Sensitive data protection, masking, and audit requirements | Published | Pending | Pending |
+| [105](part-11-security-operations/105-locks-blocking-deadlocks-and-troubleshooting.md) | Locks, blocking, deadlocks, and troubleshooting | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -981,3 +982,13 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub `main`; README navigation re-fetched before tracker update. Targeted static/manual inspection covered chapter numbering, local relative paths, PostgreSQL 18/database guard, transaction-local timeouts, synthetic-only data, read-only transaction, deterministic two-way `EXCEPT ALL` assertions and rollback. Expected four claims, 200.00 total, four masked contacts, three complete synthetic audit events, and zero mismatches were reasoned from literals; **not observed PostgreSQL output**. The lab does not test real privileges, masking enforcement, or database audit logging.
 - **Validation distinction:** authored/published yes; targeted manual/static inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Progress: 104/120 published (86.7%); 16 remaining; Part 11 4/10. Next: 105 — Locks, blocking, deadlocks, and troubleshooting.**
+
+
+## Chapter 105 publication evidence — 2026-11-12
+
+- [Chapter 105](part-11-security-operations/105-locks-blocking-deadlocks-and-troubleshooting.md): initial commit `b213539a312a4ed4c3be25b2ec3b0cb487c72fe5`; correction commit `19725b05e03768dcd3c7cf09d83d0ca5d8bf6929`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/105-locks-blocking-deadlocks-troubleshooting.sql): commit `9e6a0a43f9b1091fc6703f56c12ac56e19410a5b`.
+- [README navigation](README.md): commit `84dae78be40ce874d7e612dff7632f5d70c468be`.
+- Chapter, lab and README fetched back from GitHub `main` before tracker update. Targeted static/manual inspection covered numbering and relative links, PostgreSQL 18/database guard, read-only transaction, local timeouts, no backend termination or induced deadlocks, five fictional graph edges, two direct-cycle participants, three noncycle waiters, two noncycle blocker IDs, bidirectional `EXCEPT ALL` assertions, and rollback. All expected counts are **reasoned, not observed PostgreSQL execution**. Actual `pg_locks` output is environment-dependent.
+- **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Progress: 105/120 published (87.5%); 15 remaining; Part 11 5/10. Next: 106 — Backward-compatible migrations and deployment controls.**
