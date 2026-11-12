@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 98 |
-| Remaining to draft | 22 |
+| Authored and published chapters | 99 |
+| Remaining to draft | 21 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 8 | 2 |
+| 10 — Performance | 091–100 | 9 | 1 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -133,6 +133,7 @@
 | [096](part-10-performance/096-optimizer-statistics-and-postgresql-maintenance-basics.md) | Optimizer statistics and PostgreSQL maintenance basics | Published | Pending | Pending |
 | [097](part-10-performance/097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) | Make predicates index-friendly and rewrite expensive SQL | Published | Pending | Pending |
 | [098](part-10-performance/098-optimize-joins-aggregations-and-subqueries.md) | Optimize joins, aggregations, and subqueries | Published | Pending | Pending |
+| [099](part-10-performance/099-keyset-pagination-benchmarking-and-regression-tests.md) | Keyset pagination, benchmarking, and regression tests | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -919,3 +920,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub main; reference to Chapter 052 confirmed. Targeted manual static reasoning checked chapter number, link paths, synthetic data, read-only transaction, database/version guards, local timeouts, estimated EXPLAIN, two-way EXCEPT ALL checks and ROLLBACK. Expected corrected order totals: (101,50,50), (102,40,40), (103,10,0); naive inner join has 5 rows overall (4 for 101, 1 for 102). These are **calculated expectations, not observed SQL results**.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL syntax/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none.
 - **Progress: 98/120 published (81.7%), 22 remaining; Part 10 8/10. Next: 099 — Keyset pagination, benchmarking, and regression tests.**
+
+## Chapter 099 publication evidence — 2026-11-12
+
+- [Chapter 099](part-10-performance/099-keyset-pagination-benchmarking-and-regression-tests.md): commit `893319d5251c7cf79471e1c3c99463ef3b9426c8`.
+- [Read-only PostgreSQL 18 lab](labs/099-keyset-pagination-benchmark-regression.sql): commit `25bf7cbd6bbf48a53c67c6a2fe5c560e3a82f1e0`.
+- [README navigation](README.md): commit `accccb8f10ea650a1b003d576abbfe1231d36ff7`.
+- Chapter, lab and README link re-fetched on GitHub main before this tracker update. Targeted static/manual review covered numbering, relative links, database/version guard, read-only transaction, local timeouts, inline synthetic data, estimated EXPLAIN, multiset assertions and rollback. Calculated expectation: pages (109,108,107), (106,105,104), (103,102,101), 9 unique rows, zero mismatches with fixed-data OFFSET pages. These are **reasoned expected values, not observed execution output**.
+- **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
+- **Progress: 99/120 published (82.5%), 21 remaining; Part 10: 9/10. Next: 100 — Lab 10: baseline, tune, and remeasure a slow query.**
