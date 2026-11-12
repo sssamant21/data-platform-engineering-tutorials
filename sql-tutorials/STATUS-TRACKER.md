@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 96 |
-| Remaining to draft | 24 |
+| Authored and published chapters | 97 |
+| Remaining to draft | 23 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 6 | 4 |
+| 10 — Performance | 091–100 | 7 | 3 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 093–120 | See Master TOC | Planned | — | — |
+| 098–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -131,6 +131,7 @@
 | [094](part-10-performance/094-composite-indexes-and-column-order.md) | Composite indexes and column order | Published | Pending | Pending |
 | [095](part-10-performance/095-partial-expression-and-covering-indexes.md) | Partial, expression, and covering indexes | Published | Pending | Pending |
 | [096](part-10-performance/096-optimizer-statistics-and-postgresql-maintenance-basics.md) | Optimizer statistics and PostgreSQL maintenance basics | Published | Pending | Pending |
+| [097](part-10-performance/097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) | Make predicates index-friendly and rewrite expensive SQL | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -900,3 +901,11 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Both new files and README links re-fetched from GitHub `main` before tracker update. Targeted static/manual inspection checked chapter numbering, relative links, PostgreSQL 18/database guard, read-only transaction, timeouts, synthetic eight-row data, estimated EXPLAIN without ANALYZE, catalog-only inspection, bidirectional EXCEPT ALL assertions, and ROLLBACK. Reasoned values: 8 total, 4 tenant 10, 4 paid, 3 joint, 3 tenant-20 pending, 37.5% joint; independence approximation 2 versus actual 3. No SQL execution was performed.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Published: 96/120 (80.0%), remaining: 24; Part 10: 6/10.** Independently reviewed: **0**; PostgreSQL 18 runtime-validated: **0**. **Next: 097 — Make predicates index-friendly and rewrite expensive SQL.**
+
+## Chapter 097 publication evidence
+
+- Chapter: [097](part-10-performance/097-make-predicates-index-friendly-and-rewrite-expensive-sql.md); commit `4e4bea56607a40af164c028169a4a181866be13d`.
+- Lab: [097 SQL](labs/097-index-friendly-predicates-rewrites.sql); commit `5ef8b31539ef85cf7344982acade35c7745c48c9`.
+- README navigation: commit `5260752aca426aa59d2874b9a11875b6638b6c76`.
+- Chapter and lab fetched back from GitHub main; README navigation re-fetched. Targeted static inspection of relative links, version/database guard, synthetic data, read-only transaction, bidirectional EXCEPT ALL assertions and ROLLBACK completed; expected IDs and totals manually reasoned. **Independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution remain pending.** No PostgreSQL runtime evidence was collected.
+- Progress: **97/120 published (80.8%); 23 remaining; Part 10 7/10**. Next: **098 — Optimize joins, aggregations, and subqueries**.
