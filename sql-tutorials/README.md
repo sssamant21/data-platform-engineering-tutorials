@@ -223,3 +223,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 99. [099 — Keyset pagination, benchmarking, and regression tests](part-10-performance/099-keyset-pagination-benchmarking-and-regression-tests.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/099-keyset-pagination-benchmark-regression.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA and actual PostgreSQL 18 runtime execution pending. Part 10: 9/10.
 
 100. [100 — Lab 10: baseline, tune, and remeasure a slow query](part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/100-lab-10-baseline-tune-remeasure.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and actual PostgreSQL 18 runtime execution pending. Part 10 complete (10/10).
+
+## Part 11 — Security, Data Quality & DBRE/SRE Operations
+
+101. [101 — Least privilege and SQL access-control principles](part-11-security-operations/101-least-privilege-and-sql-access-control-principles.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/101-least-privilege-access-control.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and isolated PostgreSQL 18 runtime validation pending. Part 11: 1/10.
