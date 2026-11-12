@@ -227,3 +227,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 ## Part 11 — Security, Data Quality & DBRE/SRE Operations
 
 101. [101 — Least privilege and SQL access-control principles](part-11-security-operations/101-least-privilege-and-sql-access-control-principles.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/101-least-privilege-access-control.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and isolated PostgreSQL 18 runtime validation pending. Part 11: 1/10.
+
+102. [102 — Users, roles, GRANT, REVOKE, and ownership](part-11-security-operations/102-users-roles-grant-revoke-and-ownership.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/102-users-roles-grant-revoke-ownership.sql); targeted static/manual checks only. Independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime validation pending. Part 11: 2/10.
