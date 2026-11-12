@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 97 |
-| Remaining to draft | 23 |
+| Authored and published chapters | 98 |
+| Remaining to draft | 22 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -24,7 +24,7 @@
 | 07 — Subqueries and CTEs | 061–070 | 10 | 0 |
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
-| 10 — Performance | 091–100 | 7 | 3 |
+| 10 — Performance | 091–100 | 8 | 2 |
 | 11 — Security and DBRE/SRE | 101–110 | 0 | 10 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
@@ -132,6 +132,7 @@
 | [095](part-10-performance/095-partial-expression-and-covering-indexes.md) | Partial, expression, and covering indexes | Published | Pending | Pending |
 | [096](part-10-performance/096-optimizer-statistics-and-postgresql-maintenance-basics.md) | Optimizer statistics and PostgreSQL maintenance basics | Published | Pending | Pending |
 | [097](part-10-performance/097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) | Make predicates index-friendly and rewrite expensive SQL | Published | Pending | Pending |
+| [098](part-10-performance/098-optimize-joins-aggregations-and-subqueries.md) | Optimize joins, aggregations, and subqueries | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -909,3 +910,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - README navigation: commit `5260752aca426aa59d2874b9a11875b6638b6c76`.
 - Chapter and lab fetched back from GitHub main; README navigation re-fetched. Targeted static inspection of relative links, version/database guard, synthetic data, read-only transaction, bidirectional EXCEPT ALL assertions and ROLLBACK completed; expected IDs and totals manually reasoned. **Independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution remain pending.** No PostgreSQL runtime evidence was collected.
 - Progress: **97/120 published (80.8%); 23 remaining; Part 10 7/10**. Next: **098 — Optimize joins, aggregations, and subqueries**.
+
+## Chapter 098 publication evidence — 2026-11-12
+
+- [Chapter 098](part-10-performance/098-optimize-joins-aggregations-and-subqueries.md): commit `36c7bb404bec5da0ae9113563fab38685c8d88f6`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/098-optimize-joins-aggregations-subqueries.sql): commit `c338f7275cdc63b983fe90a7feca2f9f8e11683e`.
+- [README navigation](README.md): commit `18688490db4164dcd1e20667c7c899a8c457238f`.
+- Chapter and lab fetched back from GitHub main; reference to Chapter 052 confirmed. Targeted manual static reasoning checked chapter number, link paths, synthetic data, read-only transaction, database/version guards, local timeouts, estimated EXPLAIN, two-way EXCEPT ALL checks and ROLLBACK. Expected corrected order totals: (101,50,50), (102,40,40), (103,10,0); naive inner join has 5 rows overall (4 for 101, 1 for 102). These are **calculated expectations, not observed SQL results**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL syntax/link QA no; isolated PostgreSQL 18 runtime execution no; reproducible runtime evidence none.
+- **Progress: 98/120 published (81.7%), 22 remaining; Part 10 8/10. Next: 099 — Keyset pagination, benchmarking, and regression tests.**
