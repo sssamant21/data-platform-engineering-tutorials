@@ -20,6 +20,10 @@
 
 Resolved QA-003 by moving guidance below the complete chapter listing ([README](README.md), commit `d8047202e239bf41dc5a9f21d5506a1b2f4e97bb`). A fresh `main` fetch confirmed 120 numbered README entries, exactly 001–120, with no duplicate or missing chapter numbers. This verifies README numbering **only**; link targets, Markdown anchors, SQL syntax, expected outputs, independent review and PostgreSQL 18 runtime acceptance remain pending. [QA baseline](labs/validation/QA-BASELINE-2026-11-13.md) records the closure. Next: repository-wide link-target and lab inventory checks.
 
+## QA follow-up — pinned repository inventory (2026-11-13)
+
+[Repository inventory evidence](labs/validation/REPOSITORY-INVENTORY-2026-11-13.md), commit `31bc12d693b5544ba495e10301fc829fe66dbcc9`: non-truncated `main` tree `7c985eee50a7807d935aa82a5c7c207f1417c6af` contains 246 SQL-tutorials files, 120 unique numbered chapter Markdown files (001–120; zero gaps or duplicates), and 120 SQL files. All 232 local relative README link occurrences resolve to tracked paths. This is **targeted static inventory and README target verification**, not a full chapter/link/anchor audit, one-to-one lab mapping, SQL syntax check, independent editorial review or runtime validation. Independently reviewed: **0/120**; isolated PostgreSQL 18 runtime-validated: **0/120**. Next: resolve all chapter Markdown links/anchors and review SQL syntax, expected results and lab safety before isolated PostgreSQL 18 acceptance.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
