@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 114 |
-| Remaining to draft | 6 |
+| Authored and published chapters | 115 |
+| Remaining to draft | 5 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 4 | 6 |
+| 12 — Data engineering and dialects | 111–120 | 5 | 5 |
 
 ## Chapter status
 
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 112–120 | See Master TOC | Planned | — | — |
+| 116–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -150,6 +150,7 @@
 | [112](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md) | Star schemas, facts, dimensions, and surrogate keys | Published | Pending | Pending |
 | [113](part-12-platforms-capstone/113-elt-incremental-loads-and-change-data-capture-patterns.md) | ELT, incremental loads, and change data capture patterns | Published | Pending | Pending |
 | [114](part-12-platforms-capstone/114-data-warehouse-sql-and-analytical-cost-considerations.md) | Data warehouse SQL and analytical cost considerations | Published | Pending | Pending |
+| [115](part-12-platforms-capstone/115-portable-sql-versus-vendor-specific-syntax-and-testing.md) | Portable SQL versus vendor-specific syntax and testing | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1079,3 +1080,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 ### Chapter 114 checkpoint (2026-11-13)
 
 Published chapter and synthetic read-only SQL lab on main; both fetched back successfully. Targeted manual/static arithmetic review: 4 orders, 6 lines, correct 200.00, fan-out 270.00. Independent editorial review, comprehensive automated static QA, and isolated PostgreSQL 18 runtime execution with retained evidence remain pending. Next: Chapter 115 — Portable SQL versus vendor-specific syntax and testing.
+
+## Chapter 115 publication checkpoint — 2026-11-13
+
+- [Chapter 115](part-12-platforms-capstone/115-portable-sql-versus-vendor-specific-syntax-and-testing.md): authored commit `8cfa7a4cd1132ff4fb46766fdb86e1a31fb11511`; prerequisite-link correction `5c685d85483cd96a9c4c1a55a2bcd421973c1458`.
+- [Synthetic PostgreSQL 18 read-only lab](labs/115-portable-sql-dialect-testing.sql): commit `a87bd5b2e921b19512e3dd84f6c22216a49a3743`.
+- [README navigation](README.md): commit `2a2fd658971d6cc132c02fde0a4deecf9ff8f9a2`.
+- Fetched chapter, lab, README and prerequisite 036 from GitHub main after publication; corrected one missing prerequisite link. Targeted manual/static inspection checked synthetic dataset, read-only transaction, database/version guard, transaction-local timeouts, rollback, and calculated assertions: 4 orders, 3 known amounts, 1 NULL, total 120.00, East 40.00, West 80.00, two matching case-insensitive filters and identical 3-ID pages. Expected values are calculated, **not observed**.
+- **Validation:** authored/published yes; targeted manual/static inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; cross-engine execution no; reproducible runtime evidence none.
+- **Progress: 115/120 (95.8%), 5 remaining; Part 12: 5/10. Next: Chapter 116 — PostgreSQL 18 SQL: lab baseline and advanced features.**
