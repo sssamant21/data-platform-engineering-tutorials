@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 113 |
-| Remaining to draft | 7 |
+| Authored and published chapters | 114 |
+| Remaining to draft | 6 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 3 | 7 |
+| 12 — Data engineering and dialects | 111–120 | 4 | 6 |
 
 ## Chapter status
 
@@ -149,6 +149,7 @@
 | [111](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) | OLTP versus OLAP query design | Published | Pending | Pending |
 | [112](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md) | Star schemas, facts, dimensions, and surrogate keys | Published | Pending | Pending |
 | [113](part-12-platforms-capstone/113-elt-incremental-loads-and-change-data-capture-patterns.md) | ELT, incremental loads, and change data capture patterns | Published | Pending | Pending |
+| [114](part-12-platforms-capstone/114-data-warehouse-sql-and-analytical-cost-considerations.md) | Data warehouse SQL and analytical cost considerations | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1073,3 +1074,8 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter, lab and README were fetched back from GitHub `main` before this tracker update. Prerequisite Chapter 036 and Chapter 112 links checked; removed forward link to unpublished Chapter 114. Targeted static/manual reasoning checked synthetic CDC deduplication, latest-per-key ordering, tombstone, database/version guard, read-only transaction, timeouts, bidirectional EXCEPT ALL assertion and rollback. Expected 5 delivered messages, 4 unique events, 3 latest-key events, 2 active orders totaling 80.00, 1 tombstone and zero assertion mismatches are **calculated, not observed PostgreSQL results**.
 - **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none. No real CDC connector, source checkpoint or production system was accessed.
 - **Progress: 113/120 published (94.2%); 7 remaining; Part 12 3/10. Next: 114 — Data warehouse SQL and analytical cost considerations.**
+
+
+### Chapter 114 checkpoint (2026-11-13)
+
+Published chapter and synthetic read-only SQL lab on main; both fetched back successfully. Targeted manual/static arithmetic review: 4 orders, 6 lines, correct 200.00, fan-out 270.00. Independent editorial review, comprehensive automated static QA, and isolated PostgreSQL 18 runtime execution with retained evidence remain pending. Next: Chapter 115 — Portable SQL versus vendor-specific syntax and testing.
