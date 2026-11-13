@@ -1,13 +1,13 @@
 # SQL Tutorials — Status Tracker
 
 > **Scope:** 120 planned chapters in 12 parts. Source of truth for titles and chapter order: [MASTER-TOC.md](MASTER-TOC.md).
-> **Updated:** 2026-11-12. Content publication and runtime validation are distinct milestones.
+> **Updated:** 2026-11-13. Content publication and runtime validation are distinct milestones.
 
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 112 |
-| Remaining to draft | 8 |
+| Authored and published chapters | 113 |
+| Remaining to draft | 7 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 2 | 8 |
+| 12 — Data engineering and dialects | 111–120 | 3 | 7 |
 
 ## Chapter status
 
@@ -148,6 +148,7 @@
 | [110](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md) | Lab 11 — operational SQL incident and recovery exercise | Published | Pending | Pending |
 | [111](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) | OLTP versus OLAP query design | Published | Pending | Pending |
 | [112](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md) | Star schemas, facts, dimensions, and surrogate keys | Published | Pending | Pending |
+| [113](part-12-platforms-capstone/113-elt-incremental-loads-and-change-data-capture-patterns.md) | ELT, incremental loads, and change data capture patterns | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1063,3 +1064,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub `main` before tracker update. Targeted static/manual review covered grain, historical dimension mapping, read-only/version/database guards, local timeouts, expected totals, and rollback. Calculated expectations: 4 fact rows, 3 product dimension versions, 100.00 correct revenue, Basic 60.00 and Premium 40.00, incorrect business-key join 6 rows / 170.00, zero assertion mismatches. These are calculated expectations, **not observed database results**.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
 - **Progress: 112/120 published (93.3%); 8 remaining; Part 12 2/10. Next: 113 — ELT, incremental loads, and change data capture patterns.**
+
+## Chapter 113 publication evidence — 2026-11-13
+
+- [Chapter 113](part-12-platforms-capstone/113-elt-incremental-loads-and-change-data-capture-patterns.md): commit `42029b259979f8d84e9b66cc5e2eee45585130b0`; forward-link correction `957a71afd7f128078d1baf0af41b670f22511568`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/113-elt-incremental-loads-cdc-patterns.sql): commit `e44d00c3050072d59b77dc0af3e421b28e00c268`.
+- [README navigation](README.md): commit `4ffe8f79222355686afac50bb59c3c66be90749f`.
+- Chapter, lab and README were fetched back from GitHub `main` before this tracker update. Prerequisite Chapter 036 and Chapter 112 links checked; removed forward link to unpublished Chapter 114. Targeted static/manual reasoning checked synthetic CDC deduplication, latest-per-key ordering, tombstone, database/version guard, read-only transaction, timeouts, bidirectional EXCEPT ALL assertion and rollback. Expected 5 delivered messages, 4 unique events, 3 latest-key events, 2 active orders totaling 80.00, 1 tombstone and zero assertion mismatches are **calculated, not observed PostgreSQL results**.
+- **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none. No real CDC connector, source checkpoint or production system was accessed.
+- **Progress: 113/120 published (94.2%); 7 remaining; Part 12 3/10. Next: 114 — Data warehouse SQL and analytical cost considerations.**
