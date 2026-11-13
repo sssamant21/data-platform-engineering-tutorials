@@ -24,6 +24,10 @@ Resolved QA-003 by moving guidance below the complete chapter listing ([README](
 
 [Repository inventory evidence](labs/validation/REPOSITORY-INVENTORY-2026-11-13.md), commit `31bc12d693b5544ba495e10301fc829fe66dbcc9`: non-truncated `main` tree `7c985eee50a7807d935aa82a5c7c207f1417c6af` contains 246 SQL-tutorials files, 120 unique numbered chapter Markdown files (001–120; zero gaps or duplicates), and 120 SQL files. All 232 local relative README link occurrences resolve to tracked paths. This is **targeted static inventory and README target verification**, not a full chapter/link/anchor audit, one-to-one lab mapping, SQL syntax check, independent editorial review or runtime validation. Independently reviewed: **0/120**; isolated PostgreSQL 18 runtime-validated: **0/120**. Next: resolve all chapter Markdown links/anchors and review SQL syntax, expected results and lab safety before isolated PostgreSQL 18 acceptance.
 
+## QA follow-up — Chapters 001–006 local-link smoke check (2026-11-13)
+
+[Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-001-006-2026-11-13.md), commit `3cdbb5ce5e2deee492712a540ebe2bd902f8a190`: 34 inline local-link path targets across Chapters 001–006 were checked against GitHub `main` tree `f9ed726705b56055c988d9a0990f9b5e9bf1cd20`; zero missing paths. This is a limited static smoke check, **not** comprehensive Markdown link/anchor QA. Independent review **0/120**; actual PostgreSQL 18 runtime validation **0/120**. Next: full chapter-level reference/anchor audit, SQL syntax and lab-safety checks, then isolated PostgreSQL 18 runtime evidence.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
