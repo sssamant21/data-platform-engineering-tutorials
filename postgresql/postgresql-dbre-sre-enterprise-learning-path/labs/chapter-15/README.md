@@ -82,7 +82,7 @@ docker exec pg-fleet-ch15 pg_isready -U postgres -d postgres
 docker exec pg-fleet-ch15 psql -U postgres -d postgres -Atc "SHOW server_version;"
 ```
 
-**Expected:** `accepting connections` and a `17.x` version. First initialization may take several seconds. **Immediately save the full container ID returned by `docker run` in your private lab evidence** (for example, `CH15_CONTAINER_ID`). Do not use the name or image tag as proof of ownership. Do not mistake a successful container launch for a healthy database.
+**Expected:** `accepting connections` and a `17.x` version. First initialization may take several seconds. **At creation time, save the Docker context, the full container ID returned by `docker run`, and the `docker volume create` output in private lab evidence** (for example, `CH15_CONTAINER_ID` and `CH15_VOLUME_NAME`). Immediately inspect the new volume with `docker volume inspect pg-fleet-ch15-data` and retain its full `Mountpoint`, `CreatedAt`, `Driver`, `Scope`, and labels, where available, as provenance for later cleanup. Record the image ID/digest and container mount mapping too. If any creation-time evidence was not retained, cleanup must stop rather than reconstruct ownership from a later name lookup. Do not use the name or image tag as proof of ownership. Do not mistake a successful container launch for a healthy database.
 
 ## 5. Create synthetic roles and databases (lab-only writes)
 
