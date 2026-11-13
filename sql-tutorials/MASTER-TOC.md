@@ -4,7 +4,7 @@
 > **Primary hands-on platform:** PostgreSQL 18 (SQL concepts taught portably first).
 > **Additional dialects:** MySQL/MariaDB, SQL Server, Oracle, Snowflake, BigQuery, and SQLite where useful.
 > **Scope:** 12 parts · 120 chapters · foundational to production-focused SQL.
-> **Status:** Proposed curriculum / master TOC; tutorials and runtime validation are not implied to be complete.
+> **Status (2026-11-13):** All 120 chapters are authored and published; independent editorial review, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance remain pending. See [STATUS-TRACKER.md](STATUS-TRACKER.md).
 
 ## Learning objectives
 
