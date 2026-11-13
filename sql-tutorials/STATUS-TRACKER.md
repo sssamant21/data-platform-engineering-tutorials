@@ -16,6 +16,10 @@
 
 [Targeted QA baseline, findings, corrections and acceptance plan](labs/validation/QA-BASELINE-2026-11-13.md). Initial inspection corrected stale publication wording in MASTER-TOC and Chapter 001. This is **not** comprehensive static QA or independent editorial certification. Full link/SQL checks and PostgreSQL 18 runtime execution remain pending; independently reviewed = 0 and runtime-validated = 0. Next: repository-wide file/link inventory, SQL expected-output review and isolated PostgreSQL 18 evidence collection.
 
+## QA follow-up — README navigation (2026-11-13)
+
+Resolved QA-003 by moving guidance below the complete chapter listing ([README](README.md), commit `d8047202e239bf41dc5a9f21d5506a1b2f4e97bb`). A fresh `main` fetch confirmed 120 numbered README entries, exactly 001–120, with no duplicate or missing chapter numbers. This verifies README numbering **only**; link targets, Markdown anchors, SQL syntax, expected outputs, independent review and PostgreSQL 18 runtime acceptance remain pending. [QA baseline](labs/validation/QA-BASELINE-2026-11-13.md) records the closure. Next: repository-wide link-target and lab inventory checks.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
