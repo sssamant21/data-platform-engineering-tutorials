@@ -43,7 +43,7 @@ docker exec $id psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tAc "SELECT 
 if ($LASTEXITCODE -ne 0) { throw 'Cannot verify PostgreSQL version and role' }
 ```
 
-**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. Inspect the query output and stop unless both values match. If the container is absent, return to Chapter 01's setup; never adopt or delete an existing container to proceed. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
+**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. Inspect the query output and stop unless both values match. If the container is absent, **stop**: the current Chapter 01 setup creates PostgreSQL 18 and cannot satisfy this historical PostgreSQL 17 prerequisite. Do not rerun Chapter 01 expecting a compatible PostgreSQL 17 container, and never adopt, replace, or delete an existing container to proceed. Wait for the scoped Chapter 02 PostgreSQL 18 migration and independent prerequisite review. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
 
 ## Step 1 — Check and create the chapter database
 
