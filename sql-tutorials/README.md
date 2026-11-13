@@ -246,3 +246,5 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 ## Part 12 — Data Engineering, SQL Dialects & Final Projects
 
 111. [111 — OLTP versus OLAP query design](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/111-oltp-versus-olap-query-design.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 12: 1/10.
+
+112. [112 — Star schemas, facts, dimensions, and surrogate keys](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/112-star-schema-facts-dimensions-surrogate-keys.sql); targeted static/manual reasoning completed; independent review, comprehensive SQL/link QA, and actual PostgreSQL 18 runtime validation pending.
