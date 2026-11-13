@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 118 |
-| Remaining to draft | 2 |
+| Authored and published chapters | 119 |
+| Remaining to draft | 1 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 8 | 2 |
+| 12 — Data engineering and dialects | 111–120 | 9 | 1 |
 
 ## Chapter status
 
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 116–120 | See Master TOC | Planned | — | — |
+
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -154,6 +154,7 @@
 | [116](part-12-platforms-capstone/116-postgresql-18-sql-lab-baseline-and-advanced-features.md) | PostgreSQL 18 SQL — lab baseline and advanced features | Published | Pending | Pending |
 | [117](part-12-platforms-capstone/117-mysql-and-mariadb-key-syntax-and-behavior-differences.md) | MySQL and MariaDB — key syntax and behavior differences | Published | Pending | Pending |
 | [118](part-12-platforms-capstone/118-sql-server-tsql-and-oracle-sql-key-differences.md) | SQL Server/T-SQL and Oracle SQL — key differences | Published | Pending | Pending |
+| [119](part-12-platforms-capstone/119-snowflake-and-bigquery-cloud-analytical-sql-patterns.md) | Snowflake and BigQuery — cloud analytical SQL patterns | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1120,3 +1121,12 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Chapter and lab were fetched back from GitHub main before updating this tracker. Targeted manual/static reasoning checked five synthetic orders, four priced orders, one NULL, total 100.00, East 45.00, West 55.00, page IDs 203 and 204, NULL-sensitive NOT IN versus NOT EXISTS, and bidirectional EXCEPT ALL assertions. Expected outputs are **calculated, not observed**.
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; SQL Server/Oracle cross-engine execution no; reproducible runtime evidence none.
 - **Progress: 118/120 (98.3%); 2 remaining; Part 12: 8/10. Next: Chapter 119 — Snowflake and BigQuery: cloud analytical SQL patterns.**
+
+## Chapter 119 publication checkpoint — 2026-11-13
+
+- [Chapter 119](part-12-platforms-capstone/119-snowflake-and-bigquery-cloud-analytical-sql-patterns.md): initial commit `2b364ef23e654543907e9fa97af249bb268d22ad`; first-day count correction `e7f1dec4010e3374e265e613aa7deb238e234fb0`.
+- [Synthetic PostgreSQL 18 read-only comparison lab](labs/119-snowflake-bigquery-cloud-analytical-patterns.sql): commit `a8a34965a3491997394f958853d38e207f540dd3`.
+- [README navigation](README.md): commit `3821060f2e79193a26efc697bc5b4702a9388906`.
+- Chapter, lab and README were fetched back from GitHub `main`. Targeted manual/static checks reviewed the six synthetic events, three distinct keys, two active orders totaling 90.00, one delete tombstone, three first-day events, and exact multiset assertion design. All expected results are **calculated, not observed**.
+- **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; Snowflake/BigQuery cross-engine execution no; retained runtime evidence none.
+- **Progress: 119/120 (99.2%), one remaining; Part 12: 9/10. Next: Chapter 120 — Final capstone: end-to-end operational and analytical SQL project.**
