@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 108 |
-| Remaining to draft | 12 |
+| Authored and published chapters | 110 |
+| Remaining to draft | 10 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -25,7 +25,7 @@
 | 08 — Window functions | 071–080 | 10 | 0 |
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
-| 11 — Security and DBRE/SRE | 101–110 | 8 | 2 |
+| 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
 | 12 — Data engineering and dialects | 111–120 | 0 | 10 |
 
 ## Chapter status
@@ -144,6 +144,8 @@
 | [106](part-11-security-operations/106-backward-compatible-migrations-and-deployment-controls.md) | Backward-compatible migrations and deployment controls | Published | Pending | Pending |
 | [107](part-11-security-operations/107-data-quality-assertions-and-reconciliation-queries.md) | Data quality assertions and reconciliation queries | Published | Pending | Pending |
 | [108](part-11-security-operations/108-backup-recovery-and-restore-validation-concepts.md) | Backup, recovery, and restore-validation concepts | Published | Pending | Pending |
+| [109](part-11-security-operations/109-slow-query-investigation-monitoring-and-incident-runbooks.md) | Slow-query investigation, monitoring, and incident runbooks | Published | Pending | Pending |
+| [110](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md) | Lab 11 — operational SQL incident and recovery exercise | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1032,3 +1034,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub main; prerequisite links to Chapters 091, 105, 108 and lab target checked; README navigation re-fetched before tracker update. Targeted static/manual inspection covered chapter numbering, read-only transaction, PostgreSQL 18/database guard, local timeouts, synthetic samples, exact bidirectional `EXCEPT ALL` assertions, and rollback. Expected six samples, three slow, two blocking, one plan-review and zero mismatches are **calculated, not observed PostgreSQL output**. No production telemetry or actual performance benchmark was collected.
 - **Validation distinction:** authored/published yes; targeted static/manual checks yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none.
 - **Progress: 109/120 published (90.8%); 11 remaining; Part 11 9/10. Next: 110 — Lab 11: operational SQL incident and recovery exercise.**
+
+## Chapter 110 publication evidence — 2026-11-12
+
+- [Chapter 110](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md): commit `c539e987d8df6d6d5b737caf3d60c7f506db5e59`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/110-lab-11-operational-sql-incident-recovery.sql): commit `9853cc8ae82e968184daeff158abb058989eaa38`.
+- [README navigation](README.md): commit `d5e8069e6d3210fe7d7d87f260d68a9b14962873`.
+- GitHub `main` chapter and lab fetched back before tracker update. Targeted manual/static checks: numbering, expected values, synthetic-only inputs, PostgreSQL 18/database guard, read-only transaction, local timeouts, rollback, and prerequisite relative links. Corrected stale tracker headline and restored omitted Chapter 109 row. Expected: 4 query observations, 3 slow, 2 blocking, 1 plan review; 1 accepted and 2 blocked recovery candidates; 3 source/3 target records totaling 90.00 each, with 1 source-only and 1 target-only discrepancy; closure BLOCKED. **All expectations are calculated, not observed PostgreSQL output.**
+- **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL syntax/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none; no real restore or incident drill performed.
+- **Progress: 110/120 published (91.7%); 10 remaining; Part 11 complete (10/10). Next: 111 — OLTP versus OLAP query design.**
