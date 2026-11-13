@@ -224,7 +224,7 @@ Expected result:
 
 </details>
 
-**Next:** [Chapter 002 — Relational Databases and DBMS Architecture](002-relational-databases-and-dbms-architecture.md) (planned; link becomes active upon publication).
+**Next:** [Chapter 002 — Relational Databases and DBMS Architecture](002-relational-databases-and-dbms-architecture.md) (published; independent editorial review and runtime validation pending).
 
 ## References
 
