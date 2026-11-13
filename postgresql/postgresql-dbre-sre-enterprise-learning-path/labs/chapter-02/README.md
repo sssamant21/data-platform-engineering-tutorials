@@ -39,11 +39,13 @@ $state = docker inspect --type container --format '{{.State.Running}}' $id
 if ($LASTEXITCODE -ne 0 -or $state -ne 'true') { throw 'Lab container not running' }
 docker exec $id pg_isready -U postgres
 if ($LASTEXITCODE -ne 0) { throw 'PostgreSQL is not ready' }
-docker exec $id psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tAc "SELECT current_setting('server_version_num')::int / 10000, pg_is_in_recovery();"
-if ($LASTEXITCODE -ne 0) { throw 'Cannot verify PostgreSQL version and role' }
+$identityResult = @(docker exec $id psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tA -F '|' -c "SELECT current_setting('server_version_num')::int / 10000, pg_is_in_recovery();")
+if ($LASTEXITCODE -ne 0 -or $identityResult.Count -ne 1 -or $identityResult[0].Trim() -ne '17|f') {
+  throw 'PostgreSQL 17 primary identity check failed; do not execute this historical lab'
+}
 ```
 
-**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. Inspect the query output and stop unless both values match. If the container is absent, **stop**: the current Chapter 01 setup creates PostgreSQL 18 and cannot satisfy this historical PostgreSQL 17 prerequisite. Do not rerun Chapter 01 expecting a compatible PostgreSQL 17 container, and never adopt, replace, or delete an existing container to proceed. Wait for the scoped Chapter 02 PostgreSQL 18 migration and independent prerequisite review. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
+**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. The PowerShell gate requires exactly one unaligned output row, `17|f`, and stops automatically on any other version or recovery role. If the container is absent, **stop**: the current Chapter 01 setup creates PostgreSQL 18 and cannot satisfy this historical PostgreSQL 17 prerequisite. Do not rerun Chapter 01 expecting a compatible PostgreSQL 17 container, and never adopt, replace, or delete an existing container to proceed. Wait for the scoped Chapter 02 PostgreSQL 18 migration and independent prerequisite review. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
 
 ## Step 1 — Check and create the chapter database
 
