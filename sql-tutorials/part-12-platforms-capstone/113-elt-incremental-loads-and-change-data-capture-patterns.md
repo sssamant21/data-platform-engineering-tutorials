@@ -92,6 +92,6 @@ The lab uses synthetic CTEs, a read-only transaction, version/database checks, t
 5. **When advance the checkpoint?** After applying, reconciling, and durably committing the corresponding changes.
 6. **Does equal total revenue prove correctness?** No; row-level mismatches can offset.
 
-**Next:** [114 — Data warehouse SQL and analytical cost considerations](114-data-warehouse-sql-and-analytical-cost-considerations.md) (planned; link becomes active after publication).
+**Next:** 114 — Data warehouse SQL and analytical cost considerations (planned; link will be added after publication).
 
 **References:** [PostgreSQL 18 — Logical replication](https://www.postgresql.org/docs/18/logical-replication.html); [PostgreSQL 18 — Window functions](https://www.postgresql.org/docs/18/tutorial-window.html); [PostgreSQL 18 — INSERT / ON CONFLICT](https://www.postgresql.org/docs/18/sql-insert.html); [PostgreSQL 18 — Transaction isolation](https://www.postgresql.org/docs/18/transaction-iso.html).
