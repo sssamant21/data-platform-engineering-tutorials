@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 116 |
-| Remaining to draft | 4 |
+| Authored and published chapters | 117 |
+| Remaining to draft | 3 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 6 | 4 |
+| 12 — Data engineering and dialects | 111–120 | 7 | 3 |
 
 ## Chapter status
 
@@ -152,6 +152,7 @@
 | [114](part-12-platforms-capstone/114-data-warehouse-sql-and-analytical-cost-considerations.md) | Data warehouse SQL and analytical cost considerations | Published | Pending | Pending |
 | [115](part-12-platforms-capstone/115-portable-sql-versus-vendor-specific-syntax-and-testing.md) | Portable SQL versus vendor-specific syntax and testing | Published | Pending | Pending |
 | [116](part-12-platforms-capstone/116-postgresql-18-sql-lab-baseline-and-advanced-features.md) | PostgreSQL 18 SQL — lab baseline and advanced features | Published | Pending | Pending |
+| [117](part-12-platforms-capstone/117-mysql-and-mariadb-key-syntax-and-behavior-differences.md) | MySQL and MariaDB — key syntax and behavior differences | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1100,3 +1101,12 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Chapter, lab, README, and corrected prerequisite 084 were fetched back from GitHub `main` before this tracker update. Targeted static/manual checks covered synthetic CDC events, latest-event tie-breaker, delete tombstone semantics, exact-result `EXCEPT ALL` assertions, PostgreSQL version/database guards, read-only transaction, local timeouts and rollback. Calculated expectations: five events, three latest keys, two active orders, one tombstone, active amount 70.00, three generated integers, and zero assertion mismatches. **These are calculated, not observed SQL output.**
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained reproducible runtime evidence none.
 - **Progress: 116/120 (96.7%), four remaining; Part 12: 6/10. Next: Chapter 117 — MySQL and MariaDB: key syntax and behavior differences.**
+
+## Chapter 117 publication checkpoint — 2026-11-13
+
+- [Chapter 117](part-12-platforms-capstone/117-mysql-and-mariadb-key-syntax-and-behavior-differences.md): commit `2bc18f3845cbad184a58ef73392f6acf1449d89a`.
+- [Synthetic PostgreSQL 18 read-only comparison lab](labs/117-mysql-mariadb-portability-comparison.sql): commit `84be53441b156b92bbcc4d8075ad0683c4c46a40`.
+- [README navigation](README.md): commit `2b2f814f00ddee30e92381d72720b672284a746a`.
+- Chapter and lab were fetched back from GitHub `main`; prerequisite Chapter 036 and 115 links were checked and README navigation was re-fetched. Targeted static/manual reasoning checked four synthetic orders, three known amounts, one NULL, known total 120.00, two case-normalized groups totaling 60.00 each, deterministic page IDs 102 and 103, and NULL-sensitive `NOT IN` versus `NOT EXISTS`. All expected values are **calculated, not observed SQL results**.
+- **Validation:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated parser/link QA no; isolated PostgreSQL 18 runtime execution no; MySQL/MariaDB cross-engine execution no; retained reproducible runtime evidence none.
+- **Progress: 117/120 (97.5%), three remaining; Part 12: 7/10. Next: Chapter 118 — SQL Server/T-SQL and Oracle SQL: key differences.**
