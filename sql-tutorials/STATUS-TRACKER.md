@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 111 |
-| Remaining to draft | 9 |
+| Authored and published chapters | 112 |
+| Remaining to draft | 8 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 1 | 9 |
+| 12 — Data engineering and dialects | 111–120 | 2 | 8 |
 
 ## Chapter status
 
@@ -147,6 +147,7 @@
 | [109](part-11-security-operations/109-slow-query-investigation-monitoring-and-incident-runbooks.md) | Slow-query investigation, monitoring, and incident runbooks | Published | Pending | Pending |
 | [110](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md) | Lab 11 — operational SQL incident and recovery exercise | Published | Pending | Pending |
 | [111](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) | OLTP versus OLAP query design | Published | Pending | Pending |
+| [112](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md) | Star schemas, facts, dimensions, and surrogate keys | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1053,3 +1054,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - Chapter and lab fetched back from GitHub `main` after publication; prerequisite links fetched successfully. Corrected a real manual arithmetic error before tracker update: joining order headers to seven lines sums to **260.00**, not 230.00; true revenue is 170.00, so the overcount is 90.00. Removed a link to unpublished Chapter 112. Targeted static/manual inspection checked numbering, synthetic-only dataset, database/version guard, read-only transaction, transaction-local timeouts, exact reconciliation assertion and rollback. README navigation published before tracker update. Expectations are **calculated, not observed PostgreSQL output**.
 - **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; reproducible runtime evidence none.
 - **Progress: 111/120 published (92.5%); 9 remaining; Part 12 1/10. Next: 112 — Star schemas, facts, dimensions, and surrogate keys.**
+
+## Chapter 112 publication evidence — 2026-11-12
+
+- [Chapter 112](part-12-platforms-capstone/112-star-schemas-facts-dimensions-and-surrogate-keys.md): commit `5ca0c819a4e0036c431c1c09e392641a108f1574`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/112-star-schema-facts-dimensions-surrogate-keys.sql): commit `20df3a7462b37eded17eab1346ec3bc28209d3ae`.
+- [README navigation](README.md): commit `0f288093a55ac1f127b2a8f0e11c169bf013efef`.
+- Chapter and lab fetched back from GitHub `main` before tracker update. Targeted static/manual review covered grain, historical dimension mapping, read-only/version/database guards, local timeouts, expected totals, and rollback. Calculated expectations: 4 fact rows, 3 product dimension versions, 100.00 correct revenue, Basic 60.00 and Premium 40.00, incorrect business-key join 6 rows / 170.00, zero assertion mismatches. These are calculated expectations, **not observed database results**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; retained runtime evidence none.
+- **Progress: 112/120 published (93.3%); 8 remaining; Part 12 2/10. Next: 113 — ELT, incremental loads, and change data capture patterns.**
