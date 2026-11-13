@@ -242,3 +242,7 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 109. [109 — Slow-query investigation, monitoring, and incident runbooks](part-11-security-operations/109-slow-query-investigation-monitoring-and-incident-runbooks.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/109-slow-query-monitoring-incident-runbook.sql); targeted static/manual checks only. Independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime validation pending. Part 11: 9/10.
 
 110. [110 — Lab 11: operational SQL incident and recovery exercise](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/110-lab-11-operational-sql-incident-recovery.sql); targeted static/manual inspection only. Independent editorial review, comprehensive SQL syntax/link QA, and actual PostgreSQL 18 runtime execution pending. No real incident or restore tested. Part 11 complete (10/10).
+
+## Part 12 — Data Engineering, SQL Dialects & Final Projects
+
+111. [111 — OLTP versus OLAP query design](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) — published; [synthetic read-only PostgreSQL 18 lab](labs/111-oltp-versus-olap-query-design.sql); targeted static/manual reasoning only. Independent editorial review, comprehensive SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime execution pending. Part 12: 1/10.
