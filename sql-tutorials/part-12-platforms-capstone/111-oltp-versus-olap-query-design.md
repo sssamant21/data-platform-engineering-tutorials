@@ -107,7 +107,7 @@ The lab checks database name and PostgreSQL major version, starts a read-only tr
 4. **What protects OLTP performance?** Selective access, bounded transactions, indexes validated against workload, connection limits, and workload isolation.
 5. **What makes a warehouse report trustworthy?** Correct grain, reconciled values, lineage, defined freshness, and access controls.
 
-**Next:** [112 — Star schemas, facts, dimensions, and surrogate keys](112-star-schemas-facts-dimensions-and-surrogate-keys.md) (planned; link becomes active when published).
+**Next:** 112 — Star schemas, facts, dimensions, and surrogate keys (planned; no link until published).
 
 ## References
 
