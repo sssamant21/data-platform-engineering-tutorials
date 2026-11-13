@@ -45,28 +45,30 @@ if ($LASTEXITCODE -ne 0 -or $identityResult.Count -ne 1 -or $identityResult[0].T
 }
 ```
 
-**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. The PowerShell gate requires exactly one unaligned output row, `17|f`, and stops automatically on any other version or recovery role. If the container is absent, **stop**: the current Chapter 01 setup creates PostgreSQL 18 and cannot satisfy this historical PostgreSQL 17 prerequisite. Do not rerun Chapter 01 expecting a compatible PostgreSQL 17 container, and never adopt, replace, or delete an existing container to proceed. Wait for the scoped Chapter 02 PostgreSQL 18 migration and independent prerequisite review. Keep the recorded context/ID available for the rest of this lab. Subsequent `docker exec pg-fleet-lab` commands are permitted only while the verified identity remains unchanged; recheck it if the container is recreated or the Docker context changes.
+**Expected:** a verified Chapter 01 container, PostgreSQL major version `17`, and `f` for `pg_is_in_recovery()`. The PowerShell gate requires exactly one unaligned output row, `17|f`, and stops automatically on any other version or recovery role. If the container is absent, **stop**: the current Chapter 01 setup creates PostgreSQL 18 and cannot satisfy this historical PostgreSQL 17 prerequisite. Do not rerun Chapter 01 expecting a compatible PostgreSQL 17 container, and never adopt, replace, or delete an existing container to proceed. Wait for the scoped Chapter 02 PostgreSQL 18 migration and independent prerequisite review. Keep the recorded context/ID available for the rest of this lab. Keep the same PowerShell session and use `$expectedId` (the immutable ID retained from Chapter 01 creation) for every subsequent `docker exec`, not the mutable container name. If the container is recreated, the Docker context changes, or the retained identity cannot be reverified, stop; do not substitute a newly discovered ID.
 
 ## Step 1 — Check and create the chapter database
 
 Check whether it already exists:
 
 ```powershell
-docker exec pg-fleet-lab psql -U postgres -d postgres -tAc "SELECT datname FROM pg_database WHERE datname='training_ch02';"
+$existingDb = @(docker exec $expectedId psql -X -v ON_ERROR_STOP=1 -U postgres -d postgres -tA -c "SELECT datname FROM pg_database WHERE datname='training_ch02';")
+if ($LASTEXITCODE -ne 0) { throw "Database-existence check failed; do not create anything" }
+if ($existingDb.Count -gt 0) { throw "training_ch02 already exists or output was unexpected; inspect manually before proceeding" }
 ```
 
-**Expected for first use:** blank result. If output is `training_ch02`, the database already exists: inspect it before proceeding; do not drop it automatically.
+**Expected for first use:** no rows and a zero `psql` exit code. Any existing database, unexpected output, or query failure stops the procedure; inspect manually and never drop it automatically.
 
 When no database exists:
 
 ```powershell
-docker exec pg-fleet-lab createdb -U postgres training_ch02
+docker exec $expectedId createdb -U postgres training_ch02
 ```
 
 Connect:
 
 ```powershell
-docker exec -it pg-fleet-lab psql -U postgres -d training_ch02
+docker exec -it $expectedId psql -U postgres -d training_ch02
 ```
 
 Inside `psql`, verify:
