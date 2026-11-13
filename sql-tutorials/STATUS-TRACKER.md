@@ -1157,3 +1157,10 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Chapter, lab, README and Chapter 107 prerequisite were fetched back from GitHub main. Targeted manual/static reasoning checks 7 deliveries, 6 unique event IDs, 4 latest orders, 3 active orders, one tombstone, East 70.00, West 30.00 and total 100.00. **These are calculated expectations, not observed database results.**
 - **Validation distinction:** authored/published yes (120/120); targeted static/manual inspection of Chapter 120 yes; independent editorial review 0/120; comprehensive automated SQL parser/link QA not completed; actual isolated PostgreSQL 18 execution 0/120; retained reproducible runtime evidence none.
 - **Next milestone:** stop authoring new chapters; conduct repository-wide static QA for links, SQL syntax and expected outputs; triage defects; execute labs against isolated PostgreSQL 18 with captured version, command, logs, results and reviewer approvals. Publication is not certification.
+
+## Markdown local-link QA — Chapters 007–012 (2026-11-13)
+
+- [Pinned-tree smoke-test evidence](labs/validation/MARKDOWN-LINK-SMOKE-007-012-2026-11-13.md), commit `b43393f251f88853f44d475d4c90a7b54316e4d4`.
+- Git tree SHA `245d1b2c20593e6ccd45d063227bd12296ef9b6a`; 6 chapters inspected, 45 inline local-link occurrences checked, 0 missing local target paths. 26 external links observed but not tested; anchors and reference-style links not validated.
+- Curriculum publication remains **120/120**. Independent editorial review **0/120**; actual isolated PostgreSQL 18 runtime validation **0/120**. This pass is **targeted static path checking only**, not comprehensive Markdown QA or SQL execution.
+- **Next:** Chapters 013–018 local-link QA, then full Markdown-aware links/anchors, SQL syntax/expected-output and safety audit, followed by isolated PostgreSQL 18 runtime evidence.
