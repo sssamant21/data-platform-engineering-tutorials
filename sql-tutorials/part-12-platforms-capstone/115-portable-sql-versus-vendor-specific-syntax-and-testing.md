@@ -6,7 +6,7 @@
 
 ## 1. Objectives and prerequisites (0–5 minutes)
 
-After this lesson, distinguish portable relational semantics from vendor extensions; identify dialect differences in pagination, null handling, upserts, dates, identifiers and types; design a compatibility matrix; and create safe cross-platform regression tests. Prerequisites: [018 — pagination](../part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md), [036 — UPSERT and MERGE](../part-04-transactions/036-upsert-and-merge-patterns-across-sql-dialects.md), [107 — reconciliation](../part-11-security-operations/107-data-quality-assertions-and-reconciliation-queries.md), and [114 — warehouse cost](114-data-warehouse-sql-and-analytical-cost-considerations.md).
+After this lesson, distinguish portable relational semantics from vendor extensions; identify dialect differences in pagination, null handling, upserts, dates, identifiers and types; design a compatibility matrix; and create safe cross-platform regression tests. Prerequisites: [018 — pagination](../part-02-filtering/018-limit-offset-fetch-and-top-across-dialects.md), [036 — UPSERT and MERGE](../part-04-data-modification/036-upsert-and-merge-patterns-across-sql-dialects.md), [107 — reconciliation](../part-11-security-operations/107-data-quality-assertions-and-reconciliation-queries.md), and [114 — warehouse cost](114-data-warehouse-sql-and-analytical-cost-considerations.md).
 
 **Agenda:** objectives 5 min; concepts 10; worked examples 15; hands-on lab 20; troubleshooting 5; review 5.
 
