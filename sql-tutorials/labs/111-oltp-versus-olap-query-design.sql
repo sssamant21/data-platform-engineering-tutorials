@@ -36,7 +36,7 @@ WITH orders(order_id, customer_id, region, amount) AS (
 SELECT region, count(*) AS order_count, sum(amount) AS revenue
 FROM orders GROUP BY region ORDER BY region;
 
--- Exact assertions: 5 orders, 7 lines, 170.00 totals, fan-out 230.00.
+-- Exact assertions: 5 orders, 7 lines, 170.00 totals, fan-out 260.00.
 -- Line amounts: 1001 (15+25), 1002 (25), 1003 (35), 1004 (20+30), 1005 (20).
 DO $assert$
 DECLARE
@@ -60,7 +60,7 @@ BEGIN
   INTO n_orders, n_lines, header_total, line_total, naive_total;
 
   IF (n_orders,n_lines,header_total,line_total,naive_total)
-     IS DISTINCT FROM (5,7,170.00::numeric,170.00::numeric,230.00::numeric) THEN
+     IS DISTINCT FROM (5,7,170.00::numeric,170.00::numeric,260.00::numeric) THEN
     RAISE EXCEPTION 'Unexpected totals: orders %, lines %, header %, line %, joined %',
       n_orders,n_lines,header_total,line_total,naive_total;
   END IF;
@@ -82,7 +82,7 @@ BEGIN
   IF mismatch_count <> 0 THEN
     RAISE EXCEPTION 'Region reconciliation mismatch count: %', mismatch_count;
   END IF;
-  RAISE NOTICE 'Chapter 111 synthetic assertions passed: 5 orders, 7 lines, totals 170.00, naive join 230.00, 0 region mismatches';
+  RAISE NOTICE 'Chapter 111 synthetic assertions passed: 5 orders, 7 lines, totals 170.00, naive join 260.00, 0 region mismatches';
 END
 $assert$;
 
