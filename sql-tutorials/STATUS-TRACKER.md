@@ -11,6 +11,11 @@
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
+
+## QA phase — initial baseline (2026-11-13)
+
+[Targeted QA baseline, findings, corrections and acceptance plan](labs/validation/QA-BASELINE-2026-11-13.md). Initial inspection corrected stale publication wording in MASTER-TOC and Chapter 001. This is **not** comprehensive static QA or independent editorial certification. Full link/SQL checks and PostgreSQL 18 runtime execution remain pending; independently reviewed = 0 and runtime-validated = 0. Next: repository-wide file/link inventory, SQL expected-output review and isolated PostgreSQL 18 evidence collection.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
