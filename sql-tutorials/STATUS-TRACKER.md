@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 115 |
-| Remaining to draft | 5 |
+| Authored and published chapters | 116 |
+| Remaining to draft | 4 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 5 | 5 |
+| 12 — Data engineering and dialects | 111–120 | 6 | 4 |
 
 ## Chapter status
 
@@ -151,6 +151,7 @@
 | [113](part-12-platforms-capstone/113-elt-incremental-loads-and-change-data-capture-patterns.md) | ELT, incremental loads, and change data capture patterns | Published | Pending | Pending |
 | [114](part-12-platforms-capstone/114-data-warehouse-sql-and-analytical-cost-considerations.md) | Data warehouse SQL and analytical cost considerations | Published | Pending | Pending |
 | [115](part-12-platforms-capstone/115-portable-sql-versus-vendor-specific-syntax-and-testing.md) | Portable SQL versus vendor-specific syntax and testing | Published | Pending | Pending |
+| [116](part-12-platforms-capstone/116-postgresql-18-sql-lab-baseline-and-advanced-features.md) | PostgreSQL 18 SQL — lab baseline and advanced features | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1089,3 +1090,13 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Fetched chapter, lab, README and prerequisite 036 from GitHub main after publication; corrected one missing prerequisite link. Targeted manual/static inspection checked synthetic dataset, read-only transaction, database/version guard, transaction-local timeouts, rollback, and calculated assertions: 4 orders, 3 known amounts, 1 NULL, total 120.00, East 40.00, West 80.00, two matching case-insensitive filters and identical 3-ID pages. Expected values are calculated, **not observed**.
 - **Validation:** authored/published yes; targeted manual/static inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; cross-engine execution no; reproducible runtime evidence none.
 - **Progress: 115/120 (95.8%), 5 remaining; Part 12: 5/10. Next: Chapter 116 — PostgreSQL 18 SQL: lab baseline and advanced features.**
+
+
+## Chapter 116 publication checkpoint — 2026-11-13
+
+- [Chapter 116](part-12-platforms-capstone/116-postgresql-18-sql-lab-baseline-and-advanced-features.md): initial commit `b7827a277a5300f1b8599bef0d961b9ef5765627`; prerequisite-link correction `c316df335f2314b63021ac49bff11379a308a216`.
+- [Synthetic PostgreSQL 18 read-only lab](labs/116-postgresql-18-baseline-advanced-features.sql): commit `7fd152eeb977acb4c4b45ff9f4370298bf798158`.
+- [README navigation](README.md): commit `b54e5067e931107592da6cc6d990c7d6c18b6c78`.
+- Chapter, lab, README, and corrected prerequisite 084 were fetched back from GitHub `main` before this tracker update. Targeted static/manual checks covered synthetic CDC events, latest-event tie-breaker, delete tombstone semantics, exact-result `EXCEPT ALL` assertions, PostgreSQL version/database guards, read-only transaction, local timeouts and rollback. Calculated expectations: five events, three latest keys, two active orders, one tombstone, active amount 70.00, three generated integers, and zero assertion mismatches. **These are calculated, not observed SQL output.**
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive parser-based SQL/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained reproducible runtime evidence none.
+- **Progress: 116/120 (96.7%), four remaining; Part 12: 6/10. Next: Chapter 117 — MySQL and MariaDB: key syntax and behavior differences.**
