@@ -6,7 +6,7 @@
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
-By the end, you can verify the server version and disposable database, explain transaction and timeout safety, use PostgreSQL-specific `DISTINCT ON`, `FILTER`, `jsonb`, and `generate_series`, contrast these with portable alternatives, and interpret exact-result assertions. Read [003 — lab setup](../part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md), [071 — windows](../part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md), [084 — JSON](../part-09-functions-json/084-json-and-semi-structured-sql-queries.md), and [115 — dialect testing](115-portable-sql-versus-vendor-specific-syntax-and-testing.md). If any prerequisite link is unavailable, consult [the master TOC](../MASTER-TOC.md).
+By the end, you can verify the server version and disposable database, explain transaction and timeout safety, use PostgreSQL-specific `DISTINCT ON`, `FILTER`, `jsonb`, and `generate_series`, contrast these with portable alternatives, and interpret exact-result assertions. Read [003 — lab setup](../part-01-fundamentals/003-set-up-sql-lab-postgresql-18-docker-and-sql-clients.md), [071 — windows](../part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md), [084 — JSON](../part-09-functions-views-json/084-json-and-semi-structured-sql-queries.md), and [115 — dialect testing](115-portable-sql-versus-vendor-specific-syntax-and-testing.md). If any prerequisite link is unavailable, consult [the master TOC](../MASTER-TOC.md).
 
 **Agenda:** 5 minutes objectives, 10 concepts, 15 walkthrough, 20 lab, 5 troubleshooting, 5 review.
 
