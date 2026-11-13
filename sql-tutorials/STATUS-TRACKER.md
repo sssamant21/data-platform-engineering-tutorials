@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 117 |
-| Remaining to draft | 3 |
+| Authored and published chapters | 118 |
+| Remaining to draft | 2 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 7 | 3 |
+| 12 — Data engineering and dialects | 111–120 | 8 | 2 |
 
 ## Chapter status
 
@@ -153,6 +153,7 @@
 | [115](part-12-platforms-capstone/115-portable-sql-versus-vendor-specific-syntax-and-testing.md) | Portable SQL versus vendor-specific syntax and testing | Published | Pending | Pending |
 | [116](part-12-platforms-capstone/116-postgresql-18-sql-lab-baseline-and-advanced-features.md) | PostgreSQL 18 SQL — lab baseline and advanced features | Published | Pending | Pending |
 | [117](part-12-platforms-capstone/117-mysql-and-mariadb-key-syntax-and-behavior-differences.md) | MySQL and MariaDB — key syntax and behavior differences | Published | Pending | Pending |
+| [118](part-12-platforms-capstone/118-sql-server-tsql-and-oracle-sql-key-differences.md) | SQL Server/T-SQL and Oracle SQL — key differences | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1110,3 +1111,12 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Chapter and lab were fetched back from GitHub `main`; prerequisite Chapter 036 and 115 links were checked and README navigation was re-fetched. Targeted static/manual reasoning checked four synthetic orders, three known amounts, one NULL, known total 120.00, two case-normalized groups totaling 60.00 each, deterministic page IDs 102 and 103, and NULL-sensitive `NOT IN` versus `NOT EXISTS`. All expected values are **calculated, not observed SQL results**.
 - **Validation:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated parser/link QA no; isolated PostgreSQL 18 runtime execution no; MySQL/MariaDB cross-engine execution no; retained reproducible runtime evidence none.
 - **Progress: 117/120 (97.5%), three remaining; Part 12: 7/10. Next: Chapter 118 — SQL Server/T-SQL and Oracle SQL: key differences.**
+
+## Chapter 118 publication checkpoint — 2026-11-13
+
+- [Chapter 118](part-12-platforms-capstone/118-sql-server-tsql-and-oracle-sql-key-differences.md): commit `47a3a84f203af5aaa14f7ce66b9748ebd2ee890a`.
+- [Synthetic read-only PostgreSQL 18 comparison lab](labs/118-sql-server-oracle-portability-comparison.sql): commit `9c79b0f324de1c8945fcab6665fd579147e71b21`.
+- [README navigation](README.md): commit `8c1479ab99c17fc117e55f00beb5d5abdeed70be`.
+- Chapter and lab were fetched back from GitHub main before updating this tracker. Targeted manual/static reasoning checked five synthetic orders, four priced orders, one NULL, total 100.00, East 45.00, West 55.00, page IDs 203 and 204, NULL-sensitive NOT IN versus NOT EXISTS, and bidirectional EXCEPT ALL assertions. Expected outputs are **calculated, not observed**.
+- **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; SQL Server/Oracle cross-engine execution no; reproducible runtime evidence none.
+- **Progress: 118/120 (98.3%); 2 remaining; Part 12: 8/10. Next: Chapter 119 — Snowflake and BigQuery: cloud analytical SQL patterns.**
