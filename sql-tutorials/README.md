@@ -72,16 +72,6 @@
 
 33. [033 — UPDATE with safe predicates and preview queries](part-04-data-modification/033-update-with-safe-predicates-and-preview-queries.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/033-update-safe-predicates-preview.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax verification and actual PostgreSQL 18 runtime validation pending.
 
-The introductory lab is intentionally read-only and does not require permanent database objects.
-
-## How chapters are developed
-
-Read the authoritative chapter title and sequence in the Master TOC; publish one well-scoped chapter at a time under the designated part folder. Include clear explanations, executable SQL, expected results, troubleshooting, safety notes, review questions, references, and a hands-on lab. Record the publication and separately record content review and runtime validation; a published file alone is not proof of successful execution.
-
-## Important safety rule
-
-Use disposable/sandbox databases for any mutation or DDL exercises. Never run tutorial scripts against a production environment or include sensitive records. PostgreSQL 18 is the baseline, and other vendors are treated explicitly rather than assuming identical syntax.
-
 34. [034 — DELETE with safe predicates and referential implications](part-04-data-modification/034-delete-with-safe-predicates-and-referential-implications.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/034-delete-safe-predicates-referential-implications.sql); targeted static inspection only; independent editorial review, comprehensive syntax verification and actual PostgreSQL 18 runtime execution pending.
 
 35. [035 — DELETE versus TRUNCATE versus DROP](part-04-data-modification/035-delete-versus-truncate-versus-drop.md) — published; [isolated rollback-only PostgreSQL 18 lab](labs/035-delete-truncate-drop.sql); targeted static inspection only; independent editorial review, comprehensive SQL syntax verification, and actual PostgreSQL 18 runtime validation pending.
@@ -264,3 +254,16 @@ Use disposable/sandbox databases for any mutation or DDL exercises. Never run tu
 119. [119 — Snowflake and BigQuery: cloud analytical SQL patterns](part-12-platforms-capstone/119-snowflake-and-bigquery-cloud-analytical-sql-patterns.md) — published; [synthetic PostgreSQL 18 read-only comparison lab](labs/119-snowflake-bigquery-cloud-analytical-patterns.sql); targeted manual/static reasoning only. Independent editorial review, comprehensive SQL/link QA, PostgreSQL 18 runtime execution, and Snowflake/BigQuery cross-engine testing pending. Part 12: 9/10.
 
 120. [120 — Final capstone: end-to-end operational and analytical SQL project](part-12-platforms-capstone/120-final-capstone-end-to-end-operational-and-analytical-sql-project.md) — published; [synthetic read-only PostgreSQL 18 capstone lab](labs/120-final-capstone-operational-analytical-sql.sql); targeted static/manual checks only. Independent editorial review, comprehensive SQL/link QA and isolated PostgreSQL 18 runtime acceptance pending. Part 12: 10/10; curriculum authorship complete.
+
+## Curriculum notes and safety
+
+The introductory lab is intentionally read-only and does not require permanent database objects.
+
+### How chapters are developed
+
+Read the authoritative chapter title and sequence in the Master TOC; publish one well-scoped chapter at a time under the designated part folder. Include clear explanations, executable SQL, expected results, troubleshooting, safety notes, review questions, references, and a hands-on lab. Record the publication and separately record content review and runtime validation; a published file alone is not proof of successful execution.
+
+### Important safety rule
+
+Use disposable/sandbox databases for any mutation or DDL exercises. Never run tutorial scripts against a production environment or include sensitive records. PostgreSQL 18 is the baseline, and other vendors are treated explicitly rather than assuming identical syntax.
+
