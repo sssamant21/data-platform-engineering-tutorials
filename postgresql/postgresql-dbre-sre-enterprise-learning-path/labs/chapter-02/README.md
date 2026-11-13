@@ -9,6 +9,8 @@
 
 Run only against the explicitly disposable Docker container created in [Chapter 01](../chapter-01/README.md), named `pg-fleet-lab`. This lab creates a **separate** database, `training_ch02`; it does not modify the Chapter 01 `appdb` database.
 
+**Version compatibility gate (PostgreSQL 18 migration):** Chapter 01 now provisions a PostgreSQL 18 container with a new volume mounted at `/var/lib/postgresql`, while this Chapter 02 procedure still checks for `postgres:17` and the legacy `/var/lib/postgresql/data` mount. **Do not run Chapter 02 against the source-migrated Chapter 01 container or weaken the identity checks to make it pass.** The shared-container prerequisite is currently unsatisfied. Keep this lab source-only/pending until its own commands, expected results, and version-specific mount checks are migrated and reviewed for PostgreSQL 18, then execute only in an approved disposable environment. The PostgreSQL 17 steps below are retained as historical instructions, not PG18 execution evidence.
+
 Use PowerShell and Docker Desktop (Linux containers). No production credentials or customer data.
 
 Before running any SQL, retrieve the **full container ID and Docker context recorded during Chapter 01 creation**. Do not infer ownership from the container name, a successful readiness check, or the training label alone. Replace the two placeholders below with the retained values; never copy an ID from the current lookup into the expected-ID variable.
