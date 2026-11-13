@@ -64,6 +64,18 @@ if ($LASTEXITCODE -ne 0 -or $labImageId -notmatch '^sha256:[a-f0-9]{64}$') { thr
 $repoDigests = docker image inspect --format '{{json .RepoDigests}}' $labImageId
 if ($LASTEXITCODE -ne 0) { throw 'Cannot inspect image registry digests' }
 Write-Host "Image registry digests (record exact output, even if []): $repoDigests"
+# Capture volume identity at creation time, before any later cleanup decision.
+# Docker run created this named volume only because the preflight found it absent.
+$labVolumeMetadata = docker volume inspect --format '{{json .}}' $labVolume
+if ($LASTEXITCODE -ne 0 -or [string]::IsNullOrWhiteSpace(($labVolumeMetadata | Out-String))) {
+  throw 'Cannot capture creation-time volume metadata; retain resources and stop'
+}
+$labVolumeRecord = $labVolumeMetadata | ConvertFrom-Json
+if ($labVolumeRecord.Name -ne 'pg18_fleet_data' -or $labVolumeRecord.Driver -ne 'local' -or
+    [string]::IsNullOrWhiteSpace($labVolumeRecord.CreatedAt)) {
+  throw 'Unexpected volume identity or missing creation timestamp; stop without cleanup'
+}
+Write-Host 'Retain the creation-time volume inspect JSON with sanitized lab evidence; do not reconstruct ownership from its name later.'
 Write-Host "Retain for cleanup verification: context=$labContext container_id=$labId volume=$labVolume image_id=$labImageId"
 ```
 
@@ -234,7 +246,7 @@ Record PostgreSQL server/client versions, image tag, immutable local image ID, r
 
 ## Step 9 — Optional cleanup (destructive to this lab only)
 
-**Only after independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg18_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg18-fleet-lab`, `docker volume inspect pg18_fleet_data`, and `docker ps -a --filter volume=pg18_fleet_data`. If identity is uncertain, stop and retain resources. The example below is deliberately commented out. Run it **only after** the recorded full ID and context have been independently checked, and re-check the identity immediately before each operation. A container name can be reassigned; use the recorded immutable full ID instead. Never run this against an unverified context or volume.
+**Only after retaining the creation-time volume metadata captured in Step 1 and independently verifying the active Docker context matches the recorded `$labContext`, the full container ID matches `$labId`, the container has label `dbre.training=postgresql-enterprise-ch01`, its data mount is `pg18_fleet_data`, and the volume has no other consumers.** Inspect with `docker inspect pg18-fleet-lab`, `docker volume inspect pg18_fleet_data`, and `docker ps -a --filter volume=pg18_fleet_data`. If identity is uncertain, stop and retain resources. The example below is deliberately commented out. Run it **only after** the recorded full ID and context have been independently checked, and re-check the identity immediately before each operation. A container name can be reassigned; use the recorded immutable full ID instead. Never run this against an unverified context or volume.
 
 ```powershell
 # if ((docker context show) -ne $labContext -or $LASTEXITCODE -ne 0) { throw 'Docker context changed' }
