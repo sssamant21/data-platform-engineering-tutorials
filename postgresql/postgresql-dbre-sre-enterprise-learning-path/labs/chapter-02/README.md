@@ -63,13 +63,19 @@ When no database exists:
 
 ```powershell
 docker exec $expectedId createdb -U postgres training_ch02
+if ($LASTEXITCODE -ne 0) { throw 'Database creation failed; stop and inspect without retrying or dropping anything' }
 ```
+
+**Expected:** `createdb` exits with status zero. A failure must stop the lab; do not assume the database was created, retry blindly, or remove an existing database.
 
 Connect:
 
 ```powershell
-docker exec -it $expectedId psql -U postgres -d training_ch02
+docker exec -it $expectedId psql -X -v ON_ERROR_STOP=1 -U postgres -d training_ch02
+if ($LASTEXITCODE -ne 0) { throw 'Interactive psql exited with an error; do not claim lab success' }
 ```
+
+**Interactive error handling:** `ON_ERROR_STOP` is useful for scripts, but does not guarantee immediate termination on an error typed interactively. The deliberate constraint violations in Steps 5–6 are expected errors; recover using the specified savepoints. For any other SQL error, stop, capture the error and current transaction state, and do not continue or report success. The PowerShell exit check alone does not prove every interactive statement succeeded; verify the expected rows and outputs explicitly.
 
 Inside `psql`, verify:
 
