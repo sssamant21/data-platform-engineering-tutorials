@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 110 |
-| Remaining to draft | 10 |
+| Authored and published chapters | 111 |
+| Remaining to draft | 9 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 0 | 10 |
+| 12 — Data engineering and dialects | 111–120 | 1 | 9 |
 
 ## Chapter status
 
@@ -103,7 +103,7 @@
 | [069](part-07-subqueries/069-refactor-complex-sql-for-readability-and-correctness.md) | Refactor complex SQL for readability and correctness | Published | Pending | Pending |
 | [070](part-07-subqueries/070-lab-07-query-a-multi-level-organizational-hierarchy.md) | Lab 07 — query a multi-level organizational hierarchy | Published | Pending | Pending |
 | [071](part-08-window-functions/071-window-function-anatomy-over-partition-by-order-by.md) | Window-function anatomy: OVER, PARTITION BY, ORDER BY | Published | Pending | Pending |
-| 098–120 | See Master TOC | Planned | — | — |
+| 112–120 | See Master TOC | Planned | — | — |
 | [072](part-08-window-functions/072-row-number-rank-and-dense-rank.md) | ROW_NUMBER, RANK, and DENSE_RANK | Published | Pending | Pending |
 | [073](part-08-window-functions/073-lag-and-lead-for-change-analysis.md) | LAG and LEAD for change analysis | Published | Pending | Pending |
 | [074](part-08-window-functions/074-running-totals-and-cumulative-measures.md) | Running totals and cumulative measures | Published | Pending | Pending |
@@ -146,6 +146,7 @@
 | [108](part-11-security-operations/108-backup-recovery-and-restore-validation-concepts.md) | Backup, recovery, and restore-validation concepts | Published | Pending | Pending |
 | [109](part-11-security-operations/109-slow-query-investigation-monitoring-and-incident-runbooks.md) | Slow-query investigation, monitoring, and incident runbooks | Published | Pending | Pending |
 | [110](part-11-security-operations/110-lab-11-operational-sql-incident-and-recovery-exercise.md) | Lab 11 — operational SQL incident and recovery exercise | Published | Pending | Pending |
+| [111](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md) | OLTP versus OLAP query design | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1043,3 +1044,12 @@ Chapter [082](part-09-functions-views-json/082-dates-intervals-timestamps-and-ti
 - GitHub `main` chapter and lab fetched back before tracker update. Targeted manual/static checks: numbering, expected values, synthetic-only inputs, PostgreSQL 18/database guard, read-only transaction, local timeouts, rollback, and prerequisite relative links. Corrected stale tracker headline and restored omitted Chapter 109 row. Expected: 4 query observations, 3 slow, 2 blocking, 1 plan review; 1 accepted and 2 blocked recovery candidates; 3 source/3 target records totaling 90.00 each, with 1 source-only and 1 target-only discrepancy; closure BLOCKED. **All expectations are calculated, not observed PostgreSQL output.**
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL syntax/link QA no; actual isolated PostgreSQL 18 runtime execution no; retained runtime evidence none; no real restore or incident drill performed.
 - **Progress: 110/120 published (91.7%); 10 remaining; Part 11 complete (10/10). Next: 111 — OLTP versus OLAP query design.**
+
+## Chapter 111 publication evidence — 2026-11-12
+
+- [Chapter 111](part-12-platforms-capstone/111-oltp-versus-olap-query-design.md): original commit `61ef67725a1b6145f1cb0d9f18809fc7a72bd282`; arithmetic correction `a85b37c0bc6b7940f72589ddcbdbc0a0dd8dd46c`; future-link correction `347c982fed000f9bd044eeec7946c0ed5dd435bb`.
+- [Synthetic read-only PostgreSQL 18 lab](labs/111-oltp-versus-olap-query-design.sql): original commit `4d7b6bf13cb2b9490a27e98e7f45cc50dc864dd4`; arithmetic correction `db609b7232b525126a7a721e4868b07c1c20dfe9`.
+- [README navigation](README.md): commit `ac673b604df40d3a8abdf478cf618be743975e51`.
+- Chapter and lab fetched back from GitHub `main` after publication; prerequisite links fetched successfully. Corrected a real manual arithmetic error before tracker update: joining order headers to seven lines sums to **260.00**, not 230.00; true revenue is 170.00, so the overcount is 90.00. Removed a link to unpublished Chapter 112. Targeted static/manual inspection checked numbering, synthetic-only dataset, database/version guard, read-only transaction, transaction-local timeouts, exact reconciliation assertion and rollback. README navigation published before tracker update. Expectations are **calculated, not observed PostgreSQL output**.
+- **Validation distinction:** authored/published yes; targeted static/manual reasoning yes; independent editorial review no; comprehensive automated SQL parser/link QA no; actual isolated PostgreSQL 18 execution no; reproducible runtime evidence none.
+- **Progress: 111/120 published (92.5%); 9 remaining; Part 12 1/10. Next: 112 — Star schemas, facts, dimensions, and surrogate keys.**
