@@ -85,7 +85,7 @@ The lab checks database name and PostgreSQL major version, starts a read-only tr
 
 **Tasks:** (1) identify the selective order; (2) calculate order counts and revenue by region; (3) calculate order-line totals; (4) observe that the naïve header-to-line join reports inflated revenue; (5) reconcile aggregate totals to the source; (6) explain which workload should run on a transactional primary versus an analytics system.
 
-**Calculated expected results:** order 1002 = 25.00; East 3 orders / 95.00; West 2 / 75.00; five orders / 170.00; seven lines / 170.00; naïve joined-header sum **230.00** (overcount 60.00); zero reconciliation/assertion mismatches. These are reasoned expectations, **not observed PostgreSQL 18 runtime results**.
+**Calculated expected results:** order 1002 = 25.00; East 3 orders / 95.00; West 2 / 75.00; five orders / 170.00; seven lines / 170.00; naïve joined-header sum **260.00** (overcount 90.00); zero reconciliation/assertion mismatches. These are reasoned expectations, **not observed PostgreSQL 18 runtime results**.
 
 **Practice extension:** add a fictional sixth order in a scratch copy, recompute both group totals, and describe how you would protect the source OLTP system from an expensive dashboard query. Keep all changes inside the synthetic CTE.
 
