@@ -6,8 +6,8 @@
 | Metric | Count |
 |---|---:|
 | Planned chapters | 120 |
-| Authored and published chapters | 119 |
-| Remaining to draft | 1 |
+| Authored and published chapters | 120 |
+| Remaining to draft | 0 |
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
@@ -26,7 +26,7 @@
 | 09 — Functions, views, JSON | 081–090 | 10 | 0 |
 | 10 — Performance | 091–100 | 10 | 0 |
 | 11 — Security and DBRE/SRE | 101–110 | 10 | 0 |
-| 12 — Data engineering and dialects | 111–120 | 9 | 1 |
+| 12 — Data engineering and dialects | 111–120 | 10 | 0 |
 
 ## Chapter status
 
@@ -155,6 +155,7 @@
 | [117](part-12-platforms-capstone/117-mysql-and-mariadb-key-syntax-and-behavior-differences.md) | MySQL and MariaDB — key syntax and behavior differences | Published | Pending | Pending |
 | [118](part-12-platforms-capstone/118-sql-server-tsql-and-oracle-sql-key-differences.md) | SQL Server/T-SQL and Oracle SQL — key differences | Published | Pending | Pending |
 | [119](part-12-platforms-capstone/119-snowflake-and-bigquery-cloud-analytical-sql-patterns.md) | Snowflake and BigQuery — cloud analytical SQL patterns | Published | Pending | Pending |
+| [120](part-12-platforms-capstone/120-final-capstone-end-to-end-operational-and-analytical-sql-project.md) | Final capstone — end-to-end operational and analytical SQL project | Published | Pending | Pending |
 
 ## Chapter 002 publication evidence
 
@@ -1130,3 +1131,12 @@ Published chapter and synthetic read-only SQL lab on main; both fetched back suc
 - Chapter, lab and README were fetched back from GitHub `main`. Targeted manual/static checks reviewed the six synthetic events, three distinct keys, two active orders totaling 90.00, one delete tombstone, three first-day events, and exact multiset assertion design. All expected results are **calculated, not observed**.
 - **Validation distinction:** authored/published yes; targeted static/manual inspection yes; independent editorial review no; comprehensive automated SQL parser/link QA no; isolated PostgreSQL 18 runtime execution no; Snowflake/BigQuery cross-engine execution no; retained runtime evidence none.
 - **Progress: 119/120 (99.2%), one remaining; Part 12: 9/10. Next: Chapter 120 — Final capstone: end-to-end operational and analytical SQL project.**
+
+## Chapter 120 publication checkpoint — 2026-11-13
+
+- [Chapter 120](part-12-platforms-capstone/120-final-capstone-end-to-end-operational-and-analytical-sql-project.md): commit `3be15e59c01311009a9c32befb0419d71953c776`.
+- [Synthetic read-only PostgreSQL 18 capstone lab](labs/120-final-capstone-operational-analytical-sql.sql): commit `f7089d6e6b6de8a633fab08dff7c5391d36bac41`.
+- [README navigation](README.md): commit `48685a241551785707164e72734a67b23095b5be`.
+- Chapter, lab, README and Chapter 107 prerequisite were fetched back from GitHub main. Targeted manual/static reasoning checks 7 deliveries, 6 unique event IDs, 4 latest orders, 3 active orders, one tombstone, East 70.00, West 30.00 and total 100.00. **These are calculated expectations, not observed database results.**
+- **Validation distinction:** authored/published yes (120/120); targeted static/manual inspection of Chapter 120 yes; independent editorial review 0/120; comprehensive automated SQL parser/link QA not completed; actual isolated PostgreSQL 18 execution 0/120; retained reproducible runtime evidence none.
+- **Next milestone:** stop authoring new chapters; conduct repository-wide static QA for links, SQL syntax and expected outputs; triage defects; execute labs against isolated PostgreSQL 18 with captured version, command, logs, results and reviewer approvals. Publication is not certification.
