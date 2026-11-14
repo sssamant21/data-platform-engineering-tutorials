@@ -2,7 +2,7 @@
 
 **Part 05 — Joins & Relational Query Patterns** · **Duration: 60 minutes** · **Audience:** SQL beginners, data engineers, DBRE/SRE.
 
-**Prerequisites:** [Join fundamentals](041-join-fundamentals-and-relationship-cardinality.md), [INNER JOIN](042-inner-join-matched-records.md), and [outer joins](044-right-and-full-outer-join-applicability-and-portability.md). **Next:** Chapter 046 — Multi-table joins and join condition design (planned; link added after publication).
+**Prerequisites:** [Join fundamentals](041-join-fundamentals-and-relationship-cardinality.md), [INNER JOIN](042-inner-join-matched-records.md), and [outer joins](044-right-and-full-outer-join-applicability-and-portability.md). **Next:** [046 — Multi-table joins and join condition design](046-multi-table-joins-and-join-condition-design.md).
 
 ## 1. Learning objectives (5 minutes)
 
