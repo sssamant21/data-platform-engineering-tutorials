@@ -2,7 +2,7 @@
 
 **Part 05 — Joins & Relational Query Patterns** · **60 minutes** · **Audience:** beginners, data engineers, DBRE/SRE.
 
-**Prerequisite:** [042 — INNER JOIN](042-inner-join-matched-records.md). **Hands-on:** [Chapter 043 PostgreSQL 18 lab](../labs/043-left-outer-join-unmatched-rows.sql). **Next:** 044 — RIGHT and FULL OUTER JOIN (planned; see [Master TOC](../MASTER-TOC.md)).
+**Prerequisite:** [042 — INNER JOIN](042-inner-join-matched-records.md). **Hands-on:** [Chapter 043 PostgreSQL 18 lab](../labs/043-left-outer-join-unmatched-rows.sql). **Next:** [044 — RIGHT and FULL OUTER JOIN](044-right-and-full-outer-join-applicability-and-portability.md).
 
 ## 1. Outcomes and agenda (5 minutes)
 
