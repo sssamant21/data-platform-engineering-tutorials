@@ -141,7 +141,7 @@ Practice:
 5. **How can we limit work to region totals and a grand total?** `GROUPING SETS ((region),())`.
 6. **Is CUBE universally portable?** No; verify the target SQL dialect or use a `UNION ALL` fallback.
 
-**Next:** [059 — Pivoting and unpivoting — portable and vendor features (planned)](../MASTER-TOC.md).
+**Next:** [059 — Pivoting and unpivoting — portable and vendor features](059-pivoting-and-unpivoting-portable-and-vendor-features.md).
 
 ## References
 
