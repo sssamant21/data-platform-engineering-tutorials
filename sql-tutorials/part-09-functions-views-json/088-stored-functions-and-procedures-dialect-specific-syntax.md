@@ -6,7 +6,7 @@
 
 ## 1. Learning outcomes and prerequisites (0–5 minutes)
 
-By the end, distinguish a function from a procedure; recognize SQL-language and PL/pgSQL routines; call routines with correct syntax; identify volatility, privileges, transaction boundaries and side effects; and implement a safe, testable reporting transformation. Prerequisites: SELECT, expressions, aggregation, transaction basics ([038](../part-04-transactions/038-begin-commit-rollback-and-savepoint.md)) and [087](087-temporary-tables-and-intermediate-result-sets.md).
+By the end, distinguish a function from a procedure; recognize SQL-language and PL/pgSQL routines; call routines with correct syntax; identify volatility, privileges, transaction boundaries and side effects; and implement a safe, testable reporting transformation. Prerequisites: SELECT, expressions, aggregation, transaction basics ([038](../part-04-data-modification/038-begin-commit-rollback-and-savepoint.md)) and [087](087-temporary-tables-and-intermediate-result-sets.md).
 
 **Why DBRE/SRE care:** routines can hide expensive SQL, elevated privileges, long transactions, or writes. Data engineers need stable, documented interfaces and reproducible results. A function's name does not guarantee read-only behavior.
 
