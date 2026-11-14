@@ -275,17 +275,19 @@ release.
 
 ## 11. Start Read-Only
 
-During an incident, begin with inspection.
+During an incident, begin with inspection. On an **authorized Redis Software/Enterprise cluster node with `rladmin` installed**, confirm the intended cluster and the installed utility version before issuing these read-only commands. `rladmin` is a cluster administration utility, not the ordinary Redis database endpoint client.
 
-Example:
+Example (use only the subcommands supported by your installed release):
 
-``` text
+``` bash
 rladmin status
 rladmin info db
 rladmin info node
 rladmin info shard
 rladmin info proxy
 ```
+
+**Expected:** `status` describes the cluster state; each supported `info` command prints product-specific database, node, shard or proxy information. Exact fields vary by release and privileges—capture the actual output, do not assert a fixed healthy status, and mark unsupported/unauthorized subcommands as `NOT EXECUTED` or `FAIL` with evidence. These commands are for **inspection only** and must not be used as proof that the application data path is healthy.
 
 Do not begin by changing configuration.
 

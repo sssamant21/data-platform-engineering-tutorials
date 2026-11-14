@@ -133,7 +133,7 @@ the workload is primarily relational
 
 Traditional pattern:
 
-``` bash
+``` text
 SET profile:1001 '{"name":"Ava","status":"active"}'
 ```
 
@@ -145,7 +145,7 @@ Application code parses it.
 
 Conceptually:
 
-``` bash
+``` text
 JSON.SET profile:1001 $ '{"name":"Ava","status":"active"}'
 ```
 
@@ -191,6 +191,25 @@ tutorial:chapter55:profile:<id>
 
 All lab data must remain isolated from business keys.
 
+**Mandatory runtime gate:** The examples below are **interactive Redis commands**, not standalone host-shell scripts. Before attempting them, select a **disposable owner-approved Redis Software/Enterprise test database** with the RedisJSON capability enabled, verify the deployed JSON/engine version and JSONPath support (RedisJSON v2 for the `$` syntax), and connect using the sanctioned TLS endpoint, trusted CA, ACL identity, and approved short-lived secret mechanism. The V02 review does **not** execute the commands. Do not run any example against business keyspaces.
+
+A permitted interactive CLI session can be established by an operator through the approved secret-injection workflow, for example:
+
+``` bash
+: "${REDIS_HOST:?Approved Redis endpoint required}"
+: "${REDIS_PORT:?Approved Redis port required}"
+: "${REDIS_CA:?Trusted CA bundle required}"
+: "${REDISCLI_AUTH:?Secret must be injected securely for the lab}"
+test -r "$REDIS_CA" || { echo "Trusted CA missing" >&2; exit 2; }
+if [[ -n "${REDIS_USER:-}" ]]; then
+  redis-cli --tls --cacert "$REDIS_CA" --user "$REDIS_USER" -h "$REDIS_HOST" -p "$REDIS_PORT"
+else
+  redis-cli --tls --cacert "$REDIS_CA" -h "$REDIS_HOST" -p "$REDIS_PORT"
+fi
+```
+
+For an mTLS endpoint, use approved client certificate/key options, and never bypass server-certificate verification. After the session, clear any short-lived interactive credentials through the approved secret-management process. If `JSON.SET` is unavailable or ACL-restricted, record the error and **STOP**; never grant extra privileges to make the tutorial pass.
+
 ------------------------------------------------------------------------
 
 # Part 5 --- Basic Document
@@ -219,13 +238,14 @@ All lab data must remain isolated from business keys.
 
 Example:
 
-``` bash
-redis-cli JSON.SET tutorial:chapter55:profile:1001 '$' \
-'{"id":"1001","name":"Ava","status":"active","address":{"city":"Charlotte","state":"NC"},"tags":["premium","mobile"],"version":1}'
+``` redis
+JSON.SET tutorial:chapter55:profile:1001 '$'  '{"id":"1001","name":"Ava","status":"active","address":{"city":"Charlotte","state":"NC"},"tags":["premium","mobile"],"version":1}'
 ```
 
 Validate exact JSONPath syntax against the deployed RedisJSON/Redis
 version.
+
+**Expected on a previously absent isolated lab key:** `JSON.SET` returns `OK` after the JSON document is created. If the installed release does not support JSONPath or the JSON command, record an error rather than assuming `OK`. This lab is not idempotent for every subsequent read/update step; reinitialize the disposable key before reproducing expected values.
 
 ------------------------------------------------------------------------
 
@@ -233,9 +253,11 @@ version.
 
 ## 11. JSON.GET
 
-``` bash
-redis-cli JSON.GET tutorial:chapter55:profile:1001
+``` redis
+JSON.GET tutorial:chapter55:profile:1001
 ```
+
+**Expected for the initialized document:** a JSON-encoded object with `id`, `name`, `status`, `address`, `tags` and `version`; its textual field ordering is not a stable equality condition. `nil` or an ACL/module error is a failed prerequisite, not proof that a correct document was returned.
 
 Whole-document reads can be convenient but may transfer unnecessary
 data.
@@ -246,15 +268,17 @@ data.
 
 ## 12. Selective Access
 
-``` bash
-redis-cli JSON.GET tutorial:chapter55:profile:1001 '$.name'
+``` redis
+JSON.GET tutorial:chapter55:profile:1001 '$.name'
 ```
 
 and:
 
-``` bash
-redis-cli JSON.GET tutorial:chapter55:profile:1001 '$.address.city'
+``` redis
+JSON.GET tutorial:chapter55:profile:1001 '$.address.city'
 ```
+
+**Expected for the initial document:** `JSON.GET ... '$.name'` returns a JSON-encoded array of matching values, schematically `["Ava"]`; `JSON.GET ... '$.address.city'` returns `["Charlotte"]`. A whole-document `JSON.GET` returns JSON-encoded object data. Outputs are **strings containing JSON**; parsing a path query as a bare scalar instead of an array is a correctness error. An unmatched JSONPath can return an empty array.
 
 Selective reads can reduce application-side parsing and payload
 transfer.
@@ -265,9 +289,11 @@ transfer.
 
 ## 13. Update One Field
 
-``` bash
-redis-cli JSON.SET tutorial:chapter55:profile:1001 '$.status' '"inactive"'
+``` redis
+JSON.SET tutorial:chapter55:profile:1001 '$.status' '"inactive"'
 ```
+
+**Expected on the initialized JSON document:** `OK`, followed by `JSON.GET ... '$.status'` returning `["inactive"]` as serialized JSON under a JSONPath RESP2 bulk-string reply. Reusing the example on a missing document or invalid JSON path may return null/error rather than creating a root document.
 
 The application does not need to fetch, modify, and rewrite the entire
 document.
@@ -278,9 +304,11 @@ document.
 
 ## 14. Update
 
-``` bash
-redis-cli JSON.SET tutorial:chapter55:profile:1001 '$.address.city' '"Raleigh"'
+``` redis
+JSON.SET tutorial:chapter55:profile:1001 '$.address.city' '"Raleigh"'
 ```
+
+**Expected on the initialized document:** Both `JSON.SET` operations return `OK`. A subsequent JSONPath read of `$.status` yields `["inactive"]`, and `$.address.city` yields `["Raleigh"]`. If the paths or their parent objects are absent, behavior differs; do not assume every path update succeeds.
 
 Document paths should be treated as part of the application data
 contract.
@@ -295,9 +323,11 @@ Where supported, RedisJSON provides numeric operations.
 
 Example concept:
 
-``` bash
-redis-cli JSON.NUMINCRBY tutorial:chapter55:profile:1001 '$.version' 1
+``` redis
+JSON.NUMINCRBY tutorial:chapter55:profile:1001 '$.version' 1
 ```
+
+**Expected for the fresh document:** `JSON.NUMINCRBY ... '$.version' 1` increments the numeric `version` from `1` to `2`. With a JSONPath argument, a RESP2 client receives a JSON-encoded array of the resulting values (schematically `[2]`); RESP3 client representations can differ. A repeat run increments again, so `[2]` is **not** an unconditional pass criterion. Missing paths and nonnumeric values can produce null/error results depending on the command and release.
 
 This avoids a client read-modify-write cycle for simple numeric changes.
 
@@ -309,15 +339,17 @@ This avoids a client read-modify-write cycle for simple numeric changes.
 
 Example:
 
-``` bash
-redis-cli JSON.ARRAPPEND tutorial:chapter55:profile:1001 '$.tags' '"web"'
+``` redis
+JSON.ARRAPPEND tutorial:chapter55:profile:1001 '$.tags' '"web"'
 ```
 
 Validate:
 
-``` bash
-redis-cli JSON.GET tutorial:chapter55:profile:1001 '$.tags'
+``` redis
+JSON.GET tutorial:chapter55:profile:1001 '$.tags'
 ```
+
+**Expected for a fresh document:** `JSON.ARRAPPEND` returns the new array length for each matching path (schematically `[3]` with JSONPath and RESP2), and `JSON.GET` returns a JSON-encoded array containing the updated tags list (schematically `[["premium","mobile","web"]]`). Repeat execution appends another `web` entry; it is not a repeat-safe operation. Record RESP and RedisJSON version before asserting reply formatting.
 
 ------------------------------------------------------------------------
 
@@ -325,9 +357,11 @@ redis-cli JSON.GET tutorial:chapter55:profile:1001 '$.tags'
 
 ## 17. Inspect
 
-``` bash
-redis-cli JSON.ARRLEN tutorial:chapter55:profile:1001 '$.tags'
+``` redis
+JSON.ARRLEN tutorial:chapter55:profile:1001 '$.tags'
 ```
+
+**Expected:** JSONPath-based results report the length for each matched array; for the fresh document after one append, the result is `3` (schematically `[3]` for RESP2 JSONPath). The exact wire reply shape depends on RESP/client mode, and further append operations change the count.
 
 Do not allow arrays to grow without bounds.
 
@@ -339,9 +373,11 @@ Do not allow arrays to grow without bounds.
 
 Example:
 
-``` bash
-redis-cli JSON.DEL tutorial:chapter55:profile:1001 '$.address.state'
+``` redis
+JSON.DEL tutorial:chapter55:profile:1001 '$.address.state'
 ```
+
+**Expected:** Integer `1` when the initialized document contains the `state` path and it is removed, or `0` if the path is absent. This is a **real mutation**, not a diagnostic; perform it only on the owned disposable document and reinitialize before replaying the full lab.
 
 Path deletion can be safer than replacing an entire document when only
 one field must be removed.
@@ -487,8 +523,8 @@ latency
 
 For controlled keys:
 
-``` bash
-redis-cli MEMORY USAGE tutorial:chapter55:profile:1001
+``` redis
+MEMORY USAGE tutorial:chapter55:profile:1001
 ```
 
 Do not estimate Redis memory only from raw JSON text size.
@@ -560,14 +596,14 @@ Design field lifecycles accordingly.
 
 ## 29. Example
 
-``` bash
-redis-cli EXPIRE tutorial:chapter55:profile:1001 3600
+``` redis
+EXPIRE tutorial:chapter55:profile:1001 3600
 ```
 
 Validate:
 
-``` bash
-redis-cli TTL tutorial:chapter55:profile:1001
+``` redis
+TTL tutorial:chapter55:profile:1001
 ```
 
 ------------------------------------------------------------------------
@@ -985,7 +1021,7 @@ field absent
 from:
 
 ``` json
-"field": null
+{"field": null}
 ```
 
 This can affect application and Search behavior.
@@ -1773,9 +1809,11 @@ Validation:
 
 List only Chapter 55 lab keys:
 
-``` bash
-redis-cli --scan --pattern 'tutorial:chapter55:*'
+``` redis
+SCAN 0 MATCH 'tutorial:chapter55:*' COUNT 100
 ```
+
+**Expected:** A returned cursor and zero or more matching keys. Repeat with the returned cursor until it is `0`, including empty intermediate batches; COUNT is a hint, not a hard page size. Do not delete any key discovered by SCAN without verifying exact lab ownership. Never use KEYS * on production.
 
 Review matches and remove only confirmed disposable keys with `UNLINK`.
 

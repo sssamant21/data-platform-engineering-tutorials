@@ -452,6 +452,8 @@ GET tutorial:chapter10:string
 TTL tutorial:chapter10:string
 ```
 
+**Expected per-command responses:** `SET` returns `OK`; `GET` returns `foundation-acceptance`; `TTL` is a positive integer up to 900 (not a fixed 900 because time passes).
+
 Expected:
 
 ``` text
@@ -469,6 +471,8 @@ EXPIRE tutorial:chapter10:user:1001 900
 HGETALL tutorial:chapter10:user:1001
 TTL tutorial:chapter10:user:1001
 ```
+
+**Expected, when the isolated lab key does not already exist:** `HSET` returns integer `2` newly added fields; `EXPIRE` returns `1`; `HGETALL` returns the `name=Alice` and `status=active` pairs (hash field ordering is not a contract); and `TTL` returns a positive integer no greater than 900. If re-running without cleanup, `HSET` may return `0` because the fields already exist. Do not mistake a changed field ordering for incorrect data.
 
 ------------------------------------------------------------------------
 
@@ -498,6 +502,16 @@ ZADD tutorial:chapter10:leaderboard 150 user3
 EXPIRE tutorial:chapter10:leaderboard 900
 ZREVRANGE tutorial:chapter10:leaderboard 0 -1 WITHSCORES
 ```
+
+**Expected, on an absent disposable key:** Each `ZADD` returns `1` for one new member, and `EXPIRE` returns `1`. The final `ZREVRANGE ... WITHSCORES` returns descending score order:
+
+```text
+user2 200
+user3 150
+user1 100
+```
+
+This presentation is **schematic**: `redis-cli` normally displays members and scores as alternating reply elements, not necessarily paired on one line. On an existing key, the `ZADD` added-member counts can be 0; an approval-gated lab must verify the expected key state before interpreting results.
 
 ------------------------------------------------------------------------
 
@@ -566,6 +580,8 @@ Use:
 SCAN 0 MATCH 'tutorial:chapter10:*' COUNT 100
 ```
 
+**Expected:** A cursor followed by zero or more matching keys. Continue the read-only scan with the returned cursor until it reaches `0`, even if one batch is empty. `COUNT 100` is only a hint; the scan can include duplicates and is not a snapshot. Do not interpret a single response as a complete production inventory. Authorize a specific namespace and workload budget before scanning any shared database.
+
 Do not use:
 
 ``` redis
@@ -583,6 +599,8 @@ For known lab keys:
 ``` redis
 UNLINK tutorial:chapter10:string
 ```
+
+**Expected:** Integer `1` if that exact disposable lab key existed, or `0` if it had already expired or been removed. `UNLINK` removes the key from the keyspace without waiting for all memory reclamation to finish; a successful integer reply is not proof of immediate memory reduction. Confirm the key belongs to this isolated lab before running.
 
 Recreate it if needed for later exercises.
 

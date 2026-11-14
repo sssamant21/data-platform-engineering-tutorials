@@ -232,6 +232,8 @@ Verify:
 TTL tutorial:chapter04:session
 ```
 
+**Expected:** `SET` returns `OK`; an immediate `TTL` returns a positive integer up to 300 seconds. `TTL` can return `-2` if the key expires or is missing; a fixed 300 is not a stable expected value.
+
 This is preferable to:
 
 ``` redis
@@ -260,6 +262,8 @@ Check:
 ``` redis
 PTTL tutorial:chapter04:short-lived
 ```
+
+**Expected:** `SET` returns `OK`; `PTTL` returns a positive remaining lifetime no greater than 5,000 milliseconds. The observed value decreases with elapsed time, `-2` means the key no longer exists, and `-1` means it exists without an expiry.
 
 `PX` specifies milliseconds.
 
@@ -379,6 +383,8 @@ Example:
 INCR tutorial:chapter04:counter
 ```
 
+**Expected:** If the key is absent and no concurrent writer acts, `INCR` returns integer `1`, creating the key. Later increments return `2`, `3`, etc.; the expected value is **not always 1** in repeat or concurrent lab runs. `INCR` fails if the key holds a non-integer string or incompatible data type.
+
 Multiple clients can increment the same counter without implementing a
 client-side:
 
@@ -440,6 +446,8 @@ Increment a hash field:
 HSET tutorial:chapter04:metrics requests 0
 HINCRBY tutorial:chapter04:metrics requests 1
 ```
+
+**Expected on a new lab hash:** `HSET` returns integer `1` for the first field, then `HINCRBY` returns integer `1` for the incremented value. `HSET` returns `0` if the field already exists; repeated increments continue increasing the value.
 
 This avoids application-side:
 
@@ -762,10 +770,7 @@ Batch intentionally.
 Example:
 
 ``` redis
-MSET \
-  tutorial:chapter04:a 1 \
-  tutorial:chapter04:b 2 \
-  tutorial:chapter04:c 3
+MSET tutorial:chapter04:a 1 tutorial:chapter04:b 2 tutorial:chapter04:c 3
 ```
 
 Useful for multiple string writes.
@@ -909,31 +914,33 @@ Use bounded queries or incremental iteration when appropriate.
 
 ## 33. Incremental Iteration
 
-Keyspace:
+Keyspace (approved lab namespace):
 
 ``` redis
-SCAN
+SCAN 0 MATCH 'tutorial:chapter04:*' COUNT 100
 ```
 
-Hash:
+Hash (pre-create this exact lab hash):
 
 ``` redis
-HSCAN
+HSCAN tutorial:chapter04:inventory 0 COUNT 100
 ```
 
-Set:
+Set (pre-create this exact lab set):
 
 ``` redis
-SSCAN
+SSCAN tutorial:chapter04:lab-set 0 COUNT 100
 ```
 
-Sorted set:
+Sorted set (pre-create this exact lab sorted set):
 
 ``` redis
-ZSCAN
+ZSCAN tutorial:chapter04:lab-zset 0 COUNT 100
 ```
 
 These support incremental iteration.
+
+**Expected:** Each call returns a cursor and items (for `HSCAN`/`ZSCAN`, field/member and value/score pairs); an empty batch does not imply completion. Continue with the returned cursor until `0`. `COUNT` is a hint, duplicates may occur, and no scan is a transactional snapshot. The hash/set/sorted-set example keys are illustrative lab objects and need to exist with the correct types. A production keyspace scan requires approval and throttling.
 
 Example:
 
@@ -1216,6 +1223,8 @@ SET tutorial:chapter04:nx-test "second" NX EX 300
 GET tutorial:chapter04:nx-test
 ```
 
+**Expected per-command results:** The initial scoped `DEL` returns 0 or 1 depending on whether the disposable key existed. The first conditional `SET ... NX` returns `OK`; the second returns **nil/null** because the key is already present, and it does not replace the original value. Do not confuse a conditional `SET` null reply with a network failure.
+
 Expected final value:
 
 ``` text
@@ -1244,6 +1253,8 @@ Then:
 SET tutorial:chapter04:missing-xx "value" XX
 EXISTS tutorial:chapter04:missing-xx
 ```
+
+**Expected per-command results:** A conditional `SET ... XX` against a missing key returns **nil/null** (not `OK`) because no update occurred. `EXISTS` must return integer 0.
 
 Expected:
 
@@ -1324,20 +1335,16 @@ EXPIRE tutorial:chapter04:persist-test 300
 ## 51. Lab 8 --- Multi-Key Read
 
 ``` redis
-MSET \
-  tutorial:chapter04:m1 one \
-  tutorial:chapter04:m2 two \
-  tutorial:chapter04:m3 three
+MSET tutorial:chapter04:m1 one tutorial:chapter04:m2 two tutorial:chapter04:m3 three
 ```
 
 Read:
 
 ``` redis
-MGET \
-  tutorial:chapter04:m1 \
-  tutorial:chapter04:m2 \
-  tutorial:chapter04:m3
+MGET tutorial:chapter04:m1 tutorial:chapter04:m2 tutorial:chapter04:m3
 ```
+
+**Expected per-command results:** `MSET` returns `OK`, then `MGET` returns three values in the *same order as requested*. Unlike `SET ... EX`, `MSET` does not assign per-key TTLs, and a successful replacement of a pre-existing key may remove that key's previous TTL.
 
 Expected:
 
@@ -1354,6 +1361,8 @@ EXPIRE tutorial:chapter04:m1 300
 EXPIRE tutorial:chapter04:m2 300
 EXPIRE tutorial:chapter04:m3 300
 ```
+
+**Expected:** Each `EXPIRE` returns integer `1` for an existing key, and an immediate `TTL` on each key would be a positive integer up to 300 seconds. A missing key causes `EXPIRE` to return `0`; do not hide that discrepancy in lab evidence.
 
 Notice that `MSET` itself did not establish these per-key TTLs.
 
@@ -1525,12 +1534,7 @@ cursor = 0
 Create:
 
 ``` redis
-HSET tutorial:chapter04:inventory \
-  product:1001 10 \
-  product:1002 20 \
-  product:1003 30 \
-  product:1004 40 \
-  product:1005 50
+HSET tutorial:chapter04:inventory product:1001 10  product:1002 20  product:1003 30  product:1004 40  product:1005 50
 ```
 
 Then:
@@ -1538,6 +1542,8 @@ Then:
 ``` redis
 HSCAN tutorial:chapter04:inventory 0 COUNT 2
 ```
+
+**Expected:** For a previously absent hash key, `HSET` returns integer `5`. `HSCAN` returns a cursor and field/value pairs; the number returned can differ from `COUNT 2`, which is a work hint. Continue using the returned cursor until `0`, even if a particular batch is empty. An `HSCAN` over an existing but different-type key returns `WRONGTYPE`, not hash fields.
 
 Continue using returned cursors.
 

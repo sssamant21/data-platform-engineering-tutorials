@@ -273,6 +273,8 @@ SET tutorial:chapter11:item value2
 TTL tutorial:chapter11:item
 ```
 
+**Expected:** Both `SET` calls return `OK`. Immediately after the first, `TTL` is a positive integer up to 300; after the second successful `SET`, `TTL` returns `-1` because the key is persistent. If the key expired before the replacement, the later `SET` still creates a persistent value. This is intentionally a demonstration of lost expiration—do **not** use an application-owned key for the experiment.
+
 A successful normal `SET` replacement discards the previous TTL unless
 an expiration option preserving or replacing it is used.
 
@@ -282,22 +284,23 @@ This is a common production bug.
 
 ## 11. Preserve TTL
 
-Where supported:
+**Prerequisite and version gate:** The previous exercise intentionally removed this key's TTL (`TTL = -1`). `KEEPTTL` cannot restore a deadline that no longer exists. It only preserves the TTL already present **at the time of the new SET**. `SET ... KEEPTTL` requires Redis **6.0+** and a deployed Redis Software/Enterprise database supporting that engine option.
+
+Re-establish an expiration on this **owned, isolated lab key** before testing:
 
 ``` redis
-SET tutorial:chapter11:item value3 KEEPTTL
-```
-
-Then:
-
-``` redis
+EXPIRE tutorial:chapter11:item 300
 TTL tutorial:chapter11:item
+SET tutorial:chapter11:item value3 KEEPTTL
+TTL tutorial:chapter11:item
+GET tutorial:chapter11:item
 ```
 
-The existing TTL is retained.
+**Expected on the existing lab key:** `EXPIRE` returns integer `1`; the first `TTL` is positive and at most 300 seconds. `SET ... KEEPTTL` returns `OK`; the second `TTL` remains positive and is no greater than the previous value (apart from clock/observation timing), and `GET` returns `value3`. If the key has already expired, `EXPIRE` returns `0` and the experiment must be reset. If the key was persistent and `EXPIRE` was skipped, `KEEPTTL` would correctly leave the new key **persistent** (`TTL=-1`)—not demonstrate preservation of a finite TTL.
 
-Use this only when preserving the old expiration is semantically
-correct.
+Use this only when preserving the existing expiration is semantically correct; do not apply to a shared application key.
+
+Reference: [Redis SET command and KEEPTTL version history](https://redis.io/docs/latest/commands/set/).
 
 ------------------------------------------------------------------------
 
@@ -315,6 +318,10 @@ This intentionally creates a new expiration deadline.
 
 # Part 4 --- Conditional Expiration
 
+**Version gate:** The conditional `EXPIRE NX`, `XX`, `GT`, and `LT` options were introduced in Redis 7.0.0. Confirm the exact Redis engine/version and Redis Software/Enterprise compatibility before using these examples. In particular, Redis treats a persistent (non-expiring) key as having an infinite TTL when evaluating `GT`/`LT`: a `GT` request cannot extend that infinite deadline, while a suitable `LT` request can introduce a finite expiry. `EXPIRE` returns integer `1` when the expiration is applied, or `0` when it is not.
+
+Reference: [Redis EXPIRE command/version history](https://redis.io/docs/latest/commands/expire/).
+
 ## 13. `EXPIRE NX`
 
 Conceptually:
@@ -322,6 +329,8 @@ Conceptually:
 ``` redis
 EXPIRE key 300 NX
 ```
+
+**Expected (Redis 7.0+):** integer `1` when a **present, persistent** key acquires its first TTL, or `0` when the key is absent or already expiring. This `key` is schematic, not a tutorial-owned production key to mutate. Do not treat `0` as proof of a network failure; inspect `TTL` and key existence on an authorized isolated lab key.
 
 Set expiration only if the key currently has no expiry.
 
@@ -342,6 +351,8 @@ Conceptually:
 ``` redis
 EXPIRE key 300 XX
 ```
+
+**Expected (Redis 7.0+):** integer `1` if a **present, already-expiring** key has its deadline updated; integer `0` for an absent or persistent key. Unlike `NX`, `XX` does not introduce a TTL on a persistent key. Substitute only an exact owner-approved disposable test key.
 
 Apply only when an expiration already exists.
 
@@ -1146,6 +1157,8 @@ EXPIRE tutorial:chapter11:expire 120
 TTL tutorial:chapter11:expire
 ```
 
+**Expected:** `SET` returns `OK`, `EXPIRE` returns integer `1` for the existing lab key, and `TTL` reports a positive remaining duration no greater than 120 seconds. On a missing key, `EXPIRE` returns `0` and `TTL` is `-2`; capture the actual result rather than assuming a fixed 120.
+
 ------------------------------------------------------------------------
 
 ## 53. Lab 9 --- `PERSIST`
@@ -1154,6 +1167,8 @@ TTL tutorial:chapter11:expire
 PERSIST tutorial:chapter11:expire
 TTL tutorial:chapter11:expire
 ```
+
+**Expected per-command replies:** `PERSIST` returns `1` if the key exists with a TTL, then `TTL` returns `-1`. If the key was already persistent or absent, `PERSIST` returns `0`; `TTL` returns `-1` for a present persistent key or `-2` for an absent key.
 
 Expected:
 
@@ -1169,6 +1184,8 @@ Expected:
 EXPIRE tutorial:chapter11:expire 120 NX
 TTL tutorial:chapter11:expire
 ```
+
+**Expected after the preceding successful `PERSIST` step:** On Redis 7.0+ with the existing persistent lab key, `EXPIRE ... NX` returns `1` and `TTL` becomes positive up to 120 seconds. A repeat `EXPIRE ... NX` should return `0` while the key already has an expiration; a missing key also returns `0`. The `NX` option is version-gated; check the deployed Redis command support before running this example.
 
 Then test supported conditional variants in your deployed release.
 

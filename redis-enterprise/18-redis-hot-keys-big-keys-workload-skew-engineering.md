@@ -448,13 +448,13 @@ KEYS *
 
 as a production discovery technique on a large keyspace.
 
-Prefer controlled methods such as:
+Prefer controlled methods in an approved lab namespace or authorized diagnostic tooling:
 
 ``` redis
-SCAN
+SCAN 0 MATCH 'tutorial:chapter18:*' COUNT 100
 ```
 
-or approved Redis diagnostic tooling.
+**Expected:** A cursor plus zero or more matching keys; continue with the returned cursor until `0`. `COUNT` is a hint. Duplicates and empty intermediate pages are possible, and a scan is not a consistent snapshot. This is an illustrative step, not authorization to enumerate a shared production database.
 
 ------------------------------------------------------------------------
 
