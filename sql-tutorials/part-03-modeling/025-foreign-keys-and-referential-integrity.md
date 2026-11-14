@@ -1,6 +1,6 @@
 # Chapter 025 — Foreign Keys and Referential Integrity
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 024](024-primary-keys-natural-keys-surrogate-keys-and-unique.md) · [Next: 026](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 024](024-primary-keys-natural-keys-surrogate-keys-and-unique.md) · [Next: 026](026-not-null-check-default-and-constraint-validation.md)
 >
 > **Part 03 · 60 minutes · PostgreSQL 18 disposable-database lab**
 >
