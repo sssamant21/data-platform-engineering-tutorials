@@ -1,6 +1,6 @@
 # Chapter 029 — Normalization (1NF–3NF) and Intentional Denormalization
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 028](028-alter-table-rename-operations-and-safe-schema-changes.md) · [Next: 030](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 028](028-alter-table-rename-operations-and-safe-schema-changes.md) · [Next: 030](030-lab-03-design-and-build-a-normalized-operational-schema.md)
 >
 > **Part 03 · 60 minutes · PostgreSQL 18 read-only lab**
 >
