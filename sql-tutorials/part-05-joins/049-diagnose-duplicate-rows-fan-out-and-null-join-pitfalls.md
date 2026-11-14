@@ -138,4 +138,4 @@ Require a documented output grain, pre/post join row counts, source uniqueness c
 - [PostgreSQL 18 — Aggregate Functions](https://www.postgresql.org/docs/18/functions-aggregate.html)
 - [PostgreSQL 18 — Comparison Predicates](https://www.postgresql.org/docs/18/functions-comparison.html)
 - [PostgreSQL 18 — EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
-- [Master TOC](../MASTER-TOC.md): **050 — Lab 05: consolidate customers, orders, and payments**.
+- [Chapter 050 — Lab 05: consolidate customers, orders, and payments](050-lab-05-consolidate-customers-orders-and-payments.md).
