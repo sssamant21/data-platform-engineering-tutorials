@@ -1,6 +1,6 @@
 # Chapter 026 — NOT NULL, CHECK, DEFAULT, and Constraint Validation
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 025](025-foreign-keys-and-referential-integrity.md) · [Next: 027](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 025](025-foreign-keys-and-referential-integrity.md) · [Next: 027](027-identity-columns-sequences-and-generated-values.md)
 >
 > **Part 03 · 60 minutes · PostgreSQL 18 isolated lab**
 >
