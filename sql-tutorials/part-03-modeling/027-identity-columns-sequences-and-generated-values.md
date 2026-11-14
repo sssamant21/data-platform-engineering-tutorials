@@ -1,6 +1,6 @@
 # Chapter 027 — Identity Columns, Sequences, and Generated Values
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 026](026-not-null-check-default-and-constraint-validation.md) · [Next: 028](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 026](026-not-null-check-default-and-constraint-validation.md) · [Next: 028](028-alter-table-rename-operations-and-safe-schema-changes.md)
 >
 > **Part 03 · 60 minutes · PostgreSQL 18 isolated lab**
 >
