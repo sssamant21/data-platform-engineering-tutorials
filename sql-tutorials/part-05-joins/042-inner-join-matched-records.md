@@ -2,7 +2,7 @@
 
 **Part 05 — Joins & Relational Query Patterns** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBRE/SRE
 
-**Prerequisite:** [041 — Join fundamentals and relationship cardinality](041-join-fundamentals-and-relationship-cardinality.md). **Lab:** [042 — INNER JOIN matched records](../labs/042-inner-join-matched-records.sql). **Next:** 043 — LEFT OUTER JOIN (planned; see [Master TOC](../MASTER-TOC.md)).
+**Prerequisite:** [041 — Join fundamentals and relationship cardinality](041-join-fundamentals-and-relationship-cardinality.md). **Lab:** [042 — INNER JOIN matched records](../labs/042-inner-join-matched-records.sql). **Next:** [Chapter 043 — LEFT OUTER JOIN](043-left-outer-join-preserve-unmatched-left-rows.md).
 
 ## 1. Learning objectives and timing (5 minutes)
 
