@@ -1,6 +1,6 @@
 # Chapter 028 — ALTER TABLE, Rename Operations, and Safe Schema Changes
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 027](027-identity-columns-sequences-and-generated-values.md) · [Next: 029](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 027](027-identity-columns-sequences-and-generated-values.md) · [Next: 029](029-normalization-1nf-3nf-and-intentional-denormalization.md)
 >
 > **Part 03 · 60 minutes · PostgreSQL 18 isolated lab**
 >
