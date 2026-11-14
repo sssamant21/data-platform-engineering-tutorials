@@ -71,6 +71,10 @@ Resolved QA-003 by moving guidance below the complete chapter listing ([README](
 
 [Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-079-084-2026-11-14.md), commit `ee4a60a93a4ba7b2a784b4a3e2754d103ab32cff`: 52 inline local Markdown link occurrences across Chapters 079–084 resolved to 24 distinct tracked paths against non-truncated Git tree `f46834713a8b93850c3b6eca5c94a6899ac2a5d4`; zero missing targets. 24 external HTTP(S) occurrences were identified but not tested. Evidence file was fetched back from `main` before this tracker update. Cumulative targeted local-link smoke coverage: **84/120** chapters. This is not comprehensive Markdown/anchor QA, SQL correctness, expected-output or lab-safety certification. Independent editorial review: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 085–090 local-link QA, comprehensive static checks, and isolated PostgreSQL 18 runtime acceptance.
 
+## QA follow-up — Chapters 085–090 local-link smoke check (2026-11-14)
+
+[Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-085-090-2026-11-14.md), commit `81e363f244ffd3f0d2d343f1f864801269348e59`: Chapter 088 broken transaction prerequisite path corrected in commit `ca264bee67a03cd061c0a757723b31911f840833`. Across Chapters 085–090, **48** inline local Markdown links checked against complete, non-truncated Git tree `ca264bee67a03cd061c0a757723b31911f840833`; **zero missing tracked targets** after correction. **31** external HTTP(S) links identified but not tested. Evidence file fetched back and verified on `main` before tracker update. Cumulative targeted local-path smoke coverage: **90/120** chapters. This is **not** comprehensive Markdown/anchor QA, SQL correctness, expected-output verification, or lab-safety certification. Independent editorial review: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 091–096 targeted link QA, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance with reproducible evidence.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
