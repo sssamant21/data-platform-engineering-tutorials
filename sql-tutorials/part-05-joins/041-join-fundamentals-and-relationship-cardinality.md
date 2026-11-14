@@ -4,7 +4,7 @@
 
 **Prerequisites:** [Chapter 005 — keys and relationships](../part-01-fundamentals/005-records-relationships-keys-and-relational-terminology.md), [Chapter 025 — foreign keys](../part-03-modeling/025-foreign-keys-and-referential-integrity.md), and [Chapter 040 — transaction capstone](../part-04-data-modification/040-lab-04-complete-a-safe-auditable-transaction-workflow.md).
 
-**Lab:** [041 — join cardinality and fan-out (SQL)](../labs/041-join-fundamentals-cardinality.sql). **Next:** Chapter 042 — INNER JOIN (planned; consult [Master TOC](../MASTER-TOC.md)).
+**Lab:** [041 — join cardinality and fan-out (SQL)](../labs/041-join-fundamentals-cardinality.sql). **Next:** [Chapter 042 — INNER JOIN](042-inner-join-matched-records.md).
 
 ## 1. Learning objectives (5 minutes)
 
