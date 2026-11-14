@@ -63,6 +63,10 @@ Resolved QA-003 by moving guidance below the complete chapter listing ([README](
 
 [Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-067-072-2026-11-13.md), commit `26b39d9ba17f5dc8287f3dafe7e89562fbe0c78c`: 34 inline local Markdown link occurrences checked across Chapters 067–072; zero missing local targets. 24 external HTTP(S) occurrences identified but not tested. Cumulative targeted local-path smoke coverage: **72/120** chapters. This does **not** establish comprehensive Markdown/anchor QA, SQL correctness, or lab-safety certification. Independent editorial review: **0/120**; isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 073–078 targeted link QA, comprehensive Markdown/SQL review, lab safety, and isolated runtime acceptance.
 
+## QA follow-up — Chapters 073–078 local-link smoke check (2026-11-13)
+
+[Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-073-078-2026-11-13.md), commit `8f8b23789f4d59ebb017bc60e33c92f926686069`: 36 local inline Markdown link occurrences checked across Chapters 073–078 against complete Git tree `4bb55a2b8f87965dec618ee04fe43c29bfd06fda`; zero missing tracked targets. 19 external HTTP(S) occurrences identified but not tested. Six chapter and six corresponding lab files were read; lab SQL was not executed. Cumulative targeted local-path smoke coverage: **78/120** chapters. This is **not** comprehensive Markdown/anchor QA, SQL correctness, or lab-safety certification. Independent editorial review: **0/120**; isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 079–084 targeted local-link QA, comprehensive Markdown/SQL review, lab safety, and isolated runtime acceptance.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
