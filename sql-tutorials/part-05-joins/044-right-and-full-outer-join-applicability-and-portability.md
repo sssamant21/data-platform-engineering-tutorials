@@ -2,7 +2,7 @@
 
 **Part 05 — Joins & Relational Query Patterns** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBRE/SRE.
 
-**Prerequisite:** [043 — LEFT OUTER JOIN](043-left-outer-join-preserve-unmatched-left-rows.md). **Lab:** [044 PostgreSQL 18 SQL](../labs/044-right-full-outer-join.sql). **Next:** 045 — CROSS JOIN and SELF JOIN (planned in [Master TOC](../MASTER-TOC.md)).
+**Prerequisite:** [043 — LEFT OUTER JOIN](043-left-outer-join-preserve-unmatched-left-rows.md). **Lab:** [044 PostgreSQL 18 SQL](../labs/044-right-full-outer-join.sql). **Next:** [045 — CROSS JOIN and SELF JOIN](045-cross-join-and-self-join.md).
 
 ## 1. Objectives and 60-minute agenda (5 minutes)
 
