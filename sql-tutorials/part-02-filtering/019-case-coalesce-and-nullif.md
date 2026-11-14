@@ -1,6 +1,6 @@
 # Chapter 019 — CASE, COALESCE, and NULLIF
 
-> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 018](018-limit-offset-fetch-and-top-across-dialects.md) · [Next: 020 (planned)](../MASTER-TOC.md)
+> [Master TOC](../MASTER-TOC.md) · [Learning path](../README.md) · [Previous: 018](018-limit-offset-fetch-and-top-across-dialects.md) · [Next: 020 — Lab 02](020-lab-02-filter-and-rank-operational-records.md)
 >
 > **Part 02 — Filtering, Sorting & Conditional Logic** · **60 minutes** · **PostgreSQL 18 lab target**
 >
@@ -170,4 +170,4 @@ The lab is a read-only transaction with synthetic inline `VALUES`, a local state
 - [PostgreSQL 18 — Type Conversion](https://www.postgresql.org/docs/18/typeconv.html)
 - [PostgreSQL 18 — Comparison Functions and NULL](https://www.postgresql.org/docs/18/functions-comparison.html)
 - [PostgreSQL 18 — psql](https://www.postgresql.org/docs/18/app-psql.html)
-- [Next: 020 — Lab 02, filter and rank operational records (planned)](../MASTER-TOC.md)
+- [Next: 020 — Lab 02, filter and rank operational records](020-lab-02-filter-and-rank-operational-records.md)
