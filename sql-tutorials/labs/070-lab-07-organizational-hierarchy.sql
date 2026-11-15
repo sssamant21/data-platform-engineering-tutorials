@@ -78,17 +78,10 @@ WITH RECURSIVE employees(id,name,manager_id) AS (
  (SELECT COALESCE(array_agg(start_id ORDER BY start_id),ARRAY[]::integer[])=ARRAY[8,9] FROM cycle_starts) AS cycles_ok,
  (SELECT COUNT(*) FILTER (WHERE depth=0)=1 AND COUNT(*) FILTER (WHERE depth=1)=2 AND COUNT(*) FILTER (WHERE depth=2)=3 FROM reachable) AS depths_ok
 )
-SELECT * FROM checks;
--- An assertion fails with division by zero if any condition is false.
-WITH RECURSIVE employees(id,manager_id) AS (
- VALUES (1,NULL::integer),(2,1),(3,1),(4,2),(5,2),(6,3),(7,99),(8,9),(9,8)
-), reachable(id,path) AS (
- SELECT id,ARRAY[id] FROM employees WHERE id=1
- UNION ALL SELECT e.id,r.path||e.id FROM employees e JOIN reachable r ON e.manager_id=r.id
- WHERE cardinality(r.path)<11 AND NOT e.id=ANY(r.path)
-)
-SELECT 1 / CASE WHEN (SELECT COUNT(*) FROM employees)=9
- AND (SELECT COUNT(*) FROM reachable)=6
- AND (SELECT COALESCE(array_agg(id ORDER BY id),ARRAY[]::integer[]) FROM reachable)=ARRAY[1,2,3,4,5,6]
- THEN 1 ELSE 0 END AS basic_acceptance_guard;
+SELECT checks.*,
+       1 / CASE WHEN input_ok AND reachable_count_ok AND reachable_ids_ok
+                     AND subtree_ok AND orphan_ok AND unreachable_ok
+                     AND cycles_ok AND depths_ok
+                THEN 1 ELSE 0 END AS fail_closed_acceptance
+FROM checks;
 ROLLBACK;
