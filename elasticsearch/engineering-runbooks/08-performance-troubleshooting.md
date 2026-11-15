@@ -15,38 +15,37 @@ Use for search latency, high queue/rejection counts, indexing backlog or CPU/hea
 - Identify cluster UUID/name, environment, deployment/version, authorized operator, ticket and rollback owner. Do **not** assume a green cluster alone makes a change safe.
 - Use scoped, least-privilege accounts. Protect credentials; never paste passwords or personal/health data in tickets, logs or Git. Do not disable TLS verification (`-k` / `--insecure`).
 - Substitute the exact approved index/alias. Never run mutating commands with wildcard patterns, `_all`, or on system/managed indices unless an explicitly approved platform procedure requires them.
-- The commands below use curl Basic Authentication with a **username only**; curl securely prompts for the password (avoid embedding `user:password` in shell history or process arguments). The same command is available as `curl.exe` in Windows PowerShell.
+- The commands below use curl Basic Authentication with a **username only**; curl prompts for the password (avoid embedding `user:password` in shell history or process arguments). No client or CA certificate file is passed. For HTTPS, normal server certificate verification remains enabled. Windows PowerShell uses `curl.exe`.
 
 ```bash
 export ES_URL="https://es.example.internal:9200"
 export ES_USER="your-least-privilege-user"
-export ES_CA_CERT="/path/to/elastic-ca.pem"
 # Baseline: verify target cluster and authenticated identity.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/"
+  "$ES_URL/"
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/_security/_authenticate"
+  "$ES_URL/_security/_authenticate"
 ```
 
-On PowerShell: `curl.exe --basic --user "$env:ES_USER" --cacert "$env:ES_CA_CERT" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`, `$env:ES_CA_CERT`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
+On PowerShell: `curl.exe --basic --user "$env:ES_USER" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
 
 ## Prechecks / read-only diagnostics
 
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_nodes/stats/jvm,os,fs,thread_pool?pretty"
+  -X GET "$ES_URL/_nodes/stats/jvm,os,fs,thread_pool?pretty"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_nodes/stats/indices/search,indexing,merge,query_cache,fielddata?pretty"
+  -X GET "$ES_URL/_nodes/stats/indices/search,indexing,merge,query_cache,fielddata?pretty"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/thread_pool/search,write?v&h=node_name,name,active,queue,rejected,completed"
+  -X GET "$ES_URL/_cat/thread_pool/search,write?v&h=node_name,name,active,queue,rejected,completed"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_nodes/hot_threads?threads=3&ignore_idle_threads=true"
+  -X GET "$ES_URL/_nodes/hot_threads?threads=3&ignore_idle_threads=true"
 ```
 
 Compare before/after rate deltas, not cumulative counts alone; align Grafana and Kafka consumer lag, request volume, p95/p99 and recent releases.

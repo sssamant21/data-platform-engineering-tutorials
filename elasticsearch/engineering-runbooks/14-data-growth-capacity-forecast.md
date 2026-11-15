@@ -15,34 +15,33 @@ Use for weekly/monthly growth analysis, fastest-growing indices, projected disk 
 - Identify cluster UUID/name, environment, deployment/version, authorized operator, ticket and rollback owner. Do **not** assume a green cluster alone makes a change safe.
 - Use scoped, least-privilege accounts. Protect credentials; never paste passwords or personal/health data in tickets, logs or Git. Do not disable TLS verification (`-k` / `--insecure`).
 - Substitute the exact approved index/alias. Never run mutating commands with wildcard patterns, `_all`, or on system/managed indices unless an explicitly approved platform procedure requires them.
-- The commands below use curl Basic Authentication with a **username only**; curl securely prompts for the password (avoid embedding `user:password` in shell history or process arguments). The same command is available as `curl.exe` in Windows PowerShell.
+- The commands below use curl Basic Authentication with a **username only**; curl prompts for the password (avoid embedding `user:password` in shell history or process arguments). No client or CA certificate file is passed. For HTTPS, normal server certificate verification remains enabled. Windows PowerShell uses `curl.exe`.
 
 ```bash
 export ES_URL="https://es.example.internal:9200"
 export ES_USER="your-least-privilege-user"
-export ES_CA_CERT="/path/to/elastic-ca.pem"
 # Baseline: verify target cluster and authenticated identity.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/"
+  "$ES_URL/"
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/_security/_authenticate"
+  "$ES_URL/_security/_authenticate"
 ```
 
-On PowerShell: `curl.exe --basic --user "$env:ES_USER" --cacert "$env:ES_CA_CERT" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`, `$env:ES_CA_CERT`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
+On PowerShell: `curl.exe --basic --user "$env:ES_USER" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
 
 ## Prechecks / read-only diagnostics
 
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/indices?v&bytes=gb&h=index,docs.count,pri.store.size,store.size"
+  -X GET "$ES_URL/_cat/indices?v&bytes=gb&h=index,docs.count,pri.store.size,store.size"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/shards?v&bytes=gb&h=index,prirep,store,node"
+  -X GET "$ES_URL/_cat/shards?v&bytes=gb&h=index,prirep,store,node"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/allocation?v&bytes=gb&h=node,disk.used,disk.avail,disk.percent"
+  -X GET "$ES_URL/_cat/allocation?v&bytes=gb&h=node,disk.used,disk.avail,disk.percent"
 ```
 
 The APIs provide snapshots only. For daily/weekly/monthly/quarterly forecasts, collect metrics into Prometheus or a durable reporting store and compare time-stamped samples (avoid treating Elasticsearch counters as retained history).
