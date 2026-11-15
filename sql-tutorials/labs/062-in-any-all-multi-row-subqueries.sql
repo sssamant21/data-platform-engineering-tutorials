@@ -51,7 +51,7 @@ WHERE b.batch_id NOT IN (
 )
 ORDER BY b.batch_id;
 
--- Empty set semantics: expected f, t, f (even for NULL left side, ALL empty = true).
+-- Empty set semantics: four columns expected f, t, f, t (even for a NULL left operand, ALL over an empty set is TRUE).
 SELECT
   50 > ANY (SELECT v.n FROM (VALUES (40)) AS v(n) WHERE FALSE) AS any_empty,
   50 > ALL (SELECT v.n FROM (VALUES (40)) AS v(n) WHERE FALSE) AS all_empty,
