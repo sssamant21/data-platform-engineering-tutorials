@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, DBRE/SRE, application developers
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only PostgreSQL 18 lab](../labs/099-keyset-pagination-benchmark-regression.sql) · [Previous: 098](098-optimize-joins-aggregations-and-subqueries.md) · Next: 100 — Lab 10: baseline, tune, and remeasure a slow query (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only PostgreSQL 18 lab](../labs/099-keyset-pagination-benchmark-regression.sql) · [Previous: 098](098-optimize-joins-aggregations-and-subqueries.md) · [Next: 100 — Lab 10: baseline, tune, and remeasure a slow query](100-lab-10-baseline-tune-and-remeasure-a-slow-query.md)
 
 ## 1. Objectives and prerequisites (0–5 minutes)
 
