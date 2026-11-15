@@ -12,6 +12,10 @@
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
 
+## QA follow-up — Chapters 079–084 targeted SQL static review (2026-11-15)
+
+[Targeted static review evidence](labs/validation/SQL-STATIC-REVIEW-079-084-2026-11-15.md), commit `2726626cb65fdf5d352e742ba2bda70521550934`, was fetched back from `main` before this tracker update. Six existing chapters and six synthetic read-only SQL labs were inspected for expected-output arithmetic, exact-result assertions, NULL/JSON semantics, DST behavior, numeric precision, and safety boundaries. No discrepancy was identified through targeted source-based reasoning. This is **not** PostgreSQL execution, parser-based syntax validation, comprehensive Markdown link/anchor QA, or independent editorial review. Chapter 084 relies on the caller passing `psql -X -v ON_ERROR_STOP=1`; independently verify disposable environment isolation before any runtime test. Authored/published: **120/120**; previously reported targeted structural QA: **120/120**; cumulative targeted SQL static expected-output review: **84/120**; independently editorially reviewed: **0/120**; actually PostgreSQL 18 runtime-validated: **0/120**. Next: Chapters **085–090** targeted SQL review, comprehensive links/anchors and parser-based syntax QA, then isolated PostgreSQL 18 runtime acceptance with reproducible evidence.
+
 ## QA phase — initial baseline (2026-11-13)
 
 [Targeted QA baseline, findings, corrections and acceptance plan](labs/validation/QA-BASELINE-2026-11-13.md). Initial inspection corrected stale publication wording in MASTER-TOC and Chapter 001. This is **not** comprehensive static QA or independent editorial certification. Full link/SQL checks and PostgreSQL 18 runtime execution remain pending; independently reviewed = 0 and runtime-validated = 0. Next: repository-wide file/link inventory, SQL expected-output review and isolated PostgreSQL 18 evidence collection.
