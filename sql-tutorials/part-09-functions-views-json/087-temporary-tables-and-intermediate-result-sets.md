@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data** · **Duration: 60 minutes** · **Audience:** beginners, data engineers, DBRE/SRE · **Baseline:** PostgreSQL 18
 
-[Curriculum](../MASTER-TOC.md) · [Part 09 navigation](../README.md) · [Lab SQL](../labs/087-temporary-tables-intermediate-results.sql) · [Previous: 086](086-materialized-views-and-refresh-strategies.md) · **Next: 088 — Stored functions and procedures** (planned)
+[Curriculum](../MASTER-TOC.md) · [Part 09 navigation](../README.md) · [Lab SQL](../labs/087-temporary-tables-intermediate-results.sql) · [Previous: 086](086-materialized-views-and-refresh-strategies.md) · [Next: 088 — Stored functions and procedures](088-stored-functions-and-procedures-dialect-specific-syntax.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
