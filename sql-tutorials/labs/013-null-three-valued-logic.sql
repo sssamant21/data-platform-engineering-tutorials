@@ -2,6 +2,7 @@
 -- Synthetic inline VALUES; no persistent objects. Verify disposable endpoint independently.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/013-null-three-valued-logic.sql
 BEGIN READ ONLY;
+SET LOCAL statement_timeout = '10s';
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
   AND current_setting('server_version_num')::integer / 10000 = 18
   THEN 1 ELSE 0 END AS environment_assertion;
