@@ -5,6 +5,13 @@
 **Requestor & service owner:** [names/teams]  
 **Business Owner / Data Engineering / Index Owner:** [who provides requirements and approves data scope]
 
+## Validation and approval control
+
+- **Runbook identifier, revision and status:** [one of 01–15; DRAFT/STAGING VALIDATED/PRODUCTION VALIDATED]
+- **Production-readiness validation record:** [Jira link with actual executed outputs; see cluster-validation-record.md]
+- **Exact ES patch version/provider and test limitations:** [not inferred from documentation only]
+- **Approval to test vs approval to change production:** [separate tickets/authorities when required]
+
 ## Required information
 
 - Environment, cluster UUID/name, Elasticsearch version, affected index/alias names, data classification:

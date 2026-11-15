@@ -1,42 +1,53 @@
 # NN — [Operation title]
 
-> Status: Draft / Staging validated / Production approved  
-> Technical owner: [team] · Reviewers: [teams]  
-> Elasticsearch versions tested: [versions] · Last verified: [date]
+> **Status:** DRAFT / STAGING VALIDATED / PRODUCTION VALIDATED (scope-limited)  
+> **Technical owner:** [DBRE/SRE or Data Engineering] · **Reviewers:** [Application, Data, Index Owner, FinOps, Business where applicable]  
+> **Supported Elasticsearch patch versions tested:** [exact versions] · **Provider/deployment:** [self-managed or hosted]  
+> **Last executed/tested:** [UTC date] · **Jira evidence:** [ticket] · **Next review:** [date]
 
-## Trigger / purpose
+## When to use
 
-[Specific signal and impact; excluded operations]
+[Measurable trigger and business impact; conditions where this runbook must NOT be used]
 
-## Prerequisites / authorization
+## Execution guardrails
 
-[Cluster and index identity, Jira change, approvals, backups, dependencies, recovery, threshold]
+- Exact target cluster/UUID, environment, index/alias, operator permissions and maintenance approval.
+- Read-only commands may be exercised with approved account and load considerations; changes require a separate change authority decision.
+- Use Basic Auth with `curl --basic --user "$ES_USER"`; do not embed passwords or pass client/CA cert files. HTTPS must retain normal trust-store validation.
+- Prohibited emergency shortcuts and operations requiring separate escalation.
 
-## Read-only diagnosis
+## Prechecks / read-only diagnostics
 
-Use curl Basic Authentication without certificate-file arguments. For HTTPS, keep normal certificate verification enabled.
+[Baseline, expected result, interpretation, exit code and missing-permission escalation.]
 
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
   "$ES_URL/_cluster/health?pretty"
 ```
 
-## Approved execution
+## Approved procedure
 
-[Version-specific steps, reviewed request files, capacity and maintenance gates]
+1. [Approved exact request JSON + index names; version-check and change-ticket ID]
+2. [Go/no-go checklist: data backup/replay, disk headroom, service readiness, team approvals]
+3. [Step-by-step execution with task-state checks, expected output, and decision branches]
+4. [Validation and stabilization duration]
 
 ## Monitoring and stop-work conditions
 
-[Objective abort thresholds and incident escalation]
+[Concrete target thresholds and failure signals, page/escalation owner, incident transition]
 
-## Validation / evidence
+## Success criteria and evidence
 
-[Data and service correctness, before/after metrics, owners' signoff]
+[Expected outputs, data reconciliation, SLO, cluster state, snapshots/recovery, charts, owner signoff]
 
 ## Rollback / recovery
 
-[Known feasible recovery path; partial tasks/data updates]
+[Reversible settings vs irreversible changes, exact rollback test and conditions, reindex post-write handling]
 
-## References / revision history
+## Staging/production validation record
 
-[Official vendor links; tested commands; peer-review notes]
+[Link to ../VALIDATION-MATRIX.md and templates/cluster-validation-record.md; test log, exact version, review, Jira]
+
+## Official references
+
+[Version-matched Elastic/vendor links and reviewed last date]

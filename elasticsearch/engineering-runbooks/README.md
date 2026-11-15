@@ -1,5 +1,10 @@
 # Elasticsearch Engineering Runbook Library
 
+> **Canonical production-runbook candidate — documentation/static checks complete; operational validation pending.** The 15 procedures are suitable for structured engineering testing and review, but **not yet certified for execution against production**. Each runbook must be approved for the exact cluster version and deployment before being marked production validated. The leadership policy defines decision ownership; these runbooks define execution.
+
+**Start here:** [Production readiness gates](PRODUCTION-READINESS.md) · [Runbook-by-runbook validation matrix](VALIDATION-MATRIX.md) · [Cluster test evidence template](templates/cluster-validation-record.md) · [Safe staging request payloads](templates/payloads/README.md)
+
+
 **Status: DRAFT for peer review and nonproduction validation — not certified for production execution.**  
 **Related leadership policy:** Elasticsearch Governance and Operational Ownership Policy v2.1 (maintained separately).  
 **Owner:** DBRE/SRE for the runbook library; each page names its technical owner and collaborating teams.  
@@ -35,6 +40,16 @@
 ## Change-control integration
 
 Each change follows: **Request → Assess → Approve → Execute → Validate → Close**. Business Owner and Data Engineering jointly define retention; Index Owner verifies eligible cleanup; DBRE/SRE implements and operates cluster changes; Application Engineering tests user-facing search; FinOps analyzes costs. Apply the formally adopted policy to determine who can approve each action.
+
+## Validation and adoption
+
+1. Use [the validation matrix](VALIDATION-MATRIX.md) to choose a runbook and identify its read-only and controlled-test cases.
+2. Use the [test evidence record](templates/cluster-validation-record.md) for your actual cluster, saving redacted outputs and approvals in Jira. Begin with read-only diagnostics even on production; test mutations on staging or under an independently authorized maintenance change.
+3. Reconcile detected API/version differences with the exact deployed Elasticsearch patch version and provider documentation. Preserve the baseline and stop conditions.
+4. Apply the [production readiness criteria](PRODUCTION-READINESS.md) **individually**; do not mark all runbooks approved from a single smoke test.
+5. The docs-only CI workflow checks syntax and documentation conventions, not runtime API behavior, data correctness or recovery.
+
+**Quality-control automation:** `python3 scripts/validate_runbooks.py` runs the offline static gate. It does not access Elasticsearch.
 
 ## Verification status and known limitations
 
