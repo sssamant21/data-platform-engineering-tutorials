@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** analysts, data engineers, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Canonical read-only SQL lab](../labs/090-lab-09-reusable-reporting-objects.sql) · [Previous: 089](089-triggers-dynamic-sql-and-parameterization-safeguards.md) · [Next: 091 — EXPLAIN](../part-10-performance/091-read-execution-plans-with-explain.md) (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Canonical read-only SQL lab](../labs/090-lab-09-reusable-reporting-objects.sql) · [Previous: 089](089-triggers-dynamic-sql-and-parameterization-safeguards.md) · [Next: 091 — EXPLAIN](../part-10-performance/091-read-execution-plans-with-explain.md)
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
