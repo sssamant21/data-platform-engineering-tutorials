@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** analysts, data engineers, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/088-stored-functions-and-procedures.sql) · [Previous: 087](087-temporary-tables-and-intermediate-result-sets.md) · **Next: 089 — Triggers, dynamic SQL, and parameterization safeguards** (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/088-stored-functions-and-procedures.sql) · [Previous: 087](087-temporary-tables-and-intermediate-result-sets.md) · [Next: 089 — Triggers, dynamic SQL, and parameterization safeguards](089-triggers-dynamic-sql-and-parameterization-safeguards.md)
 
 ## 1. Learning outcomes and prerequisites (0–5 minutes)
 
