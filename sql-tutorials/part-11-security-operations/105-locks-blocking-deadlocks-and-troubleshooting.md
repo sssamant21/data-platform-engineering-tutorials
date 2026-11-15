@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · **PostgreSQL 18** · Beginner-friendly
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only synthetic lab](../labs/105-locks-blocking-deadlocks-troubleshooting.sql) · [Previous: 104](104-sensitive-data-protection-masking-and-audit-requirements.md) · Next: 106 — Backward-compatible migrations and deployment controls (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only synthetic lab](../labs/105-locks-blocking-deadlocks-troubleshooting.sql) · [Previous: 104](104-sensitive-data-protection-masking-and-audit-requirements.md) · [Next: 106 — Backward-compatible migrations and deployment controls](106-backward-compatible-migrations-and-deployment-controls.md)
 
 ## 1. Learning objectives and scenario (0–5 min)
 
