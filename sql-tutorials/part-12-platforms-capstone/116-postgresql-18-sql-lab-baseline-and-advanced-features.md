@@ -115,4 +115,4 @@ For a future runtime evidence record, capture container image digest, `SELECT ve
 - [PostgreSQL 18 — runtime configuration](https://www.postgresql.org/docs/18/runtime-config-client.html)
 - [Master TOC](../MASTER-TOC.md) · [Part 12 navigation](../README.md) · [Status tracker](../STATUS-TRACKER.md)
 
-**Next:** Chapter 117 — MySQL and MariaDB: key syntax and behavior differences (not yet linked as published).
+**Next:** [Chapter 117 — MySQL and MariaDB: key syntax and behavior differences](117-mysql-and-mariadb-key-syntax-and-behavior-differences.md) (published; cross-engine validation pending).
