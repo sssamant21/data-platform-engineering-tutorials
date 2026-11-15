@@ -109,7 +109,7 @@ psql -X -v ON_ERROR_STOP=1 -d sql_tutorials \
 4. **Why can idle sessions block writes?** An open transaction can retain locks until commit/rollback.
 5. **Why not terminate every blocker?** It may be doing legitimate work; termination can roll back business operations and trigger failures.
 6. **How do you prevent common row-lock deadlocks?** Consistent lock ordering, short transactions, narrow predicates, bounded retries.
-7. **What is the next lesson?** [106 — Backward-compatible migrations and deployment controls](../MASTER-TOC.md) (planned).
+7. **What is the next lesson?** [106 — Backward-compatible migrations and deployment controls](106-backward-compatible-migrations-and-deployment-controls.md).
 
 ## References
 
