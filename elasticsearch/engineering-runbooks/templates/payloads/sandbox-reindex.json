@@ -1,0 +1,8 @@
+{
+  "source": {
+    "index": "sandbox-events-v1"
+  },
+  "dest": {
+    "index": "sandbox-events-v2"
+  }
+}

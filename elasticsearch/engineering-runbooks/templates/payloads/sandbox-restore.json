@@ -1,0 +1,7 @@
+{
+  "indices": "sandbox-events-v1",
+  "rename_pattern": "(.+)",
+  "rename_replacement": "restored-$1",
+  "include_global_state": false,
+  "include_aliases": false
+}

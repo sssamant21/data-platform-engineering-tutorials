@@ -1,0 +1,19 @@
+name: Elasticsearch engineering runbook static validation
+on:
+  pull_request:
+    paths:
+      - 'elasticsearch/engineering-runbooks/**'
+      - '.github/workflows/elasticsearch-engineering-runbooks-docs.yml'
+  push:
+    paths:
+      - 'elasticsearch/engineering-runbooks/**'
+      - '.github/workflows/elasticsearch-engineering-runbooks-docs.yml'
+jobs:
+  static-validation:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate documentation and illustrative payload syntax
+        run: python3 elasticsearch/engineering-runbooks/scripts/validate_runbooks.py
