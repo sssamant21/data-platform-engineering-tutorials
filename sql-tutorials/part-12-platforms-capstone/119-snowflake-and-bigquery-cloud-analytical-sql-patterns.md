@@ -122,4 +122,4 @@ The companion [Chapter 119 SQL lab](../labs/119-snowflake-bigquery-cloud-analyti
 - [PostgreSQL 18 window functions](https://www.postgresql.org/docs/18/tutorial-window.html)
 - [Master TOC](../MASTER-TOC.md) · [Part 12 navigation](../README.md) · [Status tracker](../STATUS-TRACKER.md)
 
-**Next:** Chapter 120 — Final Capstone: End-to-End Operational and Analytical SQL Project (planned; link added when published).
+**Next:** [Chapter 120 — Final capstone: end-to-end operational and analytical SQL project](120-final-capstone-end-to-end-operational-and-analytical-sql-project.md) (published; runtime acceptance pending).
