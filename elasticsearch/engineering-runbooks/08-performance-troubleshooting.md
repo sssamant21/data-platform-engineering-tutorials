@@ -59,6 +59,22 @@ Compare before/after rate deltas, not cumulative counts alone; align Grafana and
 5. Implement approved low-risk query/pipeline fixes first; treat infrastructure configuration changes as separate reviewed changes.
 6. Repeat representative load test and monitor for regression.
 
+## Query and infrastructure triage protocol
+**Baseline before changing settings.** Record request fingerprint and sampling window, search rate/concurrency, p50/p95/p99 client latency, timeouts/retries, shard count, response size, routing, indexing throughput and data growth. Pair application timing with Elasticsearch query/fetch phase timing; do not attribute user-facing delay to Elasticsearch without comparison.
+
+**Read-only diagnostic API calls.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes/stats/indices,jvm,thread_pool,breaker?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/thread_pool/search?v&h=node_name,name,active,queue,rejected"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards?v&h=index,shard,prirep,state,store,node"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_tasks?actions=*search&detailed=true&pretty"
+```
+
+**Branch by finding.** High client latency with low Elasticsearch took: investigate application/network/serialization. Large query/fetch or many target shards: review routing, result size, sorting, aggregations and mapping; Application Engineering owns query change with DBRE review. Search rejections: identify per-node queue pressure and traffic bursts; inspect client retry/backoff. Merge/index pressure: Data Engineering examines bulk batch/refresh/ingestion schedules; DBRE checks disk and CPU. Breaker/GC: investigate high-cardinality aggregations, fielddata and heap before any resource upgrade.
+**Controlled diagnostic profiling.** In staging only, an approved representative query can include `profile: true`; profiling adds overhead and the measured `took` is not a production latency benchmark. Store the query fingerprint and redacted profile output in Jira, not regulated data.
+**Acceptance.** Same workload/query distribution, index size and concurrency before and after; p95/p99 and error/rejection rates meet agreed thresholds, correctness matches business expectations, and no shift of harm to ingestion or another tenant. Fixes must have application/Data Engineering owners and rollback triggers; avoid speculative cache clear or blanket increased timeouts.
+
 ## Stop / escalate
 
 Stop if experimentation increases production load, repeated circuit breakers occur, or cluster stability degrades; use incident process.

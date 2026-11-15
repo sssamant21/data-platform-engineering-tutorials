@@ -54,6 +54,22 @@ Collect 2+ weeks of peak/trend CPU, heap/GC, disk, latency, search/index QPS, qu
 4. Validate node joins/shard allocation/recovery, end-to-end search/index behavior, metrics and rollback readiness.
 5. Maintain enhanced monitoring across a defined stabilization period and only then record savings.
 
+## Capacity baseline, staged rollout and service acceptance
+**Establish workload equivalence.** The baseline must cover peak and typical search QPS, concurrent queries, indexing events/sec, bulk load, p95/p99 search latency, heap/GC, CPU, disk IOPS, network, index size, primary/replica count and shard recovery time. Include peak-hour and failure-domain test evidence; low average CPU alone is not a sizing argument.
+
+**Read-only before/after collection.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes?filter_path=nodes.*.name,nodes.*.roles,nodes.*.os.allocated_processors,nodes.*.jvm.mem.heap_max_in_bytes&pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes/stats/os,process,jvm,fs,thread_pool?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb"
+```
+
+**Change request.** For each node role, state current/proposed size, node count/AZ distribution, traffic assumptions, monthly cloud price impact, extra rollback capacity, provider orchestration steps, expected service impact and 24-hour/7-day monitoring owner. Validate that coordinating nodes can handle concurrent fan-out and response serialization, not just data-node search CPU.
+**Execution order.** Follow deployment-provider approved resize order and one bounded change at a time; wait for recoveries and service tests before proceeding. A hosted deployment resize is **not** performed through arbitrary `_cluster/settings` commands. Use the provider's capacity rollback method; restoring a previous size may not be instantaneous or possible without sufficient availability.
+**Go/no-go and postchange.** Define objective thresholds in the Jira ticket before execution (search p95/p99, 429/5xx, node CPU, heap/GC, disk headroom, indexing lag and shard availability). DBRE leads go/no-go, Application validates functional and latency SLOs, Data Engineering validates data freshness, FinOps checks realized savings only after stable service.
+
 ## Stop / escalate
 
 Abort on persistent rejects, sustained high JVM/GC, unassigned primaries, disk headroom loss, or p95/p99 above agreed SLO.

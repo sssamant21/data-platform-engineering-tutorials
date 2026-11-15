@@ -62,6 +62,24 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 4. Check `GET /approved-index-000001/_ilm/explain`; verify which indices and creation/origination dates make deletion eligible.
 5. Execute staging pilot, then monitor lifecycle steps, errors and unexpected candidate changes. A policy update may affect already-managed indices depending on phase behavior.
 
+## Approved retention decision record and ILM verification
+**Retention is a Data Engineering + Business Owner decision**, including business utility and historical update requirements. Legal/Privacy/Compliance reviews regulated data or legal holds. The Index Owner maps approved retention to each covered index and confirms cleanup eligibility; DBRE/SRE implements version-matched ILM policies and observes execution. FinOps assesses cost, but does not authorize reducing a retention period.
+
+**Review effective lifecycle settings before any change (read-only).**
+
+```bash
+export ES_INDEX="approved-index-000001"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_INDEX/_ilm/explain?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_INDEX/_settings?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_ilm/status?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_ilm/policy/approved-policy-name?pretty"
+```
+
+**Retention contract.** Jira must record exact dataset/business owner, minimum and maximum storage duration, effective dates, exception/hold rules, authoritative source, delete authorization, indices/data streams affected, expected storage growth and whether old data may receive late changes. Distinguish *business data expiry* from index age: ILM age rules and rollover behavior may not match every record's age.
+**Change gate.** Stage an approved policy JSON and document the before/after policy diff. Test representative age ranges, lifecycle phase transitions, attached policy names and all exclusions in staging. A policy update can affect existing managed indices; do not assume it applies only to new ones.
+**Success.** Every intended index reports the expected policy and phase, deletion eligibility matches approved retention, holds remain excluded, ongoing historical updates are handled and monthly retention compliance is reported. An index already deleted cannot be undeleted by reverting a policy; recovery is a separate approved restore.
+**Exception procedure.** Stop the rollout for ambiguous retention ownership, uncertain ILM origination dates, active legal hold, changed source-of-truth requirements or untested rollover aliases.
+
 ## Stop / escalate
 
 Stop if hold exclusions, update-to-old-index requirements, restore windows or approved business retention cannot be demonstrated. Never use a cost-saving objective to override retention approval.

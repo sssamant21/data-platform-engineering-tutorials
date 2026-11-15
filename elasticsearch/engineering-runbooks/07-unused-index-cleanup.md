@@ -59,6 +59,23 @@ An index may be eligible under an agreed policy (e.g., no alias + age), but the 
 5. Perform scoped deletion **only via the approved automation**. Do not use ad hoc wildcard `DELETE` commands.
 6. Record completed/failed deletions and after-stabilization disk measurements.
 
+## Cleanup eligibility and execution control
+**Governance boundary.** Index Owner verifies the exact deletion list and authorizes eligible indices under the Data Engineering + Business Owner retention policy. DBRE/SRE owns technical design, automation, scheduling, guardrails and post-run reporting. Data Engineering verifies ingestion/reindex dependencies; Application Engineering verifies downstream use when required.
+
+**Read-only inventory for a dry run.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/indices?v&h=health,index,docs.count,store.size,creation.date.string"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/aliases?v&h=alias,index,is_write_index"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb&h=node,disk.used,disk.avail,disk.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_tasks?detailed=true&pretty"
+```
+
+**Policy-driven candidate logic.** Apply only the formally approved environment rule; for the staging pilot this was unaliased and older than seven days, excluding system/managed indices. If approved criteria also include zero-document indices, that rule must be separately documented (zero documents can occur on an intentionally reserved index). Dry-run results are candidates, **not automatic deletion authorization**. Detect creation time, aliases, ILM owner, active writes/reindex, migration jobs, legal holds and existing exceptions. Fail closed on missing API data.
+**Automation safety contract.** Use an explicit allowlist and immutable candidate manifest with ticket ID, run ID, checked timestamp, approver and checksum; never permit delete-by-wildcard. Refresh eligibility immediately before each deletion and abort on alias addition, writing/reindexing, scope drift, dry-run/report mismatch or missing approval. Protect system indices (including hidden/managed indices where supported), use least-privilege credentials and cap indices/GB per batch. Run initially in dry-run mode, then require a separate approved enablement.
+**Required run report.** Capture discovered/eligible/skipped/deleted/failed index IDs and reasons, per-node and total disk before/after, reclaimable vs actually reclaimed GB, index growth during run, rollback/snapshot evidence and exception/escalation tickets. Note that merging/deletion timing can delay observable free-space gains.
+**Stop.** Unexpected candidate changes, recent writes, concurrent alias cutover, retained data hold or stale prechecks require halt and Index Owner reconfirmation. Deletion is not intrinsically reversible.
+
 ## Stop / escalate
 
 Disable execution and escalate on unexpected candidate volume, active writes, missing approval, data hold, snapshot gap, mapping/alias swap in progress, or abnormal cluster pressure.
