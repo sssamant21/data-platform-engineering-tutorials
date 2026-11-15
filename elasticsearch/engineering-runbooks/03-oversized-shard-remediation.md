@@ -15,38 +15,37 @@ Use when shard size causes unacceptable recovery, merges, disk I/O, query latenc
 - Identify cluster UUID/name, environment, deployment/version, authorized operator, ticket and rollback owner. Do **not** assume a green cluster alone makes a change safe.
 - Use scoped, least-privilege accounts. Protect credentials; never paste passwords or personal/health data in tickets, logs or Git. Do not disable TLS verification (`-k` / `--insecure`).
 - Substitute the exact approved index/alias. Never run mutating commands with wildcard patterns, `_all`, or on system/managed indices unless an explicitly approved platform procedure requires them.
-- The commands below use curl Basic Authentication with a **username only**; curl securely prompts for the password (avoid embedding `user:password` in shell history or process arguments). The same command is available as `curl.exe` in Windows PowerShell.
+- The commands below use curl Basic Authentication with a **username only**; curl prompts for the password (avoid embedding `user:password` in shell history or process arguments). No client or CA certificate file is passed. For HTTPS, normal server certificate verification remains enabled. Windows PowerShell uses `curl.exe`.
 
 ```bash
 export ES_URL="https://es.example.internal:9200"
 export ES_USER="your-least-privilege-user"
-export ES_CA_CERT="/path/to/elastic-ca.pem"
 # Baseline: verify target cluster and authenticated identity.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/"
+  "$ES_URL/"
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/_security/_authenticate"
+  "$ES_URL/_security/_authenticate"
 ```
 
-On PowerShell: `curl.exe --basic --user "$env:ES_USER" --cacert "$env:ES_CA_CERT" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`, `$env:ES_CA_CERT`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
+On PowerShell: `curl.exe --basic --user "$env:ES_USER" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
 
 ## Prechecks / read-only diagnostics
 
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/shards?v&bytes=gb&h=index,shard,prirep,state,store,node"
+  -X GET "$ES_URL/_cat/shards?v&bytes=gb&h=index,shard,prirep,state,store,node"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/indices?v&bytes=gb&h=index,pri,rep,docs.count,pri.store.size"
+  -X GET "$ES_URL/_cat/indices?v&bytes=gb&h=index,pri,rep,docs.count,pri.store.size"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_nodes/stats/indices/merge?pretty"
+  -X GET "$ES_URL/_nodes/stats/indices/merge?pretty"
 ```
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cluster/health?pretty"
+  -X GET "$ES_URL/_cluster/health?pretty"
 ```
 
 Review 10–50 GB as a **starting guideline**, not an absolute limit. Validate candidate primary-shard count against routing, data growth, search fan-out, and hardware. Alternative actions such as rollover may be safer for write-heavy time-series data.
@@ -60,7 +59,7 @@ Review 10–50 GB as a **starting guideline**, not an absolute limit. Validate c
 ```bash
 # AFTER approval only; approved-destination.json holds the exact mappings/settings.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
- --cacert "$ES_CA_CERT" -X PUT "$ES_URL/approved-destination-v2" \
+ -X PUT "$ES_URL/approved-destination-v2" \
  -H 'Content-Type: application/json' --data-binary @approved-destination.json
 ```
 
@@ -69,7 +68,7 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 ```bash
 # approved-reindex.json must define source.index and dest.index; reviewed by Data Engineering.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
- --cacert "$ES_CA_CERT" -X POST \
+ -X POST \
  "$ES_URL/_reindex?wait_for_completion=false&requests_per_second=100" \
  -H 'Content-Type: application/json' --data-binary @approved-reindex.json
 ```
