@@ -54,6 +54,23 @@ REST endpoints do **not** expose authoritative cloud billing data. Combine them 
 4. Rank candidate changes by estimated savings, complexity, risk, performance impact and recovery cost; include temporary double-storage for reindex.
 5. Execute optimizations only via reviewed DBRE change runbook, then verify service SLOs and realized savings after bill-cycle reconciliation.
 
+## Cost governance decision and calculation
+**Scope the bill.** Identify provider/deployment, environment, storage class/tier, compute, disk, snapshots, network/egress, support/license, managed-service premiums and temporary migration or reindex capacity. Separate committed versus on-demand charges and include allocation tags for service and business owner. Cloud provider invoice may not reveal cost per index directly; label any index-level estimate as allocated, not metered.
+
+**Read-only Elasticsearch utilization inputs.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/nodes?v&h=name,role,cpu,heap.percent,ram.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/indices?v&bytes=gb&h=index,pri,rep,docs.count,pri.store.size,store.size"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb&h=node,disk.used,disk.avail,disk.total,disk.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+```
+
+**Cost and value metrics.** Report monthly actual vs forecast vs budget, annualized cost, month-over-month variance, reserved capacity utilization, storage cost/TB-month, compute cost per data node-hour, and *allocated* cost per million searches or million indexed documents. Denominators need consistent environment and time windows; cost per index is estimated by documented allocation logic, not an Elasticsearch-provided native measurement.
+**Optimization portfolio.** Right-size roles only after measuring p95/p99 latency, indexing throughput and node failure headroom; reduce duplicate/unused indices only under approved retention and Index Owner cleanup authorization; improve shard sizing only if measured benefits outweigh reindexing risk and temporary double-storage costs; tune retention only with Business Owner + Data Engineering authorization. Account for cost of change, labor, migration time and data-recovery guarantees.
+**Approval and verification.** FinOps provides economic assessment and anomaly alerts; designated budget owner approves incremental spending beyond delegated limits; DBRE/SRE authorizes technical readiness and executes changes; Application/Data Engineering validate SLO and data impact. Measure realized savings from reconciled cloud bills after the change, not from theoretical instance list pricing.
+**No-go.** Do not reduce replica durability, legal/business retention, data privacy protections or recovery headroom solely to meet budget. If SLOs regress, apply the approved technical rollback and update forecast and accrued costs.
+
 ## Stop / escalate
 
 Stop if proposed savings compromise approved reliability, data retention, security or recovery requirements. No unilateral FinOps reduction of production capacity.

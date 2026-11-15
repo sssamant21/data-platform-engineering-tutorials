@@ -58,6 +58,22 @@ Look at time trends of heap and GC, node roles, circuit-breaker events, mapping 
 4. DBRE evaluates node sizing and JVM settings using the supported deployment guidance; use separate approved capacity change.
 5. Validate heap/GC, rejects, search p95/p99 and node stability.
 
+## Heap pressure and cache evidence
+**Do not treat cache occupancy as a standalone memory leak.** JVM heap pressure must be correlated with old-generation usage, GC duration, circuit-breaker trips, shard count, fielddata, query/request caches, large aggregations and workload changes. Persistent fielddata evictions or query-cache churn can signal expensive query/mapping patterns; large cache size alone does not prove a problem.
+
+**Read-only JVM and indices cache metrics.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes/stats/jvm,breaker?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes/stats/indices/fielddata,query_cache,request_cache?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/nodes?v&h=name,cpu,heap.percent,ram.percent,node.role"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/thread_pool/search?v&h=node_name,active,queue,rejected"
+```
+
+**Interpretation.** High GC pauses and growing old-gen heap with a new query workload: Application Engineering investigates aggregation, `size`, nested/high-cardinality fields and routing. Fielddata pressure on `text`: Data Engineering reviews `keyword` mapping or redesigned query semantics (requires reindex for incompatible mappings). Indexing pressure: inspect bulk concurrency, refresh policy and merge activity; DBRE checks sizing and shard distribution. Repeated circuit breakers or OOM require incident escalation.
+**Change policy.** Avoid `fielddata=true` on analyzed text as a quick workaround, arbitrary heap overrides, disabling circuit breakers or cache clearing as a first response. Any change to JVM or hardware sizing requires a provider-supported, version-matched maintenance procedure and before/after SLO evidence.
+**Acceptance.** Record per-node heap used/max, GC duration deltas, breaker trips, thread-pool rejection deltas, fielddata/query cache evictions over equivalent intervals, p95/p99 and indexing freshness. Demonstrate sustained improvement under comparable traffic, not just a temporary cache flush.
+
 ## Stop / escalate
 
 Stop on repeated OOM, circuit-breaker storm or node loss; declare incident. Avoid clearing caches as a routine fix (can increase load) and never tune JVM blindly.

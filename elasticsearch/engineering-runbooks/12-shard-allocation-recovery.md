@@ -58,6 +58,36 @@ Review disk watermarks, available data roles, tier allocation filters, delayed a
 4. Monitor recovery and avoid concurrent high-throughput reindex/merge jobs.
 5. If no valid copy remains, escalate to snapshot restore and data-loss assessment.
 
+## Exact-shard allocation investigation
+**Distinguish red (primary unavailable) from yellow (replica unavailable)** before choosing remediation. Determine whether an active healthy copy exists elsewhere, whether allocation deciders reject the shard, and whether the cause is node loss, tier filter, awareness, disk headroom, recovery throttling or a failed index operation. `/_cluster/allocation/explain` may return information about a different unassigned shard if called without a body; target the exact shard when evidence is needed.
+
+**Read-only inventory.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards?v&h=index,shard,prirep,state,unassigned.reason,node"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/recovery?v&active_only=true"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/settings?include_defaults=true&pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb"
+```
+
+**Target an identified unassigned shard (diagnostic POST, no cluster mutation).** Edit the JSON with a shard/index from the `/_cat/shards` output; example `primary:false` is for an unassigned replica only.
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" \
+  -X POST "$ES_URL/_cluster/allocation/explain?pretty" \
+  -H "Content-Type: application/json" \
+  --data-binary @approved-allocation-explain.json
+```
+
+Example content for `approved-allocation-explain.json` (replace exact values after inspection):
+
+```json
+{ "index": "approved-index", "shard": 0, "primary": false }
+```
+
+**Decision tree.** If disk decider rejects placement, follow disk-capacity procedure. If tier/awareness rules prevent placement, request a topology review; never silently weaken zone redundancy. If the only copy was lost, declare potential data-loss incident and use snapshot recovery. If relocation is already progressing, avoid concurrent forced reroutes. Force-allocating a stale primary with data-loss acceptance is intentionally **excluded** from this runbook and requires a separate exceptional recovery authorization.
+**Closure.** Re-run exact-shard state, capture previously blocking deciders, confirm intended number of active replicas for the protected indices, application availability and complete recovery; document exceptions still open and their risk owners.
+
 ## Stop / escalate
 
 Stop on data-loss risk, lack of valid shard copies, rapidly growing unassigned primary count or unexpected cluster state change.

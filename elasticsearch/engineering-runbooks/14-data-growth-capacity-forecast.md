@@ -54,6 +54,22 @@ The APIs provide snapshots only. For daily/weekly/monthly/quarterly forecasts, c
 4. Business Owner and Data Engineering verify retention assumptions; FinOps provides cloud price assumptions and variance.
 5. Produce 30/60/90-day forecast with explicit baseline, estimation uncertainty, planned changes and action owner; schedule remediation before threshold breach.
 
+## Repeatable index-level growth analysis
+**Accountability:** Data Engineering produces index-by-index data growth, update/delete drivers and 30/60/90-day source volume projections. DBRE computes physical storage and failure/relocation headroom using actual shard placement and replicas. Business Owner + Data Engineering approve retention assumptions. FinOps models unit rates and cloud cost.
+
+**Consistent read-only snapshot collection.** Capture at a fixed UTC time each day, store immutable CSV/JSON with cluster, tier, index, source owner and metric units; compare across equivalent intervals.
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/indices?v&bytes=gb&h=index,pri,rep,docs.count,docs.deleted,pri.store.size,store.size"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards?v&bytes=gb&h=index,shard,prirep,state,store,node"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb&h=node,disk.used,disk.avail,disk.total,disk.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+```
+
+**Metric definitions.** Per-index *logical primary data* is `pri.store.size`; physical `store.size` includes replicas but may differ with relocating/recovering shards. `docs.count` can reflect nested documents; count and `docs.deleted` do not alone establish business record totals. Compute **daily net primary-store delta**, 7/30-day rolling median, and percent increase; identify the top index growers and indices with unusual deletes. Do not equate `docs.deleted` with immediately reclaimable bytes.
+**Forecast methodology.** Project primary data by index using observed daily slope and known planned ingestion; multiply by approved replica factor, then account for tier-specific shard placement, segment merges, relocation and recoverability headroom, storage redundancy and peak node imbalance. Compare worst-node forecast to approved watermark thresholds and capacity-provisioning lead time; include a low/base/high scenario if growth is volatile.
+**Output for review.** Per-index and per-tier growth tables, top 10 drivers, unexpected spikes, target capacity date, projected GB and cost change, 30/60/90-day forecasts, confidence and action owners. At least monthly, reconcile estimates with actuals and adjust the forecasting model; do not change retention solely to balance costs.
+
 ## Stop / escalate
 
 Escalate unexpected acceleration, inconsistent data, unmanaged long-lived indices, or projected critical watermark before the capacity lead time.

@@ -58,6 +58,23 @@ Review official source→target version-specific upgrade matrix, plugins, securi
 4. Use vendor/provider-approved per-node or deployment upgrade workflow, monitoring shard recovery and client traffic between steps.
 5. Validate application search, ingestion, alerts, authentication, backups, ILM and cost after the rollout.
 
+## Version and supportability go/no-go checklist
+An upgrade procedure is **deployment-specific**: self-managed nodes, Elastic Cloud, ECE/ECK and managed third-party platforms have different orchestration and rollback limits. Record current/target version and build, supported hop-by-hop path, plugin and client compatibility, OS/JDK support, tier/node upgrade order, deprecations, security settings and peer-reviewed release notes. Elasticsearch 7.17 is out of support as of January 2026; an upgrade plan should address this risk.
+
+**Read-only cluster inventory before requesting change.**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes?filter_path=nodes.*.name,nodes.*.version,nodes.*.roles,nodes.*.plugins.name&pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/recovery?v&active_only=true"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_snapshot?pretty"
+```
+
+**Gates.** (1) Supported upgrade path and provider sequencing documented; (2) staging dress rehearsal completed with same plugins, ingest and representative search traffic; (3) recoverable, tested snapshot; (4) failure-domain and replica headroom, plus expected surge resources; (5) explicit client/SDK and application compatibility review; (6) write/ingest behavior under mixed versions; (7) post-upgrade tests and named approvers. Do not assume in-place downgrade is supported.
+**During upgrade.** Perform only the vendor-approved node order. Between stages, verify cluster master stability, shard recoveries, node versions, heap, CPU, ingestion lag, query error rates and authentication, and compare against the approved SLO envelope. Pause automatically for red health, loss of healthy shard copies, unexpected client incompatibility, or sustained rejects.
+**Evidence.** Change ticket contains versions by node before/after, staging findings, complete backup proof, client and schema compatibility results, API output, monitoring charts, last good state, data validation and escalation/rollback plan. Recovery usually means deploying a compatible replacement and restoring supported snapshots, not rolling binaries backward.
+
 ## Stop / escalate
 
 Stop on compatibility failure, missing/unsafe shard copies, sustained service impact, failed snapshot evidence or unsupported rollback path.
