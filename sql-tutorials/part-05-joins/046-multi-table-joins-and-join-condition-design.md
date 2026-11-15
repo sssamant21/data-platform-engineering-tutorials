@@ -59,7 +59,7 @@ LEFT JOIN payment_totals AS p ON p.order_id = o.order_id
 ORDER BY o.order_id;
 ```
 
-Expected **4 rows** with item/paid totals: 101 = 50/50; 102 = 15/15; 103 = 25/25; 104 = 10/0. Grand item total = **100.00**, paid total = **90.00**. The naive four-table join creates **6 rows** (four for order 101, one each for 102 and 103, and one for 104 with LEFT joins = **7 rows**); its sums are wrong: item amounts for order 101 repeat per payment, and payments repeat per item. Do not repair with `SUM(DISTINCT amount)`: two legitimately equal amounts would be lost.
+Expected **4 rows** with item/paid totals: 101 = 50/50; 102 = 15/15; 103 = 25/25; 104 = 10/0. Grand item total = **100.00**, paid total = **90.00**. The naive four-table join creates **7 rows** (four for order 101, one each for orders 102 and 103, and one for order 104 when the child tables are LEFT-joined); its sums are wrong: item amounts for order 101 repeat per payment, and payments repeat per item. Do not repair with `SUM(DISTINCT amount)`: two legitimately equal amounts would be lost.
 
 ## 6. ON versus WHERE (5 minutes)
 
