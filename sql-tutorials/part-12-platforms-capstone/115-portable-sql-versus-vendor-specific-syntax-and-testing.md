@@ -106,4 +106,4 @@ The lab uses a read-only transaction, synthetic CTEs, version/database checks, t
 - [BigQuery — GoogleSQL query syntax](https://cloud.google.com/bigquery/docs/query-syntax)
 - [Snowflake — SELECT](https://docs.snowflake.com/en/sql-reference/sql/select)
 
-**Next:** Chapter 116 — PostgreSQL 18 SQL: lab baseline and advanced features (pending publication).
+**Next:** [Chapter 116 — PostgreSQL 18 SQL: lab baseline and advanced features](116-postgresql-18-sql-lab-baseline-and-advanced-features.md) (published; runtime validation pending).
