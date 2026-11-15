@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** beginner SQL learners, data engineers, DBRE/SRE.
 
-**Prerequisites:** [051 — aggregate functions](../part-06-aggregation/051-count-sum-avg-min-and-max.md), [052 — aggregation grain](../part-06-aggregation/052-group-by-and-aggregation-grain.md), [060 — monthly KPI lab](../part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md). **Next:** Chapter 062 — IN, ANY, ALL, and multi-row subqueries (planned).
+**Prerequisites:** [051 — aggregate functions](../part-06-aggregation/051-count-sum-avg-min-and-max.md), [052 — aggregation grain](../part-06-aggregation/052-group-by-and-aggregation-grain.md), [060 — monthly KPI lab](../part-06-aggregation/060-lab-06-build-a-monthly-kpi-report.md). **Next:** [Chapter 062 — IN, ANY, ALL, and multi-row subqueries](062-in-any-all-and-multi-row-subqueries.md).
 
 > **Safety:** All examples use fictional ingestion batches. The [companion read-only PostgreSQL 18 lab](../labs/061-scalar-subqueries-derived-tables.sql) uses inline `VALUES` data and `BEGIN READ ONLY`; do not run against production. Independently confirm the endpoint is a disposable PostgreSQL 18 database before executing. Database names/version checks do not prove isolation.
 
