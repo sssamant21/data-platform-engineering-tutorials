@@ -1,0 +1,16 @@
+{
+  "actions": [
+    {
+      "remove": {
+        "index": "sandbox-events-v1",
+        "alias": "sandbox-events-read"
+      }
+    },
+    {
+      "add": {
+        "index": "sandbox-events-v2",
+        "alias": "sandbox-events-read"
+      }
+    }
+  ]
+}
