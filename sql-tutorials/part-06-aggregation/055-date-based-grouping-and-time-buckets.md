@@ -42,7 +42,7 @@ FROM ch055_events
 GROUP BY 1 ORDER BY 1;
 ```
 
-Expected five day groups: January 31 = 10.00; February 1 = 50.00 (2 events); February 28 = 40.00; March 1 = 110.00 (2 events). The five groups reconcile to **6 events / 210.00**.
+Expected four day groups: January 31 = 10.00; February 1 = 50.00 (2 events); February 28 = 40.00; March 1 = 110.00 (2 events). The four groups reconcile to **6 events / 210.00**.
 
 ```sql
 SELECT date_trunc('month', occurred_at)::date AS month_utc,
