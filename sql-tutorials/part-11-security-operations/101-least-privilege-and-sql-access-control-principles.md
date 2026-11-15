@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · **PostgreSQL 18 lab target** · **Audience:** data engineers, application engineers, DBRE/SRE, analysts
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/101-least-privilege-access-control.sql) · [Previous: 100](../part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) · Next: 102 — Users, roles, GRANT, REVOKE, and ownership (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/101-least-privilege-access-control.sql) · [Previous: 100](../part-10-performance/100-lab-10-baseline-tune-and-remeasure-a-slow-query.md) · [Next: 102 — Users, roles, GRANT, REVOKE, and ownership](102-users-roles-grant-revoke-and-ownership.md)
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
