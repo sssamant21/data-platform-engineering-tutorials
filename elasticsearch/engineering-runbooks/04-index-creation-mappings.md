@@ -1,0 +1,80 @@
+# 04 — Index creation and mapping changes
+
+> **Draft for peer review · Technical owner:** Data Engineering  
+> **Stakeholders / approval:** DBRE/SRE: platform impact; Application: query contract; Index Owner: data purpose  
+> **Version scope:** Elasticsearch REST APIs; 7.17 compatibility baseline and revalidate on deployed version  
+> **Change class:** Follow organizational incident/change policy; explicit approval before mutations.
+
+## When to use
+
+Use for onboarding a data source, modifying schema, index naming, analyzer or template.
+
+## Execution guardrails (all environments)
+
+- **Status: DRAFT — not production-certified.** These are human-operated procedures; obtain the required Jira/change approvals, validate against the deployed version in staging, and attach evidence before production use.
+- Identify cluster UUID/name, environment, deployment/version, authorized operator, ticket and rollback owner. Do **not** assume a green cluster alone makes a change safe.
+- Use scoped, least-privilege accounts. Protect credentials; never paste passwords or personal/health data in tickets, logs or Git. Do not disable TLS verification (`-k` / `--insecure`).
+- Substitute the exact approved index/alias. Never run mutating commands with wildcard patterns, `_all`, or on system/managed indices unless an explicitly approved platform procedure requires them.
+- The commands below use curl Basic Authentication with a **username only**; curl securely prompts for the password (avoid embedding `user:password` in shell history or process arguments). The same command is available as `curl.exe` in Windows PowerShell.
+
+```bash
+export ES_URL="https://es.example.internal:9200"
+export ES_USER="your-least-privilege-user"
+export ES_CA_CERT="/path/to/elastic-ca.pem"
+# Baseline: verify target cluster and authenticated identity.
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+  --cacert "$ES_CA_CERT" "$ES_URL/"
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+  --cacert "$ES_CA_CERT" "$ES_URL/_security/_authenticate"
+```
+
+On PowerShell: `curl.exe --basic --user "$env:ES_USER" --cacert "$env:ES_CA_CERT" "$env:ES_URL/_cluster/health?pretty"` (first set `$env:ES_URL`, `$env:ES_USER`, `$env:ES_CA_CERT`). For Windows curl builds lacking `--fail-with-body`, use `--fail` and inspect the response. JSON request files are checked into the change ticket after removing sensitive values; never commit real credentials.
+
+## Prechecks / read-only diagnostics
+
+```bash
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cat/indices?v&h=index,health,pri,rep,docs.count,store.size"
+```
+```bash
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_index_template?pretty"
+```
+```bash
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+  --cacert "$ES_CA_CERT" -X GET "$ES_URL/_cluster/health?pretty"
+```
+
+Obtain field types, cardinality, expected document IDs, ingest volume, update/deletion behavior, retention, query patterns, alias and growth estimate.
+
+## Approved procedure
+
+1. Data Engineering prepares an approved request including source-to-target mapping, desired index templates, dynamic mapping policy and sample documents.
+2. DBRE reviews shard/replica/refresh and resource impact; Application Engineering tests query/filter/aggregation compatibility.
+3. Apply *the reviewed* index payload, never illustrative defaults:
+
+```bash
+curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
+ --cacert "$ES_CA_CERT" -X PUT "$ES_URL/approved-index-v1" \
+ -H 'Content-Type: application/json' --data-binary @approved-index.json
+```
+
+4. Verify mappings/settings and write alias, then run sample ingestion to nonproduction first.
+5. For incompatible mapping-type changes, use a new index and the reindex/alias-cutover procedure instead of attempting an in-place type change.
+
+## Stop / escalate
+
+Stop on unexpected dynamic fields, incompatible mappings, error spikes, shard/limit risk, or applications addressing physical indices directly where an alias contract is required.
+
+## Success criteria and evidence
+
+Record mappings, schema tests, representative queries, source-to-target reconciliation and approvals in Jira.
+
+## Rollback / recovery
+
+For new unused test indices, use scoped approved deletion. For production mapping changes, rollback usually requires the prior index/alias and safe data reconciliation; do not assume mapping type changes can be undone.
+
+## Official references
+
+- https://www.elastic.co/docs/manage-data/data-store/mapping
+- https://www.elastic.co/docs/manage-data/data-store/index-basics
