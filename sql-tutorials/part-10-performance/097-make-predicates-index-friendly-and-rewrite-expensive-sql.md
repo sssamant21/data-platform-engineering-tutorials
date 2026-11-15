@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 lab baseline** · **Audience:** data engineers, DBRE/SRE, analysts
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [SQL lab](../labs/097-index-friendly-predicates-rewrites.sql) · [Previous: 096](096-optimizer-statistics-and-postgresql-maintenance-basics.md) · Next: 098 — Optimize joins, aggregations, and subqueries (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [SQL lab](../labs/097-index-friendly-predicates-rewrites.sql) · [Previous: 096](096-optimizer-statistics-and-postgresql-maintenance-basics.md) · [Next: 098 — Optimize joins, aggregations, and subqueries](098-optimize-joins-aggregations-and-subqueries.md)
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
