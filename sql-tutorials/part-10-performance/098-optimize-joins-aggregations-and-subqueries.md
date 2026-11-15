@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, DBRE/SRE, analysts
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/098-optimize-joins-aggregations-subqueries.sql) · [Previous: 097](097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) · Next: 099 — Keyset pagination, benchmarking, and regression tests (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/098-optimize-joins-aggregations-subqueries.sql) · [Previous: 097](097-make-predicates-index-friendly-and-rewrite-expensive-sql.md) · [Next: 099 — Keyset pagination, benchmarking, and regression tests](099-keyset-pagination-benchmarking-and-regression-tests.md)
 
 ## 1. Learning outcomes and prerequisites (0–5 minutes)
 
