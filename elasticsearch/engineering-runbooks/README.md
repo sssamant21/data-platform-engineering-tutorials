@@ -7,7 +7,7 @@
 
 ## Before starting
 
-- Always use TLS with certificate verification, Basic Auth username prompt, least-privilege permissions and a verified environment URL. See [Basic Auth quickstart](templates/basic-auth-quickstart.md).
+- Use Basic Auth and a verified environment URL. With HTTPS, curl uses normal certificate verification through its trust store; no certificate-file argument is necessary. Apply least-privilege permissions. See [Basic Auth quickstart](templates/basic-auth-quickstart.md).
 - Any commands that create/change/delete resources require an approved Jira ticket, maintenance window where needed, explicit go/no-go, operator and rollback owner. Never paste real credentials or sensitive document content into repository files.
 - Diagnose read-only first. Cluster rescue, forced shard allocations, disk watermark bypass and destructive wildcard deletion are **not included** as copy-and-run examples.
 - Documentation follows: **trigger → prechecks → approval/steps → stop conditions → validation → rollback/evidence**. See [Runbook template](templates/runbook-template.md) and [Jira template](templates/jira-maintenance-template.md).

@@ -14,9 +14,11 @@
 
 ## Read-only diagnosis
 
+Use curl Basic Authentication without certificate-file arguments. For HTTPS, keep normal certificate verification enabled.
+
 ```bash
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/_cluster/health?pretty"
+  "$ES_URL/_cluster/health?pretty"
 ```
 
 ## Approved execution

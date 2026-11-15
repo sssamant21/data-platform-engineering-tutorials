@@ -1,16 +1,15 @@
 # Basic Authentication with curl — shared setup
 
-**Never** write real passwords into Markdown, issue descriptions, shell history or command line flags. Prefer scoped credentials and validated HTTPS.
+Use HTTP Basic Authentication with a username and an interactive password prompt. **No client certificate or CA certificate file is required by this environment.** For HTTPS, curl verifies the server using its normal operating-system or configured trust store.
 
 ## Bash / Linux / WSL2
 
 ```bash
 export ES_URL='https://es.example.internal:9200'
 export ES_USER='es-readonly-operator'
-export ES_CA_CERT='/secure/path/es-ca.pem'
-# Curl prompts for password; --basic explicitly selects HTTP Basic auth.
+# curl prompts for a password when --user receives only the username.
 curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
-  --cacert "$ES_CA_CERT" "$ES_URL/_cluster/health?pretty"
+  "$ES_URL/_cluster/health?pretty"
 ```
 
 ## Windows PowerShell
@@ -18,16 +17,16 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 ```powershell
 $env:ES_URL = 'https://es.example.internal:9200'
 $env:ES_USER = 'es-readonly-operator'
-$env:ES_CA_CERT = 'C:\secure\es-ca.pem'
 curl.exe --fail-with-body --silent --show-error --basic --user "$env:ES_USER" `
-    --cacert "$env:ES_CA_CERT" "$env:ES_URL/_cluster/health?pretty"
+  "$env:ES_URL/_cluster/health?pretty"
 ```
 
-- `curl` can be a PowerShell alias; prefer **`curl.exe`** for native curl semantics.
-- `--user "$ES_USER"` (username without colon/password) prompts interactively. A scheduler should use an approved secret store or tightly permissioned curl configuration, not credentials in source control or process arguments.
-- Do not use `-k` / `--insecure` for production. Verify certificate hostname and trust store. Disallow plaintext HTTP.
-- Use a least-privilege account with appropriate monitor permissions for reads. Change operations require independently approved privilege grants.
-- On older curl versions, replace `--fail-with-body` with `--fail` and examine the returned HTTP response body separately.
-- API version compatibility matters; inspect `GET /` and record `version.number` before using a version-specific command.
+- Use **`curl.exe`** in PowerShell because `curl` can be an alias.
+- `--basic --user "$ES_USER"` specifies only the username; curl prompts for the password. Never include credentials in Git, Jira, URLs, or shell commands.
+- For scheduled jobs, use an approved secrets mechanism; do not embed secrets in source control or command arguments.
+- **Do not use `-k` or `--insecure`**. With HTTPS, normal trust-store verification remains active even without certificate-file flags. If the server is not trusted, have the platform/security team correct its trust configuration instead of bypassing verification.
+- Use a least-privilege operator account. Mutating commands require reviewed privileges and approvals.
+- Older curl versions may require `--fail` rather than `--fail-with-body`.
+- Check `GET /` to confirm target cluster identity and Elasticsearch version before running version-sensitive commands.
 
 Reference: https://www.elastic.co/docs/deploy-manage/security/httprest-clients-security
