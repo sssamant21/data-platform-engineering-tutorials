@@ -103,4 +103,4 @@ The lab runs `BEGIN READ ONLY`, verifies database and major version, uses transa
 - [BigQuery — Estimate and control costs](https://cloud.google.com/bigquery/docs/best-practices-costs)
 - [BigQuery — Query plan and performance insights](https://cloud.google.com/bigquery/docs/query-plan-explanation)
 
-**Next:** Chapter 115 — Portable SQL versus Vendor-Specific Syntax and Testing (not yet published at time of authorship).
+**Next:** [Chapter 115 — Portable SQL versus vendor-specific syntax and testing](115-portable-sql-versus-vendor-specific-syntax-and-testing.md) (published; runtime validation pending).
