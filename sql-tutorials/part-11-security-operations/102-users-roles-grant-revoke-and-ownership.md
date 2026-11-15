@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · **PostgreSQL 18 lab target** · **Audience:** beginners, data engineers, application engineers, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/102-users-roles-grant-revoke-ownership.sql) · [Previous: 101](101-least-privilege-and-sql-access-control-principles.md) · Next: 103 — Row-level security and data-access policies (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/102-users-roles-grant-revoke-ownership.sql) · [Previous: 101](101-least-privilege-and-sql-access-control-principles.md) · [Next: 103 — Row-level security and data-access policies](103-row-level-security-and-data-access-policies.md)
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
