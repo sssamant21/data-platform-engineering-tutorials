@@ -75,6 +75,12 @@ Resolved QA-003 by moving guidance below the complete chapter listing ([README](
 
 [Targeted evidence](labs/validation/MARKDOWN-LINK-SMOKE-085-090-2026-11-14.md), commit `81e363f244ffd3f0d2d343f1f864801269348e59`: Chapter 088 broken transaction prerequisite path corrected in commit `ca264bee67a03cd061c0a757723b31911f840833`. Across Chapters 085–090, **48** inline local Markdown links checked against complete, non-truncated Git tree `ca264bee67a03cd061c0a757723b31911f840833`; **zero missing tracked targets** after correction. **31** external HTTP(S) links identified but not tested. Evidence file fetched back and verified on `main` before tracker update. Cumulative targeted local-path smoke coverage: **90/120** chapters. This is **not** comprehensive Markdown/anchor QA, SQL correctness, expected-output verification, or lab-safety certification. Independent editorial review: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 091–096 targeted link QA, comprehensive static QA, and isolated PostgreSQL 18 runtime acceptance with reproducible evidence.
 
+
+
+## QA follow-up — Chapters 061–066 targeted structural audit (2026-11-14)
+
+[Evidence](labs/validation/MARKDOWN-STRUCTURE-AUDIT-061-066-2026-11-14.md), published in commit `c45d814a6aeab6028485be8af74b7c4b8ca65865` and fetched back from `main`: six chapter Markdown files inspected (958 physical lines, 74 ATX headings, 50 code-fence delimiter candidates, 35 local inline links, 20 external inline links). All six had even fence candidate counts; full Markdown parsing, link/anchor verification, and external URL testing were **not** performed. Six corresponding SQL labs were inspected textually for PostgreSQL version references, read-only transaction boundaries, rollback and timeout safeguards. **No SQL was executed**. Chapter 061's stale Chapter 062 "planned" reference was corrected to a direct relative link in commit `0b0610985cec63d7118fcd11e24704f8b6a99fae` and fetched back from `main`. Cumulative limited structural audit coverage: **66/120**; previously reported targeted local-file path smoke checks: **120/120**. Authored/published: **120/120**; independent editorial review: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Next: Chapters 067–072 structural audit, comprehensive Markdown-aware links/anchors, SQL correctness/expected-output and lab-safety checks, and isolated PostgreSQL 18 runtime acceptance with reproducible evidence.
+
 ## Part-level progress
 
 | Part | Chapters | Published | Remaining |
