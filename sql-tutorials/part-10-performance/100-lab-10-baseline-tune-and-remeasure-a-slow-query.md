@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 teaching baseline** · **Audience:** data engineers, DBRE/SRE, application developers
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/100-lab-10-baseline-tune-remeasure.sql) · [Previous: 099](099-keyset-pagination-benchmarking-and-regression-tests.md) · Next: 101 — Least privilege and SQL access-control principles (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/100-lab-10-baseline-tune-remeasure.sql) · [Previous: 099](099-keyset-pagination-benchmarking-and-regression-tests.md) · [Next: 101 — Least privilege and SQL access-control principles](../part-11-security-operations/101-least-privilege-and-sql-access-control-principles.md)
 
 ## 1. Learning objectives and prerequisites (0–5 min)
 
