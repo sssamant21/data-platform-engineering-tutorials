@@ -58,6 +58,23 @@ Capture worst-node utilization (not only average), free GB, allocation and disk 
 4. Perform cloud/platform resize using the provider-approved workflow (outside Elasticsearch REST API); monitor shard allocation and recovery.
 5. Recheck disk, write failures, cluster health and sustained growth after stabilization.
 
+## Production capacity decision guide
+Track both the **most utilized data node** and total physical storage; averages can conceal one node crossing a watermark. Compare effective configured watermarks (`GET /_cluster/settings?include_defaults=true`) with actual disk usage. Defaults vary by version and deployment; do not assume a static threshold.
+
+**Collect the capacity baseline (read-only).**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/allocation?v&bytes=gb&h=node,shards,disk.indices,disk.used,disk.avail,disk.total,disk.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/indices?v&bytes=gb&h=index,pri,rep,docs.count,pri.store.size,store.size"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/settings?include_defaults=true&pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+```
+
+**Sizing model.** Project per-tier *primary bytes × (1 + planned replica count)*, adding anticipated daily growth × forecast days, uneven placement, segment merge, relocation, failure and concurrent reindex headroom. Quote both usable disk and physical provisioned disk, and identify whether the projected limiting node reaches the approved early-warning threshold within the provisioning lead time. Clearly identify whether figures are GB or GiB.
+**Decision matrix.** If growth is sustained, request expansion or tier rebalancing; if retention is the driver, obtain Data Engineering + Business Owner approval before changing policy; if a one-time reindex doubles peak storage, temporarily add capacity and approve the cost through FinOps; if flood-stage blocks writes, initiate the incident process rather than performing a routine cleanup.
+**Go/no-go.** A resize needs provider-specific steps, required service capacity, tested rollback, approved outage tolerance, cost estimate, and application ingestion-rate verification. Do not treat lowering watermarks, deleting unapproved data, or clearing blocks while disk remains full as remediation.
+**Exit.** Record per-node max used%, total free GB, allocation health, absence of persistent write block errors, growth-rate estimate, and monitoring through the approved stabilization period. Savings or recovered disk are recorded **after** merges/deletions settle; distinguish logical deleted data from actual disk reclaimed.
+
 ## Stop / escalate
 
 Stop for unexpected lost shard copies, flood-stage blocks, worsening write failures or inadequate headroom. Escalate to incident response instead of proceeding as routine maintenance.

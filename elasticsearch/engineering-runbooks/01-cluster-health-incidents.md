@@ -64,6 +64,27 @@ Use allocation explain *without a body* to diagnose one unassigned shard; target
 4. Identify least-disruptive supported mitigation; obtain approval for any risky setting change.
 5. Monitor cluster health, recovery progress, latency, rejects and disk for the agreed stabilization interval.
 
+## Production operator decision guide
+| Signal | Immediate owner action | Required evidence |
+|---|---|---|
+| Cluster red / unavailable primary | Declare appropriate incident and identify specific unassigned primary before any write or reroute action | Index/shard identity, allocation explanation, last healthy timestamp |
+| Cluster yellow / replica unassigned | Assess zone/node availability and disk/tier constraints; do not automatically force allocation | Replica shard IDs, deciders, failure-domain inventory |
+| Search/indexing failures with green health | Investigate application query shape, thread pools, ingest failures, circuit breakers, downstream networking | Client error codes, node-level rejection deltas, timing and request fingerprint |
+| Persistent pending cluster tasks | Review master stability, concurrent administrative changes and cluster-state update backlog | Pending tasks with timestamps; master logs |
+
+**Read-only triage (capture outputs before remediation).**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?level=indices&pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/nodes?v&h=name,ip,role,master,cpu,heap.percent,ram.percent"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/recovery?v&active_only=true"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_nodes/stats/jvm,fs,thread_pool?pretty"
+```
+
+**Decision checkpoint.** Confirm whether impact is data unavailable (red), reduced redundancy (yellow), or client-side degradation with healthy shard allocation. Identify one incident commander; obtain the owner of the impacted data/search service. No force-primary, cluster watermark bypass, or arbitrary cache clearing is permitted by this runbook.
+**Exit.** Relevant application requests succeed, no unexpected unassigned primaries remain, error rate and latency have recovered to the preincident/approved SLO, and a follow-up item exists for any degraded redundancy. Do not declare success based on color alone.
+**Evidence and timeline.** Record UTC time, affected indices, node departures, preceding deployments, hypothesis, commands, responses (redacted), mitigation, validation owners, and postincident action items.
+
 ## Stop / escalate
 
 Stop if recovery threatens data integrity, unexplained node departures continue, disk crosses the approved critical threshold or there is no identified safe rollback. Escalate to incident command and Elastic/provider support as required.

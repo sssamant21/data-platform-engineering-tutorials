@@ -78,6 +78,32 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 7. Perform an approved atomic alias update per runbook 05; validate representative searches, routing and write path.
 8. Keep source index during the approved rollback retention period; no immediate source deletion.
 
+## Shard-size remediation acceptance criteria and commands
+**Trigger is an observed workload problem, not shard size alone.** Capture primary shard size distribution, query/fetch latency, merge throttling, disk I/O, and recovery duration. Evaluate rollover or shrink/split constraints before selecting reindexing. For an already-populated index whose desired primary-shard count cannot be changed directly, a destination index plus reindex may be required.
+
+**Baseline and explicit scope.** Replace the example with the *approved existing physical index name*, not an alias spanning multiple indices.
+
+```bash
+export ES_SOURCE="approved-existing-index"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards/$ES_SOURCE?v&bytes=gb&h=index,shard,prirep,state,store,node"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_SOURCE/_stats/docs,store,merge,search,indexing?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_SOURCE/_mapping?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_SOURCE/_settings?pretty"
+```
+
+**Sizing approval.** Document primary-store GB (not the total including replicas), target shard count, expected size after reindex, routing skew, 30/90-day growth, maximum shards per node, and effect on search fan-out. 10–50 GB is only a starting guideline; measure representative searches, fetch latency, merges, and recovery in nonproduction. Forecast peak storage for *both full copies plus replicas* and transient operations.
+**Execution gates.** (1) Approved destination mapping, settings, routing and ingest pipeline; (2) tested recovery point/snapshot; (3) source and destination write strategy (write pause, replay, or audited delta capture); (4) resource throttling and operator monitoring; (5) alias cutover and rollback owner; (6) Jira maintenance authorization. If any item is missing, do not start.
+**Task verification.** Save the task ID returned by asynchronous `_reindex` and use this read-only query; replace the placeholder with the returned ID.
+
+```bash
+export ES_TASK_ID="replace-with-returned-task-id"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_tasks/$ES_TASK_ID?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards/approved-destination-v2?v&bytes=gb&h=index,shard,prirep,state,store,node"
+```
+
+**Reconciliation gate.** Compare source/destination key coverage, totals by business partition, rejected/failed documents, transformed values, routing semantics and the last source write acknowledged before cutover. Raw `_count` parity alone is insufficient if documents are updated or deduplicated.
+**Exit and rollback.** Validate new shard sizes, query p95/p99, rejected operations, recovery behavior, data equivalence and alias targets; preserve source for the approved period. After the destination receives new writes, alias reversal alone is **not safe** without reverse replay or reconciliation.
+
 ## Stop / escalate
 
 Stop if task failures, missing documents, unhandled source updates, uneven shard distribution, source/target mapping mismatch, unacceptable latency or storage headroom breach.

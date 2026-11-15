@@ -61,6 +61,30 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 4. Verify mappings/settings and write alias, then run sample ingestion to nonproduction first.
 5. For incompatible mapping-type changes, use a new index and the reindex/alias-cutover procedure instead of attempting an in-place type change.
 
+## Production schema approval checklist
+**Required schema contract.** Include business domain, source entity and SLA, unique ID, expected updates/deletes, primary routing key and mapping requirements; record field cardinality, search/filter/aggregation patterns, analyzer choices, index naming, write/read alias names, initial data size, forecast growth, retention and security classification. Data Engineering signs the contract; DBRE reviews performance/capacity; Application signs query compatibility.
+
+**Before applying approved payloads:**
+
+```bash
+export ES_INDEX="approved-index-v1"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_index_template?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/indices/$ES_INDEX?v&h=index,health,pri,rep,docs.count"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+```
+
+The named index query returning 404 can be expected **only if index creation has not occurred**; distinguish that from connectivity or privilege errors. Review template precedence and whether dynamic mapping is restricted. A PUT index request can create resources immediately; never use unapproved sample mappings against production.
+**After creation (read-only evidence).**
+
+```bash
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_INDEX/_mapping?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/$ES_INDEX/_settings?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/aliases?v&h=alias,index,is_write_index"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/shards/$ES_INDEX?v"
+```
+
+**Acceptance.** Verified fields have intended types; exact aliases target expected indices; the write alias has a single intended write destination; index capacity/shard count conform to approved standards; a staging ingest sample and representative application queries pass. For mapping type changes, build a new index and use the reindex/cutover runbook; do not claim that changing existing field types in place is reversible.
+
 ## Stop / escalate
 
 Stop on unexpected dynamic fields, incompatible mappings, error spikes, shard/limit risk, or applications addressing physical indices directly where an alias contract is required.

@@ -64,6 +64,28 @@ curl --fail-with-body --silent --show-error --basic --user "$ES_USER" \
 6. Verify alias mapping; test writes and searches, including routed/multi-index queries and expected filtering.
 7. Keep source index for the approved stabilization period.
 
+## Canonical zero-loss cutover protocol
+**Separate read and write contracts.** Record every application and Kafka/ETL writer, their physical target or alias, any routing and filter settings, and the last source checkpoint (offset/LSN/event ID). Agree whether to freeze writes, replay deltas, or perform a verified dual-write. If there is no complete update-capture mechanism, approve a bounded write pause; a large reindex is not an ongoing replication service.
+
+**Read-only pre-cutover snapshots.**
+
+```bash
+export ES_READ_ALIAS="approved-read-alias"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_alias/$ES_READ_ALIAS?pretty"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cat/aliases?v&h=alias,index,is_write_index"
+curl --fail-with-body -sS --basic -u "$ES_USER" "$ES_URL/_cluster/health?pretty"
+```
+
+**Cutover sequence:**
+1. Freeze or reconcile writes according to the approved ingestion plan; prove all Kafka offsets/replay checkpoints or source version watermarks are accounted for.
+2. Verify destination mapping/aliases, expected document keys, application queries (including EMPI routing if used), and query SLA. Run tests against the new physical index without changing production aliases.
+3. Approve the *exact* `approved-alias-actions.json` diff. For a one-target read alias, this generally removes the old target and adds the new; for write aliases, ensure exactly one intended `is_write_index`. Preserve relevant alias filters and routing; do not re-create them from memory.
+4. Issue the existing `_aliases` request once, capture `acknowledged`, then immediately read back alias state and run search plus write smoke tests.
+5. Re-enable or redirect writers under the agreed sequencing. Monitor for a defined stabilization interval, preserving old index and evidence.
+**Stop conditions:** unknown writers, lagging offsets, key mismatch, missing alias filter/routing, write failures, unexpected multi-index alias selection, high indexing rejects or failed smoke tests. Escalate before partial fallback.
+**Rollback classification:** Read-only cutover with unchanged source may allow alias reversal. Write cutover requires verified reverse replay of any destination-only writes *before* alias reversal. Document an explicit latest safe rollback time, recovery owner and post-cutover-write reconciliation test.
+**Jira closure:** old/new aliases JSON, operator/time, approved alias actions diff, application and Data Engineering signoffs, query p95/p99, missing record count, final writer checkpoint and old-index retention deadline.
+
 ## Stop / escalate
 
 Abort cutover if unconsumed Kafka offsets, document-count discrepancies, open writes, unknown index clients, failed functional tests, or unapproved alias actions.
