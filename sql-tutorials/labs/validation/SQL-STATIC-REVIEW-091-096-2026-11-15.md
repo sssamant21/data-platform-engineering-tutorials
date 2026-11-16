@@ -14,7 +14,7 @@ Read current `main` MASTER-TOC.md, README.md, STATUS-TRACKER.md, six existing Pa
 | 096 | Eight rows; tenant-10 4, paid 4, joint 3 (37.5%), tenant-20 pending 3 | Checks consistent. Catalog queries vary by database; no ANALYZE or VACUUM executed. |
 
 ## Open follow-ups and limitations
-- **QA-091-NAV:** Chapters 091 and 092 still call the next already-published chapter `(planned)` instead of linking it. This is editorial/navigation drift, not a missing published chapter; correct on next navigation sweep.
+- **QA-091-NAV — resolved:** Chapters 091 and 092 incorrectly called their next already-published chapters `(planned)`. Replaced with direct relative links to Chapters 092 and 093 in commits `7ed9e01563e6d9b2c4c8d03c997e4bbf7bd2c870` and `19bfbfd8697d80cb68f60c1b492e63495b04e4b2`.
 - **QA-091-PERF-INTEGRATION:** Inline VALUES have no physical indexes or persistent planner statistics. Chapters 093–096 teach index/statistics concepts but their read-only labs **do not verify** real index scans, index-only scans, partial-index predicate implication, or statistics maintenance. Separate disposable PostgreSQL 18 integration tests must create synthetic tables/indexes, capture actual EXPLAIN evidence, and clean up. Do not conflate synthetic result checks with performance acceptance.
 - Chapter 091 requires `psql -X -v ON_ERROR_STOP=1` at invocation (unlike labs 092–096, it does not set ON_ERROR_STOP internally). Its arithmetic fail-closed guard and `BEGIN READ ONLY` remain useful but do not prove isolation.
 - The `sql_tutorials` name/version checks in labs are **not proof** of a disposable environment. Verify connection endpoint and isolation independently before any execution.
@@ -22,4 +22,4 @@ Read current `main` MASTER-TOC.md, README.md, STATUS-TRACKER.md, six existing Pa
 - Full Markdown link/anchor QA, parser SQL checks, independent editorial review and PostgreSQL 18 runtime acceptance remain **pending**.
 
 ## Progress and next acceptance
-Previously reported: 120/120 authored/published, 120/120 targeted structural QA, 90/120 targeted SQL expected-output review, 0/120 independently reviewed, 0/120 PostgreSQL 18 runtime-validated. This batch advances targeted static SQL review to **96/120 (80%)**. Next review **097–102**, correct QA-091-NAV, then comprehensive Markdown links/anchors, parser-based SQL checks and isolated PostgreSQL 18 execution with retained command/output/version/endpoint evidence. No production credentials or systems used.
+Previously reported: 120/120 authored/published, 120/120 targeted structural QA, 90/120 targeted SQL expected-output review, 0/120 independently reviewed, 0/120 PostgreSQL 18 runtime-validated. This batch advances targeted static SQL review to **96/120 (80%)**. Next review **097–102**, then comprehensive Markdown links/anchors, parser-based SQL checks and isolated PostgreSQL 18 execution with retained command/output/version/endpoint evidence. No production credentials or systems used.
