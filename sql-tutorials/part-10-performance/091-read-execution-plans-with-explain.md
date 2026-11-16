@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 lab baseline** · **Audience:** data engineers, analysts, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/091-read-execution-plans-with-explain.sql) · [Previous: 090](../part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md) · Next: 092 — Table scans, index scans, row estimates, and selectivity (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/091-read-execution-plans-with-explain.sql) · [Previous: 090](../part-09-functions-views-json/090-lab-09-build-reusable-reporting-objects.md) · [Next: 092 — Table scans, index scans, row estimates, and selectivity](092-table-scans-index-scans-row-estimates-and-selectivity.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
