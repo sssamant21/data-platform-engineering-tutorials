@@ -13,6 +13,10 @@
 
 
 
+## QA follow-up — Part 04 scoped Markdown link-path audit (2026-11-16)
+
+[Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-04-2026-11-16.md), published in commit `310cdaf1eab5bf734a1033c49ccf3e35c4b8119e` and fetched back from `main`. All ten Part 04 chapters (031–040) checked against complete recursive Git tree `cf6d594f1517e8d87b7e9ea22a4c7e4b8525022e` (`truncated=false`): **89 inline local links checked, zero missing tracked targets**; 49 external HTTP(S) links inventoried but not tested. No local fragments were identified by the scoped pattern scan. Cumulative scoped local link-path audits: **40/120 chapters** (Parts 01–04). This does not constitute full Markdown parsing, reference-style link or anchor/external URL verification, parser-based SQL QA, independent editorial review, or actual PostgreSQL 18 execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; actual isolated PostgreSQL 18 runtime validation **0/120**. Next: Part 05 (041–050) scoped link audit, then Parts 06–12 and comprehensive parser/anchor/runtime acceptance.
+
 ## QA follow-up — Part 03 scoped Markdown link-path audit (2026-11-16)
 
 [Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-03-2026-11-16.md), published in commit `6b1add44d53a67e7bacd0e22972e66fd40e640e8` and fetched back from `main`. Ten Part 03 chapters (021–030) checked against a complete 1,688-entry GitHub tree (`truncated=false`): **92 inline local links checked, zero missing tracked targets**; 43 external HTTP(S) links inventoried but not tested. No fragment references were identified by the scoped pattern scan. Cumulative scoped local link-path audits: **30/120 chapters** (Parts 01–03); this does not constitute full Markdown parsing, anchor/external-link verification, parser-based SQL QA, independent editorial review, or actual PostgreSQL 18 execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; PostgreSQL 18 runtime-validated **0/120**. Next: Part 04 (031–040) scoped link audit, then Parts 05–12 and comprehensive parser/anchor/runtime acceptance.
