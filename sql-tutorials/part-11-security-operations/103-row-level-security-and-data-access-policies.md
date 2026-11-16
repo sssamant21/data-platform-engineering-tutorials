@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · **PostgreSQL 18 target** · **Audience:** beginners, data engineers, application engineers, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/103-row-level-security-data-access-policies.sql) · [Previous: 102](102-users-roles-grant-revoke-and-ownership.md) · Next: 104 — Sensitive data protection, masking, and audit requirements (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/103-row-level-security-data-access-policies.sql) · [Previous: 102](102-users-roles-grant-revoke-and-ownership.md) · [Next: 104](104-sensitive-data-protection-masking-and-audit-requirements.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
