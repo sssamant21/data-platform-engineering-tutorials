@@ -35,7 +35,7 @@ GROUP BY c.context_name ORDER BY c.context_name;
 -- Bidirectional EXCEPT ALL assertion detects missing, extra, and duplicate rows.
 DO $assert$
 DECLARE missing_count integer; extra_count integer;
-        total_orders integer; leak_count integer; missing_visible integer;
+        total_orders integer;
 BEGIN
   WITH orders(order_id,tenant_id,amount) AS (
     VALUES (101,10,20.00::numeric(10,2)),
@@ -60,15 +60,12 @@ BEGIN
     SELECT * FROM actual EXCEPT ALL SELECT * FROM expected
   )
   SELECT (SELECT count(*) FROM missing),(SELECT count(*) FROM extra),
-         (SELECT count(*) FROM orders),
-         (SELECT count(*) FROM orders WHERE tenant_id = 20 AND tenant_id = 10),
-         (SELECT count(*) FROM orders WHERE tenant_id = NULL::integer)
-  INTO missing_count,extra_count,total_orders,leak_count,missing_visible;
+         (SELECT count(*) FROM orders)
+  INTO missing_count,extra_count,total_orders;
 
-  IF missing_count <> 0 OR extra_count <> 0 OR total_orders <> 5
-     OR leak_count <> 0 OR missing_visible <> 0 THEN
-    RAISE EXCEPTION '103 model mismatch: missing %, extra %, total %, leak %, absent-context %',
-      missing_count,extra_count,total_orders,leak_count,missing_visible;
+  IF missing_count <> 0 OR extra_count <> 0 OR total_orders <> 5 THEN
+    RAISE EXCEPTION '103 model mismatch: missing %, extra %, total %',
+      missing_count,extra_count,total_orders;
   END IF;
   RAISE NOTICE '103 synthetic assertions passed: 5 orders, tenant 10 = 3/90, tenant 20 = 2/60, absent = 0, no differences';
 END
