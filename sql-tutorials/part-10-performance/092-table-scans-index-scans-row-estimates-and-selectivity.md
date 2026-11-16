@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, DBRE/SRE, analysts
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only SQL lab](../labs/092-scans-estimates-selectivity.sql) · [Previous: 091](091-read-execution-plans-with-explain.md) · Next: 093 — B-tree indexes and common index access patterns (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only SQL lab](../labs/092-scans-estimates-selectivity.sql) · [Previous: 091](091-read-execution-plans-with-explain.md) · [Next: 093 — B-tree indexes and common index access patterns](093-btree-indexes-and-common-index-access-patterns.md)
 
 ## 1. Objectives and prerequisites (0–5 minutes)
 
