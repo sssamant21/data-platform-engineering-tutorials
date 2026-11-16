@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · **Target: PostgreSQL 18** · **Audience:** beginner data engineers, analysts, application engineers, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Synthetic read-only lab](../labs/104-sensitive-data-masking-audit.sql) · [Previous: 103](103-row-level-security-and-data-access-policies.md) · Next: 105 — Locks, blocking, deadlocks, and troubleshooting (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Synthetic read-only lab](../labs/104-sensitive-data-masking-audit.sql) · [Previous: 103](103-row-level-security-and-data-access-policies.md) · [Next: 105](105-locks-blocking-deadlocks-and-troubleshooting.md)
 
 ## 1. Objectives, prerequisites, and scenario (0–5 minutes)
 
