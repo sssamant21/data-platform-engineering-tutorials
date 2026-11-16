@@ -13,6 +13,10 @@
 
 
 
+## QA follow-up — Part 03 scoped Markdown link-path audit (2026-11-16)
+
+[Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-03-2026-11-16.md), published in commit `6b1add44d53a67e7bacd0e22972e66fd40e640e8` and fetched back from `main`. Ten Part 03 chapters (021–030) checked against a complete 1,688-entry GitHub tree (`truncated=false`): **92 inline local links checked, zero missing tracked targets**; 43 external HTTP(S) links inventoried but not tested. No fragment references were identified by the scoped pattern scan. Cumulative scoped local link-path audits: **30/120 chapters** (Parts 01–03); this does not constitute full Markdown parsing, anchor/external-link verification, parser-based SQL QA, independent editorial review, or actual PostgreSQL 18 execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; PostgreSQL 18 runtime-validated **0/120**. Next: Part 04 (031–040) scoped link audit, then Parts 05–12 and comprehensive parser/anchor/runtime acceptance.
+
 ## QA follow-up — Part 02 scoped Markdown link-path audit (2026-11-16)
 
 [Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-02-2026-11-16.md), published in commit `564c896ba2e67ab4f7dbc4dd2c677113edbdc57d` and fetched back from `main`. Pinned complete Git tree `70579c5b92ea1c754077ecf07f35156d9038da56`: all ten Part 02 chapter Markdown files (011–020) checked; **98 inline local links, zero missing tracked targets**, and 42 external HTTP(S) links inventoried but not checked. No local fragment references or reference-style definitions were identified by the scoped pattern scan. This is **not comprehensive Markdown parsing or anchor verification**, parser-based SQL validation, independent editorial review, or PostgreSQL 18 runtime execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; actual PostgreSQL 18 runtime validation **0/120**. Next: Parts 03–12 comprehensive Markdown/link/anchor QA, SQL parser checks, and isolated PostgreSQL 18 acceptance with evidence.
