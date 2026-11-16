@@ -1,6 +1,7 @@
 -- Chapter 108: synthetic backup/recovery acceptance model, NOT a real restore.
 -- Run only on isolated PostgreSQL 18 database sql_tutorials with nonproduction credentials.
 -- Expected: drill_a ACCEPT; drill_b and drill_c BLOCK. No persistent changes.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
