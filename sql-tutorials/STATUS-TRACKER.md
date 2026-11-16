@@ -13,6 +13,10 @@
 
 
 
+## QA follow-up — Part 02 scoped Markdown link-path audit (2026-11-16)
+
+[Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-02-2026-11-16.md), published in commit `564c896ba2e67ab4f7dbc4dd2c677113edbdc57d` and fetched back from `main`. Pinned complete Git tree `70579c5b92ea1c754077ecf07f35156d9038da56`: all ten Part 02 chapter Markdown files (011–020) checked; **98 inline local links, zero missing tracked targets**, and 42 external HTTP(S) links inventoried but not checked. No local fragment references or reference-style definitions were identified by the scoped pattern scan. This is **not comprehensive Markdown parsing or anchor verification**, parser-based SQL validation, independent editorial review, or PostgreSQL 18 runtime execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; actual PostgreSQL 18 runtime validation **0/120**. Next: Parts 03–12 comprehensive Markdown/link/anchor QA, SQL parser checks, and isolated PostgreSQL 18 acceptance with evidence.
+
 ## QA follow-up — Part 01 pinned local Markdown link-path audit (2026-11-16)
 
 [Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-01-2026-11-16.md), commit `b6543c56b39eeab92e5cedc04c88a5ada419c9fa`, fetched back from `main`. Pinned non-truncated tree `359709679c1ce345b17b8972faddd859873b2fff`: all 10 Part 01 chapter Markdown files checked; **62 inline local links, 0 missing tracked targets**, and no local fragment references in scope. This is a **scoped path-existence audit**, not comprehensive Markdown parsing, external URL checking, parser-based SQL verification, independent editorial review, or runtime validation. Authored/published **120/120**; cumulative targeted SQL static review **120/120** (previously reported); independent editorial review **0/120**; actual PostgreSQL 18 runtime validation **0/120**. Next: extend Markdown link/anchor coverage to Parts 02–12, perform parser-based SQL checks, and execute isolated PostgreSQL 18 labs with reproducible evidence.
