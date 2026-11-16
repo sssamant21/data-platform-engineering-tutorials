@@ -11,6 +11,11 @@
 | Independently reviewed chapters | 0 |
 | PostgreSQL 18 runtime-validated chapters | 0 |
 
+## QA follow-up — Part 08 scoped Markdown link-path audit (2026-11-16)
+
+[Evidence](labs/validation/MARKDOWN-LINK-AUDIT-PART-08-2026-11-16.md), published in commit `b2de47b4bbad641794272ebef2632b0a8c73e0d7` and fetched back from `main`. All ten Part 08 chapters (071–080) inspected against complete recursive Git tree `6321622cff338547c3c21f1627dab4414c7bc035` (`truncated=false`): **68 local inline link paths checked, zero missing tracked targets**; 35 external HTTP(S) URLs inventoried but not tested. Fourteen fragment-link occurrences point to the Part 08/09 headings in `MASTER-TOC.md`; rendered-anchor resolution not tested. No reference-style definitions detected by scoped pattern. Cumulative scoped link-path audits: **80/120 chapters** (Parts 01–08). This is not comprehensive Markdown parsing, anchor/external URL verification, SQL parser validation, independent editorial review, or actual PostgreSQL 18 execution. Authored/published **120/120**; targeted SQL static review **120/120**; independent editorial review **0/120**; isolated PostgreSQL 18 runtime validation **0/120**. Next: Part 09 (081–090), Parts 10–12, comprehensive Markdown/SQL parser QA, then isolated PostgreSQL 18 runtime acceptance.
+
+
 
 
 ## QA follow-up — Part 07 scoped Markdown link-path audit (2026-11-16)
