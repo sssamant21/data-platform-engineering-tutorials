@@ -132,7 +132,7 @@ Tasks: (1) inspect the guards and timeouts; (2) count NULL versus non-NULL amoun
 6. **Can MySQL DDL always be rolled back?** No; many DDL statements implicitly commit.
 7. **Does the PostgreSQL lab certify MySQL/MariaDB?** No; cross-engine execution and evidence remain separate.
 
-**Next:** Chapter 118 — SQL Server/T-SQL and Oracle SQL: key differences (planned; see [Master TOC](../MASTER-TOC.md)).
+**Next:** [Chapter 118 — SQL Server/T-SQL and Oracle SQL: key differences](118-sql-server-tsql-and-oracle-sql-key-differences.md) (published; cross-engine validation pending).
 
 ## References
 
