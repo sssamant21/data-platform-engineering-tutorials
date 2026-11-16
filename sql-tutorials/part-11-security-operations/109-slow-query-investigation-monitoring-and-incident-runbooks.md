@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · PostgreSQL 18 baseline · Beginner-friendly
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 109 SQL](../labs/109-slow-query-monitoring-incident-runbook.sql) · [Previous: 108](108-backup-recovery-and-restore-validation-concepts.md) · Next: 110 — Lab 11: operational SQL incident and recovery exercise (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 109 SQL](../labs/109-slow-query-monitoring-incident-runbook.sql) · [Previous: 108](108-backup-recovery-and-restore-validation-concepts.md) · [Next: 110 — Lab 11: operational SQL incident and recovery exercise](110-lab-11-operational-sql-incident-and-recovery-exercise.md)
 
 ## 1. Learning outcomes and incident scenario (0–5 minutes)
 
