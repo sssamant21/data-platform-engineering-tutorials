@@ -138,7 +138,7 @@ Tasks: (1) inspect the safety guard; (2) calculate regional counts and revenue; 
 7. **Why not use SQL Server NOLOCK as a universal fix?** It can return inconsistent or uncommitted data.
 8. **What is the safe way to validate an upsert migration?** Isolated concurrency, duplicate-key, constraint and replay tests with observed evidence.
 
-**Next:** Chapter 119 — Snowflake and BigQuery: cloud analytical SQL patterns (planned; [Master TOC](../MASTER-TOC.md)).
+**Next:** [Chapter 119 — Snowflake and BigQuery: cloud analytical SQL patterns](119-snowflake-and-bigquery-cloud-analytical-sql-patterns.md) (published; cross-engine validation pending).
 
 ## Authoritative references
 
