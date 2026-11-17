@@ -1,6 +1,9 @@
 -- Chapter 120: PostgreSQL 18 synthetic, read-only capstone.
 -- Run ONLY against disposable database sql_tutorials. No production credentials.
 -- Calculated expected results; NOT evidence of actual runtime validation.
+-- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/120-final-capstone-operational-analytical-sql.sql
+-- psql fail-closed guard: stop on any SQL error, including the database/version check.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
