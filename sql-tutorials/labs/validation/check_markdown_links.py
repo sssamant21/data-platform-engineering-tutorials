@@ -5,7 +5,7 @@ Install: python -m pip install "markdown-it-py>=3,<5"
 Run from repository root: python sql-tutorials/labs/validation/check_markdown_links.py
 Optional: --json sql-tutorials/labs/validation/markdown-qa-results.json
 
-Scope: local Markdown inline/reference links and fragment anchors, using parsed tokens.
+Scope: all SQL Tutorials Markdown files, local inline/reference links and fragments, using parsed tokens.
 External HTTP(S) URLs are counted, not network-tested. HTML hrefs and GitHub's
 renderer-specific slug edge cases require separate review.
 """
@@ -66,8 +66,14 @@ def main():
     args = parser.parse_args()
     chapters = sorted(path for path in SCOPE.glob("part-*/*.md")
                       if re.match(r"^\d{3}-", path.name))
-    files = [SCOPE / name for name in ("MASTER-TOC.md", "README.md", "STATUS-TRACKER.md")]
-    files += chapters
+    # Include lab guides, validation evidence and other Markdown, not just chapters.
+    # Otherwise broken links in these documents would silently escape QA.
+    files = sorted(SCOPE.rglob("*.md"))
+    counts_expected = {SCOPE / name for name in ("MASTER-TOC.md", "README.md", "STATUS-TRACKER.md")}
+    for required in sorted(counts_expected):
+        if required not in files:
+            files.append(required)
+    files = sorted(set(files))
     issues = []
     # A count of 120 files alone does not prove that chapters 001–120
     # are present exactly once or located in their expected ten-chapter parts.
@@ -120,7 +126,7 @@ def main():
                     anchor_cache[target] = headings(target)
                 if unquote(parts.fragment) not in anchor_cache[target]:
                     issues.append({"file": str(path.relative_to(ROOT)), "href": href, "issue": "unmatched approximate GitHub heading slug"})
-    report = {"scope": "120 numbered chapters plus three index files",
+    report = {"scope": "all Markdown files under sql-tutorials, including 120 numbered chapters",
               "chapter_files": len(chapters), "counts": dict(counts),
               "issues": issues,
               "limitations": ["External URLs not requested over network",
