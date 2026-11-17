@@ -69,6 +69,23 @@ def main():
     files = [SCOPE / name for name in ("MASTER-TOC.md", "README.md", "STATUS-TRACKER.md")]
     files += chapters
     issues = []
+    # A count of 120 files alone does not prove that chapters 001–120
+    # are present exactly once or located in their expected ten-chapter parts.
+    by_number = {}
+    for path in chapters:
+        number = int(path.name[:3])
+        by_number.setdefault(number, []).append(path)
+        expected_part = (number - 1) // 10 + 1 if 1 <= number <= 120 else None
+        if expected_part is None or not path.parent.name.startswith(f"part-{expected_part:02d}-"):
+            issues.append({"file": str(path.relative_to(ROOT)),
+                           "issue": "chapter number outside expected part"})
+    for number in range(1, 121):
+        matches = by_number.get(number, [])
+        if not matches:
+            issues.append({"chapter": f"{number:03d}", "issue": "missing chapter number"})
+        elif len(matches) > 1:
+            issues.append({"chapter": f"{number:03d}", "issue": "duplicate chapter number",
+                           "files": [str(p.relative_to(ROOT)) for p in matches]})
     counts = Counter()
     anchor_cache = {}
     for path in files:
