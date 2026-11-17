@@ -5,7 +5,7 @@ Install: python -m pip install "markdown-it-py>=3,<5"
 Run from repository root: python sql-tutorials/labs/validation/check_markdown_links.py
 Optional: --json sql-tutorials/labs/validation/markdown-qa-results.json
 
-Scope: all SQL Tutorials Markdown files, local inline/reference links and fragments, using parsed tokens.
+Scope: all SQL Tutorials Markdown files, local inline/reference links, image sources and fragments, using parsed tokens.
 External HTTP(S) URLs are counted, not network-tested. HTML hrefs and GitHub's
 renderer-specific slug edge cases require separate review.
 """
@@ -56,6 +56,8 @@ def links(tokens):
     for token in tokens:
         if token.type == "link_open":
             yield token.attrGet("href") or ""
+        elif token.type == "image":
+            yield token.attrGet("src") or ""
         if token.children:
             yield from links(token.children)
 
