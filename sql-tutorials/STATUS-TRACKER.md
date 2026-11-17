@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## QA follow-up — Part 10 targeted Markdown fragment/fence check (2026-11-16)
+
+[Evidence](labs/validation/MARKDOWN-ANCHOR-QA-PART-10-2026-11-16.md) published to `main` (commit `f76b7ebdd3b1529386752966b5ed4bf0e4887f04`) and fetched back. Ten Part 10 chapters (091–100) inspected: zero local inline fragment destinations, one external PostgreSQL documentation fragment (not tested), even triple-backtick fence marker counts in all ten files, and zero reference-style definitions matching the scoped pattern. **Targeted static pattern checks only**, not comprehensive Markdown parser QA, external URL validation, SQL parser testing, or runtime execution. Authored/published 120/120; previously reported targeted SQL static reviews and scoped path audits 120/120; independent editorial review 0/120; isolated PostgreSQL 18 runtime validation 0/120. Next: full parser-aware Markdown QA, SQL syntax/expected-output checks, and isolated PostgreSQL 18 acceptance with evidence.
+
+
 > **Scope:** 120 planned chapters in 12 parts. Source of truth for titles and chapter order: [MASTER-TOC.md](MASTER-TOC.md).
 > **Updated:** 2026-11-13. Content publication and runtime validation are distinct milestones.
 
