@@ -2,6 +2,8 @@
 -- Run ONLY against isolated PostgreSQL 18 database sql_tutorials, with nonproduction credentials.
 -- Expected: 4 observations, 3 slow, 2 blocked, 1 plan review;
 --           1 accepted recovery, 2 blocked; 1 source-only and 1 target-only row.
+\set ON_ERROR_STOP on
+-- Invoke with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f 110-lab-11-operational-sql-incident-recovery.sql
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
