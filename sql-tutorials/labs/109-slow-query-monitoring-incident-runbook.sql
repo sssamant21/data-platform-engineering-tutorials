@@ -1,6 +1,8 @@
 -- Chapter 109: synthetic slow-query triage model; NOT production telemetry.
 -- PostgreSQL 18, isolated database sql_tutorials, nonproduction credentials only.
 -- Expected: six samples; three >=500ms; two BLOCKING; one PLAN_REVIEW.
+\set ON_ERROR_STOP on
+-- Invoke with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f 109-slow-query-monitoring-incident-runbook.sql
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
