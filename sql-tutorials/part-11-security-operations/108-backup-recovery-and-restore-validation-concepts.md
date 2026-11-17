@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · PostgreSQL 18 baseline · Beginner-friendly
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 108 SQL](../labs/108-backup-recovery-restore-validation.sql) · [Previous: 107](107-data-quality-assertions-and-reconciliation-queries.md) · Next: 109 — Slow-query investigation, monitoring, and incident runbooks (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 108 SQL](../labs/108-backup-recovery-restore-validation.sql) · [Previous: 107](107-data-quality-assertions-and-reconciliation-queries.md) · [Next: 109 — Slow-query investigation, monitoring, and incident runbooks](109-slow-query-investigation-monitoring-and-incident-runbooks.md)
 
 ## 1. Outcomes and operational scenario (0–5 minutes)
 
