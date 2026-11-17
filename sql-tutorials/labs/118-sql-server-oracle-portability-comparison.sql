@@ -1,6 +1,9 @@
 -- Chapter 118: PostgreSQL 18 read-only lab for portable query semantics.
 -- This DOES NOT execute T-SQL or Oracle SQL. Calculated expectations only.
 -- Run only in disposable PostgreSQL 18 database sql_tutorials.
+-- Execute with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/118-sql-server-oracle-portability-comparison.sql
+-- Fail closed if any SQL statement or database/version guard fails.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
