@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## QA follow-up — README scoped local-link audit (2026-11-17)
+
+[Evidence](labs/validation/README-LINK-PATH-AUDIT-2026-11-17.md) was published and fetched back from `main` (evidence correction commit `2845e347632e5ccc3ec5f4f049751c3d025ccd7c`). Checked **232 local inline Markdown link paths** in `README.md` against complete, non-truncated Git tree `04c363603dd40e2a6a05c5996475a8608b27d187`; **zero missing tracked targets** in the scoped scan. This was pattern-based static QA, **not** execution of the published parser-aware checker, rendered-anchor validation, external URL testing, independent editorial review, SQL parser QA, or PostgreSQL 18 runtime execution. Authored/published **120/120**; previously reported targeted SQL static review and scoped chapter link audits **120/120**; independent editorial review **0/120**; actual PostgreSQL 18 runtime validation **0/120**. Next: execute the full parser-aware checker on a complete checkout, retain JSON evidence, triage findings, then SQL syntax/expected-output and isolated PostgreSQL 18 runtime acceptance.
+
+
 ## QA checker hardening — chapter identity checks (2026-11-17)
 
 Updated [check_markdown_links.py](labs/validation/check_markdown_links.py) to report missing chapter numbers, duplicate numbers, and chapters filed under the wrong numbered part, instead of treating a raw count of 120 as sufficient. Published and fetched back from `main` in commit `aee3b28386210bce94095ab192a31c61c91a75da`. **This is a source-level tooling change only; the enhanced checker has not been executed on a complete checkout.** No JSON run evidence, parser-aware QA pass, editorial approval, SQL execution, or PostgreSQL 18 runtime acceptance is claimed. Previously recorded status remains 120/120 authored/published, 120/120 targeted SQL static reviews and scoped Markdown path audits, 0/120 independently editorially reviewed, and 0/120 PostgreSQL 18 runtime-validated. Next: execute the enhanced checker against a complete `main` checkout and preserve its JSON output, then triage findings and advance SQL syntax/expected-output and isolated PostgreSQL 18 runtime checks.
