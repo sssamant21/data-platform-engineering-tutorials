@@ -4,7 +4,7 @@
 
 - Repository: `sssamant21/data-platform-engineering-tutorials`, branch `main`.
 - Git tree SHA at inspection: `04c363603dd40e2a6a05c5996475a8608b27d187`; recursive tree reported `truncated=false`.
-- Inspected: `sql-tutorials/README.md` (47,626 characters).
+- Inspected: `sql-tutorials/README.md` (46,726 characters).
 - Extracted Markdown-style inline link destinations using the pattern `\]\(([^)]+)\)`, excluded HTTP(S), mailto, and fragment-only destinations, stripped query/fragment components, and checked remaining paths against the complete tracked Git tree.
 - This was a **scoped pattern-based inspection**, not the published parser-aware checker. Complex Markdown destinations, escaped parentheses, reference-style links, raw HTML links, rendered anchors, external URL availability, and SQL correctness were not verified.
 
