@@ -1,5 +1,9 @@
 # SQL Tutorials — Status Tracker
 
+## QA scope correction — Markdown checker (2026-11-17)
+
+Expanded [check_markdown_links.py](labs/validation/check_markdown_links.py) to enumerate **all Markdown files** under `sql-tutorials/`, including lab instructions and validation reports, rather than only the 120 chapters and three index files. Source change published and fetched back on `main` in commit [`64e638a4b1acc8c72f7153faf23724678a1437e8`](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/64e638a4b1acc8c72f7153faf23724678a1437e8). This closes a checker coverage gap, **not** a demonstrated broken link. The expanded checker has **not** been run against a complete checkout; no JSON results or comprehensive QA pass are claimed. Status: 120/120 authored/published; previously reported targeted static reviews 120/120; independent editorial review 0/120; actual isolated PostgreSQL 18 runtime validation 0/120. Next: execute the checker against a complete checkout, retain machine-readable evidence, triage findings, then SQL syntax/expected-output and PostgreSQL 18 runtime acceptance.
+
 ## QA follow-up — STATUS-TRACKER scoped link-path audit (2026-11-17)
 
 [Evidence](labs/validation/STATUS-TRACKER-LINK-PATH-AUDIT-2026-11-17.md) published in commit `d86a0b93fee17b905eea9c87a308816b491f4d97`. Read current Master TOC, README, tracker, and published checker; inspected **505 local inline Markdown link paths** in this tracker against complete, non-truncated Git tree `b35ce3ee038e84698e089da201661419e377b90a`; **zero missing tracked targets**. This is scoped pattern-based static inspection, not execution of the parser-aware checker or runtime SQL validation. Authored/published **120/120**; independent editorial review **0/120**; isolated PostgreSQL 18 runtime validation **0/120**. Next: full-checkout parser-aware Markdown QA with retained JSON evidence, then SQL syntax/expected-output and isolated PostgreSQL 18 runtime acceptance.
