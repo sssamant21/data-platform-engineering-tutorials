@@ -1,6 +1,9 @@
 -- Chapter 119: synthetic, read-only PostgreSQL 18 comparison lab.
 -- Not a Snowflake or BigQuery execution/cost test.
 -- Requires disposable PostgreSQL 18 database named sql_tutorials.
+-- Execute with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/119-snowflake-bigquery-cloud-analytical-patterns.sql
+-- Fail closed if any SQL statement or database/version guard fails.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
