@@ -2,6 +2,9 @@
 -- Synthetic data only. Execute ONLY on a separate disposable PostgreSQL 18
 -- instance with database sql_tutorials; never on production.
 -- Calculated expectations, NOT observed runtime results.
+-- Execute with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/117-mysql-mariadb-portability-comparison.sql
+-- Fail closed if any SQL statement or database/version guard fails.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
