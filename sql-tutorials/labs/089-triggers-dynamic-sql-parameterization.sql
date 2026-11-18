@@ -2,6 +2,7 @@
 -- Run only against isolated PostgreSQL 18 database sql_tutorials:
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/089-triggers-dynamic-sql-parameterization.sql
 -- No DDL, trigger creation, persistent writes or production data.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
