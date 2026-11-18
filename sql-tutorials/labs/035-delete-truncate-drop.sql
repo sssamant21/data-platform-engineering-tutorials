@@ -1,6 +1,7 @@
 -- Chapter 035: DELETE versus TRUNCATE versus DROP
 -- Run ONLY on an independently verified disposable PostgreSQL 18 sql_tutorials DB.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/035-delete-truncate-drop.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
