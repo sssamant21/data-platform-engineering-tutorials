@@ -2,6 +2,7 @@
 -- ONLY on independently verified disposable PostgreSQL 18 primary sql_tutorials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/025-foreign-keys-referential-integrity.sql
 -- Synthetic records, temporary tables, rollback-only; runtime validation pending.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
