@@ -1,6 +1,7 @@
 -- Chapter 037: PostgreSQL 18 only; synthetic data, isolated sql_tutorials database.
 -- Verify the endpoint and role independently BEFORE execution.
 -- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/037-returning-output-write-verification.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '15s';
 SET LOCAL lock_timeout = '3s';
