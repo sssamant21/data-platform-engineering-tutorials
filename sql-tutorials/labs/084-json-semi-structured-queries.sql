@@ -1,5 +1,6 @@
 -- Chapter 084: JSON and semi-structured SQL queries
 -- Isolated PostgreSQL 18 database sql_tutorials ONLY. Synthetic data; no persistent writes.
+\set ON_ERROR_STOP on
 BEGIN TRANSACTION READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
