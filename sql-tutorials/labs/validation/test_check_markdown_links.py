@@ -162,5 +162,21 @@ class MarkdownCheckerRegression(unittest.TestCase):
                             x["file"].endswith("labs/validation/guide.md")
                             for x in report["issues"]))
 
+    def test_malformed_url_reports_issue_without_crashing(self):
+        p = self.scope / "part-01-synthetic" / "001-example.md"
+        p.write_text("# Chapter 001\n[Bad](<https://[broken>)\n", encoding="utf-8")
+        code, report = self.run_checker()
+        self.assertNotEqual(code, 0)
+        self.assertTrue(any(x["issue"] == "malformed URL" for x in report["issues"]))
+
+    def test_valid_external_url_is_not_claimed_as_checked(self):
+        p = self.scope / "part-01-synthetic" / "001-example.md"
+        p.write_text("# Chapter 001\n[Reference](https://www.postgresql.org/docs/18/)\n",
+                     encoding="utf-8")
+        code, report = self.run_checker()
+        self.assertEqual(code, 0, report["issues"])
+        self.assertEqual(report["counts"].get("external_not_tested"), 1)
+
+
 if __name__ == "__main__":
     unittest.main()
