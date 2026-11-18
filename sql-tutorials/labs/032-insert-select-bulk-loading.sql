@@ -2,6 +2,7 @@
 -- Isolated PostgreSQL 18 disposable sql_tutorials database only.
 -- Verify actual host, port, user, container and credentials independently.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/032-insert-select-bulk-loading.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
