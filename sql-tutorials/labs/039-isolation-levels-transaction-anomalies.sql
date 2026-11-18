@@ -2,6 +2,7 @@
 -- Verify independently that host, port, role, and database are disposable.
 -- Run with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/039-isolation-levels-transaction-anomalies.sql
 -- This single-session lab does NOT demonstrate concurrent anomalies.
+\set ON_ERROR_STOP on
 BEGIN ISOLATION LEVEL READ COMMITTED READ ONLY;
 SET LOCAL statement_timeout = '15s';
 SET LOCAL lock_timeout = '3s';
