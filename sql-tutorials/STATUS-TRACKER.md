@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Part 07 fail-closed SQL lab safety audit (2026-11-17)
+
+Read the current `MASTER-TOC.md`, `README.md`, and tracker on `main`; fetched and inspected all ten published Part 07 SQL labs (Chapters 061–070). **10/10** contain in-file `\set ON_ERROR_STOP on` before `BEGIN READ ONLY`, session timeouts, and database/PostgreSQL-version guards. No missing directive was found and no lab changes were required. This is a **scoped source-level static inspection**, not execution, a comprehensive syntax/expected-output review, or independent editorial review. The database-name/version checks do **not** establish endpoint isolation; independently verify the disposable instance before running. Chapters authored/published **120/120**; previously reported targeted static reviews **120/120**; independent editorial reviews **0/120**; actual isolated PostgreSQL 18 runtime validation **0/120**. Comprehensive parser-aware Markdown QA remains pending. Next: audit Part 06 (051–060) and earlier labs, then execute complete-checkout Markdown QA with retained JSON evidence and isolated PostgreSQL 18 acceptance.
+
+
 ## Part 08 fail-closed SQL lab safety audit (2026-11-17)
 
 Read current `MASTER-TOC.md`, `README.md`, and this tracker on `main`; inspected the complete published SQL lab sources for Chapters 071–080. **10/10** labs already contain an in-file `\set ON_ERROR_STOP on` directive before `BEGIN READ ONLY`, timeouts, and PostgreSQL-version/database guards. No confirmed missing fail-closed directive was found, so no lab changes were necessary. This is a **source-level static inspection only**, not execution or independent editorial review. Chapters authored/published: **120/120**; previously reported targeted static reviews: **120/120**; independent editorial reviews: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Comprehensive Markdown QA and SQL syntax/expected-output acceptance remain pending. Next: audit Part 07 (061–070) and earlier labs, then execute complete-checkout Markdown QA with JSON evidence and isolated PostgreSQL 18 runtime acceptance.
