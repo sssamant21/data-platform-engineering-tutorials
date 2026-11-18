@@ -123,5 +123,15 @@ class MarkdownCheckerRegression(unittest.TestCase):
         code, report = self.run_checker()
         self.assertEqual(code, 0, report["issues"])
 
+    def test_multiline_setext_heading_fragment(self):
+        (self.scope / "README.md").write_text(
+            "Multi\nline\n==========\n", encoding="utf-8"
+        )
+        p = self.scope / "part-01-synthetic" / "001-example.md"
+        p.write_text("# Chapter 001\n[Heading](../README.md#multi-line)\n",
+                     encoding="utf-8")
+        code, report = self.run_checker()
+        self.assertEqual(code, 0, report["issues"])
+
 if __name__ == "__main__":
     unittest.main()
