@@ -1,6 +1,7 @@
 -- Chapter 012: AND, OR, NOT, and Boolean precedence.
 -- Synthetic VALUES only. Independently verify disposable endpoint before running.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/012-and-or-not-boolean-precedence.sql
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
  AND current_setting('server_version_num')::integer / 10000 = 18
