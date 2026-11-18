@@ -1,6 +1,8 @@
 -- Chapter 091: EXPLAIN estimated plans and synthetic read-only acceptance.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/091-read-execution-plans-with-explain.sql
 -- Never run against production. EXPLAIN (ANALYZE) is deliberately not used.
+-- Fail closed on any SQL error, including the database/version guard.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
