@@ -2,6 +2,7 @@
 -- Run ONLY in an independently verified disposable PostgreSQL 18 lab.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/016-distinct-duplicate-handling.sql
 -- Synthetic inline rows only; no persistent DDL or DML.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
