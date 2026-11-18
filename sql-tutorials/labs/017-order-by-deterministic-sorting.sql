@@ -2,6 +2,7 @@
 -- Run ONLY against an independently verified disposable PostgreSQL 18 database.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/017-order-by-deterministic-sorting.sql
 -- All data are synthetic inline VALUES. No persistent objects, DDL or DML.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
