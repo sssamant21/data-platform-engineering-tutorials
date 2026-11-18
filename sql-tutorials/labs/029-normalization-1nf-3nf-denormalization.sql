@@ -3,6 +3,7 @@
 -- Independently verify disposable PostgreSQL 18 primary host/container and credentials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/029-normalization-1nf-3nf-denormalization.sql
 -- Actual PostgreSQL 18 runtime validation PENDING.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
