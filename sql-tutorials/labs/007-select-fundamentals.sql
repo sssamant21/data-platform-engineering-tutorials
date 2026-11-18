@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 007: SELECT fundamentals — PostgreSQL 18 isolated lab
 -- Run with: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f labs/007-select-fundamentals.sql
 -- Read-only transaction, fictional data only, no persistent objects.
