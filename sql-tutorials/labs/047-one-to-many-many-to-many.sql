@@ -1,6 +1,7 @@
 -- Chapter 047: synthetic 1:N and M:N relationships.
 -- Run ONLY in a disposable PostgreSQL 18+ database named sql_tutorials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/047-one-to-many-many-to-many.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
