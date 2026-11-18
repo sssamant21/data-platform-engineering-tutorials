@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 010 / Lab 01: synthetic retail; PostgreSQL 18, disposable sql_tutorials only.
 -- Run with psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/010-lab-01-explore-sample-database.sql
 -- Confirm the endpoint is isolated before executing; database name alone is insufficient.
