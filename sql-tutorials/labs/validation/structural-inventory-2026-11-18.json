@@ -1,0 +1,29 @@
+{
+  "check": "GitHub recursive tree structural inventory",
+  "checked_at_utc": "2026-11-18",
+  "source_ref": "main",
+  "source_commit_sha": "6ce065abebff3e0233ea12ef8646b7476043809c",
+  "tree_truncated": false,
+  "scope": "sql-tutorials/",
+  "scope_tree_entries": 345,
+  "chapter_markdown_files": 120,
+  "unique_chapter_numbers": 120,
+  "expected_chapter_numbers": 120,
+  "missing_chapters": [],
+  "duplicate_chapter_numbers": [],
+  "chapters_in_wrong_part": [],
+  "markdown_files_total": 207,
+  "sql_files_total": 120,
+  "required_root_files_present": [
+    "MASTER-TOC.md",
+    "README.md",
+    "STATUS-TRACKER.md"
+  ],
+  "result": "PASS for structural inventory only",
+  "limitations": [
+    "Does not parse Markdown links or headings",
+    "Does not execute Python regression suite",
+    "Does not validate SQL syntax, expected results, or PostgreSQL 18 runtime",
+    "Counts include all .sql files, not necessarily one executable lab per chapter"
+  ]
+}
