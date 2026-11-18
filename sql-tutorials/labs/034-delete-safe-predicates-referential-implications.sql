@@ -1,6 +1,7 @@
 -- Chapter 034: DELETE with safe predicates and referential implications
 -- Only on an independently verified disposable PostgreSQL 18 sql_tutorials database.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/034-delete-safe-predicates-referential-implications.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
