@@ -1,6 +1,7 @@
 -- Chapter 090 — synthetic, read-only reusable customer reporting contract.
 -- Isolated PostgreSQL 18 database sql_tutorials only; no persistent objects.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/090-lab-09-reusable-reporting-objects.sql
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
