@@ -1,6 +1,7 @@
 -- Chapter 038 — PostgreSQL 18 isolated rollback-only transaction lab
 -- IMPORTANT: independently verify endpoint, host, role, and disposable environment.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/038-begin-commit-rollback-savepoint.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '15s';
 SET LOCAL lock_timeout = '3s';
