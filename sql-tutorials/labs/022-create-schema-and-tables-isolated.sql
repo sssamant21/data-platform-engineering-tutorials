@@ -3,6 +3,7 @@
 -- Invocation: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/022-create-schema-and-tables-isolated.sql
 -- Not runtime validated until executed on PostgreSQL 18 with retained evidence.
 -- Never run on production; no CREATE DATABASE or DROP DATABASE commands.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
