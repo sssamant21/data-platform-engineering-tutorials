@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 002: Relational Databases and DBMS Architecture
 -- PostgreSQL 18 reference; read-only; synthetic data; no permanent objects.
 -- Expected outcomes described alongside each query.
