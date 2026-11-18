@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 009: Data types, NULL and explicit type conversion
 -- Only isolated PostgreSQL 18 sql_tutorials database; synthetic rows; no persistent writes.
 -- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/009-data-types-null-explicit-conversion.sql
