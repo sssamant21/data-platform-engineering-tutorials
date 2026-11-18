@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 006 — Anatomy of a SQL statement and logical query processing
 -- PostgreSQL 18 isolated sql_tutorials lab only. Read-only; no persistent changes.
 -- Run from sql-tutorials/: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f labs/006-statement-anatomy-logical-processing.sql
