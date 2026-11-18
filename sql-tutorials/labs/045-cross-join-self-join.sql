@@ -1,6 +1,7 @@
 -- Chapter 045: CROSS JOIN and SELF JOIN. Synthetic data only.
 -- Execute ONLY in disposable PostgreSQL 18+ database named sql_tutorials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/045-cross-join-self-join.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
