@@ -94,5 +94,34 @@ class MarkdownCheckerRegression(unittest.TestCase):
                             for x in report["issues"]))
 
 
+    def test_wrong_part_directory_fails(self):
+        original = self.scope / "part-01-synthetic" / "001-example.md"
+        wrong = self.scope / "part-02-synthetic" / "001-example.md"
+        original.rename(wrong)
+        code, report = self.run_checker()
+        self.assertNotEqual(code, 0)
+        self.assertTrue(any(x["issue"] == "chapter number outside expected part"
+                            for x in report["issues"]))
+
+    def test_broken_link_in_nonchapter_markdown_fails(self):
+        (self.scope / "README.md").write_text(
+            "# Home\\n[Broken](missing-guide.md)\\n", encoding="utf-8"
+        )
+        code, report = self.run_checker()
+        self.assertNotEqual(code, 0)
+        self.assertTrue(any(x["issue"] == "missing target" and
+                            x["file"] == "sql-tutorials/README.md"
+                            for x in report["issues"]))
+
+    def test_duplicate_heading_fragment_suffix(self):
+        (self.scope / "README.md").write_text(
+            "# Home\\n## Repeat\\n## Repeat\\n", encoding="utf-8"
+        )
+        p = self.scope / "part-01-synthetic" / "001-example.md"
+        p.write_text("# Chapter 001\\n[Second](../README.md#repeat-1)\\n",
+                     encoding="utf-8")
+        code, report = self.run_checker()
+        self.assertEqual(code, 0, report["issues"])
+
 if __name__ == "__main__":
     unittest.main()
