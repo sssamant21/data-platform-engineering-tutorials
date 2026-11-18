@@ -1,6 +1,7 @@
 -- Chapter 033 — UPDATE with safe predicates and preview queries
 -- Disposable PostgreSQL 18 instance ONLY; independently verify connection.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/033-update-safe-predicates-preview.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
