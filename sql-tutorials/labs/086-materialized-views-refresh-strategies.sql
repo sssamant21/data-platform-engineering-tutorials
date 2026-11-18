@@ -1,6 +1,7 @@
 -- Chapter 086 — Materialized views and refresh strategies
 -- Synthetic read-only simulation; NO CREATE/REFRESH MATERIALIZED VIEW.
 -- Run with psql -X -v ON_ERROR_STOP=1 in isolated PostgreSQL 18 database sql_tutorials.
+\set ON_ERROR_STOP on
 BEGIN TRANSACTION READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
