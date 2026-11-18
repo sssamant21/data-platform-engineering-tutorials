@@ -106,7 +106,14 @@ def main():
         tokens = MD.parse(path.read_text(encoding="utf-8"))
         for href in links(tokens):
             counts["links"] += 1
-            parts = urlsplit(href)
+            try:
+                parts = urlsplit(href)
+            except ValueError:
+                # Malformed URLs (for example, an unmatched IPv6 bracket)
+                # must become actionable QA findings, not abort JSON reporting.
+                issues.append({"file": str(path.relative_to(ROOT)),
+                               "href": href, "issue": "malformed URL"})
+                continue
             if parts.scheme in ("http", "https"):
                 counts["external_not_tested"] += 1
                 continue
