@@ -2,6 +2,7 @@
 -- Run only after independently confirming isolated lab host and credentials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/023-choosing-sql-data-types.sql
 -- Synthetic, read-only, no persistent objects. Runtime acceptance pending.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
