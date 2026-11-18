@@ -2,6 +2,7 @@
 -- WARNING: disposable sql_tutorials database ONLY. Verify endpoint/credentials separately.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/040-lab-04-safe-auditable-transaction.sql
 -- Synthetic data. Temporary tables. Final ROLLBACK. Never use production.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '15s';
 SET LOCAL lock_timeout = '3s';
