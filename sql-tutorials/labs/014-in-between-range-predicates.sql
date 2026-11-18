@@ -2,6 +2,7 @@
 -- Run ONLY on independently verified disposable PostgreSQL 18 sandbox.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/014-in-between-range-predicates.sql
 -- No persistent tables, writes, or credentials. Expected assertions = 1.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 -- Fail closed on unexpected server version or database name.
