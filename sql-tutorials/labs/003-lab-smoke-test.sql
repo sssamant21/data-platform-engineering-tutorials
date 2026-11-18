@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 003 — PostgreSQL 18 smoke test (read-only)
 -- Execute with: psql -X -v ON_ERROR_STOP=1 -f -
 -- Expected: one final row showing PASS; any failed assertion causes a SQL error.
