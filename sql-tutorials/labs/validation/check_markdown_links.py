@@ -36,6 +36,8 @@ def github_slug(value):
 def text_content(token):
     if token.type in ("text", "code_inline"):
         return token.content
+    if token.type in ("softbreak", "hardbreak"):
+        return " "
     return "".join(text_content(child) for child in (token.children or []))
 
 
