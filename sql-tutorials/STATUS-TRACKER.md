@@ -2,7 +2,7 @@
 
 ## Part 09 fail-closed lab correction reconciliation (2026-11-17)
 
-Re-read MASTER-TOC.md, README.md, and this tracker from main. Verified all seven Chapter 084–090 SQL lab files on main now contain in-file `\\set ON_ERROR_STOP on` before their read-only transaction and database/PostgreSQL-version guard. Verified the latest path-specific GitHub commit for each:
+Re-read MASTER-TOC.md, README.md, and this tracker from main. Verified all seven Chapter 084–090 SQL lab files on main now contain in-file `\set ON_ERROR_STOP on` before their read-only transaction and database/PostgreSQL-version guard. Verified the latest path-specific GitHub commit for each:
 
 - Chapter 84: [62fedcbaaff8](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/62fedcbaaff89f4302f018d11bdd76380db7c612)
 - Chapter 85: [e9049d008af0](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/e9049d008af0391cdc91adb760e57e7a2d9f8c1a)
