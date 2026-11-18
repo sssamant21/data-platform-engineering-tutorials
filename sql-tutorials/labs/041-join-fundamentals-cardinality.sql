@@ -2,6 +2,7 @@
 -- PostgreSQL 18 only; synthetic data; isolated sql_tutorials database.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/041-join-fundamentals-cardinality.sql
 -- Never use production credentials or production databases.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
