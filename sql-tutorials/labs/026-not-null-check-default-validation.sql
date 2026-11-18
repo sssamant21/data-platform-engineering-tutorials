@@ -2,6 +2,7 @@
 -- ONLY on an independently verified disposable PostgreSQL 18 primary sql_tutorials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/026-not-null-check-default-validation.sql
 -- Synthetic data; temporary objects; rollback-only. Runtime validation pending.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
