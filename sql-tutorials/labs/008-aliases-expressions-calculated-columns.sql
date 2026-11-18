@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 008: aliases, expressions, literals, calculated columns
 -- PostgreSQL 18 only; fictional in-query rows; read-only transaction.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/008-aliases-expressions-calculated-columns.sql
