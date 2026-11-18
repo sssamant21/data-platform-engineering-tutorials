@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Part 08 fail-closed SQL lab safety audit (2026-11-17)
+
+Read current `MASTER-TOC.md`, `README.md`, and this tracker on `main`; inspected the complete published SQL lab sources for Chapters 071–080. **10/10** labs already contain an in-file `\set ON_ERROR_STOP on` directive before `BEGIN READ ONLY`, timeouts, and PostgreSQL-version/database guards. No confirmed missing fail-closed directive was found, so no lab changes were necessary. This is a **source-level static inspection only**, not execution or independent editorial review. Chapters authored/published: **120/120**; previously reported targeted static reviews: **120/120**; independent editorial reviews: **0/120**; actual isolated PostgreSQL 18 runtime validation: **0/120**. Comprehensive Markdown QA and SQL syntax/expected-output acceptance remain pending. Next: audit Part 07 (061–070) and earlier labs, then execute complete-checkout Markdown QA with JSON evidence and isolated PostgreSQL 18 runtime acceptance.
+
+
 ## Part 09 fail-closed lab correction reconciliation (2026-11-17)
 
 Re-read MASTER-TOC.md, README.md, and this tracker from main. Verified all seven Chapter 084–090 SQL lab files on main now contain in-file `\set ON_ERROR_STOP on` before their read-only transaction and database/PostgreSQL-version guard. Verified the latest path-specific GitHub commit for each:
