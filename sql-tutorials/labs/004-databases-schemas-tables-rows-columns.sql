@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 004: PostgreSQL 18, disposable sql_tutorials database only.
 -- All statements are read-only; ON_ERROR_STOP=1 makes failures observable.
 BEGIN READ ONLY;
