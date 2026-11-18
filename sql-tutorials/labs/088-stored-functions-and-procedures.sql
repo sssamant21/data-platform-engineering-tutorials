@@ -1,6 +1,7 @@
 -- Chapter 088: stored-function concepts using read-only synthetic SQL.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/088-stored-functions-and-procedures.sql
 -- No routine creation, persistent writes, or privileges modified.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
