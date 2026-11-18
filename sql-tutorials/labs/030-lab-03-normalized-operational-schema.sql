@@ -2,6 +2,7 @@
 -- PostgreSQL 18 ONLY; isolated disposable database sql_tutorials ONLY.
 -- Verify host/container/credentials OUTSIDE this script. Never use production.
 -- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/030-lab-03-normalized-operational-schema.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
