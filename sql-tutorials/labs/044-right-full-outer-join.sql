@@ -1,6 +1,7 @@
 -- Chapter 044: RIGHT and FULL OUTER JOIN; synthetic data only.
 -- Run ONLY in disposable PostgreSQL 18 database sql_tutorials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/044-right-full-outer-join.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
