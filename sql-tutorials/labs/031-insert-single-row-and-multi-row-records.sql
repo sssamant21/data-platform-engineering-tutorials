@@ -2,6 +2,7 @@
 -- PostgreSQL 18 only; isolated disposable sql_tutorials database only.
 -- Verify host, port, user and container independently BEFORE running.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/031-insert-single-row-and-multi-row-records.sql
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL lock_timeout = '2s';
 SET LOCAL statement_timeout = '30s';
