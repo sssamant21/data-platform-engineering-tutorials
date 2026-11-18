@@ -2,6 +2,7 @@
 -- Run ONLY against an independently verified disposable sql_tutorials database.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/019-case-coalesce-nullif.sql
 -- Synthetic inline data only; no writes or persistent objects.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
