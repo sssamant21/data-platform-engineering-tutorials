@@ -1,6 +1,7 @@
 -- Chapter 011: WHERE and comparison operators. Synthetic in-query data ONLY.
 -- Confirm disposable PostgreSQL 18 endpoint; name/version check is not sufficient proof.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/011-where-comparison-operators.sql
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SELECT 1 / CASE WHEN current_database() = 'sql_tutorials'
  AND current_setting('server_version_num')::integer / 10000 = 18
