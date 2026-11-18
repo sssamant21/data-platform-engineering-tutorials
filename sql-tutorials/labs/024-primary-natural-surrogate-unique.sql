@@ -2,6 +2,7 @@
 -- Isolated PostgreSQL 18 primary only; never use production credentials.
 -- psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/024-primary-natural-surrogate-unique.sql
 -- Temporary objects, synthetic data, rollback-only. Runtime validation pending.
+\set ON_ERROR_STOP on
 BEGIN;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
