@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- SQL Tutorials — Chapter 001 (PostgreSQL 18 reference)
 -- All statements are read-only. No persistent tables or writes.
 
