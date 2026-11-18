@@ -1,6 +1,7 @@
 -- Chapter 087: read-only intermediate-result lab. Synthetic data only.
 -- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/087-temporary-tables-intermediate-results.sql
 -- PostgreSQL 18 required; no permanent or temporary objects are created.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
