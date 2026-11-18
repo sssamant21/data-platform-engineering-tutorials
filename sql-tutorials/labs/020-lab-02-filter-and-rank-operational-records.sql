@@ -2,6 +2,7 @@
 -- PostgreSQL 18; disposable sql_tutorials database only. Synthetic inline data.
 -- Run: psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/020-lab-02-filter-and-rank-operational-records.sql
 -- No persistent objects, DDL, or writes. Verify isolation independently.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SELECT 1 / CASE WHEN current_database()='sql_tutorials'
