@@ -1,3 +1,4 @@
+\set ON_ERROR_STOP on
 -- Chapter 005: records, relationships and keys.
 -- PostgreSQL 18 isolated sql_tutorials lab only; no persistent writes.
 -- Execute with psql -X -v ON_ERROR_STOP=1 -f <file>.
