@@ -1,5 +1,20 @@
 # SQL Tutorials — Status Tracker
 
+## Part 09 fail-closed lab correction reconciliation (2026-11-17)
+
+Re-read MASTER-TOC.md, README.md, and this tracker from main. Verified all seven Chapter 084–090 SQL lab files on main now contain in-file `\\set ON_ERROR_STOP on` before their read-only transaction and database/PostgreSQL-version guard. Verified the latest path-specific GitHub commit for each:
+
+- Chapter 84: [62fedcbaaff8](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/62fedcbaaff89f4302f018d11bdd76380db7c612)
+- Chapter 85: [e9049d008af0](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/e9049d008af0391cdc91adb760e57e7a2d9f8c1a)
+- Chapter 86: [17241cfc8635](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/17241cfc86359e1830cc5caed15d944ad384b118)
+- Chapter 87: [12104dcae168](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/12104dcae16807e7bc605e91be332c3083f26c8b)
+- Chapter 88: [1dddf4582a32](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/1dddf4582a321484290c10c094542af245d2fc90)
+- Chapter 89: [2ebc807d6c93](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/2ebc807d6c93afe55787a34493cdedd33a4bf1c2)
+- Chapter 90: [2fffb220db17](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/2fffb220db178b817c0a3ccd947f69d2653fc35c)
+
+These seven corrections are **published and source-verified**, resolving the previous uncertain publication status. Chapters 081–083 had already been reported as protected. This is source inspection only: no PostgreSQL 18 execution, independent editorial acceptance, complete-checkout Markdown QA, or SQL expected-output acceptance was performed. Curriculum authored/published **120/120**; previously reported targeted static reviews **120/120**; independent editorial reviews **0/120**; actual isolated PostgreSQL 18 runtime validation **0/120**. Next: audit Part 08 and earlier labs for fail-closed behavior; execute comprehensive Markdown QA with retained JSON evidence; perform isolated PostgreSQL 18 runtime acceptance.
+
+
 ## Part 10 fail-closed SQL lab safety audit (2026-11-17)
 
 Inspected all ten Chapter 091–100 SQL labs for in-file `psql` `ON_ERROR_STOP` handling. Chapters 092–100 already set `\set ON_ERROR_STOP on`; Chapter 091 documented `psql -X -v ON_ERROR_STOP=1` but lacked the in-file directive. Added `\set ON_ERROR_STOP on` before its read-only transaction so an SQL error, including a failed database/version guard, stops execution under `psql`. Published and fetched back on `main`: [Chapter 091 correction](https://github.com/sssamant21/data-platform-engineering-tutorials/commit/c8ec6f5793f23379d4328d58f5fb3075297c58aa). This is source inspection/correction only, **not** SQL execution. Chapters authored/published **120/120**; previously reported targeted static reviews **120/120**; independent editorial reviews **0/120**; PostgreSQL 18 runtime validation **0/120**. Comprehensive parser-aware Markdown QA and SQL syntax/expected-output acceptance remain pending. Next: audit remaining SQL labs, execute complete-checkout Markdown QA with retained JSON evidence, then isolated PostgreSQL 18 acceptance.
