@@ -136,7 +136,7 @@ class MarkdownCheckerRegression(unittest.TestCase):
 
     def test_missing_local_image_fails(self):
         p = self.scope / "part-01-synthetic" / "001-example.md"
-        p.write_text("# Chapter 001\\n![Diagram](missing-diagram.png)\\n",
+        p.write_text("# Chapter 001\n![Diagram](missing-diagram.png)\n",
                      encoding="utf-8")
         code, report = self.run_checker()
         self.assertNotEqual(code, 0)
@@ -146,7 +146,7 @@ class MarkdownCheckerRegression(unittest.TestCase):
 
     def test_reference_style_link_missing_target_fails(self):
         p = self.scope / "part-01-synthetic" / "001-example.md"
-        p.write_text("# Chapter 001\\n[Guide][guide]\\n\\n[guide]: missing-guide.md\\n",
+        p.write_text("# Chapter 001\n[Guide][guide]\n\n[guide]: missing-guide.md\n",
                      encoding="utf-8")
         code, report = self.run_checker()
         self.assertNotEqual(code, 0)
@@ -154,7 +154,7 @@ class MarkdownCheckerRegression(unittest.TestCase):
 
     def test_broken_link_in_lab_guide_fails(self):
         guide = self.scope / "labs" / "validation" / "guide.md"
-        guide.write_text("# Guide\\n[Absent](missing-evidence.json)\\n",
+        guide.write_text("# Guide\n[Absent](missing-evidence.json)\n",
                          encoding="utf-8")
         code, report = self.run_checker()
         self.assertNotEqual(code, 0)
