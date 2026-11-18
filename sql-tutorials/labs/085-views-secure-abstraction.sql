@@ -1,6 +1,7 @@
 -- Chapter 085 — Views and secure abstraction
 -- Isolated PostgreSQL 18 database sql_tutorials ONLY; synthetic inline records.
 -- Read-only simulation of a reporting-view contract; NO CREATE VIEW, DDL or persistent writes.
+\set ON_ERROR_STOP on
 BEGIN TRANSACTION READ ONLY;
 SET LOCAL statement_timeout = '10s';
 SET LOCAL lock_timeout = '2s';
