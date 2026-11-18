@@ -1,6 +1,7 @@
 -- Chapter 021: Entity relationships and conceptual data modeling
 -- Target: isolated PostgreSQL 18, database sql_tutorials; synthetic read-only lab.
 -- Not runtime validated until executed with retained evidence.
+\set ON_ERROR_STOP on
 BEGIN READ ONLY;
 SET LOCAL statement_timeout = '10s';
 DO $guard$
