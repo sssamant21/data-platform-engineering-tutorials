@@ -42,6 +42,8 @@ Use this fictional CDC delivery stream (amount is in hypothetical currency units
 | 5 | 502 | 2026-01-02 09:00 | D | NULL |
 | 6 | 503 | 2026-01-02 10:00 | U | 35.00 |
 
+**Timestamp semantics:** The `event_ts (UTC)` label describes the synthetic source-data convention only. The PostgreSQL companion lab uses `timestamp without time zone`, which stores a wall-clock value without a UTC offset or time-zone enforcement. In a real CDC pipeline, retain an explicit source time-zone contract and normalize instants deliberately (for example, using PostgreSQL `timestamptz` with explicit conversion). Snowflake and BigQuery timestamp types and conversions require separate dialect tests. This clarification does not change the calculated results.
+
 **Portable-style pattern (CTE + ROW_NUMBER):** Use a unique, stable ordering key to break timestamp ties.
 
 ```sql
