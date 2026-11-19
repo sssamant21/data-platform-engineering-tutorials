@@ -32,6 +32,19 @@ The checker must inspect **all** `sql-tutorials/**/*.md` files and enforce uniqu
 
 Record a companion `evidence/markdown-run-metadata.json` with: UTC timestamp, repository, full commit SHA, Python version, markdown-it-py version, exact command, exit code, number of Markdown files and chapter files, issue count, reviewer, and unresolved limitations. Do not hand-populate observed results before execution.
 
+## Phase A2 — execute checker regression tests (synthetic, no database)
+
+After Phase A dependencies are installed, run the existing regression suite separately:
+
+```bash
+python -m unittest sql-tutorials/labs/validation/test_check_markdown_links.py -v \
+  > sql-tutorials/labs/validation/evidence/markdown-regression.stdout.log 2> sql-tutorials/labs/validation/evidence/markdown-regression.stderr.log
+regression_exit_code=$?
+printf 'regression_exit_code=%s\\n' "$regression_exit_code" | tee sql-tutorials/labs/validation/evidence/markdown-regression.exit.txt
+```
+
+Retain the exact command, exit code, stdout/stderr, Python/dependency versions, pinned repository SHA, and UTC execution timestamp. Count tests from the actual runner output; the number of authored test methods is not evidence that they executed or passed. A regression pass validates checker behavior on synthetic fixtures only, not the real repository's links. Do not continue to report full Markdown QA as passing unless **both** the checker and regression suite have successful recorded exits and findings are resolved. Use a fresh isolated workspace and review evidence before committing it.
+
 ## Phase B — SQL source and expected-output review
 
 Enumerate `sql-tutorials/labs/*.sql` and link each numbered lab to its chapter. Inspect every SQL file for: dialect/version annotations, psql-only commands, expected row counts and deterministic ordering, synthetic fixtures, read-only versus rollback-only transaction behavior, timeouts, `ON_ERROR_STOP`, and fail-closed isolation checks. Flag unsafe `COMMIT`, external connections, unqualified writes, and claims of runtime success without logs. Review SQL blocks embedded in chapter Markdown separately; static parsing alone is not execution.
