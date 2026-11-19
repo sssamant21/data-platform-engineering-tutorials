@@ -115,6 +115,12 @@ def main():
                                "href": href, "issue": "malformed URL"})
                 continue
             if parts.scheme in ("http", "https"):
+                # An HTTP(S) URL without an authority is not a valid external link.
+                # Fail closed instead of counting it as an untested valid URL.
+                if not parts.hostname:
+                    issues.append({"file": str(path.relative_to(ROOT)),
+                                   "href": href, "issue": "malformed URL"})
+                    continue
                 counts["external_not_tested"] += 1
                 continue
             if parts.scheme or parts.netloc or href.startswith("//"):
