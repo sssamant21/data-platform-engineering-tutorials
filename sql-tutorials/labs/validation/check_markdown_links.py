@@ -117,7 +117,8 @@ def main():
             if parts.scheme in ("http", "https"):
                 # An HTTP(S) URL without an authority is not a valid external link.
                 # Fail closed instead of counting it as an untested valid URL.
-                if not parts.hostname:
+                if (not parts.hostname or "%" in parts.hostname or
+                        any(ch.isspace() for ch in parts.hostname)):
                     issues.append({"file": str(path.relative_to(ROOT)),
                                    "href": href, "issue": "malformed URL"})
                     continue
