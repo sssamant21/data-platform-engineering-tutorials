@@ -180,7 +180,7 @@ class MarkdownCheckerRegression(unittest.TestCase):
 
     def test_http_url_without_hostname_fails(self):
         p = self.scope / "part-01-synthetic" / "001-example.md"
-        p.write_text("# Chapter 001\\n[Bad](https:///missing-host)\\n",
+        p.write_text("# Chapter 001\n[Bad](https:///missing-host)\n",
                      encoding="utf-8")
         code, report = self.run_checker()
         self.assertNotEqual(code, 0)
