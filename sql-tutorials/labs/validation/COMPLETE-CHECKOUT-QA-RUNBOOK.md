@@ -28,7 +28,9 @@ checker_exit_code=$?
 printf 'checker_exit_code=%s\n' "$checker_exit_code" | tee sql-tutorials/labs/validation/evidence/markdown-checker.exit.txt
 ```
 
-Record the detached HEAD SHA and use that same checkout for both Phase A and A2; do not pull or switch branches between phases. Save the checker exit code immediately, before any other command can overwrite `$?`. A nonzero checker exit must remain a failed QA result even when `tee` succeeds.\n\nThe checker must inspect **all** `sql-tutorials/**/*.md` files and enforce unique chapter numbering 001–120. Review `issues` and `limitations` in the JSON. A zero exit code is a scoped static result, **not** editorial acceptance, external-link availability, or SQL correctness. Investigate all missing paths, fragments, and image sources. Raw HTML links, GitHub-specific anchor edge cases, and external HTTP(S) URLs require separate checks. Do not publish a passing result when the checker was not run on a complete checkout.
+Record the detached HEAD SHA and use that same checkout for both Phase A and A2; do not pull or switch branches between phases. Save the checker exit code immediately, before any other command can overwrite `$?`. A nonzero checker exit must remain a failed QA result even when `tee` succeeds.
+
+The checker must inspect **all** `sql-tutorials/**/*.md` files and enforce unique chapter numbering 001–120. Review `issues` and `limitations` in the JSON. A zero exit code is a scoped static result, **not** editorial acceptance, external-link availability, or SQL correctness. Investigate all missing paths, fragments, and image sources. Raw HTML links, GitHub-specific anchor edge cases, and external HTTP(S) URLs require separate checks. Do not publish a passing result when the checker was not run on a complete checkout.
 
 Record a companion `evidence/markdown-run-metadata.json` with: UTC timestamp, repository, full commit SHA, Python version, markdown-it-py version, exact command, exit code, number of Markdown files and chapter files, issue count, reviewer, and unresolved limitations. Do not hand-populate observed results before execution.
 
