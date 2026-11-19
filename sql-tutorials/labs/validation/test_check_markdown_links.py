@@ -178,5 +178,16 @@ class MarkdownCheckerRegression(unittest.TestCase):
         self.assertEqual(report["counts"].get("external_not_tested"), 1)
 
 
+    def test_http_url_without_hostname_fails(self):
+        p = self.scope / "part-01-synthetic" / "001-example.md"
+        p.write_text("# Chapter 001\\n[Bad](https:///missing-host)\\n",
+                     encoding="utf-8")
+        code, report = self.run_checker()
+        self.assertNotEqual(code, 0)
+        self.assertTrue(any(x["issue"] == "malformed URL"
+                            for x in report["issues"]))
+        self.assertEqual(report["counts"].get("external_not_tested", 0), 0)
+
+
 if __name__ == "__main__":
     unittest.main()
