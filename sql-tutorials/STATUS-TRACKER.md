@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Chapter 107 navigation repair (2026-11-21)
+
+Read main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 107 and lab 107. Found Chapter 107 still labeled Chapter 108 as planned even though Chapter 108 is published. Replaced stale navigation with a relative link to the published Chapter 108 and fetched the updated file back to verify (commit `229e3bd093d8ad9738ef191cdb52938c0f2c10e4`). Inspected lab 107's synthetic metrics and read-only safeguards at source level only; **no SQL was executed**. Previously reported **120/120 published**, **0/120 independently editorially accepted**, **0/120 isolated PostgreSQL 18 runtime-validated**. Comprehensive Markdown QA, 16 regression tests, and SQL semantic/expected-output acceptance remain pending. Next: run full-checkout regression and Markdown/link QA with JSON and exit-code evidence, triage defects, then isolated PostgreSQL 18 acceptance. Issue #50 remains the tracking reference. No production access.
+
+
 ## Chapter 120 timestamp semantics clarification (2026-11-19)
 
 Re-read main `MASTER-TOC.md`, `README.md`, `STATUS-TRACKER.md`, Chapter 120 and its SQL lab. Corrected the capstone narrative to distinguish a synthetic UTC input convention from PostgreSQL `timestamp without time zone`, which does not enforce or store UTC. Published and fetched back chapter correction at commit `81f71820d80214c726fd4525ec8ff23f803979c8`. This is a targeted editorial/source-level correction only, **not** independent editorial acceptance, comprehensive static QA, SQL execution, or PostgreSQL 18 runtime validation. Previously reported: **120/120** chapters authored/published, **0/120** independently editorially reviewed, **0/120** actually PostgreSQL 18 runtime-validated. Sixteen regression tests authored; execution pending. Next: execute 16 tests and complete Markdown checker against a pinned checkout with JSON and exit-code evidence, review SQL semantics and expected outputs, then perform isolated PostgreSQL 18 acceptance. Issue #50 remains open. No production access.
