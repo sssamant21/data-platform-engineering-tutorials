@@ -48,14 +48,17 @@ BEGIN
   VALUES ('retail_reader',false),('retail_app',true),('ingest_writer',true)
  ), membership(member_role,group_role) AS (
   VALUES ('retail_app','retail_reader')
- ), actual(role_name,object_name,privilege_name) AS (
-  VALUES ('retail_reader','reporting.daily_sales','SELECT'),
-         ('ingest_writer','staging.orders','INSERT')
- ), expected(role_name,object_name,privilege_name) AS (
-  VALUES ('retail_reader','reporting.daily_sales','SELECT'),
-         ('ingest_writer','staging.orders','INSERT')
  ), candidates(role_name,object_name,privilege_name,approved) AS (
-  VALUES ('retail_reader','reporting.daily_sales','UPDATE',false)
+  VALUES ('retail_reader','reporting.daily_sales','SELECT',true),
+         ('ingest_writer','staging.orders','INSERT',true),
+         ('retail_reader','reporting.daily_sales','UPDATE',false)
+ ), actual AS (
+  -- Derive effective approved policy from decisions, not from the oracle.
+  SELECT role_name,object_name,privilege_name FROM candidates WHERE approved
+ ), expected(role_name,object_name,privilege_name) AS (
+  -- Independently specified least-privilege allowlist (test oracle).
+  VALUES ('retail_reader','reporting.daily_sales','SELECT'),
+         ('ingest_writer','staging.orders','INSERT')
  ), extra AS (
   SELECT * FROM actual EXCEPT ALL SELECT * FROM expected
  ), missing AS (
