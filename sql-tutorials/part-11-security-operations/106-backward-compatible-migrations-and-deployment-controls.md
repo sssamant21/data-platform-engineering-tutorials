@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · PostgreSQL 18 focus · Beginner-friendly
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Synthetic read-only lab](../labs/106-backward-compatible-migrations-deployment-controls.sql) · [Previous: 105](105-locks-blocking-deadlocks-and-troubleshooting.md) · Next: 107 — Data quality assertions and reconciliation queries (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Synthetic read-only lab](../labs/106-backward-compatible-migrations-deployment-controls.sql) · [Previous: 105](105-locks-blocking-deadlocks-and-troubleshooting.md) · [Next: 107 — Data quality assertions and reconciliation queries](107-data-quality-assertions-and-reconciliation-queries.md)
 
 ## 1. Learning objectives and scenario (0–5 minutes)
 
