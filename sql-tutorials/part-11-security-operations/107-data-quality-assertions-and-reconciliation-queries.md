@@ -2,7 +2,7 @@
 
 **Part 11 — Security, Data Quality & DBRE/SRE Operations** · **60 minutes** · PostgreSQL 18 lab · Beginner-friendly
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 107 SQL](../labs/107-data-quality-assertions-reconciliation.sql) · [Previous: 106](106-backward-compatible-migrations-and-deployment-controls.md) · Next: 108 — Backup, recovery, and restore-validation concepts (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Lab 107 SQL](../labs/107-data-quality-assertions-reconciliation.sql) · [Previous: 106](106-backward-compatible-migrations-and-deployment-controls.md) · [Next: 108 — Backup, recovery, and restore-validation concepts](108-backup-recovery-and-restore-validation-concepts.md)
 
 ## 1. Outcomes, prerequisites, and scenario (0–5 minutes)
 
