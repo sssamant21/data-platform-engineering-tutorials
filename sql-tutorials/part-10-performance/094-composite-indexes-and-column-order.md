@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, analysts, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/094-composite-indexes-column-order.sql) · [Previous: 093](093-btree-indexes-and-common-index-access-patterns.md) · Next: 095 — Partial, expression, and covering indexes (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/094-composite-indexes-column-order.sql) · [Previous: 093](093-btree-indexes-and-common-index-access-patterns.md) · [Next: 095 — Partial, expression, and covering indexes](095-partial-expression-and-covering-indexes.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
