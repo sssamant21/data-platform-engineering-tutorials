@@ -115,6 +115,6 @@ Total = 10, sum of selectivities = 1.00. The exact `EXPLAIN` text is intentional
 - [PostgreSQL 18 — Index-only scans](https://www.postgresql.org/docs/18/indexes-index-only-scans.html)
 - [PostgreSQL 18 — EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
 
-**Next:** Chapter 093 — B-tree indexes and common index access patterns.
+**Next:** [Chapter 093 — B-tree indexes and common index access patterns](093-btree-indexes-and-common-index-access-patterns.md).
 
 **Validation:** Authored with targeted manual/static reasoning. Independent editorial review, comprehensive automated SQL syntax/link QA, and actual isolated PostgreSQL 18 runtime validation with retained evidence are pending.
