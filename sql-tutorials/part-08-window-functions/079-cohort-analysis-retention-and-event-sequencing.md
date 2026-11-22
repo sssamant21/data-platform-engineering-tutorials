@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics | 60 minutes | PostgreSQL 18 lab baseline**
 
-[Master TOC](../MASTER-TOC.md) · [SQL Tutorials](../README.md) · [Companion SQL lab](../labs/079-cohort-retention-event-sequencing.sql) · [Previous: 078](078-gaps-and-islands-patterns.md) · [Next: 080 — Lab 08](../MASTER-TOC.md#part-08--window-functions--advanced-analytics)
+[Master TOC](../MASTER-TOC.md) · [SQL Tutorials](../README.md) · [Companion SQL lab](../labs/079-cohort-retention-event-sequencing.sql) · [Previous: 078](078-gaps-and-islands-patterns.md) · [Next: 080 — Lab 08](080-lab-08-produce-an-analytical-customer-activity-report.md)
 
 ## Learning objectives and 60-minute agenda
 
@@ -155,6 +155,6 @@ Before running, verify the target host, port, user, and database. The SQL script
 - [PostgreSQL 18 — Date/Time Functions](https://www.postgresql.org/docs/18/functions-datetime.html)
 - [PostgreSQL 18 — SELECT](https://www.postgresql.org/docs/18/sql-select.html)
 - [PostgreSQL 18 — Aggregate Functions](https://www.postgresql.org/docs/18/functions-aggregate.html)
-- [Chapter 080 — Analytical Customer Activity Report](../MASTER-TOC.md#part-08--window-functions--advanced-analytics)
+- [Chapter 080 — Analytical Customer Activity Report](080-lab-08-produce-an-analytical-customer-activity-report.md)
 
 **Validation state:** authored lesson; publication is separate from independent editorial review, comprehensive automated syntax/link QA, and actual isolated PostgreSQL 18 runtime acceptance. No runtime certification is asserted.
