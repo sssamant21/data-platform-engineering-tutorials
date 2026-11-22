@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data | 60 minutes | PostgreSQL 18 lab**
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [SQL lab](../labs/082-dates-intervals-timestamps-time-zones.sql) · [Previous: 081](081-string-functions-and-regular-expressions.md) · [Next: 083](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [SQL lab](../labs/082-dates-intervals-timestamps-time-zones.sql) · [Previous: 081](081-string-functions-and-regular-expressions.md) · [Next: 083](083-numeric-expressions-and-precision-considerations.md)
 
 ## 1. Outcomes and plan (0–5 minutes)
 
@@ -120,6 +120,6 @@ Exercises: (1) Change the reporting zone to `America/Los_Angeles` in a **copy of
 - [PostgreSQL 18 — Date/Time Functions and Operators](https://www.postgresql.org/docs/18/functions-datetime.html)
 - [PostgreSQL 18 — Date/Time Input](https://www.postgresql.org/docs/18/datatype-datetime.html#DATATYPE-DATETIME-INPUT)
 - [PostgreSQL 18 — Runtime TimeZone Configuration](https://www.postgresql.org/docs/18/runtime-config-client.html)
-- [Chapter 083 — Numeric expressions and precision](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+- [Chapter 083 — Numeric expressions and precision](083-numeric-expressions-and-precision-considerations.md)
 
 **Validation status:** Authored; targeted static reasoning only. Independent editorial review, comprehensive static QA, and actual isolated PostgreSQL 18 execution remain pending.
