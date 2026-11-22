@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics | 60 minutes | PostgreSQL 18 capstone**
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/080-lab-08-analytical-customer-activity-report.sql) · [Previous: 079](079-cohort-analysis-retention-and-event-sequencing.md) · [Next: 081](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/080-lab-08-analytical-customer-activity-report.sql) · [Previous: 079](079-cohort-analysis-retention-and-event-sequencing.md) · [Next: 081](../part-09-functions-views-json/081-string-functions-and-regular-expressions.md)
 
 ## Outcomes and schedule
 
@@ -136,6 +136,6 @@ The lab prints connection identity, fails closed unless database name is `sql_tu
 - [PostgreSQL 18 — SELECT](https://www.postgresql.org/docs/18/sql-select.html)
 - [PostgreSQL 18 — Aggregate Functions](https://www.postgresql.org/docs/18/functions-aggregate.html)
 - [PostgreSQL 18 — WITH Queries](https://www.postgresql.org/docs/18/queries-with.html)
-- [Chapter 081 — String Functions and Regular Expressions](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+- [Chapter 081 — String Functions and Regular Expressions](../part-09-functions-views-json/081-string-functions-and-regular-expressions.md)
 
 **Validation state:** Authored content and companion SQL require independent editorial review and comprehensive syntax/link QA. Expected results were manually derived; **actual isolated PostgreSQL 18 runtime execution and reproducible evidence are pending**.
