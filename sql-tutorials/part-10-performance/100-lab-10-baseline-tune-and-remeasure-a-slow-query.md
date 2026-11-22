@@ -63,7 +63,7 @@ Both forms return the same **expected** (4, 100.00). An exact two-way `EXCEPT AL
 psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/100-lab-10-baseline-tune-remeasure.sql
 ```
 
-The [SQL lab](../labs/100-lab-10-baseline-tune-remeasure.sql) begins a read-only transaction, sets local statement/lock/idle timeouts, checks database name and PostgreSQL major version, displays both query results and their estimated plans, tests the exact report contract and two-way equivalence, then rolls back. It uses only synthetic CTE rows. Expected success notice (not an observed run): `100 assertions passed: 12 orders, 4 paid, 100.00 revenue, zero differences`. With `ON_ERROR_STOP`, a failed assertion makes `psql` return nonzero.
+The [SQL lab](../labs/100-lab-10-baseline-tune-remeasure.sql) begins a read-only transaction, sets local statement/lock/idle timeouts, checks database name and PostgreSQL major version, displays the two estimated plans (not query-result rows), then checks the exact report contract and two-way equivalence, then rolls back. It uses only synthetic CTE rows. Expected success notice (not an observed run): `100 assertions passed: 12 orders, 4 paid, 100.00 revenue, zero differences`. With `ON_ERROR_STOP`, a failed assertion makes `psql` return nonzero.
 
 **Exercise A (5 min):** Explain why `created_at <= '2026-11-01 23:59:59'` loses fractional-second rows. **Exercise B (5 min):** Alter a scratch copy's reporting window to Nov 2 and calculate expected results before running. **Exercise C (5 min):** Identify why a row with status PENDING must not count as revenue. **Exercise D (5 min):** Explain why identical results and different estimated costs do not establish a speedup.
 
