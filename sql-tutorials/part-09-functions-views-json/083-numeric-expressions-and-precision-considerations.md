@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data | 60 minutes | PostgreSQL 18**
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/083-numeric-expressions-precision.sql) · [Previous: 082](082-dates-intervals-timestamps-and-time-zones.md) · [Next: 084](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [SQL lab](../labs/083-numeric-expressions-precision.sql) · [Previous: 082](082-dates-intervals-timestamps-and-time-zones.md) · [Next: 084](084-json-and-semi-structured-sql-queries.md)
 
 ## 1. Learning objectives and agenda (0–5 minutes)
 
@@ -126,6 +126,6 @@ Exercises (do not modify the canonical lab):
 - [PostgreSQL 18 — Mathematical Functions and Operators](https://www.postgresql.org/docs/18/functions-math.html)
 - [PostgreSQL 18 — Aggregate Functions](https://www.postgresql.org/docs/18/functions-aggregate.html)
 - [PostgreSQL 18 — Type Conversion](https://www.postgresql.org/docs/18/typeconv.html)
-- [Chapter 084 — JSON and semi-structured SQL queries](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+- [Chapter 084 — JSON and semi-structured SQL queries](084-json-and-semi-structured-sql-queries.md)
 
 **Validation status:** Authored/published; targeted static inspection and manual expected-output reasoning. Independent editorial review, comprehensive automated SQL syntax/link QA, and isolated PostgreSQL 18 runtime validation **pending**.
