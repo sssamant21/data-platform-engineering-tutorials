@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics | 60 minutes | PostgreSQL 18 baseline**
 
-[Curriculum](../MASTER-TOC.md) · [Part 08 navigation](../README.md) · [SQL lab](../labs/078-gaps-and-islands-patterns.sql) · [Previous: 077](077-ntile-percentiles-and-distribution-analysis.md)
+[Curriculum](../MASTER-TOC.md) · [Part 08 navigation](../README.md) · [SQL lab](../labs/078-gaps-and-islands-patterns.sql) · [Previous: 077](077-ntile-percentiles-and-distribution-analysis.md) · [Next: 079](079-cohort-analysis-retention-and-event-sequencing.md)
 
 ## Objectives and schedule
 
