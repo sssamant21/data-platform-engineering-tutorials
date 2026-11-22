@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Chapter 081 targeted navigation QA (2026-11-22)
+
+Read main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 081 and lab 081. Corrected two indirect next-chapter references to direct Chapter 082 links; fetched back the published correction (commit `cb375b90ce9e691671773a3f721451f1830713b6`). Source inspection found five synthetic rows, two valid codes, two invalid codes, one missing code, a read-only transaction, PostgreSQL 18/database guards, timeouts and bidirectional EXCEPT ALL assertions. No SQL was executed. Reported curriculum remains 120/120 authored/published; 0/120 independently editorially accepted; comprehensive Markdown/link QA, 16 regression executions, SQL semantic acceptance, and isolated PostgreSQL 18 runtime validation (0/120) remain pending. Next: pinned complete-checkout QA and regression execution with JSON/exit-code evidence, then isolated PostgreSQL 18 acceptance. QA issue #50 remains the tracker. No production access.
+
+
 ## Chapter 082 targeted navigation QA (2026-11-22)
 
 Read main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 082, and lab 082. Replaced two indirect Chapter 083 TOC references with verified direct relative links to published Chapter 083; fetched back the correction at commit `1a2ae878e5f8d6c682b4a88ee8548350d0c4981c`. Source inspection confirms a synthetic three-event fixture, New York spring DST transition (01:30 to 03:30 wall time for one elapsed hour), two events in the UTC half-open day, read-only transaction, PostgreSQL 18/database guards, and bidirectional EXCEPT ALL assertions. **No SQL was executed.** Previously reported: 120/120 authored/published, 0/120 independently editorially accepted, comprehensive Markdown/link QA and 16 regression executions pending, SQL semantic acceptance pending, 0/120 actually PostgreSQL 18 runtime-validated. Next: pinned complete-checkout Markdown/link checker and 16 regression executions with retained JSON/exit-code evidence, followed by isolated PostgreSQL 18 acceptance. QA issue #50 remains open. No production access.
