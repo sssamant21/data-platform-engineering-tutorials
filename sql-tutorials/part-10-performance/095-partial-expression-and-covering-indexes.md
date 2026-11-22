@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, analysts, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/095-partial-expression-covering-indexes.sql) · [Previous: 094](094-composite-indexes-and-column-order.md) · Next: 096 — Optimizer statistics and PostgreSQL maintenance basics (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/095-partial-expression-covering-indexes.sql) · [Previous: 094](094-composite-indexes-and-column-order.md) · [Next: 096 — Optimizer statistics and PostgreSQL maintenance basics](096-optimizer-statistics-and-postgresql-maintenance-basics.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
