@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [072 — Ranking functions](072-row-number-rank-and-dense-rank.md). **Next:** [078 — Gaps-and-islands patterns](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [072 — Ranking functions](072-row-number-rank-and-dense-rank.md). **Next:** [078 — Gaps-and-islands patterns](078-gaps-and-islands-patterns.md).
 
 **Safety:** Use only synthetic observations and a separately verified disposable PostgreSQL 18 instance. [Run the read-only lab](../labs/077-ntile-percentiles-distribution.sql) with nonproduction credentials. Database/version assertions cannot prove an endpoint is isolated.
 
@@ -118,4 +118,4 @@ The lab repeats its tiny inline dataset for a deterministic two-way `EXCEPT ALL`
 - [PostgreSQL 18 — Aggregate Functions / Ordered-set aggregates](https://www.postgresql.org/docs/18/functions-aggregate.html)
 - [PostgreSQL 18 — SELECT](https://www.postgresql.org/docs/18/sql-select.html)
 - [Master TOC — Part 08](../MASTER-TOC.md#part-08--window-functions--advanced-analytics)
-- [Next: 078 — Gaps-and-islands patterns](../MASTER-TOC.md#part-08--window-functions--advanced-analytics) (planned)
+- [Next: 078 — Gaps-and-islands patterns](078-gaps-and-islands-patterns.md)
