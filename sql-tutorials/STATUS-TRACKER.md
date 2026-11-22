@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Chapter 078 targeted navigation QA (2026-11-22)
+
+Read current main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 078 and its PostgreSQL 18 synthetic SQL lab; verified Chapter 079 exists. Added direct next-chapter navigation and fetched back the published correction at commit `1b07011cc4f738b5e896f157575ef34f0bf2db34`. Source-level review found five expected islands, three internal gap ranges and four missing positions, with duplicate-grain deduplication, read-only transaction, PostgreSQL 18/database guards and bidirectional EXCEPT ALL assertions. **No SQL was executed.** Reported state: 120/120 authored/published, 0/120 independently editorially accepted, comprehensive Markdown/link QA pending, 16 regression executions pending, SQL semantic acceptance pending, 0/120 actually PostgreSQL 18 runtime-validated. Next: execute full pinned-checkout QA and regression tests with retained evidence and exit codes; then isolated PostgreSQL 18 acceptance. QA issue #50 tracks work. No production access.
+
+
 ## Chapter 079 targeted navigation QA (2026-11-22)
 
 Read main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 079 and its synthetic PostgreSQL 18 lab; confirmed published Chapter 080 target. Replaced two indirect next-chapter TOC links with direct Chapter 080 links, published and fetched back at commit `031b7c1b8b8ecd430ed51cb3ded23b0b64e61e0c`. Source inspection confirms a six-user synthetic cohort fixture with expected week-1 retention 2/3 for the first cohort, read-only transaction, PostgreSQL 18/database guards, and SQL assertions. **No SQL was executed.** Reported status remains 120/120 authored/published, 0/120 independently editorially accepted, comprehensive Markdown/link QA and 16 regression executions pending, SQL semantic acceptance pending, and 0/120 actually isolated PostgreSQL 18 runtime-validated. Next: execute pinned full-checkout static QA and regression suite with retained JSON and exit codes, then isolated PostgreSQL 18 acceptance. Issue #50 tracks QA. No production access.
