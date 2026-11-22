@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, analysts, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/096-optimizer-statistics-maintenance.sql) · [Previous: 095](095-partial-expression-and-covering-indexes.md) · Next: 097 — Make predicates index-friendly and rewrite expensive SQL (planned)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only SQL lab](../labs/096-optimizer-statistics-maintenance.sql) · [Previous: 095](095-partial-expression-and-covering-indexes.md) · [Next: 097 — Make predicates index-friendly and rewrite expensive SQL](097-make-predicates-index-friendly-and-rewrite-expensive-sql.md)
 
 ## 1. Learning objectives and prerequisites (0–5 minutes)
 
@@ -146,7 +146,7 @@ The [read-only lab](../labs/096-optimizer-statistics-maintenance.sql) guards dat
 5. **Is `VACUUM FULL` safe during an incident by default?** No; it rewrites the table, needs extra space and a strong lock.
 6. **What proves a statistics fix helped?** Reproducible before/after representative workload evidence: row estimates versus actuals, plans, buffers, latency distribution, and resource overhead.
 
-**Next:** Chapter 097 — Make Predicates Index-Friendly and Rewrite Expensive SQL.
+**Next:** [Chapter 097 — Make Predicates Index-Friendly and Rewrite Expensive SQL](097-make-predicates-index-friendly-and-rewrite-expensive-sql.md).
 
 ## References
 
