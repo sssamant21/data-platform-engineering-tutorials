@@ -108,6 +108,6 @@ Overall: four input orders, three paid, paid total **45.00**. The join exercise 
 - [PostgreSQL 18 — Planner statistics](https://www.postgresql.org/docs/18/planner-stats.html)
 - [PostgreSQL 18 — Monitoring database activity](https://www.postgresql.org/docs/18/monitoring-stats.html)
 
-**Next:** 092 — Table scans, index scans, row estimates, and selectivity.
+**Next:** [092 — Table scans, index scans, row estimates, and selectivity](092-table-scans-index-scans-row-estimates-and-selectivity.md).
 
 **Validation status:** authored; targeted manual/static reasoning only. Independent editorial review, comprehensive syntax/link QA and actual isolated PostgreSQL 18 runtime execution with reproducible evidence remain pending.
