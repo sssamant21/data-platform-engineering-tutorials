@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Chapter 077 targeted navigation QA (2026-11-22)
+
+Read current main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 077 and its synthetic PostgreSQL 18 lab. Replaced two stale indirect next-chapter references with direct relative links to published Chapter 078; fetched back the correction at commit `36972562600a53bd8182d4ea5039854281f941d5`. Source inspection found nine measured synthetic latency observations and one NULL, API continuous p95 88 ms and FILE continuous p95 33.5 ms, deterministic NTILE tie-breaking, read-only transaction, version/database guards, and bidirectional EXCEPT ALL assertions. **No SQL was executed.** Previously reported 120/120 authored/published; 0/120 independently editorially accepted; comprehensive Markdown/link QA, execution of 16 regression tests, and SQL semantic acceptance pending; 0/120 actually isolated PostgreSQL 18 runtime-validated. Next: pinned full-checkout Markdown/link QA and 16 regression executions with retained evidence and exit codes, then isolated PostgreSQL 18 acceptance. QA issue #50 tracks work. No production access.
+
+
 ## Chapter 078 targeted navigation QA (2026-11-22)
 
 Read current main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 078 and its PostgreSQL 18 synthetic SQL lab; verified Chapter 079 exists. Added direct next-chapter navigation and fetched back the published correction at commit `1b07011cc4f738b5e896f157575ef34f0bf2db34`. Source-level review found five expected islands, three internal gap ranges and four missing positions, with duplicate-grain deduplication, read-only transaction, PostgreSQL 18/database guards and bidirectional EXCEPT ALL assertions. **No SQL was executed.** Reported state: 120/120 authored/published, 0/120 independently editorially accepted, comprehensive Markdown/link QA pending, 16 regression executions pending, SQL semantic acceptance pending, 0/120 actually PostgreSQL 18 runtime-validated. Next: execute full pinned-checkout QA and regression tests with retained evidence and exit codes; then isolated PostgreSQL 18 acceptance. QA issue #50 tracks work. No production access.
