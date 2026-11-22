@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data | 60 minutes | Beginner-friendly | PostgreSQL 18 lab**
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Executable SQL lab](../labs/081-string-functions-and-regular-expressions.sql) · [Previous: 080](../part-08-window-functions/080-lab-08-produce-an-analytical-customer-activity-report.md) · [Next: 082](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Executable SQL lab](../labs/081-string-functions-and-regular-expressions.sql) · [Previous: 080](../part-08-window-functions/080-lab-08-produce-an-analytical-customer-activity-report.md) · [Next: 082](082-dates-intervals-timestamps-and-time-zones.md)
 
 ## 1. Outcomes and prerequisites (0–5 minutes)
 
@@ -150,6 +150,6 @@ Practice on a *copy* of the SQL, updating the expected rows before rerunning: (1
 - [PostgreSQL 18 — Pattern Matching](https://www.postgresql.org/docs/18/functions-matching.html)
 - [PostgreSQL 18 — Character Types](https://www.postgresql.org/docs/18/datatype-character.html)
 - [PostgreSQL 18 — Transaction Isolation / Read-only Transactions](https://www.postgresql.org/docs/18/sql-set-transaction.html)
-- [Next: 082 — Dates, Intervals, Timestamps, and Time Zones](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+- [Next: 082 — Dates, Intervals, Timestamps, and Time Zones](082-dates-intervals-timestamps-and-time-zones.md)
 
 **Validation status:** Authored; targeted static reasoning only. Independent editorial review, comprehensive parser-based SQL/link QA, and isolated PostgreSQL 18 runtime execution with reproducible evidence remain pending.
