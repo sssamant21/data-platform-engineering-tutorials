@@ -2,7 +2,7 @@
 
 **Part 10 — SQL Performance & Query Optimization** · **60 minutes** · **PostgreSQL 18 baseline** · **Audience:** data engineers, analysts, DBRE/SRE
 
-[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/093-btree-index-access-patterns.sql) · [Previous: 092](092-table-scans-index-scans-row-estimates-and-selectivity.md) · Next: 094 — Composite indexes and column order (planned)
+[Master TOC](../MASTER-TOC.md) · [Index](../README.md) · [Read-only lab](../labs/093-btree-index-access-patterns.sql) · [Previous: 092](092-table-scans-index-scans-row-estimates-and-selectivity.md) · [Next: 094 — Composite indexes and column order](094-composite-indexes-and-column-order.md)
 
 ## 1. Objectives and prerequisites (0–5 minutes)
 
