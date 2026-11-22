@@ -2,7 +2,7 @@
 
 **Part 09 — SQL Objects, Functions & Semi-Structured Data | 60 minutes | PostgreSQL 18**
 
-[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/086-materialized-views-refresh-strategies.sql) · [Previous: 085](085-views-and-secure-abstraction.md) · [Next: 087](../MASTER-TOC.md#part-09--sql-objects-functions--semi-structured-data)
+[Master TOC](../MASTER-TOC.md) · [Tutorial index](../README.md) · [Read-only lab](../labs/086-materialized-views-refresh-strategies.sql) · [Previous: 085](085-views-and-secure-abstraction.md) · [Next: 087](087-temporary-tables-and-intermediate-result-sets.md)
 
 ## 1. Learning objectives and schedule (0–5 minutes)
 
