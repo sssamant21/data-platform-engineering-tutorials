@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs and SREs.
 
-**Prerequisites:** [061 — Scalar subqueries and derived tables](061-scalar-subqueries-and-derived-tables.md), [013 — NULL and three-valued logic](../part-02-filtering/013-null-handling-and-sql-three-valued-logic.md), [014 — IN and range predicates](../part-02-filtering/014-in-between-and-range-predicates.md). **Next:** 063 — EXISTS versus IN and NULL-sensitive behavior.
+**Prerequisites:** [061 — Scalar subqueries and derived tables](061-scalar-subqueries-and-derived-tables.md), [013 — NULL and three-valued logic](../part-02-filtering/013-null-handling-and-sql-three-valued-logic.md), [014 — IN and range predicates](../part-02-filtering/014-in-between-and-range-predicates.md). **Next:** [063 — EXISTS versus IN and NULL-sensitive behavior](063-exists-versus-in-and-null-sensitive-behavior.md).
 
 > **Safety:** Synthetic data only. The [PostgreSQL 18 companion lab](../labs/062-in-any-all-multi-row-subqueries.sql) uses inline VALUES in a read-only transaction. Independently verify an isolated, disposable endpoint before running; version and database-name guards do not establish isolation.
 
