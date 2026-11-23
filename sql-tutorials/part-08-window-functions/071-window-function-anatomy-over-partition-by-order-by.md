@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [052 — GROUP BY and aggregation grain](../part-06-aggregation/052-group-by-and-aggregation-grain.md), [065 — Common table expressions](../part-07-subqueries/065-common-table-expressions-with.md), and [Master TOC](../MASTER-TOC.md). **Next:** [072 — ROW_NUMBER, RANK, and DENSE_RANK](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [052 — GROUP BY and aggregation grain](../part-06-aggregation/052-group-by-and-aggregation-grain.md), [065 — Common table expressions](../part-07-subqueries/065-common-table-expressions-with.md), and [Master TOC](../MASTER-TOC.md). **Next:** [072 — ROW_NUMBER, RANK, and DENSE_RANK](072-row-number-rank-and-dense-rank.md).
 
 **Safety:** All example rows are fictional. Run the [PostgreSQL 18 lab](../labs/071-window-function-anatomy.sql) only on an independently confirmed disposable `sql_tutorials` database. It uses inline `VALUES`, a read-only transaction, local timeouts, assertions and `ROLLBACK`. A database-name guard alone cannot establish isolation.
 
