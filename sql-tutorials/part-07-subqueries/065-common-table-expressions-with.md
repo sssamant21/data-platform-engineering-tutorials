@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs and SREs.
 
-**Prerequisite:** [064 — Correlated subqueries](064-correlated-subqueries-and-performance-tradeoffs.md). **Next:** 066 — Recursive CTEs and hierarchical queries.
+**Prerequisite:** [064 — Correlated subqueries](064-correlated-subqueries-and-performance-tradeoffs.md). **Next:** [066 — Recursive CTEs and hierarchical queries](066-recursive-ctes-and-hierarchical-queries.md).
 
 > **Safety:** All examples use fictional ingestion batches embedded in SQL. Run the [read-only PostgreSQL 18 lab](../labs/065-common-table-expressions-with.sql) only after independently confirming a disposable PostgreSQL 18 instance. Database-name/version guards do not prove isolation. Never use production credentials.
 
