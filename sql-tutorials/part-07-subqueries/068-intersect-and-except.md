@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** beginners, data engineers, DBREs and SREs.
 
-**Prerequisite:** [067 — UNION versus UNION ALL](067-union-versus-union-all.md). **Next:** [069 — Refactor complex SQL](../MASTER-TOC.md#part-07--subqueries-ctes--set-operations).
+**Prerequisite:** [067 — UNION versus UNION ALL](067-union-versus-union-all.md). **Next:** [069 — Refactor complex SQL](069-refactor-complex-sql-for-readability-and-correctness.md).
 
 > **Safety:** Only fictional inline values. Use the [PostgreSQL 18 read-only lab](../labs/068-intersect-except-set-operations.sql) on an independently verified disposable instance. Never use production credentials. Database name and version guards alone cannot prove isolation.
 
