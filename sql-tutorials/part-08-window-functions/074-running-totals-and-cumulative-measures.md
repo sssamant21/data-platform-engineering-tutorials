@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [073 — LAG and LEAD](073-lag-and-lead-for-change-analysis.md). **Next:** [075 — Rolling averages and moving windows](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [073 — LAG and LEAD](073-lag-and-lead-for-change-analysis.md). **Next:** [075 — Rolling averages and moving windows](075-rolling-averages-and-moving-windows.md).
 
 **Safety:** All records are fictional and defined inline. The [PostgreSQL 18 read-only lab](../labs/074-running-totals-cumulative-measures.sql) requires an independently verified disposable instance and least-privilege account. Its name/version checks are defense in depth, not proof of isolation. No persistent objects or production credentials are used.
 
