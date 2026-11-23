@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [017 — Deterministic sorting](../part-02-filtering/017-order-by-and-deterministic-sorting.md). **Next:** [073 — LAG and LEAD](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [017 — Deterministic sorting](../part-02-filtering/017-order-by-and-deterministic-sorting.md). **Next:** [073 — LAG and LEAD](073-lag-and-lead-for-change-analysis.md).
 
 **Safety:** Fictional ingestion batches only. The [PostgreSQL 18 read-only lab](../labs/072-row-number-rank-dense-rank.sql) uses inline VALUES, a read-only transaction, local timeouts, fail-closed checks, and ROLLBACK. Run only against an independently verified disposable database with a least-privilege lab account; a database-name check is not proof of isolation.
 
