@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs/SREs.
 
-**Prerequisite:** [068 — INTERSECT and EXCEPT](068-intersect-and-except.md). **Next:** [070 — Lab 07: multi-level organizational hierarchy](../MASTER-TOC.md#part-07--subqueries-ctes--set-operations).
+**Prerequisite:** [068 — INTERSECT and EXCEPT](068-intersect-and-except.md). **Next:** [070 — Lab 07: multi-level organizational hierarchy](070-lab-07-query-a-multi-level-organizational-hierarchy.md).
 
 > **Safety:** All examples use fictional inline data. Run the [PostgreSQL 18 read-only lab](../labs/069-refactor-complex-sql.sql) only on an independently confirmed disposable instance named `sql_tutorials`. Database/version checks cannot establish isolation. Never connect with production credentials.
 
@@ -155,6 +155,6 @@ DBRE/SRE review checklist: establish isolated endpoint, use least privilege, rec
 - [PostgreSQL 18 — Combining queries](https://www.postgresql.org/docs/18/queries-union.html)
 - [PostgreSQL 18 — Aggregate functions](https://www.postgresql.org/docs/18/functions-aggregate.html)
 - [PostgreSQL 18 — EXPLAIN](https://www.postgresql.org/docs/18/sql-explain.html)
-- [Chapter 070 — Lab 07](../MASTER-TOC.md#part-07--subqueries-ctes--set-operations) — apply refactoring to a hierarchical query.
+- [Chapter 070 — Lab 07](070-lab-07-query-a-multi-level-organizational-hierarchy.md) — apply refactoring to a hierarchical query.
 
 **Publication state:** authored material; independent editorial review, comprehensive syntax/link QA, and isolated PostgreSQL 18 runtime acceptance pending.
