@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs and SREs.
 
-**Prerequisite:** [066 — Recursive CTEs and Hierarchical Queries](066-recursive-ctes-and-hierarchical-queries.md). **Next:** 068 — INTERSECT and EXCEPT.
+**Prerequisite:** [066 — Recursive CTEs and Hierarchical Queries](066-recursive-ctes-and-hierarchical-queries.md). **Next:** [068 — INTERSECT and EXCEPT](068-intersect-and-except.md).
 
 > **Safety:** All examples use fictional ingestion measurements defined inline. Run the [read-only PostgreSQL 18 lab](../labs/067-union-versus-union-all.sql) only against an independently verified disposable PostgreSQL 18 instance. Never use production credentials. A database-name or version check alone cannot establish isolation.
 
@@ -132,6 +132,6 @@ Avoid `SELECT *` in production set operations: schema changes can shift position
 - [PostgreSQL 18 — SELECT](https://www.postgresql.org/docs/18/sql-select.html)
 - [PostgreSQL 18 — VALUES](https://www.postgresql.org/docs/18/sql-values.html)
 - [PostgreSQL 18 — Sorting Rows](https://www.postgresql.org/docs/18/queries-order.html)
-- [Master TOC](../MASTER-TOC.md) · [Part 07 next: 068 — INTERSECT and EXCEPT](../MASTER-TOC.md#part-07--subqueries-ctes--set-operations)
+- [Master TOC](../MASTER-TOC.md) · [Next: 068 — INTERSECT and EXCEPT](068-intersect-and-except.md)
 
 **Validation status:** Authored for publication; targeted static arithmetic/semantic review only. Independent editorial review, comprehensive syntax/link QA, and actual isolated PostgreSQL 18 runtime validation remain pending until separately evidenced.
