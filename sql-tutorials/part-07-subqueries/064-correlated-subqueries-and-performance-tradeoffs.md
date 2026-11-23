@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs and SREs.
 
-**Prerequisites:** [063 — EXISTS versus IN](063-exists-versus-in-and-null-sensitive-behavior.md). **Next:** 065 — Common table expressions (WITH).
+**Prerequisites:** [063 — EXISTS versus IN](063-exists-versus-in-and-null-sensitive-behavior.md). **Next:** [065 — Common table expressions (WITH)](065-common-table-expressions-with.md).
 
 > **Safety:** Use fictional data only. Inspect the [PostgreSQL 18 read-only lab](../labs/064-correlated-subqueries-performance.sql) before running against an independently verified, disposable PostgreSQL 18 instance. Read-only queries still consume resources. The database/version checks in the lab do **not** establish that a server is isolated.
 
