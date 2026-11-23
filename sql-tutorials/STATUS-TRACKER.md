@@ -1,5 +1,10 @@
 # SQL Tutorials — Status Tracker
 
+## Chapter 075 targeted navigation QA (2026-11-22)
+
+Read main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 075 and its synthetic PostgreSQL 18 SQL lab. Corrected the next-chapter link to published Chapter 076; fetched back and verified destination after commit `4e02cb18d93ebbcb742dc5628330c60d20cc29d4`. Targeted source review confirms eight synthetic rows, deterministic tied-timestamp ordering, two complete three-measurement windows, NULL-aware AVG, read-only transaction, PostgreSQL 18/database guards, and bidirectional EXCEPT ALL checks. **No SQL was executed.** Reported progress remains 120/120 authored/published, independent editorial acceptance 0/120, comprehensive Markdown/link QA pending, 16 regression test executions pending, SQL semantic acceptance pending, and actual isolated PostgreSQL 18 runtime validation 0/120. Next: execute pinned full-checkout static QA and regression tests, retain machine-readable evidence and exit codes, then isolated PostgreSQL 18 acceptance. Issue #50 tracks QA. No production access.
+
+
 ## Chapter 076 targeted navigation QA (2026-11-22)
 
 Read current main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 076 and its synthetic PostgreSQL 18 lab. Corrected two indirect Chapter 077 navigation links to verified direct relative links, published and fetched back at commit `58f181ba8f0b200004efdf8e50f8c10221a5d0ff`. Source inspection found eight synthetic events, timestamp ties resolved by event ID, API final latency NULL, FILE final latency 90, read-only transaction, version/database guards, timeouts and bidirectional EXCEPT ALL assertions. **No SQL was executed.** Reported status remains 120/120 authored/published; independent editorial acceptance 0/120; comprehensive Markdown/link QA and execution of 16 regression tests pending; SQL semantic acceptance pending; actual isolated PostgreSQL 18 runtime validation 0/120. Next: execute full pinned-checkout Markdown/link QA and 16 regression tests with machine-readable results and exit codes, then isolated PostgreSQL 18 runtime acceptance. QA issue #50 tracks work. No production access.
