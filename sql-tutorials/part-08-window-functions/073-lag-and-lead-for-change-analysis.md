@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [072 — Ranking functions](072-row-number-rank-and-dense-rank.md). **Next:** [074 — Running totals and cumulative measures](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [072 — Ranking functions](072-row-number-rank-and-dense-rank.md). **Next:** [074 — Running totals and cumulative measures](074-running-totals-and-cumulative-measures.md).
 
 **Safety:** All data are synthetic inline rows. Run the [PostgreSQL 18 read-only lab](../labs/073-lag-lead-change-analysis.sql) only on an independently verified disposable PostgreSQL 18 instance with a least-privilege account. Database-name/version guards are additional checks, not proof of isolation. The lab uses `BEGIN READ ONLY`, transaction-local timeouts, fail-closed assertions, and `ROLLBACK`.
 
