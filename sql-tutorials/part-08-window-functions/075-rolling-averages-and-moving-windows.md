@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [074 — Running totals](074-running-totals-and-cumulative-measures.md). **Next:** [076 — FIRST_VALUE, LAST_VALUE, and window frames](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [074 — Running totals](074-running-totals-and-cumulative-measures.md). **Next:** [076 — FIRST_VALUE, LAST_VALUE, and window frames](076-first-value-last-value-and-window-frames.md).
 
 **Safety:** Fictional inline telemetry only. The [PostgreSQL 18 lab](../labs/075-rolling-averages-moving-windows.sql) is read-only and requires a separately verified, disposable PostgreSQL 18 instance, a non-production connection and least-privilege credentials. Database-name/version guards are not proof of isolation.
 
