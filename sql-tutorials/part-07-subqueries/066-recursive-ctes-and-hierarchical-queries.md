@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** SQL beginners, data engineers, DBREs and SREs.
 
-**Prerequisite:** [065 — Common Table Expressions (WITH)](065-common-table-expressions-with.md). **Next:** 067 — UNION versus UNION ALL.
+**Prerequisite:** [065 — Common Table Expressions (WITH)](065-common-table-expressions-with.md). **Next:** [067 — UNION versus UNION ALL](067-union-versus-union-all.md).
 
 > **Safety:** Use only synthetic organizational records. Execute the [PostgreSQL 18 read-only lab](../labs/066-recursive-ctes-hierarchical-queries.sql) against an independently verified disposable PostgreSQL 18 database. A database-name guard does not establish that an endpoint is isolated. Never use production credentials.
 
