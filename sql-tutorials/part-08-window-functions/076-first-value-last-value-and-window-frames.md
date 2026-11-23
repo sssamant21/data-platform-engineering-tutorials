@@ -2,7 +2,7 @@
 
 **Part 08 — Window Functions & Advanced Analytics** · **60 minutes** · **Audience:** SQL beginners, data engineers, analysts, DBRE/SRE.
 
-**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [075 — Rolling averages](075-rolling-averages-and-moving-windows.md). **Next:** [077 — NTILE, percentiles, and distribution analysis](../MASTER-TOC.md#part-08--window-functions--advanced-analytics).
+**Prerequisites:** [071 — Window-function anatomy](071-window-function-anatomy-over-partition-by-order-by.md), [075 — Rolling averages](075-rolling-averages-and-moving-windows.md). **Next:** [077 — NTILE, percentiles, and distribution analysis](077-ntile-percentiles-and-distribution-analysis.md).
 
 **Safety:** All data below are fictional. Execute the [076 PostgreSQL 18 read-only lab](../labs/076-first-last-value-window-frames.sql) only on an independently verified disposable PostgreSQL 18 endpoint with nonproduction credentials. Database-name and version checks alone cannot establish isolation.
 
@@ -122,7 +122,7 @@ The lab also calculates first and final latency. For `api`, the first is 100 and
 | Timeout | Environment/load or accidental broad query | Stop and inspect lab endpoint; do not raise limits in production |
 | Assertion fails | SQL or expected-result mismatch | Keep evidence, debug in disposable instance, do not mark validated |
 
-The inline data and read-only transaction avoid persistent objects. Read-only SQL can still consume CPU/memory or hold snapshots, so use a dedicated disposable database and bounded execution. The file uses `psql` meta-command `\\set`, which is a **client command**, not portable SQL. The `::integer` cast and transaction-local `SET LOCAL` are PostgreSQL-specific.
+The inline data and read-only transaction avoid persistent objects. Read-only SQL can still consume CPU/memory or hold snapshots, so use a dedicated disposable database and bounded execution. The file uses `psql` meta-command `\set`, which is a **client command**, not portable SQL. The `::integer` cast and transaction-local `SET LOCAL` are PostgreSQL-specific.
 
 ## 6. Review questions with answers (5 minutes)
 
@@ -138,6 +138,6 @@ The inline data and read-only transaction avoid persistent objects. Read-only SQ
 - [PostgreSQL 18 — Window Functions](https://www.postgresql.org/docs/18/functions-window.html)
 - [PostgreSQL 18 — Window Function Calls](https://www.postgresql.org/docs/18/sql-expressions.html#SYNTAX-WINDOW-FUNCTIONS)
 - [PostgreSQL 18 — SELECT](https://www.postgresql.org/docs/18/sql-select.html)
-- [Chapter 077 in the Master TOC](../MASTER-TOC.md#part-08--window-functions--advanced-analytics)
+- [Chapter 077 — NTILE, percentiles, and distribution analysis](077-ntile-percentiles-and-distribution-analysis.md)
 
 **Publication state:** authored; runtime acceptance pending until actual isolated PostgreSQL 18 execution with reproducible evidence.
