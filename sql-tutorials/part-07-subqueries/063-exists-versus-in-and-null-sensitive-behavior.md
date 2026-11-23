@@ -2,7 +2,7 @@
 
 **Part 07 — Subqueries, CTEs & Set Operations** · **60 minutes** · **Audience:** beginners, data engineers, DBRE/SREs.
 
-**Prerequisites:** [062 — IN, ANY, ALL](062-in-any-all-and-multi-row-subqueries.md), [048 — Semi-joins and anti-joins](../part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md). **Next:** 064 — Correlated subqueries and performance tradeoffs.
+**Prerequisites:** [062 — IN, ANY, ALL](062-in-any-all-and-multi-row-subqueries.md), [048 — Semi-joins and anti-joins](../part-05-joins/048-semi-joins-and-anti-joins-using-exists-and-not-exists.md). **Next:** [064 — Correlated subqueries and performance tradeoffs](064-correlated-subqueries-and-performance-tradeoffs.md).
 
 > **Safety:** Use only fictional data. The [read-only PostgreSQL 18 lab](../labs/063-exists-versus-in-null-sensitive.sql) uses inline `VALUES`, an explicitly read-only transaction, local timeouts, version/database checks, and `ROLLBACK`. Verify the endpoint is disposable independently: a database name or version check cannot prove isolation.
 
