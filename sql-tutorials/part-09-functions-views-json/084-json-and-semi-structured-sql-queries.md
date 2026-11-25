@@ -92,7 +92,7 @@ psql -X -d sql_tutorials -c "SELECT current_database(), current_setting('server_
 psql -X -v ON_ERROR_STOP=1 -d sql_tutorials -f sql-tutorials/labs/084-json-semi-structured-queries.sql
 ```
 
-The dataset has four events: two API events, one FILE event and one API event with an empty tags array; one API event has an explicit JSON null priority, one FILE event lacks the priority key, and one event has a SQL NULL payload. The lab validates extracted sources, key presence, safe tag expansion and reconciled counts. Expected: **4 events, 3 non-NULL JSON payloads, 2 tag rows, 1 explicit JSON null priority, 1 absent priority key among non-NULL payloads, 1 SQL NULL payload**. The canonical script compares actual and expected rows in both directions with `EXCEPT ALL` and fails closed on differences.
+The dataset has four events: two API events (one with two tags and an explicit JSON null priority, the other with an empty tags array and priority `high`), one FILE event with an empty tags array and no priority key, and one event with a SQL NULL payload. The lab validates extracted sources, key presence, safe tag expansion and reconciled counts. Expected: **4 events, 3 non-NULL JSON payloads, 2 tag rows, 1 explicit JSON null priority, 1 absent priority key among non-NULL payloads, 1 SQL NULL payload**. The canonical script compares actual and expected rows in both directions with `EXCEPT ALL` and fails closed on differences.
 
 Exercises, using your own scratch `WITH` query (do not change the canonical file):
 
