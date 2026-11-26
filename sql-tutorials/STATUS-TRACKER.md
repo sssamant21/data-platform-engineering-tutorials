@@ -1,5 +1,16 @@
 # SQL Tutorials — Status Tracker
 
+## Current QA checkpoint — 2026-11-26
+
+- Authored/published: **120/120**; no further chapter authoring required.
+- Targeted sequential SQL expected-output review: **84/120 (70%)**. The earlier November 15 tracker entry already recorded 84; the November 26 [consolidated evidence](labs/validation/SQL-STATIC-REVIEW-079-084-2026-11-26.md) (commit `101c5ed6ff89c0116493671a60f5b47ab9f73a39`, verified blob `e66d54f8943ecc54494182eedab1cf10034c23d0`) refreshes evidence for the same six chapters, not six additional chapters.
+- Previously reported scoped structural inspections: **120/120**; comprehensive Markdown/link and parser-based SQL QA remain pending.
+- Independent editorial acceptance: **0/120**; regression tests: **16 authored, execution pending**; isolated PostgreSQL 18 runtime validation: **0/120**.
+- Chapter 085 preliminary targeted review: four customers, six orders, four paid orders totaling 72.50; pending-inclusive total 171.50; zero-activity customer preserved; exact multiset and reconciliation assertions enforced. The lab simulates a view contract and does not test actual view privileges. Chapter blob `4621d68863deba800f04fa093d05417ac8f12d47`, lab blob `100256b881fc2af46b9cf09c4bc25308f77e6668`. No SQL executed; do not increment consolidated count until next batch evidence is published.
+- Next: complete Chapters 085–090 targeted review, publish evidence, execute regression suite and comprehensive static QA, then isolated PostgreSQL 18 runtime acceptance. QA issue #50 remains the tracking reference.
+
+Historical entries below are retained as dated records; use this checkpoint for current counts.
+
 ## Chapter 062 targeted navigation and source QA (2026-11-23)
 
 Read current main MASTER-TOC.md, README.md, STATUS-TRACKER.md, Chapter 062, its synthetic PostgreSQL 18 SQL lab, and Chapter 063. Corrected the plain-text next-chapter reference to a direct relative Chapter 063 link, published and fetched back commit `e79e96765624839847692d81d49bf403909a1cfb`. Targeted source inspection found six synthetic batches (five non-NULL measurements totaling 290), threshold values 40/90, expected IN IDs 1/2/5/6, > ANY IDs 1/2/3, > ALL ID 1, NULL-bearing NOT IN zero rows, NULL-filtered NOT IN IDs 1/3, explicit empty-set semantics, PostgreSQL 18/database guards, read-only transaction, timeouts, and fail-closed assertions. This is **targeted static source inspection only**, not executed SQL or independent editorial acceptance. Reported progress remains 120/120 authored/published, 0/120 independently editorially accepted, comprehensive static QA pending, 16 regression tests awaiting execution, SQL semantic acceptance pending, and 0/120 actually isolated PostgreSQL 18 runtime-validated. Next: obtain a pinned full checkout, execute comprehensive Markdown/link QA and all regression tests with machine-readable evidence and exit codes, then isolated PostgreSQL 18 acceptance. QA issue #50 tracks work. No production access.
