@@ -38,13 +38,23 @@ WITH events(id, occurred_at) AS (
  (SELECT * FROM actual EXCEPT ALL SELECT * FROM expected)
  UNION ALL
  (SELECT * FROM expected EXCEPT ALL SELECT * FROM actual)
+), daily_actual AS (
+ SELECT (wall_time)::date AS ny_day, COUNT(*) AS event_count
+ FROM actual GROUP BY (wall_time)::date
+), daily_expected(ny_day,event_count) AS (
+ VALUES (DATE '2026-03-08', 3::bigint)
+), daily_differences AS (
+ (SELECT * FROM daily_actual EXCEPT ALL SELECT * FROM daily_expected)
+ UNION ALL
+ (SELECT * FROM daily_expected EXCEPT ALL SELECT * FROM daily_actual)
 ), checks AS (
  SELECT (SELECT COUNT(*)=3 FROM actual) AS three_events,
         (SELECT COUNT(*)=2 FROM actual WHERE in_utc_day) AS two_in_day,
         (SELECT COUNT(*)=0 FROM differences) AS exact_expected,
+        (SELECT COUNT(*)=0 FROM daily_differences) AS exact_daily_counts,
         ((TIMESTAMPTZ '2026-03-08 07:30:00+00'
          - TIMESTAMPTZ '2026-03-08 06:30:00+00') = INTERVAL '1 hour') AS elapsed_one_hour
 )
-SELECT *, 1 / CASE WHEN three_events AND two_in_day AND exact_expected AND elapsed_one_hour
+SELECT *, 1 / CASE WHEN three_events AND two_in_day AND exact_expected AND exact_daily_counts AND elapsed_one_hour
                    THEN 1 ELSE 0 END AS fail_closed_acceptance FROM checks;
 ROLLBACK;
