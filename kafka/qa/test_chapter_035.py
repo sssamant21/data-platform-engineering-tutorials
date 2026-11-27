@@ -84,9 +84,9 @@ class CapstoneTests(unittest.TestCase):
     def test_selector_tracks_reused_components_and_inherited_metrics_fixture(self):
         for path in ('kafka/qa/run_chapter_035.py','kafka/qa/capstone_performance.py','kafka/qa/runtime/CapstoneAcceptance.java'):
             self.assertEqual(selector.select([path]),['035'])
-        self.assertEqual(selector.select(['kafka/qa/broker_acceptance.py']),['034','035'])
-        self.assertEqual(selector.select(['kafka/qa/runtime/ConsumerAcceptance.java']),['033','035'])
-        self.assertEqual(selector.select(['kafka/qa/java_sources.py']),['033','034','035'])
+        self.assertEqual(selector.select(['kafka/qa/broker_acceptance.py']),['034','035','036'])
+        self.assertEqual(selector.select(['kafka/qa/runtime/ConsumerAcceptance.java']),['033','035','036'])
+        self.assertEqual(selector.select(['kafka/qa/java_sources.py']),['033','034','035','036'])
         self.assertEqual(selector.fixture_for('035'),'strimzi-three-node-metrics-ch034.yaml')
 
 
