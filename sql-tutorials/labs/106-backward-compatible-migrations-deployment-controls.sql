@@ -41,10 +41,11 @@ WITH orders(order_id,old_name,new_name) AS (
         count(*) FILTER (WHERE new_name IS NOT NULL)::bigint AS copied,
         count(*) FILTER (WHERE new_name IS NULL)::bigint AS missing,
         count(*) FILTER (WHERE COALESCE(new_name,old_name) IS NOT NULL)::bigint AS compatible_visible,
-        count(*) FILTER (WHERE new_name IS DISTINCT FROM old_name)::bigint AS divergent
+        count(*) FILTER (WHERE new_name IS DISTINCT FROM old_name)::bigint AS divergent,
+        false AS old_readers_retired, false AS writers_synchronized
  FROM orders
 )
-SELECT *, (missing = 0 AND divergent = 0 AND false) AS safe_to_contract
+SELECT *, (missing = 0 AND divergent = 0 AND old_readers_retired AND writers_synchronized) AS safe_to_contract
 FROM flags;
 
 DO $assert$
@@ -61,7 +62,8 @@ BEGIN
          count(*) FILTER (WHERE new_name IS NOT NULL)::bigint AS copied,
          count(*) FILTER (WHERE new_name IS NULL)::bigint AS missing,
          count(*) FILTER (WHERE COALESCE(new_name,old_name) IS NOT NULL)::bigint AS compatible_visible,
-         count(*) FILTER (WHERE new_name IS DISTINCT FROM old_name)::bigint AS divergent
+         count(*) FILTER (WHERE new_name IS DISTINCT FROM old_name)::bigint AS divergent,
+        false AS old_readers_retired, false AS writers_synchronized
   FROM orders
  ), actual(metric,n) AS (
   SELECT 'total',total FROM flags
@@ -69,7 +71,7 @@ BEGIN
   UNION ALL SELECT 'missing',missing FROM flags
   UNION ALL SELECT 'compatible_visible',compatible_visible FROM flags
   UNION ALL SELECT 'divergent',divergent FROM flags
-  UNION ALL SELECT 'contract_approved',0::bigint -- old readers and writers still present
+  UNION ALL SELECT 'contract_approved',(missing = 0 AND divergent = 0 AND old_readers_retired AND writers_synchronized)::integer::bigint FROM flags
  ), expected(metric,n) AS (
   VALUES ('total',5::bigint),('copied',3::bigint),('missing',2::bigint),
          ('compatible_visible',5::bigint),('divergent',2::bigint),
