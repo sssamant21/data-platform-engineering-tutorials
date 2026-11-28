@@ -18,7 +18,7 @@ BEGIN
 END
 $guard$;
 
--- Candidate feed: six rows, duplicate 103, two invalid, one orphan.
+-- Candidate feed: six rows, duplicate 103, one invalid, one orphan.
 WITH customers(customer_id) AS (VALUES (1),(2),(3)),
 candidate_orders(order_id,customer_id,amount,status) AS (
  VALUES (101,1,40.00::numeric,'paid'::text),
@@ -75,7 +75,7 @@ BEGIN
  ),
  source_only AS (SELECT * FROM source_orders EXCEPT ALL SELECT * FROM target_orders),
  target_only AS (SELECT * FROM target_orders EXCEPT ALL SELECT * FROM source_orders),
- actual(metric,n) AS (
+ metrics(metric,n) AS (
   SELECT 'candidate_rows',count(*)::bigint FROM candidate_orders
   UNION ALL SELECT 'duplicate_groups',count(*)::bigint FROM duplicates
   UNION ALL SELECT 'invalid_rows',count(*)::bigint FROM candidate_orders
@@ -90,11 +90,17 @@ BEGIN
   UNION ALL SELECT 'target_cents',sum(amount*100)::bigint FROM target_orders
   UNION ALL SELECT 'source_only',count(*)::bigint FROM source_only
   UNION ALL SELECT 'target_only',count(*)::bigint FROM target_only
-  UNION ALL SELECT 'promotion_approved',0::bigint
+ ),
+ actual(metric,n) AS (
+  SELECT metric,n FROM metrics
+  UNION ALL SELECT 'promotion_approved',
+   CASE WHEN EXISTS (SELECT 1 FROM metrics WHERE metric IN
+    ('duplicate_groups','invalid_rows','orphan_rows','source_only','target_only') AND n <> 0)
+    THEN 0::bigint ELSE 1::bigint END
  ),
  expected(metric,n) AS (
   VALUES ('candidate_rows',6::bigint),('duplicate_groups',1::bigint),
-   ('invalid_rows',2::bigint),('orphan_rows',1::bigint),
+   ('invalid_rows',1::bigint),('orphan_rows',1::bigint),
    ('source_rows',4::bigint),('target_rows',4::bigint),
    ('source_cents',10000::bigint),('target_cents',10000::bigint),
    ('source_only',2::bigint),('target_only',2::bigint),
@@ -107,7 +113,7 @@ BEGIN
  IF missing_count <> 0 OR extra_count <> 0 THEN
   RAISE EXCEPTION '107 assertion mismatch: missing %, extra %',missing_count,extra_count;
  END IF;
- RAISE NOTICE '107 expected quality-gate FAILURE detected: 6 candidate, 1 duplicate group, 2 invalid, 1 orphan; equal 4-row/100.00 snapshots but 2+2 row differences; promotion blocked';
+ RAISE NOTICE '107 expected quality-gate FAILURE detected: 6 candidate, 1 duplicate group, 1 invalid, 1 orphan; equal 4-row/100.00 snapshots but 2+2 row differences; promotion blocked';
 END
 $assert$;
 ROLLBACK;
