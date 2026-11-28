@@ -27,7 +27,7 @@ Define **grain** first: one row per order in each snapshot. A count equality is 
 
 ## 3. Worked examples: build an evidence-based gate (15–30 minutes)
 
-Use the synthetic snapshots in the [lab](../labs/107-data-quality-assertions-reconciliation.sql): source orders 101–104 with amounts 40, 30, 20, 10; target orders 101–104 with amounts 40, 30, 25, 5. Both contain four rows and sum to 100, **but two amounts differ**. A separate candidate feed includes duplicate order 103, NULL customer ID, negative amount, and orphan customer 99. The candidate feed is intentionally dirty; the source/target snapshots are intentionally distinct examples.
+Use the synthetic snapshots in the [lab](../labs/107-data-quality-assertions-reconciliation.sql): source orders 101–104 with amounts 40, 30, 20, 10; target orders 101–104 with amounts 40, 30, 25, 5. Both contain four rows and sum to 100, **but two amounts differ**. A separate candidate feed includes duplicate order 103, one row (104) with both a NULL customer ID and a negative amount, and orphan customer 99. The candidate feed is intentionally dirty; the source/target snapshots are intentionally distinct examples.
 
 ### A. Detect duplicate business keys
 
@@ -47,7 +47,7 @@ FROM candidate_orders
 WHERE order_id IS NULL OR customer_id IS NULL
    OR amount IS NULL OR amount < 0
    OR status NOT IN ('paid', 'pending') OR status IS NULL;
--- Expected: 2 rows (the NULL-customer and negative-amount records)
+-- Expected: 1 row (104 violates both conditions; COUNT counts rows, not violations)
 ```
 
 ### C. Find orphaned foreign keys without mutating data
@@ -89,7 +89,7 @@ psql -X -v ON_ERROR_STOP=1 -d sql_tutorials \
 
 The [read-only SQL lab](../labs/107-data-quality-assertions-reconciliation.sql) uses inline `VALUES`, guards for database and server major version, transaction-local timeouts, a deterministic two-way `EXCEPT ALL` assertion, and `ROLLBACK`. It neither creates persistent tables nor changes application data.
 
-**Expected (calculated, not observed):** candidate rows 6; duplicate-key groups 1; invalid rows 2; orphan rows 1; source and target each 4 rows and 100.00 total; source-only differences 2; target-only differences 2; exact-match gate **FAIL**. The SQL assertion confirms this *expected failing quality gate* and exits successfully when the modeled results match; successful lab execution must not be confused with approval to promote the dirty batch.
+**Expected (calculated, not observed):** candidate rows 6; duplicate-key groups 1; invalid rows 1; orphan rows 1; source and target each 4 rows and 100.00 total; source-only differences 2; target-only differences 2; exact-match gate **FAIL**. The SQL assertion confirms this *expected failing quality gate* and exits successfully when the modeled results match; successful lab execution must not be confused with approval to promote the dirty batch.
 
 Practice: (1) identify both amount mismatches; (2) explain why equal totals fail to prove equality; (3) decide which exceptions block promotion; (4) design a batch_id + source watermark; (5) describe how to distinguish a late arrival from a missing row; (6) propose a reconciliation evidence record containing batch ID, query revision, timestamp, row counts, sums, mismatch counts, reviewer, and decision.
 
